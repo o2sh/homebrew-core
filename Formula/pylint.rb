@@ -8,14 +8,16 @@ class Pylint < Formula
   license "GPL-2.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f8deaca2d9877d69c2f08cf76eec9bc26e39d8e676fe8183979236e509c9e335"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a7d721b6385b479cd11292de648359906a2e373dfa30782eef55beaab06feee7"
-    sha256 cellar: :any_skip_relocation, monterey:       "f99a84d17b2dbcba89e3f9d92d1505f072f06023e3f8f795153df237cf694d1b"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e79a421f8397fa6ad77c1edc80d044a2415f5beed102a568ca3d563c22417b38"
-    sha256 cellar: :any_skip_relocation, catalina:       "f8d8550e25b82585bbf9187113eb70b6c1282383e7fdf89e2ec446824362a7c8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6dc899c0f7c265cd79aa310a51def0560d711a1701d10da9b01b16db81ca6253"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "23fec3f779a92b41fd0e0ab633d8664b866e4f7487d16a02ac74ea08ca43186d"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "30a23cbe40914a7c9be50a22068dd1333d998d992357e7b477db1afe82a516d8"
+    sha256 cellar: :any_skip_relocation, monterey:       "ce41cb981f0211c163ef691624f1a358476fd59e375d0e847010ef98a8e7ccb1"
+    sha256 cellar: :any_skip_relocation, big_sur:        "1b2ae693f257a82f6d2d5dabf89e0531dced06b98ea904505240fcdaff068f61"
+    sha256 cellar: :any_skip_relocation, catalina:       "57fd56b0cc420ab520e2d390e931ef355e159ccef1e8112960fab90fd036617e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "746e9df2797f34a7f1ccb03fb6ef440b430c30eac8eaaf0e0b227b7f0f612a5f"
   end
 
+  depends_on "isort"
   depends_on "python@3.10"
 
   resource "astroid" do
@@ -26,11 +28,6 @@ class Pylint < Formula
   resource "dill" do
     url "https://files.pythonhosted.org/packages/59/46/634d5316ee8984e7dac658fb2e297a19f50a1f4007b09acb9c7c4e15bd67/dill-0.3.5.1.tar.gz"
     sha256 "d75e41f3eff1eee599d738e76ba8f4ad98ea229db8b085318aa2b3333a208c86"
-  end
-
-  resource "isort" do
-    url "https://files.pythonhosted.org/packages/ab/e9/964cb0b2eedd80c92f5172f1f8ae0443781a9d461c1372a3ce5762489593/isort-5.10.1.tar.gz"
-    sha256 "e8443a5e7a020e9d7f97f1d7d9cd17c88bcb3bc7e218bf9cf5095fe550be2951"
   end
 
   resource "lazy-object-proxy" do
@@ -65,6 +62,11 @@ class Pylint < Formula
 
   def install
     virtualenv_install_with_resources
+
+    # we depend on isort, but that's a separate formula, so install a `.pth` file to link them
+    site_packages = Language::Python.site_packages("python3.10")
+    isort = Formula["isort"].opt_libexec
+    (libexec/site_packages/"homebrew-isort.pth").write isort/site_packages
   end
 
   test do

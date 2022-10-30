@@ -3,17 +3,17 @@ class Esphome < Formula
 
   desc "Make creating custom firmwares for ESP32/ESP8266 super easy"
   homepage "https://github.com/esphome/esphome"
-  url "https://files.pythonhosted.org/packages/8b/19/8e4432cd5d1639e9000e58e7173f2cbf3bc060de775c9d838d704136c0f5/esphome-2022.10.0.tar.gz"
-  sha256 "ae75b230020f7f964139b5e09e48690fd71d4decf91fff65b58c56c3e8e29be4"
+  url "https://files.pythonhosted.org/packages/1c/17/7b4962635e2268b02292c54287687c24733f9da37fa95e71804e4f54390b/esphome-2022.10.1.tar.gz"
+  sha256 "1b8e7b88dc4ec54a6f4ec79776d160df2a2ba2c931e6f002db609c01550527df"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_monterey: "4a6c53ceac020ecef886a5ea8780b95c227ac0220e66be067442005bc5ea5efe"
-    sha256 cellar: :any,                 arm64_big_sur:  "f29aa466444b63ab0929b1ea0d88b4364f931edba98450169f108ea61e181aa4"
-    sha256 cellar: :any,                 monterey:       "b6f404528c540864ecffa2598487befeab6359fdf524d21c9ca52219f04efeb9"
-    sha256 cellar: :any,                 big_sur:        "63fce279099a8b4cba827fe934c4e9df0fe1baad8eaa48f85d45597b73773f75"
-    sha256 cellar: :any,                 catalina:       "72dc811c372c1749ec5650737636961c396ad35ff0e0a6821ebe38eab691f5fc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8a2890c8b416db4c100551097ddac3f929ec3cb8d706228f30696d47e3596183"
+    sha256 cellar: :any,                 arm64_monterey: "f20c9969b37af7e73902a5991650177ded8da0e0dd565749b3653bf20cc1679a"
+    sha256 cellar: :any,                 arm64_big_sur:  "976275c78044d7e3db2f35800a28fe4a4a8c8b7963dc975ff3cc23148aa81843"
+    sha256 cellar: :any,                 monterey:       "6a8aa023ef114777c5cf0b5bfcbb5126da9a4b9953de8a5efb8953778569a8fe"
+    sha256 cellar: :any,                 big_sur:        "7858290f783ff08f55741bffea2476aea2564fb463b4f56f3e8ef0d9fd8495cb"
+    sha256 cellar: :any,                 catalina:       "0c0cf5db93207a590231784bfe2eb98dc0115a9f6f2217a195af95fd4e0c36e8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "db397adc0ce1bf9472da6b7bf48c804b6bda3c5f3366fe7f6fb3c8d46a0e9443"
   end
 
   depends_on "rust" => :build # for cryptography
@@ -39,8 +39,8 @@ class Esphome < Formula
   end
 
   resource "anyio" do
-    url "https://files.pythonhosted.org/packages/67/c4/fd50bbb2fb72532a4b778562e28ba581da15067cfb2537dbd3a2e64689c1/anyio-3.6.1.tar.gz"
-    sha256 "413adf95f93886e442aea925f3ee43baa5a765a64a0f52c6081894f9992fdd0b"
+    url "https://files.pythonhosted.org/packages/8b/94/6928d4345f2bc1beecbff03325cad43d320717f51ab74ab5a571324f4f5a/anyio-3.6.2.tar.gz"
+    sha256 "25ea0d673ae30af41a0c442f81cf3b38c7e79fdc7b60335a4c14e05eb0947421"
   end
 
   resource "asgiref" do

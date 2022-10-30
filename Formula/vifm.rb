@@ -7,6 +7,7 @@ class Vifm < Formula
   head "https://github.com/vifm/vifm.git", branch: "master"
 
   bottle do
+    sha256 arm64_ventura:  "622d7635189b4ba60c1e26642efbb4b4f7fb5dbfb6b7f12c2da7e8457763d19e"
     sha256 arm64_monterey: "9ff2c110a2487990dc8a5473c4198e6c14d06076d2676945873ca6c79b7e1f5a"
     sha256 arm64_big_sur:  "a054a93a662f4280f6b374ca8587d4a7b37dbbc3ff34ea0926c391f68faf7f8c"
     sha256 monterey:       "202faa12cccb273b6cb60b746d8dbbc96d80fe18da651d09adc9b954a151c8cb"
@@ -15,8 +16,11 @@ class Vifm < Formula
     sha256 x86_64_linux:   "ce89d3ba9ff14eea964836c59269627de30a1c6707a44a5c55adabed035cd88d"
   end
 
-  uses_from_macos "groff" => :build
   uses_from_macos "ncurses"
+
+  on_system :linux, macos: :ventura_or_newer do
+    depends_on "groff" => :build
+  end
 
   def install
     system "./configure", "--disable-dependency-tracking",

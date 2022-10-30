@@ -2,9 +2,9 @@ class Minio < Formula
   desc "High Performance, Kubernetes Native Object Storage"
   homepage "https://min.io"
   url "https://github.com/minio/minio.git",
-      tag:      "RELEASE.2022-10-21T22-37-48Z",
-      revision: "86d543d0f667179725fafbc71758d3f881e5cadb"
-  version "20221021223748"
+      tag:      "RELEASE.2022-10-29T06-21-33Z",
+      revision: "d765b89a63c225ca271ef6d031a7bcc8fe9137df"
+  version "20221029062133"
   license "AGPL-3.0-or-later"
   head "https://github.com/minio/minio.git", branch: "master"
 
@@ -17,12 +17,12 @@ class Minio < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "bd89ddfca580b4bdf7af9132aee402322a3b1fde5edf5ee1164be24958e4fac1"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "31aaf005fbc78fd4089fb71d13b008b24451757d5ea6c1f272b0c952c4bcbb66"
-    sha256 cellar: :any_skip_relocation, monterey:       "23ce53310f6e6957e1da119e9c02e929fdf72c22d0531df675d2fd7ebeca56d6"
-    sha256 cellar: :any_skip_relocation, big_sur:        "02097de91647f4c4c95af491961a17025deb8d45bb3120be94eb6b99b47602d2"
-    sha256 cellar: :any_skip_relocation, catalina:       "b6466c5cac92336ced561ed30d17806784f81d8d318a97ec895207dfeca55733"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "55913658735d392fe370d629d239670dab08c3c873c0c01cda7c6985770e423b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "960522cdc647f9ac4a44f991a4ca1c2829ad16c6c8b6741e430d5d29ec0be723"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "440014db760ad871d05104d3853a053858fee712f10c66ff203432182af03ffd"
+    sha256 cellar: :any_skip_relocation, monterey:       "e0625a6c44a34638e1af62cdc3fd02781df938b63c159ec82778246da41df24b"
+    sha256 cellar: :any_skip_relocation, big_sur:        "369d4c3a0486979085783b71293b880dbd43ed3e5daf24402c13c3d322ba8e64"
+    sha256 cellar: :any_skip_relocation, catalina:       "34b7b7f0fc15ba76e93087421f98370cd008026eb5c9ddeae71aaa747620e226"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0f745df48197686345554b8ca0dd9ee0e5de546c648abc3d080e574935acade8"
   end
 
   depends_on "go" => :build
@@ -61,10 +61,5 @@ class Minio < Formula
   test do
     assert_match "minio server - start object storage server",
       shell_output("#{bin}/minio server --help 2>&1")
-
-    assert_match "minio gateway - start object storage gateway",
-      shell_output("#{bin}/minio gateway 2>&1")
-    assert_match "ERROR Unable to validate credentials",
-      shell_output("#{bin}/minio gateway s3 2>&1", 1)
   end
 end

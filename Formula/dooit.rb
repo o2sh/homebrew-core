@@ -9,19 +9,20 @@ class Dooit < Formula
   head "https://github.com/kraanzu/dooit.git", branch: "main"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "153dbcc684cea4afe912255eac3db931dd4e648be45752ecd567261bad90376f"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b582585409a9ddf466b2ecd20c2975eb5ff05a489fec5d19005d761bb61dbd61"
-    sha256 cellar: :any_skip_relocation, monterey:       "03efff38f8c732e9e753c902e2a3b477ec5ecb7a8b63736a499f40c0f1e2e26d"
-    sha256 cellar: :any_skip_relocation, big_sur:        "2cdd7eb42ff88842663cd7eac3e9cf5f0c4abadcf56a61eabe69b98510871996"
-    sha256 cellar: :any_skip_relocation, catalina:       "3f2dad171f295b1a8a9062f3fe87273c2ccfa032215864a89acf02d276c82d1e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a452a46d9eb90f7e9bab86cdb5abcb847e2c0e883222b28329e8751f2a30fb3d"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4c4f51e89a2221f62e6ec8b2b838c0dfaa362d9f0f04bc65fecd86c1529d9d0d"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "6f7d2ec6255d1d796481e28f088eb23e7a3a428daf5234ccacd31ecee407c7af"
+    sha256 cellar: :any_skip_relocation, monterey:       "bf6c7f56e0c5640b393e6d6bc908a05bd4655928e6dc3e19891c1f323f1bb411"
+    sha256 cellar: :any_skip_relocation, big_sur:        "c63bd90d2c69a89346587788d39875eb52a2fe7ddc2a45df481e73e6c880ff25"
+    sha256 cellar: :any_skip_relocation, catalina:       "52ebe7730a211636d6a178e750e7b1af33dadabd6fbd954110ec892025baa380"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "735ee415aae4de6b69dba8a8ad6e7ca0edb2f2ce82e15923808ef8a96c9dcd42"
   end
 
   depends_on "poetry" => :build
   depends_on "python@3.10"
   depends_on "pyyaml"
   depends_on "six"
+  depends_on "virtualenv"
 
   resource "CacheControl" do
     url "https://files.pythonhosted.org/packages/46/9b/34215200b0c2b2229d7be45c1436ca0e8cad3b10de42cfea96983bd70248/CacheControl-0.12.11.tar.gz"
@@ -198,11 +199,6 @@ class Dooit < Formula
     sha256 "879ba4d1e89654d9769ce13121e0f94310ea32e8d2f8cf587b77c08bbcdb30d6"
   end
 
-  resource "virtualenv" do
-    url "https://files.pythonhosted.org/packages/a4/2f/05b77cb73501c01963de2cef343839f0803b64aab4d5476771ae303b97a6/virtualenv-20.15.1.tar.gz"
-    sha256 "288171134a2ff3bfb1a2f54f119e77cd1b81c29fc1265a2356f3e8d14c7d58c4"
-  end
-
   resource "webencodings" do
     url "https://files.pythonhosted.org/packages/0b/02/ae6ceac1baeda530866a85075641cec12989bd8d31af6d5ab4a3e8c92f47/webencodings-0.5.1.tar.gz"
     sha256 "b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923"
@@ -214,6 +210,11 @@ class Dooit < Formula
     poetry = Formula["poetry"].opt_bin/"poetry"
     system poetry, "build", "--format", "wheel", "--verbose", "--no-interaction"
     venv.pip_install_and_link Dir["dist/dooit-*.whl"].first
+
+    # we depend on virtualenv, but that's a separate formula, so install a `.pth` file to link them
+    site_packages = Language::Python.site_packages("python3.10")
+    virtualenv = Formula["virtualenv"].opt_libexec
+    (libexec/site_packages/"homebrew-virtualenv.pth").write virtualenv/site_packages
   end
 
   test do

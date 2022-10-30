@@ -3,17 +3,17 @@ class Autopep8 < Formula
 
   desc "Automatically formats Python code to conform to the PEP 8 style guide"
   homepage "https://github.com/hhatto/autopep8"
-  url "https://files.pythonhosted.org/packages/d0/5d/016888824972086a4ee164806520d85ff173e83699907b9cfe119aaefbbc/autopep8-1.7.0.tar.gz"
-  sha256 "ca9b1a83e53a7fad65d731dc7a2a2d50aa48f43850407c59f6a1a306c4201142"
+  url "https://files.pythonhosted.org/packages/ac/71/48b7fde78ef09f4636a9b81f926b879d0230f90768483c441f22059d2474/autopep8-2.0.0.tar.gz"
+  sha256 "8b1659c7f003e693199f52caffdc06585bb0716900bbc6a7442fd931d658c077"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c52de22dd0b9d9a7773db27b587ee9d27c3cafedc121fe7a0abaa3d1c50605cc"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c52de22dd0b9d9a7773db27b587ee9d27c3cafedc121fe7a0abaa3d1c50605cc"
-    sha256 cellar: :any_skip_relocation, monterey:       "282206f1a762ce0bcead1bac457509057287548089b3d16c2ca032de98deca37"
-    sha256 cellar: :any_skip_relocation, big_sur:        "282206f1a762ce0bcead1bac457509057287548089b3d16c2ca032de98deca37"
-    sha256 cellar: :any_skip_relocation, catalina:       "282206f1a762ce0bcead1bac457509057287548089b3d16c2ca032de98deca37"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "548a6fadf6bcc710185bbd29d444a45cab853b29817949f1208a58bd292c9bc3"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "dbae921c00372cf55f7c72a1aeb4cd67b945f4c783bfc6d17fed2042019fbd2d"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "8c75c3811a89c6f770aec896c1f3ebfdbf0ad5a5744f6c306e45f74bbec46bda"
+    sha256 cellar: :any_skip_relocation, monterey:       "bf24b27338cfba98c3f792fd5f7fdf62929af14eea4c98f3abfe94d328a05f79"
+    sha256 cellar: :any_skip_relocation, big_sur:        "c8a88093a9572b6e200f81abb6b6e3eaf36314b91043b62816f60f941a5e0881"
+    sha256 cellar: :any_skip_relocation, catalina:       "f29dfc0c6f33f1f48a247dd034517f0b4abe95f050acd36e7882dcdc83e3b96c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7c64ed8b48e919ad03a614f1de66c20e74657ad9a7d423b7f550cebade874820"
   end
 
   depends_on "python@3.10"
@@ -23,9 +23,9 @@ class Autopep8 < Formula
     sha256 "2c9607871d58c76354b697b42f5d57e1ada7d261c261efac224b664affdc5785"
   end
 
-  resource "toml" do
-    url "https://files.pythonhosted.org/packages/be/ba/1f744cdc819428fc6b5084ec34d9b30660f6f9daaf70eead706e3203ec3c/toml-0.10.2.tar.gz"
-    sha256 "b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"
+  resource "tomli" do
+    url "https://files.pythonhosted.org/packages/c0/3f/d7af728f075fb08564c5949a9c95e44352e23dee646869fa104a3b2060a3/tomli-2.0.1.tar.gz"
+    sha256 "de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"
   end
 
   def install

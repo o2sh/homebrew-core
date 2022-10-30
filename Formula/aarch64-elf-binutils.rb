@@ -11,6 +11,7 @@ class Aarch64ElfBinutils < Formula
   end
 
   bottle do
+    sha256 arm64_ventura:  "75fca4fd07afe73b111cecc6beaa1920110df1e602d5f2152541330b3b9d08e2"
     sha256 arm64_monterey: "816819b80149e70c4b001ff0d68b02b2809c208bbf3f005729f0ce6522dfc6c7"
     sha256 arm64_big_sur:  "b3f844bdbf112b87d74c2d368071d6838747252019692b6b200bf5ae4b2003d3"
     sha256 monterey:       "039fa6a5d98e1e6c6bab7580d25afc6791cad9fbfe3b53ce388435e1c2fd2aa1"
@@ -19,7 +20,9 @@ class Aarch64ElfBinutils < Formula
     sha256 x86_64_linux:   "6529ba0f0d70e67b78a3e41be1200e5330550240c84c929d843e5ffb4aa4527e"
   end
 
-  uses_from_macos "texinfo"
+  on_system :linux, macos: :ventura_or_newer do
+    depends_on "texinfo" => :build
+  end
 
   def install
     target = "aarch64-elf"

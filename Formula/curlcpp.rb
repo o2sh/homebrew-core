@@ -1,17 +1,18 @@
 class Curlcpp < Formula
   desc "Object oriented C++ wrapper for CURL (libcurl)"
   homepage "https://josephp91.github.io/curlcpp"
-  url "https://github.com/JosephP91/curlcpp/archive/refs/tags/2.0.tar.gz"
-  sha256 "818e6d0cc027be6f0bd65dfed142c64a97aed1f0ae8e9f1490d19e4375734304"
+  url "https://github.com/JosephP91/curlcpp/archive/refs/tags/2.1.tar.gz"
+  sha256 "4640806cdb1aad5328fd38dfbfb40817c64d17e9c7b5176f6bf297a98c6e309c"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_monterey: "37b2a88d790badde11d542cb0bc659394ce20ee105b1a594ee20dd93cec53874"
-    sha256 cellar: :any,                 arm64_big_sur:  "38ac3e1bfed36e52a7efc40772dec21a1c417f850bffb320da78009520dcd409"
-    sha256 cellar: :any,                 monterey:       "5b52f0e17d2c6ef7c8e53a038854f331b6a77cc2f4462b6e5b624c59eb27368c"
-    sha256 cellar: :any,                 big_sur:        "6fc716d9475e43222ae78511cc50c8b681fe146aa0628deb8da4abe947e93dc8"
-    sha256 cellar: :any,                 catalina:       "0cb646d8b486010a1503e302fa15c8178807d4d6319b4786a6428f855f1a63aa"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4f7a017f66ccb397d33d10c59c358ccf1c84a4b56ff4a27cdf9a92427dceab86"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_monterey: "e70c7484aed5b013bbc49a864f87c2d40dd9e676af6d3dc8707ffa5f16dd4939"
+    sha256 cellar: :any,                 arm64_big_sur:  "4952d85cefca84d9560ede7c578e6ce82a154fdd04ac687df176828ed70e2f74"
+    sha256 cellar: :any,                 monterey:       "923737339644b84caf3ac29496322122a4bfd9832917043edb573449e8a1a4e9"
+    sha256 cellar: :any,                 big_sur:        "8aa270f7d78106ccbc7bda731a686bd8eccacc9b39869994d591c17b133a1620"
+    sha256 cellar: :any,                 catalina:       "9906724ad57ab32ba2eae45684a25feb1ce06696ca202563326a9da68fcc5647"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1d4de367f61cc68ad0ed5f74f2504d5ba6097d30b89258f69a6bfdfd9b05b192"
   end
 
   depends_on "cmake" => :build
@@ -19,7 +20,7 @@ class Curlcpp < Formula
   uses_from_macos "curl"
 
   def install
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-DBUILD_SHARED_LIBS=SHARED"
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end

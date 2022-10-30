@@ -1,8 +1,8 @@
 class FluentBit < Formula
   desc "Fast and Lightweight Logs and Metrics processor"
   homepage "https://github.com/fluent/fluent-bit"
-  url "https://github.com/fluent/fluent-bit/archive/v1.9.9.tar.gz"
-  sha256 "d58dc649f6b4e2433711666ae68c8f443c0542801eb6241b21d245fb421daced"
+  url "https://github.com/fluent/fluent-bit/archive/v2.0.3.tar.gz"
+  sha256 "d2616fec54c49330f7bc583b785fe2beedc762dfb6df0eb7985bd58359ca3693"
   license "Apache-2.0"
   head "https://github.com/fluent/fluent-bit.git", branch: "master"
 
@@ -12,13 +12,12 @@ class FluentBit < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_monterey: "38b8a286d68ddd1f05105fd7d87340b0a7f1edc5a54aa898b237f8696b97d633"
-    sha256 arm64_big_sur:  "aa51aea33e52ce6ab0317ee8838afa26865e5d2feab8592e8e9f9d43390e9cbf"
-    sha256 monterey:       "b081c17bf3ab57f6f397a8cc73e8dd031ee0c8271438887b783ebb748da5862b"
-    sha256 big_sur:        "edc05d5b1e08ad65a93e011dfeee70b03ce72cd4bee1756491dca1fcf0028346"
-    sha256 catalina:       "8ffeb69518b31fd646800b5abc989c136ffab6e2c8a42e2ba6abcd969e351a27"
-    sha256 x86_64_linux:   "b88cddcce029d0b5d028e19bfff9c25be353921c5456450f24ddcba9a58874f1"
+    sha256 arm64_monterey: "493972cc539a1934d850bb7c262835996137dc178528d63a656bbda93cddd88b"
+    sha256 arm64_big_sur:  "db2f0ac04b406715ee83412664b26eb3893825045b7c18839d6e229688743ec2"
+    sha256 monterey:       "b423717a304a121dbef304b197c8a71da11ea544585a5a3c137e6b2bb4877f22"
+    sha256 big_sur:        "579d21a3b2c06c5b77a2a7f545fc0e914beb56d4598b642499adda59805cd7b6"
+    sha256 catalina:       "37089701d9698e4d45d79c7ef30140a1cd3ad666261bbdbd3235809ceb0e1e48"
+    sha256 x86_64_linux:   "76ccc243b4255ce3229ebc6de3930116270850b8879fe75fd7ab0ea7ad755828"
   end
 
   depends_on "bison" => :build
@@ -27,10 +26,7 @@ class FluentBit < Formula
   depends_on "pkg-config" => :build
 
   depends_on "libyaml"
-
-  on_linux do
-    depends_on "openssl@3"
-  end
+  depends_on "openssl@3"
 
   def install
     # Prevent fluent-bit to install files into global init system

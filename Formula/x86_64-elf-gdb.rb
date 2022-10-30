@@ -12,6 +12,7 @@ class X8664ElfGdb < Formula
   end
 
   bottle do
+    sha256 arm64_ventura:  "05366688f11b2a4418ae5846f86e1056437a2512a5d5c9821a0311dde841098d"
     sha256 arm64_monterey: "054449618f9e658d1502a3ffb3dcdf3d8f55e1d19ffde152e52b2ed5887faf84"
     sha256 arm64_big_sur:  "5eebf4b0ccf95ac324212f34509b6f63bbde83b48664abef093058090322b132"
     sha256 monterey:       "afaa638b4875f3e7a09e4ca7c0dae4d09ab606e7fdc2c17703075226441dbced"
@@ -25,8 +26,11 @@ class X8664ElfGdb < Formula
   depends_on "python@3.10"
   depends_on "xz" # required for lzma support
 
-  uses_from_macos "texinfo" => :build
   uses_from_macos "zlib"
+
+  on_system :linux, macos: :ventura_or_newer do
+    depends_on "texinfo" => :build
+  end
 
   def install
     target = "x86_64-elf"

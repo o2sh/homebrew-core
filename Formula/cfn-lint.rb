@@ -3,17 +3,17 @@ class CfnLint < Formula
 
   desc "Validate CloudFormation templates against the CloudFormation spec"
   homepage "https://github.com/aws-cloudformation/cfn-lint/"
-  url "https://files.pythonhosted.org/packages/93/3e/d0cdabb490c5933908a6572d8ff8924a40087187ac923f4cc8a8646ddcb4/cfn-lint-0.68.0.tar.gz"
-  sha256 "3c68a6f912e5780e4fa23e5033b9c9d65e7612cc1b4b0cfb01d03260af120a3e"
+  url "https://files.pythonhosted.org/packages/c6/db/2b542bc5609223963b4bb2ca8f403f41eed28fd998904c8bd62cb6d982b6/cfn-lint-0.69.1.tar.gz"
+  sha256 "3573b21b0e9dbf3327ae41da89f425e9bbfaae35f25dbe5f4f2eb89ddc926ae8"
   license "MIT-0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "731394827b11e7a6fc0c3fbf387d2e03aacb0d3f625662ffe7537d48ce96ae1f"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b9464d11b445b33b66d89cf369ca4864a96697cc8c344b987bc632ae69e17ba2"
-    sha256 cellar: :any_skip_relocation, monterey:       "d12f4bc166e7b016632e91c8634f49645fbc4715c68aa8209ee87da94bf454cd"
-    sha256 cellar: :any_skip_relocation, big_sur:        "1b2af91d0af0858c5d096006fef5a7173b963841a92718cb6c9eeb58c877927f"
-    sha256 cellar: :any_skip_relocation, catalina:       "7f75b06e3ab1165220ec929f5640118ae19e2c6cf4eebbf9bf1166367c89e819"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "39019bcd29aee7337b132a97707eef752344cac87aa719ededbff4061af4116b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "b9793bcc8221ab8075e961c9eeb264f0075509c75d41c4cf37453ee01c32f9f8"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "426f013102011178ad565f1ebc2489b7e054a0bf19f76bdc63c6e45f205cc6b4"
+    sha256 cellar: :any_skip_relocation, monterey:       "61d0ca3e2a91b12b63cf1696801020d816d494e1b7065901933c36d411e20ea5"
+    sha256 cellar: :any_skip_relocation, big_sur:        "abe034c9f01318cdc168b80ebcfe8e301dc1188d8b4dbd5f2949ac7b81baf001"
+    sha256 cellar: :any_skip_relocation, catalina:       "243485a169903636f58af039db0f2fc5ed536328e0842bdf42d128ed213032eb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ac06d279064f81d80000e207556400cb842c12b82a0c0f956357d574c34de15b"
   end
 
   depends_on "python@3.10"
@@ -31,13 +31,13 @@ class CfnLint < Formula
   end
 
   resource "boto3" do
-    url "https://files.pythonhosted.org/packages/6c/54/0b88f03a606410f399d5ce511bec606bd9051bf4c658d0388660537cc90e/boto3-1.24.93.tar.gz"
-    sha256 "7881fc380f2f489ae9b3a2f2448334aef9f7be58d85a7a0e8c10458247b09afa"
+    url "https://files.pythonhosted.org/packages/80/ab/956f77cbb907b486d100d5644064f02c1ddf21cda64435a9ffe0dd19ab82/boto3-1.25.4.tar.gz"
+    sha256 "03e5055d64a596f7a95ed0ca9fda1b67b7aed00d428e4ccef97f2f82b72ec875"
   end
 
   resource "botocore" do
-    url "https://files.pythonhosted.org/packages/1b/42/6baa60b44655bc3fc520e2fe8a6e37fdc790662b39cd627b7d40a5a8a361/botocore-1.27.93.tar.gz"
-    sha256 "d5200f7b9150cdb91c9d3994980870d7bb4554e19c4d9d847f64626d8ceacf95"
+    url "https://files.pythonhosted.org/packages/92/d4/5a0127c24ebc39289bb5cdd4b928a24c2b8d9377778f69887984e613ca26/botocore-1.28.4.tar.gz"
+    sha256 "ade670506c9e837f61d590873a11c5d06ab9a8492b8d5b853d6c4059ecddc03d"
   end
 
   resource "jmespath" do
@@ -66,8 +66,8 @@ class CfnLint < Formula
   end
 
   resource "jsonschema" do
-    url "https://files.pythonhosted.org/packages/69/11/a69e2a3c01b324a77d3a7c0570faa372e8448b666300c4117a516f8b1212/jsonschema-3.2.0.tar.gz"
-    sha256 "c8a85b28d377cc7737e46e2d9f2b4f44ee3c0e1deac6bf46ddefc7187d30797a"
+    url "https://files.pythonhosted.org/packages/cf/54/8923ba38b5145f2359d57e5516715392491d674c83f446cd4cd133eeb4d6/jsonschema-4.16.0.tar.gz"
+    sha256 "165059f076eff6971bae5b742fc029a7b4ef3f9bcf04c14e4776a7605de14b23"
   end
 
   # only doing this because junit-xml source is not available in PyPI for v1.9
@@ -82,8 +82,8 @@ class CfnLint < Formula
   end
 
   resource "pbr" do
-    url "https://files.pythonhosted.org/packages/b4/40/4c5d3681b141a10c24c890c28345fac915dd67f34b8c910df7b81ac5c7b3/pbr-5.10.0.tar.gz"
-    sha256 "cfcc4ff8e698256fc17ea3ff796478b050852585aa5bae79ecd05b2ab7b39b9a"
+    url "https://files.pythonhosted.org/packages/52/fb/630d52aaca8fc7634a0711b6ae12a0e828b6f9264bd8051225025c3ed075/pbr-5.11.0.tar.gz"
+    sha256 "b97bc6695b2aff02144133c2e7399d5885223d42b7912ffaec2ca3898e673bfe"
   end
 
   resource "pyrsistent" do

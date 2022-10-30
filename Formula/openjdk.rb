@@ -12,6 +12,7 @@ class Openjdk < Formula
   end
 
   bottle do
+    sha256 cellar: :any, arm64_ventura:  "31e2cfd0c4621167461c5449e2a251a31398258d9573d1a649b64739249d27d4"
     sha256 cellar: :any, arm64_monterey: "ba371cdb94f89e982cf618ed58ef072bea8f0a2443bd3491e1ac4468c175a4c7"
     sha256 cellar: :any, arm64_big_sur:  "82d55455d8610b4da15846a5c625f4f5cb6d18a256f90cd9ea138b733ce48041"
     sha256 cellar: :any, monterey:       "a9fedd58720ae480e00e6ef31b89ab4ebf51b6f9bcf9bb9d7f6ffa837ecb9bd1"
@@ -86,6 +87,9 @@ class Openjdk < Formula
     url "https://github.com/openjdk/jdk/commit/0599a05f8c7e26d4acae0b2cc805a65bdd6c6f67.patch?full_index=1"
     sha256 "6a645cedccb54b4409f4226ba672b50687e18a3f5dfa0485ce1db6f5bc35f3d0"
   end
+
+  # Patch to restore build on macOS 13
+  patch :DATA
 
   def install
     boot_jdk = buildpath/"boot-jdk"
@@ -177,3 +181,19 @@ class Openjdk < Formula
     assert_match "Hello, world!", shell_output("#{bin}/java HelloWorld")
   end
 end
+
+__END__
+diff -pur a/src/jdk.net/macosx/native/libextnet/MacOSXSocketOptions.c b/src/jdk.net/macosx/native/libextnet/MacOSXSocketOptions.c
+--- a/src/jdk.net/macosx/native/libextnet/MacOSXSocketOptions.c	2022-08-12 22:24:53.000000000 +0200
++++ b/src/jdk.net/macosx/native/libextnet/MacOSXSocketOptions.c	2022-10-24 18:27:36.000000000 +0200
+@@ -29,9 +29,9 @@
+ #include <unistd.h>
+ 
+ #include <jni.h>
+-#include <netinet/tcp.h>
+ 
+ #define __APPLE_USE_RFC_3542
++#include <netinet/tcp.h>
+ #include <netinet/in.h>
+ 
+ #ifndef IP_DONTFRAG

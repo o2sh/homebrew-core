@@ -1,8 +1,8 @@
 class Dafny < Formula
   desc "Verification-aware programming language"
   homepage "https://github.com/dafny-lang/dafny/blob/master/README.md"
-  url "https://github.com/dafny-lang/dafny/archive/refs/tags/v3.9.0.tar.gz"
-  sha256 "0f35d6cca664f53fcdd52a4805757abbc96890937de101700f1a6cd99eee4579"
+  url "https://github.com/dafny-lang/dafny/archive/refs/tags/v3.9.1.tar.gz"
+  sha256 "77272ca990c4555bde5a31335227b2ba7811c29c5bc8a4381bf7cfd1294a2f20"
   license "MIT"
 
   livecheck do
@@ -11,12 +11,12 @@ class Dafny < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "db1c4b783d4cf1177fd82f265fd96c1bb76e24dba4cfb1c60e0764c8e7bbe186"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "82410cc7e460087a94476b01114cf6dbfc3cd8246066ffc87fc08799442b6784"
-    sha256 cellar: :any_skip_relocation, monterey:       "31dece4a7041ea91a713861f8186d379f511ab4fe2efa4d1a4b9d9e7eeb63b16"
-    sha256 cellar: :any_skip_relocation, big_sur:        "1bbe16cd800e0d5ea4a8bf07ed9f046cb02f7cb557dc584cf62a87a66021a3ac"
-    sha256 cellar: :any_skip_relocation, catalina:       "b93ba447cf523bf14c4ce8533a8a1612cd4d9be3c6465ebbd1a1a84642273dce"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bf9bab5a0efd0430dd23c69f9de919596e221e4c644a8780f161204122dfd029"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8dcfdd1a53f57769ca84a8d5206e537f395e1bf491af1bb8d2971ebe61bfb2a8"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "1814604235ab9ca7cb271bd62226bfe90337ae772f7ede97c74a3ab79ebb1192"
+    sha256 cellar: :any_skip_relocation, monterey:       "02b36ed059c898ea7bf24853b5039d0136076a5a5a73dae00b594fa673b25f74"
+    sha256 cellar: :any_skip_relocation, big_sur:        "162f5e66b082353ad318d54f7588c72ba8d622b98c894b357a4de0317b43a1d0"
+    sha256 cellar: :any_skip_relocation, catalina:       "8d5e1bead5ee82461e505e1f5c2caa0890bb9e79cbdd7576ad79339ae33ea3f5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "25d87dc6b3a2041668a3e4100d3e44c61bee2a772a8405fdc8fc63d1ac35a200"
   end
 
   depends_on "gradle" => :build

@@ -2,18 +2,18 @@ class Glslviewer < Formula
   desc "Live-coding console tool that renders GLSL Shaders"
   homepage "http://patriciogonzalezvivo.com/2015/glslViewer/"
   url "https://github.com/patriciogonzalezvivo/glslViewer.git",
-      tag:      "3.0.1",
-      revision: "d816b5d7ab6c9d1a0b1007b8a27c24a1e330b76b"
+      tag:      "3.0.7",
+      revision: "b1a9a41f77c535e58e5dd31a71afa7c24f9d313f"
   license "BSD-3-Clause"
   head "https://github.com/patriciogonzalezvivo/glslViewer.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_monterey: "41d50c9f641d45d86a9b3e2a3eb1b57155c62051f6bc8bc8d6ce90782e824bc5"
-    sha256 cellar: :any,                 arm64_big_sur:  "e900679ec548938eebe992e30b5331639cd5502fc837881eb8ceaa423e585999"
-    sha256 cellar: :any,                 monterey:       "77271e35821e3b6b6635a4a736339a67bd085965011e4ec640ce77a8b292668c"
-    sha256 cellar: :any,                 big_sur:        "aa5968421964aca1ee3d6ed1e8987ac0e4481b01d75a10868eaea106c36c85ff"
-    sha256 cellar: :any,                 catalina:       "e60c3494f9637e776086321fcea8d33e8fc982addc8cc2c7bf420be1d00a3c2f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "177718c3a1f493c419648e48344482d3a46feb7b201821ea9a1a07af492f2c98"
+    sha256 cellar: :any,                 arm64_monterey: "cf33a11e088d40d9d5ae96ed374756c60984cabeb2de33d52af670c091e4a81e"
+    sha256 cellar: :any,                 arm64_big_sur:  "67f4455d6abf22ee9bd69b7651f7e4346af09e27afaa3272cd1f9a22cfefce22"
+    sha256 cellar: :any,                 monterey:       "c5123fc4e0c8d1d2fb26ab0b2b787d865f1c3301df19b8b2c8d7dd777d5b8c23"
+    sha256 cellar: :any,                 big_sur:        "6fcacd65216707ce3ec09c031626cb158cf757d6a59a74ba3b0684f4518dd2be"
+    sha256 cellar: :any,                 catalina:       "6bb4be1650a54e23c4c124b229eb01d2b945df3278ba930cd28a667c109cc09c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c8c23e67dd736ed411333a91adbb5cc69e82dd8b017dd394242bf3824f436734"
   end
 
   depends_on "cmake" => :build

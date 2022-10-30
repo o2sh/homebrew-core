@@ -3,8 +3,8 @@ class Pnpm < Formula
 
   desc "📦🚀 Fast, disk space efficient package manager"
   homepage "https://pnpm.io/"
-  url "https://registry.npmjs.org/pnpm/-/pnpm-7.13.6.tgz"
-  sha256 "121b8964ff9619b9596487346ba17d4edfd7164e3c21d38fd8f02067b8bea2c1"
+  url "https://registry.npmjs.org/pnpm/-/pnpm-7.14.1.tgz"
+  sha256 "a577ae0336a23c21519db73440170f5a83affb19cc36fea4af2c2aeefcd9d23c"
   license "MIT"
 
   livecheck do
@@ -13,13 +13,12 @@ class Pnpm < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "83056d51bbb879b3858d2841e9bc1f5aeb0dc7a10fdf34a7933fb09bfe83bbc9"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "83056d51bbb879b3858d2841e9bc1f5aeb0dc7a10fdf34a7933fb09bfe83bbc9"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "83056d51bbb879b3858d2841e9bc1f5aeb0dc7a10fdf34a7933fb09bfe83bbc9"
-    sha256 cellar: :any_skip_relocation, monterey:       "1e933118d5e96270eed8aa6bd7506cd512d6707a0d0557ed54dff18950f98950"
-    sha256 cellar: :any_skip_relocation, big_sur:        "859751fa88a11e9c777f21dcecb45a7739664f70b6b0d0819650ee54c390644c"
-    sha256 cellar: :any_skip_relocation, catalina:       "859751fa88a11e9c777f21dcecb45a7739664f70b6b0d0819650ee54c390644c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "83056d51bbb879b3858d2841e9bc1f5aeb0dc7a10fdf34a7933fb09bfe83bbc9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "86f591591c602ff25b74ffac107dcd7e6a35b2e5f41cf9041673b2a4d05fc59b"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "86f591591c602ff25b74ffac107dcd7e6a35b2e5f41cf9041673b2a4d05fc59b"
+    sha256 cellar: :any_skip_relocation, monterey:       "87644073b2f1d1a45498592f8e587226ea6a28731c21181f66682d44bfe76c3e"
+    sha256 cellar: :any_skip_relocation, big_sur:        "97984682e075ef027894dabe7ec0c909a603214131f0dd378cc81dbcc6bff487"
+    sha256 cellar: :any_skip_relocation, catalina:       "97984682e075ef027894dabe7ec0c909a603214131f0dd378cc81dbcc6bff487"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "86f591591c602ff25b74ffac107dcd7e6a35b2e5f41cf9041673b2a4d05fc59b"
   end
 
   depends_on "node" => :test

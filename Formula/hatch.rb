@@ -8,17 +8,19 @@ class Hatch < Formula
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "732ba5377683b26d1d3a0b848c889040193fc9667d60063ddda2b86355f0f663"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "cb53017c5604de304c530828cc7b61837222fd323c8571fe770bc54749711877"
-    sha256 cellar: :any_skip_relocation, monterey:       "c2697b675d45fdf00c118f411d2df712664a2208c41b012f85642909b3fba02f"
-    sha256 cellar: :any_skip_relocation, big_sur:        "9bbc832e5f8fbd282d96e41e0836c13e79a4c99ee23c21cf0f3e01f827a8895f"
-    sha256 cellar: :any_skip_relocation, catalina:       "1834058ccb68ded439b2e07a2dcfbabc1ae54a7ebaf2101b7d3bab4db53ed471"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ff4b7b13deebe56c1caf4c80557e649c270ff9a83c08ad3dbe34ed49ec16d29c"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "dc71b8b4ccf0634cda59cebcb67add167b51b4ecc3a312ba0d04ba556f1625a8"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "54c909b2ac19e5ce8dcbe973d0c0de8084313ea2fc3a7e69a12bddaa0eb2d298"
+    sha256 cellar: :any_skip_relocation, monterey:       "9a9be2d3916d8564f21daa3ee90005623e9b2d4a217cbab22e3c858e23c07eb2"
+    sha256 cellar: :any_skip_relocation, big_sur:        "25fc91a3446fb502297dee549bd70f7ebf03f3ee7081f8917a21856bd74157a9"
+    sha256 cellar: :any_skip_relocation, catalina:       "9f54d25a6ba19c17915eb485fed69682c57b66035dc7c08837243ca209be6568"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d1879f634f94f87b83ef12a238ca176da42179b3418860b47a08d0bbb0e6b224"
   end
 
   depends_on "pygments"
   depends_on "python@3.10"
   depends_on "six"
+  depends_on "virtualenv"
 
   resource "anyio" do
     url "https://files.pythonhosted.org/packages/67/c4/fd50bbb2fb72532a4b778562e28ba581da15067cfb2537dbd3a2e64689c1/anyio-3.6.1.tar.gz"
@@ -180,13 +182,13 @@ class Hatch < Formula
     sha256 "04233d2fcfe5cff911c1e4fb7189755640e1524ff87a4b82ab9d6b875fee5787"
   end
 
-  resource "virtualenv" do
-    url "https://files.pythonhosted.org/packages/07/a3/bd699eccc596c3612c67b06772c3557fda69815972eef4b22943d7535c68/virtualenv-20.16.5.tar.gz"
-    sha256 "227ea1b9994fdc5ea31977ba3383ef296d7472ea85be9d6732e42a91c04e80da"
-  end
-
   def install
     virtualenv_install_with_resources
+
+    # we depend on virtualenv, but that's a separate formula, so install a `.pth` file to link them
+    site_packages = Language::Python.site_packages("python3.10")
+    virtualenv = Formula["virtualenv"].opt_libexec
+    (libexec/site_packages/"homebrew-virtualenv.pth").write virtualenv/site_packages
 
     (zsh_completion/"_hatch").write Utils.safe_popen_read({ "_HATCH_COMPLETE" => "zsh_source" }, bin/"hatch")
     (fish_completion/"hatch.fish").write Utils.safe_popen_read({ "_HATCH_COMPLETE" => "fish_source" }, bin/"hatch")

@@ -1,23 +1,22 @@
 class Circumflex < Formula
   desc "Hacker News in your terminal"
   homepage "https://github.com/bensadeh/circumflex"
-  url "https://github.com/bensadeh/circumflex/archive/refs/tags/2.6.tar.gz"
-  sha256 "f30e346aa4cd31b46bbba69cdd17d3bf879607bc5d67c3c2940f511458d19645"
+  url "https://github.com/bensadeh/circumflex/archive/refs/tags/2.7.tar.gz"
+  sha256 "109ff8b2a7e03b9c0dc0e6734aa6732caca88d28a9557b6865b57a53eb2e0c85"
   license "AGPL-3.0-only"
+  revision 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "64bd4f4342b066f7cca2453bfe7398afdbf76f6aed914eafbe5687948895148a"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "087c54911807713f432e0ef3a60d9e68b56674412fc584ea0f2771eb39e4269c"
-    sha256 cellar: :any_skip_relocation, monterey:       "c5ae56d6a4efbc52815058f9faa75d05903c5aab0f4491da28c08077dc73c97c"
-    sha256 cellar: :any_skip_relocation, big_sur:        "992a35b0c066c88eef1a87267701943b3083d7359f6813dc794df5c71d79428b"
-    sha256 cellar: :any_skip_relocation, catalina:       "4c249801432886e0407488ad7c2da3cc6bebf943a80661093a4f76dde079b26e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5fda71cd57fc6ef3cacb9ef7a34a819940a21244c30d8a39f423cccd69dc00c0"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "51177211c28b0b7500e526339ab3d576a0aff56b7b7bbbe6b91267ee1ccae6be"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "5d70f5cb026e3b1837dce773c64682ed3ca12211b8ccbfa693005f666775e180"
+    sha256 cellar: :any_skip_relocation, monterey:       "be4374762a967ee7f98915ceaa30deb6f5417c8970d97a64a7e3ecc3aa44918e"
+    sha256 cellar: :any_skip_relocation, big_sur:        "c91405e80fef9b5d4521cd34abb93fd77996642a524526e67c3b382801817cca"
+    sha256 cellar: :any_skip_relocation, catalina:       "11ac81f3f5c237130e7e2aa4aca09d9ab3f6af07a8c439805c71b62dd32df8e0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0d9cee4859267389c616eb42727abcb9f57a3a7105bb0fecf5c94323665a48a7"
   end
 
   depends_on "go" => :build
-
-  # Requires less 576 or later for --use-color
-  uses_from_macos "less", since: :monterey
+  depends_on "less"
 
   def install
     system "go", "build", *std_go_args(output: bin/"clx", ldflags: "-s -w")

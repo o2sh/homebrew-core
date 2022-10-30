@@ -9,16 +9,18 @@ class Fabric < Formula
   head "https://github.com/fabric/fabric.git"
 
   bottle do
-    sha256 cellar: :any,                 arm64_monterey: "ceb5d0436663d80fd692da94e9fa2a9d2798a574f832fdeaf20ca718cf0be7c4"
-    sha256 cellar: :any,                 arm64_big_sur:  "3e7e5ea721d3d528e6ad783125048b9f57a0de8ed07ff133ea2f80af639dd472"
-    sha256 cellar: :any,                 monterey:       "6b595acc35ecb5440680b7a9767f423dd4c689a1b558fe8f415d42369fc68848"
-    sha256 cellar: :any,                 big_sur:        "f74d4fda9e5eb76b64c780c0fecb2eb086e06fbec6f5af2acd6eb49fecb78d0f"
-    sha256 cellar: :any,                 catalina:       "b6d872f16e221e56da5531a935b5f75c451a545150bf962c5fedfd728d9344a9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cd1b759a963838262490397e58bc2a73f7a1d81dc73b4c59989e934e02216d95"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_monterey: "ccd2663005a3c16d686d0aa758a3289e158e8d003b47ee08ef277a6448836b89"
+    sha256 cellar: :any,                 arm64_big_sur:  "630be8c0a1469b55894d3ed7bf2dcdba281dabbe45d3bb8a28e968dff71dcab1"
+    sha256 cellar: :any,                 monterey:       "972cf4da10edce2148cb1bd3a8e9bcb2228ab3a4bdb4af61ae5ec8671c5b10b3"
+    sha256 cellar: :any,                 big_sur:        "aed7203872c89087d2464ed1cf86f839b96ff838846e2f117c38c02f831ac87f"
+    sha256 cellar: :any,                 catalina:       "2acb1f21d3a07f4f22fc564630ce0d8c5e254982332d7d4cf2fc72d4a9fc0b98"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "90be4f0931d76416c08baa7d8730849ea3673ee92085559cf13de4d8e47e7626"
   end
 
   depends_on "rust" => :build
   depends_on "openssl@1.1"
+  depends_on "pyinvoke"
   depends_on "python@3.10"
   depends_on "six"
 
@@ -35,11 +37,6 @@ class Fabric < Formula
   resource "cryptography" do
     url "https://files.pythonhosted.org/packages/89/d9/5fcd312d5cce0b4d7ee8b551a0ea99e4ea9db0fdbf6dd455a19042e3370b/cryptography-37.0.4.tar.gz"
     sha256 "63f9c17c0e2474ccbebc9302ce2f07b55b3b3fcb211ded18a42d5764f5c10a82"
-  end
-
-  resource "invoke" do
-    url "https://files.pythonhosted.org/packages/df/59/41b614b9d415929b4d72e3ee658bd088640e9a800e55663529a8237deae3/invoke-1.7.1.tar.gz"
-    sha256 "7b6deaf585eee0a848205d0b8c0014b9bf6f287a8eb798818a642dff1df14b19"
   end
 
   resource "paramiko" do
@@ -64,6 +61,11 @@ class Fabric < Formula
 
   def install
     virtualenv_install_with_resources
+
+    # we depend on pyinvoke, but that's a separate formula, so install a `.pth` file to link them
+    site_packages = Language::Python.site_packages("python3.10")
+    pyinvoke = Formula["pyinvoke"].opt_libexec
+    (libexec/site_packages/"homebrew-pyinvoke.pth").write pyinvoke/site_packages
   end
 
   test do

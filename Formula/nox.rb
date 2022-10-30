@@ -8,16 +8,18 @@ class Nox < Formula
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "524a00fdd2e3cd7a73481cc4a3218584bb3f87b3e998fd1f8e213efcd0b727b0"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "23fad278d8f1b41cb65be4233ee6e42b464b22355bf544cb0d634ff822d56cc1"
-    sha256 cellar: :any_skip_relocation, monterey:       "ef9c0fee4b50f5b3fb69319fd7e41a159ba05df1da023d5803bb6339cb1d30a8"
-    sha256 cellar: :any_skip_relocation, big_sur:        "78f3a23e40aeacec806e4d0ca73409b01f15b56f80c83df4353ee8b40c5e6a91"
-    sha256 cellar: :any_skip_relocation, catalina:       "a4227174435897a6d177b3217533b65de08465eac036cc1af2cb6c650a1dd86a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2d81578444a1d7a788fd53a8b295e8439671b8857e3a036e72237e0a95189b32"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a5f7f84f53b088fd172be65a628b06168025a13d7d29a18748e8eabf37cb2e3e"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9e1ea7979b8d6b20139705f65f44ac41440111b715403cf4c8faa12e650da13f"
+    sha256 cellar: :any_skip_relocation, monterey:       "2c1506048ef3e082e0f9cfec0fa4c1f89a0a5343d9d9218fa409f6980600ff24"
+    sha256 cellar: :any_skip_relocation, big_sur:        "b1b46241d6f7c56db4f49aa13242f0e0405eade85fbdb5d104bf543e75088853"
+    sha256 cellar: :any_skip_relocation, catalina:       "007c43be2745ded66b5d6c64cba17e9da570d339e6074c927a953a9c770aa7a3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f768d9fa8f456dec9528dc58e83d0be10094a2634df02b5ace12271291c7736c"
   end
 
   depends_on "python@3.10"
   depends_on "six"
+  depends_on "virtualenv"
 
   resource "argcomplete" do
     url "https://files.pythonhosted.org/packages/05/f8/67851ae4fe5396ba6868c5d84219b81ea6a5d53991a6853616095c30adc0/argcomplete-2.0.0.tar.gz"
@@ -59,14 +61,14 @@ class Nox < Formula
     sha256 "2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb"
   end
 
-  resource "virtualenv" do
-    url "https://files.pythonhosted.org/packages/3c/ea/a39a173e7943a8f001e1f97326f88e1535b945a3aec31130c3029dce19df/virtualenv-20.16.3.tar.gz"
-    sha256 "d86ea0bb50e06252d79e6c241507cb904fcd66090c3271381372d6221a3970f9"
-  end
-
   def install
     virtualenv_install_with_resources
     (bin/"tox-to-nox").unlink
+
+    # we depend on virtualenv, but that's a separate formula, so install a `.pth` file to link them
+    site_packages = Language::Python.site_packages("python3.10")
+    virtualenv = Formula["virtualenv"].opt_libexec
+    (libexec/site_packages/"homebrew-virtualenv.pth").write virtualenv/site_packages
   end
 
   test do

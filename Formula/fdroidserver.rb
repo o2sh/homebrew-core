@@ -8,13 +8,13 @@ class Fdroidserver < Formula
   license "AGPL-3.0-or-later"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any,                 arm64_monterey: "aabf5a4ec122ead22260c820d4b77ba165ebf9f018cc9853bc13807fe71785f6"
-    sha256 cellar: :any,                 arm64_big_sur:  "b8da9155233ad01230ec7cbf6cac9db6b57eee5394cddfd55c02e77c1c43786c"
-    sha256 cellar: :any,                 monterey:       "e7d9a5ebcc36d15e5c604a961054a8e1820bc7030e195b5b61b35cf0d064d9ec"
-    sha256 cellar: :any,                 big_sur:        "08165659484007c7357e3072219418f8c477fd8a3083367b654f9e77260b25c4"
-    sha256 cellar: :any,                 catalina:       "df47ff62d096677ff79a374fcbce71956d94c8457fd96c6f9472f496ed423b26"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "df51060ba670890cd63a336fbaaf34e9b783490628ce0e1d28a9b35b7a6a6e47"
+    rebuild 3
+    sha256 cellar: :any,                 arm64_monterey: "c93e08ec3a707c14463ba09318b7485a52aa16949fa2bb1b2558be5f9864948c"
+    sha256 cellar: :any,                 arm64_big_sur:  "07035d343b0ba1eba6f4f5c9025feb97a0c3e1f0217dcd2fa4155fae0ca4b24d"
+    sha256 cellar: :any,                 monterey:       "bbaff2d8af0dca698b23e98d1d897b0b1ebbe64236866d3ab4712842ca4d6d8f"
+    sha256 cellar: :any,                 big_sur:        "cc7f1ddf8e3fa788c69796f7d9654fbf4f1726c777177c2d13e7e97d66471c8d"
+    sha256 cellar: :any,                 catalina:       "fbf8d6dd2872b45ef43bf56c40f15236289d84339367f40ef7aef1fa06f1ec11"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a8af4446167ae819a3ecdc06a6ee103b86562df958cc215a5c1b4db81a377691"
   end
 
   depends_on "pkg-config" => :build
@@ -145,6 +145,11 @@ class Fdroidserver < Formula
     sha256 "bd2b7730300860cbd2dafe8e5af89ff5c9a65c3975b352799d87a6238b4301a6"
   end
 
+  resource "packaging" do
+    url "https://files.pythonhosted.org/packages/df/9e/d1a7217f69310c1db8fdf8ab396229f55a699ce34a203691794c5d1cad0c/packaging-21.3.tar.gz"
+    sha256 "dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb"
+  end
+
   resource "paramiko" do
     url "https://files.pythonhosted.org/packages/1d/08/3b8d8f1b4ec212c17429c2f3ff55b7f2237a1ad0c954972e39c8f0ac394c/paramiko-2.11.0.tar.gz"
     sha256 "003e6bee7c034c21fbb051bf83dc0a9ee4106204dd3c53054c71452cc4ec3938"
@@ -173,6 +178,16 @@ class Fdroidserver < Formula
   resource "PyNaCl" do
     url "https://files.pythonhosted.org/packages/a7/22/27582568be639dfe22ddb3902225f91f2f17ceff88ce80e4db396c8986da/PyNaCl-1.5.0.tar.gz"
     sha256 "8ac7448f09ab85811607bdd21ec2464495ac8b7c66d146bf545b0f08fb9220ba"
+  end
+
+  resource "pyparsing" do
+    url "https://files.pythonhosted.org/packages/71/22/207523d16464c40a0310d2d4d8926daffa00ac1f5b1576170a32db749636/pyparsing-3.0.9.tar.gz"
+    sha256 "2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb"
+  end
+
+  resource "python-dateutil" do
+    url "https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz"
+    sha256 "0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"
   end
 
   resource "python-vagrant" do

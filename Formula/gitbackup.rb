@@ -1,17 +1,17 @@
 class Gitbackup < Formula
   desc "Tool to backup your Bitbucket, GitHub and GitLab repositories"
   homepage "https://github.com/amitsaha/gitbackup"
-  url "https://github.com/amitsaha/gitbackup/archive/v0.8.2.tar.gz"
-  sha256 "a216fc96cc80c65ed72a1b50f77697c2d6cb18f4cb849d8dde67f65d24951adc"
+  url "https://github.com/amitsaha/gitbackup/archive/v0.8.4.tar.gz"
+  sha256 "1d110658874dcb96d9de7cdbb7a54bdaa6e01a77a2952bf881a20d58235d1e7a"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "26cb3a093f1ceb46e50334cd1907f45698d190729d5939b23acbcdbb2be0e0cf"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "26cb3a093f1ceb46e50334cd1907f45698d190729d5939b23acbcdbb2be0e0cf"
-    sha256 cellar: :any_skip_relocation, monterey:       "9b6a33e3586bac4b7785d4c33d08279844a5e90d51c820e76ccd942b504b4bbf"
-    sha256 cellar: :any_skip_relocation, big_sur:        "9b6a33e3586bac4b7785d4c33d08279844a5e90d51c820e76ccd942b504b4bbf"
-    sha256 cellar: :any_skip_relocation, catalina:       "9b6a33e3586bac4b7785d4c33d08279844a5e90d51c820e76ccd942b504b4bbf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9a4ffeab3bd218563d2c43891273a95925bd8cbd24c325689af09d18587d4ffd"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "1d252dfcf227ed7bbef92ce38e7583c30eb6076b4aea1fbda4a3787e534c08d2"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "1d252dfcf227ed7bbef92ce38e7583c30eb6076b4aea1fbda4a3787e534c08d2"
+    sha256 cellar: :any_skip_relocation, monterey:       "fd373f206b493ec79fbcb94cca3f36e2de7881e4aef9fcb4422cf94334ba6057"
+    sha256 cellar: :any_skip_relocation, big_sur:        "fd373f206b493ec79fbcb94cca3f36e2de7881e4aef9fcb4422cf94334ba6057"
+    sha256 cellar: :any_skip_relocation, catalina:       "fd373f206b493ec79fbcb94cca3f36e2de7881e4aef9fcb4422cf94334ba6057"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1597e86a57a79f25d0acea80e94255a10df45c6494767853025cf87755ba76fe"
   end
 
   depends_on "go" => :build

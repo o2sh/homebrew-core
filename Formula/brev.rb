@@ -1,8 +1,8 @@
 class Brev < Formula
   desc "CLI tool for managing workspaces provided by brev.dev"
   homepage "https://docs.brev.dev"
-  url "https://github.com/brevdev/brev-cli/archive/refs/tags/v0.6.128.tar.gz"
-  sha256 "8484ed849f68f17d973cfdbb7fc28cca2d390f48d3e59f6c35ec8b8ae91b51a4"
+  url "https://github.com/brevdev/brev-cli/archive/refs/tags/v0.6.148.tar.gz"
+  sha256 "e9669b26c8e50a2fc5e42145f1607dd47b26916ae732805029a59785bfaa4ced"
   license "MIT"
 
   livecheck do
@@ -11,12 +11,12 @@ class Brev < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8fc853a4e86ea10f958ad67a6200ab9b5e98cb172685bd1a25d25aede837f9dc"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "16fa2737464d3a10cd4f475c90700dc138c12b1bed4eca83d403e9bb2e338eb0"
-    sha256 cellar: :any_skip_relocation, monterey:       "9772b84dc3b2a72e5bb3a7928916b919e968c6864b6c72be18154bfe2b608ee6"
-    sha256 cellar: :any_skip_relocation, big_sur:        "5860d10a3be2b83cd776d4b1a451c0284bfca81bfb64e5c9bd1f1228cb0ea782"
-    sha256 cellar: :any_skip_relocation, catalina:       "5bd5c17799b8fa0403bf74e013d3d7265c7244acbb0ae79f707d32b89afe1421"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b82f3145ddac6d3f22fb83f1186da90d89b98344ae9c0ab48ef720443339d52a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "12c28302727338240b8127656833f0f2feaf40c2f244baf5b7f7b1d2ff553a0d"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "762ff24386de8a0df2f59e580944423fc0a118d1995f39995cde80fae73875b0"
+    sha256 cellar: :any_skip_relocation, monterey:       "b23ba59721b0248c6167877320062ef5c0c71b8fbbd454000d3c69f7e99a97bf"
+    sha256 cellar: :any_skip_relocation, big_sur:        "9fcb2ae4a4ffc2ff59cc2277a826f865ebc32e32eeb4df1467f327fc0e50cb68"
+    sha256 cellar: :any_skip_relocation, catalina:       "5cc6b94c089a1ed8408efabc57663e1c2f40ee638f952318d6f3caab2ab8b996"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cd59ad4f740c7c87af4a5969e156a0d0d3f1f0600c70f897b2b5be49605b9366"
   end
 
   # Required latest gvisor.dev/gvisor/pkg/gohacks instead of inet.af/netstack/gohacks

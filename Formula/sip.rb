@@ -3,19 +3,18 @@ class Sip < Formula
 
   desc "Tool to create Python bindings for C and C++ libraries"
   homepage "https://www.riverbankcomputing.com/software/sip/intro"
-  url "https://files.pythonhosted.org/packages/90/05/07013eaf1b67fb3d3e6424edab495cde912d80d9ae4ea54c2b70a4bae9ac/sip-6.7.2.tar.gz"
-  sha256 "325016c787d0bff20999c420339ad816fbfd39a7c49b2c4dcda12b63c379dbda"
+  url "https://files.pythonhosted.org/packages/90/6d/00a06681a7659135018d219f62239709804573cbe615dfa2ba3e8933e097/sip-6.7.3.tar.gz"
+  sha256 "564a7a8c5c1a42f1b69e9258af2b43ea31fbbab206d2e182e75c173caf7d83f8"
   license any_of: ["GPL-2.0-only", "GPL-3.0-only"]
   head "https://www.riverbankcomputing.com/hg/sip", using: :hg
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1adbaf9bbed7accdf67a733e7b94e8361175e93c633bcb57572aa73d478c79a0"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f74454e414778baee52d3aaf39512f8a6895b5cfe9308395ab821908db064943"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "efcb705e94a633217705d51344b14c98d57aaeb4c3e70b1915dbb645af26bc2d"
-    sha256 cellar: :any_skip_relocation, monterey:       "1d28201501a44c082edcfbddaaafe4216258a36b9a0b5a85fbb8e914b8f8f71e"
-    sha256 cellar: :any_skip_relocation, big_sur:        "0b21f0b47ffc4da821d079c7c64e900b0dafb762ae63155a40e60d3bfa6e43b4"
-    sha256 cellar: :any_skip_relocation, catalina:       "a4231ecbd04f5b2f38784b6951c88666f0a25d8803014de70a6918b720218761"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fc39c8e19d34c024b16bf3aa64bd83cebb3248cef2d6975b544a9842cfd9457d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "028cb1285cd59fd7e7a98fc2a1d57fedca5c6193b2ad47c68e8576f0497db401"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "d348f66122909d310d985c851af9626b16396d5b3d0c59d9cf56ee32a6341163"
+    sha256 cellar: :any_skip_relocation, monterey:       "173995c8368473448fbb7fb8d3c7c82032a45e3c064763552d307a3ef25e6b7b"
+    sha256 cellar: :any_skip_relocation, big_sur:        "0a11bb86131abb34eb0ce1b5152c2a9b9d61aac0a75f8c35346ae3d120db07bc"
+    sha256 cellar: :any_skip_relocation, catalina:       "5452a43221219cc6d2d85779ab80a6c31d6a4730e7b5037212e2b8d69d918ae8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "83f8c7c342e73667edbd1592da7abd5c7c9337382637c09ee578db95b2c50dcb"
   end
 
   depends_on "python@3.10"

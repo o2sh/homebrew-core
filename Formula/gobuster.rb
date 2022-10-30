@@ -1,17 +1,17 @@
 class Gobuster < Formula
   desc "Directory/file & DNS busting tool written in Go"
   homepage "https://github.com/OJ/gobuster"
-  url "https://github.com/OJ/gobuster/archive/refs/tags/v3.2.0.tar.gz"
-  sha256 "63094d24b79622d798f1aed2e497c8a6dd2bbeaa4fda7162ec71bc7070bf1a61"
+  url "https://github.com/OJ/gobuster/archive/refs/tags/v3.3.0.tar.gz"
+  sha256 "23ffc5418e133b0012d805c6ab93442046527bdef6b3eff96609db89e0738875"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3f687fc8594fc7400f99fcfc8181bc7d020cf59ce38c2a3be7dbaa66c20e52ec"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "2b005c501f889745a8da2ed39dda4ff71a603b62e644532589097c6bc81ed1c5"
-    sha256 cellar: :any_skip_relocation, monterey:       "dced6c400a6e129c9edeef7b4602a42f4254358edfa129364ce5c9856376ccc5"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d1baeae047194d29c3867336f71c562d176a10615bb66e551556616374af43ca"
-    sha256 cellar: :any_skip_relocation, catalina:       "36e5a28fecf54ff70810fc2f908a53751c2bdcd06b262183baae9556b294e205"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5e325f0a07ef501aead02d7079e9da4c35e51c297274a1fcf745ea358d5a34b6"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "81295a263139fc40b9791f101fb2517a8e722064f2045bbfecfa7897d7311387"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ffde25408cd305d7db6f7734f52929a067e0892ef8cdacc17f179c6c9955ca23"
+    sha256 cellar: :any_skip_relocation, monterey:       "e51317791fd1ffd91982426048f21de3d833df93e649c9b128d054c06b7b91c2"
+    sha256 cellar: :any_skip_relocation, big_sur:        "6965806410d4a9cab1fd2bf35de0d5e8de6256676ad7b34e87073beecb82f334"
+    sha256 cellar: :any_skip_relocation, catalina:       "34dcf644b5a042c86febc6cf259bb98ba35a9e90a4c40532f780f33438d637a6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0a50198993283a76c683a178a300a44866c323aec4cca69f15dce201c36b6ce8"
   end
 
   depends_on "go" => :build
@@ -34,6 +34,6 @@ class Gobuster < Formula
     output = shell_output("#{bin}/gobuster dir -u https://buffered.io -w words.txt 2>&1")
     assert_match "Finished", output
 
-    assert_match version.to_s, shell_output(bin/"gobuster version")
+    assert_match version.major_minor.to_s, shell_output(bin/"gobuster version")
   end
 end

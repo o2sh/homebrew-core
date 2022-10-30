@@ -3,18 +3,18 @@ class Awscli < Formula
 
   desc "Official Amazon AWS command-line interface"
   homepage "https://aws.amazon.com/cli/"
-  url "https://github.com/aws/aws-cli/archive/2.8.5.tar.gz"
-  sha256 "0ca266c345099fd7edea4befddf1bc571e84a21870c5ba0fc5fd7612c04ccc0c"
+  url "https://github.com/aws/aws-cli/archive/2.8.7.tar.gz"
+  sha256 "2084fee1909df799bacff2c637479e7fbb443f158d41bbf7b2be41a4e041e977"
   license "Apache-2.0"
   head "https://github.com/aws/aws-cli.git", branch: "v2"
 
   bottle do
-    sha256 cellar: :any,                 arm64_monterey: "d9503e94575b555c083119c3a66a71f7cbff443a7fee22630e9a10e6eb1ce71e"
-    sha256 cellar: :any,                 arm64_big_sur:  "2e50ad3cc95ecdbf562c65f954f6e20ae980e88dc386472156dc3200aa1c4623"
-    sha256 cellar: :any,                 monterey:       "738d3130865c4caf6644434ed2c8c0d62d115dd5048b7a4289ef7f1841de647b"
-    sha256 cellar: :any,                 big_sur:        "a40ec3b626d70100736ed82b351b9a99f93e837a1f8473aa5f7d7c2672227bf6"
-    sha256 cellar: :any,                 catalina:       "47a71d9f8adee0a6da319b5a5ce528a2810da9da67d741149b50ace1663e900f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f582b3c7cd236d4cfbced6a3d8926883f57075dc3936ebc338aebf2cd561a1da"
+    sha256 cellar: :any,                 arm64_monterey: "42a060a775d60501d2c6eea9497a4ada2c4788de4a5536edc964fb12bd745c24"
+    sha256 cellar: :any,                 arm64_big_sur:  "0c3de96411394dff3a27cf2b72e22f3f7144e379e792428276bcd0a639ebdf0c"
+    sha256 cellar: :any,                 monterey:       "30c0fc8e00490a063c532e3fcb83510a984e8be41db9b06ea2cd39fe7bee46b6"
+    sha256 cellar: :any,                 big_sur:        "ef8ae58d2a5839245165642a5e2805fd6679908f10d66b1ade32f92d6c099e36"
+    sha256 cellar: :any,                 catalina:       "e8ac91d21e2092b12dd7f5f1743cdc71ce2fa5c52c47e942a5a187d8148166e3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3c97014cad739deefad325046e8eee5b04009e9344f357ca28f99f9b8a880899"
   end
 
   depends_on "cmake" => :build
@@ -22,10 +22,12 @@ class Awscli < Formula
   depends_on "python@3.10"
   depends_on "six"
 
-  uses_from_macos "groff"
-
   on_macos do
     depends_on "llvm" => :build if DevelopmentTools.clang_build_version >= 1400
+  end
+
+  on_system :linux, macos: :ventura_or_newer do
+    depends_on "groff"
   end
 
   # Python resources should be updated based on setup.cfg. One possible way is:
@@ -83,8 +85,8 @@ class Awscli < Formula
   end
 
   resource "ruamel-yaml-clib" do
-    url "https://files.pythonhosted.org/packages/8b/25/08e5ad2431a028d0723ca5540b3af6a32f58f25e83c6dda4d0fcef7288a3/ruamel.yaml.clib-0.2.6.tar.gz"
-    sha256 "4ff604ce439abb20794f05613c374759ce10e3595d1867764dd1ae675b85acbd"
+    url "https://files.pythonhosted.org/packages/d5/31/a3e6411947eb7a4f1c669f887e9e47d61a68f9d117f10c3c620296694a0b/ruamel.yaml.clib-0.2.7.tar.gz"
+    sha256 "1f08fd5a2bea9c4180db71678e850b995d2a5f4537be0e94557668cf0f5f9497"
   end
 
   resource "ruamel-yaml" do

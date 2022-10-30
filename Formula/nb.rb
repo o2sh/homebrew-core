@@ -1,18 +1,18 @@
 class Nb < Formula
   desc "Command-line and local web note‑taking, bookmarking, and archiving"
   homepage "https://xwmx.github.io/nb"
-  url "https://github.com/xwmx/nb/archive/refs/tags/6.11.2.tar.gz"
-  sha256 "a20550572f2af25647c3a3a858f80018fb64c0cb3d54627fb2708103d23fa2cd"
+  url "https://github.com/xwmx/nb/archive/refs/tags/7.1.0.tar.gz"
+  sha256 "a1403774f5f3879a03dbc9eb758fa7a709becb5fa78a202e71adec51b63abfe9"
   license "AGPL-3.0-or-later"
   head "https://github.com/xwmx/nb.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "da16faa9f1367225d86a4e92705fbfef1ace28c9a897256d7cb13f06deb40b5f"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "da16faa9f1367225d86a4e92705fbfef1ace28c9a897256d7cb13f06deb40b5f"
-    sha256 cellar: :any_skip_relocation, monterey:       "1114f1f11aec2e5f7ee89f1949b09008e5d93a4e7cf02e35504ade6366c908d1"
-    sha256 cellar: :any_skip_relocation, big_sur:        "1114f1f11aec2e5f7ee89f1949b09008e5d93a4e7cf02e35504ade6366c908d1"
-    sha256 cellar: :any_skip_relocation, catalina:       "1114f1f11aec2e5f7ee89f1949b09008e5d93a4e7cf02e35504ade6366c908d1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "da16faa9f1367225d86a4e92705fbfef1ace28c9a897256d7cb13f06deb40b5f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "545fb520a231889c8851da1334279224f30ffab9e4358827b029fd1339aca2e8"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "545fb520a231889c8851da1334279224f30ffab9e4358827b029fd1339aca2e8"
+    sha256 cellar: :any_skip_relocation, monterey:       "8f2dcd9c86345e890a2d53c80fc73df277503917e6f192edcb9332bdf5a5e64a"
+    sha256 cellar: :any_skip_relocation, big_sur:        "8f2dcd9c86345e890a2d53c80fc73df277503917e6f192edcb9332bdf5a5e64a"
+    sha256 cellar: :any_skip_relocation, catalina:       "8f2dcd9c86345e890a2d53c80fc73df277503917e6f192edcb9332bdf5a5e64a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "545fb520a231889c8851da1334279224f30ffab9e4358827b029fd1339aca2e8"
   end
 
   depends_on "bat"

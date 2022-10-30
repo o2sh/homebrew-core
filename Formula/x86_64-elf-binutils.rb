@@ -11,6 +11,7 @@ class X8664ElfBinutils < Formula
   end
 
   bottle do
+    sha256 arm64_ventura:  "ea4e67219572675d602486abbd9b41aa0f72548d0abab02d13ca4b7e537366a2"
     sha256 arm64_monterey: "eefe767e1d8a366b16f89c976825568e19e0965da3f3721672ef8391242acfe7"
     sha256 arm64_big_sur:  "875ed5414b3fe9aff66a53bc2fcf61e456d9ecb7cc5307cb2c4dd46b4b03d423"
     sha256 monterey:       "3293e496ede109f8052ea76ce461c670b85b4675e6b27c6c394071915ea69323"
@@ -19,7 +20,9 @@ class X8664ElfBinutils < Formula
     sha256 x86_64_linux:   "9ebf98d717a55e400447bebcf98d6143e8c8f8fcd8affd3912fdc04cbb85547d"
   end
 
-  uses_from_macos "texinfo"
+  on_system :linux, macos: :ventura_or_newer do
+    depends_on "texinfo" => :build
+  end
 
   def install
     target = "x86_64-elf"

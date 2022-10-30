@@ -3,18 +3,18 @@ class Snakemake < Formula
 
   desc "Pythonic workflow system"
   homepage "https://snakemake.readthedocs.io/"
-  url "https://files.pythonhosted.org/packages/b7/65/577618cefd545e8a5388359b0b69642ee822cf6f37f1224065ded32cd2e0/snakemake-7.16.1.tar.gz"
-  sha256 "db485c8c9cfea3f0f8e229e4b410ab2727d7cbe4d6c6c197d30dd0ef1cd58989"
+  url "https://files.pythonhosted.org/packages/bb/7f/ef3e6f6ac17291d297385e4fb760a27917944d0fd990a115433e68af4eff/snakemake-7.17.1.tar.gz"
+  sha256 "0f2454bab4a3cbca93101667602256641a05b28f7eac124d239a579ad9e4fd40"
   license "MIT"
   head "https://github.com/snakemake/snakemake.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "092fa06e8b1f6b458567633a286272c4bb8a7f8f0908363b0e896b6913fef815"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f66c5075b63babf9796c7f8f7343fc5f649a9f94370f4ace3ba65da4ad5ef739"
-    sha256 cellar: :any_skip_relocation, monterey:       "5b90ccc320deb718076700b80aa33ed3191a1ac5c4dd0e7e9705b5735d83e01c"
-    sha256 cellar: :any_skip_relocation, big_sur:        "139baf0a77bf05d3d954d7856f55334f66a0d7fb682f845e92a1ec6107e0ce65"
-    sha256 cellar: :any_skip_relocation, catalina:       "1abc8a3aebc6b8324f4fc94ecd5b8d24770462bb1b9d318f50ee3bc6d18fa1c9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4c788db081e946b4efa4c0aac2b30516b0ff2adefdc63c34443f51334f5376f8"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a7309071d369a46473c80680658cefce6d9e12aad78c1e7e786c5cd29e71f20a"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "10df439664f7b3854000aff3728fda56f7b6f203bf29ff9637bc060b1cbecd15"
+    sha256 cellar: :any_skip_relocation, monterey:       "52e05d0111c2f718e78a05e6642f84c5045826b7604126d141b2ca9eadab520a"
+    sha256 cellar: :any_skip_relocation, big_sur:        "0cf8e5e936370e144cb79616e569efaf3f8bb01d6107518a01eaa605ee417581"
+    sha256 cellar: :any_skip_relocation, catalina:       "50a18a3e2dd2de89f88a01f2c922501747c91f7f69bf570b65717da550bd3bfd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a1c45cb1b53c7bccd0f4f052785048e08fe2dce2b45279cdeee32c4401c8a0e5"
   end
 
   depends_on "cbc"
@@ -89,8 +89,8 @@ class Snakemake < Formula
   end
 
   resource "jupyter-core" do
-    url "https://files.pythonhosted.org/packages/e4/e0/13fc7f8b72f39d87c1c32918a99475911b7b2f28c1a9f2734a5ab5cc35ef/jupyter_core-4.11.1.tar.gz"
-    sha256 "2e5f244d44894c4154d06aeae3419dd7f1b0ef4494dc5584929b398c61cfd314"
+    url "https://files.pythonhosted.org/packages/95/74/96d10b3a8575123892c807f35a14bab969771d0c630b51d1208678b31d15/jupyter_core-4.11.2.tar.gz"
+    sha256 "c2909b9bc7dca75560a6c5ae78c34fd305ede31cd864da3c0d0bb2ed89aa9337"
   end
 
   resource "MarkupSafe" do

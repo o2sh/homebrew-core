@@ -1,8 +1,8 @@
 class CargoNextest < Formula
   desc "Next-generation test runner for Rust"
   homepage "https://nexte.st"
-  url "https://github.com/nextest-rs/nextest/archive/refs/tags/cargo-nextest-0.9.39.tar.gz"
-  sha256 "cf612da8c9be80366a5874219d2fcc9f48f1a04f000e956f15ac4440867be253"
+  url "https://github.com/nextest-rs/nextest/archive/refs/tags/cargo-nextest-0.9.40.tar.gz"
+  sha256 "db26c0a68f96d0c8f53eda9efe9543a0633ac5104d38777b9152387d08240b65"
   license "Apache-2.0"
 
   livecheck do
@@ -11,12 +11,12 @@ class CargoNextest < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3a400694b25c34edbf84a6ac7e363eb8e4a676b4ce312eca89f8e1af822ef151"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "72c36135c31dd0411b2612cb27a7c57baa974cef1c919e12bf20a2929bea69f6"
-    sha256 cellar: :any_skip_relocation, monterey:       "5c27cfce2968471cda06c02cc0a35b93631285fc5c4905c862d2fc62ab16b5c1"
-    sha256 cellar: :any_skip_relocation, big_sur:        "1f68e87a0d452a5c9a9a413e48008ea4d2088cdb4d593ddb0dbb0c3473fd4a26"
-    sha256 cellar: :any_skip_relocation, catalina:       "8133e32afe3ac0ea62f275d485734f9cd3b7ee243e99b38fef11d524a363cbee"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "216736f953414277a704014e2bba5b35be1f88e55900c03538211e9e75260d44"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "636cba918649f1168b675cdf6cc8e60a9c2f1a67d8c6523c2523885305d5931a"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "603e2012e16189dcf02aa3192835f5f22dd33626224069c8aae873b1637736ce"
+    sha256 cellar: :any_skip_relocation, monterey:       "8db5412b6d2ab9de9ad65f3bf2d59a322c48482378a0dd79615b1970a64d1e8c"
+    sha256 cellar: :any_skip_relocation, big_sur:        "d8e91d7e6e58256b71fb022a839a38395fdbf003f623f6439a6b57c0b68e8eb5"
+    sha256 cellar: :any_skip_relocation, catalina:       "ffee1ab79b08a8829d026bdec36af2cb58247e134155bf9e6b817889cea89719"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "899bc6a8495fbba22c12fc13d1280d7d2767d5b9ae7f7f313caa5e412e1d83c5"
   end
 
   depends_on "rust" # uses `cargo` at runtime

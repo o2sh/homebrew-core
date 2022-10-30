@@ -3,17 +3,17 @@ class Datalad < Formula
 
   desc "Data distribution geared toward scientific datasets"
   homepage "https://www.datalad.org"
-  url "https://files.pythonhosted.org/packages/29/1d/6633388afc6f3e1e9adc8e611fa321bf921a98a443754d92ef114eceb00e/datalad-0.17.7.tar.gz"
-  sha256 "937ef47f270d556b5ec65ac2dc2c56d281dc8a05b87fbb702e99305fc0a6b100"
+  url "https://files.pythonhosted.org/packages/16/09/ef542fca25c82d283647a1788a619eaeabc56e52d2f87309fe84dd1e8b4d/datalad-0.17.8.tar.gz"
+  sha256 "d8e8ac3a6210da0c6414ac012044e818e116479210109add69766096cd8c1dfc"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "fd01336042f65c25d5a9c504515b9c3598a65cc453479febacf0dd1ee7621bd0"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a368ab0512386a7d88747d99503e74dde99ef65f7dcf264088fe6d2abedfe0a4"
-    sha256 cellar: :any_skip_relocation, monterey:       "02195f62f34d22c0c502e12185ee7fc012e2118aea82c3358d77e1b2e4406e4a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d7f7946d568d72d0807c6bd7256dcb9034f36b83ef2fa49d985049ba4d1abb3e"
-    sha256 cellar: :any_skip_relocation, catalina:       "83c903833afc56cb5d2bd5bd3b8ef61a9de6edd869ce1a340f6a419ea9c2b44c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d2b40081804e5b932d192a65a8e93c2b8f9c2e90756ff251cb0b6f325d5226b2"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "fc85d7263a0bb5556de1ccf213f3bffcf7983f8c4148c437e1c8ec995c615565"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "dbe4b694eb825d2db0c42b027d2c1f017d90c256ff0b688144170f79166a66c5"
+    sha256 cellar: :any_skip_relocation, monterey:       "4914632fae039d8eae26a4772fabefda9aeafab91042254b334a1e2098d5c9b2"
+    sha256 cellar: :any_skip_relocation, big_sur:        "63273e4705c2fab86b6eb49f696987497a7c213d451c1926208c42ed632f6a8a"
+    sha256 cellar: :any_skip_relocation, catalina:       "95390e84a6f6d0a89e1cd25716a382fbbe04e4411db34797448920cbcdaf52a5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f5a1b3b151fa5a660b7b3bc0f5de26299df481b6fa7997736b267e5e04543688"
   end
 
   depends_on "rust" => :build # for cryptography
@@ -88,8 +88,8 @@ class Datalad < Formula
   end
 
   resource "more-itertools" do
-    url "https://files.pythonhosted.org/packages/c7/0c/fad24ca2c9283abc45a32b3bfc2a247376795683449f595ff1280c171396/more-itertools-8.14.0.tar.gz"
-    sha256 "c09443cd3d5438b8dafccd867a6bc1cb0894389e90cb53d227456b0b0bccb750"
+    url "https://files.pythonhosted.org/packages/13/b3/397aa9668da8b1f0c307bc474608653d46122ae0563d1d32f60e24fa0cbd/more-itertools-9.0.0.tar.gz"
+    sha256 "5a6257e40878ef0520b1803990e3e22303a41b5714006c32a3fd8304b26ea1ab"
   end
 
   resource "msgpack" do

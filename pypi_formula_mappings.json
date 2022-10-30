@@ -163,7 +163,7 @@
     "exclude_packages": ["six"]
   },
   "dooit": {
-    "exclude_packages": ["six", "PyYAML"]
+    "exclude_packages": ["six", "PyYAML", "virtualenv"]
   },
   "duplicity": {
     "extra_packages": [
@@ -193,18 +193,17 @@
     "exclude_packages": ["six"]
   },
   "fabric": {
-    "exclude_packages": ["six"]
+    "exclude_packages": ["six", "invoke"]
   },
   "fava": {
     "exclude_packages": ["six"]
   },
   "fdroidserver": {
     "exclude_packages": [
-      "numpy", "pillow", "six", "PyYAML", "yamllint", "pathspec", "fonttools", "Brotli", "Pygments",
-      "ipython", "appnope", "asttokens", "backcall", "debugpy", "decorator", "entrypoints",
-      "executing", "ipykernel", "jedi", "matplotlib-inline", "nest-asyncio", "packaging",
-      "parso", "pexpect", "pickleshare", "prompt-toolkit", "psutil", "ptyprocess", "pure-eval",
-      "pyparsing", "python-dateutil", "pyzmq", "stack-data", "tornado", "traitlets", "wcwidth"
+      "numpy", "pillow", "PyYAML", "yamllint", "pathspec", "fonttools", "Brotli",
+      "ipython", "appnope", "asttokens", "backcall", "decorator", "executing", "jedi",
+      "matplotlib-inline", "parso", "pexpect", "pickleshare", "prompt-toolkit", "ptyprocess",
+      "pure-eval", "Pygments", "six", "stack-data", "traitlets", "wcwidth"
     ],
     "extra_packages": ["wheel"]
   },
@@ -229,7 +228,7 @@
     "exclude_packages": ["six"]
   },
   "hatch": {
-    "exclude_packages": ["six", "Pygments"]
+    "exclude_packages": ["six", "Pygments", "virtualenv"]
   },
   "homeassistant-cli": {
     "exclude_packages": ["tabulate"]
@@ -241,15 +240,21 @@
   "http-prompt": {
     "exclude_packages": ["six", "PyYAML"]
   },
+  "huggingface-cli": {
+    "package_name": "huggingface-hub",
+    "exclude_packages": ["PyYAML", "typing-extensions"]
+  },
   "internetarchive": {
     "exclude_packages": ["six"]
   },
   "ipython": {
-    "exclude_packages": ["six", "Pygments"],
-    "extra_packages": ["ipykernel"]
+    "exclude_packages": ["six", "Pygments"]
   },
   "iredis": {
     "exclude_packages": ["six"]
+  },
+  "jc": {
+    "exclude_packages": ["Pygments"]
   },
   "jenkins-job-builder": {
     "exclude_packages": ["six", "PyYAML"]
@@ -262,7 +267,12 @@
     "exclude_packages": ["six", "Pygments"]
   },
   "jupyterlab": {
-    "exclude_packages": ["six"]
+    "exclude_packages": [
+      "ipython", "appnope", "asttokens", "backcall", "decorator", "executing", "jedi",
+      "matplotlib-inline", "parso", "pexpect", "pickleshare", "prompt-toolkit", "ptyprocess",
+      "pure-eval", "Pygments", "six", "stack-data", "traitlets", "wcwidth",
+      "jsonschema", "attrs", "pyrsistent"
+    ]
   },
   "keepkey-agent": {
     "exclude_packages": ["six"]
@@ -336,7 +346,7 @@
     "exclude_packages": ["jsonschema", "attrs", "pyrsistent"]
   },
   "nox": {
-    "exclude_packages": ["six"]
+    "exclude_packages": ["six", "virtualenv"]
   },
   "nvchecker": "nvchecker[pypi]",
   "oci-cli": {
@@ -375,7 +385,7 @@
     "exclude_packages": ["six", "tabulate", "typing-extensions", "Pygments"]
   },
   "pip-audit": {
-    "exclude_packages": ["six"]
+    "exclude_packages": ["six", "Pygments"]
   },
   "pipenv": {
     "exclude_packages": ["six"]
@@ -394,10 +404,10 @@
     "exclude_packages": ["six"]
   },
   "poetry": {
-    "exclude_packages": ["six", "jsonschema", "attrs", "pyrsistent"]
+    "exclude_packages": ["six", "jsonschema", "attrs", "pyrsistent", "virtualenv"]
   },
   "pre-commit": {
-    "exclude_packages": ["six", "PyYAML"]
+    "exclude_packages": ["six", "PyYAML", "virtualenv"]
   },
   "principalmapper": {
     "exclude_packages": ["six"]
@@ -415,6 +425,9 @@
   "pygitup": {
     "exclude_packages": ["typing-extensions"]
   },
+  "pylint": {
+    "exclude_packages": ["isort"]
+  },
   "pyqt-builder": {
     "exclude_packages": ["packaging", "pyparsing", "sip", "toml"]
   },
@@ -428,7 +441,7 @@
     "exclude_packages": ["six"]
   },
   "rbtools": {
-    "exclude_packages": ["six"]
+    "exclude_packages": ["six", "typing-extensions"]
   },
   "regipy": {
     "package_name": "regipy[cli]",
@@ -452,7 +465,10 @@
   },
   "sail": {
     "package_name": "sailed-io",
-    "exclude_packages": ["six", "PyYAML"]
+    "exclude_packages": [
+      "six", "PyYAML", "invoke", "fabric", "bcrypt", "cffi", "cryptography",
+      "paramiko", "pathlib2", "pycparser", "PyNaCl"
+    ]
   },
   "salt": {
     "extra_packages": ["pycryptodome", "pygit2"],
@@ -504,6 +520,9 @@
   },
   "sqlite-utils": {
     "exclude_packages": ["tabulate", "six"]
+  },
+  "sslyze": {
+    "exclude_packages": ["typing-extensions"]
   },
   "stormssh": {
     "exclude_packages": ["six"]
