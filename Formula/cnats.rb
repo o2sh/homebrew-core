@@ -1,17 +1,19 @@
 class Cnats < Formula
   desc "C client for the NATS messaging system"
   homepage "https://github.com/nats-io/nats.c"
-  url "https://github.com/nats-io/nats.c/archive/refs/tags/v3.4.1.tar.gz"
-  sha256 "a9b8a1509cbd5f4de27a0709fb61091e9118ee86ed76a69d983007bf62b13ccd"
+  url "https://github.com/nats-io/nats.c/archive/v3.5.0.tar.gz"
+  sha256 "797000ae1db2c708b49c37200a885acbbf9da59dc6445e51180b108fb93c85ce"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_monterey: "9271ade6dff08d3f7822bdeee5dd79391c4b60a7a4bd031fb475089f2b946bf3"
-    sha256 cellar: :any,                 arm64_big_sur:  "bab832b74b45234b6681b4a7e7309a00a0fc52e999c333bbf5ca98f67be183fa"
-    sha256 cellar: :any,                 monterey:       "3a7bc5999b918155a18524dbaf14b5c6440b6af5af6eb0594b08929b9bcaec8e"
-    sha256 cellar: :any,                 big_sur:        "702e952a6cc56846fa427b7b9ffd85dd22d78d36e7c31ffa3922dc32b0ca9354"
-    sha256 cellar: :any,                 catalina:       "a833e7ae16c9e43be139876938c68ffeac01bd6b14dc67470f346ce398694fd0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dd7a16e2b34bbbec8fd8b7f021d23126d5f486e8cfd5621cde33d66fa5271273"
+    sha256 cellar: :any,                 arm64_ventura:  "2957ec06cf57e9403a4f0e66dd38fc00270a1f523ccc6a489f6b9c74cf883c12"
+    sha256 cellar: :any,                 arm64_monterey: "a482821e19b8f4361c6a9793a4803463d12e647e96bea94f0a0080e50a3001e1"
+    sha256 cellar: :any,                 arm64_big_sur:  "d926ef2351aa53fb393ac2a2cb48cd4c27915f93ddc3d1ae0a8accd823993b1f"
+    sha256 cellar: :any,                 ventura:        "2a610b3216a6800086c4f80a380eed31ddc0a2bbf7b8138ee526cb2945e5b8f5"
+    sha256 cellar: :any,                 monterey:       "fc1e4265ac55a0811a84cd98ce225960146a7c580d5f9d859a955a9736c40f2d"
+    sha256 cellar: :any,                 big_sur:        "f82735102ad5bee2b66caaff59d0a80fb8f9e2f0148686c31ab20cbf1a4aa098"
+    sha256 cellar: :any,                 catalina:       "3a780b02e05c05632ce2d7fe1542150ccaecd844d4ff2eb9300def11ab0cbd8d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2f8bb6744c1b36364c7fbed5081159b5445c539679c5dac8b63fefbb831cccc3"
   end
 
   depends_on "cmake" => :build

@@ -3,19 +3,21 @@
 class QtAT5 < Formula
   desc "Cross-platform application and UI framework"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/5.15/5.15.6/single/qt-everywhere-opensource-src-5.15.6.tar.xz"
-  mirror "https://mirrors.dotsrc.org/qtproject/archive/qt/5.15/5.15.6/single/qt-everywhere-opensource-src-5.15.6.tar.xz"
-  mirror "https://mirrors.ocf.berkeley.edu/qt/archive/qt/5.15/5.15.6/single/qt-everywhere-opensource-src-5.15.6.tar.xz"
-  sha256 "ebc77d27934b70b25b3dc34fbec7c4471eb451848e891c42b32409ea30fe309f"
+  url "https://download.qt.io/official_releases/qt/5.15/5.15.7/single/qt-everywhere-opensource-src-5.15.7.tar.xz"
+  mirror "https://mirrors.dotsrc.org/qtproject/archive/qt/5.15/5.15.7/single/qt-everywhere-opensource-src-5.15.7.tar.xz"
+  mirror "https://mirrors.ocf.berkeley.edu/qt/archive/qt/5.15/5.15.7/single/qt-everywhere-opensource-src-5.15.7.tar.xz"
+  sha256 "8a71986676a3f37a198a9113acedbfd5bc5606a459b6b85816d951458adbe9a0"
   license all_of: ["GFDL-1.3-only", "GPL-2.0-only", "GPL-3.0-only", "LGPL-2.1-only", "LGPL-3.0-only"]
 
   bottle do
-    sha256 cellar: :any,                 arm64_monterey: "11502ca833f43bdb63d5ddc6dd5001bed0d4f95013ecc9994efc2cb5099d1576"
-    sha256 cellar: :any,                 arm64_big_sur:  "c272abb412b3785dcdc4818e205664c555ce342e392101b3d103ffc86f944d67"
-    sha256 cellar: :any,                 monterey:       "61e3d102e02234669ca75b831971101557a04884e1fa12c2394d285dfb53470a"
-    sha256 cellar: :any,                 big_sur:        "3fb3e747873a0ccbbcb1356cd5e7fe5d4b8b2c9c35fc83eb3b15ee60229d881a"
-    sha256 cellar: :any,                 catalina:       "4ce6567638e9396bea83193d69f93db2b8bada1cefbcd086a39f1b86ce62bab3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5e2c21ca6111ebc1a6c772105259be0b33c4aa48a2156befdd4f284aa8bbba08"
+    sha256 cellar: :any,                 arm64_ventura:  "6862997c7ed6e467d3fefc277e116b8549e0e4c8c03d72fa4220e8e09aa1c98f"
+    sha256 cellar: :any,                 arm64_monterey: "c63014e2be32bff361f16f56459a048b9149c567e789b2ad070f0baf24af3a95"
+    sha256 cellar: :any,                 arm64_big_sur:  "764b2b1164e8b3666ee45e7867c8b7370a8f893e109dd6818afe7803ce932b0d"
+    sha256 cellar: :any,                 ventura:        "5c370a6cd0df84c365650b12d3b8e724a0ddff7a6eafe9e3c9c112db3e37b82f"
+    sha256 cellar: :any,                 monterey:       "a2defa1620680b91453086ae87132b7f75f35d2444cfc79f6f459593471024ec"
+    sha256 cellar: :any,                 big_sur:        "79717cb3b3a03ca2fc7bb1beefd974c6053a94e8298903708035620ad6d5a830"
+    sha256 cellar: :any,                 catalina:       "bcff7bff3dc04516c7456ccbd330ab37c53af0107c9f877b37646422ce2d66e2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e0d76c81f6604a3fa576bbaaf6712cf0e539607559ccdec74473168e300233ea"
   end
 
   keg_only :versioned_formula
@@ -78,8 +80,8 @@ class QtAT5 < Formula
 
   resource "qtwebengine" do
     url "https://code.qt.io/qt/qtwebengine.git",
-        tag:      "v5.15.10-lts",
-        revision: "c7e716ef1ffd63a8ab1f4dbf879230849eb3b505"
+        tag:      "v5.15.11-lts",
+        revision: "3d23b379a7c0a87922f9f5d9600fde8c4e58f1fd"
 
     # Add Python 3 support to qt-webengine-chromium.
     # Submitted upstream here: https://codereview.qt-project.org/c/qt/qtwebengine-chromium/+/416534
@@ -103,6 +105,13 @@ class QtAT5 < Formula
       sha256 "cf9be3ffcc3b3cd9450b1ff13535ff7d76284f73173412d097a6ab487463a379"
       directory "src/3rdparty"
     end
+
+    # Fix build for Xcode 14
+    patch do
+      url "https://raw.githubusercontent.com/Homebrew/formula-patches/405b6b7ca7b95860ee70368076382b171a1c66f4/qt5/qt5-webengine-xcode14.diff"
+      sha256 "142c4fb11dca6c0bbc86ca8f74410447c23be1b1d314758515bfda20afa6f612"
+      directory "src/3rdparty"
+    end
   end
 
   # Update catapult to a revision that supports Python 3.
@@ -118,16 +127,16 @@ class QtAT5 < Formula
 
   # Fix build for GCC 11
   patch do
-    url "https://invent.kde.org/qt/qt/qtbase/commit/92646a2e0a4264dc9da97bc5e884a0116c0a32fb.patch"
-    sha256 "bd1a637da853e841259a9824481fe05b9c01563cc4e077e95fa8e0a7a479c653"
+    url "https://invent.kde.org/qt/qt/qtbase/commit/b340ca80cf4f994c26f01b017b8ca395a79324da.patch"
+    sha256 "d9b2e5e1745bd75912f244f713f1d31a8bdda0a2975e16734f5a785ca891d7bc"
     directory "qtbase"
   end
 
-  # Fix build for GCC 11
+  # https://download.qt.io/official_releases/qt/5.15/CVE-2022-25255-qprocess5-15.diff
   patch do
-    url "https://invent.kde.org/qt/qt/qtdeclarative/commit/2e36092b74206315a637fd68eceb5e864e6dd0dd.patch"
-    sha256 "430ca28652821421aac942de51387ca42de20383b6b1e84137665b4f5a37414f"
-    directory "qtdeclarative"
+    url "https://invent.kde.org/qt/qt/qtbase/commit/1eb66b24c3dd1232b1eaec57d6014edfe41954dc.patch"
+    sha256 "7aa710337cc8e1b0fec83c65a5f2446659ca1619550e8573a8224c8193dff55b"
+    directory "qtbase"
   end
 
   # Patch for qmake on ARM

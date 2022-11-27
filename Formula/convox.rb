@@ -1,8 +1,8 @@
 class Convox < Formula
   desc "Command-line interface for the Convox PaaS"
   homepage "https://convox.com/"
-  url "https://github.com/convox/convox/archive/3.6.8.tar.gz"
-  sha256 "07260e3a33ce52d564107338059460aeac0d0ebd62a6736948d92a69dae19c68"
+  url "https://github.com/convox/convox/archive/3.8.2.tar.gz"
+  sha256 "2f76b60302abaea7b2c8cd05e7a2c991c86b4667074434e3ff02dfaec02fc291"
   license "Apache-2.0"
   version_scheme 1
 
@@ -12,12 +12,13 @@ class Convox < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f56ca0d626fde0663b7ad36501db6eda71f0da527426f599556a705e362d5efd"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "0b2cd8f1774ac27f667883c11a98fe0dcb1282449ca801e8bf14659314facf44"
-    sha256 cellar: :any_skip_relocation, monterey:       "094fd15ac9e8ba3b3be472c66f45ce307ab72806cb8542e8b0913c54b246e982"
-    sha256 cellar: :any_skip_relocation, big_sur:        "ee5493b375ac2736b8ee4ffe8e6e08f621e3104c63023d75e7b379f425f1c70e"
-    sha256 cellar: :any_skip_relocation, catalina:       "05f0c405747fbdc22886d6bc863a7d58340c5465423f213159b695741b1538c1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "609e3b7f5c61155a1536df03b6e177530a6d573e144a9b897c1e9dc65d9e74be"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9f81b886cef62f64af8689b8400ee504d7418d321b0c1f78be4553648208a2cc"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "66d1d3f6d6b6fcb5198cb7424df5bf8394ccfac430ccde74749c038b2574d337"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b46b3152a0da9e77efd0945f04e890fdf0e81f971ff00432439910311b58eabf"
+    sha256 cellar: :any_skip_relocation, monterey:       "368970388bbff4cc12b594e8ef124938cb9e88370f1c22af015444157105c32d"
+    sha256 cellar: :any_skip_relocation, big_sur:        "af07b37cf9c31b5a57f86aa4cb2e58a9fd711822e252ee3cb90dabd83bfb9cfc"
+    sha256 cellar: :any_skip_relocation, catalina:       "079d7778c59ac899c5075b520ac4db2a31b3af5fb7ec55541b92b3ef22fe94c1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "944bcbc111c057da77e3ee78aa9edffbc372895007a188f119aec2e542f3cd19"
   end
 
   depends_on "go" => :build

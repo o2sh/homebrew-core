@@ -8,20 +8,18 @@ class Jello < Formula
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "add68d0e721c55d0f4dd0a4548a3413a3c85e805770332f2b8123122463b6124"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "add68d0e721c55d0f4dd0a4548a3413a3c85e805770332f2b8123122463b6124"
-    sha256 cellar: :any_skip_relocation, monterey:       "b11305e55a9e8811b9eb0a2cfdc321d7ae2448a74cf9b3a0513a8c3eb3b9d68d"
-    sha256 cellar: :any_skip_relocation, big_sur:        "b11305e55a9e8811b9eb0a2cfdc321d7ae2448a74cf9b3a0513a8c3eb3b9d68d"
-    sha256 cellar: :any_skip_relocation, catalina:       "b11305e55a9e8811b9eb0a2cfdc321d7ae2448a74cf9b3a0513a8c3eb3b9d68d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "113c409718feef3320f3a71185b5f6be6dcf015a09e13cea46f6711725d7846e"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8702c22dc4ba1bcfeaf7e0245a362bd904fc0ad86c57b95b19db36aa6e1a3330"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8702c22dc4ba1bcfeaf7e0245a362bd904fc0ad86c57b95b19db36aa6e1a3330"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "8702c22dc4ba1bcfeaf7e0245a362bd904fc0ad86c57b95b19db36aa6e1a3330"
+    sha256 cellar: :any_skip_relocation, monterey:       "c6668ca389b6cd2c039515c27eee0f2e82b955d07634beba460b86062a634112"
+    sha256 cellar: :any_skip_relocation, big_sur:        "c6668ca389b6cd2c039515c27eee0f2e82b955d07634beba460b86062a634112"
+    sha256 cellar: :any_skip_relocation, catalina:       "c6668ca389b6cd2c039515c27eee0f2e82b955d07634beba460b86062a634112"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ae3a5c15eaefe8430f39a8b05a430f70e7d0cad61598c7bf23b3113e4f1eb1f0"
   end
 
-  depends_on "python@3.10"
-
-  resource "Pygments" do
-    url "https://files.pythonhosted.org/packages/59/0f/eb10576eb73b5857bc22610cdfc59e424ced4004fe7132c8f2af2cc168d3/Pygments-2.12.0.tar.gz"
-    sha256 "5eb116118f9612ff1ee89ac96437bb6b49e8f04d8a13b514ba26f620208e26eb"
-  end
+  depends_on "pygments"
+  depends_on "python@3.11"
 
   def install
     virtualenv_install_with_resources

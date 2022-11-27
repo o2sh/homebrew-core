@@ -1,20 +1,21 @@
 class Hbase < Formula
   desc "Hadoop database: a distributed, scalable, big data store"
   homepage "https://hbase.apache.org"
-  url "https://www.apache.org/dyn/closer.lua?path=hbase/2.5.0/hbase-2.5.0-bin.tar.gz"
-  mirror "https://archive.apache.org/dist/hbase/2.5.0/hbase-2.5.0-bin.tar.gz"
-  sha256 "f5554c50960dd40d80d212837088c153d7a31504b451c0f27188e463d045463c"
+  url "https://www.apache.org/dyn/closer.lua?path=hbase/2.5.1/hbase-2.5.1-bin.tar.gz"
+  mirror "https://archive.apache.org/dist/hbase/2.5.1/hbase-2.5.1-bin.tar.gz"
+  sha256 "75d49ae2ae373d226fd56e25cf36977efe0b21386ce27f20f3062e7c782c6551"
   # We bundle hadoop-lzo which is GPL-3.0-or-later
   license all_of: ["Apache-2.0", "GPL-3.0-or-later"]
 
   bottle do
-    sha256 arm64_ventura:  "e451345642f670e996e7ab2ed3a4903a1a6c8980918f371ed5e60c23ea241a57"
-    sha256 arm64_monterey: "72aa3f915d728ae6677a3249636f8f696957ae3b718c076ac4bc6550625d8ec8"
-    sha256 arm64_big_sur:  "b710a4d5645cfd367643c7ceeab98960e0bd96038a908ce5596f46bc2440a114"
-    sha256 monterey:       "1b09699c447665ba343e1ac1921a84e71a9f23a29fbc479b7e41b973ad3258df"
-    sha256 big_sur:        "afba4ae96118c5bb3e3d7da91e07debf68c87efcb1e28155534cd3c7d25c6822"
-    sha256 catalina:       "f5c4b585aac4ec97bf5373be4d1bc87e7d0b7ff34df04314ed268a84ea9bf6df"
-    sha256 x86_64_linux:   "738fa4a64616877275521977d400681b85664ca2aaa7df8785342a1a2d42ec4a"
+    sha256 arm64_ventura:  "fd7e5e9188936fd5bb7e537e57a9eb34039a95bd396a7407072b2843f471c160"
+    sha256 arm64_monterey: "ebdfbe9a82b27ca4444fbda0d4c7a0d106706b661cce9d3d11dc0b64a94f2708"
+    sha256 arm64_big_sur:  "f054fe32166e9bf83daadf484f9b1902f30a03e757a01544cd2ac84ba6bfd403"
+    sha256 ventura:        "e524f24ab0a74c51dfa55b78998ee5ae4d345b3f8a819b179aed00dcaada6218"
+    sha256 monterey:       "022e8eb4673a24c223f79d046c9c845fd755c200cfe253cc6131f1757210697d"
+    sha256 big_sur:        "b62c48e86d23dd4fe4265760794429895e1fb1374a5cab5df3b99af0cfd443f6"
+    sha256 catalina:       "5e5da72954aaa8641f5715576c4526c7214e5eb76067c07bf52e7f62a42ed481"
+    sha256 x86_64_linux:   "af3842a233093c25660933e41f43637ddac159c1a57136be035d35639c5dda53"
   end
 
   depends_on "ant" => :build

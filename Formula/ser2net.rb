@@ -1,8 +1,8 @@
 class Ser2net < Formula
   desc "Allow network connections to serial ports"
   homepage "https://ser2net.sourceforge.io"
-  url "https://downloads.sourceforge.net/project/ser2net/ser2net/ser2net-4.3.8.tar.gz"
-  sha256 "e5620975523059a38709bb53c0567600adbbcb8011066a2d2fe1b4db9efe0ba3"
+  url "https://downloads.sourceforge.net/project/ser2net/ser2net/ser2net-4.3.10.tar.gz"
+  sha256 "bfad2b5d98c56f957daf2be975a5a2cefd645f27ef02d54817fadd6e4bf291b3"
   license "GPL-2.0-only"
 
   livecheck do
@@ -11,12 +11,14 @@ class Ser2net < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_monterey: "22b2605d46b4a94c20ce31aaaed980ea376675b8882d49beae4bfe8a7869d803"
-    sha256 cellar: :any,                 arm64_big_sur:  "274e148eb8f808db0bc619590862908a6595ab3aacb90393ea378ff0c63213f2"
-    sha256 cellar: :any,                 monterey:       "f656e0998f09c08824075e1264c817f30bb9b685edf9902d4b108b79a95aa4be"
-    sha256 cellar: :any,                 big_sur:        "a73f13deaf0d2825d9d3b66df9a1d5000d3291986598ad09b95af396a47c4c32"
-    sha256 cellar: :any,                 catalina:       "92363d900b4f7a3bcce1d2ac597e7316101f81060f1bad3c2bb391d2b6393753"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fd58a00c3d1181f32723e09bfd4711a3a24200803593da8e1023d5e3798b6108"
+    sha256 cellar: :any,                 arm64_ventura:  "0cd19c4d51f4229a049fa9590ee8cc1c9c473cbbf249a3147ee37ba3ef552c68"
+    sha256 cellar: :any,                 arm64_monterey: "a08aea19b56221d59e84f89d93a374bbf273b72bf66a885e0cc40261c30c9337"
+    sha256 cellar: :any,                 arm64_big_sur:  "57058315827d56c4fccf3e203895ec60e6191a250b3c65beee42f570bf6f4599"
+    sha256 cellar: :any,                 ventura:        "dd9787b852f531524268269830a4cdbd463a10549825d2ea6f22bf80342e67f6"
+    sha256 cellar: :any,                 monterey:       "2a7f2f26850a05d31b6db0ff196d9baaaca00b70cf62119467476cbde8559661"
+    sha256 cellar: :any,                 big_sur:        "cd79c15831a196c95faab70f4a1d158917f293ac7dbbaa71c72b72e4d2b48890"
+    sha256 cellar: :any,                 catalina:       "b796023b7cbe8d52c775b0d7dc6afaf32d2b89859b9db0b1fd464db6d37ce37d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0be86f82493afe39e6af69ea4a948d821cee1595f054c657ea487779e8846b5f"
   end
 
   depends_on "libyaml"

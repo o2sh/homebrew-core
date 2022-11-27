@@ -1,18 +1,20 @@
 class Livekit < Formula
   desc "Scalable, high-performance WebRTC server"
   homepage "https://livekit.io"
-  url "https://github.com/livekit/livekit/archive/refs/tags/v1.2.5.tar.gz"
-  sha256 "d777927dcf9ddeb44c3c000655320b00034aa74a8f33f81acca376614dc5d6d5"
+  url "https://github.com/livekit/livekit/archive/refs/tags/v1.3.1.tar.gz"
+  sha256 "6764232edb1a3b9f3adfff0887f4bb496380bffaf89fc87ecf03d8e6c852e148"
   license "Apache-2.0"
   head "https://github.com/livekit/livekit.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3b5dba9f2fb6b779c885e1202cb9b0f3381121da7af0ff81b8835d22a77bf468"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "3afff396d05a979fb7edcdd6887074d44d47c7935e36abc890481323429eee1b"
-    sha256 cellar: :any_skip_relocation, monterey:       "c2d85aa03acc2082e13c6bb4a13e80c6d6a238df040ab1368ca3479603c4eba3"
-    sha256 cellar: :any_skip_relocation, big_sur:        "a02fe4020f55c4a83a2ea92c5770d59730039b2f2c44c0c3f67f03514fc23973"
-    sha256 cellar: :any_skip_relocation, catalina:       "2257fb5756c397c5700b79dd5bfbc6e7e8dd5cbda59faf0f45ebbd5dd27f7db4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e6adf6f8b239d1fc97fb93ede38df2eb91d6aafdf8f8eae2bace040aca1ffaf5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ec81c3c97b0e14f51be51ce56530ee65e9ef54b3a8baf7d3a134c8df2f3bc663"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5ad21b4e8f55edc1a7dab5e900eea07ef6bbb06c886c2f3505c2d61fe4aeda20"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "4e8f417c785d0a23985a62ccf6f9e3ddfeffca1133113582663cd3c6f928be3b"
+    sha256 cellar: :any_skip_relocation, ventura:        "f8340432a6574ee707406a0794ec68f8ef790a4fb2adf4fb4f81e990507688f7"
+    sha256 cellar: :any_skip_relocation, monterey:       "b67c572949d10832f59a48dddba3536418599e942ee8a0cc7077dfb60734addf"
+    sha256 cellar: :any_skip_relocation, big_sur:        "b89a30ca5e074d299046471b547b97a6300b8a95fb88ed879764eb3147be829a"
+    sha256 cellar: :any_skip_relocation, catalina:       "1eb670aae67f7bd9e256fb22e3198245ffe248978a9d0b2c4eadc2b850805174"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c360fc35cbc8c0d205446b72f0b53c1d2f3eb9c623acf98bdd8e7a07da277306"
   end
 
   depends_on "go" => :build

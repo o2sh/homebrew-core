@@ -6,20 +6,20 @@ class Virtualenvwrapper < Formula
   url "https://files.pythonhosted.org/packages/c1/6b/2f05d73b2d2f2410b48b90d3783a0034c26afa534a4a95ad5f1178d61191/virtualenvwrapper-4.8.4.tar.gz"
   sha256 "51a1a934e7ed0ff221bdd91bf9d3b604d875afbb3aa2367133503fee168f5bfa"
   license "MIT"
-  revision 1
+  revision 2
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9c5ab941c4451aa23660251d19b45aab691f19bd1c07cf86bd3c6ca6c1b88c47"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "74a96e10f2942fe7d13f2a6762646b31e08cea1f66c0c53636d8d98561eeefec"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "74a96e10f2942fe7d13f2a6762646b31e08cea1f66c0c53636d8d98561eeefec"
-    sha256 cellar: :any_skip_relocation, monterey:       "08e4e00e81eae339868ecc2b59f87a23c4e93484112c502c708be95ffd8cea1a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "08e4e00e81eae339868ecc2b59f87a23c4e93484112c502c708be95ffd8cea1a"
-    sha256 cellar: :any_skip_relocation, catalina:       "08e4e00e81eae339868ecc2b59f87a23c4e93484112c502c708be95ffd8cea1a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6f6de08b9ad1797786a4383706e8c5f99e6c53f98ea8a6a1d83238568612fa71"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c80f02cd26fd8255fe1aa39e774bc06eef77ecad1988a86e61f37c97604ae645"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c80f02cd26fd8255fe1aa39e774bc06eef77ecad1988a86e61f37c97604ae645"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c80f02cd26fd8255fe1aa39e774bc06eef77ecad1988a86e61f37c97604ae645"
+    sha256 cellar: :any_skip_relocation, ventura:        "7972ca432197ee167f1eadafb627fdc439f04372cbd75fbe6da1e57acfa6f282"
+    sha256 cellar: :any_skip_relocation, monterey:       "7972ca432197ee167f1eadafb627fdc439f04372cbd75fbe6da1e57acfa6f282"
+    sha256 cellar: :any_skip_relocation, big_sur:        "7972ca432197ee167f1eadafb627fdc439f04372cbd75fbe6da1e57acfa6f282"
+    sha256 cellar: :any_skip_relocation, catalina:       "7972ca432197ee167f1eadafb627fdc439f04372cbd75fbe6da1e57acfa6f282"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7c1e7e70bf54e9a98a19dcc888b18c0233e07bf7cc70232cd451b478fda24a8b"
   end
 
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "six"
   depends_on "virtualenv"
 
@@ -44,7 +44,7 @@ class Virtualenvwrapper < Formula
   end
 
   def install
-    python3 = "python3.10"
+    python3 = "python3.11"
     venv = virtualenv_create(libexec, python3)
     venv.pip_install resources
     venv.pip_install buildpath

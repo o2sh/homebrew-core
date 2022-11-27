@@ -1,8 +1,8 @@
 class PostgresqlAT15 < Formula
   desc "Object-relational database system"
   homepage "https://www.postgresql.org/"
-  url "https://ftp.postgresql.org/pub/source/v15.0/postgresql-15.0.tar.bz2"
-  sha256 "72ec74f4a7c16e684f43ea42e215497fcd4c55d028a68fb72e99e61ff40da4d6"
+  url "https://ftp.postgresql.org/pub/source/v15.1/postgresql-15.1.tar.bz2"
+  sha256 "64fdf23d734afad0dfe4077daca96ac51dcd697e68ae2d3d4ca6c45cb14e21ae"
   license "PostgreSQL"
 
   livecheck do
@@ -11,13 +11,14 @@ class PostgresqlAT15 < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "f124dd1f680152698a203da673cb044cb9ee6097708b1d3751d2196db43759cb"
-    sha256 arm64_monterey: "3069a3f173abc0c98c47a41daf3f315f5253b97c71c7900f088929e320795649"
-    sha256 arm64_big_sur:  "9799289b5dfc8117b859eeee89a953f794eb13a2471ff41316a955c3db94894a"
-    sha256 monterey:       "c5480e89429114fccb5d1d1b2f38123687286f74e78632cd2f982eba17334ce8"
-    sha256 big_sur:        "378f9d58ace279773e4986a57f33fe0e16f14dd32eaa2fd77f541aa99596ba5b"
-    sha256 catalina:       "44eff85c746e9a10a923e77a23ca7898ad75812045611f01c9cfaf9bd71aade2"
-    sha256 x86_64_linux:   "fa0968d8082fadb2ecc1341d641aea472cf83a5738d1202b324cb21a97e84568"
+    sha256 arm64_ventura:  "3bea87c03889cf4749d85132aac11be2c868d81a968654842fa9c68d224d9a12"
+    sha256 arm64_monterey: "143bca5a98b5dee40179cf8db8fb2b9966e361e3c725bd23e9834903d8c75715"
+    sha256 arm64_big_sur:  "f494ffa19149d41d0153149068b2ef129c6eb4dd3aaa6abf5e13f71c39547bd6"
+    sha256 ventura:        "d3bca414d1ebbfeac83b9d794d68536d6bee0d4f5fac21b75153a57b20caf64c"
+    sha256 monterey:       "a04be472c9d417579453b2a0e0cb743541279a10115f854105f7f8dfc246fda6"
+    sha256 big_sur:        "544b5cc351f97290a9b283f3f26ad157b9867f81835c5751ffa92bc2f2931bc2"
+    sha256 catalina:       "03e46b6d3c06e056e91def58377ce11b1d7823deef5b1a572c5e1e0d8bcc70e8"
+    sha256 x86_64_linux:   "11e7c99da3f638663acc1ad27c5d22faffabafee78952fd579a41c5e73a6b97a"
   end
 
   keg_only :versioned_formula
@@ -87,7 +88,9 @@ class PostgresqlAT15 < Formula
     # in ./configure, but needs to be set here otherwise install prefixes containing
     # the string "postgres" will get an incorrect pkglibdir.
     # See https://github.com/Homebrew/homebrew-core/issues/62930#issuecomment-709411789
-    system "make", "pkglibdir=#{lib}/postgresql"
+    system "make", "pkglibdir=#{opt_lib}/postgresql",
+                   "pkgincludedir=#{opt_include}/postgresql",
+                   "includedir_server=#{opt_include}/postgresql/server"
     system "make", "install-world", "datadir=#{pkgshare}",
                                     "libdir=#{lib}",
                                     "pkglibdir=#{lib}/postgresql",
@@ -146,6 +149,8 @@ class PostgresqlAT15 < Formula
     system "#{bin}/initdb", testpath/"test" unless ENV["HOMEBREW_GITHUB_ACTIONS"]
     assert_equal opt_pkgshare.to_s, shell_output("#{bin}/pg_config --sharedir").chomp
     assert_equal opt_lib.to_s, shell_output("#{bin}/pg_config --libdir").chomp
-    assert_equal "#{lib}/postgresql", shell_output("#{bin}/pg_config --pkglibdir").chomp
+    assert_equal (opt_lib/"postgresql").to_s, shell_output("#{bin}/pg_config --pkglibdir").chomp
+    assert_equal (opt_include/"postgresql").to_s, shell_output("#{bin}/pg_config --pkgincludedir").chomp
+    assert_equal (opt_include/"postgresql/server").to_s, shell_output("#{bin}/pg_config --includedir-server").chomp
   end
 end

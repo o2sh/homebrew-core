@@ -1,25 +1,26 @@
 class Libsoup < Formula
   desc "HTTP client/server library for GNOME"
   homepage "https://wiki.gnome.org/Projects/libsoup"
-  url "https://download.gnome.org/sources/libsoup/3.2/libsoup-3.2.1.tar.xz"
-  sha256 "b1eb3d2c3be49fbbd051a71f6532c9626bcecea69783190690cd7e4dfdf28f29"
+  url "https://download.gnome.org/sources/libsoup/3.2/libsoup-3.2.2.tar.xz"
+  sha256 "83673c685b910fb7d39f1f28eee5afbefb71c05798fc350ac3bf1b885e1efaa1"
   license "LGPL-2.0-or-later"
 
   bottle do
-    sha256 arm64_ventura:  "1ac4de197fa9c7ef81c5bd09b3d9957f17f01290b1a10df798129b43385066a8"
-    sha256 arm64_monterey: "a44f2f0440b391e5d5fb38b311a889994783d3c85cc142af0d7eac67a81bfa89"
-    sha256 arm64_big_sur:  "dd5d63558649d575cd94ba51a1d8f4b8db3f7671d4b247eb3e51acc93794127a"
-    sha256 monterey:       "d980c8f45a3e3aba0075971d77f53c9d215c2df225d2212351f17f14e9a0ee8f"
-    sha256 big_sur:        "a964f9568534f6afb8f918855be5f1fee2e01a8824e07e2ecb1f45a1f5e6abc1"
-    sha256 catalina:       "0e7b5028ea9a2c9ff55852e8c0a6e8a2264cfe014de6874b0f71ced26a412bf5"
-    sha256 x86_64_linux:   "90a282d3c0423432a8c6fdd4b0121853aca574b47dfd7dd57bf537a653a6ba39"
+    sha256 arm64_ventura:  "c571c60ad09c0c6e6c272c5ddcfdabf85ea3e3bbce93161100d6c71e446f5aee"
+    sha256 arm64_monterey: "b22b09d52e079b8d0e2325d54add7724a9f2cf218357b08b426983906cf22d5d"
+    sha256 arm64_big_sur:  "a9695ff8bdf87ff6bfe9836cf8732c414b46b5c1006b4510a78a7e880313609a"
+    sha256 ventura:        "8367c6b317f10c9c1c5958c50b70a5c0e54347b15758a684e3f722d40d18d3ca"
+    sha256 monterey:       "d3c9776e1c362071d86696f7b4b56edd03f2a010dfbe30ca22f38fa240133ccc"
+    sha256 big_sur:        "55c7ef19cad510057eae06943c05f5f918b4c42618e203c54ee6b39d4da10819"
+    sha256 catalina:       "6affbc54541538fa0e5192a9f99f6cda86f66e2f8c2fd0ac2e69fdae8dacae6c"
+    sha256 x86_64_linux:   "4939236918b6c980016d721e4156e33bbe5bc3a8cb76b37751ad73c99d75776e"
   end
 
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on "vala" => :build
   depends_on "glib-networking"
   depends_on "gnutls"

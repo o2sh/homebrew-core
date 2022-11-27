@@ -1,8 +1,8 @@
 class Ki18n < Formula
   desc "KDE Gettext-based UI text internationalization"
   homepage "https://api.kde.org/frameworks/ki18n/html/index.html"
-  url "https://download.kde.org/stable/frameworks/5.99/ki18n-5.99.0.tar.xz"
-  sha256 "1544dd5a002a2376f1018fee619ae2de861cd900cec312fade09e6a6943ef8ad"
+  url "https://download.kde.org/stable/frameworks/5.100/ki18n-5.100.0.tar.xz"
+  sha256 "de63f1d6b86591eff69c502c8d247d6d86494abdd1d179ea84855c3678b30f01"
   license all_of: [
     "BSD-3-Clause",
     "LGPL-2.0-or-later",
@@ -18,19 +18,21 @@ class Ki18n < Formula
   end
 
   bottle do
-    sha256 arm64_monterey: "59d1c5c6e99ce629585d1d9603780d8263bba3e822d262ecc51a61ab99780a87"
-    sha256 arm64_big_sur:  "7e58f9ad420ce247f8f55afc76b71d470f0d40b76833c52e9c5bec0b308ee325"
-    sha256 monterey:       "c1126ede0f480026962d38770d2113bd936016bd5d706b97309aa9d52b813827"
-    sha256 big_sur:        "232bb6a01f6e8e96f94f724fd1cb86595af27a197a1163ae7ec43c3df8fb6c64"
-    sha256 catalina:       "fbe37b1952dd8730e7b3271712287a9e74e4695e38ef52f845091c3e78941b78"
-    sha256 x86_64_linux:   "297476c7e91953ecb108d426e444fd1a0f3a0dd15d795f20a79e64865e9231b3"
+    sha256 arm64_ventura:  "6de5f1469ee3cde56d3493f74914de6e47145f07bf15a6ce6c05a69d653900b1"
+    sha256 arm64_monterey: "49bec3bd51c9222ebdf972d1c2dc8010548b3324e103360419701d349f0129f4"
+    sha256 arm64_big_sur:  "3071fa3860cd0f2722d70b3697cb04e9cddc50aef3662783695470a96ee59ac1"
+    sha256 ventura:        "ea58a2589fb67ba20493078e97f60833b2ee4e8cf573cda79d5cbebde277e43b"
+    sha256 monterey:       "c8561c2c33ab133de6dd5ee801669ad0ed8b1c8771cbd93749e74a1b4f7ce53c"
+    sha256 big_sur:        "7e4a0f63e4c9f4f5f8f84e02492b2d98395960e008bc4f8ceeb589bb2bb95f65"
+    sha256 catalina:       "943e5621603c97c08b458d2cb1f78b6545baab53c9eda0ee8e1a8faa9343590b"
+    sha256 x86_64_linux:   "58d8219796df33a5f93151ed4e07c503c84736bac8d548c691d7aa6e94a73ca8"
   end
 
   depends_on "cmake" => [:build, :test]
   depends_on "doxygen" => :build
   depends_on "extra-cmake-modules" => [:build, :test]
   depends_on "graphviz" => :build
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on "gettext"
   depends_on "iso-codes"
   depends_on "qt@5"

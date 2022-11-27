@@ -4,15 +4,16 @@ class OpensearchDashboards < Formula
   desc "Open source visualization dashboards for OpenSearch"
   homepage "https://opensearch.org/docs/dashboards/index/"
   url "https://github.com/opensearch-project/OpenSearch-Dashboards.git",
-      tag:      "2.3.0",
-      revision: "5f7541eaa91699b9de9d82e5636d1e6abaa8f414"
+      tag:      "2.4.0",
+      revision: "6e38e1c6f71e56b70f9b89a0452c19f3667995e8"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, monterey:     "3f5552623985fc4bdf298439d5463624462147c2a829bf60586af2540fac9d8a"
-    sha256 cellar: :any_skip_relocation, big_sur:      "3f5552623985fc4bdf298439d5463624462147c2a829bf60586af2540fac9d8a"
-    sha256 cellar: :any_skip_relocation, catalina:     "3f5552623985fc4bdf298439d5463624462147c2a829bf60586af2540fac9d8a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "50ca2ac953cce8efa7df5ec72d95515d0f1940d76067cd853b1520342929ec96"
+    sha256 cellar: :any_skip_relocation, ventura:      "ab66eb242e49c27c55506b5491ee75f7ac6904c36308fd244a50e58d7b5abf14"
+    sha256 cellar: :any_skip_relocation, monterey:     "524ca6c57a09620fcca716ce6ca23de914000d05b2a938029de0df69b157f691"
+    sha256 cellar: :any_skip_relocation, big_sur:      "524ca6c57a09620fcca716ce6ca23de914000d05b2a938029de0df69b157f691"
+    sha256 cellar: :any_skip_relocation, catalina:     "524ca6c57a09620fcca716ce6ca23de914000d05b2a938029de0df69b157f691"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "c537cf4c10cdb7a09437d7e2d3298cb9714d720160226a17aaa938c1c6c27115"
   end
 
   depends_on "yarn" => :build

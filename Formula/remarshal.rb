@@ -10,25 +10,26 @@ class Remarshal < Formula
   head "https://github.com/dbohdan/remarshal.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c537c470d33b0e448c03a34754f95fcf6738bebab5a8484eae74448a5a0df737"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "72b85ac20f3ab3d3a8172294dd1af9830c2337da5e3a8b90a95cc33e67213a6b"
-    sha256 cellar: :any_skip_relocation, monterey:       "87c3e6cc0bd24eba5749faae9deafdcd7691759c65d2f0a8a2f985b54c060815"
-    sha256 cellar: :any_skip_relocation, big_sur:        "63043b6846a31a0f5f65dde4564a9c58f00b58c51daa2125fd616408815959be"
-    sha256 cellar: :any_skip_relocation, catalina:       "e9bb6247fc4e693b99f3d0075e04e315d54c996d8cafd7a2193c074f7e0b770e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4eb6f74d4dbd9fb9614adde6170a05faef95cacbd91e991fc5c403914b62b49a"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c36beb1cd7fb1ef865ec2aa9b3fcf7e9616b9b541acb2190c359e809c373963f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "281c90e07cdb5699d117daeb35bb2610d32d8f9acfd92e751a3e5555f22c0f4e"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "d169ea5d55078749f1234d20327e8e9784840edc4f7d42e9791c95af0b03430d"
+    sha256 cellar: :any_skip_relocation, ventura:        "0111dc0cf3723ae11d2209a840dc3392af776008b8fddf7755726b6d018e2143"
+    sha256 cellar: :any_skip_relocation, monterey:       "b991e129653532f96e7f2a91322bd21ded8941181fb4a4e1e09d64dcbd9e87d4"
+    sha256 cellar: :any_skip_relocation, big_sur:        "2715ea7cf3d0e83b5a418b7faae7e2b2074f56c30f0251302f8a98f8bf22fb68"
+    sha256 cellar: :any_skip_relocation, catalina:       "eb5b30cc63466ed94f6ecb486e4bbfc09876b69d26c2e37456363b3f81131db4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "42e99b958e0e3af16a50b7387a5d2abea0c5a412f6cafe2d71138ff1dc2e5e95"
   end
 
-  depends_on "poetry" => :build
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "pyyaml"
   depends_on "six"
 
   conflicts_with "msgpack-tools", because: "both install 'json2msgpack' binary"
 
   resource "cbor2" do
-    url "https://files.pythonhosted.org/packages/9e/25/9dd432c051010faea6a702cb85d0b53dc9d5414513866b6a73b3ac954092/cbor2-5.4.1.tar.gz"
-    sha256 "a8bf432f6cb595f50aeb8fed2a4aa3b3f7caa7f135fb57e4378eaa39242feac9"
+    url "https://files.pythonhosted.org/packages/9d/c9/cfa5c35a62642a19c14bf9a12dfbf0ee134466be1f062df2258a2ec2f2f7/cbor2-5.4.3.tar.gz"
+    sha256 "62b863c5ee6ced4032afe948f3c1484f375550995d3b8498145237fe28e546c2"
   end
 
   resource "python-dateutil" do
@@ -42,19 +43,19 @@ class Remarshal < Formula
   end
 
   resource "u-msgpack-python" do
-    url "https://files.pythonhosted.org/packages/62/94/a4f485b628310534d377b3e7cb6f85b8066dc823dbff0e4421fb4227fb7e/u-msgpack-python-2.7.1.tar.gz"
-    sha256 "b7e7d433cab77171a4c752875d91836f3040306bab5063fb6dbe11f64ea69551"
+    url "https://files.pythonhosted.org/packages/44/a7/1cb4f059bbf72ea24364f9ba3ef682725af09969e29df988aa5437f0044e/u-msgpack-python-2.7.2.tar.gz"
+    sha256 "e86f7ac6aa0ef4c6c49f004b4fd435bce99c23e2dd5d73003f3f9816024c2bd8"
+  end
+
+  # Switch build-system to poetry-core to avoid rust dependency on Linux.
+  # Remove when merged/released: https://github.com/dbohdan/remarshal/pull/36
+  patch do
+    url "https://github.com/dbohdan/remarshal/commit/4500520defe25433ad1300b46d1d6c944230f73d.patch?full_index=1"
+    sha256 "32cba193c07a108b06c3b01a5e5b656d026d4aecc8f5b7b55e6a692a559233f0"
   end
 
   def install
-    venv = virtualenv_create(libexec, "python3.10")
-    venv.pip_install resources
-    system Formula["poetry"].opt_bin/"poetry", "build", "--format", "wheel", "--verbose", "--no-interaction"
-    venv.pip_install_and_link Dir["dist/remarshal-*.whl"].first
-
-    %w[toml yaml json msgpack].permutation(2).each do |informat, outformat|
-      bin.install_symlink "remarshal" => "#{informat}2#{outformat}"
-    end
+    virtualenv_install_with_resources
   end
 
   test do

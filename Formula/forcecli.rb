@@ -1,29 +1,30 @@
 class Forcecli < Formula
   desc "Command-line interface to Force.com"
   homepage "https://force-cli.herokuapp.com/"
-  url "https://github.com/ForceCLI/force/archive/v0.33.0.tar.gz"
-  sha256 "d8ab631475c9080339d1e96410ad84ea26377fa3d0662d3903f05030f929860d"
+  url "https://github.com/ForceCLI/force/archive/v0.99.3.tar.gz"
+  sha256 "4aeb530f4510b421b2d769e8e2f5b581f5e4613c5f58ec1e68273c2fa6f25d90"
   license "MIT"
   head "https://github.com/ForceCLI/force.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "eff077dec6432fc688990fc5b0acc752af3d87da68329a49635037c2aabd49dc"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "6f616183637df2265dc216d20f7ec100a5531c63ead75d8f90f6b73ed616c362"
-    sha256 cellar: :any_skip_relocation, monterey:       "48696261fb6bdab3782558f7d7dfe1f173bc47c3f2cdd57d828023192a67e628"
-    sha256 cellar: :any_skip_relocation, big_sur:        "7b95b76500298c417ce385351b37f181740416c2ce05a54968d96bd85430d5d8"
-    sha256 cellar: :any_skip_relocation, catalina:       "4904051712d530ea84ed6b300f69b6dd1129d9ed718d501d55d9cd9f80886ee0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "69d52200ee937994496e91aacfaa32584f13e55964bd306cb26dd82397c3e23e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "83629e442ad44a4b286f3c323e562adcd845e0de85cad6d9360cea61ea3d5610"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6de14a4d594a25cf9de9736ae0a648beceb5cc28a5a6a20ba0283a4885a6abeb"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ad57d3ecb79c1cebd469ce71fb84ef1309ece79c145f5d158e25a553b75b2140"
+    sha256 cellar: :any_skip_relocation, ventura:        "b4d13e5259ac50f48a473bc2f5a527c2ab9b3440986bfa6a4153ac27304e148b"
+    sha256 cellar: :any_skip_relocation, monterey:       "43b5c07fcf2acf2755b9803998d4601c2945641fba850d509827007d16c62263"
+    sha256 cellar: :any_skip_relocation, big_sur:        "999673ddf79fde79cb559181fbec13e8d67bf76fc0e678f01607c9066992a562"
+    sha256 cellar: :any_skip_relocation, catalina:       "8cd3aef35fb79ab653eed7c48b6ea93900620194149906a620bc56eee6c522b3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d0819b1a5223e3a98b0d0d7d05e7aeb1b9a6aeccd15957944bb577ed1435cd3a"
   end
 
-  # Bump to 1.18 on the next release, if possible.
-  depends_on "go@1.17" => :build
+  depends_on "go" => :build
 
   def install
-    system "go", "build", "-trimpath", "-o", bin/"force"
+    system "go", "build", *std_go_args(output: bin/"force")
   end
 
   test do
-    assert_match "Usage: force <command> [<args>]",
-                 shell_output("#{bin}/force help")
+    assert_match "ERROR: Please login before running this command.",
+                 shell_output("#{bin}/force active 2>&1", 1)
   end
 end

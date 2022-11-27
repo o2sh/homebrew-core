@@ -1,18 +1,19 @@
 class Observerward < Formula
   desc "Cross platform community web fingerprint identification tool"
   homepage "https://0x727.github.io/ObserverWard/"
-  url "https://github.com/0x727/ObserverWard/archive/refs/tags/v2022.10.10.tar.gz"
-  sha256 "d7cd322301b2f273474950a7bcae4180681825ba357c900b50aae5dadc44cc4c"
+  url "https://github.com/0x727/ObserverWard/archive/refs/tags/v2022.11.14.tar.gz"
+  sha256 "9fee36957715f93d88662dbcc7ee709426c9ac87c9fb6c5d90e3dc9e6d4b65f0"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1297d8ad051ab3b1e5f0a8034eb34f3168f83b3e47ae814c62bcf5b6d54fed50"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e9bbfd9db7b2e74ca5aa226d2ac69363b08e3032fb03aa0c06a30f8dec641488"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "248e21bfb8ae0b088fe75777d17ba1cc495d220b57922001cdfcf30ad293e045"
-    sha256 cellar: :any_skip_relocation, monterey:       "f4e45409562f18134076e4d766b7894ca6aa7e9d150c38ab928df270d7d9a71c"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e605f009b1021edc71fbf1277b815c209b4d85702f0edf061cdceb76d3295026"
-    sha256 cellar: :any_skip_relocation, catalina:       "a4c77cf102e5cefb3607593351e838dab704b94118f4b6d059165bbeb10ce795"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fdd13e5099aa7464799727452f7b7cb98d555c1ed3674bd4e9f2bcf3c6657b42"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8860c58f481bf4172771b28370dab262e18926694ec1739259ee728bf98ffb5d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "66705f6b12211b0d5c12f2e285d6a56f6ed8263ca03b4f91d204950e91c3d3cd"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "d111937a360409da01e8889de59ddbc1bdb1d5c8ffbb0b56c2c9d48677cebcfb"
+    sha256 cellar: :any_skip_relocation, ventura:        "4c480a710356e448c7fa20da3ce9167cd9d02e4bc8fa13faee2ca9f8061ec49c"
+    sha256 cellar: :any_skip_relocation, monterey:       "35da5f3048c6ee3d3b608b3f9235809453f94b2a5c72e8902ff7a71a271b1420"
+    sha256 cellar: :any_skip_relocation, big_sur:        "a15bb5a7c293fcf58bf7630e0a86bab8a60be2c955983e3c55f9deefd5f742a4"
+    sha256 cellar: :any_skip_relocation, catalina:       "782cc498ee96bdeb2ce4edb63cbc3972d3fd20a4b1603b85d5b8e021bb50edaa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1bcc71e08e9b666646162ed0165365aa5b8e4cfa2998705dc20639e075a3a9f9"
   end
 
   depends_on "rust" => :build

@@ -4,6 +4,7 @@ class Mapserver < Formula
   url "https://download.osgeo.org/mapserver/mapserver-8.0.0.tar.gz"
   sha256 "bb7ee625eb6fdce9bd9851f83664442845d70d041e449449e88ac855e97d773c"
   license "MIT"
+  revision 1
 
   livecheck do
     url "https://mapserver.org/download.html"
@@ -11,12 +12,13 @@ class Mapserver < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_monterey: "175b599a5ef18c75fabcc96524653e4e92a0cb2fc754c3ad267cd03bdc233450"
-    sha256 cellar: :any,                 arm64_big_sur:  "0c9366746c6db9a80f5ab05df0550f02cfe684247bd6b677d0e420ff47c0e224"
-    sha256 cellar: :any,                 monterey:       "8288bb05c59b3eb17e285ac9f3499506e1f1c54ab8c5b0af6518b9175e0899e6"
-    sha256 cellar: :any,                 big_sur:        "1b0ce61cf6a859d9177ff89393c8c9a4a03a259782ec1933bea52cea1505f859"
-    sha256 cellar: :any,                 catalina:       "32e38b9e4b9739c9d91dc2f21935e889d7e821959b77854902c79a4984ea43ac"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6d36a6546b3e0cdd5b3c9608d852c4893f553dabba6cba32d36f3532dc52ace3"
+    sha256 cellar: :any,                 arm64_ventura:  "bd051875a34c400c2d1492f02f1e523492f8afe5509e969516aadbf2561ebae5"
+    sha256 cellar: :any,                 arm64_monterey: "3adf61a1e151096fc0b17c24eb42ef124c46e26e7d27a2c797b74c14267eccb6"
+    sha256 cellar: :any,                 arm64_big_sur:  "96ce7713be52a3a374d6bd6deeff00e298b8940f0afc30bff1558e436dd85a18"
+    sha256 cellar: :any,                 monterey:       "8c8c5f8d2f3f186f6bbc6377f80f649c00b6596f2031c0b92abb530aedd5011a"
+    sha256 cellar: :any,                 big_sur:        "4d4e9fb039c5bab0a06facb9831c3bba35fbf89d8820ac71da2e84fadb2e9920"
+    sha256 cellar: :any,                 catalina:       "1255ef28197145dc8ff7f04f85f8a8d60a7818c6e8de7d9bea3416a8b28d74cd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "09372b682af248e682c337f8f927e3c00d0ac921eab1b3fdbd733bc23d51bbf0"
   end
 
   depends_on "cmake" => :build
@@ -33,14 +35,14 @@ class Mapserver < Formula
   depends_on "libpq"
   depends_on "proj"
   depends_on "protobuf-c"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   uses_from_macos "curl"
 
   fails_with gcc: "5"
 
   def python3
-    "python3.10"
+    "python3.11"
   end
 
   def install

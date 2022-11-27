@@ -6,20 +6,21 @@ class Dooit < Formula
   url "https://files.pythonhosted.org/packages/0b/42/5cc5f890df2de9088457f0274685713d0221e8406df89631767dd342b491/dooit-0.2.1.tar.gz"
   sha256 "7571d21385e2625646ac2572b59cc2ba9b8c5b6228165a444c76645e55444b62"
   license "MIT"
+  revision 1
   head "https://github.com/kraanzu/dooit.git", branch: "main"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4c4f51e89a2221f62e6ec8b2b838c0dfaa362d9f0f04bc65fecd86c1529d9d0d"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "6f7d2ec6255d1d796481e28f088eb23e7a3a428daf5234ccacd31ecee407c7af"
-    sha256 cellar: :any_skip_relocation, monterey:       "bf6c7f56e0c5640b393e6d6bc908a05bd4655928e6dc3e19891c1f323f1bb411"
-    sha256 cellar: :any_skip_relocation, big_sur:        "c63bd90d2c69a89346587788d39875eb52a2fe7ddc2a45df481e73e6c880ff25"
-    sha256 cellar: :any_skip_relocation, catalina:       "52ebe7730a211636d6a178e750e7b1af33dadabd6fbd954110ec892025baa380"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "735ee415aae4de6b69dba8a8ad6e7ca0edb2f2ce82e15923808ef8a96c9dcd42"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3343b1c9256da28ca0423aa3b26c3e0580138bc6afda0112a7adbd8d577932d9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "66b7ea1e658422e69f1200ab0036ab7b101db35de94acc75e5c7e9b67a08fbf1"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b7253afa4f4d165ab89deb686258a8926d5bf29811207e31857aea4f3ce2aafb"
+    sha256 cellar: :any_skip_relocation, monterey:       "ae77c6201c1342253b0b00cfd6e9e79c147574f2a689b03374cd1552eeb330c9"
+    sha256 cellar: :any_skip_relocation, big_sur:        "d86878cd9521051f1c99301d26c3fe99f3c7ba6ce347c42ee254d08f27c25a80"
+    sha256 cellar: :any_skip_relocation, catalina:       "ad25c06f95e4bb2deaf43ef17449ea5a5c651042768e55160752db3b9a67f418"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d48d258e8f5a63f17adb84f73596d05de510c3419e89b27638b1a2ef03537b8a"
   end
 
   depends_on "poetry" => :build
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "pyyaml"
   depends_on "six"
   depends_on "virtualenv"
@@ -205,14 +206,14 @@ class Dooit < Formula
   end
 
   def install
-    venv = virtualenv_create(libexec, "python3.10")
+    venv = virtualenv_create(libexec, "python3.11")
     venv.pip_install resources
     poetry = Formula["poetry"].opt_bin/"poetry"
     system poetry, "build", "--format", "wheel", "--verbose", "--no-interaction"
     venv.pip_install_and_link Dir["dist/dooit-*.whl"].first
 
     # we depend on virtualenv, but that's a separate formula, so install a `.pth` file to link them
-    site_packages = Language::Python.site_packages("python3.10")
+    site_packages = Language::Python.site_packages("python3.11")
     virtualenv = Formula["virtualenv"].opt_libexec
     (libexec/site_packages/"homebrew-virtualenv.pth").write virtualenv/site_packages
   end

@@ -1,22 +1,24 @@
 class Ponyc < Formula
   desc "Object-oriented, actor-model, capabilities-secure programming language"
-  homepage "https://www.ponylang.org/"
+  homepage "https://www.ponylang.io/"
   url "https://github.com/ponylang/ponyc.git",
-      tag:      "0.51.3",
-      revision: "b9de0c0d5595343498c4fcaa9dddcc4724adea8a"
+      tag:      "0.52.1",
+      revision: "3888b8b9e4d25264cb64b409b5b8fa510f3c2e83"
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d95b5306543275d311f6d97f67f972bc15e78b54b4fc01c7e193269725b86485"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "001fd7651c0a18d28ae2162d03bd221def53b57815458173dcbbb11979131d6b"
-    sha256 cellar: :any_skip_relocation, monterey:       "4eccc65277d78ba298ad91f718382da2de5c01800e947b089c7d95d93438bad0"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e05c0e92fc6f709f488f31b37e78c7a1cda50bb149c5b3943bbd6063f2ef24db"
-    sha256 cellar: :any_skip_relocation, catalina:       "bf78f834653a46076adbdc50c84aa47c89e07ac0ee6ab8ed40300e3bd87eb7f4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a1432cbc9ad1f68dbaf54f54c46f88033fb05d0e4203fa0e3f137f6a33fe3111"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "54024949bba75e3889f3068d86412f892d88981cd653eceb1fd4326e24eb7e47"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9810c1d6f080849a521a436447cf780687ec78585edb7520b447c22f95e164ce"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "5c56faded83e92f081d256cc33fb325b188595b407f37cea65b96cc956247445"
+    sha256 cellar: :any_skip_relocation, ventura:        "0c8e496e9a873aab56a09f39bd588120d386150ad49eff431f1e63279cc9bbae"
+    sha256 cellar: :any_skip_relocation, monterey:       "0874fba7efe94b3bae0630e139afe9660b444052c079988bfc8e9198aade5c34"
+    sha256 cellar: :any_skip_relocation, big_sur:        "8f4863df94cd8a63ba485fd3f6599a6b2571ed85c5e5ac7ce64ce8bcf510f3f4"
+    sha256 cellar: :any_skip_relocation, catalina:       "66f099e1c12dc445c90f4a8b57e7ce00c664bcfc6e614fb23ab9fc9622771254"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6c168b4822f329336dbd00ee7340972e91fdef73b2ae54d8b62e6f20a61a8ac3"
   end
 
   depends_on "cmake" => :build
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
 
   uses_from_macos "zlib"
 

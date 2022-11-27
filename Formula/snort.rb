@@ -1,9 +1,9 @@
 class Snort < Formula
   desc "Flexible Network Intrusion Detection System"
   homepage "https://www.snort.org"
-  url "https://github.com/snort3/snort3/archive/3.1.43.0.tar.gz"
-  mirror "https://fossies.org/linux/misc/snort3-3.1.43.0.tar.gz"
-  sha256 "6273cdce0714c4743042e5d9ea649f1cca933662458efb9ebff8cf29d87af159"
+  url "https://github.com/snort3/snort3/archive/3.1.47.0.tar.gz"
+  mirror "https://fossies.org/linux/misc/snort3-3.1.47.0.tar.gz"
+  sha256 "7565411db11b453a98f8bd88eeef0fa9f2e85416a8f595e710aa19c430228b8c"
   license "GPL-2.0-only"
   head "https://github.com/snort3/snort3.git", branch: "master"
 
@@ -13,13 +13,13 @@ class Snort < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "1ccb3a3fcbde9a9879261bb33c62f69350d0e484e2b3b02524ee8b20e521ccf5"
-    sha256 cellar: :any,                 arm64_monterey: "80a9a4cb119ea06f96a210c2e4ab987b0b5836f859ed21a5eea0ccaf0cbf8b14"
-    sha256 cellar: :any,                 arm64_big_sur:  "d084c76333716d9efc81495a59a790277553e32c45d98b85a0dddbddd7270868"
-    sha256 cellar: :any,                 monterey:       "ca8f6252993ce7ed19adeddab2a1b1be310993030f03e2cc24ba27aab180a739"
-    sha256 cellar: :any,                 big_sur:        "2e871364434209ed691db574fe2d1303cc288ad8db07425334ceab5e3c7a34c5"
-    sha256 cellar: :any,                 catalina:       "5c16d7c869870e84ba601b15a3fefd801eb471d306bebb1baf1df0858f22e441"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7bbe3da7059276d0b41ec92d78875856a0f546054f8b401d9cd54d1175dd6aa4"
+    sha256 cellar: :any,                 arm64_ventura:  "199f59bf06e26ad0ad5c4aa5036f1455e8d625a6b5d7e037faf941b432e2b2b2"
+    sha256 cellar: :any,                 arm64_monterey: "93a507e2b79481de237219c068b143ab903713f01f260968e7afc9558b8933c7"
+    sha256 cellar: :any,                 arm64_big_sur:  "33f86a89e02d9db969b1855ed2c7431149b4c94659bbec98dbb7b1ddeaa3ca90"
+    sha256 cellar: :any,                 monterey:       "185f8060e4b0cbba5aa100cdc66ef9d280fb479388410d773f006a24ba3d582d"
+    sha256 cellar: :any,                 big_sur:        "a7a642729ea9a06589559484dc0e689f39fb48de8acf36e0d13b4fe77597b503"
+    sha256 cellar: :any,                 catalina:       "f9faeca18a043ec4829fddd3bca2dba63bf620040d11aea75331e6ea903fd651"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f7a11e6cb3ebaf823e540ff3c0ac0773eaae26f7baab0ce271078478eb106c77"
   end
 
   depends_on "cmake" => :build

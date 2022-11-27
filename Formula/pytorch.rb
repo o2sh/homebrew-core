@@ -2,8 +2,8 @@ class Pytorch < Formula
   desc "Tensors and dynamic neural networks"
   homepage "https://pytorch.org/"
   url "https://github.com/pytorch/pytorch.git",
-      tag:      "v1.12.1",
-      revision: "664058fa83f1d8eede5d66418abff6e20bd76ca8"
+      tag:      "v1.13.0",
+      revision: "7c98e70d44abc7a1aead68b6ea6c8adc8c554db5"
   license "BSD-3-Clause"
 
   livecheck do
@@ -12,18 +12,20 @@ class Pytorch < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "e1d8881ea30b057f582e5e908bc97f4922aca0680054b05bc9d3ad7c6da191a3"
-    sha256 cellar: :any,                 arm64_monterey: "17dd6a096eee8aecdfd693be17ee30f207f2ada880e52ae3a8bc8a39d7c8cf23"
-    sha256 cellar: :any,                 arm64_big_sur:  "c9a913b6c2a60970338d9ed82f9be168b992f05bbde109f0f65cddaaf0cef602"
-    sha256 cellar: :any,                 monterey:       "41479b4c2d8e9ee045fde9f6f0845c6f154da08e0195acde96462cda084cc863"
-    sha256 cellar: :any,                 big_sur:        "74be80be51c2842d3cd81125f4ea71b2fdff940446c4a513835e66629df88479"
-    sha256 cellar: :any,                 catalina:       "a1654f4f335fa0f76b99355b9ef2118eb4225c41d189c282beb75d0fc0302164"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f8621ecee06694da1a68357a4fb40417905b8c3de0c486dfc8f0ce2dcac32804"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "d57efe34670fa32cd8e01d805ad3464c6a19e2d8dd36e55cc63aac2f3a780c8e"
+    sha256 cellar: :any,                 arm64_monterey: "a12968f1df7070107bf6d271858a5a7415fe42c0b570ac1fc969cd2683cd6780"
+    sha256 cellar: :any,                 arm64_big_sur:  "8637fcdc0ed320f328f94625bcbb87769d2a6802734ff88d4ffd79b5b8a70da5"
+    sha256 cellar: :any,                 ventura:        "425ed374e5d21a1b299a9c4d7c391a4ef731868a7873124794019dbdf92527fb"
+    sha256 cellar: :any,                 monterey:       "d20c43be3d583b7fdae31c58e64549314066b8b5248dda130ce1ec83060e9412"
+    sha256 cellar: :any,                 big_sur:        "349d106bc09f3c83185278d191ddb13cccaa21349d797f408398e2940ea9b8d1"
+    sha256 cellar: :any,                 catalina:       "a61996b933e1dda4d5ae5519f89d5284d8e0054c95685fc2325a97b58c0dd5cb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f95437daa1de22c5e368ec54c568d99948d1ecac4ca0497de61726bfdead8d87"
   end
 
   depends_on "cmake" => :build
   depends_on "ninja" => :build
-  depends_on "python@3.10" => [:build, :test]
+  depends_on "python@3.11" => [:build, :test]
   depends_on "eigen"
   depends_on "libuv"
   depends_on "numpy"
@@ -38,25 +40,9 @@ class Pytorch < Formula
     depends_on "libomp"
   end
 
-  # Update fbgemm to a version that works with macOS on Intel.
-  # Remove with next release.
-  resource "fbgemm" do
-    url "https://github.com/pytorch/FBGEMM.git",
-    revision: "0d98c261561524cce92e37fe307ea6596664309a"
-  end
-
   def install
-    rm_r "third_party/fbgemm"
-
-    resource("fbgemm").stage(buildpath/"third_party/fbgemm")
-
-    # Remove with next release
-    inreplace "cmake/Dependencies.cmake",
-      'if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 13.0.0)',
-      "if(FALSE)"
-
     openssl_root = Formula["openssl@1.1"].opt_prefix
-    python_exe = Formula["python@3.10"].opt_libexec/"bin/python"
+    python_exe = Formula["python@3.11"].opt_libexec/"bin/python"
     args = %W[
       -GNinja
       -DBLAS=OpenBLAS
@@ -114,7 +100,7 @@ class Pytorch < Formula
     system "./test"
 
     # test that `torch` Python module is available
-    python = Formula["python@3.10"]
+    python = Formula["python@3.11"]
     system python.opt_libexec/"bin/python", "-c", <<~EOS
       import torch
       torch.rand(5, 3)

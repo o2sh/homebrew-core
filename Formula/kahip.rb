@@ -8,6 +8,7 @@ class Kahip < Formula
   head "https://github.com/KaHIP/KaHIP.git", branch: "master"
 
   bottle do
+    sha256 cellar: :any,                 arm64_ventura:  "8b999a1be4898c4e40b9aff02b62146505db291dba06db771c238cb37490d1a5"
     sha256 cellar: :any,                 arm64_monterey: "caefdd4a209465343d4b986895d17278c811acd876f7ecce50388ab0c4e7b250"
     sha256 cellar: :any,                 arm64_big_sur:  "a393a6470d7569acf1c2e1e0b402d5901cea07c9880a7d6f01423acdaad7262a"
     sha256 cellar: :any,                 monterey:       "8f147b571794bbc87b050e84edaca1eb90be0b7c3ed6f0976f3f22c7a6a6ed96"
@@ -23,17 +24,14 @@ class Kahip < Formula
     depends_on "gcc"
   end
 
-  def install
-    if OS.mac?
-      gcc_major_ver = Formula["gcc"].any_installed_version.major
-      ENV["CC"] = Formula["gcc"].opt_bin/"gcc-#{gcc_major_ver}"
-      ENV["CXX"] = Formula["gcc"].opt_bin/"g++-#{gcc_major_ver}"
-    end
+  fails_with :clang do
+    cause "needs OpenMP support"
+  end
 
-    mkdir "build" do
-      system "cmake", *std_cmake_args, ".."
-      system "make", "install"
-    end
+  def install
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do

@@ -7,18 +7,21 @@ class Vdirsyncer < Formula
   sha256 "27bc3ed51f774935fbba392915c8c8d4cf639ae51a44b674686b49a1025fc201"
   license "BSD-3-Clause"
   revision 2
-  head "https://github.com/pimutils/vdirsyncer.git", branch: "master"
+  head "https://github.com/pimutils/vdirsyncer.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e8719de13e2f375629266ed87f204bed01b604a49ff7da628196bcdf5faa0182"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "cee03bfb3dfc334c41221d8d0bf697a3c77f379f02535ab7fca06d8dbe48653a"
-    sha256 cellar: :any_skip_relocation, monterey:       "babb82e03897c1791b3dc99d7f7c679d2faedb9d0729514c3eaac5a2eff0a643"
-    sha256 cellar: :any_skip_relocation, big_sur:        "844e4f37a4da59a28bcfab9bd626fe528b42e4b489dfb84d977c4d43f764d6b1"
-    sha256 cellar: :any_skip_relocation, catalina:       "28da2b2ee209f0c5a72cf2118adb3cabad079ab7f0dc7fa817fe25dae1be2941"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "687dc0cd219f57ff5cfc6e6e76016184d9be5a5f944d8ce40ec46685b865d6bb"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bd43a255f3ad916c9245c960807735b0f35ee29f9efb449b4caadc8d9560b59a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8e34eb4b43eedd1c8720875cf4773309e878f1dc75200a77b58ddf496f99dec3"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "0ff47f93267a860f72c7d14dbf285de3ae4910e7cd531986307bb5b1037a556e"
+    sha256 cellar: :any_skip_relocation, ventura:        "fc83c7407d0e10a9630ee944a9144e76ab25d25fcce6a659bfd8956134493ef2"
+    sha256 cellar: :any_skip_relocation, monterey:       "8864057f7f25b54126526d698f6301905ab5a76d30e0a96e706011bd93bf82b5"
+    sha256 cellar: :any_skip_relocation, big_sur:        "b6a1585c290d0085dc140d7b1aff825bb05fbaf349fabc3c0923195bc8103ab1"
+    sha256 cellar: :any_skip_relocation, catalina:       "6c9a7abfceff287ccf60f55fa08e45f58b993c9c4e15cd88d49f379b67df8491"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7b82ca484886611e64cfb95cfa284bd7d0d024fa5087cff092c2026328ae3eed"
   end
 
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   resource "atomicwrites" do
     url "https://files.pythonhosted.org/packages/87/c6/53da25344e3e3a9c01095a89f16dbcda021c609ddb42dd6d7c0528236fb2/atomicwrites-1.4.1.tar.gz"
@@ -56,8 +59,8 @@ class Vdirsyncer < Formula
   end
 
   resource "oauthlib" do
-    url "https://files.pythonhosted.org/packages/fe/58/30a4d3302f9bbd602c43385e7270fc3a9e8a665d07aafd6a4d4baa844739/oauthlib-3.2.1.tar.gz"
-    sha256 "1565237372795bf6ee3e5aba5e2a85bd5a65d0e2aa5c628b9a97b7d7a0da3721"
+    url "https://files.pythonhosted.org/packages/6d/fa/fbf4001037904031639e6bfbfc02badfc7e12f137a8afa254df6c4c8a670/oauthlib-3.2.2.tar.gz"
+    sha256 "9859c40929662bec5d64f34d01c99e093149682a3f38915dc0655d5a633dd918"
   end
 
   resource "requests" do
@@ -71,8 +74,8 @@ class Vdirsyncer < Formula
   end
 
   resource "requests-toolbelt" do
-    url "https://files.pythonhosted.org/packages/57/d6/20857446a2b81136dd02eed6d198343ce7a045ce8c06d4cb73fd2fee9001/requests-toolbelt-0.10.0.tar.gz"
-    sha256 "f695d6207931200b46c8ef6addbc8a921fb5d77cc4cd209c2e7d39293fcd2b30"
+    url "https://files.pythonhosted.org/packages/0c/4c/07f01c6ac44f7784fa399137fbc8d0cdc1b5d35304e8c0f278ad82105b58/requests-toolbelt-0.10.1.tar.gz"
+    sha256 "62e09f7ff5ccbda92772a29f394a49c3ad6cb181d568b1337626b2abb628a63d"
   end
 
   resource "urllib3" do

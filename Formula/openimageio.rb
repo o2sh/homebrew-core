@@ -1,9 +1,10 @@
 class Openimageio < Formula
   desc "Library for reading, processing and writing images"
   homepage "https://openimageio.org/"
-  url "https://github.com/OpenImageIO/oiio/archive/v2.4.4.2.tar.gz"
-  sha256 "1ae437e1178f53a972d8b42147d7571c5463652a638b36526f25d5719becbb55"
+  url "https://github.com/OpenImageIO/oiio/archive/v2.4.5.0.tar.gz"
+  sha256 "21177a9665021a99123885cd8383116d15013b6610b4b09bcf209612423fedc5"
   license "BSD-3-Clause"
+  revision 1
   head "https://github.com/OpenImageIO/oiio.git", branch: "master"
 
   livecheck do
@@ -13,13 +14,14 @@ class Openimageio < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "238ddb1b436121114c645d6d5eec2817f026ceeafceb3ab9cc67b36f88c571ec"
-    sha256 cellar: :any,                 arm64_monterey: "d891771f2f7c4013b4f76b2071a2ce21a8f3e52628620a6cadb0b8acd14401d1"
-    sha256 cellar: :any,                 arm64_big_sur:  "ef65e0502ad664ab82ec9c079cc025fd57e6eb87724e5eea8778d6252aa6dd3e"
-    sha256 cellar: :any,                 monterey:       "494731a44d8bf2ad10df7a93f838cae20408015f74b86d8cc3d0f9e72858e8d3"
-    sha256 cellar: :any,                 big_sur:        "880120fbddf7dbcca15835085cb460cbe6e3236374560178df2448be25b66ab3"
-    sha256 cellar: :any,                 catalina:       "2322386cae9406140089e81629c193655d48666813a27065a0c52261af3b680e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ead23c38e2ca582d9e896354c54bdccc1e2be504dbe40ed74acda379b5a129bd"
+    sha256 cellar: :any,                 arm64_ventura:  "0a5aa7c530bbcbfc30208f8cab3a92fbc74cee9d9bc6b0dd5ff9031dcd183b3e"
+    sha256 cellar: :any,                 arm64_monterey: "b108813a8f66351fb1abb359da39e3f89f10f508c2468558e8d3fa368c63f3f0"
+    sha256 cellar: :any,                 arm64_big_sur:  "4b40843a5a06cbc1943dbb902777e538618abf3b404955d386c1376c92d81f9e"
+    sha256 cellar: :any,                 ventura:        "cc5ef65d5de784862a1dd24351aab4b00d0e661146f4ae3257a00211ff180fe8"
+    sha256 cellar: :any,                 monterey:       "9a021fa26b0bbed5f386a0829022f9a441900bb889868d36988a4db632f2a375"
+    sha256 cellar: :any,                 big_sur:        "3e7f9ed4a306ae271290c842de00f470de36f3dbac8d464d4a54e6cd0ca86146"
+    sha256 cellar: :any,                 catalina:       "d0a98bdabe52ab30e3a7cd532752bfbc63ee6c4babdb0ee081788694372b2e23"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7d59883b7a2e945c0c5b5cc22b0ff6d2eaf1f8d3ea66e07e696f7712b6367f61"
   end
 
   depends_on "cmake" => :build
@@ -40,18 +42,25 @@ class Openimageio < Formula
   depends_on "openexr"
   depends_on "pugixml"
   depends_on "pybind11"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "webp"
 
-  fails_with gcc: "5" # ffmpeg is compiled with GCC
+  # https://github.com/OpenImageIO/oiio/blob/master/INSTALL.md
+  fails_with :gcc do
+    version "5"
+    cause "Requires GCC 6.1 or later"
+  end
+
+  def python3
+    "python3.11"
+  end
 
   def install
-    python3 = which("python3.10")
     py3ver = Language::Python.major_minor_version python3
     ENV["PYTHONPATH"] = prefix/Language::Python.site_packages(python3)
 
     args = %W[
-      -DPython_EXECUTABLE=#{python3}
+      -DPython_EXECUTABLE=#{which(python3)}
       -DPYTHON_VERSION=#{py3ver}
       -DBUILD_MISSING_FMT=OFF
       -DCCACHE_FOUND=
@@ -82,7 +91,6 @@ class Openimageio < Formula
       import OpenImageIO
       print(OpenImageIO.VERSION_STRING)
     EOS
-    python = Formula["python@3.10"].opt_bin/"python3.10"
-    assert_match version.major_minor_patch.to_s, pipe_output(python, output, 0)
+    assert_match version.major_minor_patch.to_s, pipe_output(python3, output, 0)
   end
 end

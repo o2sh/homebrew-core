@@ -9,26 +9,24 @@ class Fobis < Formula
   revision 2
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "548370e4f657940d745a496643d34dff59954c4ec0e21c50d08ed90954d4703d"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "2296b45992dee7b95457824f98a16a949e6edae62dca8ce0af0859930ed8a857"
-    sha256 cellar: :any_skip_relocation, monterey:       "d111f4277a23d35db7520abbcf3dc72051a0b2e995cc98ed11c8469292feb943"
-    sha256 cellar: :any_skip_relocation, big_sur:        "61d0869b525dd5d508f41a55cb63906fbfdec8109c76f54426b1ab500d80fdf4"
-    sha256 cellar: :any_skip_relocation, catalina:       "50ca49669814c6994889fad6f7c0ecb5087e38c6c9dc071b323aed4144ede41e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9d032e035815fa280f9759ffef0da5a88e787062c06fcc47dce544dcdfcc6297"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7363945213c145a1fccd7ceb02d78df2b605d311fd5c1e392dc799b7aed2f500"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "774c135cce4ef5e397309b159d5c3b5b2e21952a3cfcba8bb3f5dd6f034bc3c1"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "854eb9629c3ca906bb2d6de13e076eb6a2bd188139020ac3fc5a2cd49d7dd451"
+    sha256 cellar: :any_skip_relocation, ventura:        "250b4c62f860222591fcf450c6a02d5cb6e9aa808a59f3ddcfd6fb234a3528ff"
+    sha256 cellar: :any_skip_relocation, monterey:       "731d4ce8d491658b88bb87f2766c75dec55b159cdac441bcf5457ed7d79b99b1"
+    sha256 cellar: :any_skip_relocation, big_sur:        "9033858010025b95f32fb53879df00590f01cde953818426b6cbf38b90b944a6"
+    sha256 cellar: :any_skip_relocation, catalina:       "e1640f90d8c6f8e550fec00ca990576c16a2c53ec8bf01ef46d40aff3b32c09f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7c9a582cec179b65493bf663b98006561268e17e30acd8ac400068fc76e191d3"
   end
 
   depends_on "gcc" # for gfortran
   depends_on "graphviz"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   resource "configparser" do
-    url "https://files.pythonhosted.org/packages/e5/7c/d4ccbcde76b4eea8cbd73b67b88c72578e8b4944d1270021596e80b13deb/configparser-5.0.0.tar.gz"
-    sha256 "2ca44140ee259b5e3d8aaf47c79c36a7ab0d5e94d70bd4105c03ede7a20ea5a1"
-  end
-
-  resource "FoBiS.py" do
-    url "https://files.pythonhosted.org/packages/53/3a/5533ab0277977027478b4c1285bb20b6beb221b222403b10398fb24e81a2/FoBiS.py-3.0.5.tar.gz"
-    sha256 "ef23fde4199277abc693d539a81e0728571c349174da6b7476579f82482ab96c"
+    url "https://files.pythonhosted.org/packages/4b/c0/3a47084aca7a940ed1334f89ed2e67bcb42168c4f40c486e267fe71e7aa0/configparser-5.3.0.tar.gz"
+    sha256 "8be267824b541c09b08db124917f48ab525a6c3e837011f3130781a224c57090"
   end
 
   resource "future" do
@@ -38,7 +36,6 @@ class Fobis < Formula
 
   def install
     virtualenv_install_with_resources
-    bin.install libexec/"bin/FoBiS.py"
   end
 
   test do

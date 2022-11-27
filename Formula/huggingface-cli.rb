@@ -3,22 +3,24 @@ class HuggingfaceCli < Formula
 
   desc "Client library for huggingface.co hub"
   homepage "https://huggingface.co/docs/huggingface_hub/index"
-  url "https://files.pythonhosted.org/packages/34/f4/d8f9b6dc1534a436c498ffb3659a456e287349d24d80e95baf35344ccbcf/huggingface_hub-0.10.1.tar.gz"
-  sha256 "5c188d5b16bec4b78449f8681f9975ff9d321c16046cc29bcf0d7e464ff29276"
+  url "https://files.pythonhosted.org/packages/c4/12/695ea1d874e70c7d7c0407e355e29902c675b4bac7da0ad19542cbbc30c0/huggingface_hub-0.11.0.tar.gz"
+  sha256 "b48860d791502c2b8a0e6c841214df19c67999198a75d1417512b45752508ac6"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "83936cddffab7cfa362e88a36effd08645f36c92505e057ea1bbcd9c14d56cf7"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "2a8152f58b420edb0b00245c0bf7e62cdc07eee4e2bd84d3066ef5a538ce470d"
-    sha256 cellar: :any_skip_relocation, monterey:       "eb4a8ce8b8b04d6d2446f4803e31614bf35cfa5ccae415111b0f9af0c08aab9e"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d8b36e9c44f2f62a67f703199e7cac51d09e75594905ce637c8887d448de6ea8"
-    sha256 cellar: :any_skip_relocation, catalina:       "f2407be3898bdb04490ea414f96d68fca6ff9c21891c0176a0a7effd0b40b7a5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a8ce8bc1342f87bb3772e3f48c2fc1fc381306df6670501bdc4cbd6b0d6860f5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3c3892ec98203e8cd85982acf4247c3d400bda909db40612a636a0aaf4e86374"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "71f8e581ee7ac817e28bfb96b362d57fc34328fbd784d3663287aefce8eb65d9"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "aa73393102f4d8a10c31f889b1dfe87aab12e7468f4d71f50f9b6946ebc0b499"
+    sha256 cellar: :any_skip_relocation, ventura:        "58aa5a7ab1ae0e35f8605d2b7daa3010a1959fb4018bd5957524434475e47b43"
+    sha256 cellar: :any_skip_relocation, monterey:       "ab24a717b2086143f8b4b16871e53c433086679bf715e0f5a8f550892b7c01cc"
+    sha256 cellar: :any_skip_relocation, big_sur:        "0a0c6157852730b65f7192a0be819ceddaa1dbfc0d3de7aa5786deb4543c0974"
+    sha256 cellar: :any_skip_relocation, catalina:       "b3f1db24640361d8bae816b28955852581c5c27c98bef835fd224d0566829092"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fbea8449adb881d3631c54d4199746a7bf1b335ab0f031eff2f1d5461d4a6b9e"
   end
 
   depends_on "git-lfs"
   depends_on "python-typing-extensions"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "pyyaml"
 
   resource "certifi" do
@@ -76,7 +78,8 @@ class HuggingfaceCli < Formula
     test_cache = testpath/"cache"
     test_cache.mkdir
     ENV["HUGGINGFACE_HUB_CACHE"] = test_cache.to_s
+    ENV["NO_COLOR"] = "1"
     scan_output = shell_output("#{bin}/huggingface-cli scan-cache")
-    assert_match "Done in 0.0s. Scanned 0 repo(s) for a total of \e[1m\e[31m0.0\e[0m.", scan_output
+    assert_match "Done in 0.0s. Scanned 0 repo(s) for a total of 0.0.", scan_output
   end
 end

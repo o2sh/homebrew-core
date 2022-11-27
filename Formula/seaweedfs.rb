@@ -1,19 +1,20 @@
 class Seaweedfs < Formula
   desc "Fast distributed storage system"
-  homepage "https://github.com/chrislusf/seaweedfs"
-  url "https://github.com/chrislusf/seaweedfs.git",
-      tag:      "3.32",
-      revision: "758d70bdc09834066cfd835d0041f38ac77a1d42"
+  homepage "https://github.com/seaweedfs/seaweedfs"
+  url "https://github.com/seaweedfs/seaweedfs.git",
+      tag:      "3.35",
+      revision: "b1d7963e57ca2013fe9d11c4336c51e8c1c022e6"
   license "Apache-2.0"
-  head "https://github.com/chrislusf/seaweedfs.git", branch: "master"
+  head "https://github.com/seaweedfs/seaweedfs.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d8de141a7c9bf3c2ad0b9d55366fd6fefe18565d51de0d58de78378bf2b8611b"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "0e8e45debd7a7f63ba1319959f9c7fcee5c7d5bc5e00a180c668ecf18d48a63e"
-    sha256 cellar: :any_skip_relocation, monterey:       "b0ca7725cd0269e8114e1a6bbdeb58a7ade63d308da3e3a166d6007ee63ddff2"
-    sha256 cellar: :any_skip_relocation, big_sur:        "95d99b98f79125ed2a8e38bf1605cd36198b03801d713104c0f16cd2daf057bc"
-    sha256 cellar: :any_skip_relocation, catalina:       "9ff4185672693dc9323b25008dd5ecfd417aedc2e07988fd6f1335381c365529"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d61f3009e2796b34977e7e3f4cab80a3156d299a6159042dcc4aabf1ee13f787"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7c469c04245023156493d833322a2718908be46807bde98328aaa4209ec12196"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f629f0109dc823f50a919bd77302087efc468b57d8f7c4e8afd372cdc95f4320"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "aeff54cf4b8b3213411054e9c5cf3e3cc512a4d14dd3775abe03a23a099ae868"
+    sha256 cellar: :any_skip_relocation, monterey:       "4eef19fb10dbc0ffbf5eb623f6fab2266f8ee2f8b320a977fb742d76e83a79e3"
+    sha256 cellar: :any_skip_relocation, big_sur:        "70b1412aa2f5c372a85c7c3634cb04c4061a41e8f4cc81dd3b8716cbe0b7e62f"
+    sha256 cellar: :any_skip_relocation, catalina:       "6621ad1ccd0cc99994de6218380b69d43ea74a75bd1f5c3dc6304165b0ec73ec"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d009c162a8c58ab58605a3c607f3f5b7f788d56bd6c5f37a2765fec4a9efd78f"
   end
 
   depends_on "go" => :build
@@ -21,7 +22,7 @@ class Seaweedfs < Formula
   def install
     ldflags = %W[
       -s -w
-      -X github.com/chrislusf/seaweedfs/weed/util.COMMIT=#{Utils.git_head}
+      -X github.com/seaweedfs/seaweedfs/weed/util.COMMIT=#{Utils.git_head}
     ]
     system "go", "build", *std_go_args(output: bin/"weed", ldflags: ldflags), "./weed"
   end

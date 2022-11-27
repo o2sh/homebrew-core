@@ -1,19 +1,20 @@
 class Pspg < Formula
   desc "Unix pager optimized for psql"
   homepage "https://github.com/okbob/pspg"
-  url "https://github.com/okbob/pspg/archive/5.5.8.tar.gz"
-  sha256 "bc25e517784f08840796188d1fb8e908ed522d0809c0ca176eae07363bd5281b"
+  url "https://github.com/okbob/pspg/archive/5.5.13.tar.gz"
+  sha256 "a03f95b68ddf98675072770024f1bdc3e7738b577bc538c81549bba653cbc870"
   license "BSD-2-Clause"
   head "https://github.com/okbob/pspg.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "2c11fcf1e586dc54f41705e9f718b0d1772d379d8c66c3a45a8a97a6df7b2108"
-    sha256 cellar: :any,                 arm64_monterey: "4e09ad19e338456249f1d2ff3862fbb059c7704609382686edb8d4b781cf1187"
-    sha256 cellar: :any,                 arm64_big_sur:  "37c0075d494f3fc6f11c27e22862efaf5215ecb423a6576e52e52fbd96cbaab9"
-    sha256 cellar: :any,                 monterey:       "ecb371c2c95df0171e46b857dbb355e54a1cd9e0be8e1513c2583b23a13e3ad1"
-    sha256 cellar: :any,                 big_sur:        "8d084ec1ee67984c8ea873ec94440a84cc06dd2b442f50bf7afb14f9029ede93"
-    sha256 cellar: :any,                 catalina:       "d58be0e4dcdd8a464170920889472cd9c258fb787593840aacf38a933ca3f571"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c39c97a8801bac725baf6d5321e205bda40ac696ea95b11bcc0f5376803faef4"
+    sha256 cellar: :any,                 arm64_ventura:  "efd3a9c7fe36dab943e27232fb564dfeb1648c6c2a2eef5fff851e3ecba10d78"
+    sha256 cellar: :any,                 arm64_monterey: "16d29a0ca9017030972f8129a117d5ee0fcfbd77a8192ffc19732c5f45af4163"
+    sha256 cellar: :any,                 arm64_big_sur:  "5549e87f41c29bb9fd81c454f1b42ad5522e4efd4057ff917c18b3c3e272d9cb"
+    sha256 cellar: :any,                 ventura:        "54985759b7f95202596f2b2704883d6fab11ddbff0c1b7e6625923a613e9d7bc"
+    sha256 cellar: :any,                 monterey:       "aa12ad9d2b5c6221acf3d2786ee91145212e99f92405d95cfcf5fb7954b25f2b"
+    sha256 cellar: :any,                 big_sur:        "fbdd46de96808d4bf235926dfe16dc3a951fbdf9fcbb955ce9f3699cc41784a1"
+    sha256 cellar: :any,                 catalina:       "905ca9b3dde143ebb6f8aae53c6feab6df37136fa94df17d0f8db83c8552a29c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dda8c37aa5d7e2316f66965731bf49c3058e28390de4eb0a581a30aff0d65a2b"
   end
 
   depends_on "libpq"

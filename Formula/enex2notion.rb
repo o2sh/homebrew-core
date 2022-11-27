@@ -8,16 +8,18 @@ class Enex2notion < Formula
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "367aea02ba0f55b48f217d35aca22fac08f0bd13840ff354ac6da9d70d4c9b14"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "d707f8f1103174d485336670ce06769eabd95c20b02a28cf0d89ee098a6c2953"
-    sha256 cellar: :any_skip_relocation, monterey:       "2fbb2c3aa5fbe527bdbfc2f63e191a6bb9d22b38e04dccb05e3eda34ec840e4b"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e978aea5b4a775129297af4c84d092dba47119d7d2c794222014fe8d6fc6ed7f"
-    sha256 cellar: :any_skip_relocation, catalina:       "78a13f110b52f0ea14f30b039517f1909061235a3a09e8c568a9cc2fa6732b52"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "079e171bfe5b3013fff0eb1dbb5a9f4fd7a56e2181ca668cbcdcaaf4729fa7a6"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e54917562a1308c9aa5b6ea08b2e98e46ffd983e7bf11a493805c4f52cf85838"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5690ba744d20e47b353b450ac29676651563f291732c3b5ea646201c4a5dc672"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f00c233db811274157cf421ff2e1ab2e53ebcdbc6a05c2b3031d20ef0d1f865a"
+    sha256 cellar: :any_skip_relocation, monterey:       "760eb19dd95c8b0ccabfeff10ff7262606220e92ba2a7dd4e9ffacfb3ed25e37"
+    sha256 cellar: :any_skip_relocation, big_sur:        "6246cbc1136e4277cc31a0c6de7f47cabd602276feb6b46d8f09e95244bc4a04"
+    sha256 cellar: :any_skip_relocation, catalina:       "e643a6c430bb8485e6891b0ddea5ff31c6c5a0ef42af239fbdca53806f20fd87"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "12a97b15485f20ec8183690390d7921c792ea9b68ba16ba3d72fc552a34a3c10"
   end
 
   depends_on "pymupdf"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "six"
 
   resource "beautifulsoup4" do
@@ -106,8 +108,8 @@ class Enex2notion < Formula
   end
 
   resource "tinycss2" do
-    url "https://files.pythonhosted.org/packages/88/58/6ca37adfcaa69df2a5ca47ac8275121305afcb5206a40ebf2b86bc212169/tinycss2-1.2.0.tar.gz"
-    sha256 "b0e04b0d8682c96dabca57654d3650c2d79f8bd0f1a6fc57b0939598ec3f4f5e"
+    url "https://files.pythonhosted.org/packages/75/be/24179dfaa1d742c9365cbd0e3f0edc5d3aa3abad415a2327c5a6ff8ca077/tinycss2-1.2.1.tar.gz"
+    sha256 "8cff3a8f066c2ec677c06dbc7b45619804a6938478d9d73c284b29d14ecb0627"
   end
 
   resource "tqdm" do
@@ -116,8 +118,8 @@ class Enex2notion < Formula
   end
 
   resource "tzdata" do
-    url "https://files.pythonhosted.org/packages/95/91/5df9da4fd97126743d3c27442fbd0978cc2323b4ff512dee22a2ec83fbc2/tzdata-2022.5.tar.gz"
-    sha256 "e15b2b3005e2546108af42a0eb4ccab4d9e225e2dfbf4f77aad50c70a4b1f3ab"
+    url "https://files.pythonhosted.org/packages/5e/9f/63f7187ffd6d01dd5b5255b8c0b1c4f05ecfe79d940e0a243a6198071832/tzdata-2022.6.tar.gz"
+    sha256 "91f11db4503385928c15598c98573e3af07e7229181bee5375bd30f1695ddcae"
   end
 
   resource "tzlocal" do

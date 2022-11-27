@@ -1,17 +1,19 @@
 class Nco < Formula
   desc "Command-line operators for netCDF and HDF files"
   homepage "https://nco.sourceforge.io/"
-  url "https://github.com/nco/nco/archive/5.1.0.tar.gz"
-  sha256 "6f0ba812e0684881a85ebf3385117761cffbba36ba842889cc96f111157f89c2"
+  url "https://github.com/nco/nco/archive/5.1.2.tar.gz"
+  sha256 "1b86303fc55b5a52b52923285a5e709de82cbc1630e68b64dce434b681e4100a"
   license "BSD-3-Clause"
 
   bottle do
-    sha256 cellar: :any,                 arm64_monterey: "7b4b3ae88d8038b654f4d3ef816fa50840d19f52079a7f4074d05c8a43159de7"
-    sha256 cellar: :any,                 arm64_big_sur:  "3962aaee46b68259b793f0b4b6764ce04969e1a6c2e857f8e31918b321d48b0c"
-    sha256 cellar: :any,                 monterey:       "415c19c6d02e49c4b7186f2a8f863d045bb3c29eec4e004662b5fcf5a8bce98d"
-    sha256 cellar: :any,                 big_sur:        "8bad0fa1cb198f7d712eba8c5157af563cb5f485c40083a2cb2904f4ef2cf8b2"
-    sha256 cellar: :any,                 catalina:       "d6eab303d184739b9e0d92db0705da91d70615d2e45e56d45cd1a9254ec092a6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "18eb21562e02dcafa2786d883db895a89999737cf6459e485bd4d583685577b6"
+    sha256 cellar: :any,                 arm64_ventura:  "def60a807821a27ff2b36d8c27870b9e8d99d842bd31fd739bea974fa5fceff1"
+    sha256 cellar: :any,                 arm64_monterey: "17173e1b1d6c04c7530758dd3cd4f827c5cdf9de8a9c5134868058bcaa59c53c"
+    sha256 cellar: :any,                 arm64_big_sur:  "f5c3af46994d514c287a598753ab28813dfcddf5591572579be95e4fa45db92c"
+    sha256 cellar: :any,                 ventura:        "c8e2bcdf7e84decc312ed8ce3f4239f78273c76b29a260dbbd7b8280e777e8af"
+    sha256 cellar: :any,                 monterey:       "6beba9358e9012297d469184dd3085163edc14fb1a182dad904c84962037abeb"
+    sha256 cellar: :any,                 big_sur:        "beaca6189ea1783fbe4cdc48594210de7cdea2a661d093fd7c4411570886a72e"
+    sha256 cellar: :any,                 catalina:       "f9232486f979bf1c82b07229b30d07e5c5fb995c8bf04f344f77da6ab680dbac"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "58e37f5a8f24bb322219a5f0161ed4834d810f670607e76438cb5288c18989a4"
   end
 
   head do
@@ -21,6 +23,7 @@ class Nco < Formula
   end
 
   depends_on "openjdk" => :build # needed for antlr2
+  depends_on "gettext"
   depends_on "gsl"
   depends_on "netcdf"
   depends_on "texinfo"

@@ -8,18 +8,19 @@ class Howdoi < Formula
   license "MIT"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7088cab0f251de477f7a7fab54eed5d0cc3e8dcf0baac1a7367cc3cadfcf51f2"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d8cc5fec6b0207f7519b4859da9021d17dc960ebda9eff9253124bd7d79cc8f1"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "bd50be1788570b884e4e453c6d2e9a46cbac2d65f9ffb25cbfc33832ca941d03"
-    sha256 cellar: :any_skip_relocation, monterey:       "2d707599f1fd43b4229ea0d512c7375d82f1bcd10915788c9ff37f1e1f789221"
-    sha256 cellar: :any_skip_relocation, big_sur:        "99c5c7eb44d3cc270f50173fdb244b38707e3840ef2152b5c88a7f1db0870fc1"
-    sha256 cellar: :any_skip_relocation, catalina:       "bee39dc93c8c2252fe5e2d1ca25492d9571b50ee4d2777acb23349acc111ccc2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5780edaaf816f662bdca7c0346ee22d2e9f7afed5e585c9b0c1c36c8ce1027f9"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e816e12866a487b315750a529830214f7741e8cdeb75616e4f5a21b2d8a7ca8c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e0f7dc663b2ce0682b6ea983ffcf687ac8aeeac773d1a01296243a54cb27621d"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "93031d69f38d5efb0debee8f0df1adc3d0c586a5cc807a8585faf7573775deff"
+    sha256 cellar: :any_skip_relocation, ventura:        "77f9a16d14d3d2b4f2b27ff5d31e370ef54ba89cf36239928dbbba63f2d9b168"
+    sha256 cellar: :any_skip_relocation, monterey:       "6fd718a5b5f7c34371783dac0bfbc2c2bc9d7ac4c5a839760812dedcc5ad71f0"
+    sha256 cellar: :any_skip_relocation, big_sur:        "c51d2ea4b9bfb2ea1c9ae40517a710eefd0c1f49745ec88d4bca70d3b3373af2"
+    sha256 cellar: :any_skip_relocation, catalina:       "c3351a47bcdc701e43485ae09d36da8f9877367d6410fd2f85b8cc5c28385ada"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fc06bed9bc40d06c68b01963be9ddcb8460ea0fc47cf1479d04d05d3cdb2a70c"
   end
 
   depends_on "pygments"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "six"
 
   uses_from_macos "libxml2"
@@ -60,8 +61,8 @@ class Howdoi < Formula
   end
 
   resource "colorama" do
-    url "https://files.pythonhosted.org/packages/2b/65/24d033a9325ce42ccbfa3ca2d0866c7e89cc68e5b9d92ecaba9feef631df/colorama-0.4.5.tar.gz"
-    sha256 "e6c6b4334fc50988a639d9b98aa429a0b57da6e17b9a44f0451f930b6967b7a4"
+    url "https://files.pythonhosted.org/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz"
+    sha256 "08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"
   end
 
   resource "commonmark" do
@@ -70,8 +71,8 @@ class Howdoi < Formula
   end
 
   resource "cssselect" do
-    url "https://files.pythonhosted.org/packages/70/54/37630f6eb2c214cdee2ae56b7287394c8aa2f3bafb8b4eb8c3791aae7a14/cssselect-1.1.0.tar.gz"
-    sha256 "f95f8dedd925fd8f54edb3d2dfb44c190d9d18512377d3c1e2388d16126879bc"
+    url "https://files.pythonhosted.org/packages/d1/91/d51202cc41fbfca7fa332f43a5adac4b253962588c7cc5a54824b019081c/cssselect-1.2.0.tar.gz"
+    sha256 "666b19839cfaddb9ce9d36bfe4c969132c647b92fc9088c4e23f786b30f1b3dc"
   end
 
   resource "Deprecated" do
@@ -100,13 +101,13 @@ class Howdoi < Formula
   end
 
   resource "PyGithub" do
-    url "https://files.pythonhosted.org/packages/98/36/386d282903c572b18abc36de68aaf4146db4659c82dceee009ef88a86b67/PyGithub-1.55.tar.gz"
-    sha256 "1bbfff9372047ff3f21d5cd8e07720f3dbfdaf6462fcaed9d815f528f1ba7283"
+    url "https://files.pythonhosted.org/packages/6d/57/1c8a10e67e50cbee3c721bb554ac9a422f9f0accfc8f6e16a3fe9e65d387/PyGithub-1.57.tar.gz"
+    sha256 "c273f252b278fb81f1769505cc6921bdb6791e1cebd6ac850cc97dad13c31ff3"
   end
 
   resource "PyJWT" do
-    url "https://files.pythonhosted.org/packages/d4/63/6f57a751c9e3135856b44e2c29c548741ec14db3d24b9666e97292aa968e/PyJWT-2.5.0.tar.gz"
-    sha256 "e77ab89480905d86998442ac5788f35333fa85f65047a534adc38edf3c88fc3b"
+    url "https://files.pythonhosted.org/packages/75/65/db64904a7f23e12dbf0565b53de01db04d848a497c6c9b87e102f74c9304/PyJWT-2.6.0.tar.gz"
+    sha256 "69285c7e31fc44f68a1feb309e948e0df53259d579295e6cfe2b1792329f05fd"
   end
 
   resource "PyNaCl" do

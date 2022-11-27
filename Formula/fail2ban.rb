@@ -1,8 +1,8 @@
 class Fail2ban < Formula
   desc "Scan log files and ban IPs showing malicious signs"
   homepage "https://www.fail2ban.org/"
-  url "https://github.com/fail2ban/fail2ban/archive/1.0.1.tar.gz"
-  sha256 "62b54679ebae81ac57f32c5e27aba9f2494ec5bafd45a0fd68e7a27fd448e5ac"
+  url "https://github.com/fail2ban/fail2ban/archive/1.0.2.tar.gz"
+  sha256 "ae8b0b41f27a7be12d40488789d6c258029b23a01168e3c0d347ee80b325ac23"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -11,20 +11,23 @@ class Fail2ban < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ce14e2def760e36b3c72ef1b6dc41c105002c049b88b58bd3f46eaab3fd7a4c0"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ce14e2def760e36b3c72ef1b6dc41c105002c049b88b58bd3f46eaab3fd7a4c0"
-    sha256 cellar: :any_skip_relocation, monterey:       "76d826c2b6f469f50f057afd11dcc5b30ae65895bfcfd8eecfc674f01e2667f1"
-    sha256 cellar: :any_skip_relocation, big_sur:        "76d826c2b6f469f50f057afd11dcc5b30ae65895bfcfd8eecfc674f01e2667f1"
-    sha256 cellar: :any_skip_relocation, catalina:       "76d826c2b6f469f50f057afd11dcc5b30ae65895bfcfd8eecfc674f01e2667f1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0f075b55d9895b73a2d5a73fc4a0c00dc17eab1d360c2754fe2f6bedde8f49f0"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f911d7921d2738aa75228e317e2a4100e1462de3464acd2a7a5edd716f74ed4a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f911d7921d2738aa75228e317e2a4100e1462de3464acd2a7a5edd716f74ed4a"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f911d7921d2738aa75228e317e2a4100e1462de3464acd2a7a5edd716f74ed4a"
+    sha256 cellar: :any_skip_relocation, ventura:        "0a05b30fecd031fba3686b8667325b4b4e14c31ce23c879d28227b0f1613b51c"
+    sha256 cellar: :any_skip_relocation, monterey:       "0a05b30fecd031fba3686b8667325b4b4e14c31ce23c879d28227b0f1613b51c"
+    sha256 cellar: :any_skip_relocation, big_sur:        "0a05b30fecd031fba3686b8667325b4b4e14c31ce23c879d28227b0f1613b51c"
+    sha256 cellar: :any_skip_relocation, catalina:       "0a05b30fecd031fba3686b8667325b4b4e14c31ce23c879d28227b0f1613b51c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "33bbfefcc5a2a740e03ae2b858cca57502f57e3635f89169fd07d77f4155293d"
   end
 
   depends_on "help2man" => :build
   depends_on "sphinx-doc" => :build
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   def install
-    python3 = "python3.10"
+    python3 = "python3.11"
     ENV["PYTHON"] = which(python3)
 
     rm "setup.cfg"
@@ -52,6 +55,9 @@ class Fail2ban < Formula
     inreplace "setup.py", "if os.path.exists('#{var}/run')", "if True"
     inreplace "setup.py", "platform_system in ('linux',", "platform_system in ('linux', 'darwin',"
 
+    # Replace 2to3 since we don't create an unversioned symlink in libexec
+    inreplace "fail2ban-2to3", " 2to3 ", " 2to3-#{Language::Python.major_minor_version python3} "
+
     system "./fail2ban-2to3"
     system python3, *Language::Python.setup_install_args(prefix, python3), "--without-tests"
 
@@ -62,6 +68,8 @@ class Fail2ban < Formula
 
     man1.install Pathname.glob("man/*.1")
     man5.install "man/jail.conf.5"
+    # Install into `bash-completion@2` path as not compatible with `bash-completion`
+    (share/"bash-completion/completions").install "files/bash-completion" => "fail2ban"
   end
 
   def inreplace_etc_var(targets, audit_result: true)

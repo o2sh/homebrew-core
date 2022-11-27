@@ -1,10 +1,9 @@
 class Libxmlsec1 < Formula
   desc "XML security library"
   homepage "https://www.aleksey.com/xmlsec/"
-  url "https://www.aleksey.com/xmlsec/download/xmlsec1-1.2.34.tar.gz"
-  sha256 "52ced4943f35bd7d0818a38298c1528ca4ac8a54440fd71134a07d2d1370a262"
+  url "https://www.aleksey.com/xmlsec/download/xmlsec1-1.2.36.tar.gz"
+  sha256 "f0d97e008b211d85808f038326d42e7f5cf46648e176f07406a323e7e8d41c80"
   license "MIT"
-  revision 1
 
   livecheck do
     url "https://www.aleksey.com/xmlsec/download/"
@@ -12,13 +11,14 @@ class Libxmlsec1 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "e06064f86f699b330868ef93d3ca57db62bd87423f7ff83097ac7ed2de8b9687"
-    sha256 cellar: :any,                 arm64_monterey: "024bc7d0c29d6538082c6c028cbd05333a114020c43068c51587ac8c826bbbac"
-    sha256 cellar: :any,                 arm64_big_sur:  "1f7fe144276fccca532e1cf53d25f02186c994ae49fae45400b5a8e6654abe1c"
-    sha256 cellar: :any,                 monterey:       "bc772fda0f897167a0203c54dcc7a1c212a4b31562bd07dec9597383582b729b"
-    sha256 cellar: :any,                 big_sur:        "a808516e71f10edefe72faa80fce47215cffb2117d6370808c05576f84cdfd1b"
-    sha256 cellar: :any,                 catalina:       "7f2a722846ebdff6e443d769ba2793f05a001c47b0bbaf2d4f527270444cd21e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fa29289e159f700e07f38d7af68b7bf5832393c65716a2c0303f63e6f86738f3"
+    sha256 cellar: :any,                 arm64_ventura:  "63b193778e143a590e38bf5d0665546ddf9f68ae559c277eb39297e95e883a70"
+    sha256 cellar: :any,                 arm64_monterey: "6e294979deacd8639d5db88929a44e5fa12bbd8ef9a8cc70700cd208069ae9ff"
+    sha256 cellar: :any,                 arm64_big_sur:  "38de14a91a8774b77040555118862c31d9bc6bb5d95ec01db712f5cf62e9790d"
+    sha256 cellar: :any,                 ventura:        "4f1322517b41788f7dfc8a393acab0a2b23348fd1debc6c3a12d1c86c028ce57"
+    sha256 cellar: :any,                 monterey:       "3faa0f71a28a896ff125bf4303b259d37adfdf40308a851fcf6070f2f9d4aae0"
+    sha256 cellar: :any,                 big_sur:        "95ef65e4b964b39794c38c61f5958a736a44f249c6b0505482f39a73ebc70acf"
+    sha256 cellar: :any,                 catalina:       "85b660fba93c05052e266970ed5ef9877f1ac405dbab9f06ba954c8d887b95b3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c35ccab6f2ccc4bed3c488150d8e5f59ee08af109443ddbf6ed71b97403a77af"
   end
 
   depends_on "pkg-config" => :build

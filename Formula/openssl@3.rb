@@ -1,9 +1,9 @@
 class OpensslAT3 < Formula
   desc "Cryptography and SSL/TLS Toolkit"
   homepage "https://openssl.org/"
-  url "https://www.openssl.org/source/openssl-3.0.5.tar.gz"
-  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-3.0.5.tar.gz"
-  sha256 "aa7d8d9bef71ad6525c55ba11e5f4397889ce49c2c9349dcea6d3e4f0b024a7a"
+  url "https://www.openssl.org/source/openssl-3.0.7.tar.gz"
+  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-3.0.7.tar.gz"
+  sha256 "83049d042a260e696f62406ac5c08bf706fd84383f945cf21bd61e9ed95c396e"
   license "Apache-2.0"
 
   livecheck do
@@ -12,13 +12,14 @@ class OpensslAT3 < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "b6194e7a041f88680476e04db1ac8b96b5fd5ff0b824fe24d84405f92763f00f"
-    sha256 arm64_monterey: "d0cc00946bd11f14e1e0f94ce7c29ca63e7fdff96afb3f96951c14f4dbfc482e"
-    sha256 arm64_big_sur:  "60950a4abfbe517a6963d942ae4c9e0b3a80f1ed5f5b1fcf9a0b1630a53db1e8"
-    sha256 monterey:       "c4de05580e98de88ece952f04d2ea019d89043379d44a18970cf4a1e9d93c825"
-    sha256 big_sur:        "48baa0e598f96f1dd372f6b77b39a1469d8fc45cff16117352765e180722e072"
-    sha256 catalina:       "2466bab3013e761e6e4f0ef1aae456c5fe7421a17c9510b415542182dad36e04"
-    sha256 x86_64_linux:   "9e4c842e82226949373f642476bc26ec7a04ed5e7714d6c4f8d79041eabd0220"
+    sha256 arm64_ventura:  "5b3d605f5c1fcadfea094c5670091e4bec2b2de7c121874be166bc737ef64ccf"
+    sha256 arm64_monterey: "aaa47bcc0e7727e655af43748c77f580b1379403010177aab47978b737180295"
+    sha256 arm64_big_sur:  "c84729c8726b7934f0a63d75fd2dce795c948f9b7ec29f9681f667de90b73f16"
+    sha256 ventura:        "3fe02c4f33f395b1ff0af0e05fdac80ab09fc13e85236f33a2aecb105a83d996"
+    sha256 monterey:       "8501aeeab59c63a75dd14c1b836269a6effb08058ec7afb35313f954b40d78c3"
+    sha256 big_sur:        "a8231d898ef9e61de88fc916ed316e58862ef04f1f17563b2f6247fcc894247f"
+    sha256 catalina:       "11f2d168758de4ac078c5799f2ce0fcc93e4f0c3d8b59e6f53eea700dfa02e83"
+    sha256 x86_64_linux:   "1c2ee30c067e2a81dfa1d4f539c91fa278816a45c5d59ff798ec437a5de82f9c"
   end
 
   keg_only :shadowed_by_macos, "macOS provides LibreSSL"
@@ -42,13 +43,6 @@ class OpensslAT3 < Formula
       url "https://cpan.metacpan.org/authors/id/B/BI/BINGOS/ExtUtils-MakeMaker-7.62.tar.gz"
       sha256 "5022ad857fd76bd3f6b16af099fe2324639d9932e08f21e891fb313d9cae1705"
     end
-  end
-
-  # Fix compile on older macOS (Xcode 10.1 and earlier).
-  # Remove with the next release.
-  patch do
-    url "https://github.com/openssl/openssl/commit/c95e2030c34646176b4843b5f0f48720d896f427.patch?full_index=1"
-    sha256 "91b4ef7049aec75bd3c2784472b70652cc1bad60e66f6a7129d5061d6004af43"
   end
 
   # SSLv2 died with 1.1.0, so no-ssl2 no longer required.

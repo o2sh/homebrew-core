@@ -3,22 +3,23 @@ class TranslateToolkit < Formula
 
   desc "Toolkit for localization engineers"
   homepage "https://toolkit.translatehouse.org/"
-  url "https://files.pythonhosted.org/packages/09/75/527fd0f2edd605e25cbe18acdf499b8ecaa83070092b7ef7dad5c9df148f/translate-toolkit-3.7.3.tar.gz"
-  sha256 "14e44dc9b187ccf51c215c57a37475a6bd3719da68104d89dc0b8f33d973dc3e"
+  url "https://files.pythonhosted.org/packages/14/be/e9c706549ebbd163a209bff1f4a191aad304b68e105757afc01eef1fcadb/translate-toolkit-3.7.4.tar.gz"
+  sha256 "5a8259ca6f735ba5068e80180256203a58ad11900faef3cd5e29dcae7a3fa312"
   license "GPL-2.0-or-later"
   head "https://github.com/translate/translate.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "621aa9859f6fd03a68c8e6a6b3006113b20feb3737feaa9dd7be29388fb2037e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e51a7c9db7e8b3e2a56cdd6c7cb6bdefca3f5a7658b8ef7765bc607050e30e9a"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "d5646858beb6d5e77063de8913f5c706d25a482679a22e645f00e1addd5a503f"
-    sha256 cellar: :any_skip_relocation, monterey:       "c8206587310c12005399d2ba583ff66dedae4b408eb39ea41c2f6ad0fdfe8047"
-    sha256 cellar: :any_skip_relocation, big_sur:        "5a42dd227814d16c46beb7fbfa1fe3e0b439527bfe65acf0092485da43f423a8"
-    sha256 cellar: :any_skip_relocation, catalina:       "335f72ba82f43ec5eeccddf2a93356a88077c756284a4a4ef21e09cdb8eb4ef1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dfd71df4565781a58c548efd648257b3fcffef099d25b6b2b3e621651d147594"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "249e983b219e9698e2c041b66819d3d064faf40666a791d2cc6b7e3d2c150985"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "94b67704c25949fb2d86c43aed68401167653d10cc5d44a86ba8eba40ed8d053"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "df2f57e90353e136aa2531ca2f05603e6c68d7e66a743f396ee691a3a5c58614"
+    sha256 cellar: :any_skip_relocation, ventura:        "f52a06e2546bd161e52f209f008f5a5d2e2093933cbbfaee5ecb55a96a09f515"
+    sha256 cellar: :any_skip_relocation, monterey:       "7936d18ec3104c8147d060abbe947ccaedb33bde7691860dbc777b3613e83738"
+    sha256 cellar: :any_skip_relocation, big_sur:        "b484b8b038df210d2a0361beae2c586319f7aaca4bfaeb1c551be91f8461ac7a"
+    sha256 cellar: :any_skip_relocation, catalina:       "74693cf129197e81fd9a0675ce47e5af62faebe84c285e91e53dd1d031646269"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "72ebf9aa3d60b1288969cb9535f79a1640cfa12fab6852c3b79c980db9635fd5"
   end
 
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   uses_from_macos "libxml2"
   uses_from_macos "libxslt"

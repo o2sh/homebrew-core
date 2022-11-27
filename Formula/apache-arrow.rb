@@ -1,65 +1,65 @@
 class ApacheArrow < Formula
   desc "Columnar in-memory analytics layer designed to accelerate big data"
   homepage "https://arrow.apache.org/"
-  url "https://www.apache.org/dyn/closer.lua?path=arrow/arrow-9.0.0/apache-arrow-9.0.0.tar.gz"
-  mirror "https://archive.apache.org/dist/arrow/arrow-9.0.0/apache-arrow-9.0.0.tar.gz"
-  sha256 "a9a033f0a3490289998f458680d19579cf07911717ba65afde6cb80070f7a9b5"
+  url "https://www.apache.org/dyn/closer.lua?path=arrow/arrow-10.0.1/apache-arrow-10.0.1.tar.gz"
+  mirror "https://archive.apache.org/dist/arrow/arrow-10.0.1/apache-arrow-10.0.1.tar.gz"
+  sha256 "c814e0670112a22c1a6ec03ab420a52ae236a9a42e9e438c3cbd37f37e658fb3"
   license "Apache-2.0"
-  revision 4
+  revision 1
   head "https://github.com/apache/arrow.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "d2664a4092625a66103b47468ecc5f994f993f7124f5683f1db884d0b8b84d63"
-    sha256 cellar: :any,                 arm64_monterey: "b2dfd69e5b83c4f72293200d2df8de09b4584c621a5e7b818c295a1d34970f52"
-    sha256 cellar: :any,                 arm64_big_sur:  "4d63e3038c418862e0571183b40c41527a6b575b2b5a4edb4bfb52ba4eed3fa2"
-    sha256 cellar: :any,                 monterey:       "9c93a889afda69ea6b9242bcf4218d63a1ec64bd07369f68cffb67e08b42c6d8"
-    sha256 cellar: :any,                 big_sur:        "875d5650155dd800350eaa4d5c8857c05414b268e7b18644514a1dba2ce0fa2b"
-    sha256 cellar: :any,                 catalina:       "82eb35e64d479b9aa009b39931922e252714dc3a211d16eefeae9fc2a5f09f51"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8f17f836100c2efa596da0d148dd71fd3529f93ed23ecb75129087b0477232e9"
+    sha256 cellar: :any, arm64_ventura:  "d13d172c0b31a9ff8b1e9c70d33a1b706d798b1509ef2461e228ab338afed39c"
+    sha256 cellar: :any, arm64_monterey: "921dd5b2fc44a8f41e5d330c93ee0b1407c3539def5437e183d853a8b3f6c8a2"
+    sha256 cellar: :any, arm64_big_sur:  "e2a0787d1c2da1109c996778b2dac804393c8667dda292589325aeff2abd227e"
+    sha256 cellar: :any, ventura:        "05bca50f600809d98400331f6ef7ab11fe0eefe5fa4e00a096aca16b7ff26eef"
+    sha256 cellar: :any, monterey:       "0cde42493efb299f5d507770d172b2d1b4f4fbdb67760ac8a60b8ec2bf7d5363"
+    sha256 cellar: :any, big_sur:        "02ae77f724266ad55d6d642bd3fba81a555583096b9b6200d629d7384f68b5a6"
+    sha256 cellar: :any, catalina:       "fef542aebe98494e0a9b68cc29a7c3a58038760ccb534d3bd3bf634711365295"
+    sha256               x86_64_linux:   "1f9b1c8e729c958fdba08b54406fb0ddfba267359e68c5b0e9fd9c953ea815d1"
   end
 
   depends_on "boost" => :build
   depends_on "cmake" => :build
-  depends_on "llvm@14" => :build
+  depends_on "llvm" => :build
   depends_on "aws-sdk-cpp"
   depends_on "brotli"
+  depends_on "bzip2"
   depends_on "glog"
   depends_on "grpc"
   depends_on "lz4"
-  depends_on "numpy"
   depends_on "openssl@1.1"
   depends_on "protobuf"
-  depends_on "python@3.10"
   depends_on "rapidjson"
   depends_on "re2"
   depends_on "snappy"
   depends_on "thrift"
   depends_on "utf8proc"
+  depends_on "z3"
   depends_on "zstd"
 
   fails_with gcc: "5"
 
   def install
-    python = "python3.10"
-
     # https://github.com/Homebrew/homebrew-core/issues/76537
     ENV.runtime_cpu_detection if Hardware::CPU.intel?
-
-    # https://github.com/Homebrew/homebrew-core/issues/94724
-    # https://issues.apache.org/jira/browse/ARROW-15664
-    ENV["HOMEBREW_OPTIMIZATION_LEVEL"] = "O2"
 
     args = %W[
       -DCMAKE_FIND_PACKAGE_PREFER_CONFIG=TRUE
       -DCMAKE_INSTALL_RPATH=#{rpath}
+      -DARROW_COMPUTE=ON
+      -DARROW_CSV=ON
+      -DARROW_DATASET=ON
+      -DARROW_FILESYSTEM=ON
       -DARROW_FLIGHT=ON
+      -DARROW_FLIGHT_SQL=ON
       -DARROW_GANDIVA=ON
-      -DARROW_JEMALLOC=ON
+      -DARROW_HDFS=ON
+      -DARROW_JSON=ON
       -DARROW_ORC=ON
       -DARROW_PARQUET=ON
       -DARROW_PLASMA=ON
       -DARROW_PROTOBUF_USE_SHARED=ON
-      -DARROW_PYTHON=ON
       -DARROW_S3=ON
       -DARROW_WITH_BZ2=ON
       -DARROW_WITH_ZLIB=ON
@@ -69,7 +69,6 @@ class ApacheArrow < Formula
       -DARROW_WITH_BROTLI=ON
       -DARROW_WITH_UTF8PROC=ON
       -DARROW_INSTALL_NAME_RPATH=OFF
-      -DPython3_EXECUTABLE=#{which(python)}
     ]
 
     args << "-DARROW_MIMALLOC=ON" unless Hardware::CPU.arm?
@@ -87,7 +86,7 @@ class ApacheArrow < Formula
         return 0;
       }
     EOS
-    system ENV.cxx, "test.cpp", "-std=c++11", "-I#{include}", "-L#{lib}", "-larrow", "-o", "test"
+    system ENV.cxx, "test.cpp", "-std=c++17", "-I#{include}", "-L#{lib}", "-larrow", "-o", "test"
     system "./test"
   end
 end

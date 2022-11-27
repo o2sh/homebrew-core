@@ -3,22 +3,24 @@ class Virtualenv < Formula
 
   desc "Tool for creating isolated virtual python environments"
   homepage "https://virtualenv.pypa.io/"
-  url "https://files.pythonhosted.org/packages/b4/27/b71df0a723d879baa0af1ad897b2498ad78f284ae668b4420092e44c05fa/virtualenv-20.16.6.tar.gz"
-  sha256 "530b850b523c6449406dfba859d6345e48ef19b8439606c5d74d7d3c9e14d76e"
+  url "https://files.pythonhosted.org/packages/2b/dc/be4da7a7fea4e8c3612a4f1901efc694b4f5f1c30179518ffef88c5f8dde/virtualenv-20.16.7.tar.gz"
+  sha256 "8691e3ff9387f743e00f6bb20f70121f5e4f596cae754531f2b3b3a1b1ac696e"
   license "MIT"
+  revision 1
   head "https://github.com/pypa/virtualenv.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0732f1c08d1853608615a5e8fd7da231b33051aa54f184d1487cb8a0c657a49b"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "0177439554ab5d65b27818a67606f53e099e7eb03eccaaae201641f754cb67be"
-    sha256 cellar: :any_skip_relocation, monterey:       "073746d1a8d32f0864117d199b560adc7e5987469b312da02dab5a620baea7eb"
-    sha256 cellar: :any_skip_relocation, big_sur:        "6a586aa8a68c07c64e00ac0e605585d7234cd5e11e05fb252e679b75047cd6f3"
-    sha256 cellar: :any_skip_relocation, catalina:       "ba68b28ca0977cb4276abd32f92d0e73d83fca1d6c44100d8c50dfbed16a2611"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3f333273b62d5f045946801c228a25e13d62687705488131fec3321174f0da68"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6cb1be385918c579252bbc1d4ec3c15a0c0e57c13d599beb2730b6e0a4b43105"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "cf3246ea33a5bac640695d35177a54def1fb1eefce4b4a6ebbd600cb3010a75a"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ba1e0088983fe6caf0251da516be0d0684ec154f707540c2fd3b220ae0a75aea"
+    sha256 cellar: :any_skip_relocation, ventura:        "b13172f508f5d1fb5e9f2e5c801e08611668ff57ab12ad094d80393be21fafee"
+    sha256 cellar: :any_skip_relocation, monterey:       "8aedb664ad62cc4d6c08e8319414faa73245e7d01b68a58658a1a81c0711a026"
+    sha256 cellar: :any_skip_relocation, big_sur:        "078f92d8dd14b0067fd669e738b9fea342c751b6dba3225638409fa8df27b617"
+    sha256 cellar: :any_skip_relocation, catalina:       "48836ca02c57342b5fc963da360c810c82c00409ed6aa0143e6ad40e39856696"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7e5698f33296397ea1fe9c3dad0df14f189efeec07b560ccf5d72e1fd83be0f6"
   end
 
-  depends_on "python@3.10"
-  depends_on "six"
+  depends_on "python@3.11"
 
   resource "distlib" do
     url "https://files.pythonhosted.org/packages/58/07/815476ae605bcc5f95c87a62b95e74a1bce0878bc7a3119bc2bf4178f175/distlib-0.3.6.tar.gz"
@@ -31,8 +33,8 @@ class Virtualenv < Formula
   end
 
   resource "platformdirs" do
-    url "https://files.pythonhosted.org/packages/ff/7b/3613df51e6afbf2306fc2465671c03390229b55e3ef3ab9dd3f846a53be6/platformdirs-2.5.2.tar.gz"
-    sha256 "58c8abb07dcb441e6ee4b11d8df0ac856038f944ab98b7be6b27b2a3c7feef19"
+    url "https://files.pythonhosted.org/packages/cb/5f/dda8451435f17ed8043eab5ffe04e47d703debe8fe845eb074f42260e50a/platformdirs-2.5.4.tar.gz"
+    sha256 "1006647646d80f16130f052404c6b901e80ee4ed6bef6792e1f238a8969106f7"
   end
 
   def install

@@ -10,16 +10,17 @@ class Vint < Formula
   head "https://github.com/Vimjas/vint.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8b84f191c3c9b90fc07f82836076c7809328c2fd008a2a84c4694d67106a25eb"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "8b84f191c3c9b90fc07f82836076c7809328c2fd008a2a84c4694d67106a25eb"
-    sha256 cellar: :any_skip_relocation, monterey:       "d8d2ea2896fd08da1c23fa6016a78598e1aa81f6f30abbb7eb45be920aabc228"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d8d2ea2896fd08da1c23fa6016a78598e1aa81f6f30abbb7eb45be920aabc228"
-    sha256 cellar: :any_skip_relocation, catalina:       "d8d2ea2896fd08da1c23fa6016a78598e1aa81f6f30abbb7eb45be920aabc228"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "50f2d9de8e57fd3ae81db361024bb46032f4cc43deab51532d9343ac258e0aae"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "903c19aef5bbbd7e125cdb721c1b605d3db84143ba8c48b2acda71fa3a8c5b3a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "903c19aef5bbbd7e125cdb721c1b605d3db84143ba8c48b2acda71fa3a8c5b3a"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "903c19aef5bbbd7e125cdb721c1b605d3db84143ba8c48b2acda71fa3a8c5b3a"
+    sha256 cellar: :any_skip_relocation, monterey:       "260e13702ec21eca7707a1fc7ce138e2056bfe1756fb5551650f947971c3b865"
+    sha256 cellar: :any_skip_relocation, big_sur:        "260e13702ec21eca7707a1fc7ce138e2056bfe1756fb5551650f947971c3b865"
+    sha256 cellar: :any_skip_relocation, catalina:       "260e13702ec21eca7707a1fc7ce138e2056bfe1756fb5551650f947971c3b865"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e33a39133442c624e46b3ae03af2629a7f6e35f4aabb8e0d6095472f87f98de7"
   end
 
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "pyyaml"
 
   resource "ansicolor" do
@@ -28,8 +29,8 @@ class Vint < Formula
   end
 
   resource "chardet" do
-    url "https://files.pythonhosted.org/packages/ee/2d/9cdc2b527e127b4c9db64b86647d567985940ac3698eeabc7ffaccb4ea61/chardet-4.0.0.tar.gz"
-    sha256 "0d6f53a15db4120f2b08c94f11e7d93d2c911ee118b6b30a04ec3ee8310179fa"
+    url "https://files.pythonhosted.org/packages/31/a2/12c090713b3d0e141f367236d3a8bdc3e5fca0d83ff3647af4892c16c205/chardet-5.0.0.tar.gz"
+    sha256 "0368df2bfd78b5fc20572bb4e9bb7fb53e2c094f60ae9993339e8671d0afb8aa"
   end
 
   def install

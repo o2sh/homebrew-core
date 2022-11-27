@@ -8,21 +8,23 @@ class Molecule < Formula
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "bc08a22d1a1f66947865faa7c81da0c3c492ecbb033291ee21926c12aa71347d"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "73f7a7cc56416c956dc165b6a5032f2f39230b65b61d6300f5cde42cb7392ba9"
-    sha256 cellar: :any_skip_relocation, monterey:       "140ffddd687b71dd3673fea2f4c4f7978325cdcec0f1b0ae5650af0a6d1b3c9d"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d8206bf83a1342b3f3dbd8e2cac3d704b1c1942f8be8e21c8de11acced7fc8b9"
-    sha256 cellar: :any_skip_relocation, catalina:       "61e925e60f86d393f3b5faadc4d3f05216b1ebddc3e88faab3a08f3b5db3c292"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "183948621f29b17e6af20d95a94f61039ad40ca043e5cde72f885b3b2e44375c"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "eabcdcc2307afe81af7afa51f5743354e0619f416aff3543d40dd0471413a877"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e6209ddab10d20cf780e08cd649baf511aec4759bc612b7f28a1eaf3b16f0589"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "cb96a9f41d119684a1f457ebb53e2ecdbbab671a66b0d23cb88703f5e5a280fc"
+    sha256 cellar: :any_skip_relocation, ventura:        "30ac8fe64ef040488f48c1c826ffb9b9a0685405bf880f5bd348afc459f6f431"
+    sha256 cellar: :any_skip_relocation, monterey:       "49517d1a3a4166382608c3ce59fa1fcff020d1c1cd62710cb3223b142fe0d681"
+    sha256 cellar: :any_skip_relocation, big_sur:        "a4286c1f0b4ae3de6bd53d6eb2de8615a0e5b4cb7711829d645f6bca90784aac"
+    sha256 cellar: :any_skip_relocation, catalina:       "a64a2a5a87c811f3c067d6415882248bc55062aee5bdb13c49991452a536bdaf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "309449ea4c15fba9332f231a273b7172b7c140826edfff5812119baeedf87d5b"
   end
 
   depends_on "rust" => :build
   depends_on "ansible"
   depends_on "cookiecutter"
-  depends_on "jsonschema"
   depends_on "openssl@1.1"
   depends_on "pygments"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "pyyaml"
   depends_on "six"
 
@@ -36,6 +38,11 @@ class Molecule < Formula
   resource "ansible-compat" do
     url "https://files.pythonhosted.org/packages/e7/20/3cbc78afd3bee6a30b95506819b57e70e4e12c3c69da4de35ce2dd03a216/ansible-compat-2.2.1.tar.gz"
     sha256 "7a012753a0a02dab2f22b0e574e3e7b00399f660606154474ffe25621fa80d3b"
+  end
+
+  resource "attrs" do
+    url "https://files.pythonhosted.org/packages/1a/cb/c4ffeb41e7137b23755a45e1bfec9cbb76ecf51874c6f1d113984ecaa32c/attrs-22.1.0.tar.gz"
+    sha256 "29adc2665447e5191d0e7c568fde78b21f9672d344281d0c6e1ab085429b22b6"
   end
 
   resource "click-help-colors" do
@@ -68,6 +75,11 @@ class Molecule < Formula
     sha256 "0a2ab0d2931dff8947012602d1234d2a3ee002d9a355b5d70be6bf5466008893"
   end
 
+  resource "jsonschema" do
+    url "https://files.pythonhosted.org/packages/3a/3d/0653047b9b2ed03d3e96012bc90cfc96227221193fbedd4dc0cbf5a0e342/jsonschema-4.17.0.tar.gz"
+    sha256 "5bfcf2bca16a087ade17e02b282d34af7ccd749ef76241e7f9bd7c0cb8a9424d"
+  end
+
   resource "molecule-vagrant" do
     url "https://files.pythonhosted.org/packages/ae/6c/419f7aebe62d9cf523245c59a02dd79290f38408ac5a80e80fcd389863f8/molecule-vagrant-1.0.0.tar.gz"
     sha256 "fc1e988147226ada8288475b768c52a37366c8b50d30b91635cacfc64e1468c3"
@@ -86,6 +98,11 @@ class Molecule < Formula
   resource "pyparsing" do
     url "https://files.pythonhosted.org/packages/71/22/207523d16464c40a0310d2d4d8926daffa00ac1f5b1576170a32db749636/pyparsing-3.0.9.tar.gz"
     sha256 "2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb"
+  end
+
+  resource "pyrsistent" do
+    url "https://files.pythonhosted.org/packages/19/fb/845ff3b943ede86c69e62c9b47c0e796838552de38fc93d2048fc65ba161/pyrsistent-0.19.1.tar.gz"
+    sha256 "cfe6d8b293d123255fd3b475b5f4e851eb5cbaee2064c8933aa27344381744ae"
   end
 
   resource "python-vagrant" do
@@ -116,8 +133,8 @@ class Molecule < Formula
   def install
     virtualenv_install_with_resources
 
-    site_packages = Language::Python.site_packages("python3.10")
-    %w[cookiecutter jsonschema].each do |package_name|
+    site_packages = Language::Python.site_packages("python3.11")
+    %w[cookiecutter].each do |package_name|
       package = Formula[package_name].opt_libexec
       (libexec/site_packages/"homebrew-#{package_name}.pth").write package/site_packages
     end

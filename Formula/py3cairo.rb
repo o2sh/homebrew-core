@@ -1,24 +1,24 @@
 class Py3cairo < Formula
   desc "Python 3 bindings for the Cairo graphics library"
   homepage "https://cairographics.org/pycairo/"
-  url "https://github.com/pygobject/pycairo/releases/download/v1.21.0/pycairo-1.21.0.tar.gz"
-  sha256 "251907f18a552df938aa3386657ff4b5a4937dde70e11aa042bc297957f4b74b"
+  url "https://github.com/pygobject/pycairo/releases/download/v1.22.0/pycairo-1.22.0.tar.gz"
+  sha256 "b34517abdf619d4c7f0274f012b398d9b03bab7adc3efd2912bf36be3f911f3f"
   license any_of: ["LGPL-2.1-only", "MPL-1.1"]
-  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "72e0477409bb584ddb14da3d348ff4a4dd8ca210a2f47aa89c83e6639d85287d"
-    sha256 cellar: :any,                 arm64_monterey: "ff63b1420cb6450a4ad5d7099cfe3de573af17bff5a6eac905d1052ff8b1577f"
-    sha256 cellar: :any,                 arm64_big_sur:  "2483f93ce39583d9fde00e42c0081c86572ec15de319ff15d4ea705aefc7fda0"
-    sha256 cellar: :any,                 monterey:       "03e594802bce3f9c7e3cbcc55d0007330b0205d61c74e084a54e919eb9b69653"
-    sha256 cellar: :any,                 big_sur:        "de0509d506c8c4ecf70763da2ccb3215340e3cf448b7bb72d44fa4615e58c649"
-    sha256 cellar: :any,                 catalina:       "b280fe6a04a07bd23aa6f8e2c159cd33ee56927ef0fa26ed34a2cb61738c3efe"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c90aac79478bed8998388c08f53d765fbafb6d74babef7c71a79fbf77a73bc29"
+    sha256 cellar: :any,                 arm64_ventura:  "93befda735b45aa8c04d1bc288b88b8c2b41d9f63f8236bc8e6184c580789e69"
+    sha256 cellar: :any,                 arm64_monterey: "e80415048672894adc9c906c9838760956813acb342ff523a21943edcae47688"
+    sha256 cellar: :any,                 arm64_big_sur:  "614fa1e30f7428f49531d7708c01565ce583a63ae1224a4e4f98361f5133b236"
+    sha256 cellar: :any,                 ventura:        "5839416a7831eea998801a2c2dc465b0a961cd221eef92253ea6d52ab2680cb6"
+    sha256 cellar: :any,                 monterey:       "dad977428d3e8d0c02738180ca86e99dcd690b188c6ec2cef4cfbafbc8220cbd"
+    sha256 cellar: :any,                 big_sur:        "dc68f9a97b73f946b71fe5818b4077e9339054233eeefe7756f4bb8b2c633f00"
+    sha256 cellar: :any,                 catalina:       "77936c68a96077618720722fa8810c8c4b74c8330f7f4d8fe92f7ae91aa201e9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cfcc86df6633f5dc9327bd964e1acd9f8697f4cd21bae0f3aa9c39d8d3cdf0fa"
   end
 
   depends_on "pkg-config" => :build
   depends_on "python@3.10" => [:build, :test]
-  depends_on "python@3.9" => [:build, :test]
+  depends_on "python@3.11" => [:build, :test]
   depends_on "cairo"
 
   def pythons

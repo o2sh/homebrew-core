@@ -2,8 +2,8 @@ class Llvm < Formula
   desc "Next-gen compiler infrastructure"
   homepage "https://llvm.org/"
   # NOTE: `ccls` will need rebuilding on every version bump.
-  url "https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.3/llvm-project-15.0.3.src.tar.xz"
-  sha256 "dd07bdab557866344d85ae21bbeca5259d37b4b0e2ebf6e0481f42d1ba0fee88"
+  url "https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.5/llvm-project-15.0.5.src.tar.xz"
+  sha256 "9c4278a6b8884eb7f4ae7dfe3c8e5445019824885e47cfdf1392563c47316fd6"
   # The LLVM Project is under the Apache License v2.0 with LLVM Exceptions
   license "Apache-2.0" => { with: "LLVM-exception" }
   head "https://github.com/llvm/llvm-project.git", branch: "main"
@@ -14,13 +14,14 @@ class Llvm < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "5cc4e3ec9ff694024c3d1e8e5da5ae2ad31ee17ca17d9ff02f0549c841ce0904"
-    sha256 cellar: :any,                 arm64_monterey: "23d7b6719ba60f59f32f1e3c1b14239ab3178d0943ba163b3aa566c03288c365"
-    sha256 cellar: :any,                 arm64_big_sur:  "bd8c3388c01819330a41cbb8dce6c4a488f2c16d9c237bad8d437cadfdd811ac"
-    sha256 cellar: :any,                 monterey:       "09cc7a2e0d63ce220fd454eca8b6deb6d6c0ba6f2c9f2ec73d8e1bcedb9b1934"
-    sha256 cellar: :any,                 big_sur:        "932da8904c78c7501328b4e0be25d14c731f42826c2343ba9a0e2290bd16c777"
-    sha256 cellar: :any,                 catalina:       "37ab9acdfe57946dcd3b0c27a64527d630027f4c16d51ebdfe2732c6051a229b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2354aa1d580bdb16cc5e092aac2fd3bd60c0bc0d4e5c182c735852251066ee4f"
+    sha256 cellar: :any,                 arm64_ventura:  "3d354a01177a952ebf2dbf27457def8fd127d096a9bda7259e8489fac5b52beb"
+    sha256 cellar: :any,                 arm64_monterey: "cab3c7f25517bfe174ce250a37530b7ea6ab4dbcfbfc7ed9b3bda6aa2a23faf1"
+    sha256 cellar: :any,                 arm64_big_sur:  "7015b845d5ae61709e3154da32328e755b10ec38197b37b2feca79fac424c978"
+    sha256 cellar: :any,                 ventura:        "947612657144d9ad3daef6d9fd757d8375766ce35b7e33152c6b1b31f934dbba"
+    sha256 cellar: :any,                 monterey:       "bea6368ad1257460dd09552dd86fb98b5c5315c0eac3329c18989a38e007e491"
+    sha256 cellar: :any,                 big_sur:        "b8398b00865c1834a2b92b468c00ba3e37f204fda2fd50c5be77bf0a566f195f"
+    sha256 cellar: :any,                 catalina:       "1742523da34593f4d819dd24f192d4fa7be9f43cee306630b8907b03c1de833b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7d58227140ceca0ef3c4a3fa3226b9bfc41825c8d5576ffdc0c195f01ff0ca8c"
   end
 
   # Clang cannot find system headers if Xcode CLT is not installed
@@ -33,7 +34,7 @@ class Llvm < Formula
   # See: Homebrew/homebrew-core/issues/35513
   depends_on "cmake" => :build
   depends_on "swig" => :build
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "six"
   depends_on "z3"
   depends_on "zstd"
@@ -53,7 +54,7 @@ class Llvm < Formula
   fails_with gcc: "5"
 
   def python3
-    "python3.10"
+    "python3.11"
   end
 
   def install
@@ -290,7 +291,7 @@ class Llvm < Formula
         # Make sure brewed glibc will be used if it is installed.
         linux_library_paths = [
           Formula["glibc"].opt_lib,
-          HOMBEREW_PREFIX/"lib",
+          HOMEBREW_PREFIX/"lib",
         ]
         linux_linker_flags = linux_library_paths.map { |path| "-L#{path} -Wl,-rpath,#{path}" }
         # Add opt_libs for dependencies to RPATH.

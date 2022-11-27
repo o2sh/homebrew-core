@@ -1,8 +1,8 @@
 class MinimalRacket < Formula
   desc "Modern programming language in the Lisp/Scheme family"
   homepage "https://racket-lang.org/"
-  url "https://mirror.racket-lang.org/installers/8.6/racket-minimal-8.6-src.tgz"
-  sha256 "01d509d5ffd82920ff4bb41de84c07ecc6af9122953716ad43d84aa7b3939f48"
+  url "https://mirror.racket-lang.org/installers/8.7/racket-minimal-8.7-src.tgz"
+  sha256 "232ed9cf17cd7f743b2ccf73d775ec35b5af26b25e551129aeb6038bb0cdc0ec"
   license any_of: ["MIT", "Apache-2.0"]
 
   # File links on the download page are created using JavaScript, so we parse
@@ -15,14 +15,14 @@ class MinimalRacket < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_ventura:  "d68c08356eab42db0e192d905be188a6e47061a37faa3271492757d7a7503563"
-    sha256 arm64_monterey: "0b5e925451860875bcee3426d933853df22667891deab5f58af81db44c7ec64b"
-    sha256 arm64_big_sur:  "f32e1a4c7a2df5d93e160fd500df5bd9408ae3a0878469827544bb8575967127"
-    sha256 monterey:       "382691a83867d3a375900057862963904dab092dbb5923a1dbfc2b0397c4d182"
-    sha256 big_sur:        "6a6567b68a2213255d55fa9658823d2f7bea83bf9638d854ce3e87c12685fd49"
-    sha256 catalina:       "34ac8c5df8fc1ca3ae360cb63230cbe662437ebbff43724988967876e7bc894f"
-    sha256 x86_64_linux:   "5ceb281664ea1a00c477a6476757e7963e5b13db482dd57789dc474ad3ac375e"
+    sha256 arm64_ventura:  "9375edb94086199a84a020c8154decdc03423b074c7e983a36781daa5c58be7c"
+    sha256 arm64_monterey: "a538c529b173d438a826b88f42b76246e3735406d69ad90e3f0a323d72557416"
+    sha256 arm64_big_sur:  "4a401845840cc499f04dd6b3183c90c2c15e3ceb0253a2ac9a1761744e059e56"
+    sha256 ventura:        "4bd500c10f40d1fb58330f90e3d594cb51ad0b46e9033b306369e5c0991611ff"
+    sha256 monterey:       "42f952bd64fb7bc553d1ecc8bcf2a9fa3ece19d0242cd2dc6cadca9d776f3164"
+    sha256 big_sur:        "0500ac1f3a24a56dff09316eea8af255cd6b4106ee2ab6636bc77c1707609405"
+    sha256 catalina:       "6989b1d87308d32f45896b4b33eb0ae74d1ab39759e272de4c9fac70caefaf78"
+    sha256 x86_64_linux:   "65d80647f223a59f9af580f0c7853d0aed4747e8f481093b02108d65706ba73b"
   end
 
   depends_on "openssl@1.1"

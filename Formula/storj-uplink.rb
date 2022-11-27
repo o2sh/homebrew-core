@@ -1,8 +1,8 @@
 class StorjUplink < Formula
   desc "Uplink CLI for the Storj network"
   homepage "https://storj.io"
-  url "https://github.com/storj/storj/archive/refs/tags/v1.65.1.tar.gz"
-  sha256 "05dfedab488e44aedb7d8d35ce9565fcb622b86b474b4613534726acaa9efccf"
+  url "https://github.com/storj/storj/archive/refs/tags/v1.67.3.tar.gz"
+  sha256 "10d1a0cc310a83ee50bd9af6a6d3866a5c483de814e340b32d27c81daaf89a7a"
   license "AGPL-3.0-only"
 
   livecheck do
@@ -11,12 +11,13 @@ class StorjUplink < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "198fd8b500cefee1f87aa73606a0379c278c1eefb7c9d6c1142ef26d10908bb9"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "097e3bd19eabda76b0fe01db6f751232959534a869171730e6e12da29f0349f9"
-    sha256 cellar: :any_skip_relocation, monterey:       "d7ed22ba996be491ef259d8cd4061c4eff72e3b634dc4b51715648ef8930a72c"
-    sha256 cellar: :any_skip_relocation, big_sur:        "8ae31c937cf55f961700ac0c2d7aa7151f05ed28bd83c70fd397e38a544efe36"
-    sha256 cellar: :any_skip_relocation, catalina:       "d8f5d3cc7b67866c612b9856c25097c0129ce3f9f4fd6df9338cc3ff6eda2c20"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c530f8093f60d388c95b9022fbe634907e120db3f6a1100ec0812238f61313b6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9711161a44fc5951ec94e36ef6596f446f0a8e967fc40c94b1e46a8d4bfb2468"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "252720d84696221338c3da72aed4dae4678aa1b1310ce6711f870c40485c8bc0"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "670cd86cb148767eac1a29e86fef5b4453af58b78d496422c669b2c99e6c10a6"
+    sha256 cellar: :any_skip_relocation, monterey:       "503f800928a00260e6f0a91afdfda553a17ba942cbbc13c945a338adeb67b753"
+    sha256 cellar: :any_skip_relocation, big_sur:        "ea4ac354f01971d979d6dd3df3a4b10ba8444175e9fa5a6bfb185cee794d68bd"
+    sha256 cellar: :any_skip_relocation, catalina:       "8032f679b9557b2b12ca8c0cfad03c7d470509488a72b23a957d30570588b23f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2a4b015e84854a504ba887bc534e741de43e4467c8b98b78f53f0c22a383fbb8"
   end
 
   depends_on "go" => :build

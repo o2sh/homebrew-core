@@ -1,18 +1,20 @@
 class Sheldon < Formula
   desc "Fast, configurable, shell plugin manager"
   homepage "https://sheldon.cli.rs"
-  url "https://github.com/rossmacarthur/sheldon/archive/0.7.0.tar.gz"
-  sha256 "e9ae7e8f0ac9dbb024dd2aaf8a2f5fa9167bc81262787d7edcafcc0fd300c008"
+  url "https://github.com/rossmacarthur/sheldon/archive/0.7.1.tar.gz"
+  sha256 "22357b913483232623b8729820e157d826fd94a487a731b372dbdca1138ddf20"
   license any_of: ["Apache-2.0", "MIT"]
   head "https://github.com/rossmacarthur/sheldon.git", branch: "trunk"
 
   bottle do
-    sha256 cellar: :any,                 arm64_monterey: "8a7be6fab6dadd2cd6f4d072f0ebc113892919f9c6fa64b7759ee092de42addc"
-    sha256 cellar: :any,                 arm64_big_sur:  "68d5dc7f44ffab14bb8555d9a195d6175e073010116cab98e4200f509d5c6629"
-    sha256 cellar: :any,                 monterey:       "d4a608ed171fe09983846c859f4480873bb0caec66888957e912fad9f78f810b"
-    sha256 cellar: :any,                 big_sur:        "5e3eab027fee87b1e6a7e824163742626d85668e879744c1fc5b0caa3e442cde"
-    sha256 cellar: :any,                 catalina:       "a6daaf583e641b404a543a2b9836c818848fda45db14a3b4676ec6ce4987b21e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9556854912206d55a0e3b778d166b60f1b0e870f3ccec75ca8bb3ea2285aab60"
+    sha256 cellar: :any,                 arm64_ventura:  "3da53db796890c0ac7f98174008145738e6344f354e8f25370d6e8a5eb90482a"
+    sha256 cellar: :any,                 arm64_monterey: "eb6155ac30d1322c493584964ab5b9678724a85c739dd1b9ec91c6b6afc4a1f6"
+    sha256 cellar: :any,                 arm64_big_sur:  "ab3bddd34e6be2812e919e497b39cb2df62de780890ccdfc0b18944f3696c30e"
+    sha256 cellar: :any,                 ventura:        "c11132d137cc60a285c7e86c88f93d1771e1bc1e93e066ef5c0dd21442e56223"
+    sha256 cellar: :any,                 monterey:       "871a65be7e795ae1ca1a0fb72460ad68ebfd1b7d6c80c1c81dac8abe183b0ec3"
+    sha256 cellar: :any,                 big_sur:        "690bfbafd4c66f64d31020acf62007d855be91b68db9f09b468080efb7ef2468"
+    sha256 cellar: :any,                 catalina:       "e1038bebc73009330146de1fdaaa2d604c356569beb096234cc50ca250e70b77"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b5f09eb1d66328065559864f18b453060cda9843c8a98627e1208653bd7c6a61"
   end
 
   depends_on "rust" => :build

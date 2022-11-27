@@ -1,29 +1,29 @@
 class Opencolorio < Formula
   desc "Color management solution geared towards motion picture production"
   homepage "https://opencolorio.org/"
-  url "https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v2.1.2.tar.gz"
-  sha256 "6c6d153470a7dbe56136073e7abea42fa34d06edc519ffc0a159daf9f9962b0b"
+  url "https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v2.2.0.tar.gz"
+  sha256 "81e3b6e0e432d20347b6396c376f9fbeceac31c2cbefe2882d83112a5b0a8123"
   license "BSD-3-Clause"
-  revision 1
   head "https://github.com/AcademySoftwareFoundation/OpenColorIO.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "957709fd186201808fd0fb870e98becb92c42fb645a7c7ac31e7d16ae424e365"
-    sha256 cellar: :any,                 arm64_monterey: "78b68e78e504306bb3f9e1e7f5b8cdde8a413846de0799668e6bffe2e41bdf6c"
-    sha256 cellar: :any,                 arm64_big_sur:  "ed7529684ebd94f754576862448163922998e1d5742c597ebc43a481703d618a"
-    sha256 cellar: :any,                 monterey:       "179a32959944d37a8e48570b49e0e37967a0ffd61e92ffa41bcb4105395102be"
-    sha256 cellar: :any,                 big_sur:        "10d9e4e650c38d401816cb56932b0925a9cd97b7a46eb19333329a8f5c9a0939"
-    sha256 cellar: :any,                 catalina:       "fd01e301337285b2f305f26b96f15e289694ff14fa7a608783890a389c6b5313"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "aa056459b6df29340ae669ef0d80603ce57a5a2c23d3276a9ee6cf2ce47edb7f"
+    sha256 cellar: :any,                 arm64_ventura:  "03ff1b5e5082e3955cb765598f1d13985839a213ceba7c82f4843ec78e57fdcc"
+    sha256 cellar: :any,                 arm64_monterey: "e129f4cec79267cf32e6fab984e8e60d11c41c37ad0c1d2e3eab9fce0a74c02c"
+    sha256 cellar: :any,                 arm64_big_sur:  "9c8d6cdc2eacb0147542713ce1715ca4603ab040815448f65732cd59fa441672"
+    sha256 cellar: :any,                 ventura:        "7417bd8299ba95e3a682a6b50d094ad6139cb3196cae4ce0977d31683abaa827"
+    sha256 cellar: :any,                 monterey:       "7bcddac6d9fec28ab52196a52cd2bce98351749644b3e0eadfae1756e17427f7"
+    sha256 cellar: :any,                 big_sur:        "e98f8cad10e8a1a43481eb50d7e78acd5586a4dab9e956f8462a19d820617d49"
+    sha256 cellar: :any,                 catalina:       "f1456ae9494b3de9f4ed34b9348f77ba87d7ebf4eac1aa3195b482720a47c0cb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f301d10252d47ae478c45f757014c8ce8172bf87f67b232ef558d49b323ba266"
   end
 
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "little-cms2"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   def install
-    python3 = "python3.10"
+    python3 = "python3.11"
     args = %W[
       -DCMAKE_INSTALL_RPATH=#{rpath}
       -DPYTHON=#{python3}

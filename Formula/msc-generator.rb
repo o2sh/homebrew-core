@@ -6,6 +6,7 @@ class MscGenerator < Formula
   license "AGPL-3.0-or-later"
 
   bottle do
+    sha256 arm64_ventura:  "2c679958ca3bf418b7c70729ebbe86a37b8c835e0bf43c4ff61ff86c88f90c02"
     sha256 arm64_monterey: "f9746df56efcfd9b2e6084306587e9ac7ab8a05931f6c6e1a7ead4ca783506ad"
     sha256 arm64_big_sur:  "5eeea19b32e3195143c54da11acdb05b411d9efd24c0ed399a917579f82b84a5"
     sha256 monterey:       "abf0e87f36a6714637e2770205ac2f0ef05219df1dadc031960ecbdaea2f4c93"
@@ -20,11 +21,14 @@ class MscGenerator < Formula
   depends_on "help2man" => :build
   depends_on "pkg-config" => :build
   depends_on "cairo"
-  depends_on "gcc"
   depends_on "glpk"
   depends_on "graphviz"
   depends_on "sdl2"
   depends_on "tinyxml2"
+
+  on_macos do
+    depends_on "gcc"
+  end
 
   on_linux do
     depends_on "mesa"
@@ -45,7 +49,11 @@ class MscGenerator < Formula
     # for Objective-C++ sources. This workaround should be removed once brew supports
     # setting separate compilers for C/C++ and Objective-C/C++.
     extra_args = []
-    extra_args << "OBJCXX=/usr/bin/clang++" if OS.mac?
+    if OS.mac?
+      extra_args << "OBJCXX=/usr/bin/clang++"
+      ENV.append_to_cflags "-DNDEBUG"
+    end
+
     system "./configure", *std_configure_args, "--disable-font-checks", *extra_args
     system "make", "V=1", "-C", "src", "install"
     system "make", "-C", "doc", "msc-gen.1"

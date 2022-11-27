@@ -14,16 +14,18 @@ class Black < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "16325ee67ce538ec34e9b6c0083a9d42503b18cf511c8f09d76bad8bddbafd4c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "80730b888ae8c450a0596fab65e5c369cd7736a81e7aee29a9e04e1343342b41"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c203a92d86ed64a7d048e7eac0791ece2ced9b12f18c26478e764c3a703fd157"
-    sha256 cellar: :any_skip_relocation, monterey:       "0c8ca8ff07cf773b1dd41c0c043b99f6dd92077f36ecfad7624d2c087319ced4"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e082a53770452eb223c72ae30fe340c3348b48128da2ba71d8731660a9af8690"
-    sha256 cellar: :any_skip_relocation, catalina:       "91c42db3e5de3d478b7a527a13919c1ca04b8daa033c8b8e8a518634a0cee474"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6919c5aaa2d57d7e5e509fb82ca5988ee201bb816b43b97928aaf8da1589d3e3"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d0ad0e0b202d14279917e64624901f9599e9beb98aa7a1b1140c26400d8c78a9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8720aa1cb760d305c277fad58c49362c0e7a579abd3733b72cc45199754b6ebe"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "0904bf8710efad4bfbd6b09067fafd7680d621ace416e4283636c13ec2abf86f"
+    sha256 cellar: :any_skip_relocation, ventura:        "31e47d4ab4f890ec4ba84cbd539345fdec23a53012ae5824bbfb046f58820cc0"
+    sha256 cellar: :any_skip_relocation, monterey:       "d17ffceda536f9b90f8082ec6858dbae228c2a05d880ffd7c222a9e6ce891cbd"
+    sha256 cellar: :any_skip_relocation, big_sur:        "b67a5850fdaca92f756919c5a5d420473273363c39f7df40c8c79822ebd7f944"
+    sha256 cellar: :any_skip_relocation, catalina:       "b4015d435d159e6ec9bf429640c8241c9e4cf94938fe3a9b9f9f8256c8ee2f1d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e4dfc0f217ab3165a011e6388373691dc94efbe305d002ef4101be484288fb27"
   end
 
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   resource "aiohttp" do
     url "https://files.pythonhosted.org/packages/ff/4f/62d9859b7d4e6dc32feda67815c5f5ab4421e6909e48cbc970b6a40d60b7/aiohttp-3.8.3.tar.gz"
@@ -83,11 +85,6 @@ class Black < Formula
   resource "platformdirs" do
     url "https://files.pythonhosted.org/packages/ff/7b/3613df51e6afbf2306fc2465671c03390229b55e3ef3ab9dd3f846a53be6/platformdirs-2.5.2.tar.gz"
     sha256 "58c8abb07dcb441e6ee4b11d8df0ac856038f944ab98b7be6b27b2a3c7feef19"
-  end
-
-  resource "tomli" do
-    url "https://files.pythonhosted.org/packages/c0/3f/d7af728f075fb08564c5949a9c95e44352e23dee646869fa104a3b2060a3/tomli-2.0.1.tar.gz"
-    sha256 "de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"
   end
 
   resource "yarl" do

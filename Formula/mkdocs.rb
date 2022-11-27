@@ -3,21 +3,23 @@ class Mkdocs < Formula
 
   desc "Project documentation with Markdown"
   homepage "https://www.mkdocs.org/"
-  url "https://files.pythonhosted.org/packages/89/10/f619044414b7d8605fdb560dac98c5ffcaeb44ef6fe58f08d24b1595c9a5/mkdocs-1.4.1.tar.gz"
-  sha256 "07ed90be4062e4ef732bbac2623097b9dca35c67b562c38cfd0bfbc7151758c1"
+  url "https://files.pythonhosted.org/packages/ff/2c/932a6df2847c0ecf0875cd00bede939225734b2815fc866c78edb46d9e5d/mkdocs-1.4.2.tar.gz"
+  sha256 "8947af423a6d0facf41ea1195b8e1e8c85ad94ac95ae307fe11232e0424b11c5"
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "87fe2907c44482382703326c8e55fa0de12fcf3d1a5f64a2dffd84c2a6ba4e63"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "dc54b000a7f27c6a8d2324bccb2688c397afafeab017d6a13a75051ed7dd92e2"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "4f938f7935f2dfb7d0c58a58d90b666f2e13e91def8b91b0271b522a073914ec"
-    sha256 cellar: :any_skip_relocation, monterey:       "53e720fa5b11fa5dde00271a540356334d5dc5d916bee02962b4db9549932f6f"
-    sha256 cellar: :any_skip_relocation, big_sur:        "7499a2e53ef5c47c9693e11b5c8d88778ebfde756453ab799a10ef4ce8b22551"
-    sha256 cellar: :any_skip_relocation, catalina:       "9c942a0e78c669f552a5c0ab49f858907ed920a123e13460ab66b0e9447a2507"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "86141fa381e479cd2fa8d7651b5925808d64b867fbfa4ac323207dce80be8a55"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ae2506731afa8fc63dc68c3f403bc0aff73a7ac5484e3c64f603b540008d1606"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "66e651c54bb7e2442895d68bcd2fe02d0ee880f067092d7760f4c0dcef668508"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "1bf85d46fa68718d094cdcbd9f66994ab261a801df1d14699641758288af62dd"
+    sha256 cellar: :any_skip_relocation, ventura:        "646759a32bf6870ba667906fcee4eb0e4c2179974b59b4b0a27c37a430cb1574"
+    sha256 cellar: :any_skip_relocation, monterey:       "066c663596361b756804f57ff9a5a12419daec106b7c28e96bbb26fdd5034e95"
+    sha256 cellar: :any_skip_relocation, big_sur:        "9dd5bfa164f98fc097bf4a0e511712cdc780fa53ae694f3eb83e2a8d2c103dfc"
+    sha256 cellar: :any_skip_relocation, catalina:       "8f54d85ad9bcc01e2e9de901919a65ff5432879ff82e0f12f633f378c2b38f33"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d701ef0d833e1e62bbdec850d0fd0d798841d99de479753200a60ce3f4a5ba4f"
   end
 
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "pyyaml"
   depends_on "six"
 

@@ -1,18 +1,20 @@
 class Geph4 < Formula
   desc "Modular Internet censorship circumvention system to deal with national filtering"
   homepage "https://geph.io/"
-  url "https://github.com/geph-official/geph4/archive/v4.5.0.tar.gz"
-  sha256 "8fa72c3630409d08b811654c288f32bb61dd2a8ae3c7ce101a0fb2d45e6df9d1"
+  url "https://github.com/geph-official/geph4-client/archive/refs/tags/v4.6.2.tar.gz"
+  sha256 "2b96e3c5275905b3b06196cbaf4a17baed9901006d18d688385a2be72291126f"
   license "GPL-3.0-only"
-  head "https://github.com/geph-official/geph4.git", branch: "master"
+  head "https://github.com/geph-official/geph4-client.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "313da23eda7ff91eda76c3ae5bb864d115f79d1e1432948a668ba5f1ff25a567"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "e12e443713c79bef926248ed1deb574da4cde4e0258ff2bb5468475620f0e97a"
-    sha256 cellar: :any_skip_relocation, monterey:       "6b74c5f3239318d05a5d3955d7d3704abfdf2993f3eba73c5febd17d2eca564f"
-    sha256 cellar: :any_skip_relocation, big_sur:        "558f1c34316108aa6bf44acda23486e108bb29199abec034999f99c910b2d769"
-    sha256 cellar: :any_skip_relocation, catalina:       "699a00a14d77ba1f0ea220c720b5b1e1af8e2b88e8c7d99e3c336f4fbbfb14fb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b976b33f8ae0fb4b0529ec138ec59d2f4a5ae5377b2178305c1e64f6c6bb8d96"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5980c677ad6f2cddc85c4e5152fbc4fc67c932c707433fe31159f150e6ed8013"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ab2bfb4fcd537597be32f11779b649ab449a21e4716156b2569a1932710526ae"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f46f69c292e9340bb2535dbadc24968693dc550bea342e44e8c6d448c27ca498"
+    sha256 cellar: :any_skip_relocation, ventura:        "acde10a40c14f62ac7ddf54a08c7d8de2377cabd533337fd99990877bea61739"
+    sha256 cellar: :any_skip_relocation, monterey:       "2a0ab06630c89af252546b2f14d8f2154ef3df32ea8f1e354d1beb186ed06974"
+    sha256 cellar: :any_skip_relocation, big_sur:        "ee90e846681bdfa94f3e53b9376aa3e605a2a959113d64d741068371bb3c469a"
+    sha256 cellar: :any_skip_relocation, catalina:       "05dcd75cf30db3bfa70c3ebf49105794f0aa1832529faabc9ad82a4fefaa9da2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "af784d417d32f0b73738b0cb655eb92dee36b12ae0ee03c251161ffb5e6b46c7"
   end
 
   depends_on "rust" => :build
@@ -23,8 +25,9 @@ class Geph4 < Formula
   end
 
   test do
-    assert_equal "{\"error\":\"wrong password\"}",
-     shell_output("#{bin}/geph4-client sync --username 'test' --password 'test' --credential-cache ~/test.db")
-       .lines.last.strip
+    assert_match "Error: invalid username or password",
+     shell_output("#{bin}/geph4-client sync --credential-cache ~/test.db 2>&1", 1)
+
+    assert_match version.to_s, shell_output("#{bin}/geph4-client --version")
   end
 end

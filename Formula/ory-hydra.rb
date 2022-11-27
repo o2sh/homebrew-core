@@ -2,8 +2,8 @@ class OryHydra < Formula
   desc "OpenID Certified OAuth 2.0 Server and OpenID Connect Provider"
   homepage "https://www.ory.sh/hydra/"
   url "https://github.com/ory/hydra.git",
-      tag:      "v1.11.10",
-      revision: "1a6c22070fc9550796c14b271e816be1dd1b8d78"
+      tag:      "v2.0.2",
+      revision: "ce968261a2043469860c6238701631c456268aba"
   license "Apache-2.0"
 
   livecheck do
@@ -12,12 +12,13 @@ class OryHydra < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "32800f07a1bbc749624f7c139b9da9b0e196a2838475b58e3832090801a256d1"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "6bf2d60166effbbc1279b573a8064be21c775b3fa1b2e71d1c5891fef164776a"
-    sha256 cellar: :any_skip_relocation, monterey:       "f10ffc6b0011b51bca4d63ef1fac6e1dd5ebeae147c01e3ba38d21cb4ef8f73a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "2391affbce3715d42bbe69bc84d1a6c82bec6cd567efc96e60fab323db5da563"
-    sha256 cellar: :any_skip_relocation, catalina:       "f1b7c62a800ffe8f53267ebad12608d2ee3c25c23b7ea5e3f9c1f6a29e6a0818"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7021751fe783eb552822118abf32ca9660d92bc87d1c1328ad8ef1765811e173"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d9d15e9b80b052ae775f90a2cdf5afcf9c038cfdfd4e5d491546592bb6547627"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "20b66952fdca8d86647a6cd1c75d2751943ab4ca76d0810b73809d771129df81"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "dd12dd9b97be0fcee0bcc6f5629b3f9737da78f8236973ed319ca7e8bf126a3d"
+    sha256 cellar: :any_skip_relocation, monterey:       "3e553aba26317647ac18bcb9e943f3cd9e464530d37fa7f84634cf0d6400ef5c"
+    sha256 cellar: :any_skip_relocation, big_sur:        "5f31f14c6202fae7ee8f690a597c0e390999ab3e1bc3f02492433b650b876f59"
+    sha256 cellar: :any_skip_relocation, catalina:       "ad811cd6e1d05ddaa892d7a5d9247765681a8433ef1556491439abd8bc8f362a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "88245f4115642dd8a9a12fa231d4f4bf33e2371111a142b971ca06a1ff395c28"
   end
 
   depends_on "go" => :build
@@ -50,8 +51,8 @@ class OryHydra < Formula
     fork { exec bin/"hydra", "serve", "all", "--config", "#{testpath}/config.yaml" }
     sleep 20
 
-    endpoint = "https://127.0.0.1:#{admin_port}/"
-    output = shell_output("#{bin}/hydra clients list --endpoint #{endpoint} --skip-tls-verify")
-    assert_match "| CLIENT ID |", output
+    endpoint = "http://127.0.0.1:#{admin_port}/"
+    output = shell_output("#{bin}/hydra list clients --endpoint #{endpoint}")
+    assert_match "CLIENT ID\tCLIENT SECRET", output
   end
 end

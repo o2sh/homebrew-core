@@ -1,23 +1,25 @@
 class Deno < Formula
   desc "Secure runtime for JavaScript and TypeScript"
   homepage "https://deno.land/"
-  url "https://github.com/denoland/deno/releases/download/v1.27.0/deno_src.tar.gz"
-  sha256 "25017e8b5b70e2c9ec3815497e1338c7fd81efa064bd234db8f897535712ff23"
+  url "https://github.com/denoland/deno/releases/download/v1.28.2/deno_src.tar.gz"
+  sha256 "ec42e4aac15308efee702c92e9651dd0894b7c0728edbe5dcd49f6d14990a7e8"
   license "MIT"
   head "https://github.com/denoland/deno.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f0e9d4a8c34f40c963ff36e844b8f89f2f28dfbb4e34102666b072a4a9978662"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "0082ed5bdbf18e67c08a7dc46b134f2fafb0110d301dc1be639131e82dbca6f8"
-    sha256 cellar: :any_skip_relocation, monterey:       "5c6425222cda3720acf9d9bbe7a014be9172fb971c64537fd54efded2adf4082"
-    sha256 cellar: :any_skip_relocation, big_sur:        "7a9ca2e2f1aa9896055929f1b2ef062c41723e4899e5532207e08c04ff5e7ccf"
-    sha256 cellar: :any_skip_relocation, catalina:       "8bc0bbeeb0208426cce555e7999c7ba3164ce452318fb2702e2dab5487782019"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "51db5fbc78e0336b95d3480f4cd25f6df09ef898bc8a01e4a0eeb36f19652ad3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ba571cab7b27d607a4a4d97278707b2bc85be2513be1249e1e06b9d0bde08b74"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c30971174a4617746384ca3016d08ad7d43718e100fc8cb89cefa48d1a6c37c3"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "2e84eff7893fa3e81ddef17225d984690586cb27e0fd13521f0ea6628b5278af"
+    sha256 cellar: :any_skip_relocation, ventura:        "142e6aad94cbd07610fdbad3bc8c467360b358a9a7e3c506038ae2ae5067f510"
+    sha256 cellar: :any_skip_relocation, monterey:       "2e23ce98a7d289c57bde6879c943ef66e580d27c4cde33a190c7037794dcd23c"
+    sha256 cellar: :any_skip_relocation, big_sur:        "88783e45e9849a97923205b44ca066f8f6779682dac5bd54753b314f36710d73"
+    sha256 cellar: :any_skip_relocation, catalina:       "e6b9c79a43e30bb79d03a65776bc20ce12b5a5959d68ef07d6b1a452479df68b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6e4c928367506d487357d617b77508fb2ab702aacb7804b38f0473e8c30319d3"
   end
 
   depends_on "llvm" => :build
   depends_on "ninja" => :build
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on "rust" => :build
 
   uses_from_macos "xz"
@@ -37,13 +39,13 @@ class Deno < Formula
   # We use the crate as GitHub tarball lacks submodules and this allows us to avoid git overhead.
   # TODO: Remove this and `v8` resource when https://github.com/denoland/rusty_v8/pull/1063 is released
   resource "rusty-v8" do
-    url "https://static.crates.io/crates/v8/v8-0.54.0.crate"
-    sha256 "3b63103bd7caa4c3571e8baafe58f3e04818df70505304ed814737e655d1d8d6"
+    url "https://static.crates.io/crates/v8/v8-0.55.0.crate"
+    sha256 "46cd4f562bce7520fbb511850c5488366264caf346be221cf7e908f51ac33dbc"
   end
 
   resource "v8" do
-    url "https://github.com/denoland/v8/archive/7422448401643c33608cf46d607f42043525bb6f.tar.gz"
-    sha256 "41b9bbf64e1300980aff8002537b09faf8996fd79859edc338df2498db791ad3"
+    url "https://github.com/denoland/v8/archive/675c4782cc883e54d8a79b15348d7f0085d4f940.tar.gz"
+    sha256 "7dbc0bf4052f08a9e856ffb2fa40faead904333461406126d3a20f3df94fc484"
   end
 
   # To find the version of gn used:
@@ -56,6 +58,9 @@ class Deno < Formula
         revision: "bf4e17dc67b2a2007475415e3f9e1d1cf32f6e35"
   end
 
+  # textwrap 0.15.1 was yanked, update to use 0.15.2
+  patch :DATA
+
   def install
     # Work around files missing from crate
     # TODO: Remove this at the same time as `rusty-v8` + `v8` resources
@@ -66,19 +71,19 @@ class Deno < Formula
     resource("v8").stage do
       cp_r "tools/builtins-pgo", buildpath/"v8/v8/tools/builtins-pgo"
     end
-    inreplace %w[core/Cargo.toml serde_v8/Cargo.toml],
+    inreplace "Cargo.toml",
               /^v8 = { version = ("[\d.]+"),.*}$/,
-              "v8 = { version = \\1, path = \"../v8\" }"
+              "v8 = { version = \\1, path = \"./v8\" }"
 
     if OS.mac? && (MacOS.version < :mojave)
       # Overwrite Chromium minimum SDK version of 10.15
       ENV["FORCE_MAC_SDK_MIN"] = MacOS.version
     end
 
-    python3 = "python3.10"
+    python3 = "python3.11"
     # env args for building a release build with our python3, ninja and gn
-    ENV.prepend_path "PATH", Formula["python@3.10"].libexec/"bin"
-    ENV["PYTHON"] = Formula["python@3.10"].opt_bin/python3
+    ENV.prepend_path "PATH", Formula["python@3.11"].libexec/"bin"
+    ENV["PYTHON"] = Formula["python@3.11"].opt_bin/python3
     ENV["GN"] = buildpath/"gn/out/gn"
     ENV["NINJA"] = Formula["ninja"].opt_bin/"ninja"
     # build rusty_v8 from source
@@ -110,3 +115,22 @@ class Deno < Formula
                    "#{testpath}/hello.ts")
   end
 end
+
+
+__END__
+diff --git a/Cargo.lock b/Cargo.lock
+index 5b9a49f5e..e5b4e2676 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -4803,9 +4803,9 @@ dependencies = [
+
+ [[package]]
+ name = "textwrap"
+-version = "0.15.1"
++version = "0.15.2"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "949517c0cf1bf4ee812e2e07e08ab448e3ae0d23472aee8a06c985f0c8815b16"
++checksum = "b7b3e525a49ec206798b40326a44121291b530c963cfb01018f63e135bac543d"
+
+ [[package]]
+ name = "thiserror"

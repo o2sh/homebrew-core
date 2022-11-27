@@ -1,8 +1,8 @@
 class Mcap < Formula
   desc "Serialization-agnostic container file format for pub/sub messages"
   homepage "https://mcap.dev"
-  url "https://github.com/foxglove/mcap/archive/releases/mcap-cli/v0.0.22.tar.gz"
-  sha256 "9855bdc62bce145abba96203034bb53d06ef7e82309d0ee9254ad8483319b1a9"
+  url "https://github.com/foxglove/mcap/archive/releases/mcap-cli/v0.0.24.tar.gz"
+  sha256 "54dee25b2484e105ca6b0469a3022887de13183b1fb0b68bba3ff23ed42c56b0"
   license "MIT"
   head "https://github.com/foxglove/mcap.git", branch: "main"
 
@@ -12,12 +12,14 @@ class Mcap < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "95ccaef5d22d7a954d2b4a4edc9e1e8121861e67b4bb05d02710c45ca68d0540"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ad1beaf6fd39f64a7111e113b4d9998f191a12d1e99a8138ab6625c3002dbaae"
-    sha256 cellar: :any_skip_relocation, monterey:       "1591d2b01f6a23be419306b6e85b153991a28d0e48269439b90ef2bd23522ff7"
-    sha256 cellar: :any_skip_relocation, big_sur:        "938c2885cda585fe91efe1ee22a4e00df8064db5983afd8bd61704071363f7fe"
-    sha256 cellar: :any_skip_relocation, catalina:       "04f273fab672d34505d521b06245f751d2ece3c54d7f585f3f61413be1bcfbd5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d04cb5b4a7113079c178c7177e4854e907b967678e998d728988e792b08e5c7a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "453ebc06710a8ec3b504e5d172bbecd71b62711dbd96a8341e24c12b41ac9ed9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2bbf6d685d0383825bbdde3dbd10c523accc3426dc5aeabff32a7db2d28b8e04"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "539ec7431b20b7861feb4c13cf0409c0271a3d2c5009742d92c3af3d9c58b58b"
+    sha256 cellar: :any_skip_relocation, ventura:        "23238babbfe839613a618fad86f905e0d62948cdfd852e08c21739d9d59bdd5e"
+    sha256 cellar: :any_skip_relocation, monterey:       "8e70b47759ce389315d34ae0a268b7f0d881ed2152799c1e0aeb988bde8aab18"
+    sha256 cellar: :any_skip_relocation, big_sur:        "454fb86d73c9341379432d029119697a8afec7f984da65be309cf6d9a522f83d"
+    sha256 cellar: :any_skip_relocation, catalina:       "5d5e7742f0e7bfe5af37a8d6efef9f6b224076cb38a6084bb41e8fc93afcd28a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "087123a22fc58f38396613a4a24c4b65ef872561555b8282e0633b41dc3dc013"
   end
 
   depends_on "go" => :build

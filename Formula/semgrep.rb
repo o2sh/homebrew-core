@@ -4,8 +4,8 @@ class Semgrep < Formula
   desc "Easily detect and prevent bugs and anti-patterns in your codebase"
   homepage "https://semgrep.dev"
   url "https://github.com/returntocorp/semgrep.git",
-      tag:      "v0.118.0",
-      revision: "108dfebb6401e8f96b9a31e6a6e299ba1b5d4855"
+      tag:      "v0.122.0",
+      revision: "349ee7f98ecfe61fa515cf2bfdd3d4c6e7268e11"
   license "LGPL-2.1-only"
   head "https://github.com/returntocorp/semgrep.git", branch: "develop"
 
@@ -15,13 +15,15 @@ class Semgrep < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_ventura:  "47eaf05adbdac0f2e504457aed1db03aac0a5cd6056150c76149e3b849f5e603"
-    sha256 cellar: :any, arm64_monterey: "3ac52b9772f8a51af5ad004e9c0c6819254a7307076e42a81f0beb99fc4bb1ca"
-    sha256 cellar: :any, arm64_big_sur:  "981e8477323cbaf7e6481430fca6a15b11b50221bb8fdb454625435f96c28614"
-    sha256 cellar: :any, monterey:       "c8f8578d11636c1cc48b65dad17cb5e0466be1b67d50c88b2a122daaba659134"
-    sha256 cellar: :any, big_sur:        "8def5ecd3681cffc2a74f02d0b49ec0bef14290c62da81e1064e108b303c3799"
-    sha256 cellar: :any, catalina:       "0b0f9bd68e96cc9c535c4d166c7d21cdcbe3740b0551a043ab34d8eee01db798"
-    sha256               x86_64_linux:   "7e4689e28d36796a504438834db7dddcf640d97991db149a801354beceae819f"
+    rebuild 1
+    sha256 cellar: :any, arm64_ventura:  "794dde61440af1fc1ca7ccdbdd572a50db67694ad4e48ad4efd3f8968c61fc1e"
+    sha256 cellar: :any, arm64_monterey: "4fa7bfe6c30ae34e5e02599caeeaefd10c952268e93d67d6c09149836e29bc43"
+    sha256 cellar: :any, arm64_big_sur:  "f33d6777437b3fd208794abef60da51e82a458424f6bd83aa3944260f01d4870"
+    sha256 cellar: :any, ventura:        "907cfa8d4b3a07154c8d5ec6930476243beae8a01e69cadce8528475f5f7da3b"
+    sha256 cellar: :any, monterey:       "5c4736c4c383bed21a91f4b117289981024492f1ca221f75bbb6ecd278c8a165"
+    sha256 cellar: :any, big_sur:        "69ad191aa3293238f4c1a0a5ba5706513c7824781141f69909aab297840006ae"
+    sha256 cellar: :any, catalina:       "d48574415bd57ff5d9d651140c4a2f4085650ffb590fbf796c6b687f7d60dcff"
+    sha256               x86_64_linux:   "9ef6e758b8b97a3275f81bcedfa8df85bfac3df49d46961b9a4a3f2234bee01a"
   end
 
   depends_on "cmake" => :build
@@ -31,15 +33,19 @@ class Semgrep < Formula
   depends_on "opam" => :build
   depends_on "pipenv" => :build
   depends_on "pkg-config" => :build
-  depends_on "jsonschema"
   depends_on "pcre"
   depends_on "python-typing-extensions"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "tree-sitter"
 
   uses_from_macos "rsync" => :build
 
   fails_with gcc: "5"
+
+  resource "attrs" do
+    url "https://files.pythonhosted.org/packages/1a/cb/c4ffeb41e7137b23755a45e1bfec9cbb76ecf51874c6f1d113984ecaa32c/attrs-22.1.0.tar.gz"
+    sha256 "29adc2665447e5191d0e7c568fde78b21f9672d344281d0c6e1ab085429b22b6"
+  end
 
   resource "boltons" do
     url "https://files.pythonhosted.org/packages/ad/1f/6c0608d86e0fc77c982a2923ece80eef85f091f2332fc13cbce41d70d502/boltons-21.0.0.tar.gz"
@@ -72,8 +78,8 @@ class Semgrep < Formula
   end
 
   resource "colorama" do
-    url "https://files.pythonhosted.org/packages/2b/65/24d033a9325ce42ccbfa3ca2d0866c7e89cc68e5b9d92ecaba9feef631df/colorama-0.4.5.tar.gz"
-    sha256 "e6c6b4334fc50988a639d9b98aa429a0b57da6e17b9a44f0451f930b6967b7a4"
+    url "https://files.pythonhosted.org/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz"
+    sha256 "08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"
   end
 
   resource "defusedxml" do
@@ -96,19 +102,29 @@ class Semgrep < Formula
     sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
   end
 
+  resource "jsonschema" do
+    url "https://files.pythonhosted.org/packages/65/9a/1951e3ed40115622dedc8b28949d636ee1ec69e210a52547a126cd4724e6/jsonschema-4.17.1.tar.gz"
+    sha256 "05b2d22c83640cde0b7e0aa329ca7754fbd98ea66ad8ae24aa61328dfe057fa3"
+  end
+
   resource "packaging" do
     url "https://files.pythonhosted.org/packages/df/9e/d1a7217f69310c1db8fdf8ab396229f55a699ce34a203691794c5d1cad0c/packaging-21.3.tar.gz"
     sha256 "dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb"
   end
 
   resource "peewee" do
-    url "https://files.pythonhosted.org/packages/b7/4a/ba48c5a99a86cad44f89766dfa9937efe18f8d61d8fb55d0cd9073d2b40c/peewee-3.15.3.tar.gz"
-    sha256 "cc934286d0c0842203abe66a3c6583d1463371e633b03d6da054d0f74e70706f"
+    url "https://files.pythonhosted.org/packages/17/c8/8035f2155832580d786c35cb1ce0a89d80a67be522f620878fc294742905/peewee-3.15.4.tar.gz"
+    sha256 "2581520c8dfbacd9d580c2719ae259f0637a9e46eda47dfc0ce01864c6366205"
   end
 
   resource "pyparsing" do
     url "https://files.pythonhosted.org/packages/71/22/207523d16464c40a0310d2d4d8926daffa00ac1f5b1576170a32db749636/pyparsing-3.0.9.tar.gz"
     sha256 "2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb"
+  end
+
+  resource "pyrsistent" do
+    url "https://files.pythonhosted.org/packages/b8/ef/325da441a385a8a931b3eeb70db23cb52da42799691988d8d943c5237f10/pyrsistent-0.19.2.tar.gz"
+    sha256 "bfa0351be89c9fcbcb8c9879b826f4353be10f58f8a677efab0c017bf7137ec2"
   end
 
   resource "python-lsp-jsonrpc" do
@@ -124,11 +140,6 @@ class Semgrep < Formula
   resource "ruamel.yaml" do
     url "https://files.pythonhosted.org/packages/46/a9/6ed24832095b692a8cecc323230ce2ec3480015fbfa4b79941bd41b23a3c/ruamel.yaml-0.17.21.tar.gz"
     sha256 "8b7ce697a2f212752a35c1ac414471dc16c424c9573be4926b56ff3f5d23b7af"
-  end
-
-  resource "ruamel.yaml.clib" do
-    url "https://files.pythonhosted.org/packages/8b/25/08e5ad2431a028d0723ca5540b3af6a32f58f25e83c6dda4d0fcef7288a3/ruamel.yaml.clib-0.2.6.tar.gz"
-    sha256 "4ff604ce439abb20794f05613c374759ce10e3595d1867764dd1ae675b85acbd"
   end
 
   resource "tomli" do
@@ -198,15 +209,10 @@ class Semgrep < Formula
     ENV["SEMGREP_SKIP_BIN"] = "1"
     python_path = "cli"
     cd python_path do
-      venv = virtualenv_create(libexec, Formula["python@3.10"].bin/"python3.10")
+      venv = virtualenv_create(libexec, Formula["python@3.11"].bin/"python3.11")
       venv.pip_install resources.reject { |r| r.name == "ocaml-tree-sitter" }
       venv.pip_install_and_link buildpath/python_path
     end
-
-    # we depend on jsonschema, but that's a separate formula, so install a `.pth` file to link them
-    site_packages = Language::Python.site_packages("python3.10")
-    jsonschema = Formula["jsonschema"].opt_libexec
-    (libexec/site_packages/"homebrew-jsonschema.pth").write jsonschema/site_packages
   end
 
   test do

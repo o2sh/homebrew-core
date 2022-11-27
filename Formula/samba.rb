@@ -4,8 +4,8 @@ class Samba < Formula
   # option. The shared folder appears in the guest as "\\10.0.2.4\qemu".
   desc "SMB/CIFS file, print, and login server for UNIX"
   homepage "https://www.samba.org/"
-  url "https://download.samba.org/pub/samba/stable/samba-4.17.2.tar.gz"
-  sha256 "e55ddf4d5178f8c84316abf53c5edd7b35399e3b7d86bcb81b75261c827bb3b8"
+  url "https://download.samba.org/pub/samba/stable/samba-4.17.3.tar.gz"
+  sha256 "5d1c420cb31ec613c786f98537f959659081edc6be8373e68e87140868938e26"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -14,12 +14,14 @@ class Samba < Formula
   end
 
   bottle do
-    sha256 arm64_monterey: "20b5015e00e708e70f40e24f6cdc26542ba5f9a99c706f4e90ac7febd943f18b"
-    sha256 arm64_big_sur:  "ed87ec0e1d119e5a7331b97243bce54e8498eb1957a372742470738d13be22ae"
-    sha256 monterey:       "60043f08867cd6f6b7fd758ece916c8a7d6186f2aee7a4f03e2939b10decaeea"
-    sha256 big_sur:        "e33a9df9f26a1b3aae6f16c640db3fab24ad4cf316cdbbf3bd36d35a51d9eaf8"
-    sha256 catalina:       "5115afbab44ecd47746c3506536b3ba0d31c50a6bb21f67d8249442bfb8aec3f"
-    sha256 x86_64_linux:   "a70bcff0675ec94cf35e032691f0523e891437ade9d516bbf3ae2ae5718f05fe"
+    sha256 arm64_ventura:  "354dd9490f7d7055cedf59adc308d2d21226b2b6920c38a7e3d4d7d4266f5a77"
+    sha256 arm64_monterey: "4ebd6944c4f508983288f15d3ee8671cdef88aa7db172b04c67bb11243900e70"
+    sha256 arm64_big_sur:  "2a34b98843287096f182d4463b84ebe5f90bb251d7624f92a7d7099da1429925"
+    sha256 ventura:        "1d00702ea54a87620810a3bab1030295d4e6f41b011a04f7cd1e0479f9da97eb"
+    sha256 monterey:       "57aae8a01b02e32f9c6650b917a8c963d57d0cd6eb0532f803c305160da984fe"
+    sha256 big_sur:        "3eeb8cd71e7e1b4ce1e019dd3c76e802f44a654fee1355ef72cc59336a5333e4"
+    sha256 catalina:       "c8ad47ead61945b6f07330d2a60b473b7ccbd0d8380421b78d9366b154e90fb1"
+    sha256 x86_64_linux:   "1ce64a275b2815df94f1de8076eec36d54790351c1e9891995ab91e9b00ede30"
   end
 
   # configure requires python3 binary to be present, even when --disable-python is set.

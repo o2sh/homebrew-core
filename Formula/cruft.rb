@@ -10,16 +10,19 @@ class Cruft < Formula
   head "https://github.com/cruft/cruft.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2d58c485a3ee5344f6e8f5f1839a85648886da4adf372f36d7b883b2cb23b9b2"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9602322f65d6c83a2879213cc0bfc4cd1b9f249cce18cf9b4c3bfca06a4c41d8"
-    sha256 cellar: :any_skip_relocation, monterey:       "48cad8764dff845ae332cfcc7e6f25b765ad9462c741b3dbce3d72d87920978d"
-    sha256 cellar: :any_skip_relocation, big_sur:        "6a857b226bdb8b8f8e9de69d39252193e6ef7e299799fd2d0177a80708eecf1a"
-    sha256 cellar: :any_skip_relocation, catalina:       "3c9be16a9de78d1e935e154fbca0edf4aa17dd34ba963d22713e24a208d3afdf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fcf996529fdd0d2ba69c3f3138128f457745baac0f64f9e327a77581b9af088b"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9abcd8a7df0a66c96073ab7c9db46f5aa4744c3197e186c2d536730263093031"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6a0956878def825c3714c77f7e963580946648c4bedd9551cdd7b5ced6487cc1"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "06300a487befc9a77b0daed8d28fb7ab9bf4ef7144727d80c5f599b5d2cbe221"
+    sha256 cellar: :any_skip_relocation, ventura:        "736006d2a60070e33f3d879f2e9a0603b0efd9cc37b20e1af4f75ffe0d13ba5b"
+    sha256 cellar: :any_skip_relocation, monterey:       "dc573b5bb63e57d9bb7fba3802cb8ff69ffb443da9403f798e934f1c9a9a9b98"
+    sha256 cellar: :any_skip_relocation, big_sur:        "947603f38c5f8249c9e48eaaf664557d7741dd0f3b534c950ab50b74ce19f6f0"
+    sha256 cellar: :any_skip_relocation, catalina:       "44a64917329bf48dd5574f88b624a57514a3b64cd6d115e65a715ef092161b7c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "345d5de2b0c41c86f8f8fcf96c3d0cfc85c983095911feb864d65a52b83fd1a3"
   end
 
   depends_on "cookiecutter"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "six"
 
   resource "gitdb" do
@@ -51,7 +54,7 @@ class Cruft < Formula
     virtualenv_install_with_resources
 
     # we depend on cookiecutter, but that's a separate formula, so install a `.pth` file to link them
-    site_packages = Language::Python.site_packages("python3.10")
+    site_packages = Language::Python.site_packages("python3.11")
     cookiecutter = Formula["cookiecutter"].opt_libexec
     (libexec/site_packages/"homebrew-cookiecutter.pth").write cookiecutter/site_packages
   end

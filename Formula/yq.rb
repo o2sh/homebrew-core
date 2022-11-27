@@ -1,8 +1,8 @@
 class Yq < Formula
   desc "Process YAML documents from the CLI"
   homepage "https://github.com/mikefarah/yq"
-  url "https://github.com/mikefarah/yq/archive/v4.29.1.tar.gz"
-  sha256 "3bcef539e2d3212ccebca92b69e7c68da239ce1f145c57850f0c078cf01a026d"
+  url "https://github.com/mikefarah/yq/archive/v4.30.4.tar.gz"
+  sha256 "d46e4f5176d6115107909623bd89ceb7ae991acc0980112ba9b0159811229c0c"
   license "MIT"
   head "https://github.com/mikefarah/yq.git", branch: "master"
 
@@ -12,12 +12,13 @@ class Yq < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8461be177a580569f9f12cf4dfef91a062e49051724377f7ff99e4dad077eedf"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "63a7095cb22cfb12674753702cae59c55fc2cb795b6bc18d358bc9491eb7fe9a"
-    sha256 cellar: :any_skip_relocation, monterey:       "15de3b38857cc7840007d20f79ddf40edd7116430f4f3b78be391ba1d59918e2"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e6e76c6797245cc1fe323a0bede30595ddab6531d7e2ef9e2024acc02c658204"
-    sha256 cellar: :any_skip_relocation, catalina:       "0e9a43aaf7927228e78934dad987f53dd478e737562add28c8509cda34c1a1e9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1b501f1af505b08ef9c35ca70b15ebd0e89f097aeb1abd3b7caadb48068cb6d9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f8f7e5b9f53dec6fb6d421ad7edf52836bfcdb5755239d0890830523beb328f0"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "4d99e13505fb6240fea146fcfd1e187d5da595a6eabdc77a7eb9485b8d728425"
+    sha256 cellar: :any_skip_relocation, ventura:        "5c68e32a50f8f692c70d94d9e436b0043615309f93ceaff1e0575bc1c8ca9430"
+    sha256 cellar: :any_skip_relocation, monterey:       "e04e8303bbd5f2bd7a910e0e7034950db548f817c5d0b85272e607eeb80bdf04"
+    sha256 cellar: :any_skip_relocation, big_sur:        "692c809cf647f5737c15eb0fd0e9e8f4b51b443ad67861e6f3f321c95a93a757"
+    sha256 cellar: :any_skip_relocation, catalina:       "bca15d2e51a21aa22fa8ebcd2e02755a29969c00ecb9e69e70fb30adbc728bb9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2a80cd92a75388a83b8a5e8e6c3c93c6a8f49f57fa1abeecc9d565015c0cf2ba"
   end
 
   depends_on "go" => :build

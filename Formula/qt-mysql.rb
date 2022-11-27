@@ -1,8 +1,8 @@
 class QtMysql < Formula
   desc "Qt SQL Database Driver"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.3/6.3.2/submodules/qtbase-everywhere-src-6.3.2.tar.xz"
-  sha256 "7929ba4df870b6b30870bc0aed2525cfc606ed7091107b23cf7ed7e434caa9a6"
+  url "https://download.qt.io/official_releases/qt/6.4/6.4.0/submodules/qtbase-everywhere-src-6.4.0.tar.xz"
+  sha256 "cb6475a0bd8567c49f7ffbb072a05516ee6671171bed55db75b22b94ead9b37d"
   license all_of: ["LGPL-2.1-only", "LGPL-3.0-only"]
 
   livecheck do
@@ -10,11 +10,13 @@ class QtMysql < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_monterey: "ad8674a53de31d8d0e51be4e57809bf62a19f0678ca940481cbbc7c07f64f5e7"
-    sha256 cellar: :any, arm64_big_sur:  "fd61d5eecc10c826185452c1eb776a0dfc6a56a38551bfc3e1edde807fc38a94"
-    sha256 cellar: :any, monterey:       "fdc39365924d099783468fee540b8e23fa9f7cf83cd59126f16df59358706cd0"
-    sha256 cellar: :any, big_sur:        "69ee53bd0c1ebb7274c0d5878ff3d209ca294558f5519c7c7163becfd4f4c28b"
-    sha256 cellar: :any, catalina:       "f36790b908662392cf3a5ce12e8b3abea3377bb99af0430cf91cf26c111c29cd"
+    sha256 cellar: :any,                 arm64_ventura:  "079661fd6d4a2e8790adf0987db4e8af69ae476a827546fd7646c21f4763129e"
+    sha256 cellar: :any,                 arm64_monterey: "ed655e593a0f04f1f2ef4a6e69c9850b5e8230e491f487fe9daa0949832603f2"
+    sha256 cellar: :any,                 arm64_big_sur:  "09296c51249c4bbcd2e8287d6804397924bd4267c1e367f3d64402ef88cf1d84"
+    sha256 cellar: :any,                 monterey:       "e94c38f53df5002b3e07ab4f6721bacb2a1cca934340c25fcf317a3b0a42acef"
+    sha256 cellar: :any,                 big_sur:        "8281d5cab2a3b8ae8f61e1c70dd6df12c44c1df325b9a68af7e80abb1fa942ca"
+    sha256 cellar: :any,                 catalina:       "bc724307260c2f2a4d08342a2f504c86ee60acf8a15289b178b4f57409bc7b74"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ae67e4feef6ec568db061d4c0691f3e9a878ff68b94c6aabc80060515aab8c90"
   end
 
   depends_on "cmake" => [:build, :test]

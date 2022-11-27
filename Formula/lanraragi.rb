@@ -11,6 +11,7 @@ class Lanraragi < Formula
   bottle do
     sha256 cellar: :any,                 arm64_monterey: "3731c4b8c241e190430528ea1c6db6ac729e38d995494db81051680608c4a044"
     sha256 cellar: :any,                 arm64_big_sur:  "2c72d50acb5f48b67db009d31e9616656a96c6cd991c5e9646ef45118832fd28"
+    sha256 cellar: :any,                 ventura:        "bda2d3aafb92a76d9180b4390f23e114a6e495053bbe0eedfd4ec848fe279acd"
     sha256 cellar: :any,                 monterey:       "513328a5b21273b678723d351ae46541564bcdc42ffee32cf174ddd0f8d2d3ad"
     sha256 cellar: :any,                 big_sur:        "88b712c81f26c0b59bda5c619129a64dadd5c54cd055dd0562ff4e0c39a9a5fc"
     sha256 cellar: :any,                 catalina:       "36900d82301c02c6c3217fb472faebbf4df8aaf3496e6324e79d19b360351f54"
@@ -35,8 +36,8 @@ class Lanraragi < Formula
 
   resource "libarchive-headers" do
     on_macos do
-      url "https://opensource.apple.com/tarballs/libarchive/libarchive-83.100.2.tar.gz"
-      sha256 "e54049be1b1d4f674f33488fdbcf5bb9f9390db5cc17a5b34cbeeb5f752b207a"
+      url "https://github.com/apple-oss-distributions/libarchive/archive/refs/tags/libarchive-83.100.2.tar.gz"
+      sha256 "a0228f75792f881bc927196f8b794d0263a019aab741765e54550f75271258aa"
     end
   end
 

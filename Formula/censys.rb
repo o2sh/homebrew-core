@@ -8,17 +8,19 @@ class Censys < Formula
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8243dc5ccc6f0e32eafeac590f105b7bc4b8ea15cac15415e49753e24533c1e5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c7b33915964ad54a640d366c8235c9c829a5f69f5c94ea4b5ee85abe0f57249e"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9e7d7287624749408f2650fcbb6ccb4bbe9f8f46ffd1f25ccad2b35c433cea01"
-    sha256 cellar: :any_skip_relocation, monterey:       "fcdbd97c88161be01fdebfa34bc9ee0cebf4e5d6ce360240d5adc6dd78c950eb"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e7577cf705478a02a0cbc801f423a74c7ed5bc6aa23fc2dc9eb77e92dde35300"
-    sha256 cellar: :any_skip_relocation, catalina:       "09db1a2cd47202905fea6aff3d9e879d1501ca424355eb1dda305f63b5b569ee"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5334dfa5c20d9e8ae9cb12f1b93fbad5e82be6567f742696323d7008a1941740"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8e4f720ffea10c8b33f5664165e001667c3d5e253a059cced71a7d3aadc13e2e"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "61634a1f1bab414835f2370a8326cbffc124e16a3e2293d4304c8ee663c60146"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "895b358c869ac1d649af52642c30c9144226e640e0913e58b9b2d5f0172d423a"
+    sha256 cellar: :any_skip_relocation, ventura:        "ba01e8344bcebea36605c7a4969b2bc736cf3ad5f97dd5afed7e5909f76b894b"
+    sha256 cellar: :any_skip_relocation, monterey:       "51a1a461f5d4602ae29aaf7081283fb4a4de40090223bd4a69bda05cd9fc9616"
+    sha256 cellar: :any_skip_relocation, big_sur:        "25797d090339da2fc9197884d3a46ba678091b11e893bfd478968a325a069ba4"
+    sha256 cellar: :any_skip_relocation, catalina:       "f35f564e23dc1bf9133c04ca171b7a178b32d9f5905a99f16f96787c5aab43b4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a8992257e82ef1a8d535f0e97c7846b3530205bd40c87b3034ead7599c8d113e"
   end
 
   depends_on "pygments"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   resource "backoff" do
     url "https://files.pythonhosted.org/packages/47/d7/5bbeb12c44d7c4f2fb5b56abce497eb5ed9f34d85701de869acedd602619/backoff-2.2.1.tar.gz"
@@ -61,7 +63,6 @@ class Censys < Formula
   end
 
   def install
-    virtualenv_create(libexec, "python3.10")
     virtualenv_install_with_resources
   end
 

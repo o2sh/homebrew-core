@@ -1,16 +1,17 @@
 class OpenjdkAT8 < Formula
   desc "Development kit for the Java programming language"
   homepage "https://openjdk.java.net/"
-  url "https://openjdk-sources.osci.io/openjdk8/openjdk8u345-ga.tar.xz"
-  version "1.8.0+345"
-  sha256 "d3e8b554e519c53454a6c6ef1680b18d3f77ea90f3cd2c853598cb3970004ee2"
+  url "https://github.com/openjdk/jdk8u/archive/refs/tags/jdk8u352-b07.tar.gz"
+  version "1.8.0+352"
+  sha256 "6d4553325795bea1cea6d28bef886ad6f9ca2bd44442c6d36a6b5d736945f8b8"
   license "GPL-2.0-only"
 
   bottle do
-    sha256 cellar: :any,                 monterey:     "31428d384001e26d2a3a981cb1f2df4cb19324aa0a27db2fe00481f5eb4e59cd"
-    sha256 cellar: :any,                 big_sur:      "a8fedd63b9a5b1f2a4a0c307fc2421e4e7114600fa1798ffd57bb0b607071e30"
-    sha256 cellar: :any,                 catalina:     "bfb061ab78dcf5841c573376706e827346d5838e9afda6f5bca2e2c9649f7c94"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "424adf253049f1628bf80cc536b4027f455300626d31b214ec8f6bcf65dc855d"
+    sha256 cellar: :any,                 ventura:      "90907fd77191ae5c5e4352f299a3a8216af684b0913352c4ce38a181cf4c43dd"
+    sha256 cellar: :any,                 monterey:     "5c3014bad94438f2f02901c53e63bef392f2a14ea22a497e75ccd8d1a5a599de"
+    sha256 cellar: :any,                 big_sur:      "1f1905dc9f4c2c370d49e69cca9344a7d96f08870b41f6e022cd443944c6ac45"
+    sha256 cellar: :any,                 catalina:     "9a0dff54e2f2b87e5b6318b0f3f76df3454ecec52c205462d2b1634824e5d71e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "75cd074c0e1b5b91247c2fbb6f95e3f62a8d3fe5e990f094dff62f373aeece2c"
   end
 
   keg_only :versioned_formula
@@ -79,7 +80,7 @@ class OpenjdkAT8 < Formula
       # Fix Xcode 13 detection.
       inreplace "common/autoconf/toolchain.m4",
                 "if test \"${XC_VERSION_PARTS[[0]]}\" != \"6\"",
-                "if test \"${XC_VERSION_PARTS[[0]]}\" != \"13\""
+                "if test \"${XC_VERSION_PARTS[[0]]}\" != \"#{MacOS::Xcode.version.major}\""
     end
 
     if OS.linux?

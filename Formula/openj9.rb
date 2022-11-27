@@ -2,8 +2,8 @@ class Openj9 < Formula
   desc "High performance, scalable, Java virtual machine"
   homepage "https://www.eclipse.org/openj9/"
   url "https://github.com/eclipse-openj9/openj9.git",
-      tag:      "openj9-0.33.1",
-      revision: "1d9d16830f713e97410e8eeed1c350e58f34fadb"
+      tag:      "openj9-0.35.0",
+      revision: "e04a7f6c1c365a6b375deb5f641c72309b170b95"
   license any_of: [
     "EPL-2.0",
     "Apache-2.0",
@@ -17,11 +17,12 @@ class Openj9 < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_monterey: "935a351439ea07644e2fb053deb4016db98c994c1445df92d93a2dcb756b27a2"
-    sha256 cellar: :any, arm64_big_sur:  "c3a74e75990ab316b69932c5340471af5fec3bbbd33f59b87be2919a05193727"
-    sha256 cellar: :any, monterey:       "b029a1987b8d3a86badaef9f8d3e1616dadda33c541c4f4caa0b8f0fa9a57786"
-    sha256 cellar: :any, big_sur:        "e948d8ba9ffcfcd5b29cb9c6f7e9f2a5c59f5e65d47fa8d1ad4917c3d7cbe229"
-    sha256 cellar: :any, catalina:       "d4f8a526b2f1a5827589d5af0b4c174d97b6eb43d3dfe3f4b1e75f0a852652cb"
+    sha256 cellar: :any, arm64_monterey: "9570aad125859a5ab095905d6cdc64e2f537dddc8762419d9bea87230c045cba"
+    sha256 cellar: :any, arm64_big_sur:  "a45ff6f91ee86d0fcc2bfbd3ce83f4aea20715aa01df3e01680f163b74e36c24"
+    sha256 cellar: :any, ventura:        "2763ff46d605b2a7173fc85ee04413f111f800343779644d698a86f54988274d"
+    sha256 cellar: :any, monterey:       "a1ec2be6a1104b63db5dd1da2c71da3a746478cfca5a6037eb6744426dd22a89"
+    sha256 cellar: :any, big_sur:        "432828659e46fed219dcd4ce9e89a16555c054f85077b001f67b18dcbddcd145"
+    sha256 cellar: :any, catalina:       "89d89fc29751a74527f9d4a465a9a36adccb19a5935ef0e70e0ddea864f0058c"
   end
 
   keg_only :shadowed_by_macos
@@ -82,14 +83,14 @@ class Openj9 < Formula
 
   resource "omr" do
     url "https://github.com/eclipse-openj9/openj9-omr.git",
-        tag:      "openj9-0.33.1",
-        revision: "b58aa2708c095efadf522f67aaef9f7de2a7cbc7"
+        tag:      "openj9-0.35.0",
+        revision: "85a21674fdf30403b75c3000a4dc10605ca52ba2"
   end
 
   resource "openj9-openjdk-jdk" do
     url "https://github.com/ibmruntimes/openj9-openjdk-jdk17.git",
-        tag:      "openj9-0.33.1",
-        revision: "1f4d354e6540e1aee3634ef067d3949516a337f5"
+        tag:      "openj9-0.35.0",
+        revision: "32d2c409a3325231f58eed81de0f0f1a229b43d6"
   end
 
   def install

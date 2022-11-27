@@ -1,8 +1,8 @@
 class Gdcm < Formula
   desc "Grassroots DICOM library and utilities for medical files"
   homepage "https://sourceforge.net/projects/gdcm/"
-  url "https://github.com/malaterre/GDCM/archive/v3.0.19.tar.gz"
-  sha256 "52ee78a70aaee7e179d584c1b7116da607dbc59905c833dadbd85944c301769a"
+  url "https://github.com/malaterre/GDCM/archive/v3.0.20.tar.gz"
+  sha256 "18161bd76008f4e8a0a33dab72fa34684147e8164f25a4735f373ad4bd909636"
   license "BSD-3-Clause"
 
   livecheck do
@@ -11,13 +11,14 @@ class Gdcm < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "4243805264b72c3ed66e790a8e0eb3c21de8ed56e2b9af10bcad368da91ba94f"
-    sha256 arm64_monterey: "2430e5c92014ae3942652184009bb165fed03bdeedcc80f6c5af90fb323fbf82"
-    sha256 arm64_big_sur:  "08b124c8900fd83521ff2656d5049abb60270ff300147ea03534ce9c85f448fc"
-    sha256 monterey:       "c3e69799bfd8ad012a59cbfb6cc0c839d7ca13b3ebca34ab0e1b4f350956b29c"
-    sha256 big_sur:        "a6d647c2c05d87568081b8d49d53917289a33333488b6a7b0e6c029a938191fb"
-    sha256 catalina:       "b4d3deb87e071c27b54d0099361c6d9dfe814d9c928a3e563d74a68101d44a88"
-    sha256 x86_64_linux:   "3ec557a5579c9e53ba831740abed26bd0402991f300a55c77529266655076e46"
+    sha256 arm64_ventura:  "2088768166efa18eee1c6e6149eb19b4f95df31c5437ee0f6273ff23bcbbe3a1"
+    sha256 arm64_monterey: "e224af67eb4d044addc014323a3e88721f19dfc8589f7d11f99b03b2916c6e33"
+    sha256 arm64_big_sur:  "17c3d0f214aacc64ce87645daede1cf4e57aab89efbbbde7dcc3706c32576978"
+    sha256 ventura:        "13e0d4fcf47756797f45b01a66632b74d2cf3f56651fd72a8a34eb027534d0a0"
+    sha256 monterey:       "57b30dfdf01965e50ecbec7dac8449bbf1fd8905febdb724c2082570709899a6"
+    sha256 big_sur:        "029180bc81362c90b7ea004e78c7c7cf58901c6d784ad8fe86f1f458702852b0"
+    sha256 catalina:       "62aabb2cdef58d8b641c166c75288aac9a1e562f2b45f9de360477dfce22b930"
+    sha256 x86_64_linux:   "a707c48bac6d74008024d251084cc41c2d83d66765f05201ae7da2f720893fe1"
   end
 
   depends_on "cmake" => :build
@@ -26,7 +27,7 @@ class Gdcm < Formula
   depends_on "swig" => :build
   depends_on "openjpeg"
   depends_on "openssl@1.1"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   uses_from_macos "expat"
   uses_from_macos "zlib"
@@ -38,7 +39,7 @@ class Gdcm < Formula
   fails_with gcc: "5"
 
   def python3
-    which("python3.10")
+    which("python3.11")
   end
 
   def install

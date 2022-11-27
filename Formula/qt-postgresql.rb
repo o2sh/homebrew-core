@@ -1,8 +1,8 @@
 class QtPostgresql < Formula
   desc "Qt SQL Database Driver"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.3/6.3.2/submodules/qtbase-everywhere-src-6.3.2.tar.xz"
-  sha256 "7929ba4df870b6b30870bc0aed2525cfc606ed7091107b23cf7ed7e434caa9a6"
+  url "https://download.qt.io/official_releases/qt/6.4/6.4.0/submodules/qtbase-everywhere-src-6.4.0.tar.xz"
+  sha256 "cb6475a0bd8567c49f7ffbb072a05516ee6671171bed55db75b22b94ead9b37d"
   license all_of: ["GFDL-1.3-only", "GPL-2.0-only", "GPL-3.0-only", "LGPL-2.1-only", "LGPL-3.0-only"]
 
   livecheck do
@@ -10,11 +10,13 @@ class QtPostgresql < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_monterey: "04dbc118f267785f489ba3abae4ec7e2253b6c2e8716a24053302fe5315edee3"
-    sha256 cellar: :any, arm64_big_sur:  "b5e0c23cc63bee622d41f907dc76644bfa90492085ce92d196f93338bc3a5bc5"
-    sha256 cellar: :any, monterey:       "88a6804e94e11a24f582dbb994efe6084f8d79782218612b850b9a04beaea6b9"
-    sha256 cellar: :any, big_sur:        "f9716786c483010e6d07fbab2226a455556c20e780ae1e276d91911621ea65a6"
-    sha256 cellar: :any, catalina:       "74535df6d28c0fb6a5913278b72460839cd78a4f13b19a76b8e5b9aa2ca6480e"
+    sha256 cellar: :any,                 arm64_ventura:  "67a526ef3785bc7ce98323982d264e7dae51acd027aea63d18af83d3bf29fc91"
+    sha256 cellar: :any,                 arm64_monterey: "4ce80725c9198afadf6e8bfa110a4cf56cac7ffdb43bf480bf4e10c0b3dd9bb1"
+    sha256 cellar: :any,                 arm64_big_sur:  "56c5ee55a51da34d8fc48944e5883759100c35f1dcdc93e8ff57cde4cf65c544"
+    sha256 cellar: :any,                 monterey:       "d90c1bd27fff9bec49b7eba3aa4163e3fdd2a417af377cb4960f27d1e7649e54"
+    sha256 cellar: :any,                 big_sur:        "e4138e9004a37dfb064ff50e048b6f5c239bdd492e725298ab0c63e56bbc4c00"
+    sha256 cellar: :any,                 catalina:       "1438ec5cfff58c80361d6eb52707aa007fb59209fc105a2c4bf2f6a15ee888a5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2c3c9c06f4d07ae47778d629a35c7076377185dab862a7aae770b481eeb6db7b"
   end
 
   depends_on "cmake" => [:build, :test]

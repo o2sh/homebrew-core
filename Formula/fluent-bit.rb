@@ -1,8 +1,8 @@
 class FluentBit < Formula
   desc "Fast and Lightweight Logs and Metrics processor"
   homepage "https://github.com/fluent/fluent-bit"
-  url "https://github.com/fluent/fluent-bit/archive/v2.0.3.tar.gz"
-  sha256 "d2616fec54c49330f7bc583b785fe2beedc762dfb6df0eb7985bd58359ca3693"
+  url "https://github.com/fluent/fluent-bit/archive/v2.0.6.tar.gz"
+  sha256 "363e8c0bb9331b85abdc69b33a8c77de0a78557fe61734ea6026ea8d28863d85"
   license "Apache-2.0"
   head "https://github.com/fluent/fluent-bit.git", branch: "master"
 
@@ -12,12 +12,14 @@ class FluentBit < Formula
   end
 
   bottle do
-    sha256 arm64_monterey: "493972cc539a1934d850bb7c262835996137dc178528d63a656bbda93cddd88b"
-    sha256 arm64_big_sur:  "db2f0ac04b406715ee83412664b26eb3893825045b7c18839d6e229688743ec2"
-    sha256 monterey:       "b423717a304a121dbef304b197c8a71da11ea544585a5a3c137e6b2bb4877f22"
-    sha256 big_sur:        "579d21a3b2c06c5b77a2a7f545fc0e914beb56d4598b642499adda59805cd7b6"
-    sha256 catalina:       "37089701d9698e4d45d79c7ef30140a1cd3ad666261bbdbd3235809ceb0e1e48"
-    sha256 x86_64_linux:   "76ccc243b4255ce3229ebc6de3930116270850b8879fe75fd7ab0ea7ad755828"
+    sha256 arm64_ventura:  "76c1074094b3391c4ac6154c9c7c9266465e1850338e543b59d4091e6ff004ac"
+    sha256 arm64_monterey: "af77ea7a9f86ecd7c9a6ea61d5b1ca9667ba1670c82e27d3fc7a8ee36bb60479"
+    sha256 arm64_big_sur:  "2e8ac5ace779e4b62eeaee48a6c33ca25513aad9c4a34d4965c9a0469ed7b66d"
+    sha256 ventura:        "f32d9112e1d6c6bc433ea722c5169b2ff946230287a9eeff4cfa30a495111cf2"
+    sha256 monterey:       "0ed077898bdefa34e2381b0985bb704635b85090486f5b25d461a37b427ea10c"
+    sha256 big_sur:        "319dfc9d55d49da8f0ec69c1f1e9db37078b19d3c2d5b324b523af25cfb1149d"
+    sha256 catalina:       "a14ed08902a2b1c3a305736b5fc317d008eb2dc27ed6b855e562f96589dbaad0"
+    sha256 x86_64_linux:   "57147259e5f5ed6cc368aa5e509b8d174edd24b7f432116be376f9b782682367"
   end
 
   depends_on "bison" => :build

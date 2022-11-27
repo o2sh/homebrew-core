@@ -3,20 +3,22 @@ class Dunamai < Formula
 
   desc "Dynamic version generation"
   homepage "https://github.com/mtkennerly/dunamai"
-  url "https://files.pythonhosted.org/packages/ea/9f/0203bb48969f433e81ceae2a04e6cc2f338a43e2f5ef1f49676667c5f314/dunamai-1.13.2.tar.gz"
-  sha256 "3bb079c1a84b3dd04a20071e6c914308caba125af98bcef537cabed1a628d989"
+  url "https://files.pythonhosted.org/packages/96/be/8bff0b3ccffe18f707841a8e7b32900637b7298cb86e6115569066688318/dunamai-1.14.1.tar.gz"
+  sha256 "fc3dc52c69eb14c5374e3ce9cb68413e143f7e5983ab0b55f0c099cd36572482"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "02a1f60f406aa4b3075b66da7e1324d202a691f6edac42d7a09a3a5eb5a710e5"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "32dc9a51081509b0546d15116c051c33066f455285e664b26ea9e845dae02ac2"
-    sha256 cellar: :any_skip_relocation, monterey:       "f53a7498d428a87fa14a3df2fb14e0c329a13b87a587edb8fa6b0d0876e2d4a6"
-    sha256 cellar: :any_skip_relocation, big_sur:        "388454a8f4c91719e6a3c92f465f450bc449d536f07407264285fc4a46298bd3"
-    sha256 cellar: :any_skip_relocation, catalina:       "fd4271271768dad024d38cdc81b867a547fc26f232d1502a41ef5aca8efa50e1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e076a4f06aa7278da76c4493dfc4639ec83c0ca43d896603132aa9994ab35579"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b1e8874af64e0e883688e3bd1652685336d0d6914c7d4394173cfba6275432f4"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "b9fe9f9dd984b8437c52e03ff2f7423e961341fbf22ae8f39afbf941ee8e5fdd"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "d82dc49050bc9fa40e2bb9246b29c515831bf4b71573a5a7ce99bff23dc06efb"
+    sha256 cellar: :any_skip_relocation, ventura:        "0fd553c2938009751be083c0387e5fc6e4fd16a625393884f2f44611d9df7fba"
+    sha256 cellar: :any_skip_relocation, monterey:       "e91c11d29f1377c1cfe5aedbb6a13f881cae0ef278cfe3473999efbf1a53dcf9"
+    sha256 cellar: :any_skip_relocation, big_sur:        "8aab254de13cae0163b4fb74bf72e35613bb2842258ce51d5edb163fda5ccbca"
+    sha256 cellar: :any_skip_relocation, catalina:       "19f45286947ddeb91fcfc4559677483ba6947cf230ddbdeb0ebd3c6cbd1c80e0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1bc86b4054a2c72a80473a8162a572b2aff7a61bc9fe6724ea280c7b05176ffb"
   end
 
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   resource "packaging" do
     url "https://files.pythonhosted.org/packages/df/9e/d1a7217f69310c1db8fdf8ab396229f55a699ce34a203691794c5d1cad0c/packaging-21.3.tar.gz"

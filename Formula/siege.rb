@@ -11,16 +11,18 @@ class Siege < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "98dd26e0a033653067b8c932ff761cd037b4653feac661e64dc373f86b709a98"
-    sha256 arm64_monterey: "4c25cc322a4873186c5d3621af5bc2a1aa1b9bc36bd61d01cbc6e8ffb936381d"
-    sha256 arm64_big_sur:  "c4774a5b6fc668aa03d0b8fad53d4e0e736ff475549a77ef1b7b409f370a8bf5"
-    sha256 monterey:       "bbf2686f1b3664b7a7f4392e74f5748046dac9dd5f25b6c929c34b25610826e6"
-    sha256 big_sur:        "bee643fc153e438ec4020c3e7a619cade1bcad2bdf08d25262b5040150bb9abc"
-    sha256 catalina:       "2e67988df1c76bb2dbde08064246f94cd7a356ea2273a0ef7a70d2b8ae8aa2d6"
-    sha256 x86_64_linux:   "df87d178ad402ff12a7ab1c14100147e4319c3a9227e087b2f148faccb467450"
+    rebuild 1
+    sha256 arm64_ventura:  "18f9e238472e25cce932c07d55b8b729e75e705afdc027cfc81d9ef70ba01791"
+    sha256 arm64_monterey: "d235a15e372f838506ae4fab062d4261a11e33486e3beaf51213f6025d0cf15b"
+    sha256 arm64_big_sur:  "5f690bc46956dfe6ff66886a20729d6b1d9abaac77fa06df2a16476c6bcc76d0"
+    sha256 ventura:        "c1ab26ae84904f676709989c6a19c3e41972e53ba57b8645837d6318605b6a3b"
+    sha256 monterey:       "f488d7149a9b1bceb4f31c071890c3147e9d8a756be9286a299f3e44a9a7c4e6"
+    sha256 big_sur:        "0be515369bcf7a3fa189a60040decfcc494633cc4d38fcf2114259a82f6f0cfb"
+    sha256 catalina:       "c37662f2c1f706c017c4c17d7ae2fd4bc858146683d1c682337d566b499d8c1b"
+    sha256 x86_64_linux:   "a98e6f0d66599e9e9470728bc0dc3a8c7e73dc1dcdc126f1fd49aaf902f41974"
   end
 
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
 
   uses_from_macos "zlib"
 
@@ -31,7 +33,7 @@ class Siege < Formula
                           "--prefix=#{prefix}",
                           "--mandir=#{man}",
                           "--localstatedir=#{var}",
-                          "--with-ssl=#{Formula["openssl@1.1"].opt_prefix}",
+                          "--with-ssl=#{Formula["openssl@3"].opt_prefix}",
                           "--with-zlib=#{MacOS.sdk_path_if_needed}/usr"
     system "make", "install"
   end

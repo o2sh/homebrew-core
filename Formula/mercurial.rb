@@ -3,8 +3,8 @@
 class Mercurial < Formula
   desc "Scalable distributed version control system"
   homepage "https://mercurial-scm.org/"
-  url "https://www.mercurial-scm.org/release/mercurial-6.2.3.tar.gz"
-  sha256 "98d1ae002f68adf53d65c5947fe8b7a379f98cf05d9b8ea1f4077d2ca5dce9db"
+  url "https://www.mercurial-scm.org/release/mercurial-6.3.1.tar.gz"
+  sha256 "6c39ab8732948d89cf1208751dd7d85d4042aa82153977451b9eb13367585072"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -13,22 +13,23 @@ class Mercurial < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "aef4724245309433b807b52e562f0b4184125a94a33c4ffb7d6f17b4587d3968"
-    sha256 arm64_monterey: "13554d637c035c3e131d382625267c99a851e2de085877edefb9ea6bdfb8a0f6"
-    sha256 arm64_big_sur:  "3858b593fe71f88039e12cadbad1e45dbd9e5a19019bc4c3445bbca3a5b3c3f0"
-    sha256 monterey:       "724b8e27b78610887aeffc87a798537f2bcd9fac9770fddc6a821adc29c0dfe2"
-    sha256 big_sur:        "d4ad55af45adab9a3fcdc55bf1acdd30ab1006928e20335060eedc527a61a1d1"
-    sha256 catalina:       "d9ddf3a6557a3b5ba59ca2c497306f282d4b95c9ccac1fff12086fc14e9452e1"
-    sha256 x86_64_linux:   "90a5366187dab6d5f61fa60a9a7c5d0e56a4c33f52b534b860ed9025f7ef87c8"
+    sha256 arm64_ventura:  "0ffb8b179aa7557fc22da21da69e1627ad515241e2ebd450941e695a421b4841"
+    sha256 arm64_monterey: "25d88c7f8c59c40f6fb0719041d14ceb79de888e9750d8d57db61d6541a484b5"
+    sha256 arm64_big_sur:  "b303d2f44d6a40c46aadb006da944a3b27518d5379cf234bf031f8f88ac3e937"
+    sha256 ventura:        "c6559ed597d308ddb0a224e257f8af33364cc1cf1e05672677d27f4029418cb3"
+    sha256 monterey:       "5bf2ea3e097a6dd9d904a13a11ac3866dc786efeae060a967792e121d136e18c"
+    sha256 big_sur:        "5ad92094b41ecb6d8fa96b9f5ecf3d928fa670426b07052f96cea0e70042db6f"
+    sha256 catalina:       "a370e26e8c81a663ab3ddff0b89b4a24a4661975e40e36d401ebd8310cade85e"
+    sha256 x86_64_linux:   "0d100f0b6ba45981c21f9f1ba6bd4a9f76881f288cf6a44eaf9edb0330d34bd3"
   end
 
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   def install
     ENV["HGPYTHON3"] = "1"
-    ENV["PYTHON"] = python3 = which("python3.10")
+    ENV["PYTHON"] = python3 = which("python3.11")
 
-    # FIXME: python@3.10 formula's "prefix scheme" patch tries to install into
+    # FIXME: python@3.11 formula's "prefix scheme" patch tries to install into
     # HOMEBREW_PREFIX/{lib,bin}, which fails due to sandbox. As workaround,
     # manually set the installation paths to behave like prior python versions.
     setup_install_args = %W[

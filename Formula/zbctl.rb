@@ -2,18 +2,19 @@ class Zbctl < Formula
   desc "Zeebe CLI client"
   homepage "https://docs.camunda.io/docs/apis-clients/cli-client/index/"
   url "https://github.com/camunda/zeebe.git",
-      tag:      "8.1.2",
-      revision: "5c74630358aa4d6f29876e9f2014ef75bd7156e8"
+      tag:      "8.1.4",
+      revision: "a4a6f2dd10d34d3fd4dde287a55930f5a7026123"
   license "Apache-2.0"
   head "https://github.com/camunda/zeebe.git", branch: "develop"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "729217268255a76337bcd0f8f8d347ffcb4487e98f4515416c8ded46b6fa25d7"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "729217268255a76337bcd0f8f8d347ffcb4487e98f4515416c8ded46b6fa25d7"
-    sha256 cellar: :any_skip_relocation, monterey:       "d62df727978aa50f55149dd068a27c7079214aceee0548e54ed9433f0c9c1962"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d62df727978aa50f55149dd068a27c7079214aceee0548e54ed9433f0c9c1962"
-    sha256 cellar: :any_skip_relocation, catalina:       "d62df727978aa50f55149dd068a27c7079214aceee0548e54ed9433f0c9c1962"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c5e7fbc11cf7d256bd28ea88512121def641bf07e56a02f76cab4b181f185d63"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "17fe9ecab0320de310d735976176f11147e16d588d607634b268818a0126457e"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "17fe9ecab0320de310d735976176f11147e16d588d607634b268818a0126457e"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "17fe9ecab0320de310d735976176f11147e16d588d607634b268818a0126457e"
+    sha256 cellar: :any_skip_relocation, monterey:       "96e39f41d95c5a46cabf098d763d051bf4661e72af87aed1d0341bc5b69a1b7d"
+    sha256 cellar: :any_skip_relocation, big_sur:        "96e39f41d95c5a46cabf098d763d051bf4661e72af87aed1d0341bc5b69a1b7d"
+    sha256 cellar: :any_skip_relocation, catalina:       "96e39f41d95c5a46cabf098d763d051bf4661e72af87aed1d0341bc5b69a1b7d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3ed4f21dc069d48ca372d851eb1c7ff14ae4eef899ebda776ad4e1cd005455ad"
   end
 
   depends_on "go" => :build

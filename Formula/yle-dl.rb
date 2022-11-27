@@ -3,22 +3,23 @@ class YleDl < Formula
 
   desc "Download Yle videos from the command-line"
   homepage "https://aajanki.github.io/yle-dl/index-en.html"
-  url "https://files.pythonhosted.org/packages/f6/64/11a7a17ab760b74c78d33b5bd8f15de393596cc1b714aee95212f4b534eb/yle-dl-20221015.tar.gz"
-  sha256 "c2b72ccffb303a66399a891d3d637a03a07f5f592f4f2ac99b8b41c6901adc48"
+  url "https://files.pythonhosted.org/packages/12/84/645771c885267d0a0452df9514ec024a6690960f208a2c979844a6bb52ef/yle-dl-20221111.tar.gz"
+  sha256 "6ba32fd8ee11d24dbbf71281e888b4621198bbe3835536cc783b221e807edee3"
   license "GPL-3.0-or-later"
   head "https://github.com/aajanki/yle-dl.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "85707e1a7b3df849400ca35b01f15156cfe91bb70f3aafbdce563d1214307f27"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "50a846696ca689b56ca8e8bbc28563f927cb86edd01346868bfb77fba302f0af"
-    sha256 cellar: :any_skip_relocation, monterey:       "f6f074e0ce5fd526e0c94ab4c30aec36671a86a3311c01c2e19ccc1023a266d2"
-    sha256 cellar: :any_skip_relocation, big_sur:        "316ff142e6d88385c76bfe33db6a64dcc365356569c0f6964609c9ba1aeb3eb2"
-    sha256 cellar: :any_skip_relocation, catalina:       "e31d4e3e38ccdf8cefae05bdc60b81d18fe1cc84038d2d91c09f7d600ea20be4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "200d613aefe5600ac8234cf3b3034bec9e0b48f89b2071898170c468eec8ce3a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "710c49400610594c867c01920f117e2f869f7afd97e9a2410207f3202c2aadd1"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "309e7f86ea7e7199d617388b99b1de6c8296887e4eb082b2c34d57ca7878bdcc"
+    sha256 cellar: :any_skip_relocation, ventura:        "84293a9386e7a026bd4bb13b40dde97bd55b8f535e6c69e4d9df59ab73b07910"
+    sha256 cellar: :any_skip_relocation, monterey:       "42647331f5ca4293c2d98b135301968e0cedc8f2850b59cebab71443ba07bb38"
+    sha256 cellar: :any_skip_relocation, big_sur:        "2344c2eb8e2529a121d44ac9fcd7548bb2adc7a4805ba1f2793d1e679d0354ba"
+    sha256 cellar: :any_skip_relocation, catalina:       "ef362fc461271db02e24cb123ee66a3016c17bde9bb4be092789318b5b776206"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f530c69a648c7d82cc2f1246c0a713e8fa8b2be14017d1629bc80c34d79f005f"
   end
 
   depends_on "ffmpeg"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "rtmpdump"
 
   uses_from_macos "libxslt"
@@ -74,8 +75,8 @@ class YleDl < Formula
   end
 
   resource "xattr" do
-    url "https://files.pythonhosted.org/packages/91/ac/5898d1811abc88c3710317243168feff61ce12be220b9c92ee045ecd66c4/xattr-0.9.9.tar.gz"
-    sha256 "09cb7e1efb3aa1b4991d6be4eb25b73dc518b4fe894f0915f5b0dcede972f346"
+    url "https://files.pythonhosted.org/packages/f8/84/8e2a2578c804545d55f684f86b6144c3924a849b5ec8e1f39336233be752/xattr-0.10.0.tar.gz"
+    sha256 "722652d2a5324e17891c416d4c76d91ccf98830a8f516a0de8533ce867f3acaf"
   end
 
   def install

@@ -14,35 +14,38 @@ class FbClient < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_monterey: "0261f8a3d1be06624c5bb52156ca5951a2a398a9e055c3158621e2628e54c102"
-    sha256 cellar: :any,                 arm64_big_sur:  "6419b836639dbd07f6737b0963420b0359f4ff022a93e030be2c010bbc149755"
-    sha256 cellar: :any,                 monterey:       "26b827c4921233f655ae8475c875ae09dd0ba2f3e36ec6e2af8899f6af2be3eb"
-    sha256 cellar: :any,                 big_sur:        "beeb41d009cf51d8935eb0019e0da07ae3ade47c655bd7a118ec0196336925d7"
-    sha256 cellar: :any,                 catalina:       "3dab791997a218d23ad0604dde721cfc350a248df9b12f401a8df99d0343624f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ff037d297f4ccc3bcadc9c6b239981de7b5c2418b73258573c34133fa3724535"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "d46a63ecf65fd97065166fcab2f4386d4c15ae430a49570d645d5744ef594846"
+    sha256 cellar: :any,                 arm64_monterey: "4dadf3cfa163f2a583c73c4fa73084d36962566876994c1363d7d779a9654238"
+    sha256 cellar: :any,                 arm64_big_sur:  "717e43653007dd176bd23a11099b809d1244d7637aeb1847bfba05bfcfbc78a3"
+    sha256 cellar: :any,                 ventura:        "2b862bdfdce5f2a7b6c167fc96c905b951fc1335669d8b297fdc873449cd7703"
+    sha256 cellar: :any,                 monterey:       "6bdf26e1eefe758a492a24c686986513cf79e6db8f3ce36c2116b915b7e3657b"
+    sha256 cellar: :any,                 big_sur:        "c0904d61b7d29333c7d2c9d5736c3562506a5500400bf336668b5573864d8b3e"
+    sha256 cellar: :any,                 catalina:       "8489f0e39c1ccb91dd6bb54ecddc2c124b3f943587d08e4616d2342a48f3662c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "00077814d4fef6e1a34653443474be95bdd395d86a1b72a9acc492c6a924ac6e"
   end
 
   depends_on "pkg-config" => :build
   depends_on "curl"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   conflicts_with "spotbugs", because: "both install a `fb` binary"
 
   resource "pycurl" do
-    url "https://files.pythonhosted.org/packages/50/1a/35b1d8b8e4e23a234f1b17a8a40299fd550940b16866c9a1f2d47a04b969/pycurl-7.43.0.6.tar.gz"
-    sha256 "8301518689daefa53726b59ded6b48f33751c383cf987b0ccfbbc4ed40281325"
+    url "https://files.pythonhosted.org/packages/09/ca/0b6da1d0f391acb8991ac6fdf8823ed9cf4c19680d4f378ab1727f90bd5c/pycurl-7.45.1.tar.gz"
+    sha256 "a863ad18ff478f5545924057887cdae422e1b2746e41674615f687498ea5b88a"
   end
 
   resource "pyxdg" do
-    url "https://files.pythonhosted.org/packages/47/6e/311d5f22e2b76381719b5d0c6e9dc39cd33999adae67db71d7279a6d70f4/pyxdg-0.26.tar.gz"
-    sha256 "fe2928d3f532ed32b39c32a482b54136fe766d19936afc96c8f00645f9da1a06"
+    url "https://files.pythonhosted.org/packages/b0/25/7998cd2dec731acbd438fbf91bc619603fc5188de0a9a17699a781840452/pyxdg-0.28.tar.gz"
+    sha256 "3267bb3074e934df202af2ee0868575484108581e6f3cb006af1da35395e88b4"
   end
 
   def install
     # avoid pycurl error about compile-time and link-time curl version mismatch
     ENV.delete "SDKROOT"
 
-    python3 = "python3.10"
+    python3 = "python3.11"
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor"/Language::Python.site_packages(python3)
 
     # avoid error about libcurl link-time and compile-time ssl backend mismatch

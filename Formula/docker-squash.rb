@@ -8,15 +8,17 @@ class DockerSquash < Formula
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2114c4559e0a9a0e3746b6d9aa602949f29c89a51571bb609de9ea96f3a768a1"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "47dbd1e54670c623bb18c13347188fbb0b6afdb3ad3579fa4b0bcaae5d5eecaf"
-    sha256 cellar: :any_skip_relocation, monterey:       "ae1572cab25ea6c752722b874f409b4ec775d8a1a555061eb37e7f1608391a8a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "62b711591dc289d909164dcd5479b7b772993212279abc166c7e8c644554e8d1"
-    sha256 cellar: :any_skip_relocation, catalina:       "ecd21784411e1ca7bb98a27783d6c9801c71da3519e7ce7d7501dc1789d76fd3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b351c4743259241f6460339e7aee1b48874f93fc847e1a47814b13a57d71f97b"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "48d7f230325ffa4847da2daa35bb203964156a2dfd671e9a843cf7ef38efd78b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e5ecdee9bcd1d12619de9f2f611341ca845d578060064422aee8117dad042fb0"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "3ffb30e5909ead6aa5587d5daa96803f6c2118527d37ebd254dbc10bcf355064"
+    sha256 cellar: :any_skip_relocation, monterey:       "cc8c57aef19a8c0889edb5417946527eb49b01f2a043d4a7df1d695e2946b88e"
+    sha256 cellar: :any_skip_relocation, big_sur:        "75f6e7f5e49e0a35012ea9119c093cade9e1ad2b70caded70859a21d5d4d4c9c"
+    sha256 cellar: :any_skip_relocation, catalina:       "1d2bc20da4ba45da4bd872cfaaec1d493e7b62f7c9555bd5246302f792c6ab95"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9bad81d4dc6b0e17d015b15e7eabd296cbc092439b9761bfd63969e0dbce2ad8"
   end
 
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "six"
 
   resource "certifi" do
@@ -30,8 +32,8 @@ class DockerSquash < Formula
   end
 
   resource "docker" do
-    url "https://files.pythonhosted.org/packages/1a/d1/c41d51a0b5192533885545e031ee1b98ee6dc93ceb0c1deb4ecfe212a9a8/docker-6.0.0.tar.gz"
-    sha256 "19e330470af40167d293b0352578c1fa22d74b34d3edf5d4ff90ebc203bbb2f1"
+    url "https://files.pythonhosted.org/packages/79/26/6609b51ecb418e12d1534d00b888ce7e108f38b47dc6cd589598d5c6aaa2/docker-6.0.1.tar.gz"
+    sha256 "896c4282e5c7af5c45e8b683b0b0c33932974fe6e50fc6906a0a83616ab3da97"
   end
 
   resource "idna" do
@@ -60,8 +62,8 @@ class DockerSquash < Formula
   end
 
   resource "websocket-client" do
-    url "https://files.pythonhosted.org/packages/99/11/01fe7ebcb7545a1990c53c11f31230afe1388b0b34256e3fd20e49482245/websocket-client-1.4.1.tar.gz"
-    sha256 "f9611eb65c8241a67fb373bef040b3cf8ad377a9f6546a12b620b6511e8ea9ef"
+    url "https://files.pythonhosted.org/packages/75/af/1d13b93e7a21aca7f8ab8645fcfcfad21fc39716dc9dce5dc2a97f73ff78/websocket-client-1.4.2.tar.gz"
+    sha256 "d6e8f90ca8e2dd4e8027c4561adeb9456b54044312dba655e7cae652ceb9ae59"
   end
 
   def install

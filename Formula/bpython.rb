@@ -9,18 +9,19 @@ class Bpython < Formula
   head "https://github.com/bpython/bpython.git", branch: "main"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a96766e6661787b21982d0abf7b8513f5769ae7ebd89f4a6a6ae17fc00d4505b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2691994f9664ec103a5256ff652ca12cfd25dc37153d7716fba722b13a49fafb"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "cbcf58ce27c89611685b6e064cb247dac4f93c28616fc6dc045d6e1fa10eee51"
-    sha256 cellar: :any_skip_relocation, monterey:       "5f90deea3a869f68e39c3070293b4d1e600efb27f99759b9d9a163a49a0b9a99"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d435da4a52c90639dcb431f153a439693193d13f385ce3f65d88ce047fd2b6d8"
-    sha256 cellar: :any_skip_relocation, catalina:       "4d80069b52216bb3a5799b73f4565c5b7ac3eea5585f26bde1cc117f5bd4f00d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "aea76d26423e782c7c67ed79877b0c2536554f3af97b0b5eeab248ff2def1ffa"
+    rebuild 3
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f7e1f934ecdfd7e176ae519a4f2e3c7842606ed91b4a7bbfe52ea1b053568d1e"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "51415da492e0680a8f7506b7583987cc9e82a613b49ecaaa3f859858089e38b3"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "09e671aeb6b897898d6a02c50b0cf23bc3e660f22bcb2db074f4bd29b9579783"
+    sha256 cellar: :any_skip_relocation, ventura:        "e63b5bf3ca991828c469213bc38ff1821b6ea16fd4a9ce18657ce899fdfa7499"
+    sha256 cellar: :any_skip_relocation, monterey:       "58eb4fcacb47a322c5dd459b1ffca04725bc5363093ca2d6cfd7916a89f65f68"
+    sha256 cellar: :any_skip_relocation, big_sur:        "e0cfb059ee562407de784c0cf94b1e11af2eb1326f936b49e79f15a1cd6af412"
+    sha256 cellar: :any_skip_relocation, catalina:       "3beafb36bd3e94a97ba9d99538b59fdf9b9f344b70d9bb04421db9880c6a5867"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "06ebf1532a49e4c88bbca4effe8dbc79b4a26e376bce4d2803d7445ca22d11a1"
   end
 
   depends_on "pygments"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "six"
 
   resource "blessed" do
@@ -29,8 +30,8 @@ class Bpython < Formula
   end
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/cc/85/319a8a684e8ac6d87a1193090e06b6bbb302717496380e225ee10487c888/certifi-2022.6.15.tar.gz"
-    sha256 "84c85a9078b11105f04f3036a9482ae10e4621616db313fe045dd24743a0820d"
+    url "https://files.pythonhosted.org/packages/cb/a4/7de7cd59e429bd0ee6521ba58a75adaec136d32f91a761b28a11d8088d44/certifi-2022.9.24.tar.gz"
+    sha256 "0d9c601124e5a6ba9712dbc60d9c53c21e34f5f641fe83002317394311bdce14"
   end
 
   resource "charset-normalizer" do
@@ -39,23 +40,23 @@ class Bpython < Formula
   end
 
   resource "curtsies" do
-    url "https://files.pythonhosted.org/packages/bc/40/7e1d986e890d0596f93c8509ccc95a3767daa279fcf2647a18eed7b1b865/curtsies-0.4.0.tar.gz"
-    sha256 "cb29efce33fef395a29efa568f27f5913178469fb3aab114080d6ca6264142fe"
+    url "https://files.pythonhosted.org/packages/4e/43/838c06297741002403835436bba88c38d0a42ed9ce3e39a61de73e4cb4d0/curtsies-0.4.1.tar.gz"
+    sha256 "62d10f349c553845306556a7f2663ce96b098d8c5bbc40daec7a6eedde1622b0"
   end
 
   resource "cwcwidth" do
-    url "https://files.pythonhosted.org/packages/c1/91/2101581c6a71cf13596311ebd981251bd84352ec275289b30042dd9de9e8/cwcwidth-0.1.7.tar.gz"
-    sha256 "c0d647e12e3a4b15a881e1d84f796937516648489e011257237dc2179d6b1951"
+    url "https://files.pythonhosted.org/packages/c6/6c/fe4a10bd3de2a3ecdcb53e8ad90ec9fddc846342e5e39e6446c692637414/cwcwidth-0.1.8.tar.gz"
+    sha256 "5adc034b7c90e6a8586bd046bcbf6004e35e16b0d7e31de395513a50d729bbf6"
   end
 
   resource "greenlet" do
-    url "https://files.pythonhosted.org/packages/a0/d5/70772b3693f086a362f122516225a43fe4f1182e17158c81ba1ab271ab9b/greenlet-1.1.3.tar.gz"
-    sha256 "bcb6c6dd1d6be6d38d6db283747d07fda089ff8c559a835236560a4410340455"
+    url "https://files.pythonhosted.org/packages/d4/e7/e41e5150909f58d3161b7ab680d17bb8d47dbbc45385f07a870164d3d02f/greenlet-2.0.0.post0.tar.gz"
+    sha256 "ad9abc3e4d2370cecb524421cc5c8a664006aa11d5c1cb3c9250e3bf65ab546e"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/62/08/e3fc7c8161090f742f504f40b1bccbfc544d4a4e09eb774bf40aafce5436/idna-3.3.tar.gz"
-    sha256 "9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"
+    url "https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz"
+    sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
   end
 
   resource "pyxdg" do
@@ -79,7 +80,7 @@ class Bpython < Formula
   end
 
   def install
-    python3 = Formula["python@3.10"].opt_bin/"python3.10"
+    python3 = "python3.11"
     venv = virtualenv_create(libexec, python3)
     venv.pip_install resources
     venv.pip_install buildpath

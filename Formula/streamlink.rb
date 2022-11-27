@@ -3,23 +3,24 @@ class Streamlink < Formula
 
   desc "CLI for extracting streams from various websites to a video player"
   homepage "https://streamlink.github.io/"
-  url "https://files.pythonhosted.org/packages/6f/c2/ff46460ce34f234637184ae1c3987a6ee79a3db2e2bd41ebd9b19e23ce7c/streamlink-5.0.1.tar.gz"
-  sha256 "3ca462a0f0614d5ea2ddc91081c2ae850166a41bd4404e28dc52de8fcab1e263"
+  url "https://files.pythonhosted.org/packages/dc/c5/bcca5ee1ca1d3cd713d58efe6127d4e8df19319dd6a70e52779de9852bfa/streamlink-5.1.1.tar.gz"
+  sha256 "232b00199a4884abe32df6cb9a09f4678c2db37d192937ecea44b65ccaef5ee3"
   license "BSD-2-Clause"
   head "https://github.com/streamlink/streamlink.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "0fef3f9b2397e61035e1e62dd3d1a32bddbe5d45f47b265c5aa73522c31efec6"
-    sha256 cellar: :any,                 arm64_monterey: "7597d3024f090dcc8f0a080aa47a6efc9b080b25fad3a219c3a35a37051a7348"
-    sha256 cellar: :any,                 arm64_big_sur:  "4e4066a4a3afc228e096ec09619b7ac3cb7e072ab50f01db6f5cfbfb8c3dca82"
-    sha256 cellar: :any,                 monterey:       "ecc5e97dabd39e067b7c65b2c417e76a09f971318a54b25fe6cac6d4726df55a"
-    sha256 cellar: :any,                 big_sur:        "5550445fffc4d8a69da8484ab72b79c550842256ab2a7777550c6fd24c2f34aa"
-    sha256 cellar: :any,                 catalina:       "62a8a2a739fb51e17d3a7f6ae5f2ec5dac8847633c660f078a583c4ae5edf09b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2dc838ac11851a9be3bd409ca97e2bc0dd7368c3f0fe48c3b47d095561556c8e"
+    sha256 cellar: :any,                 arm64_ventura:  "c402ea9638d229b4e39e94a2341a61770f52a6f9bb83a5d1551f163d3d396d0c"
+    sha256 cellar: :any,                 arm64_monterey: "c57988969cadde6893305bcd40e617b63767475315cce8fd096ed3d19571039b"
+    sha256 cellar: :any,                 arm64_big_sur:  "743ee41819d8103b26efe3f59c6295120c588b3a5d747577dccda569914c4d68"
+    sha256 cellar: :any,                 ventura:        "796ea932f77212714ff942d11c644131dc9a6c4052bf82acec3408c15962cdc0"
+    sha256 cellar: :any,                 monterey:       "2964ec329b8be145843bf626d65fd6175095edae38023d2f937d0ae9796f1a69"
+    sha256 cellar: :any,                 big_sur:        "9f116727b4694c1b43a87ab5daaf9cb57f041c22f1c0de130734103a69d03aa1"
+    sha256 cellar: :any,                 catalina:       "9b721a31df7061e5d51dce8c8cbf2cf123ad73c9cbd96b36d4b04473a93baf07"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "82d1e9d484be65afe44851162a3602cc669ea8b47e0f8e90530494ca89b17ef6"
   end
 
   depends_on "libxml2" # https://github.com/Homebrew/homebrew-core/issues/98468
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "six"
 
   uses_from_macos "libffi"
@@ -30,8 +31,8 @@ class Streamlink < Formula
   end
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/ca/48/88ec470f8b68319b6782ca3a0570789886ad5ca24c1af2f3771699135baa/certifi-2022.9.14.tar.gz"
-    sha256 "36973885b9542e6bd01dea287b2b4b3b21236307c56324fcc3f1160f2d655ed5"
+    url "https://files.pythonhosted.org/packages/cb/a4/7de7cd59e429bd0ee6521ba58a75adaec136d32f91a761b28a11d8088d44/certifi-2022.9.24.tar.gz"
+    sha256 "0d9c601124e5a6ba9712dbc60d9c53c21e34f5f641fe83002317394311bdce14"
   end
 
   resource "charset-normalizer" do
@@ -80,8 +81,8 @@ class Streamlink < Formula
   end
 
   resource "websocket-client" do
-    url "https://files.pythonhosted.org/packages/99/11/01fe7ebcb7545a1990c53c11f31230afe1388b0b34256e3fd20e49482245/websocket-client-1.4.1.tar.gz"
-    sha256 "f9611eb65c8241a67fb373bef040b3cf8ad377a9f6546a12b620b6511e8ea9ef"
+    url "https://files.pythonhosted.org/packages/75/af/1d13b93e7a21aca7f8ab8645fcfcfad21fc39716dc9dce5dc2a97f73ff78/websocket-client-1.4.2.tar.gz"
+    sha256 "d6e8f90ca8e2dd4e8027c4561adeb9456b54044312dba655e7cae652ceb9ae59"
   end
 
   def install

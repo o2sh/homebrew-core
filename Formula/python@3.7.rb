@@ -11,6 +11,7 @@ class PythonAT37 < Formula
   end
 
   bottle do
+    sha256 ventura:      "67c807228b92b06a3a14ea92aad5825c8f594a2a08af25e75de4b2e4cae9582f"
     sha256 monterey:     "7f07b85151ff9e955428ffb2ef6a1b6a04a62b30d8ecde5ee97d5d15445e2e9d"
     sha256 big_sur:      "a5b13b850665ba94605aa22eb2807fa19ae0e46942fdad77120f479ba9f10017"
     sha256 catalina:     "81fa6b481d24a1b82a55b9ec8ba4be33de0967584606ebbddaff3414a5fab0d8"
@@ -20,6 +21,9 @@ class PythonAT37 < Formula
   # setuptools remembers the build flags python is built with and uses them to
   # build packages later. Xcode-only systems need different flags.
   pour_bottle? only_if: :clt_installed
+
+  # https://devguide.python.org/versions/#versions
+  disable! date: "2023-06-27", because: :deprecated_upstream
 
   depends_on "pkg-config" => :build
   depends_on arch: :x86_64

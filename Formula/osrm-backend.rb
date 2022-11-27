@@ -1,14 +1,10 @@
 class OsrmBackend < Formula
   desc "High performance routing engine"
   homepage "http://project-osrm.org/"
+  url "https://github.com/Project-OSRM/osrm-backend/archive/v5.27.1.tar.gz"
+  sha256 "52391580e0f92663dd7b21cbcc7b9064d6704470e2601bf3ec5c5170b471629a"
   license "BSD-2-Clause"
-  revision 3
-
-  stable do
-    url "https://github.com/Project-OSRM/osrm-backend/archive/v5.26.0.tar.gz"
-    sha256 "45e986db540324bd0fc881b746e96477b054186698e8d14610ff7c095e906dcd"
-    depends_on "tbb@2020"
-  end
+  head "https://github.com/Project-OSRM/osrm-backend.git", branch: "master"
 
   livecheck do
     url :stable
@@ -16,17 +12,13 @@ class OsrmBackend < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_monterey: "4dbb3c3109f85e0410c693f6c2765a13f80c057bc5152d4d1a46010816a253a9"
-    sha256 cellar: :any,                 arm64_big_sur:  "f0f2ce21927fc5045ee789b91e7c7b7e51153e56f9f3fe47cf0c126cb7767985"
-    sha256 cellar: :any,                 monterey:       "c45bd2ec986f0d89121343d2d9ae5b63ae4c08e1b55c816a862237dae1240cb1"
-    sha256 cellar: :any,                 big_sur:        "c9b99f5b5f20ca3f12966c45803e49aa7adc13721589b742921837b06fd93a14"
-    sha256 cellar: :any,                 catalina:       "7e299f69b73d70f0e59bfdefb5eb99199ed1cf42d2a6592d6b077000b620743d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8e4ae0bf5395b1ce3ee5ae26c4397d36ffb414815c20cb34564ef62f8d024199"
-  end
-
-  head do
-    url "https://github.com/Project-OSRM/osrm-backend.git", branch: "master"
-    depends_on "tbb"
+    sha256 cellar: :any,                 arm64_ventura:  "2d998ee491cf85784a042b9f7e2670a9992b1e2e3c0d3788adafe9ed7e606c72"
+    sha256 cellar: :any,                 arm64_monterey: "6bac4fd2ddd10c1adf9168a840ce61f72120b2bbb6437e904486c91099586942"
+    sha256 cellar: :any,                 arm64_big_sur:  "39be94c81ca0dae090db3d08274a0c2e523ba21f8d2e38daed7b5d017fffdc64"
+    sha256 cellar: :any,                 monterey:       "624391fecd8061b5025729c4b4660630155ea50a85584f060e6e4b835399d77f"
+    sha256 cellar: :any,                 big_sur:        "e3f27f007ab6cb98966d2e72508de09bd570848668c54319d7877e2c3f6fbf03"
+    sha256 cellar: :any,                 catalina:       "96e63874022b3d48a147707aa067d1f59c655a95261babd15478e4c2e7110960"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fb266283ec549aeca3a4e948a90f16857356ab414b201ab1269c37ff68858187"
   end
 
   depends_on "cmake" => :build
@@ -35,10 +27,19 @@ class OsrmBackend < Formula
   depends_on "libxml2"
   depends_on "libzip"
   depends_on "lua"
+  depends_on "tbb"
+
+  uses_from_macos "expat"
 
   conflicts_with "flatbuffers", because: "both install flatbuffers headers"
 
   def install
+    # Work around build failure on Linux:
+    # /tmp/osrm-backend-20221105-7617-1itecwd/osrm-backend-5.27.1/src/osrm/osrm.cpp:83:1:
+    # /usr/include/c++/11/ext/new_allocator.h:145:26: error: 'void operator delete(void*, std::size_t)'
+    # called on unallocated object 'result' [-Werror=free-nonheap-object]
+    ENV.append_to_cflags "-Wno-free-nonheap-object" if OS.linux?
+
     lua = Formula["lua"]
     luaversion = lua.version.major_minor
     system "cmake", "-S", ".", "-B", "build",
@@ -80,6 +81,6 @@ class OsrmBackend < Formula
     EOS
     safe_system "#{bin}/osrm-extract", "test.osm", "--profile", "tiny-profile.lua"
     safe_system "#{bin}/osrm-contract", "test.osrm"
-    assert_predicate testpath/"test.osrm", :exist?, "osrm-extract generated no output!"
+    assert_predicate testpath/"test.osrm.names", :exist?, "osrm-extract generated no output!"
   end
 end

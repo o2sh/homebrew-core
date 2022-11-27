@@ -1,8 +1,8 @@
 class NodeAT16 < Formula
   desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v16.18.0/node-v16.18.0.tar.xz"
-  sha256 "fcfe6ad2340f229061d3e81a94df167fe3f77e01712dedc0144a0e7d58e2c69b"
+  url "https://nodejs.org/dist/v16.18.1/node-v16.18.1.tar.xz"
+  sha256 "1f8051a88f86f42064f4415fe7a980e59b0a502ecc8def583f6303bc4d445238"
   license "MIT"
 
   livecheck do
@@ -11,16 +11,20 @@ class NodeAT16 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "451ba8586343ed6f93767257affe7c810eb88adc7970a5ae99853ad2923e9f9c"
-    sha256 cellar: :any,                 arm64_monterey: "e4cfcdc723eaf05371a984e06598318b69e2d21ce818461efa6eee66ce77a9c1"
-    sha256 cellar: :any,                 arm64_big_sur:  "764f9e5390ac69898e749601ebfd16e6d3997e0adedf1ae101e15f39de5c9c99"
-    sha256 cellar: :any,                 monterey:       "3c445a1e9f7639189f143dbb5e9e70b4a77122557facf61b26e7a5f681ce73a8"
-    sha256 cellar: :any,                 big_sur:        "2eb86f1641e9b43db505a34717268eca6959dce6ff516b46889d2c3a97a69a08"
-    sha256 cellar: :any,                 catalina:       "17cd3da257f184fbf463fba21f0cf09f3c2c1301b65dacf4e20aed1d267f8d32"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bfa18590fe9a14b9c1061e1ed5b8292b89b2e5e4baf25a9bb42157430827d357"
+    sha256 cellar: :any,                 arm64_ventura:  "ca0dfad052e4717f0ef6a9d6101b97ec6a63be9eb7c4a0d6a1f25065a2904232"
+    sha256 cellar: :any,                 arm64_monterey: "3beab95c662121a6d297f8e799267d8c97ed8936f1c5fbb2806b4fd235c63978"
+    sha256 cellar: :any,                 arm64_big_sur:  "0b2a9fb0a9dc92eb886b91de3d48eb9f1e5cecdad0a1c01801ba13a45533770a"
+    sha256 cellar: :any,                 ventura:        "2db11ca089d2c28cbae771c16b065daf24518bd4b2df61af7557cafd0ed5c0cb"
+    sha256 cellar: :any,                 monterey:       "7eb25934eb8b7139e9b0e68f5ce67c249f3f7226b39fc53a3a1d3f461006d399"
+    sha256 cellar: :any,                 big_sur:        "5f9b8f7d8213ecec2d3b9a39efc8d6a4df8a2c3f30a32c4fefe00392f5a3f9a2"
+    sha256 cellar: :any,                 catalina:       "09104ccf6ea1cd8dfe19089d2147b35b752cfa61725cb0edb971157e06f1847b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "62a367e6f121ab83b95774420716099efca22e096bfbe141a9a11b1ff9b86616"
   end
 
   keg_only :versioned_formula
+
+  # https://nodejs.org/en/about/releases/
+  # disable! date: "2023-09-11", because: :unsupported
 
   depends_on "pkg-config" => :build
   depends_on "python@3.10" => :build

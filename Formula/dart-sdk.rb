@@ -1,18 +1,19 @@
 class DartSdk < Formula
   desc "Dart Language SDK, including the VM, dart2js, core libraries, and more"
   homepage "https://dart.dev"
-  url "https://github.com/dart-lang/sdk/archive/refs/tags/2.18.3.tar.gz"
-  sha256 "16dc9c525d55cf376dce2d17a938a2023146e535567d287c3491e4c602c8e1cf"
+  url "https://github.com/dart-lang/sdk/archive/refs/tags/2.18.5.tar.gz"
+  sha256 "81bbc28a148fe147676a8dde1dae4579cd7e760be60c332c2dfd3dcfbade0a93"
   license "BSD-3-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f406a3274bc0328d2015548817fd384d7a88f2839c1b4b671ce7945d4ca77564"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "5ff83e26da7157c2ab9552973f364f8928307ec62fd83ddcb274adb9ceaa2d7f"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ccc280363c2e848ae22cc593714b8b0fbf800a1fb5f460769234369045dd8e74"
-    sha256 cellar: :any_skip_relocation, monterey:       "8487d6a52c7c64c9a988c1c159bf453d33adb4a393419be24444c7ae3963b8f1"
-    sha256 cellar: :any_skip_relocation, big_sur:        "51bd3c7e027a52d5f77271c0f5a2545ce1b37819261679cf301a06a2f36f2522"
-    sha256 cellar: :any_skip_relocation, catalina:       "33463884165a4abd52d0ce543854e15ceaefa56907ae1360b21f2c080f19fb45"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "352ffd0ffb04691b9fa2e88eabc04df681c7dd0db3d694568195bfa80f6f79e8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "19f30f600506f0998da1cc1c6f02e4a11892a8e5c2d703322a4d1a077e8bfed0"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "1afe7c32068fbe6a49b39b77d8c2b3b84c93dd891fb81c7cc0ba648416e67779"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "85266bdd96cac98fd17fc8277bf954527ef0181bb33ab2c14904bb03e3cd8798"
+    sha256 cellar: :any_skip_relocation, ventura:        "fef5c4bc690a3bc2a880ab4587dbde893a5ff4fee68d18d32cfe8333fa027804"
+    sha256 cellar: :any_skip_relocation, monterey:       "fb8a5f78fd5aee44c439e88092ea52439af44fcbe3d310a57f6213e813cc6370"
+    sha256 cellar: :any_skip_relocation, big_sur:        "1e57d4d622e664ac2555f8274eb470f73f83059d5ceb30bdd9dd74ab055a3513"
+    sha256 cellar: :any_skip_relocation, catalina:       "7e72823eb416b7abe4b8e0070323328ba69aa198ffe6b59f2f16c8a428c6665e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3aa3d88a12d446f978aba5363767a8d4e9858e1d25e19794822eb165544ee232"
   end
 
   depends_on "ninja" => :build
@@ -24,7 +25,7 @@ class DartSdk < Formula
 
   resource "depot-tools" do
     url "https://chromium.googlesource.com/chromium/tools/depot_tools.git",
-        revision: "bd0cea6acd9ed0476b6634b08da740093715a654"
+        revision: "6fde0fbe9226ae3fc9f5c709adb93249924e5c49"
   end
 
   def install

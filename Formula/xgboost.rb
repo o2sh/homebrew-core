@@ -1,21 +1,20 @@
 class Xgboost < Formula
   desc "Scalable, Portable and Distributed Gradient Boosting Library"
   homepage "https://xgboost.ai/"
-  # TODO: Remove `ENV.remove "HOMEBREW_LIBRARY_PATHS", Formula["llvm"].opt_lib` at rebuild.
   url "https://github.com/dmlc/xgboost.git",
-      tag:      "v1.6.2",
-      revision: "b9934246faa9a25e10a12339685dfbe56d56f70b"
+      tag:      "v1.7.1",
+      revision: "534c940a7ea50ab3b8a827546ac9908f859379f2"
   license "Apache-2.0"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_ventura:  "7c822c1d174cbfbf2eac5744f543f34a0fea5e5500c30bf5f6532d01e9fb1396"
-    sha256 cellar: :any,                 arm64_monterey: "1aeec8fe6a690e23d01dd6b68df579ae368b9b390e11d00fce901cc6e9bfcdac"
-    sha256 cellar: :any,                 arm64_big_sur:  "f18aea395d946633e2c9202a9febaf8b8603bd559a916dca73e42536c4c0b2b1"
-    sha256 cellar: :any,                 monterey:       "a76dcfb550c66a22bc4af81b29b39174937c22890a1a10c240458066ac6c5155"
-    sha256 cellar: :any,                 big_sur:        "d319a6a9f67c01d5fca092aa64e24a7c1b932ec1ce84cfb5055212997bbab38c"
-    sha256 cellar: :any,                 catalina:       "30450f1da0a5057f5b15f64953ba13de0988572cc558cec67ec58e1ac14dedfd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c929dfbac8cc958af26b5c9acc8029e0199a2ae7a8c948595c9665578b7839b3"
+    sha256 cellar: :any,                 arm64_ventura:  "5c9a6b40a61e41079dce30312a21e34063aa629d46954e5f6eabcb0d384d3b8f"
+    sha256 cellar: :any,                 arm64_monterey: "5699f2ee005dd0b4dedbf2dd34fe5cc4791d1bdd97635cc4fe7b78b0571b9f44"
+    sha256 cellar: :any,                 arm64_big_sur:  "b4656fcac167a7d25c6ac2c17da55e386ed1ab23e7ae8826f0c87d1cd3ab34db"
+    sha256 cellar: :any,                 ventura:        "c135fd9335b8d53ce52cd182c4a601500b1184cf91f538ebbaf920bb67a60fbf"
+    sha256 cellar: :any,                 monterey:       "e3053a67e6bffdfdc079cab28ff9702632072fa9c3167522bf9cff8a05604667"
+    sha256 cellar: :any,                 big_sur:        "97ab1f489d0e9e95b9c4a91437243215b17f16c27b0e65f074caf48a770a886a"
+    sha256 cellar: :any,                 catalina:       "a4303c48b289ef9de464f7994d6acdc604a0a377c701a01b108052b1261d537c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0275c44baaec5b6d38726d49a2526c3cb08a4656a133c133b941106ab2d96a83"
   end
 
   depends_on "cmake" => :build
@@ -41,7 +40,6 @@ class Xgboost < Formula
   fails_with gcc: "5"
 
   def install
-    ENV.remove "HOMEBREW_LIBRARY_PATHS", Formula["llvm"].opt_lib
     ENV.llvm_clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1100)
 
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args

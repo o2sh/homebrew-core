@@ -2,22 +2,24 @@ class Datasette < Formula
   include Language::Python::Virtualenv
   desc "Open source multi-tool for exploring and publishing data"
   homepage "https://docs.datasette.io/en/stable/"
-  url "https://files.pythonhosted.org/packages/5f/a3/58f2d54b3f230abd1a16f1f1a81cef9978edd3d1853e136a4cfb6fab2eee/datasette-0.63.tar.gz"
-  sha256 "6b07aac658478af933aaa83cbbd31c91581dab32ebbdd6c227b47db4fa3d1f3f"
+  url "https://files.pythonhosted.org/packages/58/9f/435751802df6d086c13e46b6ead0e8bdf1d72734d964600110895766664d/datasette-0.63.2.tar.gz"
+  sha256 "4b6c593e9d5b9aab3eb86bb0a18b5e4eaaec24bf17e7ddf1c763afcce8d23dac"
   license "Apache-2.0"
   head "https://github.com/simonw/datasette.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9b33ab3b05079ebf5f9503488314988b4fe4879ac073a5e964affca31f7bca3e"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f20989d84ad745ccc439af53a9f58f54268e021d92c63f37be9a788d398540d0"
-    sha256 cellar: :any_skip_relocation, monterey:       "45183e2d9fb2abbd2afd09a181437374e7325e25c7429e6aadb7c269807ce5a2"
-    sha256 cellar: :any_skip_relocation, big_sur:        "8232270746b688585040c2b2846540df1095a06854ae9daa9f0e40d89ae3c499"
-    sha256 cellar: :any_skip_relocation, catalina:       "7b8b05832084b7d4e7b72902552611885a8d841205ce529c4df45c8081fa3a44"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cca0af41c581c84e115b438ce69b063a1528c9950193b597c88853fa156ae3be"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f2b10742f4985771d9449d55e9ec9a099bffe4cc4094007007dab597cf6ebf08"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "691684c030840f100cbae8c822d1aee6422cc7b93c6ee80c5758087c4a70c468"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "511725857f7e7641ddcf569116418fe0f5d195e1a26041f76648eaa3eb61e2fb"
+    sha256 cellar: :any_skip_relocation, ventura:        "4122d6337ad8455b9eaf18f5384bc0376841484d214baea8e9b6d24db1893ff7"
+    sha256 cellar: :any_skip_relocation, monterey:       "91be8bb2e11ef17db0022494b454d18ad2595e7cd00f8a6ab130ba843ed7bd1d"
+    sha256 cellar: :any_skip_relocation, big_sur:        "8772458cb90ef246c1d87a437d147c6f152d5c2d7b94ecc51fd767f1b00cc649"
+    sha256 cellar: :any_skip_relocation, catalina:       "ae72fffe1ea51434c819da75308f42eea2c5b536838acf8961c6801d23354b03"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d2f0811fe9a2668ce9372777262a61e7622baca2f4abcaec4e85df9b3ebca985"
   end
 
   depends_on "python-typing-extensions"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "pyyaml"
   depends_on "six"
 
@@ -57,18 +59,18 @@ class Datasette < Formula
   end
 
   resource "h11" do
-    url "https://files.pythonhosted.org/packages/bd/e9/72c3dc8f7dd7874812be6a6ec788ba1300bfe31570963a7e788c86280cb9/h11-0.12.0.tar.gz"
-    sha256 "47222cb6067e4a307d535814917cd98fd0a57b6788ce715755fa2b6c28b56042"
+    url "https://files.pythonhosted.org/packages/f5/38/3af3d3633a34a3316095b39c8e8fb4853a28a536e55d347bd8d8e9a14b03/h11-0.14.0.tar.gz"
+    sha256 "8f19fbbe99e72420ff35c00b27a34cb9937e902a8b810e2c88300c6f0a3b699d"
   end
 
   resource "httpcore" do
-    url "https://files.pythonhosted.org/packages/42/98/44c3e51a0655eae75adefee028c9bada7427a90f63105e54f5e735946f50/httpcore-0.15.0.tar.gz"
-    sha256 "18b68ab86a3ccf3e7dc0f43598eaddcf472b602aba29f9aa6ab85fe2ada3980b"
+    url "https://files.pythonhosted.org/packages/f9/1a/a2652d94e901308c33b9f17c329b0d327da73b30678a6618d4256a3ac2ae/httpcore-0.16.1.tar.gz"
+    sha256 "3d3143ff5e1656a5740ea2f0c167e8e9d48c5a9bbd7f00ad1f8cff5711b08543"
   end
 
   resource "httpx" do
-    url "https://files.pythonhosted.org/packages/43/cd/677173d194b4839e5b196709e3819ffca2a4bc58b0538f4ae4be877ad480/httpx-0.23.0.tar.gz"
-    sha256 "f28eac771ec9eb4866d3fb4ab65abd42d38c424739e80c08d8d20570de60b0ef"
+    url "https://files.pythonhosted.org/packages/8a/df/a3e8b91dfb452e645ef110985a30f0915276a1a2144004c7671c07bb203c/httpx-0.23.1.tar.gz"
+    sha256 "202ae15319be24efe9a8bd4ed4360e68fde7b38bcc2ce87088d416f026667d19"
   end
 
   resource "hupper" do

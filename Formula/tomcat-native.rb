@@ -1,19 +1,20 @@
 class TomcatNative < Formula
   desc "Lets Tomcat use some native resources for performance"
   homepage "https://tomcat.apache.org/native-doc/"
-  url "https://www.apache.org/dyn/closer.lua?path=tomcat/tomcat-connectors/native/2.0.1/source/tomcat-native-2.0.1-src.tar.gz"
-  mirror "https://archive.apache.org/dist/tomcat/tomcat-connectors/native/2.0.1/source/tomcat-native-2.0.1-src.tar.gz"
-  sha256 "184679dc9e8d704003e720b87db10750982ddffb21b13eedc30b5e666748d775"
+  url "https://www.apache.org/dyn/closer.lua?path=tomcat/tomcat-connectors/native/2.0.2/source/tomcat-native-2.0.2-src.tar.gz"
+  mirror "https://archive.apache.org/dist/tomcat/tomcat-connectors/native/2.0.2/source/tomcat-native-2.0.2-src.tar.gz"
+  sha256 "fd43aece5bf1b05a25efce932fa3fe6a2cfff5c6761469e992ab14d79180390d"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "38e4095900c756da911972748ffa5237196f81b727c1e6b322430183f85dc52b"
-    sha256 cellar: :any,                 arm64_monterey: "7c54a353a041d368ccad8d5f100e6447c49bb147f8faa5d3b2746490bd76133a"
-    sha256 cellar: :any,                 arm64_big_sur:  "8229fff2160636f13d15929eeadd36e5b95ad52cf2fdd9d46c9776e26f011671"
-    sha256 cellar: :any,                 monterey:       "7d031077ada537c10af2ee0f3f9ab1f91120719f357a05e671d1dc861df9b4c5"
-    sha256 cellar: :any,                 big_sur:        "ce38776754b389217ce2d83a3e103f1d236a76d6b421fb089ad781a323a31032"
-    sha256 cellar: :any,                 catalina:       "43ead589f500bc5e469edf94abf87be7d61d8670e319ea3bb6e6c4a50aad5433"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "db7d2363b27cabeec3520fffddac6c4600218dc803380b2114a15e8b8e5a84da"
+    sha256 cellar: :any,                 arm64_ventura:  "36ef0309b33e0d8e23c2d14ade8079b639ae8590e227e6a07c70e93b6cb6329a"
+    sha256 cellar: :any,                 arm64_monterey: "ba2c9742c77ae897711ec828a0202e69a8f9e6a1bf1c7277d4f18d32f9dfdee0"
+    sha256 cellar: :any,                 arm64_big_sur:  "18cc054f03000b2a518ba56c8ffb5ddb3a2418df69650b794f79afdeed29a756"
+    sha256 cellar: :any,                 ventura:        "38c6f059e2aa83791ecd19792f5a0c3e08e365f0e271ddd799a92dd6c702f29b"
+    sha256 cellar: :any,                 monterey:       "6bc8ea36d451aaf12a5262653df9a6b64dc4215f096ee27bac3267a311f820f0"
+    sha256 cellar: :any,                 big_sur:        "5ac2468afb75cc641e96224c0f303eccc21967bf4516845a01aa658ef135383d"
+    sha256 cellar: :any,                 catalina:       "5b3e559840c240f2d321006079f6493ba91ded605cdc5085813435a89d41504b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9f29334e86606669244e9161e6c275f126e9570c5d4e722d363a0c7c9fc599f9"
   end
 
   depends_on "libtool" => :build

@@ -1,9 +1,10 @@
 class Cherrytree < Formula
   desc "Hierarchical note taking application featuring rich text and syntax highlighting"
   homepage "https://www.giuspen.com/cherrytree/"
-  url "https://www.giuspen.com/software/cherrytree_0.99.51.tar.xz"
-  sha256 "be1ef890d137a1f3728721722fd007f2bc90091a5768f5c6a9bfa473eb094281"
+  url "https://www.giuspen.com/software/cherrytree_0.99.52.tar.xz"
+  sha256 "3a0ef5b2e821e2b5635888f063e47bfb1263e46b571371037daf473771d4ab5b"
   license "GPL-3.0-or-later"
+  revision 1
 
   livecheck do
     url :homepage
@@ -11,13 +12,14 @@ class Cherrytree < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "7522f94e63a4740bf8eef59572e00092d258a0cef42d5d64a6b264f4c1ce5e79"
-    sha256 arm64_monterey: "fbadb047e383f75a0e2bab0733fe03c71900122b4fe15c7b4fafbbdb6c4eb270"
-    sha256 arm64_big_sur:  "4bbd4ab9921b4f0589b5f1331f9a7b8b084918bd50c3b3c62a0bdbba66b55318"
-    sha256 monterey:       "4dc6f9c75199d4d19258af2e676d12eb7776fea30f03457e15d5f51ca8f1c550"
-    sha256 big_sur:        "241c66fa21a304aa24b3bda20b4897cd3c836cdd152612360db9887ce0b29c82"
-    sha256 catalina:       "392b924031fe36ebc2043a53a507fb14d702de5aef8daf6f76b4b6676aeedd6f"
-    sha256 x86_64_linux:   "a42030e5a180dc18bb50bcd7fa775741d788deb07fd9de39a482ebc645a73767"
+    sha256 arm64_ventura:  "010123e08fb61d49c224fa8cc4b011e38ccb044fa11ee27ee865f23631bc9172"
+    sha256 arm64_monterey: "e7fec930578634cfb67051784cbabd1313430361c7cb63f52fac92e1cc435662"
+    sha256 arm64_big_sur:  "de51e8449e023cd0c4051647c60ea540091bf819804a5644bf610580a9e243f9"
+    sha256 ventura:        "c3eaa287459bd297f8d9fed5f161e11f923aeff2e380743373d24e4e2ff38d36"
+    sha256 monterey:       "d631b372cd5b651951739b3969a2aee8d108da1647dbc92e4eea37ebc1407604"
+    sha256 big_sur:        "fba2e38c08337ff5cfc2ef20f6ff9d8fb74ec8f2fc5d8a37e584abd17b0bb557"
+    sha256 catalina:       "7ddb0e27ae9bf7546e1b1f0d0fa548ded0477c495252ffaad3f9f8fe7dba112e"
+    sha256 x86_64_linux:   "b6d0cc9cef0d7c837a1750a627015c35c043f249e7c755f7d51402f2de1b8b44"
   end
 
   depends_on "cmake" => :build

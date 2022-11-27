@@ -6,7 +6,7 @@ class Binwalk < Formula
   url "https://github.com/ReFirmLabs/binwalk/archive/v2.3.3.tar.gz"
   sha256 "7e32b94dc77632b51d18732b5456e2a3ef85e4521d7d4a54410e36f93859501f"
   license "MIT"
-  revision 1
+  revision 2
   head "https://github.com/ReFirmLabs/binwalk.git", branch: "master"
 
   livecheck do
@@ -15,13 +15,14 @@ class Binwalk < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "1c7bc2d4922e2ecee8c212eeb05eebb371212dfd1f0804e6ebb4d6da821ae49e"
-    sha256 cellar: :any,                 arm64_monterey: "4d174cfab2b8ac93175083b9023d380d3550df4ba6fb2aece19ef21de95f282f"
-    sha256 cellar: :any,                 arm64_big_sur:  "32a0ba9dda4f2c7ca35e1b0315d93c213de11f6748905529354f7c91d0b5dd1d"
-    sha256 cellar: :any,                 monterey:       "bc7bb74e6c67d99191e84594a5fdece82b96eff032eab43ebcae10d039dc6270"
-    sha256 cellar: :any,                 big_sur:        "07fcdc50883c29ee5c8159b00dc09b17c2c6e64258fe04692fb3b2b8d0c19dc0"
-    sha256 cellar: :any,                 catalina:       "b30e0aa8c9716d63b086113ce9d37e0b7c4e2d9f1afa1d870bf694880fa84de6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bd1090b38fc5a2b031f419bd96b34798ee13bf085649b584f304868703085fb4"
+    sha256 cellar: :any,                 arm64_ventura:  "790b8e8314d7f644a7404d73bde374abc4dbbc4b50e6b87d0ae0887fbc571493"
+    sha256 cellar: :any,                 arm64_monterey: "235c50f581a73d80e729446c0358419e0c5fa3d5f172502e374087ff0599f146"
+    sha256 cellar: :any,                 arm64_big_sur:  "307c12b610778f36e7ab1305b7e413af6506e91b5655ee2f85463618d580b3ae"
+    sha256 cellar: :any,                 ventura:        "942ee604c48c17e1685bf802eb31fbdb11e91cee162e5632f86720adaeff7fd6"
+    sha256 cellar: :any,                 monterey:       "68a5e01815f4b7fb6b6518c159c3349eda5131f7e2ec0a0ff466c9010f6e56f8"
+    sha256 cellar: :any,                 big_sur:        "0310a3066ffbb65165f11f14205eabd6a0473e624d61d73ad5d6311ea140b4a1"
+    sha256 cellar: :any,                 catalina:       "b2dadab228a96a7973b20342b383c733f65aeea0032ee7c8cf07bfcefd02a8a7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "958c19b5bab3a65688396412441a14f8c00d191f540dcd2dcef6941b5dbfb2a1"
   end
 
   depends_on "pkg-config" => :build
@@ -31,7 +32,7 @@ class Binwalk < Formula
   depends_on "numpy"
   depends_on "p7zip"
   depends_on "pillow"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "six"
   depends_on "ssdeep"
   depends_on "xz"

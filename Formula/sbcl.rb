@@ -1,33 +1,24 @@
 class Sbcl < Formula
   desc "Steel Bank Common Lisp system"
   homepage "http://www.sbcl.org/"
+  url "https://downloads.sourceforge.net/project/sbcl/sbcl/2.2.10/sbcl-2.2.10-source.tar.bz2"
+  sha256 "8cc3c3a8761223adef144a88730b2675083a3b26fa155d70cf91abb935e90833"
   license all_of: [:public_domain, "MIT", "Xerox", "BSD-3-Clause"]
   head "https://git.code.sf.net/p/sbcl/sbcl.git", branch: "master"
-
-  # Remove `stable` block when patch is no longer needed.
-  stable do
-    url "https://downloads.sourceforge.net/project/sbcl/sbcl/2.2.9/sbcl-2.2.9-source.tar.bz2"
-    sha256 "7ebebd6d2023fff7077b0372fa1171f880529bdec6104f20983297c2feb7c172"
-
-    # Fix Catalina build. Remove in next version.
-    patch do
-      url "https://github.com/sbcl/sbcl/commit/171cef936ad8c68a5892d59b758930c99fcea1cc.patch?full_index=1"
-      sha256 "f86e289d002c76065a72d643ac786646e778080d77ce543d832d683e0d30bea8"
-    end
-  end
 
   livecheck do
     url "https://sourceforge.net/projects/sbcl/rss?path=/sbcl"
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "15f6be8098e56107c2e0156e072240dd4ec94fb76c0a2241201fa4a317ed8645"
-    sha256 cellar: :any,                 arm64_monterey: "08dc55aeb4d3c2f6caf90c32141277b00892e2d5ec7bdb6eb7a7b47b200341e4"
-    sha256 cellar: :any,                 arm64_big_sur:  "0e4513fe179b6c87b350e3bf92b2130d78d555b2922e60a214b259fb368092f8"
-    sha256 cellar: :any,                 monterey:       "a1b964e902d3874a9a753163703c06651a31862fe8bfacb38504f00f1ee5145b"
-    sha256 cellar: :any,                 big_sur:        "cca24c9dd7a99df2ad5f340b1f12d48ef90eff5c3695806837cda266030ac6e8"
-    sha256 cellar: :any,                 catalina:       "00fccb19530a9fe4f8fb6c2a2da26d82f5ba7aa586134387f934979064c53005"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "22409d2c64da17c8407654487ed30435077861831b772cccdb83ba13e24c221f"
+    sha256 cellar: :any,                 arm64_ventura:  "3a969c7c463cd42d021f108804db0f1b12d7d1e3e29fb3fd539ff2bfc5e3ccd1"
+    sha256 cellar: :any,                 arm64_monterey: "2b69d1a2cbe7ae55f403f11351a8eb97948e8b5e5cbba76c577c0b01f46be810"
+    sha256 cellar: :any,                 arm64_big_sur:  "8e5becbf68466e0055f970153258fbc11ccef290bd2b9ec11e1566b00981861a"
+    sha256 cellar: :any,                 ventura:        "0214bb4b40301754e78438734a434172411a56c93afc68afdfe7225a7e6c0124"
+    sha256 cellar: :any,                 monterey:       "08ceb2f905fba55983d3851af5b23fa940794b810bd4d6538b2c71f436b83629"
+    sha256 cellar: :any,                 big_sur:        "15c45e72bbfdeee3c3c888c58e9e79f05d7121c3e4c48553751348058fb459a4"
+    sha256 cellar: :any,                 catalina:       "c2cfcb89a28c6c04de8185f40e7acc004bb2d34e892272d9771e678072c2fffa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "eaab47f875d930dbb9593074f46157b4a1f8950144d1479bd8a56ddba5002904"
   end
 
   depends_on "ecl" => :build

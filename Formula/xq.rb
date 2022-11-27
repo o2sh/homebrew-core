@@ -1,24 +1,35 @@
 class Xq < Formula
-  desc "Command-line XML beautifier and content extractor"
+  desc "Command-line XML and HTML beautifier and content extractor"
   homepage "https://github.com/sibprogrammer/xq"
-  url "https://github.com/sibprogrammer/xq/archive/refs/tags/v0.0.8.tar.gz"
-  sha256 "9ab6d0fd2ef3e1ca6c74fec8a466c20d65fd5330eaf75d16a22bf878c5500493"
+  url "https://github.com/sibprogrammer/xq.git",
+      tag:      "v1.1.0",
+      revision: "0a9c1d7b705b5926328576b4a3a3ec2e3430e59c"
   license "MIT"
-  head "https://github.com/sibprogrammer/xq.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4191730c263fa0389e7aa8a7be8ccd50075c28f6a52f47585d3bf94b01e4a6d8"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "36a8d6d20c8ae3734bb749e080d3a5b665c2563824a1bc7bb4f574e39cf700f2"
-    sha256 cellar: :any_skip_relocation, monterey:       "f62cc6bdb06dda94da9bb5ce040497833b01933770f200dd973d88d8ccba9a1b"
-    sha256 cellar: :any_skip_relocation, big_sur:        "b1559f646a54240384d8931cb155689bf7ff40aebf113826e8f453e1ba25082a"
-    sha256 cellar: :any_skip_relocation, catalina:       "0718b2b10cd49943c30fd6b24dd19411f7f431b204d0c0b4f44eacc210959b4b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "905d5abe7415a7cfc8b93e5df66e299e68c762db654ca1c77bc1146fecb01c55"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "eee62745373a047ed26f6c5b634bf3f1a1339bceb57e6b13989a018ec48ba011"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "eee62745373a047ed26f6c5b634bf3f1a1339bceb57e6b13989a018ec48ba011"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "eee62745373a047ed26f6c5b634bf3f1a1339bceb57e6b13989a018ec48ba011"
+    sha256 cellar: :any_skip_relocation, ventura:        "4678cf39f8f7523c79e1132e9d3c1cab7e907b06ffd16e819bad5e3e5543e152"
+    sha256 cellar: :any_skip_relocation, monterey:       "4678cf39f8f7523c79e1132e9d3c1cab7e907b06ffd16e819bad5e3e5543e152"
+    sha256 cellar: :any_skip_relocation, big_sur:        "4678cf39f8f7523c79e1132e9d3c1cab7e907b06ffd16e819bad5e3e5543e152"
+    sha256 cellar: :any_skip_relocation, catalina:       "4678cf39f8f7523c79e1132e9d3c1cab7e907b06ffd16e819bad5e3e5543e152"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0ddaa61c9f713c77d59eb0dfd6b0f40bae4aa00b5ddd52850f13cbc8923daee8"
   end
 
   depends_on "go" => :build
 
   def install
-    system "go", "build", *std_go_args(ldflags: "-s -w -X main.version=#{version}")
+    ENV["CGO_ENABLED"] = "0"
+    ldflags = %W[
+      -s -w
+      -X main.commit=#{Utils.git_head}
+      -X main.version=#{version}
+      -X main.date=#{time.rfc3339}
+    ]
+
+    system "go", "build", *std_go_args(ldflags: ldflags)
+    man1.install "docs/xq.man" => "xq.1"
   end
 
   test do

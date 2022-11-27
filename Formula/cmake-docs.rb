@@ -1,10 +1,10 @@
 class CmakeDocs < Formula
   desc "Documentation for CMake"
   homepage "https://www.cmake.org/"
-  url "https://github.com/Kitware/CMake/releases/download/v3.24.2/cmake-3.24.2.tar.gz"
-  mirror "http://fresh-center.net/linux/misc/cmake-3.24.2.tar.gz"
-  mirror "http://fresh-center.net/linux/misc/legacy/cmake-3.24.2.tar.gz"
-  sha256 "0d9020f06f3ddf17fb537dc228e1a56c927ee506b486f55fe2dc19f69bf0c8db"
+  url "https://github.com/Kitware/CMake/releases/download/v3.25.0/cmake-3.25.0.tar.gz"
+  mirror "http://fresh-center.net/linux/misc/cmake-3.25.0.tar.gz"
+  mirror "http://fresh-center.net/linux/misc/legacy/cmake-3.25.0.tar.gz"
+  sha256 "306463f541555da0942e6f5a0736560f70c487178b9d94a5ae7f34d0538cdd48"
   license "BSD-3-Clause"
   head "https://gitlab.kitware.com/cmake/cmake.git", branch: "master"
 
@@ -13,13 +13,14 @@ class CmakeDocs < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "41495bd8cf550ebc67c548faa7e2c395d11c8169fbe5bd34ce813359de1be9db"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "34668ff1872bc7cb6acda3bd1e1cd8c0151b4d81bd7c9dc33787c0c6b4921b55"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "34668ff1872bc7cb6acda3bd1e1cd8c0151b4d81bd7c9dc33787c0c6b4921b55"
-    sha256 cellar: :any_skip_relocation, monterey:       "cd60c83393cc001950ee7539bcfc14017166d15c9a11367e415a1f2a7f7b5dfa"
-    sha256 cellar: :any_skip_relocation, big_sur:        "cd60c83393cc001950ee7539bcfc14017166d15c9a11367e415a1f2a7f7b5dfa"
-    sha256 cellar: :any_skip_relocation, catalina:       "cd60c83393cc001950ee7539bcfc14017166d15c9a11367e415a1f2a7f7b5dfa"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "34668ff1872bc7cb6acda3bd1e1cd8c0151b4d81bd7c9dc33787c0c6b4921b55"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f45a9e05e9db1ba80abc234162d45f70ea1f63b0dee5e4ac15e3d404ea8473c8"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f45a9e05e9db1ba80abc234162d45f70ea1f63b0dee5e4ac15e3d404ea8473c8"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f45a9e05e9db1ba80abc234162d45f70ea1f63b0dee5e4ac15e3d404ea8473c8"
+    sha256 cellar: :any_skip_relocation, ventura:        "75f39c0d04973ac0cf7330e4aa1cbc0d888aa7fac52dbe4b1e3244da20e341b3"
+    sha256 cellar: :any_skip_relocation, monterey:       "75f39c0d04973ac0cf7330e4aa1cbc0d888aa7fac52dbe4b1e3244da20e341b3"
+    sha256 cellar: :any_skip_relocation, big_sur:        "75f39c0d04973ac0cf7330e4aa1cbc0d888aa7fac52dbe4b1e3244da20e341b3"
+    sha256 cellar: :any_skip_relocation, catalina:       "75f39c0d04973ac0cf7330e4aa1cbc0d888aa7fac52dbe4b1e3244da20e341b3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f45a9e05e9db1ba80abc234162d45f70ea1f63b0dee5e4ac15e3d404ea8473c8"
   end
 
   depends_on "cmake" => :build

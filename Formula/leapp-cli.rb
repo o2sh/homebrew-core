@@ -3,17 +3,18 @@ require "language/node"
 class LeappCli < Formula
   desc "Cloud credentials manager cli"
   homepage "https://github.com/noovolari/leapp"
-  url "https://registry.npmjs.org/@noovolari/leapp-cli/-/leapp-cli-0.1.24.tgz"
-  sha256 "d7aea722fb9c3c809f00828010a49706e61e9aa56647f2696eb8bdcb9a145210"
+  url "https://registry.npmjs.org/@noovolari/leapp-cli/-/leapp-cli-0.1.26.tgz"
+  sha256 "79a91a7b03a1d775363a5e7f087c5b7e1739e5615059010980584558bed9c00f"
   license "MPL-2.0"
 
   bottle do
-    sha256                               arm64_monterey: "f4816bf5d9a71c281a4e89e404a3e608c2da37dccdfa76e4428050db2d201520"
-    sha256                               arm64_big_sur:  "f0e604b723d83117b1c333254c1881c70611a258c39d012bcd78994fc908034d"
-    sha256                               monterey:       "74cf19bb9df002d44f589dd6573e6659a36a598e7f200273395e385d48b7f5a5"
-    sha256                               big_sur:        "3c0a4822c28099258f84c820e6981d1a604e9272f148db65d45e9246f87b0fa8"
-    sha256                               catalina:       "d567f95892ec3e59c190489a0681a00ec826638f85acad38ac3d8f75f73e1f5f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9ddadc85847eef48eff74668e0cf0787f08895d03b546c2511ea95359a482fd4"
+    sha256                               arm64_ventura:  "8589ddf349046392b61224a86ffafb2d42cf4ee200eceaabb690f0e218e0ddcb"
+    sha256                               arm64_monterey: "1c6f16311d8d8c00e9f88c8d820f552c74b75635e841023f8a75c5a762c95c48"
+    sha256                               arm64_big_sur:  "cb94ba081e1de43c04f6d3c33ee187914de411ea2b18910ffc1219b7e609e9a0"
+    sha256                               monterey:       "a4e8dc912bc1f20454c77d24d115a677ce8cbd35efb0edeb4239f08adb1c7577"
+    sha256                               big_sur:        "ac0d9c98fa704b9107daae532b64526f9c6b53cde9f68e0261d47597c43cb7a9"
+    sha256                               catalina:       "c601155bb75bf8d5f965e1f54dc764d64a0163516fd3985086696353cd83c822"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "95274fcb45504c33656ee234f25c602a04d7df9646053b5158d8df3b09a77b2b"
   end
 
   depends_on "pkg-config" => :build

@@ -2,8 +2,8 @@ class Vim < Formula
   desc "Vi 'workalike' with many additional features"
   homepage "https://www.vim.org/"
   # vim should only be updated every 50 releases on multiples of 50
-  url "https://github.com/vim/vim/archive/v9.0.0800.tar.gz"
-  sha256 "2665476c5b3cbf4005e0ed859fe75fbc258c519b0ee72707da2a3385719d1a09"
+  url "https://github.com/vim/vim/archive/v9.0.0950.tar.gz"
+  sha256 "c53542fbec58362c3a5ed60a0fe5aa219ef49cd15d9545311ec0f6d1f03e2fdd"
   license "Vim"
   head "https://github.com/vim/vim.git", branch: "master"
 
@@ -17,13 +17,14 @@ class Vim < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "bb245aeca16fe576bbc88e4b30ee3e6818e3b279727f04d89572f347f2b8451a"
-    sha256 arm64_monterey: "94167ed87b49361bb2a5769070b8b1be4c33819baaae64610b50966f7654884e"
-    sha256 arm64_big_sur:  "07ba972e080d8fb8a6fac1b1fc9fcc3c3273eda0333969e82cc34163ebf9cf30"
-    sha256 monterey:       "5f775ede2c1b12ae5a4e1fe16be03acb4e5ee19ed1946b3aab860a77db852a61"
-    sha256 big_sur:        "a350badaaaf8b5392c0b3dbd0d73a6a4de72d46f80d84945edf32ea4b6e5ec18"
-    sha256 catalina:       "12a9e96526bd1273f09a8808cf957bcda0a3d6e0980fd1f5216972c866005231"
-    sha256 x86_64_linux:   "b3db15a4cde19969d67d7d3dd0937b478b7623377403f91a407acd3940a52434"
+    sha256 arm64_ventura:  "a6f1010634b35c5806f27f273da82c8bc88c88067f4f1d86de17617a1d8bb89b"
+    sha256 arm64_monterey: "24675828ad9f92c7f22803bb7cb3378fb5019e8ac8f83f58da08702cc79bb32f"
+    sha256 arm64_big_sur:  "d1cc4580fcecce9fad6358090b7425751b53a93676a42bd92c9f40d0d645f311"
+    sha256 ventura:        "13ff1941e768a75865fcf4602f625ed8f37bc1b9dd814e4e52bd69a47a4114b0"
+    sha256 monterey:       "f0b8b52b5868117ed3e9d87e2182013fe4af86f7b129290ea943ca00df6e3328"
+    sha256 big_sur:        "0638bfae13b9c0b2ab7e7426c44833fa61635064a5b9473eeb858c3a4bb574c3"
+    sha256 catalina:       "a3d7367f1ea4f36973dbdcc04dcf8f66ff30718ad88a4da71f4eccd56163d0eb"
+    sha256 x86_64_linux:   "7b7bc85ff2dfa14f3f95f9d87a9fa0e07a1ab9cd3b4edd039ff1f559970020d2"
   end
 
   depends_on "gettext"

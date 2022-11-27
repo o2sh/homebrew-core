@@ -7,8 +7,8 @@ class Mesa < Formula
   head "https://gitlab.freedesktop.org/mesa/mesa.git", branch: "main"
 
   stable do
-    url "https://mesa.freedesktop.org/archive/mesa-22.2.2.tar.xz"
-    sha256 "2de11fb74fc5cc671b818e49fe203cea0cd1d8b69756e97cdb06a2f4e78948f9"
+    url "https://mesa.freedesktop.org/archive/mesa-22.2.4.tar.xz"
+    sha256 "65d76b53ca5c7b46019e0e8e5b414de45d2fecd3fcd71707f6c3bc7691c9f7ab"
 
     patch do
       url "https://raw.githubusercontent.com/Homebrew/formula-patches/f0a40cf7d70ee5a25639b91d9a8088749a2dd04e/mesa/fix-build-on-macOS.patch"
@@ -17,13 +17,14 @@ class Mesa < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "99b1f79daa6eacc245247f6d349f19c5a05184cb5401a3abf9c0300ee97f628c"
-    sha256 arm64_monterey: "68e10fc3658d9f049e71bc45ed65df9e2b0b0db70901919f2dab8cf00df4cadd"
-    sha256 arm64_big_sur:  "ea62acc23bf41fac3f8a9fc5d4030ec6896d77c5e2a9cc2c927288f1d7113db9"
-    sha256 monterey:       "f0e2a43ad41a38dca53045dacb3322f73c7a4d35b01dea47ae8c7af4b7a7c03d"
-    sha256 big_sur:        "f97fe5a8f023c8febfd747310b5cf2cc6fa17c3a432d129ff8bad8ad5a833915"
-    sha256 catalina:       "f08499fe1981ec82ff2b1bef03beb0a6da45c38a848926fba9bb220b1045a882"
-    sha256 x86_64_linux:   "91cca81a42a856a4e780c45f26638ea4856dbb1b73c74e4b42c770bf9c0c76a8"
+    sha256 arm64_ventura:  "0e51503327aa8b10c1722a14ca204a588e729f7248cdbb3b993c1c2a7650f853"
+    sha256 arm64_monterey: "b6b2c74644de233f763ebe804cd82928bde11249582d6600585cba16fb6003c3"
+    sha256 arm64_big_sur:  "a1e1b345d97597781518782015e56c7870beb2f6a42f0a7c2dc33c72a8663c66"
+    sha256 ventura:        "ff1e0d3f6cea874752d6e7b5f47c0d6e37a2d7c123f4a324d54e6e65c112a194"
+    sha256 monterey:       "fb8532b58035a362a0a07b6ad11601f8e3ea861db20ae045756015c38869d314"
+    sha256 big_sur:        "52cb74ff1b1287b15e978fd88bbfa361bac95be070db5addce4eb410a111a940"
+    sha256 catalina:       "0329c1d3f75fd8cfd22035c070e4876ee67d7eeda5b98f0080ab0b669b02945c"
+    sha256 x86_64_linux:   "454a44dd4d8ed31f8a6c556b0c579dde1c7f0639984971f1c582f3b06b68ed66"
   end
 
   depends_on "bison" => :build # can't use form macOS, needs '> 2.3'
@@ -67,8 +68,8 @@ class Mesa < Formula
   fails_with gcc: "5"
 
   resource "Mako" do
-    url "https://files.pythonhosted.org/packages/b9/38/c25f0874ea71802fc6f1e9f0f88a7e9666818121b28991bbc1d8eddbcdb1/Mako-1.2.3.tar.gz"
-    sha256 "7fde96466fcfeedb0eed94f187f20b23d85e4cb41444be0e542e2c8c65c396cd"
+    url "https://files.pythonhosted.org/packages/05/5f/2ba6e026d33a0e6ddc1dddf9958677f76f5f80c236bd65309d280b166d3e/Mako-1.2.4.tar.gz"
+    sha256 "d60a3903dc3bb01a18ad6a89cdbe2e4eadc69c0bc8ef1e3773ba53d44c3f7a34"
   end
 
   resource "MarkupSafe" do

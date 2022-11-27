@@ -1,14 +1,10 @@
 class IncludeWhatYouUse < Formula
   desc "Tool to analyze #includes in C and C++ source files"
   homepage "https://include-what-you-use.org/"
+  url "https://include-what-you-use.org/downloads/include-what-you-use-0.19.src.tar.gz"
+  sha256 "2b10157b60ea08adc08e3896b4921c73fcadd5ec4eb652b29a34129d501e5ee0"
   license "NCSA"
-  revision 1
-
-  stable do
-    url "https://include-what-you-use.org/downloads/include-what-you-use-0.18.src.tar.gz"
-    sha256 "9102fc8419294757df86a89ce6ec305f8d90a818d1f2598a139d15eb1894b8f3"
-    depends_on "llvm@14"
-  end
+  head "https://github.com/include-what-you-use/include-what-you-use.git", branch: "master"
 
   # This omits the 3.3, 3.4, and 3.5 versions, which come from the older
   # version scheme like `Clang+LLVM 3.5` (25 November 2014). The current
@@ -20,21 +16,19 @@ class IncludeWhatYouUse < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "67e4b2d516dca08f8ba539e0df3aa2875a64fdf982f3df0bda5c998d176e89da"
-    sha256 cellar: :any,                 arm64_monterey: "0f1069fcaab73d281f35588edde0a42e525585b9027948a8f55059f1faa35382"
-    sha256 cellar: :any,                 arm64_big_sur:  "d3f5ccb968289f86bf45fa840eb1841412f3c3655225fb72802253030f72202a"
-    sha256 cellar: :any,                 monterey:       "2654b023d5b8244f9e0465301d216820ca25ee11317face422cc7115105013f0"
-    sha256 cellar: :any,                 big_sur:        "ba3a326bb08be28783d2f410ca9b2e25f019f8d2f9c4a8395129bddccfd864d6"
-    sha256 cellar: :any,                 catalina:       "fe6fcb6b5fb47d5b61245bde748ceddd6719ed7ae1553b30ba2e77bbec95450b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ec110b794c08e967b6e9cd4e9dbd4aa7c409609d3cdd72a0c874c87d58f75017"
-  end
-
-  head do
-    url "https://github.com/include-what-you-use/include-what-you-use.git", branch: "master"
-    depends_on "llvm"
+    sha256 cellar: :any,                 arm64_ventura:  "9cd980ebf2328c24e34e5b8f383f845e8c5de2d29d5904f61d5c1ec1e5f7758f"
+    sha256 cellar: :any,                 arm64_monterey: "74bffb0dc7dce47d0dc66a334ae2f97d706832527d8238d87b1b55ac7f774426"
+    sha256 cellar: :any,                 arm64_big_sur:  "395a9b31cb4e9024488e33dff157836d6c833cdda34b57f1882aa18140027870"
+    sha256 cellar: :any,                 ventura:        "5055c407f01109a7c2791335c3ae8d49cf5e43eb30d8d39a99c83a582da088e7"
+    sha256 cellar: :any,                 monterey:       "a3c265161618434e2f7309e3a40d4450a52be8a2ad10ad6866b3fbc489a62ede"
+    sha256 cellar: :any,                 big_sur:        "d468ab80a9508cd22dc08d5fba619209aef43d3b527db3522fc2a13dfaabec27"
+    sha256 cellar: :any,                 catalina:       "7c460a64c73fc4b03690b68c1928b2a0bd8afb1aa4a62a11ba2f28898a47833f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3518a3e1f2fa504af9571c3988f626df0b3b0842f2c811d9b3c89d85e1c011eb"
   end
 
   depends_on "cmake" => :build
+  depends_on "llvm"
+
   uses_from_macos "ncurses"
   uses_from_macos "zlib"
 

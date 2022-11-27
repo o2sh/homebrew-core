@@ -1,17 +1,18 @@
 class Sonobuoy < Formula
   desc "Kubernetes component that generates reports on cluster conformance"
   homepage "https://github.com/vmware-tanzu/sonobuoy"
-  url "https://github.com/vmware-tanzu/sonobuoy/archive/v0.56.10.tar.gz"
-  sha256 "c41f7207e5cc46e3635aa6e6ccd2e9be9527327c426be643418f30f4d9974ae2"
+  url "https://github.com/vmware-tanzu/sonobuoy/archive/v0.56.12.tar.gz"
+  sha256 "feab53ede72d71f96c3934b85e64cc0a2a490bd5772de1cdd4166ff52a0c95bb"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "52bf72af4c1d9374ebc54af3c091722c4b9fe927702fcde80f23434c7ba614bc"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "457cf15184430889c0e4110857f4a14456a782f17a8227a1169d1b560b55a605"
-    sha256 cellar: :any_skip_relocation, monterey:       "ee127629100128a10f5a9800b1dca1bb066db244c37724a6d19080e414c76a4e"
-    sha256 cellar: :any_skip_relocation, big_sur:        "31529f8aefa3661eac80a67aa70ae50b976489f26d239b20bd254a992fa17cb9"
-    sha256 cellar: :any_skip_relocation, catalina:       "62e996f87d2c7af262eecf4c13a46ce1878e0bb29205fdff5a5cf2ce87c686cf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "144ac82fe76ee1383cde8f0fd62bbd9807b8479ed9f4e684f0a287740031873a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d08df0e55fcc88ed437ce6984a10b379d9623be7b16c38a13aea29a29265ecf3"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "56c1907194cc55fb13076301ce76a6d64eae68a84fce6cb3195d2c2eb380bd3e"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "00bde29adcfc21151c2424374027f5fa8e659deabaae96fac2893b317a48322a"
+    sha256 cellar: :any_skip_relocation, monterey:       "909e55c0ac2c65eb5daaf3806bd0643379ed093e2811b95ffb4a7ed1a8397bee"
+    sha256 cellar: :any_skip_relocation, big_sur:        "a5ced62a636e877be78b28ed7eaaf081e93b88f0a24e908614f8e824e03a0b43"
+    sha256 cellar: :any_skip_relocation, catalina:       "ad6ca3e70a9b6d183972bdfc45d1612e1969e34c38dabcf3237eaefe33ebcf96"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e4f644c3bff042b99f076d3b590ab44f2e14ed89ab93c0571d29583afedee5e6"
   end
 
   depends_on "go" => :build

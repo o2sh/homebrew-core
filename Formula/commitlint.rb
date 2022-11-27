@@ -3,18 +3,19 @@ require "language/node"
 class Commitlint < Formula
   desc "Lint commit messages according to a commit convention"
   homepage "https://commitlint.js.org/#/"
-  url "https://registry.npmjs.org/commitlint/-/commitlint-17.1.2.tgz"
-  sha256 "aca659da30c4c3e25483fca656f60b35b521f397f1edf5fb4d5eaaf2a65d83e3"
+  url "https://registry.npmjs.org/commitlint/-/commitlint-17.3.0.tgz"
+  sha256 "37ebb051e3600e731fc3be3cf3b84b4fa88d8003d8b8c99dffa7dc4ea927c37e"
   license "MIT"
   head "https://github.com/conventional-changelog/commitlint.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f1b522aa170108a5fd7e72663f19e892e507e27b35fa74948f513bde07979052"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f1b522aa170108a5fd7e72663f19e892e507e27b35fa74948f513bde07979052"
-    sha256 cellar: :any_skip_relocation, monterey:       "42a7d3d98045a46a4818a40429bbd94311016fa2b2244da2b84780b3a3d5a391"
-    sha256 cellar: :any_skip_relocation, big_sur:        "42a7d3d98045a46a4818a40429bbd94311016fa2b2244da2b84780b3a3d5a391"
-    sha256 cellar: :any_skip_relocation, catalina:       "42a7d3d98045a46a4818a40429bbd94311016fa2b2244da2b84780b3a3d5a391"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f1b522aa170108a5fd7e72663f19e892e507e27b35fa74948f513bde07979052"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "538e8f5fe80de3d505512730e86d34d9d14085f6d9547d3bda0eaba66f25b936"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "538e8f5fe80de3d505512730e86d34d9d14085f6d9547d3bda0eaba66f25b936"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "538e8f5fe80de3d505512730e86d34d9d14085f6d9547d3bda0eaba66f25b936"
+    sha256 cellar: :any_skip_relocation, monterey:       "cb35ed4534d4f33f632d3a2def192949c1de75740af3f757040554274f19539a"
+    sha256 cellar: :any_skip_relocation, big_sur:        "cb35ed4534d4f33f632d3a2def192949c1de75740af3f757040554274f19539a"
+    sha256 cellar: :any_skip_relocation, catalina:       "cb35ed4534d4f33f632d3a2def192949c1de75740af3f757040554274f19539a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "538e8f5fe80de3d505512730e86d34d9d14085f6d9547d3bda0eaba66f25b936"
   end
 
   depends_on "node"

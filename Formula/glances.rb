@@ -3,20 +3,22 @@ class Glances < Formula
 
   desc "Alternative to top/htop"
   homepage "https://nicolargo.github.io/glances/"
-  url "https://files.pythonhosted.org/packages/4f/dc/dca6822522902b922f1ebce3f1dfc696400470fd410821d0877f50733aa7/Glances-3.3.0.2.tar.gz"
-  sha256 "d830e1b71dbf098cc345d1a932d3104a472118ab46312b679612f5e81cbcb564"
+  url "https://files.pythonhosted.org/packages/21/71/4580c2977846c59c3e4a8f16b738a16a4ff3761b323b2f83894c4d699bf5/Glances-3.3.0.4.tar.gz"
+  sha256 "8a0a5298ea55e34773eda86c51710a56f19c4724600472627079b1c370f79e4e"
   license "LGPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "393aee45cd1d274d57a1d83a076f52227f3ada311776eae504f1a1646a5d543d"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "0474f9000b426e63dd94db670aae312591a777572c52827b039f59454d8d4734"
-    sha256 cellar: :any_skip_relocation, monterey:       "f871634fa6542a6503d39881521eb66a4306ef5697a6ff6b76f53a0678b53e38"
-    sha256 cellar: :any_skip_relocation, big_sur:        "f8b9f159bc2a425d358e960424b0bf6f8634d199a52daf5de7d554551edf670c"
-    sha256 cellar: :any_skip_relocation, catalina:       "73f61f10fc96510af6ca99d658cadb10427fdec9cc0ffdfe68534d51dd4f5550"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "806e0e9355637ccb789043dc03ff28b34a8d4dbaae8f357b0a2470dd8d22d873"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "00c117dbdafadc7b85c7ff62d7ebc0ea85e6034b92e8000643d4f1ed70789f93"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e1e9661ad43f4ea3be24818e10ea850d77380eb1a7080121617143db6797ddeb"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f060745e511eafc304a4f945ef50fc70693790bda87f77385084863279d79c0f"
+    sha256 cellar: :any_skip_relocation, ventura:        "c99b8aa453b7fe043747a71f6d132f5198837ea894eb4c8c088f3bec343e07a3"
+    sha256 cellar: :any_skip_relocation, monterey:       "a894e09c7e3d3e6d63e36874612b9f6bc90b74f16eaa6b3ee14c3af755630310"
+    sha256 cellar: :any_skip_relocation, big_sur:        "c0b1c59505c292e21785814c609f1076562b6dcd7e8e93279541a306fb049364"
+    sha256 cellar: :any_skip_relocation, catalina:       "6774d0e64a60bb48dda5f505dc9583d6a59cc21907365f6a9511c51fa61c06e1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "925d6976ff5cffabd2f573a530870628e3d01f9dc27963205bed584726b7c7c1"
   end
 
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   resource "defusedxml" do
     url "https://files.pythonhosted.org/packages/0f/d5/c66da9b79e5bdb124974bfe172b4daf3c984ebd9c2a06e2b8a4dc7331c72/defusedxml-0.7.1.tar.gz"

@@ -8,18 +8,19 @@ class CyralGimmeDbToken < Formula
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "e23594cc5b5fbd3871e4af48af5bd0212d79829803f9fe41d0d5e3a79ca9a679"
-    sha256 cellar: :any,                 arm64_monterey: "02189487ce552fef4ff780a8c3a1f007dd34aaf3671f456eec2ca625981816e2"
-    sha256 cellar: :any,                 arm64_big_sur:  "222b9c7b096a82a4793b709f9388fc1c7f73ad4f7c8378c15f76e295d5a31395"
-    sha256 cellar: :any,                 monterey:       "6509267dca45c57eb5975f1d9bb41b1b1b14fb26e1088d5bf2b68690b0158f17"
-    sha256 cellar: :any,                 big_sur:        "e3dbc72de51ab66e636b730bc59ecea42e9b24912a46c6eef4958dcac569d6d7"
-    sha256 cellar: :any,                 catalina:       "bb5b8a65b10bb49936acfdfc21e5f0acd3c31b649057e943c1c143d15660feb0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "62b3067037a1544b6d3daf9220d1911d61d6cb656932716c3ae0fbe30754f296"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "6d25345463d0c2932be0a23a31fd3e1861bea45358d1dafee19a2fecfdb009e2"
+    sha256 cellar: :any,                 arm64_monterey: "0b28ffa9ac0704e75f0b09fc30a3040a7fed22bca81d45a11618aced477a0708"
+    sha256 cellar: :any,                 arm64_big_sur:  "8db9650eb0f4b71e5f654e2882f9b161ef6e6a283f6b4ea527fddf052d3fc7e0"
+    sha256 cellar: :any,                 monterey:       "951f4f9252816b0c85f5ff120c8cde10d55b8b604e4ce6bc301eb9a4381b2740"
+    sha256 cellar: :any,                 big_sur:        "90883ea1be8e6b62b80e88994026c16974d976aee235dc660022ca1e9f63b136"
+    sha256 cellar: :any,                 catalina:       "4f438f8fc840756c10f1f38b9cbf6fe41d9370b4337d082f8e3eba2c1de4e6c9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "27f95a29f042afe65d24c0bdad74d8470d4054e888a45b4ae8d0b4fd274e6a0a"
   end
 
   depends_on "rust" => :build # for cryptography
   depends_on "openssl@1.1"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "six"
 
   uses_from_macos "libffi"
@@ -29,18 +30,18 @@ class CyralGimmeDbToken < Formula
   end
 
   resource "awscli" do
-    url "https://files.pythonhosted.org/packages/65/8b/7082ac9078f0da4e46fa4c3a74f86b1bc7685358486eb8762e57cc365add/awscli-1.25.73.tar.gz"
-    sha256 "4caade303a115567240496a88cc00290fdc961da5b029e881b6cf1f4af874edd"
+    url "https://files.pythonhosted.org/packages/11/39/40ee46b103ca3b143cb11bbb1c6cb77436b5053c16e99cd985f32705de9d/awscli-1.27.8.tar.gz"
+    sha256 "21a9f2339bb3b4a9e14e12da1e4f64f9c08b1b495f869fda793d935c0e3995ea"
   end
 
   resource "botocore" do
-    url "https://files.pythonhosted.org/packages/ab/9c/c790ba19f53e1ea7cfb96ca413012dcfcbbf82af1340e37becf7d2378ce0/botocore-1.27.72.tar.gz"
-    sha256 "6184ab43a59118541b88e0ede24ccd671553323ace95bb7c8de3082a5cc581cb"
+    url "https://files.pythonhosted.org/packages/9c/62/0e7a8c2bc63c3529db0ca3ee4c0f5b60a65165e594d1487b13b6524ddccd/botocore-1.29.8.tar.gz"
+    sha256 "48cf33d7c513320711321c3b303b0c9810b23e15fa03424f7323883e4ce6cef8"
   end
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/05/a8/e0966dcf948a9ab9321f23f121a37b96be191b15dc28e9134927fd42a8af/certifi-2022.6.15.2.tar.gz"
-    sha256 "aa08c101214127b9b0472ca6338315113c9487d45376fd3e669201b477c71003"
+    url "https://files.pythonhosted.org/packages/cb/a4/7de7cd59e429bd0ee6521ba58a75adaec136d32f91a761b28a11d8088d44/certifi-2022.9.24.tar.gz"
+    sha256 "0d9c601124e5a6ba9712dbc60d9c53c21e34f5f641fe83002317394311bdce14"
   end
 
   resource "cffi" do
@@ -74,8 +75,8 @@ class CyralGimmeDbToken < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/62/08/e3fc7c8161090f742f504f40b1bccbfc544d4a4e09eb774bf40aafce5436/idna-3.3.tar.gz"
-    sha256 "9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"
+    url "https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz"
+    sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
   end
 
   resource "jmespath" do
@@ -124,12 +125,7 @@ class CyralGimmeDbToken < Formula
   end
 
   def install
-    # setuptools>=60 prefers its own bundled distutils, which is incompatabile with docutils~=0.15
-    # Force the previous behavior of using distutils from the stdlib
-    # Remove when fixed upstream: https://github.com/aws/aws-cli/pull/6011
-    with_env(SETUPTOOLS_USE_DISTUTILS: "stdlib") do
-      virtualenv_install_with_resources
-    end
+    virtualenv_install_with_resources
   end
 
   test do

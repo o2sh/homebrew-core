@@ -1,25 +1,29 @@
 class Lefthook < Formula
   desc "Fast and powerful Git hooks manager for any type of projects"
   homepage "https://github.com/evilmartians/lefthook"
-  url "https://github.com/evilmartians/lefthook/archive/refs/tags/v1.1.3.tar.gz"
-  sha256 "ba1345c88b1e62931ae0d410dd908ca53c39531459db23c1312f5ffd947316ae"
+  url "https://github.com/evilmartians/lefthook/archive/refs/tags/v1.2.2.tar.gz"
+  sha256 "d8238c3fcdecbbf580039170fa526606ef90554999f1633a2e3947d144184a13"
   license "MIT"
   head "https://github.com/evilmartians/lefthook.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3839ea4f833564065a39aeecb5bf3d3134b80bca7bf3409b1b4146441c3962ab"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7d86b705f1556d0a9a21e23b2c6efdc4e8f405c9e54c03628c7dfcfd8d59f135"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ddceeca13e706d54b213128f5e88a6bed255a17cfff46d84b9579190bd134a2c"
-    sha256 cellar: :any_skip_relocation, monterey:       "3aba9a9a5357883178432f68bbf03f26679d24d2a8d1ce4d1a107105a941aa3a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "0d4bdc980e23027a17323a3b4bea0e151a839258da48720b4b48c4e0b570aa8b"
-    sha256 cellar: :any_skip_relocation, catalina:       "9abee55d0c1f57f8017266a85b15d15aa1f05a36f9c2a5a77ea441bcc53e8016"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a6dbd8b5914f6b9f26034ce08ff38af6348a6653521e4f800fde6b1fb65df99f"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7a7509d2b5d082b70e8e0af872e545b5ad7747902879e5fcc61f2c310fa212d1"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "57535aadf91cec738070aa48bb77dcefddc67f6f8f44de68bacf28e3ee307ea7"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "333fb565c49aed503d3e7a806764ec528d142c7160e295dc95ddc6fade53ae5d"
+    sha256 cellar: :any_skip_relocation, ventura:        "7856727ab144c38cb8da84a3182d9961fba7b5aef0a196a13d5f3855733d4259"
+    sha256 cellar: :any_skip_relocation, monterey:       "e495d55239947696d918fb5c726daa60e95c85f66300b5475c3a5c2e511d4900"
+    sha256 cellar: :any_skip_relocation, big_sur:        "5f13eefb342c030da993f1ae90a49b84bac3f169bd30cb6984015893737da6ca"
+    sha256 cellar: :any_skip_relocation, catalina:       "f6e1c5fe2da70b7ba41e5b8ad762e8ba6e425aad4a41d226f3e33569c6d47c42"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2f3dafbffcc80d96263d1f454fc0233d1c26f91a305ada53f89204d6ba8ebcdc"
   end
 
   depends_on "go" => :build
 
   def install
     system "go", "build", *std_go_args(ldflags: "-s -w")
+
+    generate_completions_from_executable(bin/"lefthook", "completion")
   end
 
   test do

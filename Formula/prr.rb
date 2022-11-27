@@ -1,25 +1,28 @@
 class Prr < Formula
   desc "Mailing list style code reviews for github"
   homepage "https://github.com/danobi/prr"
-  url "https://github.com/danobi/prr/archive/refs/tags/v0.5.1.tar.gz"
-  sha256 "0506ade022a7e4be858cdc4048d82a80587f9ca7ebd78c5a652baa1e967cf41e"
+  url "https://github.com/danobi/prr/archive/refs/tags/v0.7.0.tar.gz"
+  sha256 "2b0353977e1dbf1ca89e550954cb04d269cfab5e888a8d9ec7366583cb32fa1d"
   license "GPL-2.0-only"
   head "https://github.com/danobi/prr.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "493114022fa2da300e062dc36f47d6ac315455c0f840aa9a18299103b85205f7"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "edc44bf9d78e0e61c7519a226f987b9826163eefcb9481af83c689d32906e3c9"
-    sha256 cellar: :any_skip_relocation, monterey:       "c29898cd94bdc158267567b3628382c0a062e78663cadc2f207c1ef8e7720c63"
-    sha256 cellar: :any_skip_relocation, big_sur:        "f5b7b0cceaef4516a76982fda2fb09c97eff6b9e317a4f4e721504ad54bf5775"
-    sha256 cellar: :any_skip_relocation, catalina:       "07f21c7b2328d65c1075d0706b62dc7f452704e60e528124d8611c55d13b67e9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f33d3c5149712d7b33d8286e14e279bc4575a81e615eff727233b4c5da09e3aa"
+    sha256 cellar: :any,                 arm64_ventura:  "f48e8173231abf5ebf0d0cab14c17d4e56b5761cc855506a2b5efa2a1087b48d"
+    sha256 cellar: :any,                 arm64_monterey: "d182872df7155301e4baa5ec763b7531ec71fc2788ad6647ba81f0920766d7f6"
+    sha256 cellar: :any,                 arm64_big_sur:  "67b94ea52b713f2d4ebb43b226f9dfe8ab77afafc7882b54fe2a8e8f11fb48cb"
+    sha256 cellar: :any,                 monterey:       "543d3450e1fc617249d0d0706bc2997d0eaa928e7d5b4852d5dd204c88aa91a3"
+    sha256 cellar: :any,                 big_sur:        "a22481f6e1558e25545abe5634ad2c92bdb3c43741a30472612da352d897d7f6"
+    sha256 cellar: :any,                 catalina:       "baa01991c64459f78850d50e23db3ec2b7e119bdeec1befb3f315b4be8737457"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "16f3b7a6ee4738ee708c9e7bf3c490645d735ca7945446782f5b10f60bc9144a"
   end
 
   depends_on "rust" => :build
+  depends_on "openssl@3"
+
+  uses_from_macos "zlib"
 
   on_linux do
     depends_on "pkg-config" => :build
-    depends_on "openssl@3"
   end
 
   def install

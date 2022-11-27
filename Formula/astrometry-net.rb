@@ -13,12 +13,15 @@ class AstrometryNet < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_monterey: "a21c4d8c622dd250ce4088b8cca7c947a10f5b4c2b1504ce2ffd95122d18ee38"
-    sha256 cellar: :any,                 arm64_big_sur:  "2f05f2250be4b8fb352db9b4913c626e9c2ca2e29290255b4b41696b1a645620"
-    sha256 cellar: :any,                 monterey:       "1664b3417832a7d24f6115876067e826655e7eb5cf27b59de2a927a310d65742"
-    sha256 cellar: :any,                 big_sur:        "4908975f094a8fb427b1c06106e5dd438588ff10265e321fd3a9f3af5a95146c"
-    sha256 cellar: :any,                 catalina:       "2cba5b3900b126f07cdcae5eea18103d45b2734a5f848d220214f5f0f46eda2b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ccad9926b55e6183c384a3523ee8375496be3493b48372d9cd56bcc6bee444c6"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "2795bf3051d69183e78b113cae0f28b6a9aeef3e10cfc99a55431752855d0316"
+    sha256 cellar: :any,                 arm64_monterey: "4b755547bc79987424b4c1884255ce6a6c1392daa620af7e93d5383d302e6417"
+    sha256 cellar: :any,                 arm64_big_sur:  "e56085d3e606485d735b1ab2bbfc0d47af9c88e5c605bac81e98b7f8f4f7689b"
+    sha256 cellar: :any,                 ventura:        "417e693593c133223392d1fb56fd371b1aa2ff420f2fabd48d3fbf44c0e2299f"
+    sha256 cellar: :any,                 monterey:       "1eb20742e13efb8eb4f64fff0e926033e651e3c93b69de0a88864caecda5b5a7"
+    sha256 cellar: :any,                 big_sur:        "e4e096f8d3681134d7a8c08ff3e6bdeb598d95855cd27894a868d220eb7cdf0d"
+    sha256 cellar: :any,                 catalina:       "f7c7c6cf9a3bb5c7b7308db32ee7400f4f925f4b78599c2e60846b663511a4c8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7b6d26f3c27a40dcbfd0ecac008cffc7ed27349f9168e7fd60261969600d2b56"
   end
 
   depends_on "pkg-config" => :build
@@ -30,12 +33,12 @@ class AstrometryNet < Formula
   depends_on "libpng"
   depends_on "netpbm"
   depends_on "numpy"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "wcslib"
 
   resource "fitsio" do
-    url "https://files.pythonhosted.org/packages/23/ec/280f91842d5aeaa1a95dc1d86d64d3fe57a5a37a98bb39b73a963f5dc91d/fitsio-1.1.6.tar.gz"
-    sha256 "3e7e5d4fc025d8b6328ae330e72628b92784d4c2bb2f1f0caeb75e730b2f91a5"
+    url "https://files.pythonhosted.org/packages/1f/0e/b312ff3f6b588c13fc2256a5df4c4d63c527a07e176012d0593136af53ee/fitsio-1.1.8.tar.gz"
+    sha256 "61f569b2682a0cadce52c9653f0c9b81f951d000522cef645ce1cb49f78300f9"
   end
 
   def install
@@ -43,7 +46,7 @@ class AstrometryNet < Formula
     # See https://github.com/dstndstn/astrometry.net/issues/178#issuecomment-592741428
     ENV.deparallelize
 
-    python = Formula["python@3.10"].opt_bin/"python3.10"
+    python = which("python3.11")
     ENV["NETPBM_INC"] = "-I#{Formula["netpbm"].opt_include}/netpbm"
     ENV["NETPBM_LIB"] = "-L#{Formula["netpbm"].opt_lib} -lnetpbm"
     ENV["SYSTEM_GSL"] = "yes"

@@ -3,22 +3,23 @@ class Ford < Formula
 
   desc "Automatic documentation generator for modern Fortran programs"
   homepage "https://github.com/Fortran-FOSS-Programmers/ford"
-  url "https://files.pythonhosted.org/packages/de/0f/f3e5202c7bcdc81d0577ff42e2358b697e3bad554b74e81d7f8983d1c298/FORD-6.1.16.tar.gz"
-  sha256 "5bbb1a2d87186bc8617c5907c23b11cc03ad67eb61746d2f354a7fec95891801"
+  url "https://files.pythonhosted.org/packages/14/89/156df5d59836a39a5d11d65f81135d0338a33023188ff8aa5e7b29764919/FORD-6.1.17.tar.gz"
+  sha256 "10f8cc19517ea6b8308251e59286a793c9bc47098c33da3528aca16a08143908"
   license "GPL-3.0-or-later"
   head "https://github.com/Fortran-FOSS-Programmers/ford.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "97a5d1f546022c0e883df9f9284d22bc89c3e8a0d5f84e9078e6d0b02aafd16c"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f7c9c4fa0a1198ce69dd3b2fb129681f1d03f509e9a2541c78146394ef25d219"
-    sha256 cellar: :any_skip_relocation, monterey:       "d29697398871a1de59f2bcd576c857877a75c49452500b2a422413f159240d1e"
-    sha256 cellar: :any_skip_relocation, big_sur:        "233374eeae11010a6b35cf3cc289684962f4e274cb8a9438c170a6112b872f5d"
-    sha256 cellar: :any_skip_relocation, catalina:       "68253ac7b52b9107504cd754dc6fb426c0c1726d189296b41280964852cdda1d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7b08fa0136f9cae3d1da4058f9edd3288ff909171e41b32597afc68b13560c02"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "293fa584b1cb58340f1eedf51ec8bed77cde2ee1510b0e033172f4e8a5ac059b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "17223b93b09b2c55907b63f0bf10ecbcbe3c8c8eb3ad3f613a8900ef7786c95a"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "36fe3fc113050595e8aec53cf4af937b4bfdb4bda034492b34e6eb51126c0ede"
+    sha256 cellar: :any_skip_relocation, monterey:       "75687c3aa866ec1c93119ac3a4279fc5e5ec7dc136688d6f1d9d8eb73d0dd21d"
+    sha256 cellar: :any_skip_relocation, big_sur:        "28c8d7b6db281d2f4c7870567226d15ac71d48df3fa91fa298eb1d4ca6f5fa9a"
+    sha256 cellar: :any_skip_relocation, catalina:       "f5d1c31c54375c2d48ae50310e1fa87850732fad5bd7e77c255a966c6710a04f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "19504bb39904011a6d09d4cef63c810ead970f458aa22a2b4c82a12abc4db809"
   end
 
   depends_on "graphviz"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   uses_from_macos "libxml2"
   uses_from_macos "libxslt"

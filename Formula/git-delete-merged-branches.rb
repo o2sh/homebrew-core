@@ -3,29 +3,30 @@ class GitDeleteMergedBranches < Formula
 
   desc "Command-line tool to delete merged Git branches"
   homepage "https://github.com/hartwork/git-delete-merged-branches"
-  url "https://files.pythonhosted.org/packages/86/e1/3a92a5b45c72456804cf7bc3c5f6d1b231d4a65c6cc3c6dc4b91e6ba4a5d/git-delete-merged-branches-7.2.0.tar.gz"
-  sha256 "52c596569894481e7532d28dffbb7243547dfe3c13e6423eef18675e01b956a6"
-  license "GPL-3.0-only"
+  url "https://files.pythonhosted.org/packages/63/41/6a7023cd87a7c811d1e7be6b31173c8f825c58b033c378d435d445f42f3f/git-delete-merged-branches-7.2.1.tar.gz"
+  sha256 "6a17bf96e88fadf395fa0a079e9ff621f9aeb07c45ada16c61611353a1c2b90a"
+  license "GPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b2a8eaabdb729c8ffdc14497839c28274938aad942a21d346ed1a3e29862191e"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "94803cd84f138892f268a07874ec2bf6d0bc1c7e555bb6b6284b060a4a9b55d3"
-    sha256 cellar: :any_skip_relocation, monterey:       "2f0487dfe63caec0de7e243dd138a1b44bd90819df5d21c415cb295b0e3a0f97"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d9bc9080ae37b1e9e621e226710e3ff267c7918a68ef8874c2037fcf8f3d7d75"
-    sha256 cellar: :any_skip_relocation, catalina:       "b978c645c515f74200d42372ce06b4b202b8aa1922dc38ab4ce86a3c783adb72"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0779059170dc859504e3ba382a97bd3f3c998c16bdfa9b0f06be78fafccfb061"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8f7297e41261d0277fe131337dfb943737651634767253814d48e8d9f31e5c0d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d0bfee7bf18c43589beb85d07f13a0bc481cb665bdf3ebb8f7dba1c629efc621"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "32fe2070aeb49c6bbddd0e17da3a44c552c9aaa526e22fd326b24359a8fb9155"
+    sha256 cellar: :any_skip_relocation, monterey:       "86173fe4af11267554c59941f0dd5fbb5d9c2968b405b887a8ba7e7d89ef5bc1"
+    sha256 cellar: :any_skip_relocation, big_sur:        "86193e2e60eff2f70b5d51476769699092c8812f700758e848ffddc324c9313d"
+    sha256 cellar: :any_skip_relocation, catalina:       "60acb23601308e0d273439a030fcfa1901b5fb06d7207bd68fe0959b77243848"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5a10ac453d5b9afd54ae3dcc33188d25c3858014c2d12e6a08e1fdbcb40a64a5"
   end
 
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   resource "colorama" do
-    url "https://files.pythonhosted.org/packages/2b/65/24d033a9325ce42ccbfa3ca2d0866c7e89cc68e5b9d92ecaba9feef631df/colorama-0.4.5.tar.gz"
-    sha256 "e6c6b4334fc50988a639d9b98aa429a0b57da6e17b9a44f0451f930b6967b7a4"
+    url "https://files.pythonhosted.org/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz"
+    sha256 "08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"
   end
 
   resource "prompt-toolkit" do
-    url "https://files.pythonhosted.org/packages/c5/7e/71693dc21d20464e4cd7c600f2d8fad1159601a42ed55566500272fe69b5/prompt_toolkit-3.0.30.tar.gz"
-    sha256 "859b283c50bde45f5f97829f77a4674d1c1fcd88539364f1b28a37805cfd89c0"
+    url "https://files.pythonhosted.org/packages/c4/6e/6ff7938f47981305a801a4c5b8d8ed282b58a28c01c394d43c1fbcfc810b/prompt_toolkit-3.0.33.tar.gz"
+    sha256 "535c29c31216c77302877d5120aef6c94ff573748a5b5ca5b1b1f76f5e700c73"
   end
 
   resource "wcwidth" do

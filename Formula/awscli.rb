@@ -3,32 +3,29 @@ class Awscli < Formula
 
   desc "Official Amazon AWS command-line interface"
   homepage "https://aws.amazon.com/cli/"
-  url "https://github.com/aws/aws-cli/archive/2.8.7.tar.gz"
-  sha256 "2084fee1909df799bacff2c637479e7fbb443f158d41bbf7b2be41a4e041e977"
+  url "https://github.com/aws/aws-cli/archive/2.9.1.tar.gz"
+  sha256 "9e45d98f2bcf774b43971f09bb965beeb21b6703f99b16b1388f599e0181bbf9"
   license "Apache-2.0"
   head "https://github.com/aws/aws-cli.git", branch: "v2"
 
   bottle do
-    sha256 cellar: :any,                 arm64_monterey: "42a060a775d60501d2c6eea9497a4ada2c4788de4a5536edc964fb12bd745c24"
-    sha256 cellar: :any,                 arm64_big_sur:  "0c3de96411394dff3a27cf2b72e22f3f7144e379e792428276bcd0a639ebdf0c"
-    sha256 cellar: :any,                 monterey:       "30c0fc8e00490a063c532e3fcb83510a984e8be41db9b06ea2cd39fe7bee46b6"
-    sha256 cellar: :any,                 big_sur:        "ef8ae58d2a5839245165642a5e2805fd6679908f10d66b1ade32f92d6c099e36"
-    sha256 cellar: :any,                 catalina:       "e8ac91d21e2092b12dd7f5f1743cdc71ce2fa5c52c47e942a5a187d8148166e3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3c97014cad739deefad325046e8eee5b04009e9344f357ca28f99f9b8a880899"
+    sha256 cellar: :any,                 arm64_ventura:  "31dad4ceec7a32098b1dedc3ab7a2e5b2a74aa5693aa347db4204e02259bbce0"
+    sha256 cellar: :any,                 arm64_monterey: "d9ecdd236f899304972bdba19ea6ec4a33baf1b2341c6617c499887c00d3184b"
+    sha256 cellar: :any,                 arm64_big_sur:  "fd82fa8403dbbe29d2cd86a6ab0583764fbcd4396e6aff0f0dfb686b6475c7fa"
+    sha256 cellar: :any,                 ventura:        "43af4bde89d9fdfb4cd998a8165604cf6da4cb7ecee106ae9b1d4c9babb1af36"
+    sha256 cellar: :any,                 monterey:       "8d216ee68ca6a0da53d938e0be149bf94d41dae08603c868ce286bcde94c1308"
+    sha256 cellar: :any,                 big_sur:        "4548d8a73a7807366028168a41564e7139cd6ec649cda576feb3112892db3d24"
+    sha256 cellar: :any,                 catalina:       "a02d82559796ad98d06534e342368e071027b598a600b88d936f40feb9f8f918"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5151bdac87e941a7b2b3540dcdb52ed5f07e4d1d14ebd880a36178e329dbed78"
   end
 
   depends_on "cmake" => :build
   depends_on "rust" => :build # for cryptography
-  depends_on "python@3.10"
+  depends_on "docutils"
+  depends_on "python@3.11"
   depends_on "six"
 
-  on_macos do
-    depends_on "llvm" => :build if DevelopmentTools.clang_build_version >= 1400
-  end
-
-  on_system :linux, macos: :ventura_or_newer do
-    depends_on "groff"
-  end
+  uses_from_macos "mandoc"
 
   # Python resources should be updated based on setup.cfg. One possible way is:
   # 1. Run `pipgrip 'awscli @ #{url}' --sort`
@@ -57,11 +54,6 @@ class Awscli < Formula
   resource "distro" do
     url "https://files.pythonhosted.org/packages/a6/a4/75064c334d8ae433445a20816b788700db1651f21bdb0af33db2aab142fe/distro-1.5.0.tar.gz"
     sha256 "0e58756ae38fbd8fc3020d54badb8eae17c5b9dcbed388b17bb55b8a5928df92"
-  end
-
-  resource "docutils" do
-    url "https://files.pythonhosted.org/packages/93/22/953e071b589b0b1fee420ab06a0d15e5aa0c7470eb9966d60393ce58ad61/docutils-0.15.2.tar.gz"
-    sha256 "a2aeea129088da402665e92e0b25b04b073c04b2dce4ab65caaa38b7ce2e1a99"
   end
 
   resource "jmespath" do
@@ -105,13 +97,14 @@ class Awscli < Formula
   end
 
   def python3
-    which("python3.10")
+    which("python3.11")
   end
 
   def install
     # Temporary workaround for Xcode 14's ld causing build failure (without logging a reason):
     # ld: fatal warning(s) induced error (-fatal_warnings)
-    ENV.append "LDFLAGS", "-fuse-ld=lld" if OS.mac? && (DevelopmentTools.clang_build_version >= 1400)
+    # Ref: https://github.com/python/cpython/issues/97524
+    ENV.append "LDFLAGS", "-Wl,-no_fixup_chains" if DevelopmentTools.clang_build_version >= 1400
 
     # The `awscrt` package uses its own libcrypto.a on Linux. When building _awscrt.*.so,
     # Homebrew's default environment causes issues, which may be due to `openssl` flags.
@@ -124,7 +117,7 @@ class Awscli < Formula
       ENV.prepend "LDFLAGS", "-L./build/temp.linux-x86_64-#{python_version}/deps/install/lib"
     end
 
-    # setuptools>=60 prefers its own bundled distutils, which is incompatabile with docutils~=0.15
+    # setuptools>=60 prefers its own bundled distutils, which is incompatible with docutils~=0.15
     # Force the previous behavior of using distutils from the stdlib
     # Remove when fixed upstream: https://github.com/aws/aws-cli/pull/6011
     with_env(SETUPTOOLS_USE_DISTUTILS: "stdlib") do

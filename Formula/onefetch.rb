@@ -1,18 +1,20 @@
 class Onefetch < Formula
   desc "Command-line Git information tool"
   homepage "https://github.com/o2sh/onefetch"
-  url "https://github.com/o2sh/onefetch/archive/v2.13.1.tar.gz"
-  sha256 "551b59102965e968e24c41de6bb6cb5c1f062d94ada6baac77a54c2ec412cb2f"
+  url "https://github.com/o2sh/onefetch/archive/v2.13.2.tar.gz"
+  sha256 "6a57e12fb049af89de13aeaf06f206be602e73872458ff4cd5725d3b82289123"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "32f4ede90d2eedaa25341439db600fcf5f5ffe74bd6bdcfe35c879d53938fd42"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "348c870319a703d38d860c14928ebb7ed0f1a8836ad1258aed5e656b605839aa"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "65ab5ebc6bc64720d0cf12f67f71993ca6c09da829776558141dbb537e85063d"
-    sha256 cellar: :any_skip_relocation, monterey:       "0a69466dbb22a9be1559015543933453376a73ee381398bdef0af7d4bb633595"
-    sha256 cellar: :any_skip_relocation, big_sur:        "cbebf157ad5c41f72445f9c2c7ef71926be62d64921dddca4ae61b50a73d10c7"
-    sha256 cellar: :any_skip_relocation, catalina:       "09a39936c22bd2dc3524dd62268d2d049eaa38f73bdc7c05f7b1437be3c490d5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "95e1fafa426f99717f39e01515a4af8bf4e20235be581fd527ba35d17e1991c6"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d87dfe9824d0ac95198779f4a07e95754331bd77e9b5bec84ccc23c1061d4c02"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "68f9c93230cb9892c4bcb843cd65ae4d20e648784bacc708dd3ce92bb1dc6f45"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "6b6594a0aafd7c636f0a6c50228d95477b077df6460d3d54c36462d7555e6c3e"
+    sha256 cellar: :any_skip_relocation, ventura:        "ed52509ec3096d4f1c4733de9ddc177797f03f11d2e8c78945763f9e67302ab7"
+    sha256 cellar: :any_skip_relocation, monterey:       "f92797185a5368cbf1960a7da83eaa2b1d45332b21bece8c6b88045bc5e16a53"
+    sha256 cellar: :any_skip_relocation, big_sur:        "e1a0006e7cc0bec2ddfcda64e14e053c9b4132623e14709c0cb00983af40069f"
+    sha256 cellar: :any_skip_relocation, catalina:       "632c7903cdec94d15b55b9cee78485df87539882319a4a323334a7e4b352f72b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fddebe37d3ff783ee0a8c66a28d87563d682fe119f1e16631b21d7b46391f511"
   end
 
   depends_on "cmake" => :build
@@ -20,6 +22,9 @@ class Onefetch < Formula
 
   def install
     system "cargo", "install", *std_cargo_args
+
+    man1.install "docs/onefetch.1"
+    generate_completions_from_executable(bin/"onefetch", "--generate")
   end
 
   test do
@@ -29,7 +34,6 @@ class Onefetch < Formula
     system "git", "init"
     system "git", "config", "user.name", "BrewTestBot"
     system "git", "config", "user.email", "BrewTestBot@test.com"
-    system "git", "remote", "add", "origin", "https://github.com/user/repo.git"
     system "echo \"puts 'Hello, world'\" > main.rb && git add main.rb && git commit -m \"First commit\""
     assert_match("Ruby (100.0 %)", shell_output("#{bin}/onefetch").chomp)
   end

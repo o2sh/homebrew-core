@@ -3,23 +3,25 @@ class LinodeCli < Formula
 
   desc "CLI for the Linode API"
   homepage "https://www.linode.com/products/cli/"
-  url "https://github.com/linode/linode-cli/archive/refs/tags/5.24.0.tar.gz"
-  sha256 "0a89ac5adbca31bc36dd6f6cad53fd3d605da39e08108538968a01c90d0d77c3"
+  url "https://github.com/linode/linode-cli/archive/refs/tags/5.26.1.tar.gz"
+  sha256 "a2b4c6477b78bedc2692b739d5566ceb606bbd684b468f8ce957c38471a3217a"
   license "BSD-3-Clause"
   head "https://github.com/linode/linode-cli.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "574dedca64a45e68713b03281adfbf0298274d9660073a452998c8ee05110bc6"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "e254146863a5535c65f1b19dd67f9e7916d836c4c74df58933345acede31fbd6"
-    sha256 cellar: :any_skip_relocation, monterey:       "0d83019180d47092329fbd02161343be2e75cdd165dbf86fcf49b35c9951bd63"
-    sha256 cellar: :any_skip_relocation, big_sur:        "53c2bde3b4988b2bf96e43ebc4a281a128cba9006060031a4cb6c3bd9d12817c"
-    sha256 cellar: :any_skip_relocation, catalina:       "9815bd608fe696a40c63a87d1dbb4136d36832bb57d7ea66dfa4819d79034fb5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7358b24ebfb6d1d198cf7a64d32ec4e0f9e88f1702e87e8ea576d4498063f657"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5f0e1008e442b0e1423b9025459e47b554934ddf1db6fb21793990cd319adfe0"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a33eaf9875268eae90e130740b08f443eeedaf111bf3d055bf6c84704c082ce8"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "713d0239be5427c0ba7a3c18afd11236fc5adbfd6838589530c9e77281b979fa"
+    sha256 cellar: :any_skip_relocation, ventura:        "74e1a54afef0e3887d0ae26abe169174ada38f68c04ddced2915add6978161db"
+    sha256 cellar: :any_skip_relocation, monterey:       "6f1e9a72299a09e94cda5b886095a620da8e5953ca717233897821d52597ef36"
+    sha256 cellar: :any_skip_relocation, big_sur:        "cbd7de9bd2d8ce8f7f16024b1d4a6da9de8f730ae59d0a11c53e6eee8554f037"
+    sha256 cellar: :any_skip_relocation, catalina:       "857c906074523b96cda5360e9b968ef9a24c6d5f4ec5dcb6c002464abe95cca3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "381885a9ee7f6f4f9ba01cd9b849850bad38412ee81fdf5b60b7640468285017"
   end
 
-  depends_on "poetry" => :build # for terminaltables
   depends_on "openssl@1.1"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "pyyaml"
 
   resource "linode-api-spec" do
@@ -28,23 +30,23 @@ class LinodeCli < Formula
   end
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/07/10/75277f313d13a2b74fc56e29239d5c840c2bf09f17bf25c02b35558812c6/certifi-2022.5.18.1.tar.gz"
-    sha256 "9c5705e395cd70084351dd8ad5c41e65655e08ce46f2ec9cf6c2c08390f71eb7"
+    url "https://files.pythonhosted.org/packages/cb/a4/7de7cd59e429bd0ee6521ba58a75adaec136d32f91a761b28a11d8088d44/certifi-2022.9.24.tar.gz"
+    sha256 "0d9c601124e5a6ba9712dbc60d9c53c21e34f5f641fe83002317394311bdce14"
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/56/31/7bcaf657fafb3c6db8c787a865434290b726653c912085fbd371e9b92e1c/charset-normalizer-2.0.12.tar.gz"
-    sha256 "2857e29ff0d34db842cd7ca3230549d1a697f96ee6d3fb071cfa6c7393832597"
+    url "https://files.pythonhosted.org/packages/a1/34/44964211e5410b051e4b8d2869c470ae8a68ae274953b1c7de6d98bbcf94/charset-normalizer-2.1.1.tar.gz"
+    sha256 "5a3d016c7c547f69d6f81fb0db9449ce888b418b5b9952cc5e6e66843e9dd845"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/62/08/e3fc7c8161090f742f504f40b1bccbfc544d4a4e09eb774bf40aafce5436/idna-3.3.tar.gz"
-    sha256 "9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"
+    url "https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz"
+    sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
   end
 
   resource "requests" do
-    url "https://files.pythonhosted.org/packages/60/f3/26ff3767f099b73e0efa138a9998da67890793bfa475d8278f84a30fec77/requests-2.27.1.tar.gz"
-    sha256 "68d7c56fd5a8999887728ef304a6d12edc7be74f1cfa47714fc8b414525c9a61"
+    url "https://files.pythonhosted.org/packages/a5/61/a867851fd5ab77277495a8709ddda0861b28163c4613b011bc00228cc724/requests-2.28.1.tar.gz"
+    sha256 "7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983"
   end
 
   resource "terminaltables" do
@@ -53,18 +55,21 @@ class LinodeCli < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/1b/a5/4eab74853625505725cefdf168f48661b2cd04e7843ab836f3f63abf81da/urllib3-1.26.9.tar.gz"
-    sha256 "aabaf16477806a5e1dd19aa41f8c2b7950dd3c746362d7e3223dbe6de6ac448e"
+    url "https://files.pythonhosted.org/packages/b2/56/d87d6d3c4121c0bcec116919350ca05dc3afd2eeb7dc88d07e8083f8ea94/urllib3-1.26.12.tar.gz"
+    sha256 "3fa96cf423e6987997fc326ae8df396db2a8b7c667747d47ddd8ecba91f4a74e"
   end
 
   def install
-    venv = virtualenv_create(libexec, "python3.10", system_site_packages: false)
+    venv = virtualenv_create(libexec, "python3.11", system_site_packages: false)
     non_pip_resources = %w[terminaltables linode-api-spec]
     venv.pip_install resources.reject { |r| non_pip_resources.include? r.name }
 
+    # Switch build-system to poetry-core to avoid rust dependency on Linux.
+    # Remove on next release: https://github.com/matthewdeanmartin/terminaltables/commit/9e3dda0efb54fee6934c744a13a7336d24c6e9e9
     resource("terminaltables").stage do
-      system Formula["poetry"].opt_bin/"poetry", "build", "--format", "wheel", "--verbose", "--no-interaction"
-      venv.pip_install Dir["dist/terminaltables-*.whl"].first
+      inreplace "pyproject.toml", 'requires = ["poetry>=0.12"]', 'requires = ["poetry-core>=1.0"]'
+      inreplace "pyproject.toml", 'build-backend = "poetry.masonry.api"', 'build-backend = "poetry.core.masonry.api"'
+      venv.pip_install_and_link Pathname.pwd
     end
 
     resource("linode-api-spec").stage do
@@ -72,7 +77,7 @@ class LinodeCli < Formula
     end
 
     # The bake command creates a pickled version of the linode-cli OpenAPI spec
-    system "#{libexec}/bin/python3", "-m", "linodecli", "bake", "./openapi.yaml", "--skip-config"
+    system libexec/"bin/python3", "-m", "linodecli", "bake", "./openapi.yaml", "--skip-config"
     # Distribute the pickled spec object with the module
     cp "data-3", "linodecli"
 
@@ -93,7 +98,7 @@ class LinodeCli < Formula
     with_env(
       LINODE_CLI_TOKEN: random_token,
     ) do
-      json_text = shell_output("linode-cli regions view --json us-east")
+      json_text = shell_output("#{bin}/linode-cli regions view --json us-east")
       region = JSON.parse(json_text)[0]
       assert_equal region["id"], "us-east"
       assert_equal region["country"], "us"

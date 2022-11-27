@@ -3,8 +3,9 @@ class Pyside < Formula
 
   desc "Official Python bindings for Qt"
   homepage "https://wiki.qt.io/Qt_for_Python"
-  url "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.3.2-src/pyside-setup-opensource-src-6.3.2.tar.xz"
-  sha256 "d19979589e8946488e1b5e01ac0da75ab73b40c901726723335e160241a56892"
+  url "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.4.0.1-src/pyside-setup-opensource-src-6.4.0.tar.xz"
+  version "6.4.0.1"
+  sha256 "6e5be5defccacd21ec7e2579d6d6493366dd8e00f8899746abd174f1eb1eff14"
   license all_of: ["GFDL-1.3-only", "GPL-2.0-only", "GPL-3.0-only", "LGPL-3.0-only"]
 
   livecheck do
@@ -13,11 +14,13 @@ class Pyside < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_monterey: "0bd3d7e875f2edc447aca4cbbbe7fdfbbd03f31ac3d77dad293e20cf54686dfd"
-    sha256 cellar: :any, arm64_big_sur:  "c4d58d54b6f1cfd4946363e53df0a9b1e6efc079b9b10d1b124325b2c76c751f"
-    sha256 cellar: :any, monterey:       "60b3917f649480a99b55d37978f1bf7bdc8005d6a07d49c073bcfd27bfa31cac"
-    sha256 cellar: :any, big_sur:        "4c5da97f1b799886961383db1696d86e547f0fdcaa70458cb81bd873338ac47c"
-    sha256 cellar: :any, catalina:       "5d16d10c27c8b0887fc52203c379995713012ad59ad2ca780875e10b16db8ac4"
+    sha256 arm64_ventura:  "dffbf25bf38b3fe04450096e9dadebae039a805aab71b34f3ca52c64b9185555"
+    sha256 arm64_monterey: "e57c3a873abd31a3dc62c7fa2ea13602ce55e5dcd2aaa6ec3060ea66ff4f895f"
+    sha256 arm64_big_sur:  "2826b9af79bce4a0c637cce74ca0d51592e29d7f976ee20ff188dc7cc03f06ee"
+    sha256 ventura:        "e26b777b21e4130aee323de0e8ae70d96131237f3e8907bd2dbc3249e96b2f27"
+    sha256 monterey:       "9431f8fdbadf747ed47725a6db282924f8446cf165fbbc29d984c12ab8090e11"
+    sha256 big_sur:        "71804120f03ca26ef7c430c4254f4c59c774624a5117d3726ddf8e274ef61dd6"
+    sha256 catalina:       "104c59b3bbb34cb563bf65080c2a04d2b2872509c186dc88a4435f2e054026af"
   end
 
   depends_on "cmake" => :build
@@ -58,7 +61,11 @@ class Pyside < Formula
               "in_build = Path(\"@CMAKE_BINARY_DIR@\") in location.parents",
               "in_build = Path(\"@CMAKE_BINARY_DIR@\").resolve() in location.parents"
 
+    # Install python scripts into pkgshare rather than bin
+    inreplace "sources/pyside-tools/CMakeLists.txt", "DESTINATION bin", "DESTINATION #{pkgshare}"
+
     args = std_cmake_args + [
+      "-DCMAKE_CXX_COMPILER=#{ENV.cxx}",
       "-DCMAKE_PREFIX_PATH=#{Formula["qt"].opt_lib}",
       "-DPYTHON_EXECUTABLE=#{which(python3)}",
       "-DBUILD_TESTS=OFF",
@@ -70,9 +77,6 @@ class Pyside < Formula
     system "cmake", "-S", ".", "-B", "build", *args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
-
-    mv bin/"metaobjectdump.py", pkgshare
-    mv bin/"project.py", pkgshare
   end
 
   test do

@@ -1,19 +1,19 @@
 class Libtensorflow < Formula
   desc "C interface for Google's OS library for Machine Intelligence"
   homepage "https://www.tensorflow.org/"
-  url "https://github.com/tensorflow/tensorflow/archive/refs/tags/v2.10.0.tar.gz"
-  sha256 "b5a1bb04c84b6fe1538377e5a1f649bb5d5f0b2e3625a3c526ff3a8af88633e8"
+  url "https://github.com/tensorflow/tensorflow/archive/refs/tags/v2.11.0.tar.gz"
+  sha256 "99c732b92b1b37fc243a559e02f9aef5671771e272758aa4aec7f34dc92dac48"
   license "Apache-2.0"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_ventura:  "5cc95a043ffe23a6ecc78621c32bebff3b12725af553896644d63b641ee6823f"
-    sha256 cellar: :any,                 arm64_monterey: "09bf63a4fcdf438a0c5d0ee89b66db15fe959ebc260b37a48f9bdb36c6cb8fa3"
-    sha256 cellar: :any,                 arm64_big_sur:  "0b71f38331612569264154e8d27bf087c12d0c29aedc770b44addca2974ba00e"
-    sha256 cellar: :any,                 monterey:       "b4a70f6962773b161f4e7ce0fe6898f25cf64a1654909974a4136a71ae091342"
-    sha256 cellar: :any,                 big_sur:        "89cca8ee1e8f5838dbcf75482345b9d3e19f2f406a22a29836f4e0669aa580cf"
-    sha256 cellar: :any,                 catalina:       "d1f7461958f9210b974d736837f3de2b8cc35a640590557e49a8a6d154f1d4ca"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "61a0964d730c01ba2608c40f95a04c9159d76e08821ebc4c24ec60d80c8feba0"
+    sha256 cellar: :any,                 arm64_ventura:  "6338d2b8b3783529d2b88bc1dd2952b7be6eeb47a4fb92046773538ddb42a52f"
+    sha256 cellar: :any,                 arm64_monterey: "6338d2b8b3783529d2b88bc1dd2952b7be6eeb47a4fb92046773538ddb42a52f"
+    sha256 cellar: :any,                 arm64_big_sur:  "f7bf9ae6bbb912322dbf159a429cf8d2c02a69499def33e0d50e5fc67a103a06"
+    sha256 cellar: :any,                 ventura:        "bda2efd536cf339b515c30bc2358087cdb0ec01b79c258e7287086f6013b060b"
+    sha256 cellar: :any,                 monterey:       "bda2efd536cf339b515c30bc2358087cdb0ec01b79c258e7287086f6013b060b"
+    sha256 cellar: :any,                 big_sur:        "8cbf67ceeaf31bafcd5f567ad4476b98ba7c2b13bb16ca4856a7e46f3e0a496b"
+    sha256 cellar: :any,                 catalina:       "0e659810b7c74403b61217c99c52a95e7e812f81d9395b916f2260e7b24586ba"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9388c60f0faab1e4cff146b63b8a7870250aa2109c6cef7c218cbf3e4ed08b67"
   end
 
   depends_on "bazelisk" => :build

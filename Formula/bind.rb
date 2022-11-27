@@ -8,8 +8,8 @@ class Bind < Formula
   # "version_scheme" because someone upgraded to 9.15.0, and required a
   # downgrade.
 
-  url "https://downloads.isc.org/isc/bind9/9.18.8/bind-9.18.8.tar.xz"
-  sha256 "0e3c3ab9378db84ba0f37073d67ba125ae4f2ff8daf366c9db287e3f1b2c35f0"
+  url "https://downloads.isc.org/isc/bind9/9.18.9/bind-9.18.9.tar.xz"
+  sha256 "6a9665998d568604460df0918fc8ccfad7d29388d4d842560c056cc211cbb243"
   license "MPL-2.0"
   version_scheme 1
   head "https://gitlab.isc.org/isc-projects/bind9.git", branch: "main"
@@ -22,13 +22,14 @@ class Bind < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "31c535e832a2f4dbe73df6e003354a5f8b4b0f9d28b0090f54378723d1a6f287"
-    sha256 arm64_monterey: "83e591050160d6f7990f4e7866b359d7b1debaf1867c7b5cabdddb3592aefaf9"
-    sha256 arm64_big_sur:  "7defcc05b6173c1b8248c93557cee07467ec9bbfe3c1630495adac35dbb499f4"
-    sha256 monterey:       "dc0572b8a3121e858a017f0240a21b4d1640a6adbadaf4f839ff1b5f00a73370"
-    sha256 big_sur:        "27fe4d293bd6ad85d5ccacd081bb4fba906b974fb67b250bc2bb9c93471e53d6"
-    sha256 catalina:       "d327649427cec425208790551383a838a0d9444debd26acb8f85694c157d54f0"
-    sha256 x86_64_linux:   "33b9eb56079e6046654929e0c553ccda3c936d9627ffdab76ac3748695f72951"
+    sha256 arm64_ventura:  "5e7a6e2e590c19a687aad9b217c2d987751ec945ce667f0edc2b889022b0c2e7"
+    sha256 arm64_monterey: "47f658f0ebf02ee8e31eee9ed1bd95309816866b76286c49dec37f03a935248b"
+    sha256 arm64_big_sur:  "f5bc92fe3851ff3847ca64196db9ed5968c29542e032b32524d510e746504c47"
+    sha256 ventura:        "c09cc95f6ed895c104f275aaab252b402fdf064d7fd43f4f498c53d3c4ff5b62"
+    sha256 monterey:       "a7e50c40847023932279096047a2ceb3aa170d3f5b9a8a44c00b3c8e479f3acb"
+    sha256 big_sur:        "3a01235a7915353bbd5701d00e67eb0df782a47689f17993d544f2a51c867c94"
+    sha256 catalina:       "6204de414f9a25229c051b5feac73b5834e0d9bf6b5cc158b26c30ecc9630479"
+    sha256 x86_64_linux:   "b42f82b55d55aa492a454492c6099fd7b22f44305de9fcd6cead321ffd85e679"
   end
 
   depends_on "pkg-config" => :build

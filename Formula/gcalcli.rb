@@ -10,16 +10,18 @@ class Gcalcli < Formula
   head "https://github.com/insanum/gcalcli.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "07f56858602a17c3283f565185d7cc504cb2e3352823cf281936744177112419"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "edb0b7a53b6a9edba1601ac6060ee1a30245ce7eeb05cf351cc5914cbf6582c1"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c3902f5f4004eb8f0f5de342ddc2ff9208b9b55285679d759fb3d34d5acf1060"
-    sha256 cellar: :any_skip_relocation, monterey:       "8cf07f3ddb7a6198a63d2db099f36cc818b44a06d5aa82b28bd3bdc103e88e0c"
-    sha256 cellar: :any_skip_relocation, big_sur:        "37fc866cdc33b09627de9005189e6c750c7a0feaa5f6f7e00b0089cc06d57da0"
-    sha256 cellar: :any_skip_relocation, catalina:       "f0cb23f5d6ccc574cea9ca7ed8df56a337dc04e3f14d8d342ad76fc982db9ced"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d4fa8a5e0f8a1930ffefc591fac8dd22e477102c47ac937283e5fd5adc71da5d"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "647db2920a3aac360641d94ff3aba55aba409ff30bfc3dda18ec4c35bf9ed235"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "0cb737f803ec855e7d82cc9e45767bec4c3a5f2a5bc9dcf5e71691a1551f33d1"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b3c926180129ccce11722b008d2076e4b60ccde8afd465214b1645a27a5d44e5"
+    sha256 cellar: :any_skip_relocation, ventura:        "40e153cd7ae1340effb8d7753dbe404df5580d388157caae0c804539c3d2e12c"
+    sha256 cellar: :any_skip_relocation, monterey:       "954673f5cec0e8f3f302f21f7542791aef6ccc6a910ceaa0332509d45682b241"
+    sha256 cellar: :any_skip_relocation, big_sur:        "15d2d1e712430ed3d19f43bc8acf4609446fc30376471bfd6259b16afa422647"
+    sha256 cellar: :any_skip_relocation, catalina:       "cab8f9e8a0d8a56ab6d6fc56de7fac11fd17e575efff7ca35a64835f0bc7259f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2df855bd896289ba642e7d458e1ac933107f6a67d57f04b1b7c14849e660d585"
   end
 
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "six"
 
   resource "cachetools" do
@@ -38,18 +40,18 @@ class Gcalcli < Formula
   end
 
   resource "google-api-core" do
-    url "https://files.pythonhosted.org/packages/0e/a9/d000e7562c27b3c7c037bc11dfe18093197e225dc712cc9120932e33e0ab/google-api-core-2.10.1.tar.gz"
-    sha256 "e16c15a11789bc5a3457afb2818a3540a03f341e6e710d7f9bbf6cde2ef4a7c8"
+    url "https://files.pythonhosted.org/packages/fe/d6/5dd223fc5cb476ab62966849f3e6466056799dbfc005d74da800eb097f7d/google-api-core-2.10.2.tar.gz"
+    sha256 "10c06f7739fe57781f87523375e8e1a3a4674bf6392cd6131a3222182b971320"
   end
 
   resource "google-api-python-client" do
-    url "https://files.pythonhosted.org/packages/0d/a5/ecbcb0e6340c960f6077a92c806603caaeefc2b827a53a3c1d994b126e76/google-api-python-client-2.63.0.tar.gz"
-    sha256 "5cc828499a2cfec5845e095d32f68265c344eb32969f07a8e3774564153178bd"
+    url "https://files.pythonhosted.org/packages/0f/36/b82e5cc246ce698953c42003284e2779688daa7448099bc0a0027e63b52a/google-api-python-client-2.65.0.tar.gz"
+    sha256 "b8a0ca8454ad57bc65199044717d3d214197ae1e2d666426bbcd4021b36762e0"
   end
 
   resource "google-auth" do
-    url "https://files.pythonhosted.org/packages/19/dd/48e06d7ce02ebf53a2d36fcada99c68d7f6b10f2058ec4f76f7e2e81d9e6/google-auth-2.12.0.tar.gz"
-    sha256 "f12d86502ce0f2c0174e2e70ecc8d36c69593817e67e1d9c5e34489120422e4b"
+    url "https://files.pythonhosted.org/packages/e5/f9/47e309e4df306111d94ae8879c5677fa41f92f4e1fe4a33141086057dcff/google-auth-2.14.0.tar.gz"
+    sha256 "cf24817855d874ede2efd071aa22125445f555de1685b739a9782fcf408c2a3d"
   end
 
   resource "google-auth-httplib2" do
@@ -63,8 +65,8 @@ class Gcalcli < Formula
   end
 
   resource "httplib2" do
-    url "https://files.pythonhosted.org/packages/9c/65/57ad964eb8d45cc3d1316ce5ada2632f74e35863a0e57a52398416a182a1/httplib2-0.20.4.tar.gz"
-    sha256 "58a98e45b4b1a48273073f905d2961666ecf0fbac4250ea5b47aef259eb5c585"
+    url "https://files.pythonhosted.org/packages/c2/37/a093aaa902f6b2301f0f2cff5285548dbc4ab9b9a29215eb440381cbb32b/httplib2-0.21.0.tar.gz"
+    sha256 "fc144f091c7286b82bec71bdbd9b27323ba709cc612568d3000893bfd9cb4b34"
   end
 
   resource "idna" do
@@ -83,8 +85,8 @@ class Gcalcli < Formula
   end
 
   resource "protobuf" do
-    url "https://files.pythonhosted.org/packages/0e/25/693cd589793e7ae429ef76ab08f74b7866d342fd079cc4c723141a9660d3/protobuf-4.21.6.tar.gz"
-    sha256 "6b1040a5661cd5f6e610cbca9cfaa2a17d60e2bb545309bc1b278bb05be44bdd"
+    url "https://files.pythonhosted.org/packages/0f/cd/165eaac1c43a5ba391a36087dc909e03c3ae3f7dbcab74f287631208ba92/protobuf-4.21.9.tar.gz"
+    sha256 "61f21493d96d2a77f9ca84fefa105872550ab5ef71d21c458eb80edcf4885a99"
   end
 
   resource "pyasn1" do

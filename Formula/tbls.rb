@@ -1,18 +1,20 @@
 class Tbls < Formula
   desc "CI-Friendly tool for document a database"
   homepage "https://github.com/k1LoW/tbls"
-  url "https://github.com/k1LoW/tbls/archive/refs/tags/v1.56.5.tar.gz"
-  sha256 "fb61febba445cef8e025e897e53ca5af4ef15c2c087da5299d2b94860e06f231"
+  url "https://github.com/k1LoW/tbls/archive/refs/tags/v1.56.8.tar.gz"
+  sha256 "1681273a79e2693f9d8f578adb8277cf29336a6e6c1cd5884efdd25666cc9b89"
   license "MIT"
   head "https://github.com/k1LoW/tbls.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e12d25183396bbc2b2de2b9edc74f9534d8a7cae7f93ed7523a0c227144c7274"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b8caaee535739dff9d8c61412772859f482dffb22199c0cecc4a4f5e876b7463"
-    sha256 cellar: :any_skip_relocation, monterey:       "d283631f8e5582d54c8eedb5b175b01e7699d458f60a73e97c77b14f08a15dd2"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d1812144cb010d24afb50bb11bbc0603b409a1da47492de1336b10b047eb833b"
-    sha256 cellar: :any_skip_relocation, catalina:       "b9c1bea95a6b8c5f8106fb84952b77fa9be4d05e8fa793795da358f6a3846f9d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dee372873e09511aa898d049c1366e9b8eddb68b8157fdb51f8c9be8e67dadde"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7078246e46f884f4333a420d8ac209e7b40341a01ba0db94ee8a18c342a0cafd"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d434c11de8b03467f3f657ac90287f061f8f45bb55c3c78cd9033c8e04d50364"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "2b211e255fd00885558233701b0253d0cc9f8c82d4f12a1c86b583c8b49c8ebb"
+    sha256 cellar: :any_skip_relocation, ventura:        "83b53c74e96a1cf5dcf599169466883dd924dc33a3120fc2603ee03a89388635"
+    sha256 cellar: :any_skip_relocation, monterey:       "94536517a066c2213796a8af2a715cab90bb8609b22803f104c8a656dfea9363"
+    sha256 cellar: :any_skip_relocation, big_sur:        "72d9835dcaa1f0fbdb83dfa663db1e29194037a555ec6c8f752c2fd638522be6"
+    sha256 cellar: :any_skip_relocation, catalina:       "fe5f756012c29f2652c72a2aba50bf1aea844101970318ea996861ef6b02964b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1ce399126de709028be9b9331324eab5b70aa33c2aaacbff5f7b2fcc0f327807"
   end
 
   depends_on "go" => :build

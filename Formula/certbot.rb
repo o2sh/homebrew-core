@@ -3,26 +3,27 @@ class Certbot < Formula
 
   desc "Tool to obtain certs from Let's Encrypt and autoenable HTTPS"
   homepage "https://certbot.eff.org/"
-  url "https://files.pythonhosted.org/packages/83/18/0abe4ff4591f650a3a1604904019390f11b691f29863c16e725495e9b57a/certbot-1.31.0.tar.gz"
-  sha256 "29af531d33aaa87c8104864cd31ac2af541f0ec973a7252d7f7f5b15e10479db"
+  url "https://files.pythonhosted.org/packages/09/df/955c86b860b5da2a63a34e27326958a8864e68be141bac9136ae2822b93e/certbot-2.0.0.tar.gz"
+  sha256 "05a63c25d4a622dfb63b8d346cb97cba86d38ca6e7d71d2bbbc9223995731c13"
   license "Apache-2.0"
   head "https://github.com/certbot/certbot.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "27d2d3c80a07a643742dbb01d2343934081aa3b6fbf1146712a9e84a1e8720d3"
-    sha256 cellar: :any,                 arm64_monterey: "ff97823d721b6974ca6eb49de76516df6c5b4c65eb7e2c5d3feb7ee084cc574e"
-    sha256 cellar: :any,                 arm64_big_sur:  "b4b8564d58344ec165577e2e09baae5cf81ed9c383e40b93a641b60c0320954a"
-    sha256 cellar: :any,                 monterey:       "b1a2329969931c11a4bd6086189b0c63210065477ea69d89b031058ad207e432"
-    sha256 cellar: :any,                 big_sur:        "0e71b501a3981bfc21093f967b576dd294f63eb81d05b66b296a5e4215ae6288"
-    sha256 cellar: :any,                 catalina:       "3a2289bc823532bc9af2b56ca65e56c6dfec99e711ff1a43e7621eec4fcaabd0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9207a1a55310748dd3cc15fb9e2673a77b50ac4121eed0262984d2bdb13227a3"
+    sha256 cellar: :any,                 arm64_ventura:  "4f5057f5861e1556d41383b8a57f7ff902eb438b1c32ff4da2705e82796b7758"
+    sha256 cellar: :any,                 arm64_monterey: "9df1610c4279d6ba7288d334ad4c6d830d4dbb01cd1c0e4a649d059d469575a1"
+    sha256 cellar: :any,                 arm64_big_sur:  "3cfa9c3e324bb7ce0c3101726d564e79aea8bdfd81eba3aa6b74832a16931c32"
+    sha256 cellar: :any,                 ventura:        "5f789242206314c9816e0500eee5336b25ead6c259a460ce3039b085d004c2fa"
+    sha256 cellar: :any,                 monterey:       "bf1f5ccfc74d4e314ebc139880fa6b1081ec45b740b1fea626e2864465cc153b"
+    sha256 cellar: :any,                 big_sur:        "4c5356821e73848b39d70aa1a238ac194515c8d8fb0e73a08030e6b9fc733207"
+    sha256 cellar: :any,                 catalina:       "427d5e4bbae514d0d0803e8d8f7624b80d3123df0101fdebf93162f1807a898d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "505e2e51f18973a2133c620560a65cb7118c0cbf06d0b82f4a48de3c61e4be77"
   end
 
   depends_on "rust" => :build # for cryptography
   depends_on "augeas"
   depends_on "dialog"
   depends_on "openssl@1.1"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "six"
 
   uses_from_macos "libffi"
@@ -32,18 +33,18 @@ class Certbot < Formula
   end
 
   resource "acme" do
-    url "https://files.pythonhosted.org/packages/4f/39/8c405198abd6556fc3024323a8b59663d7c1093ea2f8518b0e84bd78cdd3/acme-1.31.0.tar.gz"
-    sha256 "f5e13262fa1101c38dd865378ac8b4639f819120eb66c5538fc6c09b7576fc53"
+    url "https://files.pythonhosted.org/packages/2b/c5/e32a7d9be0cf1c98daa28088cb9c5ef1637571bf9cbf82b37fbf8b0701dc/acme-2.0.0.tar.gz"
+    sha256 "7106d0bd04fab062eb657d7cf77f76d6c9babca9813603a7435be4382ea6dad8"
   end
 
   resource "certbot-apache" do
-    url "https://files.pythonhosted.org/packages/ef/f5/f532d3b971674b41b14cbea77513c180c2635b947b4b9379773faf101f72/certbot-apache-1.31.0.tar.gz"
-    sha256 "b4736a29233068022b217034acdbf53198a43d19a8ca00a0928771f2b107276b"
+    url "https://files.pythonhosted.org/packages/79/a3/a3e081480a6057a46f6b630fa21697be4f3eed98d0ceefa249e8752dc79a/certbot-apache-2.0.0.tar.gz"
+    sha256 "52e01c92e976820951bc6c5100b851383bc544443a672d449ec1d2d5633c6171"
   end
 
   resource "certbot-nginx" do
-    url "https://files.pythonhosted.org/packages/46/96/9fe310ba6b4e2ded1845812546a85cf48990f6bad1a4f5ea2fef09708a6e/certbot-nginx-1.31.0.tar.gz"
-    sha256 "8f109c5e14061bcffba8c4c6c7341c8bc814756c00461e32136e556abe638510"
+    url "https://files.pythonhosted.org/packages/dc/7e/3b8af653712c12a75a9bb584cd328bc4f5d6c063ecb33ab727ddc96153d1/certbot-nginx-2.0.0.tar.gz"
+    sha256 "f854f63246ca396bdbc054f47d57aa406524f538607d0aa3c8dad82e6fd32bf5"
   end
 
   resource "certifi" do
@@ -72,13 +73,13 @@ class Certbot < Formula
   end
 
   resource "cryptography" do
-    url "https://files.pythonhosted.org/packages/6d/0c/5e67831007ba6cd7e52c4095f053cf45c357739b0a7c46a45ddd50049019/cryptography-38.0.1.tar.gz"
-    sha256 "1db3d807a14931fa317f96435695d9ec386be7b84b618cc61cfa5d08b0ae33d7"
+    url "https://files.pythonhosted.org/packages/13/dd/a9608b7aebe5d2dc0c98a4b2090a6b815628efa46cc1c046b89d8cd25f4c/cryptography-38.0.3.tar.gz"
+    sha256 "bfbe6ee19615b07a98b1d2287d6a6073f734735b49ee45b11324d85efc4d5cbd"
   end
 
   resource "distro" do
-    url "https://files.pythonhosted.org/packages/b5/7e/ddfbd640ac9a82e60718558a3de7d5988a7d4648385cf00318f60a8b073a/distro-1.7.0.tar.gz"
-    sha256 "151aeccf60c216402932b52e40ee477a939f8d58898927378a02abbe852c1c39"
+    url "https://files.pythonhosted.org/packages/4b/89/eaa3a3587ebf8bed93e45aa79be8c2af77d50790d15b53f6dfc85b57f398/distro-1.8.0.tar.gz"
+    sha256 "02e111d1dc6a50abb8eed6bf31c3e48ed8b0830d1ea2a1b78c61765c2513fdd8"
   end
 
   resource "idna" do
@@ -122,8 +123,8 @@ class Certbot < Formula
   end
 
   resource "pytz" do
-    url "https://files.pythonhosted.org/packages/31/da/2d48d3499b59c7f3c5d5e1c79fcee5537c320c8ab7b7a0cd2db578bc34b3/pytz-2022.4.tar.gz"
-    sha256 "48ce799d83b6f8aab2020e369b627446696619e79645419610b9facd909b3174"
+    url "https://files.pythonhosted.org/packages/76/63/1be349ff0a44e4795d9712cc0b2d806f5e063d4d34631b71b832fac715a8/pytz-2022.6.tar.gz"
+    sha256 "e89512406b793ca39f5971bc999cc538ce125c0e51c27941bef4568b460095e2"
   end
 
   resource "requests" do
@@ -131,40 +132,22 @@ class Certbot < Formula
     sha256 "7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983"
   end
 
-  resource "requests-toolbelt" do
-    url "https://files.pythonhosted.org/packages/28/30/7bf7e5071081f761766d46820e52f4b16c8a08fef02d2eb4682ca7534310/requests-toolbelt-0.9.1.tar.gz"
-    sha256 "968089d4584ad4ad7c171454f0a5c6dac23971e9472521ea3b6d49d610aa6fc0"
-  end
-
   resource "urllib3" do
     url "https://files.pythonhosted.org/packages/b2/56/d87d6d3c4121c0bcec116919350ca05dc3afd2eeb7dc88d07e8083f8ea94/urllib3-1.26.12.tar.gz"
     sha256 "3fa96cf423e6987997fc326ae8df396db2a8b7c667747d47ddd8ecba91f4a74e"
   end
 
-  resource "zope.component" do
-    url "https://files.pythonhosted.org/packages/c5/c0/64931e1e8f2bfde9d8bc01670de2d2a395efcf8f49d3a9daa21cf3ffee2b/zope.component-5.0.1.tar.gz"
-    sha256 "32cbe426ba8fa7b62ce5b211f80f0718a0c749cc7ff09e3f4b43a57f7ccdf5e5"
-  end
-
-  resource "zope.event" do
-    url "https://files.pythonhosted.org/packages/30/00/94ed30bfec18edbabfcbd503fcf7482c5031b0fbbc9bc361f046cb79781c/zope.event-4.5.0.tar.gz"
-    sha256 "5e76517f5b9b119acf37ca8819781db6c16ea433f7e2062c4afc2b6fbedb1330"
-  end
-
-  resource "zope.hookable" do
-    url "https://files.pythonhosted.org/packages/40/d5/5ed6b312a3a1d66d8e740af301b1cbbf50860d31bc430bd15163de4a50cf/zope.hookable-5.2.tar.gz"
-    sha256 "4c3018bcf2b39cf5cccf40826f799b4b8c140056db780f96cb0ca332a243bd29"
-  end
-
-  resource "zope.interface" do
-    url "https://files.pythonhosted.org/packages/ae/58/e0877f58daa69126a5fb325d6df92b20b77431cd281e189c5ec42b722f58/zope.interface-5.4.0.tar.gz"
-    sha256 "5dba5f530fec3f0988d83b78cc591b58c0b6eb8431a85edd1569a0539a8a5a0e"
-  end
-
   def install
-    virtualenv_install_with_resources
-    bin.install_symlink libexec/"bin/certbot"
-    pkgshare.install buildpath/"examples"
+    if build.head?
+      head_packages = %w[acme certbot certbot-apache certbot-nginx]
+      venv = virtualenv_create(libexec, "python3.11")
+      venv.pip_install resources.reject { |r| head_packages.include? r.name }
+      venv.pip_install_and_link head_packages.map { |pkg| buildpath/pkg }
+      pkgshare.install buildpath/"certbot/examples"
+    else
+      virtualenv_install_with_resources
+      pkgshare.install buildpath/"examples"
+    end
   end
 
   test do

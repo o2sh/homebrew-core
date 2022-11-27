@@ -4,19 +4,19 @@ class YelpTools < Formula
 
   desc "Tools that help create and edit Mallard or DocBook documentation"
   homepage "https://github.com/GNOME/yelp-tools"
-  url "https://download.gnome.org/sources/yelp-tools/42/yelp-tools-42.0.tar.xz"
-  sha256 "2cd43063ffa7262df15dd8d379aa3ea3999d42661f07563f4802daa1149f7df4"
+  url "https://download.gnome.org/sources/yelp-tools/42/yelp-tools-42.1.tar.xz"
+  sha256 "3e496a4020d4145b99fd508a25fa09336a503a4e8900028421e72c6a4b11f905"
   license "GPL-2.0-or-later"
-  revision 1
 
   bottle do
     rebuild 1
-    sha256 cellar: :any,                 arm64_monterey: "2c06e737298663389451031e99302c3d144fe763ebfd4691620e4c7fe3c73a68"
-    sha256 cellar: :any,                 arm64_big_sur:  "de6c67e003dddf654a105d57191c0a0553ef11a016170dbe8c4c40768a06b32a"
-    sha256 cellar: :any,                 monterey:       "36e34b081bd07206e309ab7baf6a987810e1154daffb6f74d198dac811d3ec11"
-    sha256 cellar: :any,                 big_sur:        "2e93f10304af95f6fed6e727167b2ef29a6f1347a66b9c8720abe0ed5569c60f"
-    sha256 cellar: :any,                 catalina:       "39e6bca77bda55c5fe0f753f29a7cc29321502b349c169e79d4725520350b64f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "09fbd09af2168eb1efcfb6870f7cb9231ec0a3a42c8d5f26f7a6184a5075d1fc"
+    sha256 cellar: :any,                 arm64_ventura:  "e7cc6e200f40714f724c9404263bea7fac8c755009bd1c746fe8276030964fc7"
+    sha256 cellar: :any,                 arm64_monterey: "affcfae3eb27ae13708420d35449ebe13697fda1beb688ecbfffd3761c7b330b"
+    sha256 cellar: :any,                 arm64_big_sur:  "a79aa15319cb78c0fedc81fe45863c59cad4734950943a0ae5bc6461ac6fbcd5"
+    sha256 cellar: :any,                 monterey:       "6745f5e8df7512be08e32ecaa78a9dedcfbaa5be651217c6a943dee9c96bec83"
+    sha256 cellar: :any,                 big_sur:        "ec25c2e18a31003a341426372ce29f6e40cbd4fea755d576a6973db900b0e6bb"
+    sha256 cellar: :any,                 catalina:       "22baf7a21bf5e4555b78d0662c93078c8d51e5eb5c0b7c651c15118f8f28c6d7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3c3b19081095b30311a3c48a0dd8ab7a5d8dba19045f6297e47c96de798c5bb5"
   end
 
   depends_on "gettext" => :build
@@ -25,13 +25,13 @@ class YelpTools < Formula
   depends_on "pkg-config" => :build
   depends_on "itstool"
   depends_on "libxml2"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   uses_from_macos "libxslt"
 
   resource "lxml" do
-    url "https://files.pythonhosted.org/packages/3b/94/e2b1b3bad91d15526c7e38918795883cee18b93f6785ea8ecf13f8ffa01e/lxml-4.8.0.tar.gz"
-    sha256 "f63f62fc60e6228a4ca9abae28228f35e1bd3ce675013d1dfb828688d50c6e23"
+    url "https://files.pythonhosted.org/packages/70/bb/7a2c7b4f8f434aa1ee801704bf08f1e53d7b5feba3d5313ab17003477808/lxml-4.9.1.tar.gz"
+    sha256 "fe749b052bb7233fe5d072fcb549221a8cb1a16725c47c37e42b0b9cb3ff2c3f"
   end
 
   resource "yelp-xsl" do
@@ -40,7 +40,7 @@ class YelpTools < Formula
   end
 
   def install
-    python = "python3.10"
+    python = "python3.11"
 
     venv = virtualenv_create(libexec, python)
     venv.pip_install resource("lxml")

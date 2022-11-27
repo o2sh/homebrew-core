@@ -3,8 +3,8 @@ class Qt < Formula
 
   desc "Cross-platform application and UI framework"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.3/6.3.2/single/qt-everywhere-src-6.3.2.tar.xz"
-  sha256 "b90524f686224a0e5a945c1d65307e16a375348dbe275c9ac11de171fe31374a"
+  url "https://download.qt.io/official_releases/qt/6.4/6.4.0/single/qt-everywhere-src-6.4.0.tar.xz"
+  sha256 "8936b0354d95fa26e87be65cc9c840495360ad93fd09b069bc780cbcab4a2ca1"
   license all_of: ["GFDL-1.3-only", "GPL-2.0-only", "GPL-3.0-only", "LGPL-2.1-only", "LGPL-3.0-only"]
   head "https://code.qt.io/qt/qt5.git", branch: "dev"
 
@@ -16,11 +16,14 @@ class Qt < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_monterey: "8066a0253493c18241ec76ad30ce6523ac0f8fa6db2e8596c231a2bb80a58e48"
-    sha256 cellar: :any, arm64_big_sur:  "e07e5ed6a3bdc34834d36f259ff46056d7ea04759d47d2a1d791105c2883af94"
-    sha256 cellar: :any, monterey:       "1e4894ce947736c4162ac3251b2e56a0b56d4b0d45792f5a0906dd33f7ae3626"
-    sha256 cellar: :any, big_sur:        "1df61c2563424339faeb4f89d621242371f17cb5d3d40c7a7b72ac88124657b7"
-    sha256 cellar: :any, catalina:       "b671c1de64a5e16d172f4a551bdede393d3f37a748911706c933dd5e5fd13895"
+    sha256 cellar: :any,                 arm64_ventura:  "fd2fb8ecbe90be5f23e028264a6de270c3945dd10011f5622f3d81e84e8c8cb1"
+    sha256 cellar: :any,                 arm64_monterey: "009a797cab75f61c56ed9764219a60ebc4ba4359ec9dfb30104c6efd74c34dfb"
+    sha256 cellar: :any,                 arm64_big_sur:  "acea0b4f290b0ff85c732201606326d27e0340691921bad831abeb68741aed45"
+    sha256 cellar: :any,                 ventura:        "12b837b2a2045e9a84ed664221e955873dd318fe1a2f6519aab67debbcfa52e3"
+    sha256 cellar: :any,                 monterey:       "084544813d9eb375ed68a385e1b3e0514b07f6ad9c27c66879c75aa712af6fe6"
+    sha256 cellar: :any,                 big_sur:        "979c2b9c8b5882f16a43147b978914d98519d6103d89888bdc212e09dda4ab8c"
+    sha256 cellar: :any,                 catalina:       "7f74703923f0f74fd9cef086bd87726ca2cd0b3b62fe8486133f99257051ad82"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fe618a6e10c9d5741032d77af7df2464de22a07c1430dffb52c2dca5505303bf"
   end
 
   depends_on "cmake"      => [:build, :test]
@@ -102,12 +105,12 @@ class Qt < Formula
 
   fails_with gcc: "5"
 
-  resource("html5lib") do
+  resource "html5lib" do
     url "https://files.pythonhosted.org/packages/ac/b6/b55c3f49042f1df3dcd422b7f224f939892ee94f22abcf503a9b7339eaf2/html5lib-1.1.tar.gz"
     sha256 "b2e5b40261e20f354d198eae92afc10d750afb487ed5e50f9c4eaf07c184146f"
   end
 
-  resource("webencodings") do
+  resource "webencodings" do
     url "https://files.pythonhosted.org/packages/0b/02/ae6ceac1baeda530866a85075641cec12989bd8d31af6d5ab4a3e8c92f47/webencodings-0.5.1.tar.gz"
     sha256 "b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923"
   end
@@ -118,6 +121,14 @@ class Qt < Formula
     url "https://raw.githubusercontent.com/Homebrew/formula-patches/c363f0edf9e90598d54bc3f4f1bacf95abbda282/qt/qt_internal_check_if_path_has_symlinks.patch"
     sha256 "1afd8bf3299949b2717265228ca953d8d9e4201ddb547f43ed84ac0d7da7a135"
     directory "qtbase"
+  end
+
+  # Fix build with LLVM 15 (QTBUG-107074).
+  # Remove with 6.4.1.
+  patch do
+    url "https://github.com/qt/qttools/commit/01cae372619369d1a5a04f4d0f87817011029b78.patch?full_index=1"
+    sha256 "2ec45719fcc5b12c97040b4f30fdbb5d4c1dc1dded15f02f271ac7c668f5a2a0"
+    directory "qttools"
   end
 
   def install
@@ -167,9 +178,7 @@ class Qt < Formula
       -no-sql-psql
     ]
 
-    cmake_args = std_cmake_args(install_prefix: HOMEBREW_PREFIX, find_framework: "FIRST") + %W[
-      -DCMAKE_OSX_DEPLOYMENT_TARGET=#{MacOS.version}
-
+    cmake_args = std_cmake_args(install_prefix: HOMEBREW_PREFIX, find_framework: "FIRST") + %w[
       -DINSTALL_MKSPECSDIR=share/qt/mkspecs
 
       -DFEATURE_pkg_config=ON
@@ -181,6 +190,7 @@ class Qt < Formula
     ]
 
     if OS.mac?
+      cmake_args << "-DCMAKE_OSX_DEPLOYMENT_TARGET=#{MacOS.version}.0"
       config_args << "-sysroot" << MacOS.sdk_path.to_s
       # NOTE: `chromium` should be built with the latest SDK because it uses
       # `___builtin_available` to ensure compatibility.
@@ -297,9 +307,7 @@ class Qt < Formula
         delete handler; handler = nullptr;
         auto *root = new Qt3DCore::QEntity();
         delete root; root = nullptr;
-        #ifdef __APPLE__
         Q_ASSERT(QSqlDatabase::isDriverAvailable("QSQLITE"));
-        #endif
         const auto &list = QImageReader::supportedImageFormats();
         for(const char* fmt:{"bmp", "cur", "gif",
           #ifdef __APPLE__
