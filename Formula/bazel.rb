@@ -1,8 +1,8 @@
 class Bazel < Formula
   desc "Google's own build tool"
   homepage "https://bazel.build/"
-  url "https://github.com/bazelbuild/bazel/releases/download/5.3.2/bazel-5.3.2-dist.zip"
-  sha256 "3880ad919592d1e3e40c506f13b32cd0a2e26f129d87cb6ba170f1801d7d7b82"
+  url "https://github.com/bazelbuild/bazel/releases/download/6.0.0/bazel-6.0.0-dist.zip"
+  sha256 "7bc0c5145c19a56d82a08fce6908c5e1a0e75e4fbfb3b6f12b4deae7f4b38cbc"
   license "Apache-2.0"
 
   livecheck do
@@ -11,16 +11,15 @@ class Bazel < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "26f9fc1f9997b0c9e644f47d2ba65057e9b5b92437bec769b5166082d74373d0"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "57a0872da19e741ab0f80654aeea840b0298ff854568c683a444b34bf7f93378"
-    sha256 cellar: :any_skip_relocation, ventura:        "db1e8176e47e4119629efe0fc7b84d788ba835d990b96a09d008dc0231b23d86"
-    sha256 cellar: :any_skip_relocation, monterey:       "f3fa6eeb3cde5a1146ab81cf47bfc4e8553505de816682b51e07c9c5a5c75d4f"
-    sha256 cellar: :any_skip_relocation, big_sur:        "b2a6154e42833bc6b95288c1506e03218e856671d59f386933f036162483f99c"
-    sha256 cellar: :any_skip_relocation, catalina:       "6d3f80d9893f122a93ed8808ab4bd2e1eaa26ddf19e7d0f9922d66f886c42187"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ff2d7abde2f67dbd37ef09ac47796ecaa748253ef8817bc4b3d9ccbaa3f951b6"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2138a58297acd97702c2f3c76c748b400ace1908b4d2d4dc65efa7998fb828aa"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b795339b954fa2d5a3c190074b8db89a72f13b77f714ac77640db789469d5cd8"
+    sha256 cellar: :any_skip_relocation, ventura:        "2788d278c56c08face7a12ff127ef00b4a66dd106c0c04d449a474bc6e66b3a9"
+    sha256 cellar: :any_skip_relocation, monterey:       "9cd7f67a8945a69ef6c9aa4181c43e344ebc8ee1d229b2e9f878042fa8d16cc5"
+    sha256 cellar: :any_skip_relocation, big_sur:        "a6c989d274324b5b7e49f8d934fab52d0361c19c15c00dbeea38d8a36dd84369"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "df7d131b0500e2d2acf645d41881f428ffbb777c95ff78f8a3b3f2189b0fd17a"
   end
 
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on "openjdk@11"
 
   uses_from_macos "unzip"
@@ -36,7 +35,7 @@ class Bazel < Formula
     ENV["EXTRA_BAZEL_ARGS"] = "--host_javabase=@local_jdk//:jdk"
     ENV["JAVA_HOME"] = Language::Java.java_home("11")
     # Force Bazel to use Homebrew python
-    ENV.prepend_path "PATH", Formula["python@3.10"].opt_libexec/"bin"
+    ENV.prepend_path "PATH", Formula["python@3.11"].opt_libexec/"bin"
 
     # Bazel clears environment variables other than PATH during build, which
     # breaks Homebrew shim scripts. We don't see this issue on macOS since

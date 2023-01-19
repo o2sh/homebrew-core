@@ -1,9 +1,10 @@
 class NodeAT16 < Formula
   desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v16.18.1/node-v16.18.1.tar.xz"
-  sha256 "1f8051a88f86f42064f4415fe7a980e59b0a502ecc8def583f6303bc4d445238"
+  url "https://nodejs.org/dist/v16.19.0/node-v16.19.0.tar.xz"
+  sha256 "4f1fec1aea2392f6eb6d1d040b01e7ee3e51e762a9791dfea590920bc1156706"
   license "MIT"
+  revision 1
 
   livecheck do
     url "https://nodejs.org/dist/"
@@ -11,14 +12,13 @@ class NodeAT16 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "ca0dfad052e4717f0ef6a9d6101b97ec6a63be9eb7c4a0d6a1f25065a2904232"
-    sha256 cellar: :any,                 arm64_monterey: "3beab95c662121a6d297f8e799267d8c97ed8936f1c5fbb2806b4fd235c63978"
-    sha256 cellar: :any,                 arm64_big_sur:  "0b2a9fb0a9dc92eb886b91de3d48eb9f1e5cecdad0a1c01801ba13a45533770a"
-    sha256 cellar: :any,                 ventura:        "2db11ca089d2c28cbae771c16b065daf24518bd4b2df61af7557cafd0ed5c0cb"
-    sha256 cellar: :any,                 monterey:       "7eb25934eb8b7139e9b0e68f5ce67c249f3f7226b39fc53a3a1d3f461006d399"
-    sha256 cellar: :any,                 big_sur:        "5f9b8f7d8213ecec2d3b9a39efc8d6a4df8a2c3f30a32c4fefe00392f5a3f9a2"
-    sha256 cellar: :any,                 catalina:       "09104ccf6ea1cd8dfe19089d2147b35b752cfa61725cb0edb971157e06f1847b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "62a367e6f121ab83b95774420716099efca22e096bfbe141a9a11b1ff9b86616"
+    sha256 cellar: :any,                 arm64_ventura:  "409301e232b4522fc92d9236b34feda83e566487ff3482685f086184cdd95728"
+    sha256 cellar: :any,                 arm64_monterey: "86681e0881084419c49698dea823a595d3c436cc2a2e09dda8435a342b81533f"
+    sha256 cellar: :any,                 arm64_big_sur:  "cac7580ac336f12b2c4f52d7a08a989e27d59509e4156ef13147bed6bce66e12"
+    sha256 cellar: :any,                 ventura:        "35f5c627199a794ba1f79de4da0c35aaedc0e8871cfe5255a8449475638ba441"
+    sha256 cellar: :any,                 monterey:       "6b32504d6420c6b52d08d1aba3a97c7eba3af0a1a56ba02ca7db9637a808ffec"
+    sha256 cellar: :any,                 big_sur:        "36e741a2cfd9b934a12468bcb89f3cbc4c9f82da8b8d2db9c8734993e9e7172d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1b8e667c9dfa32f37fc2b05d89eca46625215baa773309290e1ec0e045dc6ec5"
   end
 
   keg_only :versioned_formula
@@ -27,7 +27,7 @@ class NodeAT16 < Formula
   # disable! date: "2023-09-11", because: :unsupported
 
   depends_on "pkg-config" => :build
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on "brotli"
   depends_on "c-ares"
   depends_on "icu4c"
@@ -46,7 +46,7 @@ class NodeAT16 < Formula
   fails_with gcc: "5"
 
   def install
-    python3 = "python3.10"
+    python3 = "python3.11"
     # make sure subprocesses spawned by make are using our Python 3
     ENV["PYTHON"] = which(python3)
 

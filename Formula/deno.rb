@@ -1,20 +1,19 @@
 class Deno < Formula
   desc "Secure runtime for JavaScript and TypeScript"
   homepage "https://deno.land/"
-  url "https://github.com/denoland/deno/releases/download/v1.28.2/deno_src.tar.gz"
-  sha256 "ec42e4aac15308efee702c92e9651dd0894b7c0728edbe5dcd49f6d14990a7e8"
+  url "https://github.com/denoland/deno/releases/download/v1.29.4/deno_src.tar.gz"
+  sha256 "5a2e57d2088e8958ad2efbaca6cb574fab0f22a830161515a2015075d5c10335"
   license "MIT"
   head "https://github.com/denoland/deno.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ba571cab7b27d607a4a4d97278707b2bc85be2513be1249e1e06b9d0bde08b74"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c30971174a4617746384ca3016d08ad7d43718e100fc8cb89cefa48d1a6c37c3"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "2e84eff7893fa3e81ddef17225d984690586cb27e0fd13521f0ea6628b5278af"
-    sha256 cellar: :any_skip_relocation, ventura:        "142e6aad94cbd07610fdbad3bc8c467360b358a9a7e3c506038ae2ae5067f510"
-    sha256 cellar: :any_skip_relocation, monterey:       "2e23ce98a7d289c57bde6879c943ef66e580d27c4cde33a190c7037794dcd23c"
-    sha256 cellar: :any_skip_relocation, big_sur:        "88783e45e9849a97923205b44ca066f8f6779682dac5bd54753b314f36710d73"
-    sha256 cellar: :any_skip_relocation, catalina:       "e6b9c79a43e30bb79d03a65776bc20ce12b5a5959d68ef07d6b1a452479df68b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6e4c928367506d487357d617b77508fb2ab702aacb7804b38f0473e8c30319d3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "fe021e43f9cb239d81d88bbbb4619014ce728ff23620991df19a5a15aeb82007"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "daf4eabfbc614a3aec7e80cd4dde1ebcb24d459b1b146f947b727022aca157ad"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ce5230921dd4c76f8ff67ce15a1f84c98f8746e1e0ed89c69ac3c1ae057f7343"
+    sha256 cellar: :any_skip_relocation, ventura:        "8c8d103ec715ba2f153679e3a2bcbceecaf17d30765d8b760bdaa01af780d883"
+    sha256 cellar: :any_skip_relocation, monterey:       "09e67151803418669f426ac96c446b98138dafed4fa8037f9aafb9584bcb13d8"
+    sha256 cellar: :any_skip_relocation, big_sur:        "06b5e5021ec0eaf335f8e74243b401edc4aa4bfbdc0a5a28eb2ff35cdd470fa2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "149008089102a9671ba0d9a607d6e9633ad1ae5839c26eb78494be5e1687d335"
   end
 
   depends_on "llvm" => :build
@@ -39,17 +38,17 @@ class Deno < Formula
   # We use the crate as GitHub tarball lacks submodules and this allows us to avoid git overhead.
   # TODO: Remove this and `v8` resource when https://github.com/denoland/rusty_v8/pull/1063 is released
   resource "rusty-v8" do
-    url "https://static.crates.io/crates/v8/v8-0.55.0.crate"
-    sha256 "46cd4f562bce7520fbb511850c5488366264caf346be221cf7e908f51ac33dbc"
+    url "https://static.crates.io/crates/v8/v8-0.60.1.crate"
+    sha256 "07fd5b3ed559897ff02c0f62bc0a5f300bfe79bb4c77a50031b8df771701c628"
   end
 
   resource "v8" do
-    url "https://github.com/denoland/v8/archive/675c4782cc883e54d8a79b15348d7f0085d4f940.tar.gz"
-    sha256 "7dbc0bf4052f08a9e856ffb2fa40faead904333461406126d3a20f3df94fc484"
+    url "https://github.com/denoland/v8/archive/05fb6e97fc6c5fdd2e79e4f9a51c5bf0ca0ef991.tar.gz"
+    sha256 "a083d815b21b0a2a59d1f133fd897c1f803f1418cfdffd411a89583bf37f22a8"
   end
 
   # To find the version of gn used:
-  # 1. Find v8 version: https://github.com/denoland/deno/blob/v#{version}/core/Cargo.toml
+  # 1. Find v8 version: https://github.com/denoland/deno/blob/v#{version}/Cargo.toml#L43
   # 2. Find ninja_gn_binaries tag: https://github.com/denoland/rusty_v8/tree/v#{v8_version}/tools/ninja_gn_binaries.py
   # 3. Find short gn commit hash from commit message: https://github.com/denoland/ninja_gn_binaries/tree/#{ninja_gn_binaries_tag}
   # 4. Find full gn commit hash: https://gn.googlesource.com/gn.git/+/#{gn_commit}
@@ -57,9 +56,6 @@ class Deno < Formula
     url "https://gn.googlesource.com/gn.git",
         revision: "bf4e17dc67b2a2007475415e3f9e1d1cf32f6e35"
   end
-
-  # textwrap 0.15.1 was yanked, update to use 0.15.2
-  patch :DATA
 
   def install
     # Work around files missing from crate
@@ -115,22 +111,3 @@ class Deno < Formula
                    "#{testpath}/hello.ts")
   end
 end
-
-
-__END__
-diff --git a/Cargo.lock b/Cargo.lock
-index 5b9a49f5e..e5b4e2676 100644
---- a/Cargo.lock
-+++ b/Cargo.lock
-@@ -4803,9 +4803,9 @@ dependencies = [
-
- [[package]]
- name = "textwrap"
--version = "0.15.1"
-+version = "0.15.2"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "949517c0cf1bf4ee812e2e07e08ab448e3ae0d23472aee8a06c985f0c8815b16"
-+checksum = "b7b3e525a49ec206798b40326a44121291b530c963cfb01018f63e135bac543d"
-
- [[package]]
- name = "thiserror"

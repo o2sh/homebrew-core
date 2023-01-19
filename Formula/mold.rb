@@ -1,21 +1,19 @@
 class Mold < Formula
   desc "Modern Linker"
   homepage "https://github.com/rui314/mold"
-  url "https://github.com/rui314/mold/archive/v1.7.1.tar.gz"
-  sha256 "fa2558664db79a1e20f09162578632fa856b3cde966fbcb23084c352b827dfa9"
+  url "https://github.com/rui314/mold/archive/v1.9.0.tar.gz"
+  sha256 "faf381ba268e714bec7f872de0dd6ea9187ae20b4e12c434a67ac92854701280"
   license "AGPL-3.0-only"
   head "https://github.com/rui314/mold.git", branch: "main"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_ventura:  "2cc6b8ae6a7c0e648848c2373d07cb67997e5101e4e57d8fc656dc353f46c841"
-    sha256 cellar: :any,                 arm64_monterey: "68c9fd5f6b82627ac8d929f317a36ed00b6e7a4f1432bd3776ce966bfaf72ddf"
-    sha256 cellar: :any,                 arm64_big_sur:  "1bfa53833bf1c63c0303d5573d424152af2987c9d777f88890143d38dbfa329c"
-    sha256 cellar: :any,                 ventura:        "6790cf80be66f43a76bb2ba6b0ac1412a0a8be9818bc165030823c0ff0d80bb4"
-    sha256 cellar: :any,                 monterey:       "afbacda1543ba674aa2136f95b9ae8c067746e7b84359507c0b587ff651e0204"
-    sha256 cellar: :any,                 big_sur:        "6943c6d65bf51b164b9fd0de46bbe6904972c7f4fbe314ea71bf852cfd112f56"
-    sha256 cellar: :any,                 catalina:       "32a875674d984b8a26ca348331a8f951608df0fa0924f0b9937a8e7faa5754f6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3b4e5937fb04da867788249c3d4ebe51a2127e75b43d57afca493a12f215bc34"
+    sha256 cellar: :any,                 arm64_ventura:  "3442e57a91ae0af551479f1f8790c83877fb955d2491e4b4ee681002dda1ee06"
+    sha256 cellar: :any,                 arm64_monterey: "313dd3345e75ba5ebf9f9cf3240556222bc7305688b0f36c8c28b20fce4da186"
+    sha256 cellar: :any,                 arm64_big_sur:  "8f91804c4cce8ffc31c5e98b9ecd110faaf5a6132a4fdd0cb29c4733e86fa59e"
+    sha256 cellar: :any,                 ventura:        "92219fb96541e7376c9f3473b8bd3e2266cec4e475a58ca28c9aff3ef21a17e9"
+    sha256 cellar: :any,                 monterey:       "7c42c20f814d72ddc41d62c0e4a2b14c3037c841f4260f022bd63b622e3a4efc"
+    sha256 cellar: :any,                 big_sur:        "aa96462ca9ffb19d0d57ef173d5decc96ba8c3633cfa2199bf972bab94697e40"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f0ea60dcfa4fe095ef0038132178568dd0034b6122ab546efe694cef25f6f84d"
   end
 
   depends_on "cmake" => :build
@@ -62,13 +60,14 @@ class Mold < Formula
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
-    inreplace buildpath.glob("test/macho/*.sh"), "./ld64", bin/"ld64.mold", false
-    inreplace buildpath.glob("test/elf/*.sh") do |s|
-      s.gsub!(%r{(\./|`pwd`/)?mold-wrapper}, lib/"mold/mold-wrapper", false)
-      s.gsub!(%r{(\.|`pwd`)/mold}, bin/"mold", false)
-      s.gsub!(/-B(\.|`pwd`)/, "-B#{libexec}/mold", false)
-    end
     pkgshare.install "test"
+  end
+
+  def caveats
+    <<~EOS
+      Support for Mach-O targets has been removed.
+      See https://github.com/bluewhalesystems/sold for macOS/iOS support.
+    EOS
   end
 
   test do
@@ -82,32 +81,33 @@ class Mold < Formula
     else odie "unexpected compiler"
     end
 
-    system ENV.cc, linker_flag, "test.c"
-    system "./a.out"
-    # Tests use `--ld-path`, which is not supported on old versions of Apple Clang.
-    return if OS.mac? && MacOS.version < :big_sur
+    extra_flags = []
+    extra_flags += %w[--target=x86_64-unknown-linux-gnu -nostdlib] unless OS.linux?
+
+    system ENV.cc, linker_flag, *extra_flags, "test.c"
+    if OS.linux?
+      system "./a.out"
+    else
+      assert_match "ELF 64-bit LSB executable, x86-64", shell_output("file a.out")
+    end
+
+    return unless OS.linux?
 
     cp_r pkgshare/"test", testpath
-    if OS.mac?
-      # Delete failing test. Reported upstream at
-      # https://github.com/rui314/mold/issues/735
-      if (MacOS.version >= :monterey) && Hardware::CPU.arm?
-        untested = %w[libunwind objc-selector]
-        testpath.glob("test/macho/{#{untested.join(",")}}.sh").map(&:unlink)
-      end
-      testpath.glob("test/macho/*.sh").each { |t| system t }
-    else
-      # The substitution rules in the install method do not work well on this
-      # test. To avoid adding too much complexity to the regex rules, it is
-      # manually tested below instead.
-      (testpath/"test/elf/mold-wrapper2.sh").unlink
-      assert_match "mold-wrapper.so",
-        shell_output("#{bin}/mold -run bash -c 'echo $LD_PRELOAD'")
-      # This test file does not have permission to execute, so we skip it.
-      # Remove on next release as this is already fixed upstream.
-      (testpath/"test/elf/section-order.sh").unlink
-      # Run the remaining tests.
-      testpath.glob("test/elf/*.sh").each { |t| system t }
+    inreplace testpath.glob("test/elf/*.sh") do |s|
+      s.gsub!(%r{(\./|`pwd`/)?mold-wrapper}, lib/"mold/mold-wrapper", false)
+      s.gsub!(%r{(\.|`pwd`)/mold}, bin/"mold", false)
+      s.gsub!(/-B(\.|`pwd`)/, "-B#{libexec}/mold", false)
     end
+
+    # The `inreplace` rules above do not work well on this test. To avoid adding
+    # too much complexity to the regex rules, it is manually tested below
+    # instead.
+    (testpath/"test/elf/mold-wrapper2.sh").unlink
+    assert_match "mold-wrapper.so",
+      shell_output("#{bin}/mold -run bash -c 'echo $LD_PRELOAD'")
+
+    # Run the remaining tests.
+    testpath.glob("test/elf/*.sh").each { |t| system "bash", t }
   end
 end

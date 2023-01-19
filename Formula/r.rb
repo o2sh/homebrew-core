@@ -4,6 +4,7 @@ class R < Formula
   url "https://cran.r-project.org/src/base/R-4/R-4.2.2.tar.gz"
   sha256 "0ff62b42ec51afa5713caee7c4fde7a0c45940ba39bef8c5c9487fef0c953df5"
   license "GPL-2.0-or-later"
+  revision 1
 
   livecheck do
     url "https://cran.rstudio.com/banner.shtml"
@@ -11,12 +12,13 @@ class R < Formula
   end
 
   bottle do
-    sha256 arm64_monterey: "32060cdba120854319cb7579cafae3b523fba583076c2ef40648a42cedf79972"
-    sha256 arm64_big_sur:  "7b5fe92459406db1b0dd7fdb53313eb96c8871f83531b70d9b88494306757ae3"
-    sha256 monterey:       "c726e4e3b7715280ad8d96bbf9ad00f3d56a4c0e39243a51d8e208a5ed6800d6"
-    sha256 big_sur:        "1f8f337835f21d680b6dc6a9e53688b9f23f0ed07bf94be0804529d070fff596"
-    sha256 catalina:       "f29d499dff7863d78c246cb1f97250fb39b6d0b03f387cdcff56e7fbebbdb5e8"
-    sha256 x86_64_linux:   "fc34d5eb2983c399e195a2aff8988d32a0141ccb298afa7a8c91d82ce711fbe7"
+    sha256 arm64_ventura:  "fc5834a3ae121615ddd4d37b9c9ead1eaa8a49ddb62924db85783e89eaca7523"
+    sha256 arm64_monterey: "da8a9d616ad6378683b2c053a1eb21979de6fb87f0b2a167dc817e3621efabd4"
+    sha256 arm64_big_sur:  "27dfc85cb338bd47ab2c4d2056084c0c0c2b7b2e7274487da1d33c5b6e02f5b3"
+    sha256 ventura:        "10efb9286514143cb2a29ed3722122434a844c70c211b9b6b1ae6aa6ac6efcc4"
+    sha256 monterey:       "f7198e01cae195c5b91a8a2105fb1bfd5a76376f97b30c84f4e76fe3dff9c42a"
+    sha256 big_sur:        "c30d89edffe0b4e6b56fea24ddf0b594e08b96d372d45767f052363647ba985c"
+    sha256 x86_64_linux:   "7662bb5a6d42fdf07da6b41b2a47df8c8f9dc36f6e4438912826041c65c11b65"
   end
 
   depends_on "pkg-config" => :build
@@ -49,6 +51,15 @@ class R < Formula
   fails_with :gcc do
     version "11"
     cause "Unknown. FIXME."
+  end
+
+  # Patch to fix build on macOS Ventura, remove in next release
+  # https://bugs.r-project.org/show_bug.cgi?id=18426
+  patch do
+    on_ventura :or_newer do
+      url "https://raw.githubusercontent.com/Homebrew/formula-patches/d647f4e1d61c8dba5f15edf7a0fc567f681641fb/r/ventura.diff"
+      sha256 "0b3c230432ef6a9231eaf48f39fd22155d3e1c7cd4f2a497e96ff4bdc7d91b84"
+    end
   end
 
   def install

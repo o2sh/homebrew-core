@@ -1,10 +1,9 @@
 class GstPython < Formula
   desc "Python overrides for gobject-introspection-based pygst bindings"
   homepage "https://gstreamer.freedesktop.org/modules/gst-python.html"
-  url "https://gstreamer.freedesktop.org/src/gst-python/gst-python-1.20.3.tar.xz"
-  sha256 "db348120eae955b8cc4de3560a7ea06e36d6e1ddbaa99a7ad96b59846601cfdc"
+  url "https://gstreamer.freedesktop.org/src/gst-python/gst-python-1.20.5.tar.xz"
+  sha256 "27487652318659cfd7dc42784b713c78d29cc7a7df4fb397134c8c125f65e3b2"
   license "LGPL-2.1-or-later"
-  revision 1
 
   livecheck do
     url "https://gstreamer.freedesktop.org/src/gst-python/"
@@ -12,21 +11,21 @@ class GstPython < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "515b686b5530cf30f7e4c83097b9564356a629552522eec0bad876a5ddda33db"
-    sha256 arm64_monterey: "c7bd54bf59d884fece2bd93a8aa87156b1711fb792769e2e824b7980fe804fbd"
-    sha256 arm64_big_sur:  "46577a49c80650c862830b1dfc739962dcf3181b03ec2af19f6e03adb3731d31"
-    sha256 ventura:        "5c46dd4bb09b1da3ed57f74d49b32932b40dce10031f1929050008957a447a81"
-    sha256 monterey:       "7726dbe8e9697fc1704c7ed442fcfdcb7f5308b0b7ca573fee7d697b42978e8c"
-    sha256 big_sur:        "a12e52607ac75e19ee6712dddd5d6d27f403dd5feb4d4fa942ce432c566f2ce3"
-    sha256 catalina:       "6677dc74dee5380d456c0615390eeaefa55cdc3ec7e892c66cbb95a8c78e863c"
-    sha256 x86_64_linux:   "a3ed0216139c282fa4c8304a40c52da5e97d7a2403c9cd135fb3801d17ff82a1"
+    rebuild 1
+    sha256 arm64_ventura:  "6160154235951d7ff14e28b5b2e63ca46ad4c67cefb85878ec9f3235bd7dc353"
+    sha256 arm64_monterey: "f232d6369ff3182389abd14345eec7dd50e49c90666461f35e5bd34d1365fcef"
+    sha256 arm64_big_sur:  "6732658419661fa5e5eaa10f411c3200d26bc5b3717a6c69c5ec4c1e8619fd73"
+    sha256 ventura:        "9102414169ed31f48f8c0e3741ffa44760c411608f409dd094c728f1aa65dfe7"
+    sha256 monterey:       "7f5bbb9496be22f10fda37b1534f97cbd2f9b0a29a5681fd6d47661f7e3b28f4"
+    sha256 big_sur:        "7e9fbc50c5cc07f273dbe3a5a57c59e99dc50f58dd20d8fbb41c87da0c8828ce"
+    sha256 x86_64_linux:   "5dc205d0d1778992ca8ff8eacd08af2441fc78588cde6e0b3e94f9f06ee5e9f6"
   end
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "gst-plugins-base"
   depends_on "pygobject3"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   # See https://gitlab.freedesktop.org/gstreamer/gst-python/-/merge_requests/41
   patch do
@@ -35,7 +34,7 @@ class GstPython < Formula
   end
 
   def python3
-    which("python3.10")
+    which("python3.11")
   end
 
   def install

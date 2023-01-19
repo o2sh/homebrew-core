@@ -2,10 +2,11 @@ class PhpAT80 < Formula
   desc "General-purpose scripting language"
   homepage "https://www.php.net/"
   # Should only be updated if the new version is announced on the homepage, https://www.php.net/
-  url "https://www.php.net/distributions/php-8.0.25.tar.xz"
-  mirror "https://fossies.org/linux/www/php-8.0.25.tar.xz"
-  sha256 "a291b71d0498707fc5514eb5b9513e88f0f1d4890bcdefd67282ded8a2bfb941"
+  url "https://www.php.net/distributions/php-8.0.27.tar.xz"
+  mirror "https://fossies.org/linux/www/php-8.0.27.tar.xz"
+  sha256 "f942cbfe2f7bacbb8039fb79bbec41c76ea779ac5c8157f21e1e0c1b28a5fc3a"
   license "PHP-3.01"
+  revision 1
 
   livecheck do
     url "https://www.php.net/downloads"
@@ -13,14 +14,13 @@ class PhpAT80 < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "1fe4d868294bb445da6d46a9290e19d3e9963825aba499d0c80e33f0fd4ed7f0"
-    sha256 arm64_monterey: "b2e4f2a890732f393ac95f6687ce8fab2cd057bf15323820530cbd65ff88e38f"
-    sha256 arm64_big_sur:  "1dcd2e9ddce0fff69a0a0eeda9757daa3794e7fe592792df43fe3deef4f8319a"
-    sha256 ventura:        "33ffdebb425a4de68caf6ee30ea316286ec6c6aac882fd25f67621b8d9d49fcf"
-    sha256 monterey:       "c1c2c9d83ebc8ae8f5fe5895ef384702c7fa672e98e6dc4268e05eb8880c7e03"
-    sha256 big_sur:        "a3511f79a6865a19143342a3941d5e07b9c995a6b02665c2fbc8c5bd8dc03099"
-    sha256 catalina:       "152d2bb984f9dbc0b49cfa00a8b6784946adefbf1adb565c31c958cfad685111"
-    sha256 x86_64_linux:   "d61b74350439c1f90619fe4ed07d45f02c5dde79216a8ba5cd037ab4270b0187"
+    sha256 arm64_ventura:  "09a7fc82f0232cf97dd2162de6490572479fbf803241edc07c1175d62fda81e0"
+    sha256 arm64_monterey: "31094268d3e701718f374817ca10b74efa1666308e029d466f47d9132a4c0889"
+    sha256 arm64_big_sur:  "be82b01898d4cc90be3e30012bdd5d98d9e26a9dd8494e7eff88fc01218c3f42"
+    sha256 ventura:        "4684abff627546453d20ec9db4ba520b65a75b591c2d3265eece50f15ce39556"
+    sha256 monterey:       "84cbb64d65eb0243bbe3f9d447e53a0e8b9469161216228c49a1cf5952594302"
+    sha256 big_sur:        "54e702ef612ec2ff5c2200091c229103b52408ef272af2a1719a9be161456205"
+    sha256 x86_64_linux:   "7945185ef7072142b8c085596f219055e04bf30583e60ab97d9bd13e5a66b370"
   end
 
   keg_only :versioned_formula
@@ -314,7 +314,6 @@ class PhpAT80 < Formula
     EOS
   end
 
-  plist_options manual: "php-fpm"
   service do
     run [opt_sbin/"php-fpm", "--nodaemonize"]
     run_type :immediate

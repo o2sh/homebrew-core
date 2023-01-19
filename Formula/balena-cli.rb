@@ -3,8 +3,8 @@ require "language/node"
 class BalenaCli < Formula
   desc "Command-line tool for interacting with the balenaCloud and balena API"
   homepage "https://www.balena.io/docs/reference/cli/"
-  url "https://registry.npmjs.org/balena-cli/-/balena-cli-14.5.12.tgz"
-  sha256 "a0816d9ba1755115ba6ceab6d842b0e6c9ccdffc5d27e7f1c46600d9f7b57dec"
+  url "https://registry.npmjs.org/balena-cli/-/balena-cli-15.0.3.tgz"
+  sha256 "a8defbfe9f1cbc08841c52286321c1a6d0043da8c6063e330082f2e87621c4e9"
   license "Apache-2.0"
 
   livecheck do
@@ -13,18 +13,15 @@ class BalenaCli < Formula
   end
 
   bottle do
-    sha256                               arm64_ventura:  "300d6ea7b3adc8310edd5190d2651a04791b93f91ce1ac4f39de382dffd16e53"
-    sha256                               arm64_monterey: "f9b6e53ecbc2be8b0705620b7f5855b7ff47272b5ba9b4c5b344681ace1e1f1d"
-    sha256                               arm64_big_sur:  "27cf91171cde932b173d0c6af302da30ad42dc6bba52dc77374491ee026eac5c"
-    sha256                               ventura:        "6e8ba3377958853c5ea29fbc9f635ecc9bd1044b6d248fe33b193383925ef8f2"
-    sha256                               monterey:       "c152aeaf18cff1d23631c8781c96f5dd5235000f6cb2b5f634a227f4ff80967f"
-    sha256                               big_sur:        "e25d08517b71903ed8d9dba8cc49753797488ef6b956d82d1739d5265b7ca788"
-    sha256                               catalina:       "f1012ebae09296806d384ef3ab53f429dd77272f752caa6def67a9a8bc5a1f60"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b2b01f4a61a7fa183c95fd8d09ffe7035303f9c7e370e2fe30cadd288ef27e2b"
+    sha256                               arm64_ventura:  "f5e544b9ea8d97eb61ea5fff604997e01d12c4755b6aac9adc8180f264394c92"
+    sha256                               arm64_monterey: "e667976ce75df0cc33bb8afd0b5f40431c0d3dc66bb26c9e56b27403268a7256"
+    sha256                               arm64_big_sur:  "8e876f59466b88b0b53369d5d244ea2c3394cf31f30aedf732e2e165cfbc278d"
+    sha256                               ventura:        "b31799b2f490542298b7233231f13141df3d4a177ae0af5aee4d05703c33ba3f"
+    sha256                               monterey:       "3b9b7c25e6972deb63a0c143edfe00cd86fab8ac234be9bee4f6000eb1faa709"
+    sha256                               big_sur:        "26021e0182866632d7f9c108cd964937e8d7400937f41b6434f14d8deff94043"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3a65813ed2c8eaa8c2d447b053338d0b4f0239b168b4c43f3cbaf31f2da6d1b1"
   end
 
-  # Node looks for an unversioned `python` at build-time.
-  depends_on "python@3.10" => :build
   depends_on "node@14"
 
   on_macos do
@@ -33,9 +30,8 @@ class BalenaCli < Formula
 
   def install
     ENV.deparallelize
-    ENV.prepend_path "PATH", Formula["python@3.10"].opt_libexec/"bin"
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
-    (bin/"balena").write_env_script libexec/"bin/balena", PATH: "#{Formula["node@14"].opt_bin}:$PATH"
+    system Formula["node@14"].opt_bin/"npm", "install", *Language::Node.std_npm_install_args(libexec)
+    (bin/"balena").write_env_script libexec/"bin/balena", PATH: "#{Formula["node@14"].opt_bin}:${PATH}"
 
     # Remove incompatible pre-built binaries
     os = OS.kernel_name.downcase

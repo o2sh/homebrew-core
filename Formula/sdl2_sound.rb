@@ -121,7 +121,7 @@ class Sdl2Sound < Formula
     if OS.mac?
       expected += <<~EOS
 
-        \ * Decode audio through Core Audio through
+        \s* Decode audio through Core Audio through
            File extension "aif"
            File extension "aiff"
            File extension "aifc"

@@ -1,10 +1,9 @@
 class Cherrytree < Formula
   desc "Hierarchical note taking application featuring rich text and syntax highlighting"
   homepage "https://www.giuspen.com/cherrytree/"
-  url "https://www.giuspen.com/software/cherrytree_0.99.52.tar.xz"
-  sha256 "3a0ef5b2e821e2b5635888f063e47bfb1263e46b571371037daf473771d4ab5b"
+  url "https://www.giuspen.com/software/cherrytree_0.99.53.tar.xz"
+  sha256 "317fbac7627b6556c7113433b360376d332bd10b6529b43734a8640cef5de24e"
   license "GPL-3.0-or-later"
-  revision 1
 
   livecheck do
     url :homepage
@@ -12,20 +11,20 @@ class Cherrytree < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "010123e08fb61d49c224fa8cc4b011e38ccb044fa11ee27ee865f23631bc9172"
-    sha256 arm64_monterey: "e7fec930578634cfb67051784cbabd1313430361c7cb63f52fac92e1cc435662"
-    sha256 arm64_big_sur:  "de51e8449e023cd0c4051647c60ea540091bf819804a5644bf610580a9e243f9"
-    sha256 ventura:        "c3eaa287459bd297f8d9fed5f161e11f923aeff2e380743373d24e4e2ff38d36"
-    sha256 monterey:       "d631b372cd5b651951739b3969a2aee8d108da1647dbc92e4eea37ebc1407604"
-    sha256 big_sur:        "fba2e38c08337ff5cfc2ef20f6ff9d8fb74ec8f2fc5d8a37e584abd17b0bb557"
-    sha256 catalina:       "7ddb0e27ae9bf7546e1b1f0d0fa548ded0477c495252ffaad3f9f8fe7dba112e"
-    sha256 x86_64_linux:   "b6d0cc9cef0d7c837a1750a627015c35c043f249e7c755f7d51402f2de1b8b44"
+    rebuild 1
+    sha256 arm64_ventura:  "567b6a5c4c81c525dc80413b5ab0ce4a75cc52ad9cb80b806b7e1d4a715ec4aa"
+    sha256 arm64_monterey: "8e1373575b73474c7db65732d7f7a96f9f2dba7f9f3d80d5dddf5a13c1bd71dc"
+    sha256 arm64_big_sur:  "06e8e2039e1621b823b02f479feb8ee6e2931ac5ae57f69401784d95ceebb68d"
+    sha256 ventura:        "aaf06de4dc0fb3ee8d9aff19a11ea449e5a800db3d5326c7df864a6c562a3e18"
+    sha256 monterey:       "164fd8ad27d9b13c4ec1084558737ff42214b90ab6a51a83a270ac4a1d06949c"
+    sha256 big_sur:        "eab7785650044af46d6238dcc640b8d0d8b0068a5fdfbef31836ec6624a430b8"
+    sha256 x86_64_linux:   "40421450994bb4b381de26e51828cb19426fdea0e459f7d75c3160dc1f6d9f81"
   end
 
   depends_on "cmake" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on "adwaita-icon-theme"
   depends_on "fmt"
   depends_on "gspell"

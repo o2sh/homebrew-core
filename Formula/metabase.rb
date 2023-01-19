@@ -1,8 +1,8 @@
 class Metabase < Formula
   desc "Business intelligence report server"
   homepage "https://www.metabase.com/"
-  url "https://downloads.metabase.com/v0.44.6/metabase.jar"
-  sha256 "6b44d59b54d4fa95be2051bd9ba1b872deb8ba3605624cfdb69027eee75ff81c"
+  url "https://downloads.metabase.com/v0.45.2/metabase.jar"
+  sha256 "c72e8d30f369522381951774b7053d33cd0b6e1d0dc8ceba3d115fd03240bba7"
   license "AGPL-3.0-only"
 
   livecheck do
@@ -11,11 +11,11 @@ class Metabase < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "37bcd6c4cb9a78ce12024784f598696688b0a4f5930a25f41ab38825273482c3"
+    sha256 cellar: :any_skip_relocation, all: "b6e48046862579146b723506409139cb69103e6b1a641a57d082e3fdc04cec9f"
   end
 
   head do
-    url "https://github.com/metabase/metabase.git"
+    url "https://github.com/metabase/metabase.git", branch: "master"
 
     depends_on "leiningen" => :build
     depends_on "node" => :build
@@ -35,10 +35,10 @@ class Metabase < Formula
     bin.write_jar_script libexec/"metabase.jar", "metabase"
   end
 
-  plist_options startup: true
   service do
     run opt_bin/"metabase"
     keep_alive true
+    require_root true
     working_dir var/"metabase"
     log_path var/"metabase/server.log"
     error_log_path "/dev/null"

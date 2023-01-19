@@ -1,19 +1,20 @@
 class Vtk < Formula
   desc "Toolkit for 3D computer graphics, image processing, and visualization"
   homepage "https://www.vtk.org/"
-  url "https://www.vtk.org/files/release/9.2/VTK-9.2.2.tar.gz"
-  sha256 "1c5b0a2be71fac96ff4831af69e350f7a0ea3168981f790c000709dcf9121075"
+  url "https://www.vtk.org/files/release/9.2/VTK-9.2.5.tar.gz"
+  sha256 "128d601baa980e98ee034207974b33fb38d2c98ab9cf4a5756efdb09ed6c0949"
   license "BSD-3-Clause"
+  revision 1
   head "https://gitlab.kitware.com/vtk/vtk.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "55507cdffa7dd541f060a7c6d0fafdb97d8ec1afd893bec446eb431cdc310c15"
-    sha256 cellar: :any,                 arm64_monterey: "fd8b5266a33f0cf2d967df1ef522ed2c56aec78ce371669496343c98ed1f65f0"
-    sha256 cellar: :any,                 arm64_big_sur:  "ce4d4f25b956014b0b45a96da8361ae053931ae9548b7da83056c9d27c5f7669"
-    sha256 cellar: :any,                 monterey:       "8183b6b8fc6b8df5639e47027f62cab729aa7ff79e2aac19d2b15ccd44e8ec68"
-    sha256 cellar: :any,                 big_sur:        "b447d02c13ee4127382316c24e10d2551c5e2faa6234db005c73c5342477b66e"
-    sha256 cellar: :any,                 catalina:       "e370593ac5ec40f462bd8212db0cd940b5add11061aba88fe82f65d79f58027c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2aa435ad572edb96b633065c2174b319c44c0f3d145f0b707d2d4847c9816db9"
+    sha256 cellar: :any,                 arm64_ventura:  "97c6c9f123cd5f5575b191799694f3389351a198a563aada4499a022c32d6cb9"
+    sha256 cellar: :any,                 arm64_monterey: "de808d34e989436471f41809b0e8dcd470110861e28f6b487cd2825440732e30"
+    sha256 cellar: :any,                 arm64_big_sur:  "f6e8242809db41d14f6d63339ecabfe0e6b13d4a8e82bb733904048b9476cecb"
+    sha256 cellar: :any,                 ventura:        "80feea22ec400f67f4599ac56a9d53317e321ff32496a09b8616855c09c6e2d1"
+    sha256 cellar: :any,                 monterey:       "305127752e1e7bce8cf1ece14d375c99753ad6ddfefc847c95ede581adb8bcb4"
+    sha256 cellar: :any,                 big_sur:        "9362d9707ef2cc799b85d9a37941a96d689ddd31754c671345ae9a55935952b2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d562e7256150cdf9dd7c1cbd109a07b00f12495764c0d701884391fe46fd21f4"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -33,7 +34,7 @@ class Vtk < Formula
   depends_on "netcdf"
   depends_on "pugixml"
   depends_on "pyqt@5"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "qt@5"
   depends_on "sqlite"
   depends_on "theora"
@@ -46,7 +47,16 @@ class Vtk < Formula
   uses_from_macos "zlib"
 
   on_macos do
-    depends_on "llvm" => :build if DevelopmentTools.clang_build_version == 1316 && Hardware::CPU.arm?
+    on_arm do
+      if DevelopmentTools.clang_build_version == 1316
+        depends_on "llvm" => :build
+
+        # clang: error: unable to execute command: Segmentation fault: 11
+        # clang: error: clang frontend command failed due to signal (use -v to see invocation)
+        # Apple clang version 13.1.6 (clang-1316.0.21.2)
+        fails_with :clang
+      end
+    end
   end
 
   on_linux do
@@ -55,11 +65,6 @@ class Vtk < Formula
   end
 
   fails_with gcc: "5"
-
-  # clang: error: unable to execute command: Segmentation fault: 11
-  # clang: error: clang frontend command failed due to signal (use -v to see invocation)
-  # Apple clang version 13.1.6 (clang-1316.0.21.2)
-  fails_with :clang if DevelopmentTools.clang_build_version == 1316 && Hardware::CPU.arm?
 
   def install
     ENV.llvm_clang if DevelopmentTools.clang_build_version == 1316 && Hardware::CPU.arm?
@@ -95,7 +100,7 @@ class Vtk < Formula
       -DVTK_MODULE_USE_EXTERNAL_VTK_tiff:BOOL=ON
       -DVTK_MODULE_USE_EXTERNAL_VTK_utf8:BOOL=ON
       -DVTK_MODULE_USE_EXTERNAL_VTK_zlib:BOOL=ON
-      -DPython3_EXECUTABLE:FILEPATH=#{which("python3.10")}
+      -DPython3_EXECUTABLE:FILEPATH=#{which("python3.11")}
       -DVTK_GROUP_ENABLE_Qt:STRING=YES
       -DVTK_QT_VERSION:STRING=5
     ]

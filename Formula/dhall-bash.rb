@@ -1,12 +1,15 @@
 class DhallBash < Formula
   desc "Compile Dhall to Bash"
   homepage "https://github.com/dhall-lang/dhall-haskell/tree/master/dhall-bash"
+  # TODO: Switch `ghc@9.2` to `ghc` once cborg has a new release that supports
+  # ghc-prim 0.9.0. PR ref: https://github.com/well-typed/cborg/pull/304
   url "https://hackage.haskell.org/package/dhall-bash-1.0.40/dhall-bash-1.0.40.tar.gz"
   sha256 "a9d1feba3c9ceeecdd24fb4a4d8f6450a50ca31ede30aa4d7a8e9d8489cc7f3a"
   license "BSD-3-Clause"
   head "https://github.com/dhall-lang/dhall-haskell.git", branch: "master"
 
   bottle do
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "035326b17d39a7c282aacfaa1fe1146e424977b97043970abea595c8b8123c12"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "94344bb3dfd3036109853ecb36f28d04b4acb13caafe370c3255650eb320663c"
     sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9c5cf8510f9d239e8fee400c48136e4b441ba901fbdc0335c9d1f65b452a3394"
     sha256 cellar: :any_skip_relocation, ventura:        "c40f45337092d7c647c4b89a474f995463dd8ef7ab61303c5a50d54ac18237aa"
@@ -17,7 +20,7 @@ class DhallBash < Formula
   end
 
   depends_on "cabal-install" => :build
-  depends_on "ghc" => :build
+  depends_on "ghc@9.2" => :build
 
   uses_from_macos "ncurses"
   uses_from_macos "zlib"

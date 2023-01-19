@@ -1,9 +1,9 @@
 class Umple < Formula
   desc "Modeling tool/programming language that enables Model-Oriented Programming"
   homepage "https://www.umple.org"
-  url "https://github.com/umple/umple/releases/download/v1.31.1/umple-1.31.1.5860.78bb27cc6.jar"
-  version "1.31.1"
-  sha256 "686beb3c8aa3c0546f4a218dad353f4efce05aed056c59ccf3d5394747c0e13d"
+  url "https://github.com/umple/umple/releases/download/v1.32.1/umple-1.32.1.6535.66c005ced.jar"
+  version "1.32.1"
+  sha256 "fb2555ffef27ff6073365dc37f8672a6d254a258323441bda6015d4789e78f45"
   license "MIT"
   version_scheme 1
 
@@ -13,7 +13,7 @@ class Umple < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "c9ff4ae3bd259bc877ea8cd121f52f1f33679ec3ad406bab86df6350aaf0ea42"
+    sha256 cellar: :any_skip_relocation, all: "b2b80b444472c01e2f1cab44a2d26d9033fda0c7007dede6fd57ee32695c0cc5"
   end
 
   depends_on "openjdk"

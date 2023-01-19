@@ -1,20 +1,19 @@
 class GitTrim < Formula
   desc "Trim your git remote tracking branches that are merged or gone"
   homepage "https://github.com/foriequal0/git-trim"
-  url "https://github.com/foriequal0/git-trim/archive/v0.4.2.tar.gz"
-  sha256 "0f728c7f49cc8ffb0c485547a114c94bdebd7eead9466b1b43f486ef583a3d73"
+  url "https://github.com/foriequal0/git-trim.git",
+      tag:      "v0.4.4",
+      revision: "1f39d85ddb242e9933fba9faaecd6f423f2b6a5b"
   license "MIT"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_ventura:  "b947a3ef610d4099bb69f3ce13a4dd1ab5cc3cf54ff26bad1a0416ec17db6345"
-    sha256 cellar: :any,                 arm64_monterey: "bf3d14d3e49b2706d08eda7eb2c9996dd1dd084620750657b64ca4eaaed1ffbc"
-    sha256 cellar: :any,                 arm64_big_sur:  "e533b21966078b880931e146e2de12983de87ad946a697b4123d2c8f53bd884a"
-    sha256 cellar: :any,                 ventura:        "25119e705899f67ed5e6ad09cdb548380e7223b67f234c82b70507ee0db2e95f"
-    sha256 cellar: :any,                 monterey:       "74c5d18624b71730015cab7a8a56024dc938d22b15c99cda2e00bef8385def6e"
-    sha256 cellar: :any,                 big_sur:        "48ca1fc5e4ce96b10f13cddf5e1fe5222a7419133b348c7e563ab2ae51f4c6af"
-    sha256 cellar: :any,                 catalina:       "dd1226f0b393f6ea83d826b0c4c893caba223a466d13812cda14602d3e796f03"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "916cc109ec67bcc75376c39c8ce9503854d532c8f5d341770ed7b70efda06cc5"
+    sha256 cellar: :any,                 arm64_ventura:  "3f230f99015946e53ff857649b92fc82ebdc01d53aabb1698379a6428056a304"
+    sha256 cellar: :any,                 arm64_monterey: "a39f49254342159071cbb88d3f3b8e97f189f5333502d185be152c73fe9c5770"
+    sha256 cellar: :any,                 arm64_big_sur:  "0f3c73e37431403348e7ac496b3b39671366a576d61e75315d0e2f6667000404"
+    sha256 cellar: :any,                 ventura:        "69a202e87bbe253c69c6cdcf65faf14e9523a8419c65ddd74eacc209dd432a94"
+    sha256 cellar: :any,                 monterey:       "164e873f61a2afa6c661821d77480ecf94d7c3e4d77da26335925af31628722b"
+    sha256 cellar: :any,                 big_sur:        "0e8c7d52f14301a786bfe5cce167310955f11da5cce33c780f6dee5da1299c13"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4663a90075b39aa34a60e0b5c097bb69b1820b9a72b1d47c54562fa9e08288de"
   end
 
   depends_on "rust" => :build
@@ -24,13 +23,6 @@ class GitTrim < Formula
 
   on_linux do
     depends_on "pkg-config" => :build
-  end
-
-  # Patch for OpenSSL 3 compatibility
-  # Upstream PR ref, https://github.com/foriequal0/git-trim/pull/195
-  patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/a67e684/git-trim/openssl-3.diff"
-    sha256 "b54a6ae417e520aefa402155acda892c40c23183a325cf37ac70920b5ad0246c"
   end
 
   def install

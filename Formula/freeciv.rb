@@ -1,9 +1,10 @@
 class Freeciv < Formula
   desc "Free and Open Source empire-building strategy game"
   homepage "http://freeciv.org"
-  url "https://downloads.sourceforge.net/project/freeciv/Freeciv%203.0/3.0.4/freeciv-3.0.4.tar.xz"
-  sha256 "d9a83fe9268e6b9d0fbe933f1f8b5c391b7e3ad72333d2d4e35cfb2e3ce9adb9"
+  url "https://downloads.sourceforge.net/project/freeciv/Freeciv%203.0/3.0.5/freeciv-3.0.5.tar.xz"
+  sha256 "4d2e22da54cf1e2821f78d0743ca25429c38dd7802414cd9e6090ad52f49ee83"
   license "GPL-2.0-or-later"
+  revision 1
 
   livecheck do
     url :stable
@@ -11,18 +12,17 @@ class Freeciv < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "e1c759f0a52bc1e257df771e19b21c4b6d0344e86c4c8865989d5a59716a05a3"
-    sha256 arm64_monterey: "d61fc79817b2c8b56cdea063ce11e9e90bb6f1ba88c412aff600369e81bd7d9b"
-    sha256 arm64_big_sur:  "58c8d87468b729f7faaf89233902f74f984c6bc9ae1580905fb6b37386133c22"
-    sha256 ventura:        "3dd05f6772b3e0563f3eadfdb4ae7a5b3cc6a40981b7707104fb5a500f037bb6"
-    sha256 monterey:       "0c9142560d9004315f4ae7dad894681e038dab5a4dff2a05dd14c63a2bb1830c"
-    sha256 big_sur:        "c9571c33afaf58c10542ef8cd1b996bf58992c50463b39291d89a6cf230f6431"
-    sha256 catalina:       "4c7be3976d09319dcbefb794fc574d427c2f370de0d84a57a7657ab20dec97b4"
-    sha256 x86_64_linux:   "e778ee2ab8f1aca3ff12845c5f71fa69e107f99c87561ddc3b1eb7dc6dbb80d5"
+    sha256 arm64_ventura:  "0f79665ff43b4aa6bffa558758b586ad200feabe17a89a2f128213f8a1cacce4"
+    sha256 arm64_monterey: "23e80547457331c26283882a112aeef5bd9943d71db9e5700bee0033e7ebb183"
+    sha256 arm64_big_sur:  "ee2652bb3113c53bd203edf8f5213ae7a5fb1e4c85ce7dac13c74ff07cca7795"
+    sha256 ventura:        "8cf40b7727f945d9da0ac1b817ae4d4fe4159b5a46815fdd3a15709ec84a4939"
+    sha256 monterey:       "b77e4ad9a59ab4f56c7e1facdf3e293108871fbc4de4525eaeef7dba5024843c"
+    sha256 big_sur:        "14327d53750eeb0510a38c74b72cca56379a5c37684000397e89b084717f5bf8"
+    sha256 x86_64_linux:   "4b58af714d00813ae5207c50ec3ab393f445106c7e2000de5f886b439a1d1ab5"
   end
 
   head do
-    url "https://github.com/freeciv/freeciv.git"
+    url "https://github.com/freeciv/freeciv.git", branch: "master"
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build

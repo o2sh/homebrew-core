@@ -4,16 +4,17 @@ class Siril < Formula
   url "https://free-astro.org/download/siril-1.0.6.tar.bz2"
   sha256 "f89604697ffcd43f009f8b4474daafdef220a4f786636545833be1236f38b561"
   license "GPL-3.0-or-later"
+  revision 3
   head "https://gitlab.com/free-astro/siril.git", branch: "master"
 
   bottle do
-    sha256 arm64_ventura:  "764e04a3a7904762c75775e3872ba80b54798252e8e78004ec92fb8602579def"
-    sha256 arm64_monterey: "e0dc10be674471441b1bdf17334582cbcf927169e088d5962a86223b84d92588"
-    sha256 arm64_big_sur:  "363c451176ab23459568cbf6c31c84fa9ff24026c38ca44f671e0cffa1c3277e"
-    sha256 monterey:       "9cc7ce4042232c80c6fd6feaf8e2189162be550d514efc4eeb01cb63e33d3661"
-    sha256 big_sur:        "d17a42f115cd8093c55eacb63ee06ab961c58e3b033485882388232f461881f6"
-    sha256 catalina:       "37ce14f936455a5b3f70818495cbaf50312c5851c48f751fb31fdcfdae1aeae4"
-    sha256 x86_64_linux:   "7e88d1a3b045ecb2e2dd53458da0f0fac42003b72cfc93a7187e11cdff9d935c"
+    sha256 arm64_ventura:  "0bb50849eca23e336fa214632abe2df5da04407be6c91a6eb38e09d19e8e0d14"
+    sha256 arm64_monterey: "55e5c2bdaf0256935ec6e9ccfb88a4e7394736290be1364535ef64c6b3c16cfe"
+    sha256 arm64_big_sur:  "dab8720f082eb04250f29c79f7de88ddca32fec5bea9378bd8e1292f496030ff"
+    sha256 ventura:        "5afeefe2f7ffd6ee19fd072e8b2047fc0abdda26482ebcd4ee23f316dc484aa9"
+    sha256 monterey:       "85390fc80b31f80a6e8487f2f7d242a79f38006df3acdaff586d13b5379c73b9"
+    sha256 big_sur:        "e8c49673d2f5ae1bc53565683a1402c2a954229833c46d185e9f51577cd23903"
+    sha256 x86_64_linux:   "86d4982ced6094220c409005d53e702951a08d6d2194f537427e9a295d692acc"
   end
 
   depends_on "autoconf" => :build
@@ -38,6 +39,7 @@ class Siril < Formula
   depends_on "netpbm"
   depends_on "opencv"
   depends_on "openjpeg"
+  depends_on "wcslib"
 
   uses_from_macos "perl" => :build
 

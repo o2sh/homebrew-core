@@ -2,24 +2,24 @@ class Cbmc < Formula
   desc "C Bounded Model Checker"
   homepage "https://www.cprover.org/cbmc/"
   url "https://github.com/diffblue/cbmc.git",
-      tag:      "cbmc-5.71.0",
-      revision: "a042d91e34e9b18c5edc7c9e575cef7f9bb92c9b"
+      tag:      "cbmc-5.75.0",
+      revision: "db721b26a41348f22e9d79f363216054264e6d8d"
   license "BSD-4-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "78a48921b949e9b445dbbb59b557c6ff135c9df0d6eb1b9ad50f2fd0d43e4b17"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ef623b843686b80fc8642e39df3b18e39c00b215ccb44f1b90b38f1639385585"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "abf374ff4b390b578cab241360108f489beb9e20d8f76302139dffbbbb299b4f"
-    sha256 cellar: :any_skip_relocation, ventura:        "3022a52172207872566e82f21b5d4d6d92bc7b590a6fe9baa142c6a682a6dfed"
-    sha256 cellar: :any_skip_relocation, monterey:       "3cbbbb60620f13fe6cf94d2a9ce65bf79fcbbf1bc37aa334343bee73e70d1abc"
-    sha256 cellar: :any_skip_relocation, big_sur:        "5460c1dd9293332780144060f00eee10464fb53df856aba000ed258c73aa54fc"
-    sha256 cellar: :any_skip_relocation, catalina:       "283f1167c26341add17dd5421ece7a9c841dad787bbc0441e83b017dc22bb9f4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8fef44b052d5234ef96036c76c0b76a56da221972785e20cb3515c0b8ea50730"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e9f9de6b5cc8d2a63b28230d266a4d7620c047e187384a1b678be8f90ccc2721"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "451663e8c3411c96d4ccc95d2b19123add50892471ccf0b56a20586299367706"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c386b22b376e991cc3458a322f364a007078eaabe0b155c0323aea5ed01382b7"
+    sha256 cellar: :any_skip_relocation, ventura:        "107bb33a12f3a14b4630ef3f2db131a54a77116c70f37186ce7eb8b5fa164c6f"
+    sha256 cellar: :any_skip_relocation, monterey:       "cf5278af1e48ca3fc5fb619bc3b4bd8ace7551748f81456ea4d56396b28cc813"
+    sha256 cellar: :any_skip_relocation, big_sur:        "b04839df5d72825b432962ab1c44f334cbe3c36b0c5cd0b953e303fe355ff49b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f5fc26b4281745cac4fda6bd0817f1a12bf7bcd4fe185866fdd693e49f70a98a"
   end
 
   depends_on "cmake" => :build
   depends_on "maven" => :build
   depends_on "openjdk" => :build
+  depends_on "rust" => :build
 
   uses_from_macos "bison" => :build
   uses_from_macos "flex" => :build

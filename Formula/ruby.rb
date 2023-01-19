@@ -2,18 +2,17 @@ class Ruby < Formula
   desc "Powerful, clean, object-oriented scripting language"
   homepage "https://www.ruby-lang.org/"
   license "Ruby"
-  revision 1
 
   stable do
-    url "https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.2.tar.gz"
-    sha256 "61843112389f02b735428b53bb64cf988ad9fb81858b8248e22e57336f24a83e"
+    url "https://cache.ruby-lang.org/pub/ruby/3.2/ruby-3.2.0.tar.gz"
+    sha256 "daaa78e1360b2783f98deeceb677ad900f3a36c0ffa6e2b6b19090be77abc272"
 
     # Should be updated only when Ruby is updated (if an update is available).
     # The exception is Rubygem security fixes, which mandate updating this
     # formula & the versioned equivalents and bumping the revisions.
     resource "rubygems" do
-      url "https://rubygems.org/rubygems/rubygems-3.3.11.tgz"
-      sha256 "64184aec5bf3d4314eca3b8bae2085c5ddec50564b822340035187431dc1c074"
+      url "https://rubygems.org/rubygems/rubygems-3.4.2.tgz"
+      sha256 "619a61177dfbe219dd159f7790058b1829bcabcfc433727154600e337b31d01a"
     end
   end
 
@@ -23,29 +22,33 @@ class Ruby < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_ventura:  "75974aaea5681d1d141f12625c15c19e0e0324ade9a5bbe37945c7b4a7323c58"
-    sha256 arm64_monterey: "5059cc4f626901ce0950998db499678b325f1c15c3a60e9cf0715c9dcb001ee0"
-    sha256 arm64_big_sur:  "93b9525b14a167cea3556c9aa1b28a6762524d2fd4d74a4667f01992e7ce9feb"
-    sha256 ventura:        "a02550452c7860b643f73c9cbdf05bae7804c9f45835e8bc5d04b7286ffef742"
-    sha256 monterey:       "ae2d89c336dc4a267ddf433bbd82b1046c24485ca4016430c0fc3c17e5d0ffaf"
-    sha256 big_sur:        "38af8aaf630259083bc70d19d742258ea556a2ae32cdbafa48345c9da000f32d"
-    sha256 catalina:       "49c8242c555781b3bb355e1307fd8ab9757a10b7c4083b824274146f87040b59"
-    sha256 x86_64_linux:   "c6187c24c90f94b51cb5fdc6e20dca92f0e4e3f54c561446f61f4b4bd845a1ec"
+    sha256 arm64_ventura:  "a6e42d4316b36bfdbd7677b33132240b1da967a8fbc3d400048907c93d90fcdf"
+    sha256 arm64_monterey: "4617eb7c595c406df74c98c8b26ca209ed14b2b3f70a434037204d15e6330858"
+    sha256 arm64_big_sur:  "6a02df3c6bb0dad4b2ca43d896e2cd1ac815b0099a0955c2daeb50d7ad67b34f"
+    sha256 ventura:        "88eaef6255d2c9994b35b29b2567a30e129ab9269790d267f6a6d77fbc1fc1ed"
+    sha256 monterey:       "c25553dfc94e95c5f082c179bbb4c26572d20636947560d6f6f82e3f1eff632e"
+    sha256 big_sur:        "5125d745c548d7e6eb9547a7da3dff42d36a5f8ed848085a90a96990477fa9c3"
+    sha256 x86_64_linux:   "f479b86f97091e02481e97f55b14801e384d0650cbad8443acab9fade0fce59c"
   end
 
   head do
     url "https://github.com/ruby/ruby.git", branch: "master"
     depends_on "autoconf" => :build
+    depends_on "bison" => :build
+    depends_on "rust" => :build
   end
 
   keg_only :provided_by_macos
 
+  depends_on "autoconf" => :build
+  depends_on "bison" => :build
   depends_on "pkg-config" => :build
+  depends_on "rust" => :build
   depends_on "libyaml"
   depends_on "openssl@1.1"
   depends_on "readline"
 
+  uses_from_macos "gperf"
   uses_from_macos "libffi"
   uses_from_macos "libxcrypt"
   uses_from_macos "zlib"
@@ -250,10 +253,10 @@ class Ruby < Formula
 
     (testpath/"Gemfile").write <<~EOS
       source 'https://rubygems.org'
-      gem 'gemoji'
+      gem 'github-markup'
     EOS
     system bin/"bundle", "exec", "ls" # https://github.com/Homebrew/homebrew-core/issues/53247
     system bin/"bundle", "install", "--binstubs=#{testpath}/bin"
-    assert_predicate testpath/"bin/gemoji", :exist?, "gemoji is not installed in #{testpath}/bin"
+    assert_predicate testpath/"bin/github-markup", :exist?, "github-markup is not installed in #{testpath}/bin"
   end
 end

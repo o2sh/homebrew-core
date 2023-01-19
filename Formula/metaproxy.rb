@@ -1,10 +1,10 @@
 class Metaproxy < Formula
   desc "Z39.50 proxy and router utilizing Yaz toolkit"
   homepage "https://www.indexdata.com/resources/software/metaproxy/"
-  url "https://ftp.indexdata.com/pub/metaproxy/metaproxy-1.20.0.tar.gz"
-  sha256 "2bd0cb514e6cdfe76ed17130865d066582b3fa4190aa5b0ea2b42db0cd6f9d8c"
+  url "https://ftp.indexdata.com/pub/metaproxy/metaproxy-1.20.1.tar.gz"
+  sha256 "6d5a86622d1aee88ac2711d7bd17ea7b29c8210ab7a851ae5d827c49a1878ce8"
   license "GPL-2.0-or-later"
-  revision 2
+  revision 1
 
   # The homepage doesn't link to the latest source file, so we have to check
   # the directory listing page directly.
@@ -14,13 +14,13 @@ class Metaproxy < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "2dbdebfa383db51787cd167004e230225ee0629722f903ac4beee2a4668dfeb3"
-    sha256 cellar: :any,                 arm64_monterey: "2446fc514fb3551a7b105579a57aeefa38a812da1629df37515a699c568a328a"
-    sha256 cellar: :any,                 arm64_big_sur:  "49029d50fa78508964c23614563ad7769f0fe375adfb4b0efcf48ed0b689a606"
-    sha256 cellar: :any,                 monterey:       "0b2a53eca6621fd7c30097efe4a7fb81c063ec21916ea23b25733614a49916da"
-    sha256 cellar: :any,                 big_sur:        "9e469f952edae1e99086c9276383f501b92407d81bfd1a94be7184a0865a5c4e"
-    sha256 cellar: :any,                 catalina:       "d68cb245928089f4aef7f31cf637df806ff82977b30a14b883c1bd12c89e51f8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fe2764f8900ec32f834c1a7f1e0fcb094fbbc5f716363eb374ae50e22b25973f"
+    sha256 cellar: :any,                 arm64_ventura:  "5f55c3b73288a792bd8e4e7cf38c9fde4e21ad45a6a4961ab2d9957d42300570"
+    sha256 cellar: :any,                 arm64_monterey: "dbf687afa69f52a53e63d5754b6bb30ea91f4673a1b72ec9f26bb6d5d62246ac"
+    sha256 cellar: :any,                 arm64_big_sur:  "b281a369bc300ccefb7f2b15c72b15e842a72ada88f130b1a56f7cdb50d977f9"
+    sha256 cellar: :any,                 ventura:        "91e4db798dd20206ff631c4939edf186c9d26efeea21cef0c1aaa83eb22946fc"
+    sha256 cellar: :any,                 monterey:       "5defd04d977c66aab07001282f2442ddb802e7051f93887886ac989252c1e59d"
+    sha256 cellar: :any,                 big_sur:        "11a728fd1a729c52c0b64127d34f8893d63bbcb05fc6b01a035fa4ab52bb9021"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1fe7bdef0f0db9b6ef4584c67da66416a38598cdd41a68ebaf434fb91576d82d"
   end
 
   depends_on "pkg-config" => :build

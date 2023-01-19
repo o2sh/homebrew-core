@@ -6,7 +6,7 @@ class Uhd < Formula
       tag:      "v4.3.0.0",
       revision: "1f8fd3457dee48dc472446113a6998c2529adf59"
   license all_of: ["GPL-3.0-or-later", "LGPL-3.0-or-later", "MIT", "BSD-3-Clause", "Apache-2.0"]
-  revision 1
+  revision 2
   head "https://github.com/EttusResearch/uhd.git", branch: "master"
 
   livecheck do
@@ -15,14 +15,13 @@ class Uhd < Formula
   end
 
   bottle do
-    sha256                               arm64_ventura:  "ba03914755d8b08ae8e5f2f5bc66885e1fb5f2c25c7dd55f26963679308213c2"
-    sha256                               arm64_monterey: "8dc8b3ec8055fe3e04123af3e6c8e446f3cf9fdea9b208ff65d2499c3470dd8f"
-    sha256                               arm64_big_sur:  "9688a412638cf6dae758ed9ef88552b015add31a22bd75b020b465233997f319"
-    sha256                               ventura:        "fec3be854d19fb52e8d3cef0d0ab078a9123d1e5216321224c3e1146002b640d"
-    sha256                               monterey:       "70e9a62ae3703dc5c8e9ba42c6c62f7574bdbb6b9537eb12c40b1fd5899c4a67"
-    sha256                               big_sur:        "b8ff52675faccce9b230c13982979eac0e486403d4b8d3121e1f9851b189f174"
-    sha256                               catalina:       "9f250253e77e738a973a5cac00c97641b45dee9a3a38a135ca6389dc5a3c6dc6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "edcd60ad4829472bfd4d1e873789fd9f79ea32b70ada61ebe07c744a221fb648"
+    sha256                               arm64_ventura:  "8f2a7c8a5b10bda08b72690100bf00f8a330ae248108f34b2cbcf84f118c3c18"
+    sha256                               arm64_monterey: "c42265c7f7d09f0875a2db9b192c12dae5591398afee44d61f655228c213d962"
+    sha256                               arm64_big_sur:  "15844c8d40345504625b7d4035186f530e30d6e5dbc9841097373d8f0deed2f7"
+    sha256                               ventura:        "ca521e82eb8c68e80b2d428d01d6494bf2ad04363cbb3193a87acf54daadfd65"
+    sha256                               monterey:       "d7f800563122444037cc7f8be53cdeabc5dd19e4b1e7156ac90efcb940918ac1"
+    sha256                               big_sur:        "8d91add375503914d049074be80e43e1dc1be0700661c855f68842518d821894"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "775da4623190e153bfb12326a6fbd4c8ccc96975f60db651df28bb5eaecafcdb"
   end
 
   depends_on "cmake" => :build
@@ -30,7 +29,7 @@ class Uhd < Formula
   depends_on "pkg-config" => :build
   depends_on "boost"
   depends_on "libusb"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   fails_with gcc: "5"
 
@@ -45,7 +44,7 @@ class Uhd < Formula
   end
 
   def install
-    python = "python3.10"
+    python = "python3.11"
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor"/Language::Python.site_packages(python)
 
     resources.each do |r|

@@ -1,23 +1,22 @@
 class Autocorrect < Formula
   desc "Linter and formatter to improve copywriting, correct spaces, words between CJK"
   homepage "https://github.com/huacnlee/autocorrect"
-  url "https://github.com/huacnlee/autocorrect/archive/v2.5.1.tar.gz"
-  sha256 "7bb89df8c3b9de83e5a2272c18631c175f549d629c48d191968923490350caaf"
+  url "https://github.com/huacnlee/autocorrect/archive/v2.6.1.tar.gz"
+  sha256 "2cf704972d93ddcf49d313d6d65433b629305c03986441790321d3199f748b20"
   license "MIT"
   head "https://github.com/huacnlee/autocorrect.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d490170f8ab218f0099e30066963103120218b8ae9e7aa213831087b0132f800"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "cadbb8a7aae376bcf73647e599a3ef39ab0cb80ff2a7e5d6ef4fca401eee6a0d"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7b435da3cbae391f6ef1bea845f0f4fcf78c33e42419c4f6e5fa8599defe90b1"
-    sha256 cellar: :any_skip_relocation, ventura:        "ef795d6ca46b35a26757b0080ea60723c71dc44b44ec177da5dd5337a4cefbdb"
-    sha256 cellar: :any_skip_relocation, monterey:       "833d8360a75f3b0782f7b22a6c74be05dd4ebfdae19d2740c0f770b7798ee715"
-    sha256 cellar: :any_skip_relocation, big_sur:        "bc80ab738340c186b7afe88d42658de1ab0279b9bc17a5889a1b057d2dc85f64"
-    sha256 cellar: :any_skip_relocation, catalina:       "515c0f12c3dec162ac5047a21d951fd0fa93c11685afed6316101b198a2544b7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "25f2517dd1ebf95dcd1b83f2c18b35e66f210dc9488227591bca37dc6cfcee48"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1776e977122ea4914bb336bd94ffd144bcab152578520524906553214007927e"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "64ca92fd8f6a8eceb161fe09fdda7e69ce89f5ed512194c307db0c6656325883"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "02fa2bfd8b1003c1edc8ac172c394ac13aea0ea3472f2f37108a88bc8c2ea1f8"
+    sha256 cellar: :any_skip_relocation, ventura:        "28310e216839f847382a4b6e826cad606686a4a23dc5d97f06761ff446841418"
+    sha256 cellar: :any_skip_relocation, monterey:       "8e8ef839836b44351d92af73f66d30ac68053ab967df259a1c7235316e4b34cc"
+    sha256 cellar: :any_skip_relocation, big_sur:        "17710fda15271fe2e04b5c9bf0c9663aa0e9a9440eae4407299ac4a9ded24c34"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "11e06d3ade6ddc9b5bb6df4904487864b28839ff4ec95a943d598c6e3b8ea326"
   end
 
-  depends_on "rust"
+  depends_on "rust" => :build
 
   def install
     system "cargo", "install", *std_cargo_args(path: "autocorrect-cli")

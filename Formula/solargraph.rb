@@ -3,21 +3,23 @@ class Solargraph < Formula
   homepage "https://solargraph.org"
   # Must be git, because solargraph.gemspec uses git ls-files
   url "https://github.com/castwide/solargraph.git",
-      tag:      "v0.47.2",
-      revision: "12fcf71755db2d570f591de773753eb73ac0680c"
+      tag:      "v0.48.0",
+      revision: "d498612c3335457464c20480b3b22bfb687e9a42"
   license "MIT"
+  revision 1
 
   bottle do
-    sha256                               arm64_ventura:  "140f622ff8ce629ecc4b1e298b5e44944311602a67e4db91fda7f6dc40dabd53"
-    sha256                               arm64_monterey: "9ee4f9c6c6c3fdd9472d4b0edcd2b295759aa1df23f0c32f6cf0cf2cf4af7819"
-    sha256                               arm64_big_sur:  "e482fe463b5a4df5fbeb2b04e79b0d2f2e3e610cd5cf497a6f65502c1179bff7"
-    sha256                               monterey:       "8c96f3cfa556bf4e88a0b3746925a92ed9ef23653289131a30515e2b1b7fe8b7"
-    sha256                               big_sur:        "42bfdcd3acbbf4512919b58ea9f37a9feb66118a86f3f74b04d4354596c7f101"
-    sha256                               catalina:       "743ac7d4e922320ca45dc2d179fc6484526f84e737b567a97988dde3bc4cd372"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "64ad3bfbda1d0df924946e9827cf80ed4fbb79e037c1feb4ce46ddbb6ea48c7c"
+    sha256                               arm64_ventura:  "19aae494ddcd40f80c72a4ec3c98fab4ff5831c4c6a500e035e1b648e3968d06"
+    sha256                               arm64_monterey: "17a8947c8f83f193f3e8ee70902b647f5d63bc342902d0b5bd130ed9367652c6"
+    sha256                               arm64_big_sur:  "747fb16e3f3aa4a772322349521af539c9378f38a5e5d517b4dc405a93226b43"
+    sha256                               ventura:        "480a88b17aa102d20b5cbfe6130a0b740328217e3205e68599bfa6c0ea58dddd"
+    sha256                               monterey:       "8ffe7bd88c07052c8a0646e6d03658f9ddfa298013203ca06f44ca1e116463c2"
+    sha256                               big_sur:        "28768ad1041ad18df04c85a81754226911ac79e4a48be26dba4ba05808a80f5e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8e554c13221a7ad25a8c07291573956c12a9203aebb754f754d6afc2666d177e"
   end
 
   uses_from_macos "ruby", since: :catalina
+  uses_from_macos "xz"
 
   def install
     ENV["GEM_HOME"] = libexec

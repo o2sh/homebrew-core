@@ -2,20 +2,19 @@ class OdoDev < Formula
   desc "Developer-focused CLI for Kubernetes and OpenShift"
   homepage "https://odo.dev"
   url "https://github.com/redhat-developer/odo.git",
-      tag:      "v3.2.0",
-      revision: "233c817c5024ef4ac5433fb50fca1ae95bbd68ba"
+      tag:      "v3.5.0",
+      revision: "b98c4e2f5c6c7c456406331d7a07557cf2101a05"
   license "Apache-2.0"
   head "https://github.com/redhat-developer/odo.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d4c908dfd07ef13114c63d7722012ed483c9cf09c396cca65c91bc25972c5145"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d405f7f4d8c103bd16599fc290cf79f756674884174838eb0199a687baf79f34"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "17eae343c775c1a6283bc35fea10a124b844d4e96e047389d51988669023f9b5"
-    sha256 cellar: :any_skip_relocation, ventura:        "5adccf4774096cd2cabcd9de2c1f5b26a303093efd0f2ea8e86509b8850729ba"
-    sha256 cellar: :any_skip_relocation, monterey:       "25e62844e17bf9cf96d08f31eeb71866383cfa2542ff1dee12cfe071ebed1bad"
-    sha256 cellar: :any_skip_relocation, big_sur:        "f8cd0e6f18e5b1bdaa15e1f394d7d2b09930aeacb8133eed8956ad3792310d2a"
-    sha256 cellar: :any_skip_relocation, catalina:       "cca484d07457a816d1cc629e4e2d113b70ba8113e349ebbe56592305072b589f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dc13c25422311f5d7fa940bcc5cada4e12b7a213bec2cd1c8c1f052750496b25"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c70f33d350379c5fce13dff31cd14cf5e9e2a20a187c8c5e4cef2fb9f087c5f9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c86fbce2de11da7aa85149bfa034e25fe746a55ccf5285aad198f368423ba6f5"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "8101b01b0a528decec5bd3e706b70820048e55a8d702de7f2acb0bdb77712d51"
+    sha256 cellar: :any_skip_relocation, ventura:        "0d81f1c33e5e0cff9aa3d7f8bbe14c778f2239377dc5b0e89104336257f9b689"
+    sha256 cellar: :any_skip_relocation, monterey:       "9188801fdb091d3d66d979d1ac38cde77b4e2d841fca7e8c962dba95e0360397"
+    sha256 cellar: :any_skip_relocation, big_sur:        "b4b0ccc63312a0fd568cc914a47b73ce0717c6fb85174b6d31bc8c81bef1627f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d0b6bdd1e031af7563a9ce8b4d5c5dbcb08201aea11fce33cad13c0ec5291c12"
   end
 
   depends_on "go" => :build
@@ -42,6 +41,6 @@ class OdoDev < Formula
     assert_predicate testpath/"devfile.yaml", :exist?
 
     dev_output = shell_output("#{bin}/odo dev 2>&1", 1).strip
-    assert_match "invalid configuration", dev_output
+    assert_match "no connection to cluster defined", dev_output
   end
 end

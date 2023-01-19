@@ -3,18 +3,18 @@ class Dxpy < Formula
 
   desc "DNAnexus toolkit utilities and platform API bindings for Python"
   homepage "https://github.com/dnanexus/dx-toolkit"
-  url "https://files.pythonhosted.org/packages/a7/d5/05aa30e543c91e1769c8d1d82898ffac173f0549fe6af47ae6fc087406ee/dxpy-0.333.0.tar.gz"
-  sha256 "0f261c930dbb8ca13370167acc9d89637d0dbddfdb215ee9bac1771475be160e"
+  url "https://files.pythonhosted.org/packages/ce/43/39d84be8e1aab16c25c84fdfb8d3b14f7219fc77540b295005c72dfdb006/dxpy-0.336.0.tar.gz"
+  sha256 "f31af8457f223832baa9b1d85e59cc6ee72d39bbf6b0b7f4920a7766c7d31813"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "1317698a96b7e9ed17d2d736fa4eb02ecf1900d715aec32cab368acfaf1331db"
-    sha256 cellar: :any,                 arm64_monterey: "75c8c49791c9e66772e004581bb9a4d5ffdfc71603dc4baa768a6429b89d03f5"
-    sha256 cellar: :any,                 arm64_big_sur:  "a970f4e0a070bccc86dae718d4afe96e454ae8eee631fc9cb3cbe2dd5a99b081"
-    sha256 cellar: :any,                 monterey:       "de1271bbb03d83ad46c155b9cd2d0f6636b761c343663b29591346e40020c7f7"
-    sha256 cellar: :any,                 big_sur:        "28a43f810e3a1fbf109f7231734531b0f55e2f81d37865f1643586d926287934"
-    sha256 cellar: :any,                 catalina:       "9323d2faee6a82d431118f0184f5e64d6af4d9c29dc49999f5b1180c1df1218c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e4ddb61483da02adbe1d32fb0a0730116dd73cef2284252a515a630ac2c48628"
+    sha256 cellar: :any,                 arm64_ventura:  "6a12cd7a9ac4969d623066466c7203dcb6970dd549b0cd38de8e1064eb2b188e"
+    sha256 cellar: :any,                 arm64_monterey: "12017c4f6970acfc9499d8eb24ba8ff065351d1f76855021e2e1faf3435101f2"
+    sha256 cellar: :any,                 arm64_big_sur:  "7e7af3cc649790afbc5dd57fca5ebb8d60a76d92724771a71edaa3078ab032bc"
+    sha256 cellar: :any,                 ventura:        "ffdc7bf60ca8fca8c8249a424470a33ed913fadd220f364916403e2e98586899"
+    sha256 cellar: :any,                 monterey:       "9cbbd6fb02ea7825c1c1cf5bcf3042d41c55c143dfe53712923ea554e0a5669f"
+    sha256 cellar: :any,                 big_sur:        "da415bbd37a6d66a35dafb689df0cd0ce9312d6cc2c6c8ac7531a9cd08b66b82"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "993abac1f88f51a0d834b549c758b18c773f3c5f2362dec25382b483ef2d8c92"
   end
 
   depends_on "rust" => :build # for cryptography
@@ -37,8 +37,8 @@ class Dxpy < Formula
   end
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/cb/a4/7de7cd59e429bd0ee6521ba58a75adaec136d32f91a761b28a11d8088d44/certifi-2022.9.24.tar.gz"
-    sha256 "0d9c601124e5a6ba9712dbc60d9c53c21e34f5f641fe83002317394311bdce14"
+    url "https://files.pythonhosted.org/packages/37/f7/2b1b0ec44fdc30a3d31dfebe52226be9ddc40cd6c0f34ffc8923ba423b69/certifi-2022.12.7.tar.gz"
+    sha256 "35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3"
   end
 
   resource "cffi" do

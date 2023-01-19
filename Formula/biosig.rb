@@ -1,9 +1,10 @@
 class Biosig < Formula
   desc "Tools for biomedical signal processing and data conversion"
   homepage "https://biosig.sourceforge.io"
-  url "https://downloads.sourceforge.net/project/biosig/BioSig%20for%20C_C%2B%2B/src/biosig-2.4.3.src.tar.xz"
-  sha256 "7b6000e2275c00a67d7a25aaf7ffad229978d124315f5f910844b33a8a61e532"
+  url "https://downloads.sourceforge.net/project/biosig/BioSig%20for%20C_C%2B%2B/src/biosig-2.5.0.src.tar.xz"
+  sha256 "25ffaf0ee906904e6af784f33ed1ad8ad55280e40bc9dac07a487833ebd124d0"
   license "GPL-3.0-or-later"
+  revision 1
 
   livecheck do
     url :stable
@@ -11,14 +12,13 @@ class Biosig < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "cd18b285cc6363dc0e8dc3ccfa6e61757cc8cf88db8858d29a9ffbced6039276"
-    sha256 cellar: :any,                 arm64_monterey: "666be7197b4b957e663ace06f80d9735db7818769d77023fbede8373b23c0e25"
-    sha256 cellar: :any,                 arm64_big_sur:  "9c7cc801e2e9bcbc69bda4d87ab4b6795f243f06369f8ff116008bb14525007f"
-    sha256 cellar: :any,                 ventura:        "c8a246347d0bae9ee90a400352e176bdfb774df471c77a79ebab2aac321f84b2"
-    sha256 cellar: :any,                 monterey:       "b51b7647888687e69cb49e46eb3d154d14c2baa3ee4c6431a654baa39ab72c50"
-    sha256 cellar: :any,                 big_sur:        "370e02d1a1509b432accedc09a1dd34dc39d011d3ad86182b0927e802165b8b1"
-    sha256 cellar: :any,                 catalina:       "6c5a5b6d1a96cefb397a705a2e299f843566b249c8d1b6c7e6910f3bfaf7bbc4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2c99f7b04bdef479aed3ae4a538dba0e1aac405a956cfafbbc547af2664a3236"
+    sha256 cellar: :any,                 arm64_ventura:  "39103f5bdf2520b14a15e66f683fed1eabb55ee4751a1555a6cfc1db74e77ec2"
+    sha256 cellar: :any,                 arm64_monterey: "502459759d0917b6b5874e6ede9ecf00fa8598c69dfaf6e7f9b1a52a6eb17aec"
+    sha256 cellar: :any,                 arm64_big_sur:  "ef3d1c676611e05cf273a2f134fee3f379371380be4992d432938fb9ded37d57"
+    sha256 cellar: :any,                 ventura:        "c839bb2499b8e9a5e95d8fb1538feef5b9ef09fbb6bc6058d2faa1294df875d2"
+    sha256 cellar: :any,                 monterey:       "d553bb6f98ea1067f7d6bb02540a50115b801bb72329eabad960c43bc1fc815d"
+    sha256 cellar: :any,                 big_sur:        "9fc9d4522556e6b6495cadc1f88ebd518e776df4014d175e1396c778147dec6e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7e92f7b5bf2367f2a37d800b0f049d0e8692099bc490356c77a07ce0e92a014b"
   end
 
   depends_on "gawk" => :build

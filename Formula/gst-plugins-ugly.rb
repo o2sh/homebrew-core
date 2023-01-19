@@ -1,10 +1,9 @@
 class GstPluginsUgly < Formula
   desc "Library for constructing graphs of media-handling components"
   homepage "https://gstreamer.freedesktop.org/"
-  url "https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.3.tar.xz"
-  sha256 "8caa20789a09c304b49cf563d33cca9421b1875b84fcc187e4a385fa01d6aefd"
+  url "https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.5.tar.xz"
+  sha256 "af67d8ba7cab230f64d0594352112c2c443e2aa36a87c35f9f98a43d11430b87"
   license "LGPL-2.0-or-later"
-  revision 1
   head "https://gitlab.freedesktop.org/gstreamer/gst-plugins-ugly.git", branch: "master"
 
   livecheck do
@@ -13,14 +12,13 @@ class GstPluginsUgly < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "17fa16372fcc531145633e5e4c1be6b03dcf48da77670322e009bdff3d55f157"
-    sha256 arm64_monterey: "67eac319f32b17de132ae2f3b9e87d64087aed757455405be80f749d56b0244d"
-    sha256 arm64_big_sur:  "1985275d5911536e5690f0d8d0a3343706df8dabe5940d92b70abb7c1903b4e9"
-    sha256 ventura:        "72e1d67aa0929074962269f13dbede212f9f7d54de3ece49abdcfdb9948767dd"
-    sha256 monterey:       "df08cbde7e2cb994c58ee40f067e0b468942ef82a5cf6111bd40a5039da09e9e"
-    sha256 big_sur:        "a5f3b672a2337ecba14e384e3a2711a1167dc30bbc8e811ff810c6f5c65e48d3"
-    sha256 catalina:       "552b9feec549e978950f21280b5a1a5ed974d843b1d4c64bcacffed21f5fbfd4"
-    sha256 x86_64_linux:   "a7fad973d69eb1e7978a3d269d1f60b8cb0874f9bda1be8f149ea3ae5424d810"
+    sha256 arm64_ventura:  "091ed18cc17df1e34ce9fb8ccfc8525a2070639750641a78378d60498274d91a"
+    sha256 arm64_monterey: "f2889ce34b419f4235223e90aacd1d2d2f0b0788818994d0a43eb928ee440bcb"
+    sha256 arm64_big_sur:  "b8d6253e76065cfd072ac0504cacf61cdea1dc9d82369063ad0786ef85b8e999"
+    sha256 ventura:        "1cdb37b6d96ddcb4c6c9ace5890a722746bff584cf78278282959cb9d1758ba0"
+    sha256 monterey:       "fb1845a7bec55ca73f70b6a8ffe550a1d67ec1375317d918a04b48baa79d60b3"
+    sha256 big_sur:        "508246f9e7d47930fdb7f39d4393c36ca43bacd9ed6651c3241583403c10a024"
+    sha256 x86_64_linux:   "b6cd9460f8d8ac809bfb599d1a5151f794152aef4d1959264fdc3e839a9855c3"
   end
 
   depends_on "meson" => :build

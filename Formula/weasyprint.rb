@@ -3,25 +3,24 @@ class Weasyprint < Formula
 
   desc "Convert HTML to PDF"
   homepage "https://www.courtbouillon.org/weasyprint"
-  url "https://files.pythonhosted.org/packages/32/3f/d305dc714c119e5b11c0ea1ecff9741407b6da90d6b684859d3b3e586692/weasyprint-57.1.tar.gz"
-  sha256 "397a9d11298f94485ec3b7b68aeef1c6106fb638350126d9d4a64109b73508a0"
+  url "https://files.pythonhosted.org/packages/b1/88/335dd6cb71a9d58584c975bf1db0ab9a3a9f15f9bffef1cbfac0fb1ee72e/weasyprint-57.2.tar.gz"
+  sha256 "b8e9ef2dcbcfbc82e99215acfd68f947b2b5f1999b5b156db75fabe380ba7e9a"
   license "BSD-3-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "466244a171b97a80fa0f4cd401a0ad232a007847f8cd0f1f6ea50fa1b66faea6"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "899fa0f8cbde19fda5930378eccce1b5e1266cc43f561faeec5a9f6d12b5d75d"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "1980034b618869237405fb1b5eae667ec7d0a3691e11dd64827709a84658dcfb"
-    sha256 cellar: :any_skip_relocation, ventura:        "a05290b9569300111f945e286feeb4c577ba247490d2ccea163e3e9435a2aa1c"
-    sha256 cellar: :any_skip_relocation, monterey:       "258262bd1b246b2532ae085158e3225079f874d09ad30982ac7bffae54f6b579"
-    sha256 cellar: :any_skip_relocation, big_sur:        "fbf8a42ff240743bc71ee8406212b42ff2f7b16af4c30c8257e4a32e48005786"
-    sha256 cellar: :any_skip_relocation, catalina:       "a2a047df728552b1448827b48e5dc4e409695d4e1e8621397b22558956ee643e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0ef6c7af41626c449c08394bedf5a70ac580f563f50c8fb6017c5f6260033afc"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9bade9b3bd90d79a2c180fdfe5660f2bae4fd4255b68622780f73c66a2492394"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ebf60b60e6a428058124eee55e527570c20c265891504852081305a4c528c4aa"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b55ca0b5a56d0d0ebf12d375f2a245aa722b3f43d01ce46870ab0e4cccc4b72a"
+    sha256 cellar: :any_skip_relocation, ventura:        "4edb019b0a42c8735a95b39361cf5c2572caf8801c7b0f25ce5e4598e7579dda"
+    sha256 cellar: :any_skip_relocation, monterey:       "175de4e0ece84234e26ef01d773192e58bb43b83bb8f7e34d2d07cd8e8dd26c7"
+    sha256 cellar: :any_skip_relocation, big_sur:        "ba545fa78257f7420a07d245da7c7a0a298f9d60a320566f86d4072a4205dda7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e69d0528ea8b6ab4338f5e171b610e131e80f091368ddc72aa593ab86f84ddeb"
   end
 
   depends_on "fonttools"
   depends_on "pango"
   depends_on "pillow"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "six"
 
   uses_from_macos "libffi"
@@ -52,8 +51,8 @@ class Weasyprint < Formula
   end
 
   resource "pyphen" do
-    url "https://files.pythonhosted.org/packages/9a/53/e7f212c87f91aab928bbf0de95ebc319c4d935e59bd5ed868f2c2bfc9465/pyphen-0.13.0.tar.gz"
-    sha256 "06873cebffd65a8fca7c20c0e3dc032655c7ee8de0f552205cad3b574265c293"
+    url "https://files.pythonhosted.org/packages/46/12/aeb28a1e1a3f3cede967cea98ef3a1da844418ab8296a4bb9513f232736c/pyphen-0.13.2.tar.gz"
+    sha256 "847f57a043a58408f24670ae0184ff6edfb5fd5731743208228c028ddc514438"
   end
 
   resource "tinycss2" do
@@ -69,7 +68,7 @@ class Weasyprint < Formula
   def install
     virtualenv_install_with_resources
     # we depend on fonttools, but that's a separate formula, so install a `.pth` file to link them
-    site_packages = Language::Python.site_packages("python3.10")
+    site_packages = Language::Python.site_packages("python3.11")
     fonttools = Formula["fonttools"].opt_libexec
     (libexec/site_packages/"homebrew-fonttools.pth").write fonttools/site_packages
   end

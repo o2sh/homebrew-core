@@ -1,20 +1,20 @@
 class MinizipNg < Formula
   desc "Zip file manipulation library with minizip 1.x compatibility layer"
   homepage "https://github.com/zlib-ng/minizip-ng"
-  url "https://github.com/zlib-ng/minizip-ng/archive/3.0.7.tar.gz"
-  sha256 "39981a0db1bb6da504909bce63d7493286c5e50825c056564544c990d15c55cf"
+  url "https://github.com/zlib-ng/minizip-ng/archive/3.0.8.tar.gz"
+  sha256 "27cc2f62cd02d79b71b346fc6ace02728385f8ba9c6b5f124062b0790a04629a"
   license "Zlib"
   head "https://github.com/zlib-ng/minizip-ng.git", branch: "dev"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "0bf1f6011ec571018194f3467e7539a3af75388303f21671ed1d32fed5a0365c"
-    sha256 cellar: :any,                 arm64_monterey: "22207f2d5149735853ae60463b0e866eded5a09b6743de04709012b23d2f113e"
-    sha256 cellar: :any,                 arm64_big_sur:  "e9a0ca63e9ce8e1e4cb83561d7ff483c93944b9c538f307c765702b194f4bfb7"
-    sha256 cellar: :any,                 ventura:        "d9645e1552f9ec3e8ba81a0a9a1e47ef79d2298240c2490c00d7b03e83ee4553"
-    sha256 cellar: :any,                 monterey:       "02eb5bca48457f3975a9ca01a1ba0023cb043cabebc2424b47701080c6537b66"
-    sha256 cellar: :any,                 big_sur:        "13c046389aa939f40a1c24f734d2afa42cf6a763d661091322cad1789f79de33"
-    sha256 cellar: :any,                 catalina:       "d14fd2c6da4a462e2836705bbf6bf61052768f1926547700d2db5490af40243f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3c6fbc6ab323c90915ead5f48ea5fba2053b74310256eab10d9c2da1784a153d"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "08ed127760491f6f2ea54db3f5cf50518ce27d736ee7e17347aa72d86aff79c6"
+    sha256 cellar: :any,                 arm64_monterey: "76b7012e487529a82c0855d63dffc82a2540677eb7be11fab19c8805d1b28440"
+    sha256 cellar: :any,                 arm64_big_sur:  "87796475924b64907c2a30c14234952ae77c8816185a9b225575efd5ea848963"
+    sha256 cellar: :any,                 ventura:        "909eb70c9f37f1df9d054f0c8dce037c1ac0cc4f673c1792d32cdf9878c8e902"
+    sha256 cellar: :any,                 monterey:       "ce1f3a362d0668c88558188a00e9b39b783ef025747719f2b9cb9753cb279745"
+    sha256 cellar: :any,                 big_sur:        "0b12b11e68e45558f20918f97e77f1fd04db4f00bbcc76b3b167af23705550f5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2e019ab6a66b2b38cade0ce3bc9daf3446a44d9fc379e2cc5d54123a17c5c1ca"
   end
 
   depends_on "cmake" => :build
@@ -26,7 +26,7 @@ class MinizipNg < Formula
   uses_from_macos "zlib"
 
   on_linux do
-    depends_on "openssl@1.1"
+    depends_on "openssl@3"
   end
 
   conflicts_with "minizip", because: "both install a `libminizip.a` library"

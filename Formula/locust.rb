@@ -3,20 +3,18 @@ class Locust < Formula
 
   desc "Scalable user load testing tool written in Python"
   homepage "https://locust.io/"
-  url "https://files.pythonhosted.org/packages/8c/c6/2cf4835c1f8838773b0019c4926eceebd88e96e04b520ceb3ea0705dcb0b/locust-2.13.0.tar.gz"
-  sha256 "f603752ab9d4f7d6034c5896c71e6069be49060a5868d6eb4d6c7d32b1c031ae"
+  url "https://files.pythonhosted.org/packages/ba/26/42e917cac0e16e0eed6e79afef606eb26d05582d26c1d31138b3977c9404/locust-2.14.2.tar.gz"
+  sha256 "cc555d80c92dfbbfc99ab87cec1b454108aa1d2e6e12c4e37fa755a36ad8b9a0"
   license "MIT"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ad75333994087429a45fdd784fee2f1a9ba560cfd673c559918899d22f672879"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f8a95493ed24588d7b4b55152925aed1e6317d0d6223124232dbceed1b8fc1fe"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9132adeb83113763c8862d2017e4167ce4c7e1e0e9f4c93b5144da4139e0d8ca"
-    sha256 cellar: :any_skip_relocation, ventura:        "5ca705589eba5c1e0da0a157132f62d24d59f2ad000473057dd9b9aa54c26665"
-    sha256 cellar: :any_skip_relocation, monterey:       "9072e5d25d86a0b838ff7bb5a6d298efb592adbbee2e9856bd38bea6175cf271"
-    sha256 cellar: :any_skip_relocation, big_sur:        "c23ebcac47892a01ee108e32df73473dfb959de85963ae0484478c42b327fdb7"
-    sha256 cellar: :any_skip_relocation, catalina:       "9f8b45c4a69d7c1356e5e387e6b7032a09118f4668073950df15557e2c89603c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2ff088833241c431cc42c9fcef6fd9808fabe1548f32e82e3dd142f5a97e412c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "417aee3b62b08dbb017301fca79d1310b013d799fd64c6db0ba27653e4599e0f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9f9d64408d1b5495adca69760120fe15be49bcac7cd33c3958ce1fa5c0be0017"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "377e754d61aa9242d819b23d9bc6b981912875422b86d9e44241ee5356fce3b5"
+    sha256 cellar: :any_skip_relocation, ventura:        "966fda16c1d8cb2292d6eb8dc99581d12837e8d1d25cbc3c534fa8a978fef9bd"
+    sha256 cellar: :any_skip_relocation, monterey:       "dd8c39234b56f31d3b218f546569708ecac154fcdf0bee0d7978fb7772123977"
+    sha256 cellar: :any_skip_relocation, big_sur:        "ab520a628b8d756bdb1e4411bafe1d3489588a99631fa1e00474da1467db2d50"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "21ed2658f4b1478832515d1963b04ac2b9fac947a7c619cfe4ac874742787c14"
   end
 
   depends_on "python-typing-extensions"
@@ -29,8 +27,8 @@ class Locust < Formula
   end
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/cb/a4/7de7cd59e429bd0ee6521ba58a75adaec136d32f91a761b28a11d8088d44/certifi-2022.9.24.tar.gz"
-    sha256 "0d9c601124e5a6ba9712dbc60d9c53c21e34f5f641fe83002317394311bdce14"
+    url "https://files.pythonhosted.org/packages/37/f7/2b1b0ec44fdc30a3d31dfebe52226be9ddc40cd6c0f34ffc8923ba423b69/certifi-2022.12.7.tar.gz"
+    sha256 "35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3"
   end
 
   resource "charset-normalizer" do
@@ -124,8 +122,8 @@ class Locust < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/b2/56/d87d6d3c4121c0bcec116919350ca05dc3afd2eeb7dc88d07e8083f8ea94/urllib3-1.26.12.tar.gz"
-    sha256 "3fa96cf423e6987997fc326ae8df396db2a8b7c667747d47ddd8ecba91f4a74e"
+    url "https://files.pythonhosted.org/packages/c2/51/32da03cf19d17d46cce5c731967bf58de9bd71db3a379932f53b094deda4/urllib3-1.26.13.tar.gz"
+    sha256 "c083dd0dce68dbfbe1129d5271cb90f9447dea7d52097c6e0126120c521ddea8"
   end
 
   resource "Werkzeug" do
@@ -134,13 +132,13 @@ class Locust < Formula
   end
 
   resource "zope.event" do
-    url "https://files.pythonhosted.org/packages/30/00/94ed30bfec18edbabfcbd503fcf7482c5031b0fbbc9bc361f046cb79781c/zope.event-4.5.0.tar.gz"
-    sha256 "5e76517f5b9b119acf37ca8819781db6c16ea433f7e2062c4afc2b6fbedb1330"
+    url "https://files.pythonhosted.org/packages/42/49/ba8610674cad200da2f9c87b5f52fdcf18b02dd743a8a1e90726803cc42f/zope.event-4.6.tar.gz"
+    sha256 "81d98813046fc86cc4136e3698fee628a3282f9c320db18658c21749235fce80"
   end
 
   resource "zope.interface" do
-    url "https://files.pythonhosted.org/packages/c5/ec/3e116b5c3c54f1fb7296a686c110c14d1242bbea17286c487892075d9858/zope.interface-5.5.1.tar.gz"
-    sha256 "6d678475fdeb11394dc9aaa5c564213a1567cc663082e0ee85d52f78d1fbaab2"
+    url "https://files.pythonhosted.org/packages/38/6f/fbfb7dde38be7e5644bb342c4c7cdc444cd5e2ffbd70d091263b3858a8cb/zope.interface-5.5.2.tar.gz"
+    sha256 "bfee1f3ff62143819499e348f5b8a7f3aa0259f9aca5e0ddae7391d059dce671"
   end
 
   def install

@@ -2,20 +2,20 @@ class Dronedb < Formula
   desc "Free and open source software for aerial data storage"
   homepage "https://github.com/DroneDB/DroneDB"
   url "https://github.com/DroneDB/DroneDB.git",
-       tag:      "v1.0.11",
-       revision: "f9f7d50c1f2b49072e4046cb2bd2d9fd67066252"
+       tag:      "v1.0.12",
+       revision: "849e92fa94dc7cf65eb756ecf3824f0fe9dbb797"
   license "MPL-2.0"
   revision 1
   head "https://github.com/DroneDB/DroneDB.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any, arm64_ventura:  "4ec051353b74298355daaba90ebe577f57ea963bf5bf4c23444ed1a6f42d10d5"
-    sha256 cellar: :any, arm64_monterey: "e12baf23f98b6f518075e9e5fdf9b1a4a77b9034810ec1287ac61a92505460c0"
-    sha256 cellar: :any, arm64_big_sur:  "0c10bba6db56714575a9ff6bb1bf4d0468df253f6359ae9b5eb55b46651c4383"
-    sha256 cellar: :any, ventura:        "ef4fc0c0d8497376e8fdb7334d13f17517b08c04b69d14cfd58907254a3c9fdb"
-    sha256 cellar: :any, monterey:       "928b227318b74ca87b0f9fe93955f2743b1c755d61b6e8ac9047a26cf466caf6"
-    sha256 cellar: :any, big_sur:        "8f8090e74b88110494e6e1bea2483822bd0c030d55d0251e431f529172570fcf"
-    sha256 cellar: :any, catalina:       "690e1e2686f39e82a64d7a1a7b33c599fde943ef86e99123b8aa90e8ad8c3f3f"
+    sha256 cellar: :any,                 arm64_ventura:  "8067f8237f61d2f1a10fe728f48ac80f0f877d9cbefdbaa3dc3af7bb7a7d2e9b"
+    sha256 cellar: :any,                 arm64_monterey: "81176e069ae235c569e8adc276a06672791f978c51222f89d1dbbe71063b2896"
+    sha256 cellar: :any,                 arm64_big_sur:  "5dce0bc248e72a61d66e737d46a687495df2a1bea710672e71ee1fa68b92b01f"
+    sha256 cellar: :any,                 ventura:        "c2bed40cc8934adc9e5b5eae973a4d55200407d9f4d812448791ddaf6ecfbaa2"
+    sha256 cellar: :any,                 monterey:       "5b182a4a4429b0d15dbf5a6ec3af4574f383ba972d7ffb542a7bbc8a7fb0e77d"
+    sha256 cellar: :any,                 big_sur:        "7f95359441f7baeb55a8c654bc62c3cead8e16191c82ebcd1b6d3e18375ca7b6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "19b100650b914f9587331f2b807fbd4afc7a1c7439bb526899923b8dda9e380a"
   end
 
   depends_on "cmake" => :build
@@ -25,11 +25,9 @@ class Dronedb < Formula
   depends_on "pdal"
 
   def install
-    # Avoid installing conflicting vendored libraries into Homebrew's prefix.
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args(install_prefix: libexec)
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
-    bin.install_symlink libexec/"bin/ddb"
   end
 
   test do

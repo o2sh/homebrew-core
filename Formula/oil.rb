@@ -1,8 +1,8 @@
 class Oil < Formula
   desc "Bash-compatible Unix shell with more consistent syntax and semantics"
   homepage "https://www.oilshell.org/"
-  url "https://www.oilshell.org/download/oil-0.12.5.tar.gz"
-  sha256 "e7fad0b14deb64fa28e9db40060dcfa8288f04f0f019acf8d15fc85b60ea5770"
+  url "https://www.oilshell.org/download/oil-0.13.1.tar.gz"
+  sha256 "1a022259081a41a4fbca4cb54c117c9fba8cf831f141a7011b141141c1b40451"
   license "Apache-2.0"
 
   livecheck do
@@ -11,13 +11,12 @@ class Oil < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "2079930421898c514a2da59fa6dfda59397f5db927c9f18394f66d29a637ae6d"
-    sha256 arm64_monterey: "a7308a9553f7f55c0cda7182612c0875f8c6a4a17103705671a9831b79ffbc5a"
-    sha256 arm64_big_sur:  "af1df7bb8ee26ce3cd7c6e142f6ea32b2da3c5b2f84fa4e2625456ef2d96f075"
-    sha256 monterey:       "aaa395c37c92e5973470ecc6562efb8c26a1a60fa15b693633ad500c075dbbb5"
-    sha256 big_sur:        "b5cae372631f127c873c1f39c048d5330420b6e7d48841db8f1d27a9522b2b0b"
-    sha256 catalina:       "c68663d0b15935329bc228454102cd7db844a17bd305decb672f2dad3607d19e"
-    sha256 x86_64_linux:   "5737d146a46cd681452de528d1e71800eaa533453ae06a4bf52fa5bcd74a7b6e"
+    sha256 arm64_ventura:  "c9d7b9ab1f4a7a23012380c0df944d2f3cf3146fe5f6ce582490a9592bcd586a"
+    sha256 arm64_monterey: "b09ad3f7fd3ab00f39bb9588da64e30056009eb0c1db3db15cf77bc44e54e29d"
+    sha256 arm64_big_sur:  "83cc8210b124bb2aeec5a9a38ba516fcbf06e56c87b43f2a586586c3975cb1f2"
+    sha256 ventura:        "0c05687a36eb61f39f805d5b48b4439229f20ab198bad598de67386930aa1a6b"
+    sha256 monterey:       "d504ae54ac96df318f6de915c9cdc70aa6a47d2753ce82c43dbe91a515b36922"
+    sha256 big_sur:        "155ab8ee0ab388704f1a362d89dfefcadbe7ecdb75a1866471b494a68d2df2ce"
   end
 
   depends_on "readline"
@@ -26,6 +25,7 @@ class Oil < Formula
 
   def install
     system "./configure", "--prefix=#{prefix}",
+                          "--datarootdir=#{share}",
                           "--with-readline=#{Formula["readline"].opt_prefix}"
     system "make"
     system "./install"

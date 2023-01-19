@@ -2,29 +2,28 @@ class MinioMc < Formula
   desc "Replacement for ls, cp and other commands for object storage"
   homepage "https://github.com/minio/mc"
   url "https://github.com/minio/mc.git",
-      tag:      "RELEASE.2022-11-17T21-20-39Z",
-      revision: "2770f13a73c5e98ae1a0665c76cf099f5f578a13"
-  version "20221117212039"
+      tag:      "RELEASE.2023-01-11T03-14-16Z",
+      revision: "14c2e506fa78b53fb6db88bcf87d8f6d3fb6989e"
+  version "20230111031416"
   license "AGPL-3.0-or-later"
   head "https://github.com/minio/mc.git", branch: "master"
 
   livecheck do
     url :stable
-    regex(%r{href=.*?/tag/(?:RELEASE[._-]?)?([\d\-TZ]+)["' >]}i)
+    regex(%r{href=.*?/tag/(?:RELEASE[._-]?)?([\dTZ-]+)["' >]}i)
     strategy :github_latest do |page, regex|
       page.scan(regex).map { |match| match&.first&.gsub(/\D/, "") }
     end
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "adee0ce9be6c6fdc24dc54d592537eb0b9c66692828de77e201ca1703c8cdd08"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "eb991b8ee09f96d23fb2fb63b9c38212b8978a258f225ba768070db1876f6053"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "5b074e81e0625e1c783e14a47625348ddbe5b9a260f73cc89e868aea7dfb6b69"
-    sha256 cellar: :any_skip_relocation, ventura:        "baaddcf50d88cbf6223d9ff3e55679110161053a30122ce3f363dcf3b0ed54fa"
-    sha256 cellar: :any_skip_relocation, monterey:       "c713513802a8b54355969c70db15fefdab004682eebfdcb7159ae148b970e86a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "b2bf0a742a014b83d27b993fb365da5fda0adea8e82f2d50b5216a7fea365a06"
-    sha256 cellar: :any_skip_relocation, catalina:       "925dd23378b5c49dfbe6752147d0a1d61b1f1e80e7fe01537be875f879194627"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b4aeacfe7694f1d996ad8542f95ffb147af62a82edee940404a7e979302908bb"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "768724e608d6bdae8c2686b7ca4e09996b1dd4e4a1f46afa8b16860df53282d5"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "93e0551be41511ced122892579c6383acbf3a6c5216ec463131bc40c8c967f72"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "4336c05fe6722d9b71d809633c5341ff3901dd756cf75a02e71dfd080bc4783f"
+    sha256 cellar: :any_skip_relocation, ventura:        "7f8654f9782b5b281722de8644f4909f1b6d8dbc3b846d665beebfdf6d971bb4"
+    sha256 cellar: :any_skip_relocation, monterey:       "d0a0bc30400eed5881f891e718aa5a84c56356cf7e5fa174f61b9aa029d225d0"
+    sha256 cellar: :any_skip_relocation, big_sur:        "0b0d548760716f3577702f4f6ab6da55b1992496d74dd8a3181e19826bea1a17"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "248f52bae8249ab7efacb3a2c8b1e25f5d160fecbc1ba6949a6c81254d3e4148"
   end
 
   depends_on "go" => :build

@@ -1,9 +1,9 @@
 class GoAT118 < Formula
   desc "Open source programming language to build simple/reliable/efficient software"
   homepage "https://go.dev/"
-  url "https://go.dev/dl/go1.18.8.src.tar.gz"
-  mirror "https://fossies.org/linux/misc/go1.18.8.src.tar.gz"
-  sha256 "1f79802305015479e77d8c641530bc54ec994657d5c5271e0172eb7118346a12"
+  url "https://go.dev/dl/go1.18.10.src.tar.gz"
+  mirror "https://fossies.org/linux/misc/go1.18.10.src.tar.gz"
+  sha256 "9cedcca58845df0c9474ae00274c44a95c9dfaefb132fc59921c28c7c106f8e6"
   license "BSD-3-Clause"
 
   livecheck do
@@ -12,14 +12,13 @@ class GoAT118 < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "ae71f0865a9cebfd34201a83477545abaf128522d076f252e0b587322112a3a2"
-    sha256 arm64_monterey: "d65e237ccc5a3e49d5e2fb8384950500c1073bc4f72647daa90a4a354bb36c48"
-    sha256 arm64_big_sur:  "6cbd1bc3aca598fc30a97423493eae8737db95d31605fc81bac85bbcfb520b23"
-    sha256 ventura:        "f2e14af7d3bb8635dfdb4f3f656e85499c47d475d41e4d3290d981c15f2bd5f8"
-    sha256 monterey:       "555bb5c31e7ecc2f0818e44ccb5e811b37057c3f93485438b7b272d85163eee5"
-    sha256 big_sur:        "d74b1dace5e3248234526bea467b9fe3d8be00fb2234318b1f54195563f11884"
-    sha256 catalina:       "cdd22c4193d33f2bc695719d569c1f022dbbdc03c0804456b46a31569548b7b8"
-    sha256 x86_64_linux:   "a5b8e2135e087f1770932b58da9ef94d97edf20be30c692dc1042b93308eab41"
+    sha256 arm64_ventura:  "15289dd579551ed629bda489e6ba7fb0d641d8ef468d6ed62a9fde136fd8406f"
+    sha256 arm64_monterey: "fb4e5c1a52261198a393492baa2a44983fccfc4f2917dde8c0509f13d0e27450"
+    sha256 arm64_big_sur:  "5873d1892e88cbedcbf289b9898c283ebcc8d0f1dd3dabf2f748f25a8a8e1a8f"
+    sha256 ventura:        "98e567fe4e5dfbd80a95c983bb851ee69d0cb15b7097966993e2e45a4c065489"
+    sha256 monterey:       "9d842f4470cd8aa9962447cab57f511e0b45faca9ccdd84ecdf6c859567689af"
+    sha256 big_sur:        "668e852707a63dbf4db3a240089baaa20dd239772e80f65ec5bb152afb7184b3"
+    sha256 x86_64_linux:   "cc61c960b7186af57e6cc1d1f9a82beace7a93523784d78a177429d1944aa5eb"
   end
 
   keg_only :versioned_formula

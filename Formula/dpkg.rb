@@ -4,8 +4,8 @@ class Dpkg < Formula
   # Please use a mirror as the primary URL as the
   # dpkg site removes tarballs regularly which means we get issues
   # unnecessarily and older versions of the formula are broken.
-  url "https://deb.debian.org/debian/pool/main/d/dpkg/dpkg_1.21.9.tar.xz"
-  sha256 "a0aba375625459260cbc89933a12b3188a713c840e3aaefc14bf2d9adee19642"
+  url "https://deb.debian.org/debian/pool/main/d/dpkg/dpkg_1.21.18.tar.xz"
+  sha256 "7fcbbf28ecf622bad84229114dab4f62e0b0c29f6263b00dd1f3f73fe40e1062"
   license "GPL-2.0-only"
 
   livecheck do
@@ -14,14 +14,13 @@ class Dpkg < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "dbd498196dbd656cf169cb0fb659011011e0f0e691b6b590708c9d1e1a1b25c6"
-    sha256 arm64_monterey: "32e8e22b3eb7935517621fd6121e40f894792d8de2c8659dfda13fdaeb4143dd"
-    sha256 arm64_big_sur:  "c38a7e505ee994e1b746e0e3566d92cb9ca646291ddfe826bb5dd54d8a31ab1e"
-    sha256 ventura:        "caca2df7dbdb9fc665e4f178c32b7df230e9226d3c791ecab5dbfbcb3cd15f7c"
-    sha256 monterey:       "8f76d6e5756b136e26835049af0ba825c75c9a55cbcc7f1b0de3c5256c75fa83"
-    sha256 big_sur:        "f20bf1eb154f7b44af780a0cec1f7472be29ce542ea3832317ce1dee99422109"
-    sha256 catalina:       "ccdded206405d6efc722169acadcc2c8770200b9ced532a32ff547475e055f56"
-    sha256 x86_64_linux:   "07d05636a56fdf0942f835be23e0dc226292cd8c84c0f45c16a4a1b37a569f3b"
+    sha256 arm64_ventura:  "df0add112743aac0cf360ef25f40869b56ddad2c622ec3e438aab278af52fa4d"
+    sha256 arm64_monterey: "39f988ea146d7581cfec50c1487b3d0fb953ded29f11e70cd523dfebd07521af"
+    sha256 arm64_big_sur:  "e4591cd9208732f449dc2931cc21acd64443b858eab3fd8ce466912d45cbf742"
+    sha256 ventura:        "e502eb02e5a4086a096321827b852d7b7ca760df79596343c124fafee2407809"
+    sha256 monterey:       "32b4acfe37c8d76a827f417a7bf6d6c23c906cb8e14bc5ba1b7bf753934cb109"
+    sha256 big_sur:        "63afe11c54809ce9586a07467d7a7cbbb323046ecfee267fb0bbecf2d9b90cec"
+    sha256 x86_64_linux:   "9ddca631dddf8a0a2545b30b5cf97e72df5003e2c61d98d75d3d83a0e6723eed"
   end
 
   depends_on "pkg-config" => :build
@@ -29,6 +28,7 @@ class Dpkg < Formula
   depends_on "gettext"
   depends_on "gnu-tar"
   depends_on "gpatch"
+  depends_on "libmd" # for md5.h
   depends_on "perl"
   depends_on "xz" # For LZMA
 

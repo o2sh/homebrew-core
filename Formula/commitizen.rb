@@ -3,21 +3,19 @@ class Commitizen < Formula
 
   desc "Defines a standard way of committing rules and communicating it"
   homepage "https://commitizen-tools.github.io/commitizen/"
-  url "https://files.pythonhosted.org/packages/cc/74/b7e108bf93437529f49adcfe80f685d5bbd283a77a5e319588826c4b54ce/commitizen-2.37.0.tar.gz"
-  sha256 "c8a0df910e7360bc901be93e6bd230737824e6500800d80b443bb1e19024c6c8"
+  url "https://files.pythonhosted.org/packages/68/f7/bae25705cf7566f6ac86d033abe7e90c8fac253b7abae25c32bd5cafc137/commitizen-2.39.1.tar.gz"
+  sha256 "1f4b77a6b6cf43fc75e7fc604081add66026a5031c2a5032b2b9e8202bc57d47"
   license "MIT"
   head "https://github.com/commitizen-tools/commitizen.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f583d424b90fec6332117919beaa731b6856479aa607b1f9b324dc9babebeb29"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1377df456c5279787e73f6660f72ee7b6f9a119c40436d7d67aef44b823f972a"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "16f8230d8fb8c6c84c16ab86cbf83e26245c4b7d69b1678500ecff45ee22a71a"
-    sha256 cellar: :any_skip_relocation, ventura:        "35a29d0a10a9f8e1de9cf4a81698d124e792a48f304d17677695782c8a93cdf0"
-    sha256 cellar: :any_skip_relocation, monterey:       "80389aa9179ad67696307ae364828874fe96adbc1392b3a0f1996549a526e7b8"
-    sha256 cellar: :any_skip_relocation, big_sur:        "b7ad92b30c50e319f08637614dd0adbe269dc654dd6c503ba5bc65145c87e114"
-    sha256 cellar: :any_skip_relocation, catalina:       "61133507ef47d0608075a3ec32f27531e11f7f16f56835bb2f4d8844115580aa"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b123e52451b86c452b7e7e290082b7b3530ad47348632433a840515c1c43051b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "97ba401b74bfe0be2fe8d48580a9b41851c679f73e5c998594cbb64bcbcc79e3"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "b827a898d9afdb02f7bdbbe954a91fa372c881e40da3849b2f4b485787d8c480"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b43db794209f600d88aadeda84991ac9841aaefbe642289d045183905bffb470"
+    sha256 cellar: :any_skip_relocation, ventura:        "6b1676ac460cb13cafaca74ed9d9d8331550a68e1efaf9ef27a563e063b0eb05"
+    sha256 cellar: :any_skip_relocation, monterey:       "b0fa41acaeec90e5bb2f2c2d71eeb34f8f1577dbeea27ffc435d16b9159b566b"
+    sha256 cellar: :any_skip_relocation, big_sur:        "4545134e37c25db8d64000423a3e2cb84bbbe08b06d3398ad01f988e27b90200"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "95586dda4dc3aa56b1d23f61fbe7e206ecdbef8c6f2cfb4cf1eb577497fcf914"
   end
 
   depends_on "python-typing-extensions"
@@ -55,18 +53,13 @@ class Commitizen < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/df/9e/d1a7217f69310c1db8fdf8ab396229f55a699ce34a203691794c5d1cad0c/packaging-21.3.tar.gz"
-    sha256 "dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb"
+    url "https://files.pythonhosted.org/packages/6b/f7/c240d7654ddd2d2f3f328d8468d4f1f876865f6b9038b146bec0a6737c65/packaging-22.0.tar.gz"
+    sha256 "2198ec20bd4c017b8f9717e00f0c8714076fc2fd93816750ab48e2c41de2cfd3"
   end
 
   resource "prompt-toolkit" do
-    url "https://files.pythonhosted.org/packages/e2/d9/1009dbb3811fee624af34df9f460f92b51edac528af316eb5770f9fbd2e1/prompt_toolkit-3.0.32.tar.gz"
-    sha256 "e7f2129cba4ff3b3656bbdda0e74ee00d2f874a8bcdb9dd16f5fec7b3e173cae"
-  end
-
-  resource "pyparsing" do
-    url "https://files.pythonhosted.org/packages/71/22/207523d16464c40a0310d2d4d8926daffa00ac1f5b1576170a32db749636/pyparsing-3.0.9.tar.gz"
-    sha256 "2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb"
+    url "https://files.pythonhosted.org/packages/fb/93/180be2342f89f16543ec4eb3f25083b5b84eba5378f68efff05409fb39a9/prompt_toolkit-3.0.36.tar.gz"
+    sha256 "3e163f254bef5a03b146397d7c1963bd3e2812f0964bb9a24e6ec761fd28db63"
   end
 
   resource "questionary" do
@@ -75,8 +68,8 @@ class Commitizen < Formula
   end
 
   resource "termcolor" do
-    url "https://files.pythonhosted.org/packages/62/1a/e78a930f70dd576f2a7250a98263ac973a80d6f1a395d89328844881a0c0/termcolor-2.1.0.tar.gz"
-    sha256 "b80df54667ce4f48c03fe35df194f052dc27a541ebbf2544e4d6b47b5d6949c4"
+    url "https://files.pythonhosted.org/packages/19/da/ff1f0906818a5bd2e69e773d88801ca3c9e92d0d7caa99db1665658819ea/termcolor-2.1.1.tar.gz"
+    sha256 "67cee2009adc6449c650f6bcf3bdeed00c8ba53a8cda5362733c53e0a39fb70b"
   end
 
   resource "tomlkit" do

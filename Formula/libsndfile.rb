@@ -1,10 +1,9 @@
 class Libsndfile < Formula
   desc "C library for files containing sampled sound"
   homepage "https://libsndfile.github.io/libsndfile/"
-  url "https://github.com/libsndfile/libsndfile/releases/download/1.1.0/libsndfile-1.1.0.tar.xz"
-  sha256 "0f98e101c0f7c850a71225fb5feaf33b106227b3d331333ddc9bacee190bcf41"
+  url "https://github.com/libsndfile/libsndfile/releases/download/1.2.0/libsndfile-1.2.0.tar.xz"
+  sha256 "0e30e7072f83dc84863e2e55f299175c7e04a5902ae79cfb99d4249ee8f6d60a"
   license "LGPL-2.1-or-later"
-  revision 1
 
   livecheck do
     url :stable
@@ -12,14 +11,13 @@ class Libsndfile < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "b4515a2527c8a9c0221f95566fbd7739f83e04f1c9fbe23a7815deff16cfea78"
-    sha256 cellar: :any,                 arm64_monterey: "9ed727cc18747f0a6d3719fb2d9eaee6b1ac6f0f246e25af94148f38d64474f6"
-    sha256 cellar: :any,                 arm64_big_sur:  "dc8a056668adb95bd8cb09d8b26f9ba934e3a636161ab1858ec2c00bd29a30e5"
-    sha256 cellar: :any,                 ventura:        "f6c982d9c6f5987d8dc7172d7be8ceccc584d41b9cd7a28b12701b3719a6a98c"
-    sha256 cellar: :any,                 monterey:       "46ef23309fcd5a9719b32ac664a2311e3de8bbfae8f0b576a7910f7bcc1dbb75"
-    sha256 cellar: :any,                 big_sur:        "9ae6459378ff5eb03da93314b33d88d1b3bb32fb920db887c049fbbe40edc016"
-    sha256 cellar: :any,                 catalina:       "0c62f981692a252ee7d4b6403423437f084076139ec09c717ba0e73ace14148a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0f1ccedcb7ec0d71a45cc48a73112bc45b400c6d6c27a455709a3beb955d5266"
+    sha256 cellar: :any,                 arm64_ventura:  "613bc9b6aa39f97f5b96f8fde4eb326d86b84eefe834bb4390525a27394920ee"
+    sha256 cellar: :any,                 arm64_monterey: "3a684c2f61724acd97267aa7663871debf68cfa90e5c16205add3e4a3ecbdbc2"
+    sha256 cellar: :any,                 arm64_big_sur:  "b1d790d532e030e237f8a2cc107d7f89bb9770777dcb3b539f2d25dbe8ca375d"
+    sha256 cellar: :any,                 ventura:        "006bfec19f53d52e3fc5124368e28047e4dc93d4eeadd5c279214cbe0bb8f45f"
+    sha256 cellar: :any,                 monterey:       "1f7d0cd31198a65141994868ff9fb38a9b6461e9ab0de5101df721ebb39e8b6e"
+    sha256 cellar: :any,                 big_sur:        "df6c7be8e1ed21ba93dbd54a5ebcafe52240427cc3db497755d45222341128b3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "999459d04493b8d24126025e3b954d0172bd89b38cbb92072a4ce993ce320d68"
   end
 
   depends_on "autoconf" => :build
@@ -27,19 +25,13 @@ class Libsndfile < Formula
   depends_on "libtool" => :build
   depends_on "pkg-config" => :build
   depends_on "flac"
+  depends_on "lame"
   depends_on "libogg"
   depends_on "libvorbis"
+  depends_on "mpg123"
   depends_on "opus"
 
   uses_from_macos "python" => :build
-
-  # Fix unsubstituted variable @EXTERNAL_MPEG_LIBS@ in sndfile.pc
-  # PR ref: https://github.com/libsndfile/libsndfile/pull/828
-  # Remove in the next release.
-  patch do
-    url "https://github.com/libsndfile/libsndfile/commit/e4fdaeefddd39bae1db27d48ccb7db7733e0c009.patch?full_index=1"
-    sha256 "af1e9faf1b7f414ff81ef3f1641e2e37f3502f0febd17f70f0db6ecdd02dc910"
-  end
 
   def install
     system "autoreconf", "-fvi"

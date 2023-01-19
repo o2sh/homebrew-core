@@ -1,21 +1,19 @@
 class Hexyl < Formula
   desc "Command-line hex viewer"
   homepage "https://github.com/sharkdp/hexyl"
-  url "https://github.com/sharkdp/hexyl/archive/v0.10.0.tar.gz"
-  sha256 "5821c0aa5fdda9e84399a5f92dbab53be2dbbcd9a7d4c81166c0b224a38624f8"
+  url "https://github.com/sharkdp/hexyl/archive/v0.12.0.tar.gz"
+  sha256 "bf3a3e8851e7bbcf01f75ae95c018faf3c9f1b7f363159d4a7459bbe11478144"
   license any_of: ["Apache-2.0", "MIT"]
-  revision 1
   head "https://github.com/sharkdp/hexyl.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8e5ebeb79afe83fbd3574ac1f7215d31060516b60ca2641be8b8c815cdb29db6"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "5dd1b3f049527c0a9129fdf15d9e19efba0b5581956339f40f635838777ed651"
-    sha256 cellar: :any_skip_relocation, ventura:        "415d3dc85d5d2f7ee8d7a6df3ed4b29ba616f433ff5602c16f3c31ddd01025f7"
-    sha256 cellar: :any_skip_relocation, monterey:       "b0257b995d1de194de33a15a3892f68b757a2f2f1a9b4516f5a661d90b838188"
-    sha256 cellar: :any_skip_relocation, big_sur:        "129c0fcb8d127d18d3d8577031deff0a55686f65b50bd117accea0052e2aed72"
-    sha256 cellar: :any_skip_relocation, catalina:       "89e5417b95e2136f6aff067cfb5c37dbcae977d2ecd3ad6c56bc9d4d369ab422"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0e828b26c57dab9ea6bf999766a0ba2e863482e2b311f5e2920ee6c82614202f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6edbbd88a4a47f038757214438c81aad75dde639d7082c5a66bb76928b2f0c43"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2bc5cffa1706a75b4d0b6c7af65c89407f875f92d8f44994c6b70b36e4bb3160"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ba4180de5a5e9e107e21f07295342d465ed7a7a4612ada48c06d4a38d447b55a"
+    sha256 cellar: :any_skip_relocation, ventura:        "2dad61e73eb77225469344d0833d797e29303ad098913df720f21137660b1457"
+    sha256 cellar: :any_skip_relocation, monterey:       "09bb90fc13b3f4cbf45bc84272aa19c2bb35d0b526bb726994edc1997575b343"
+    sha256 cellar: :any_skip_relocation, big_sur:        "fd78b492b9c38580e3fabcd3ce56ac405751b6cddbedc08a599b30a59bda4de1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4644fc35b963b754ab228dd220305ca4c509238c828956ba1ac6959a0b1c2b0a"
   end
 
   depends_on "pandoc" => :build

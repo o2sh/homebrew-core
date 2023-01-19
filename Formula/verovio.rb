@@ -1,19 +1,19 @@
 class Verovio < Formula
   desc "Command-line MEI music notation engraver"
   homepage "https://www.verovio.org"
-  url "https://github.com/rism-digital/verovio/archive/refs/tags/version-3.13.0.tar.gz"
-  sha256 "e9aaffe794fcdff6e7ff19a7a31f086d204f67e83fa395ccc8f58535840736ec"
+  url "https://github.com/rism-digital/verovio/archive/refs/tags/version-3.14.0.tar.gz"
+  sha256 "bbd65c80ac5a26062a1532342fa32fe05ecb7443cae820a26aa98a78a84c74b2"
   license "LGPL-3.0-only"
   head "https://github.com/rism-digital/verovio.git", branch: "develop"
 
   bottle do
-    sha256 arm64_ventura:  "0a786651a5bd9f2b73b2a497378da74c97429afffa644968e903b3088def61e3"
-    sha256 arm64_monterey: "c461373faa7feb7a31baf74b1b37f15ad33a01ff24275b884f62e22fdf3f5283"
-    sha256 arm64_big_sur:  "9a0d7188892d14e3b60716d05935b03401d3cea7ec06e8e0d7ae946bedf5c11a"
-    sha256 monterey:       "66114a5166a09429f6e6cc471587de2c52c21f79a130f2f8b2f2ad1b7715f7b6"
-    sha256 big_sur:        "0f6fefdbe9555c4a74c7b34d9327c54af9c7213f479eab6997c32d54b3529fec"
-    sha256 catalina:       "e82ec17f322b84e355be05fb126e3cc7b9e111f7f600717fa2c336e16ddab111"
-    sha256 x86_64_linux:   "0dc609a4c40ad990b1cd053340b74366f16249b1bc32b026baa0d55f4b23f6de"
+    sha256                               arm64_ventura:  "b50f6e3c56e4721fb446857700316a7ed3c7995282cfc45b219228e421e199c7"
+    sha256                               arm64_monterey: "61acaaaa88110455415e3db48ff18a7e6f725b988b1ea8ee9f4d9c4f7fcef28e"
+    sha256                               arm64_big_sur:  "61428069ed215e17966fe90522618178806f7f7cb3c295956345df911619b3bb"
+    sha256                               ventura:        "de6de30174e049fa9d17777c8b6a8de5d49a58eb5caf1f0f478419fa5c41fc74"
+    sha256                               monterey:       "7c9daadc59a1e20c7a49c442e08b2664e387a2ea8b1c44420fe03df17708f06a"
+    sha256                               big_sur:        "0cdeceb6bb11607f6e69ec398c7eb4d932a568e70f4386247808c7cdf2c0c9e3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dc57a81a252167b38b5600b885ae4aae69c2214629dabf0ac5a43951e4231313"
   end
 
   depends_on "cmake" => :build

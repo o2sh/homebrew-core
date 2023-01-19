@@ -3,19 +3,18 @@ class PipAudit < Formula
 
   desc "Audits Python environments and dependency trees for known vulnerabilities"
   homepage "https://pypi.org/project/pip-audit/"
-  url "https://files.pythonhosted.org/packages/7c/9a/f7e678406cccb5a2d3b3ddbfe039b97044c71cee7a6167f884a5df2fa534/pip_audit-2.4.6.tar.gz"
-  sha256 "00ebef2a52884627f255b879135e28001de4378b8005318b66cc3a802459ee0a"
+  url "https://files.pythonhosted.org/packages/12/20/2dd169e3a37d48e27f62b1881ce4695238c621ef28d16ac2b41f102a4592/pip_audit-2.4.13.tar.gz"
+  sha256 "e0c9fe070a16aefdbb9c4d43df6a0183bc951375a293f58264c5e80b5edb57d7"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6dfc06917d606ccf99ccb9f01216d25db5479d5015f7667bc5c737aea8633a0c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "fcff9d3ad1c4c42e168d05243f4396ebb128faf7206635a0c023907d3d0e4ba5"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c9e3ce1f3e6c04867cb4da2acb24aaf821502aaa0c857934321d7c5a6f4c0a30"
-    sha256 cellar: :any_skip_relocation, ventura:        "efbc116adf8f2db61cc69416c0a2da43969c8c05739d87c78bb932f2de5b9217"
-    sha256 cellar: :any_skip_relocation, monterey:       "f4b0b7f7ba3c6dfeebfe80ef4ace55cf1bc7d38d5276c6c29b846f2c5738f5e0"
-    sha256 cellar: :any_skip_relocation, big_sur:        "b7a93a231424b8c760fa66a364de37372d2894b4f8e098b4379728a4ec31c596"
-    sha256 cellar: :any_skip_relocation, catalina:       "3785bdad9fbcc6dd8d382618ae9d5e17774830358e1a938bf5b40a644d2110be"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d7e190c5fa5736b7d655cf13aa990b6518d968a40e6659c6640ed4b51f8f14bc"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "afb9fc0ded190aa4fc0bf5697e94419fdb4178673924077bebcb60f219e16a44"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "00c2cf61e6484e1a27e5d8387269924848f88e58f415662ce4284e331b23119e"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "6d6021e525fd3fe52174c3c4cc612c35d7757dd5ad0aeb3adc52d243b397974b"
+    sha256 cellar: :any_skip_relocation, ventura:        "480494528fc768fad6e5a74cf61903421efa7706226a404d5996ed4e7cd29913"
+    sha256 cellar: :any_skip_relocation, monterey:       "e52a71b1a9f7fa2cabd13156f7e3099885a13e0ebdab3b3404c7b1aab2f2b467"
+    sha256 cellar: :any_skip_relocation, big_sur:        "dc6660fe4bc1e32a937ac2e031078f37012acd0705c205cda5b5a98f7a4bdd55"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "08c6adf9d417aefa5c0abba46c067faabbcc71d119a9acad409380321075fba8"
   end
 
   depends_on "pygments"
@@ -28,8 +27,8 @@ class PipAudit < Formula
   end
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/cb/a4/7de7cd59e429bd0ee6521ba58a75adaec136d32f91a761b28a11d8088d44/certifi-2022.9.24.tar.gz"
-    sha256 "0d9c601124e5a6ba9712dbc60d9c53c21e34f5f641fe83002317394311bdce14"
+    url "https://files.pythonhosted.org/packages/37/f7/2b1b0ec44fdc30a3d31dfebe52226be9ddc40cd6c0f34ffc8923ba423b69/certifi-2022.12.7.tar.gz"
+    sha256 "35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3"
   end
 
   resource "charset-normalizer" do
@@ -43,13 +42,13 @@ class PipAudit < Formula
   end
 
   resource "cyclonedx-python-lib" do
-    url "https://files.pythonhosted.org/packages/50/10/61d16c3957fc81b863f6888d0ecc8467cb1ac17fb090494f094c089891be/cyclonedx-python-lib-3.1.0.tar.gz"
-    sha256 "39e9d36347d4dc736474ab4f3a7cd7bc91050c9315df698f83a6d8bbcb290744"
+    url "https://files.pythonhosted.org/packages/5e/dd/b56126883e08351401faa0cd398ac436e8be0f501e113a86b63eadec46f7/cyclonedx_python_lib-3.1.3.tar.gz"
+    sha256 "077894908b441a1a9ff84207fe3c84f1229b319564cbe83eb929e856cace3c02"
   end
 
   resource "filelock" do
-    url "https://files.pythonhosted.org/packages/95/55/b897882bffb8213456363e646bf9e9fa704ffda5a7d140edf935a9e02c7b/filelock-3.8.0.tar.gz"
-    sha256 "55447caa666f2198c5b6b13a26d2084d26fa5b115c00d065664b2124680c4edc"
+    url "https://files.pythonhosted.org/packages/0b/dc/eac02350f06c6ed78a655ceb04047df01b02c6b7ea3fc02d4df24ca87d24/filelock-3.9.0.tar.gz"
+    sha256 "7b319f24340b51f55a2bf7a12ac0755a9b03e718311dac567a0f4f7fabd2f5de"
   end
 
   resource "html5lib" do
@@ -73,8 +72,8 @@ class PipAudit < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/df/9e/d1a7217f69310c1db8fdf8ab396229f55a699ce34a203691794c5d1cad0c/packaging-21.3.tar.gz"
-    sha256 "dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb"
+    url "https://files.pythonhosted.org/packages/47/d5/aca8ff6f49aa5565df1c826e7bf5e85a6df852ee063600c1efa5b932968c/packaging-23.0.tar.gz"
+    sha256 "b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"
   end
 
   resource "pip-api" do
@@ -83,8 +82,8 @@ class PipAudit < Formula
   end
 
   resource "pip-requirements-parser" do
-    url "https://files.pythonhosted.org/packages/fc/aa/4fbc8040db7afae616eda6329ddc8ef73afc8bcb611bf9126937970bca83/pip-requirements-parser-31.2.0.tar.gz"
-    sha256 "8c2a6f8e091ac2693824a5ef4e3b250226e34f74a20a91a87b9ab0714b47788f"
+    url "https://files.pythonhosted.org/packages/5e/2a/63b574101850e7f7b306ddbdb02cb294380d37948140eecd468fae392b54/pip-requirements-parser-32.0.1.tar.gz"
+    sha256 "b4fa3a7a0be38243123cf9d1f3518da10c51bdb165a2b2985566247f9155a7d3"
   end
 
   resource "pyparsing" do
@@ -103,8 +102,8 @@ class PipAudit < Formula
   end
 
   resource "rich" do
-    url "https://files.pythonhosted.org/packages/11/23/814edf09ec6470d52022b9e95c23c1bef77f0bc451761e1504ebd09606d3/rich-12.6.0.tar.gz"
-    sha256 "ba3a3775974105c221d31141f2c116f4fd65c5ceb0698657a11e9f295ec93fd0"
+    url "https://files.pythonhosted.org/packages/2f/1a/91f38976d2ed0b955e683fdbaafebf94606ff238b1ef604438a06a6d695f/rich-13.0.1.tar.gz"
+    sha256 "25f83363f636995627a99f6e4abc52ed0970ebbd544960cc63cbb43aaac3d6f0"
   end
 
   resource "sortedcontainers" do
@@ -118,8 +117,8 @@ class PipAudit < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/b2/56/d87d6d3c4121c0bcec116919350ca05dc3afd2eeb7dc88d07e8083f8ea94/urllib3-1.26.12.tar.gz"
-    sha256 "3fa96cf423e6987997fc326ae8df396db2a8b7c667747d47ddd8ecba91f4a74e"
+    url "https://files.pythonhosted.org/packages/c2/51/32da03cf19d17d46cce5c731967bf58de9bd71db3a379932f53b094deda4/urllib3-1.26.13.tar.gz"
+    sha256 "c083dd0dce68dbfbe1129d5271cb90f9447dea7d52097c6e0126120c521ddea8"
   end
 
   resource "webencodings" do

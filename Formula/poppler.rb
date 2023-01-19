@@ -1,8 +1,8 @@
 class Poppler < Formula
   desc "PDF rendering library (based on the xpdf-3.0 code base)"
   homepage "https://poppler.freedesktop.org/"
-  url "https://poppler.freedesktop.org/poppler-22.11.0.tar.xz"
-  sha256 "093ba9844ed774285517361c15e21a31ba4df278a499263d4403cca74f2da828"
+  url "https://poppler.freedesktop.org/poppler-23.01.0.tar.xz"
+  sha256 "fae9b88d3d5033117d38477b79220cfd0d8e252c278ec870ab1832501741fd94"
   license "GPL-2.0-only"
   head "https://gitlab.freedesktop.org/poppler/poppler.git", branch: "master"
 
@@ -12,14 +12,13 @@ class Poppler < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "ff30dc71068cdf540a3cd25069aebf3ccdcd20a1e759b12ff0833cbe1912076f"
-    sha256 arm64_monterey: "2b7097ac988058bb0215ca05f06ac9ef8738af6ebedfedc29cb1614b17b9fecf"
-    sha256 arm64_big_sur:  "5089ad95740841275a4f6580fe1a9ec5fc2ecc25dd853624eb8c008ffe431420"
-    sha256 ventura:        "534a4ef54ceec4fbcf9efbfb850167059d18ad64f67c7dd1022faa2a945c7ae0"
-    sha256 monterey:       "5cdd5683ea933739fd6cec7723ad7568005c238f8a9f838ef1234da5a40e451f"
-    sha256 big_sur:        "06c62a5a3d3302dfcca23b193a7810b45f6c6f091741a54f4f6ff6da176162ea"
-    sha256 catalina:       "1149cb0f7d16c3f55a771bb1effa512eb783c0ed16b892d6603f847d64e8d88b"
-    sha256 x86_64_linux:   "1abe4e5b95b5cf0b9e47d2ab797bd4214173175ef795c6592156ab3537ed45a1"
+    sha256 arm64_ventura:  "1546bb264c34a32e44c8d7e4ee378821330288b186cfc1338e68c0896eeb32b9"
+    sha256 arm64_monterey: "ba8444c9d5d4d44e73f252ea6176be2b5950c8c7cb72e7e14505eece2a0a1ce7"
+    sha256 arm64_big_sur:  "db73fae6ec03c5000f2f1482d5a8fce8d6f23348129c3fcf409fd1093c8bb3dd"
+    sha256 ventura:        "8fcad244e90f92db5034c1d027721ec28eccf89fdd6ca0c9bb6a816047bd4bb6"
+    sha256 monterey:       "1cdfa3e941029fa9e6bff4f74d07acd9fd2a743c1f9cd1732e9ae5ed9a61d317"
+    sha256 big_sur:        "784ef9b14271fd90ddf618eba37ad3f51b6bcc8c6fbb77c6876ad50846d4a877"
+    sha256 x86_64_linux:   "527bdf84a5918aa4db339ec38c9fc593c0f2b0c6ae799a5562efa01981eee1a3"
   end
 
   depends_on "cmake" => :build

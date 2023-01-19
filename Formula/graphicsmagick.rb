@@ -1,10 +1,9 @@
 class Graphicsmagick < Formula
   desc "Image processing tools collection"
   homepage "http://www.graphicsmagick.org/"
-  url "https://downloads.sourceforge.net/project/graphicsmagick/graphicsmagick/1.3.38/GraphicsMagick-1.3.38.tar.xz"
-  sha256 "d60cd9db59351d2b9cb19beb443170acaa28f073d13d258f67b3627635e32675"
+  url "https://downloads.sourceforge.net/project/graphicsmagick/graphicsmagick/1.3.40/GraphicsMagick-1.3.40.tar.xz"
+  sha256 "97dc1a9d4e89c77b25a3b24505e7ff1653b88f9bfe31f189ce10804b8efa7746"
   license "MIT"
-  revision 1
   head "http://hg.code.sf.net/p/graphicsmagick/code", using: :hg
 
   livecheck do
@@ -12,15 +11,13 @@ class Graphicsmagick < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_ventura:  "71e76fcef99e872bd2bf5968cc8637c814f840b0b3353a122883cd3dd279c0d1"
-    sha256 arm64_monterey: "6390e9b63683aca9a120458a05cd405a7c1c15337b5521fd7b4a8ca7d5c9be6c"
-    sha256 arm64_big_sur:  "ad3862da45b6d9a6cda022cbc8834d87c1ae1b04fceea068c0ec7da1683151c8"
-    sha256 ventura:        "56dc5d6fbed9d308a978aff1fdef69a3e7d2e90174a4ff4d380a7465f09f7d62"
-    sha256 monterey:       "261c7ec6b275953638a14ab215063ceff80a6623dd3e9de141b06bf26cfc8586"
-    sha256 big_sur:        "36c4193d99509ed03d316204042ba4c1225d62f625ca688917212c1dd3a8875d"
-    sha256 catalina:       "c4625be268d468bf4387b4091026df9c2b83a160e63c596ef96db7edd8c85d74"
-    sha256 x86_64_linux:   "7c4a3202d3ebb33933abfb9de51ece3e50960ce88b058cf4902279b6dc9a88d3"
+    sha256 arm64_ventura:  "b0bafc8854f9f7b8fbb54553a614beb0f8158488ec0e311dd3dd1ef87a64fe79"
+    sha256 arm64_monterey: "a8437596931ec5d6f2404ca81c05a64861a99457695f9130b9de525d24310079"
+    sha256 arm64_big_sur:  "305cd1e588584b5f1b10cb7bb9811f0aa6e99fb646c24968f8e906f111b27d7b"
+    sha256 ventura:        "67020d0a5c4accf346b836949cf0c85482cfa6b531bbf27b0acd06bec7b289bf"
+    sha256 monterey:       "d27f686a2bbc904c9a862d8442c4fcc307823ac6d1b122a5605e292089acee67"
+    sha256 big_sur:        "a5bb71478461411166840182d595a1af67227ab6fc0f1c56a69ab0d91f8bb7ba"
+    sha256 x86_64_linux:   "8d8433ad727526734d430e4d8ad8023894e740e5551eb92894e3e37870c6b0b3"
   end
 
   depends_on "pkg-config" => :build

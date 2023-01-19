@@ -1,8 +1,8 @@
 class Z3 < Formula
   desc "High-performance theorem prover"
   homepage "https://github.com/Z3Prover/z3"
-  url "https://github.com/Z3Prover/z3/archive/z3-4.11.2.tar.gz"
-  sha256 "e3a82431b95412408a9c994466fad7252135c8ed3f719c986cd75c8c5f234c7e"
+  url "https://github.com/Z3Prover/z3/archive/z3-4.12.1.tar.gz"
+  sha256 "a3735fabf00e1341adcc70394993c05fd3e2ae167a3e9bb46045e33084eb64a3"
   license "MIT"
   head "https://github.com/Z3Prover/z3.git", branch: "master"
 
@@ -13,26 +13,24 @@ class Z3 < Formula
   end
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any,                 arm64_ventura:  "f46c3e315a7e2a03714d5ede129df98bc3ef41786e0e0d061bc4d61043234881"
-    sha256 cellar: :any,                 arm64_monterey: "f4105981678b6bd31c32287e36528e1dd67add716992099064d8619c1083c2da"
-    sha256 cellar: :any,                 arm64_big_sur:  "aaebd36b98db60eb30f2854e23e6d57579701b4467a0a95bf3566912f747d95f"
-    sha256 cellar: :any,                 ventura:        "25352cf6fc580750f461db718b0aeb14ec311c1be4ed7458027303416e348716"
-    sha256 cellar: :any,                 monterey:       "f8c5ff44aaf7d0ca43fd5d47c687dd30856162290f9e06c7cf447013f0c96013"
-    sha256 cellar: :any,                 big_sur:        "77a1c6b2fd240446b9d8b7b5fac451bd83c100df370f7ad5d718081a6646dd1a"
-    sha256 cellar: :any,                 catalina:       "8c95b118eb284a9f6f9e58429553c643ed50e38dea4eb625a3d77f26e0c17079"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cf1f56a098a185de89c0fb2341cbae1e8f8a0aa0de74623db7d45e2a62e2d3ca"
+    sha256 cellar: :any,                 arm64_ventura:  "de7a906ffaca85ea45dd539fa56699d29daaf5acb734b93cf4ff737203376e24"
+    sha256 cellar: :any,                 arm64_monterey: "41357aed8d69b68eeb823a4b1ae603a384c2c104c789411d222909bb09265071"
+    sha256 cellar: :any,                 arm64_big_sur:  "01a528ad6cd584216f682f6a05a9bc413d96fb881b87e9ec2a15a56efb08d166"
+    sha256 cellar: :any,                 ventura:        "9918c8a891562b14bb69d7642a5f3cf5a79767baf78970710fd9c67e405a2f37"
+    sha256 cellar: :any,                 monterey:       "5707278f339e55a64b1dfcd2ccad204be4352d0326b370f7f3af94b88652d3b8"
+    sha256 cellar: :any,                 big_sur:        "59b19f0d8232e43f61a942ca91a91d8c1f2b47874c0118e31517a6ef27659d14"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d8039fa032a059b5dfc7b61412dc6a446b1f16839e5efaf52b3e61428ea613a2"
   end
 
   depends_on "cmake" => :build
   # Has Python bindings but are supplementary to the main library
   # which does not need Python.
-  depends_on "python@3.10" => [:build, :test]
+  depends_on "python@3.11" => [:build, :test]
 
   fails_with gcc: "5"
 
   def python3
-    which("python3.10")
+    which("python3.11")
   end
 
   def install

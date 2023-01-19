@@ -1,32 +1,42 @@
 class Page < Formula
   desc "Use Neovim as pager"
   homepage "https://github.com/I60R/page"
-  url "https://github.com/I60R/page/archive/v3.1.2.tar.gz"
-  sha256 "18089dd86dbbf3b02d8b85412e76f9881a8e2cd957e7201dbbb2b8d71dd5074a"
+  url "https://github.com/I60R/page/archive/v4.6.3.tar.gz"
+  sha256 "51cf01933180499b27027fcdbda067f0cf80cebaa06d62400b655419f1806d46"
   license "MIT"
   head "https://github.com/I60R/page.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "df4cae290539e646ddb4e62a8a960bee9d5091b8150953f14584e9bf89dbb9f6"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "cfbbfa9a8fc94ab72873581413b1f4ba5780de3b93a39c6127246112c20a6f53"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "669f84cd2f3bcca9c5bdd41034167f0945efda5045d817efcb5067ad09c1daea"
-    sha256 cellar: :any_skip_relocation, ventura:        "7b78f47b6340f5b51cadd6f2b8d25051fa8ab5a9d59865f803f86b7ab6097c72"
-    sha256 cellar: :any_skip_relocation, monterey:       "71f4fa8a352edc9a2a43df532e37fe9c5b3bd7dd98fc70c7f12e3ea013a88c89"
-    sha256 cellar: :any_skip_relocation, big_sur:        "f265e404a083079103c6bc00e7aa811c8a8b2576dd67f1468b62f7ac78160f87"
-    sha256 cellar: :any_skip_relocation, catalina:       "b4969223548fb851d27e3f5a8643b44f6012dc52f2ded74d0ebe32d103969b33"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "01ae56c67892c13654670acafa8c2219658babedeec0eae31af7767032ce9cc8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "115a1bee4a08a2e829bd9474e5896cc5f9ac415a509b29b26675bb14206465dc"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "7dff421473d67b5b753c57deb9221fbdc863ba341e72b41b1a90ce71286ced4c"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "8e41089194d5a0afbe9b9e7f0876ff9a30261ddcc983c2b8cc708e917cd5a0f3"
+    sha256 cellar: :any_skip_relocation, ventura:        "9711f49884c59be816fa97363993b08b6f1655b1a4ec8de8a89c6e95355976b9"
+    sha256 cellar: :any_skip_relocation, monterey:       "ad312adf9e277f5dede93292f1cfb5001c4ad3a26ac55f877e25690d3c386f15"
+    sha256 cellar: :any_skip_relocation, big_sur:        "d9598c8b80efa0b238478f877b19be504a1b07d3b41c8932e227a6ea4505cda8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e9cac68f8653a7f517a1cbe7429e98743e94379bf96564c11e6b81c964cb279d"
   end
 
   depends_on "rust" => :build
   depends_on "neovim"
 
+  on_linux do
+    conflicts_with "tcl-tk", because: "both install `page` binaries"
+  end
+
   def install
     system "cargo", "install", *std_cargo_args
+
+    asset_dir = Dir["target/release/build/page-*/out/assets"].first
+    bash_completion.install "#{asset_dir}/page.bash" => "page"
+    zsh_completion.install "#{asset_dir}/_page"
+    fish_completion.install "#{asset_dir}/page.fish"
   end
 
   test do
+    # Disable this part of the test on Linux because display is not available.
+    return if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]
+
     text = "test"
-    assert_match text, pipe_output("#{bin}/page -O 1", text)
+    assert_equal text, pipe_output("#{bin}/page -O 1", text)
   end
 end

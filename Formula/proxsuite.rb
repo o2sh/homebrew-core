@@ -1,20 +1,19 @@
 class Proxsuite < Formula
   desc "Advanced Proximal Optimization Toolbox"
   homepage "https://github.com/Simple-Robotics/proxsuite"
-  url "https://github.com/Simple-Robotics/proxsuite/releases/download/v0.2.10/proxsuite-0.2.10.tar.gz"
-  sha256 "428833afe3ad6a438adc9c0762066e272adfc3c97a1997a32292f73e06c5365c"
+  url "https://github.com/Simple-Robotics/proxsuite/releases/download/v0.3.2/proxsuite-0.3.2.tar.gz"
+  sha256 "011244645ad700bb4ac56de1b24f174e734915991dfc3b0125a32c1f520bde2f"
   license "BSD-2-Clause"
   head "https://github.com/Simple-Robotics/proxsuite.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "ddedc28df3068b2bb4020e95fd3a8bc6d23be495d3d60e74eb2e5b731e62dd0a"
-    sha256 cellar: :any,                 arm64_monterey: "086d4c085dd469801cdf06d6a3ab85ae512b6a770941655f2a29f6472bf909b5"
-    sha256 cellar: :any,                 arm64_big_sur:  "599a3002a0b630824182bd00043a9aa0e343af29d226b76afa90c3da65bb932d"
-    sha256 cellar: :any,                 ventura:        "e325e348343bfc4330d08af9f8cdd80e07c1431e0407d7c4b126b878093fd770"
-    sha256 cellar: :any,                 monterey:       "877757403a2f9dc8ad9045fd78383d9c6121857db0162feeb697ac5d7bc17eea"
-    sha256 cellar: :any,                 big_sur:        "31ef9d60e4bfc700041e754d53576431654ee8b403069ca8c04e0e087b0bcad1"
-    sha256 cellar: :any,                 catalina:       "fc0ebfe066bfe9f932a5b21bd6d0f6d99004f57974d85c706855a9c0e459315c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c10f559fd87e65e038a6234f2ff3db730312cec5b62830f171e4aa225627755e"
+    sha256 cellar: :any,                 arm64_ventura:  "5abe1ed78726c40f66f28af8a1e871b12215cf1677c038de29d68e1617f08e92"
+    sha256 cellar: :any,                 arm64_monterey: "695208b94313a73ce6ac98e5679ef675d5575a61d7211d497ef963be2b3d9d8c"
+    sha256 cellar: :any,                 arm64_big_sur:  "251b277b48916d2c43bf761bbbccbe60153c13d43251c9af8b5a6ab69835a81f"
+    sha256 cellar: :any,                 ventura:        "701ea6a2e63d31e49aad2d1cb4bd38874a2f1b010b0af41ff2f5b0a1c9514c6d"
+    sha256 cellar: :any,                 monterey:       "51eabeb178921e4cffcb80e61f105a900f0d8f3c5d01a73b43b180b9b9abf61e"
+    sha256 cellar: :any,                 big_sur:        "09909de5e089106e713adcb35deee6d31e75775890ead2e6727601fef06ef2d7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4fa408e5297f336ab48d9cc16410d654baea098ae6f8c97c8054d6f451fa78ed"
   end
 
   depends_on "cmake" => :build

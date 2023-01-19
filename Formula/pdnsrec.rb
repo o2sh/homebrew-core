@@ -1,9 +1,10 @@
 class Pdnsrec < Formula
   desc "Non-authoritative/recursing DNS server"
   homepage "https://www.powerdns.com/recursor.html"
-  url "https://downloads.powerdns.com/releases/pdns-recursor-4.7.4.tar.bz2"
-  sha256 "17b5c7c881e3f400bb3b527dd866e5cf2cd62d5d33566b1b70b58c608d9968d5"
+  url "https://downloads.powerdns.com/releases/pdns-recursor-4.8.0.tar.bz2"
+  sha256 "ccb9017a1a788e95e948e7b240ef8db53ae8a507b915f260188ef343f7f68bdc"
   license "GPL-2.0-only" => { with: "openvpn-openssl-exception" }
+  revision 1
 
   livecheck do
     url "https://downloads.powerdns.com/releases/"
@@ -11,14 +12,13 @@ class Pdnsrec < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "33b9a6459851bdd4dcaefcfc502dc6036c4141af9709151b9cc9a93563d0a1f1"
-    sha256 arm64_monterey: "db3ed7e89803589ff1367a1c2a37c7d893aaa2d223a9766584714eb2917916c0"
-    sha256 arm64_big_sur:  "e30e5e8b23e6249ee8089670f16c3bd2afd3f0a9af7851d4b8815f87a720a72e"
-    sha256 ventura:        "fda97eacdf011d62e1df556f0bf8dacbb868838b39280ae012a53a852e910487"
-    sha256 monterey:       "bafcc08610b09459297933cd1a24e1b458a01bcbf65013a16d4800fd7d8a3a83"
-    sha256 big_sur:        "f9cb1785e7203e5f24d77a0af7affe46af99cd4b53f90bde21db2300d5c55b61"
-    sha256 catalina:       "093f84bd403d9af6f680392daa4a0245ba559e879e25d5eaa03acacdbf6d5a14"
-    sha256 x86_64_linux:   "c153fb75cb1e50832f5b33d18462317a2cede63f75c58f370436d14f19fd68ae"
+    sha256 arm64_ventura:  "39ce25470b06f6680a7d291fad6f78c5416da346223a751342e7d3395c8251d0"
+    sha256 arm64_monterey: "7bb4a703ec0c55a5965bca1c0c7ca8192c544223df4519f7f77a13bc0fd7b5fc"
+    sha256 arm64_big_sur:  "22ea9497eaa34fa6ffc8c51e4247e207c11b66653c3d3b543f984ccd978d1183"
+    sha256 ventura:        "dd4db28863cd4b37935e038f4011cb252cc7f14c04452a6f18fca5bb6dfd633b"
+    sha256 monterey:       "ffbb83b3336a792881a1248a7ef770beb3e7060aa51f883e8640b2aae38a7cdb"
+    sha256 big_sur:        "eeab11f2b84b1bb4ad7b83541ddedcdcd868309d1e6409ba3f686140d419e3bc"
+    sha256 x86_64_linux:   "ab6e0347ce3ccc462792cd5e03219f11722fcf77c30bdbfeebaf441eab0862fa"
   end
 
   depends_on "pkg-config" => :build

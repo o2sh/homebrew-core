@@ -1,20 +1,19 @@
 class Folly < Formula
   desc "Collection of reusable C++ library artifacts developed at Facebook"
   homepage "https://github.com/facebook/folly"
-  url "https://github.com/facebook/folly/archive/v2022.11.14.00.tar.gz"
-  sha256 "b249436cb61b6dfd5288093565438d8da642b07ae021191a4042b221bc1bdc0e"
+  url "https://github.com/facebook/folly/archive/v2023.01.16.00.tar.gz"
+  sha256 "b5d9b6d5833a6f149819cc828ec0f569f1edc88fd79344c642d2606d58cee130"
   license "Apache-2.0"
   head "https://github.com/facebook/folly.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "77297f311e297514b906a68b09d88359d575b697c109f3597c49032fc10747c7"
-    sha256 cellar: :any,                 arm64_monterey: "bcbe28db104519234f755f230cfbb6b03606f7997676d8088fa1f3cfba1bbafb"
-    sha256 cellar: :any,                 arm64_big_sur:  "0d538a8fc326d2662798fbe86dd66103c7422a04387ffd42cfeff919ca5fb4fc"
-    sha256 cellar: :any,                 ventura:        "f22988eb447f972859e712a261fc19d931fec4bdb3dfc93a12e5d5a2959ae159"
-    sha256 cellar: :any,                 monterey:       "49b8994a0848131751c8880bbd6804edec25d77cb16dc2d6330c9bae8da51860"
-    sha256 cellar: :any,                 big_sur:        "21eb411b6f0435113e22d896a8314ae343ee0d62479ad21405d0154626dd5bd6"
-    sha256 cellar: :any,                 catalina:       "4a12118cc67197ae3fe9991daa75859819c0c7c7096c9a6b979eb6946b27dbc6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3f58e133706c739d68006a7e573bac901d47a765c87065f9d03d2dd1681229d9"
+    sha256 cellar: :any,                 arm64_ventura:  "dee5239ba12f47494cdb8e3fd330886657786f796247201d14fb935a8dabf9a7"
+    sha256 cellar: :any,                 arm64_monterey: "eb608996aebd6834188f39d864c7b40b32aa70d120511712f26129e4cdee789c"
+    sha256 cellar: :any,                 arm64_big_sur:  "5cf000f7d56a9c5937bc767595d2f701aac6deb8e8522c6363c2eb315e4fc578"
+    sha256 cellar: :any,                 ventura:        "f20818259bfb3eba523bd3831920edeff812cf27e7da28bd16ca6ecf348b8756"
+    sha256 cellar: :any,                 monterey:       "1d89af803ab53e15fd9b816f94238922a6df3246c7bc20eb1cb3813d6f1ad1fc"
+    sha256 cellar: :any,                 big_sur:        "a58c9317bcee67c69cef8c440036ed6c3980a2a79bcb9dee995fba3354613034"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6ad1be0e40be74d701b0b9ee31f1c472223b07080a66cac4e6ae287eedca9ca7"
   end
 
   depends_on "cmake" => :build

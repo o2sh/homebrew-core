@@ -1,10 +1,9 @@
 class Mercury < Formula
   desc "Logic/functional programming language"
   homepage "https://mercurylang.org/"
-  url "https://dl.mercurylang.org/release/mercury-srcdist-22.01.3.tar.gz"
-  sha256 "d5b4b4b7b3a4a63a18731d97034b44f131bf589b6d1b10e8ebc4becef000d048"
+  url "https://dl.mercurylang.org/release/mercury-srcdist-22.01.5.tar.gz"
+  sha256 "7e1b2d1b130c0afc65542be3c2e48399cf2c25d7a04ad3c427e022715b098a0f"
   license all_of: ["GPL-2.0-only", "LGPL-2.0-only", "MIT"]
-  revision 1
 
   livecheck do
     url "https://dl.mercurylang.org/"
@@ -12,13 +11,13 @@ class Mercury < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "78ca57b990d2ecf4e6fb33d5031ccaa85a52287ec2e0ccb29ae4e8fe2e33d06a"
-    sha256 cellar: :any,                 arm64_monterey: "825e3876f6c1960fb50fbe504af434e25578b3ff641353cb6f3254a098e2e5a1"
-    sha256 cellar: :any,                 arm64_big_sur:  "2deff06f22ac96b29db1070ee830dafd610fe393e11e9cc53b48a88a7ee2ed24"
-    sha256 cellar: :any,                 monterey:       "b6882729b695e6adfbc39625c0e6f08672c2e2a89611c46466b948a95323a91d"
-    sha256 cellar: :any,                 big_sur:        "988660fd4e794c650aa9619db96b14f2aef5f41af103bb256f7bf060a41f9162"
-    sha256 cellar: :any,                 catalina:       "4175cafa86fed2eab2ad5a910b8f8d6123ec1d82763a5a136ccfceeec7ee3805"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0fe2e46ecc74258921fe2cd6e8e18b6561578517e6bfd261b603780306de17b9"
+    sha256 cellar: :any,                 arm64_ventura:  "0751d295215f349b480049b531576e69943beb12477ee6b66feb7a816b213c26"
+    sha256 cellar: :any,                 arm64_monterey: "9727730ebd3fa36ac4f44960986364650e1ea06771a7d3356623fc8cce4d4920"
+    sha256 cellar: :any,                 arm64_big_sur:  "c14ccd7d01b08b7613ad00b533f2e894211fc022cdb2430c1b6a253df4b637ba"
+    sha256 cellar: :any,                 ventura:        "7d6067caaba5b3702925281372829d2335032c60d0ba3d5b8c4bb079af41875c"
+    sha256 cellar: :any,                 monterey:       "5a85170167d479402b417a97f546224e1b60bb14703994afadf4564aa812659e"
+    sha256 cellar: :any,                 big_sur:        "66fc23eb80ac2fd0c82ca3dcc375cde9e6be66973576f0ed1312b83630c96fbc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bc7c9dc9c7c47729b296ed1f09073aa1d21169b3552cd784c1c1d287d28ac7db"
   end
 
   depends_on "openjdk"

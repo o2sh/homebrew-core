@@ -2,26 +2,25 @@ class Ppsspp < Formula
   desc "PlayStation Portable emulator"
   homepage "https://ppsspp.org/"
   url "https://github.com/hrydgard/ppsspp.git",
-      tag:      "v1.13.2",
-      revision: "9fe6338e3bf397f8a009a51a282c139dfa180eb6"
+      tag:      "v1.14.4",
+      revision: "cd535263c1ad65fd03869591a8bd706680cbf04b"
   license all_of: ["GPL-2.0-or-later", "BSD-3-Clause"]
   head "https://github.com/hrydgard/ppsspp.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "a5d42c30cbad8d7eb332aa520d07832bc8026fa32705be36a220e2fab82af317"
-    sha256 cellar: :any,                 arm64_monterey: "13bffd8ebd5acc25e6be6747fc2fa7a99582cecab7b2085bcff4ebba8109c63c"
-    sha256 cellar: :any,                 arm64_big_sur:  "468aa96721c46a7051f1903b08c58b1eb4ab11d9db483eabf4a9aba17218d941"
-    sha256 cellar: :any,                 ventura:        "ec8b33a154ee0695f0132975e7416d6b9fb4cac85c92271d75e2446ae5155edc"
-    sha256 cellar: :any,                 monterey:       "3e9a5da2560205a7afa1715c3d635949013efe6e950ac19ad8417685cff782dd"
-    sha256 cellar: :any,                 big_sur:        "6f7bf991ba10cc703fc083dd646533ceaf7aff54df3cc69570b08b1503eda67c"
-    sha256 cellar: :any,                 catalina:       "6b009ff1ab96a7ee01cbabdaab0484bbd1af093f2d1da9d19864fd95cd814f37"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "aaa7a57848c5bcdf0a06cfc4342f6d7133895e533e6e821218c95766e96f72ca"
+    sha256 cellar: :any,                 arm64_ventura:  "12eb34a29c2d4dca85b14d53e0143315d9721f46eb48d2ca04b489fba7d546a1"
+    sha256 cellar: :any,                 arm64_monterey: "6c2e98b136aeac198bb244e74d14028d53931b1c1c0e411dbff4fa18c8c1ea69"
+    sha256 cellar: :any,                 arm64_big_sur:  "71257d8d85c12d5d095ce55f3465cb66ccc2dd9432b8b707c661766d45d0d7ed"
+    sha256 cellar: :any,                 ventura:        "a2ff1c001e74f000159f7cc2d2016c827dee9f5339eb3d43d1c91392238ffbe6"
+    sha256 cellar: :any,                 monterey:       "d6bddfb72e3568f424c3f0d4237fd444b52d03b921ecf292cd5cf62fe45a4863"
+    sha256 cellar: :any,                 big_sur:        "e3221b806f94a9a1d3cd447342d6862035075e1055eef040c47ddba6a7a31688"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cfecd0667593b18ddcac5726a42e5ad6229d1e5ee1ebcacdc943241c5d028a5b"
   end
 
   depends_on "cmake" => :build
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on "libzip"
   depends_on "miniupnpc"
   depends_on "sdl2"

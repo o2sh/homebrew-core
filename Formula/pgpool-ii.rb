@@ -1,8 +1,8 @@
 class PgpoolIi < Formula
   desc "PostgreSQL connection pool server"
   homepage "https://www.pgpool.net/mediawiki/index.php/Main_Page"
-  url "https://www.pgpool.net/mediawiki/images/pgpool-II-4.3.3.tar.gz"
-  sha256 "6c73434baee581386a9555fe59628bf467820f7d5bdbe3341768399a0382c979"
+  url "https://www.pgpool.net/mediawiki/images/pgpool-II-4.4.1.tar.gz"
+  sha256 "4b379bbba8e178128a1cee4a5bd1ae116dedb3da6121b728c18f0f54c881f328"
 
   livecheck do
     url "https://www.pgpool.net/mediawiki/index.php/Downloads"
@@ -10,14 +10,13 @@ class PgpoolIi < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "f859b822c4e63812880a2c1a098095bd3b7359cbc12b8fe150f1c7e3fe561b60"
-    sha256 arm64_monterey: "eedfa1554111d90bae8aeff5a14169b69823ef348672c4cfc554a03c6ffe6775"
-    sha256 arm64_big_sur:  "6ba946c5d04acd2bd5101d9d3b882d58f4a4dbae5ba92f3f5d96c5bfec7821ca"
-    sha256 ventura:        "d645c5c43f080dcf0ed0abd8802076a5de7963708c98839d6d5c0c7ff31ce1b7"
-    sha256 monterey:       "82546227f35da4d840670417ac58917fb2d393b1ae8467d6281080d24fd28850"
-    sha256 big_sur:        "361c2fa788bbf27fdeffa1e7b75b83f45c32a7b4651b6e4acd20f0939f4bcecd"
-    sha256 catalina:       "d81047a9c76402e976246f7f3ccc48c0fd0943e9957a7b02ad1e78c16379d412"
-    sha256 x86_64_linux:   "85f0be3bbb50f34930fc55f0dca98ed4f79cd25fcd7802fec31a4befb33591c9"
+    sha256 arm64_ventura:  "c4401a7f0c1ff1376b3d083e87f69b753c22f66202f4c334f6910300fd3c446c"
+    sha256 arm64_monterey: "033549edb31207d6cca5d921d5f46cc6abc22a040f94879b9816ca936c2bda7c"
+    sha256 arm64_big_sur:  "25b0107aab61a6c15f8264049f88a04cb72e529b2e580dde5687ca5ff1a0fc7e"
+    sha256 ventura:        "09dcdde328cf0b23f553367a831053336fa8629339f0af9d6a29782af1103780"
+    sha256 monterey:       "10a02d1840435c7a445d63c8effa529c047ff76df6c0773bdcd002222b5f45b5"
+    sha256 big_sur:        "0af63ae746d020b2caf2461cc6ee3cf5f0fd931e5951396c85c0f30c7b2347fa"
+    sha256 x86_64_linux:   "4c31f8e1e0c1c442f50a2f6a72d87d03d9405f1134fba894ef7b4c147af3645d"
   end
 
   depends_on "libpq"

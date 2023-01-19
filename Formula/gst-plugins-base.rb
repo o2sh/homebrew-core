@@ -1,8 +1,8 @@
 class GstPluginsBase < Formula
   desc "GStreamer plugins (well-supported, basic set)"
   homepage "https://gstreamer.freedesktop.org/"
-  url "https://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-1.20.3.tar.xz"
-  sha256 "7e30b3dd81a70380ff7554f998471d6996ff76bbe6fc5447096f851e24473c9f"
+  url "https://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-1.20.5.tar.xz"
+  sha256 "11f911ef65f3095d7cf698a1ad1fc5242ac3ad6c9270465fb5c9e7f4f9c19b35"
   license "LGPL-2.0-or-later"
   head "https://gitlab.freedesktop.org/gstreamer/gst-plugins-base.git", branch: "master"
 
@@ -12,14 +12,13 @@ class GstPluginsBase < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "0121a568cb22aa9f13eadc5a50eed1732756fded1af90251925acdc1fe19f04a"
-    sha256 arm64_monterey: "c1a84cb8bde6d9712aedc62e34bcd55d261a9a30e6605df13fd73ff329aadb8c"
-    sha256 arm64_big_sur:  "c9751148a9a4d358b6a51cf55559604586def33b232615bab251e3a9be361209"
-    sha256 ventura:        "b62f2f26c3269ea43a65ed1878b824a24dbc72139c83ce7cf54276b9926a51ff"
-    sha256 monterey:       "4e02f656481a12ce1b5965c845e3549414d40e1a6328da8a33c2646df49ceccd"
-    sha256 big_sur:        "588eeafd981aa2848f9b9b5229f52db91087e4ba308ffacd45690dff2c517566"
-    sha256 catalina:       "84247feeb432bdd15f729406e5ee1d8d5fcc597c553453d48d56482dbd26e3f8"
-    sha256 x86_64_linux:   "9006e77c75abbd33f8050b1a90d8fde5da095485694843ac73f315bb4d1505de"
+    sha256 arm64_ventura:  "a3a353c76189f1ae51e6b4c046f85d2251264ebb37e5023ea06a62809025d773"
+    sha256 arm64_monterey: "c21b4a8e6cf09a43cb574da9a4b99d705189c9d01ecd51d4ff87494551ea4a7e"
+    sha256 arm64_big_sur:  "0bd6be3f07c5cb0ecc88b8c167187e5aa632500d52f8f9342f6f722973a16321"
+    sha256 ventura:        "7d0fef276f2f82fcf1e92d583f7d21c4c5c66104bf44fa7db1de6551a5fb97df"
+    sha256 monterey:       "8beb288ad29abd319a42ca436b01a13bc6593f768551de4498e786e1a4ce5b03"
+    sha256 big_sur:        "e614558a1b1e1d72a17120324bf07d8cba86f39dabdf76c57b300ab24e6181cb"
+    sha256 x86_64_linux:   "0dc7e6a058682b1476aa7014020c5edb8d95f201311b9c898293be123ac3de8e"
   end
 
   depends_on "gobject-introspection" => :build

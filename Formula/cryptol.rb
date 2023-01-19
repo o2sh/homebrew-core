@@ -1,12 +1,14 @@
 class Cryptol < Formula
   desc "Domain-specific language for specifying cryptographic algorithms"
   homepage "https://www.cryptol.net/"
+  # TODO: Try to switch `ghc@9.2` to `ghc` when cryptol.cabal allows ghc-bignum>=1.3
   url "https://hackage.haskell.org/package/cryptol-2.13.0/cryptol-2.13.0.tar.gz"
   sha256 "5c5b7ad0b290c506836dbbad886ae43ce7d690dd86e2f2a9124564c2f5602b83"
   license "BSD-3-Clause"
   head "https://github.com/GaloisInc/cryptol.git", branch: "master"
 
   bottle do
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "71ca8417ff9eac48d71355f88675758590a8b4ec91ae168f6eda390ff61bd4e8"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "21bf30e80d822a11359a5edada042837a294a82e9a2375e39e19fb059957e1b8"
     sha256 cellar: :any_skip_relocation, arm64_big_sur:  "091eca3d557fc8f34f9f08734731c70d4235c701238fec389e8746b0c9875a97"
     sha256 cellar: :any_skip_relocation, ventura:        "6e5819a8ca3426c7c22c8af2d4f0a63e67209d3c4f7e6b5b4ac182f4f3316986"
@@ -17,7 +19,7 @@ class Cryptol < Formula
   end
 
   depends_on "cabal-install" => :build
-  depends_on "ghc" => :build
+  depends_on "ghc@9.2" => :build
   depends_on "z3"
 
   uses_from_macos "ncurses"

@@ -1,28 +1,32 @@
 class Librem < Formula
   desc "Toolkit library for real-time audio and video processing"
   homepage "https://github.com/baresip/rem"
-  url "https://github.com/baresip/rem/archive/refs/tags/v2.9.0.tar.gz"
-  sha256 "ec87deef927c27b2199e652993bdd8d62d6176efc0231ddbe5227f212e27a881"
+  url "https://github.com/baresip/rem/archive/refs/tags/v2.11.0.tar.gz"
+  sha256 "16885d9343bab4186a2804107016076d06794d71a46cd70daba05b8fa897e024"
   license "BSD-3-Clause"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "56442361d6b20c84d630cebd8cd7ef5ef24aa4f88b4a627dc4fa346d8bfdddc2"
-    sha256 cellar: :any,                 arm64_monterey: "e9dc062a114d69b463b7ec80988249390e6f4111ef0801a618cb0256e3842391"
-    sha256 cellar: :any,                 arm64_big_sur:  "57c83221b7d6bc51972c02509eae3d18e54b67c112bb78b5ca90d0e3b871b8f0"
-    sha256 cellar: :any,                 monterey:       "92c89a0f99ae9342a7c4d7b7802bb82085877fa908e78c4d481c1aa38665d4bd"
-    sha256 cellar: :any,                 big_sur:        "45d019137c7c4100c87e3f238e597b396546b11c16261cb2cd899c29bfc6cdbe"
-    sha256 cellar: :any,                 catalina:       "3c7fb584d06bd818a49d9b80356ff2579183d9d8bb583c77a995bbfe4e5cc82e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d6e610de0068c95b1cf76f0f98c6f03fc4801b98422ea3669e3ad9caf1e76576"
+    sha256 cellar: :any,                 arm64_ventura:  "3ea8f59100eb3baf3f018972e3a634ad814d455cfa695c82dbeec2ddba7dfaaa"
+    sha256 cellar: :any,                 arm64_monterey: "a9a01a893f1e63dcbe01354ecd48ff2543176de0345d3b887abb1cd557196175"
+    sha256 cellar: :any,                 arm64_big_sur:  "a99a70e37f0f657290b4373fb3311d35d44598a11d29573e8aee286457e87cd5"
+    sha256 cellar: :any,                 ventura:        "7b745dc6f93857733d9aa007e179135f2fd0beea31a6b429de8bd921202ba6a7"
+    sha256 cellar: :any,                 monterey:       "fb490ad1f4a51300c6b2d0fbb294ffb7c6cc3b65dcf1e3c4045cc8e116a9c605"
+    sha256 cellar: :any,                 big_sur:        "047852cd1d0574e5f8e5cd30a65eb334be7156968270a8c9efa453bf2d74249d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cb0275896a553b748e3600fb3c86073277724b215a41176162ca4dba93867885"
   end
 
+  depends_on "cmake" => :build
   depends_on "libre"
 
   def install
     libre = Formula["libre"]
-    system "make", "install", "PREFIX=#{prefix}",
-                              "LIBRE_MK=#{libre.opt_share}/re/re.mk",
-                              "LIBRE_INC=#{libre.opt_include}/re",
-                              "LIBRE_SO=#{libre.opt_lib}"
+    args = %W[
+      -DCMAKE_BUILD_TYPE=Release
+      -DRE_INCLUDE_DIR=#{libre.opt_include}/re
+    ]
+    system "cmake", "-B", "build", *args, *std_cmake_args
+    system "cmake", "--build", "build", "-j"
+    system "cmake", "--install", "build"
   end
 
   test do

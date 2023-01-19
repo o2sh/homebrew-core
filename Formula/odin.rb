@@ -2,20 +2,20 @@ class Odin < Formula
   desc "Programming language with focus on simplicity, performance and modern systems"
   homepage "https://odin-lang.org/"
   url "https://github.com/odin-lang/Odin.git",
-      tag:      "dev-2022-11",
-      revision: "382bd87667a275f9b276886f7c1e8caac4dda5f6"
-  version "2022-11"
+      tag:      "dev-2023-01",
+      revision: "86511d44e46b6271b01df2cd1ebb83b5496e143c"
+  version "2023-01"
   license "BSD-3-Clause"
   head "https://github.com/odin-lang/Odin.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "733feaa92759d2b66cfc61a503011bb10cf3b83c8377000e952453e6388c4db6"
-    sha256 cellar: :any,                 arm64_monterey: "59aa458fabfac60adbe9229556022f2139ee1c99925bf242b518b62402809ae8"
-    sha256 cellar: :any,                 arm64_big_sur:  "b4db4322d91a616173a3454d46d40ac15c37b52ce4b4a38effdf26f7dd6bfaf5"
-    sha256 cellar: :any,                 monterey:       "31613eb73b14283a127ab6b1975715c802c34e4e0636a785816440669d1f0e63"
-    sha256 cellar: :any,                 big_sur:        "be00af3f548d58d94f073fbceb562f83996c1be39fc6335ba507e848cc11fbac"
-    sha256 cellar: :any,                 catalina:       "3576c9ff57989433ebd7de0d113bfdf84b11052a27a9d741bb298760da44a02e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8d75acd24a5e331c4426513dd948f85d05fba4003cd3dd74f41451ac20f3e921"
+    sha256 cellar: :any,                 arm64_ventura:  "7de05cc0ff329c8e5f0bb1dbf1acd68a8b044300f6b62b56eb17389f5d727f84"
+    sha256 cellar: :any,                 arm64_monterey: "8ebd487b6802b816ab9a592fa7b3a950c3f5cf7d9179fde4f7925da9afee5004"
+    sha256 cellar: :any,                 arm64_big_sur:  "e3ed8de0a684f057c3fea6275019b1abcbca19e55e01b56fbe944481e066ebf8"
+    sha256 cellar: :any,                 ventura:        "0f1b17e26f99997355a5658905400f3d793a3bd46334fe716e2999a2e2cf197e"
+    sha256 cellar: :any,                 monterey:       "a090d2a65bbc3b25b802b8649848e099778c6048a06118c1c4f205f0ffad634f"
+    sha256 cellar: :any,                 big_sur:        "8356cb570a64f4f00135dfa0d55e4611787640fe1ad8828f6d406687379fc6b8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "84910f364c8cde3c240b151752635f49b49c4baf68230c80252141d21a8529bc"
   end
 
   depends_on "llvm@14"

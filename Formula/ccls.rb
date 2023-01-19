@@ -9,18 +9,17 @@ class Ccls < Formula
   url "https://github.com/MaskRay/ccls/archive/0.20220729.tar.gz"
   sha256 "af19be36597c2a38b526ce7138c72a64c7fb63827830c4cff92256151fc7a6f4"
   license "Apache-2.0"
-  revision 6
+  revision 8
   head "https://github.com/MaskRay/ccls.git", branch: "master"
 
   bottle do
-    sha256                               arm64_ventura:  "f4170fd9502d4163f1e81b1e586844d092bb2d244bcc489515e1c21b562dd181"
-    sha256                               arm64_monterey: "fe85213a57a49cb8fdd9b2dd1064a27a3a15480c4e2760b6f0822a28d0e0e5b8"
-    sha256                               arm64_big_sur:  "a478d9d56f092d5c0af5cc2eba95ce92b8aa4e4c715a588f51ef221b917f30a3"
-    sha256                               ventura:        "3df7e94e8687cce411fb1220bce58198f816ff02e33ecafa1b40a5d234dc2b04"
-    sha256                               monterey:       "7e1ba5791ef7efd463cec861d325a317a1876772fff1d7e76b5ad96ff9296df4"
-    sha256                               big_sur:        "b4bf1dbeb732b55126523f4f207d87702f0ccb4e916804b4addc5438c81b81fc"
-    sha256                               catalina:       "f6c5a5e8968fdf4001ba476fe88203c8aa0b2f8befa3e97704a2d34f810a3007"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4c581f6afa20b0ba3c29d2603253492aadb6f9172a374442ceb2f8f48c6b948a"
+    sha256                               arm64_ventura:  "fcace1d89ba9d7c67ba7073240f00f61cb30c604d62b4485a3501486284a578e"
+    sha256                               arm64_monterey: "371ef78d4aea810ed344f34790603bb88b01fee575eab7ff7969878d81095b9c"
+    sha256                               arm64_big_sur:  "101591ed613a17a252452e78b69786b332de710023923e544cd9b5b0ad63e147"
+    sha256                               ventura:        "9eac337ffa1a43ce712acb0d987856120f9a68cbaffbe25da993ad62940102b2"
+    sha256                               monterey:       "4536d5b4554fad0e7c9a1ae913b0bd783403ef34a3ffed1e1405cb57657e82e7"
+    sha256                               big_sur:        "40357fd7029cc87fa6a7a8945bb13e922e7c0c53a3373fbd50ba1a958fb58176"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "da6c69295bbe7bb0e8a896414f48981b00e118af2f222c9053b8c14e211825cf"
   end
 
   depends_on "cmake" => :build

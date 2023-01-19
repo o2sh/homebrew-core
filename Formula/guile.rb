@@ -1,21 +1,33 @@
 class Guile < Formula
   desc "GNU Ubiquitous Intelligent Language for Extensions"
   homepage "https://www.gnu.org/software/guile/"
-  url "https://ftp.gnu.org/gnu/guile/guile-3.0.8.tar.xz"
-  mirror "https://ftpmirror.gnu.org/guile/guile-3.0.8.tar.xz"
-  sha256 "daa7060a56f2804e9b74c8d7e7fe8beed12b43aab2789a38585183fcc17b8a13"
   license "LGPL-3.0-or-later"
-  revision 2
+  revision 4
+
+  stable do
+    url "https://ftp.gnu.org/gnu/guile/guile-3.0.8.tar.xz"
+    mirror "https://ftpmirror.gnu.org/guile/guile-3.0.8.tar.xz"
+    sha256 "daa7060a56f2804e9b74c8d7e7fe8beed12b43aab2789a38585183fcc17b8a13"
+
+    patch do
+      # A patch to fix JIT on Apple Silicon is embedded below, this fixes:
+      #   https://debbugs.gnu.org/cgi/bugreport.cgi?bug=44505
+      # We should remove it from here once Guile 3.0.9 is released.
+      on_macos do
+        url "https://git.savannah.gnu.org/cgit/guile.git/patch/?id=3bdcc3668fd8f9a5b6c9a313ff8d70acb32b2a52"
+        sha256 "3deeb4c01059615df97081e53056c76bcc465030aaaaf01f5941fbea4d16cb6f"
+      end
+    end
+  end
 
   bottle do
-    sha256 arm64_ventura:  "c3d30012c9169556511cdf762f9c4c98dd7eca3c0ba510dac1a8ef1c14e9927a"
-    sha256 arm64_monterey: "56fc54551418481510668be3665501ebae56e681856c761d2246117760e18b7a"
-    sha256 arm64_big_sur:  "e60bb58c6fdfca0d7c5f948cb75dbd2767ba12588d9e60abd55f7cc6d1b089f5"
-    sha256 ventura:        "2d717f010f0107b92602c54c536fd6965ea6558091ab9ba1074d28828e7326cc"
-    sha256 monterey:       "73a962893b19f8b57f53183b6366029a65c292fa2dc8fa73ee15d13a897faf7b"
-    sha256 big_sur:        "f7b6347634567f73383b9c1d2c1a04168f8a10d352bc386b633b60cf47abaa76"
-    sha256 catalina:       "d797092caee30cc7da0e8c22c2f7416db7f317090832529926acae0a408e1ce7"
-    sha256 x86_64_linux:   "cac793bc25c769435753ac8a5ca98efe420612f8946b8fa193dc69dd45e12b58"
+    sha256 arm64_ventura:  "48357e0f3887432c278fc30c2b85c598c4e696ae0ca0be7666438b14d73479cf"
+    sha256 arm64_monterey: "a2318872c5d2c61bc078cc6bb9baf188052a669481908230a9f7a214161de981"
+    sha256 arm64_big_sur:  "2df409e1621d404500811fb4a05da8b1574a7b15c429bfc77545b2ce06c5b7ab"
+    sha256 ventura:        "176e59c17769821509bc216f0344abaef0a02ee95b8ed8309f1ed5b98e796e12"
+    sha256 monterey:       "0f06358bf9c4c00cb9f346b1f8959157143ed8dc460f496cce523582851f5787"
+    sha256 big_sur:        "57763df1905d84eb09785df36cdb7341e4fda5c25489457fa9b37d9cdc904510"
+    sha256 x86_64_linux:   "10cee80e4a2db3936da4010b891f995e857bf06af986b0f362b1a62f3fda1534"
   end
 
   head do
@@ -27,6 +39,11 @@ class Guile < Formula
     uses_from_macos "flex" => :build
   end
 
+  # Remove with Guile 3.0.9 release.
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+  depends_on "gettext" => :build
+
   depends_on "gnu-sed" => :build
   depends_on "bdw-gc"
   depends_on "gmp"
@@ -34,6 +51,9 @@ class Guile < Formula
   depends_on "libunistring"
   depends_on "pkg-config" # guile-config is a wrapper around pkg-config.
   depends_on "readline"
+
+  # Remove with Guile 3.0.9 release.
+  uses_from_macos "flex" => :build
 
   uses_from_macos "gperf"
   uses_from_macos "libffi", since: :catalina
@@ -45,16 +65,13 @@ class Guile < Formula
 
     system "./autogen.sh" unless build.stable?
 
-    # Disable JIT on Apple Silicon, as it is not yet supported
-    # https://debbugs.gnu.org/cgi/bugreport.cgi?bug=44505
-    extra_args = []
-    extra_args << "--enable-jit=no" if Hardware::CPU.arm?
+    # Remove with Guile 3.0.9 release.
+    system "autoreconf", "-vif" if OS.mac? && build.stable?
 
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}",
+    system "./configure", *std_configure_args,
                           "--with-libreadline-prefix=#{Formula["readline"].opt_prefix}",
                           "--with-libgmp-prefix=#{Formula["gmp"].opt_prefix}",
-                          *extra_args
+                          "--disable-nls"
     system "make", "install"
 
     # A really messed up workaround required on macOS --mkhl

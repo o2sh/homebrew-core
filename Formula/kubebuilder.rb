@@ -2,20 +2,19 @@ class Kubebuilder < Formula
   desc "SDK for building Kubernetes APIs using CRDs"
   homepage "https://github.com/kubernetes-sigs/kubebuilder"
   url "https://github.com/kubernetes-sigs/kubebuilder.git",
-      tag:      "v3.7.0",
-      revision: "3bfc84ec8767fa760d1771ce7a0cb05a9a8f6286"
+      tag:      "v3.9.0",
+      revision: "26f605e889b2215120f73ea42b081efac99f5162"
   license "Apache-2.0"
   head "https://github.com/kubernetes-sigs/kubebuilder.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1d801c6c5b5fdf7b6e17fc390385c8b6a2087b99b6cc23bbfae7749fbcc9ddae"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ed28191bacb910531974baced46d2a50a817db3aa2975d7758be7826c735f51d"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9e863ba2dec79a6c87a9f93224eb7699fe949d4efe032795a6ba63235cc1c149"
-    sha256 cellar: :any_skip_relocation, ventura:        "f670be76db2b533c67b52408ff5c8f4ee632378ae54c89bcaf9a85ddb754d4f5"
-    sha256 cellar: :any_skip_relocation, monterey:       "ca43e24cbbcbe43df28bb4720e9e3019b72d50adf43d56a208eb2c1dc26fb736"
-    sha256 cellar: :any_skip_relocation, big_sur:        "abb89e465db3532431a36cbe3f8f4ce9a689a7b879adcf3adeb22f94c9b603b4"
-    sha256 cellar: :any_skip_relocation, catalina:       "e3c813ad5736ad5651d0e4e46f862d5121e4637a6732aeefed227d7daa0e8130"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "828c05bdf24153cabb7233ca2c065a24f935bb598dfce67e522ca7913e0b91fe"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4af118ea04ec3ec503d79d797562063b427fbc1b7c23a4f5d234bfcc439d8fe4"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "64d8d84ded09d6f0930e7ed81e46f775507f2df52962a078af421fa63f562af9"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "62b7dbe83f8cdcd6874c000b377c997352f0aa69186892e7953522b7432bfd78"
+    sha256 cellar: :any_skip_relocation, ventura:        "3f988dccf0784d6edc0d4b9463c6c5df4892cb9ddea79e4fbf9bb52155072657"
+    sha256 cellar: :any_skip_relocation, monterey:       "71639a600f55228313c89fca35d61a10ad512f2913d5d75a83dbe94e60bede03"
+    sha256 cellar: :any_skip_relocation, big_sur:        "5cf477bc39a63b3f9b389f59a1db62eec83a5315634c28f01bb776e325a56f28"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "baa5b916968af2b81b20947537303dfbd46908fa609ea34e5b6ac7a166c313c0"
   end
 
   depends_on "git-lfs" => :build

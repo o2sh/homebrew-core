@@ -1,9 +1,10 @@
 class OrTools < Formula
   desc "Google's Operations Research tools"
   homepage "https://developers.google.com/optimization/"
-  url "https://github.com/google/or-tools/archive/v9.4.tar.gz"
-  sha256 "180fbc45f6e5ce5ff153bea2df0df59b15346f2a7f8ffbd7cb4aed0fb484b8f6"
+  url "https://github.com/google/or-tools/archive/v9.5.tar.gz"
+  sha256 "57f81b94949d35dc042690db3fa3f53245cffbf6824656e1a03f103a3623c939"
   license "Apache-2.0"
+  revision 1
   head "https://github.com/google/or-tools.git", branch: "stable"
 
   livecheck do
@@ -12,15 +13,13 @@ class OrTools < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_ventura:  "2f44fbc89437e64a3129ba7ce90f1d3451d8aa46a8ab8ea4c267d202e0c6631a"
-    sha256 cellar: :any,                 arm64_monterey: "20bc508ae78b76ad3d9a45ccc33b990d526813b3a4b8c14d7442368723613c51"
-    sha256 cellar: :any,                 arm64_big_sur:  "002887469e355d785e7ca16f6932e0218f151a2344977f2c5506105d0d1744c7"
-    sha256 cellar: :any,                 ventura:        "0f4f363eec2d21271aa421c66cd3f41b75b8a6a65799e163d2898f5313822a80"
-    sha256 cellar: :any,                 monterey:       "5f80b6b6fede8324e9cd53558057eb47d5e91081af7098db4f93e1e67b280a9e"
-    sha256 cellar: :any,                 big_sur:        "8a3a5a7b988dbcff82875424e90b4e625290f4c9a101a89c93815d9121da12b4"
-    sha256 cellar: :any,                 catalina:       "8beb1393eb22e984c9d715ff94f1b63d3a16b21ee5d50e6eb7595a491387ca68"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "baf89a9af23e9ddf7dfae1d113cba8a751b676a73bac5b38272117488fd8beac"
+    sha256 cellar: :any,                 arm64_ventura:  "34672a686112e2ab7442f8de1797bc05687293a4944e8842c608d2a41afe4874"
+    sha256 cellar: :any,                 arm64_monterey: "3ced7d174d313cde8a5b20e927874bbdd6b6da06ec3b8cc0df7f0fdc3c9a95fc"
+    sha256 cellar: :any,                 arm64_big_sur:  "8ac085ee9c00cffe72f5a3bb0c1dd408e6db905a47e44a74fd6c71fb29b25a4c"
+    sha256 cellar: :any,                 ventura:        "b0fc71da27ce2eeb84543019cbac3297e40ce518fadacb854d4cc788844a3f82"
+    sha256 cellar: :any,                 monterey:       "d3f678e1e2bc35aaac3fcb0681e23eb2a988c07fa8e8192c093d11bce2942967"
+    sha256 cellar: :any,                 big_sur:        "5232b03160dc6e21ae602a961dec8c016bfb68a260ed00609a33332c870acd48"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9f6eb897000a0ec9c357d25be591587c9030ecbb660e602f8800039876b0b200"
   end
 
   depends_on "cmake" => :build
@@ -39,6 +38,9 @@ class OrTools < Formula
   uses_from_macos "zlib"
 
   fails_with gcc: "5"
+
+  # Add missing <errno.h> include to numbers.cc
+  patch :DATA
 
   def install
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args,
@@ -72,3 +74,17 @@ class OrTools < Formula
     system "./simple_sat_program"
   end
 end
+
+__END__
+diff --git a/ortools/base/numbers.cc b/ortools/base/numbers.cc
+index e9f5a57..e49182c 100644
+--- a/ortools/base/numbers.cc
++++ b/ortools/base/numbers.cc
+@@ -16,6 +16,7 @@
+
+ #include "ortools/base/numbers.h"
+
++#include <errno.h>
+ #include <cfloat>
+ #include <cstdint>
+ #include <cstdlib>

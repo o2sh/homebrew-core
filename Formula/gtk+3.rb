@@ -1,8 +1,8 @@
 class Gtkx3 < Formula
   desc "Toolkit for creating graphical user interfaces"
   homepage "https://gtk.org/"
-  url "https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.34.tar.xz"
-  sha256 "dbc69f90ddc821b8d1441f00374dc1da4323a2eafa9078e61edbe5eeefa852ec"
+  url "https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.36.tar.xz"
+  sha256 "27a6ef157743350c807ffea59baa1d70226dbede82a5e953ffd58ea6059fe691"
   license "LGPL-2.0-or-later"
 
   livecheck do
@@ -11,14 +11,13 @@ class Gtkx3 < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "285e0eb1e3b0f12fa353239e601a65e6dd89b76a6ab99b8346efb1168cafcb02"
-    sha256 arm64_monterey: "433f1b8aa72afcaf5784b099c40373e60da5a5782dddbe867bd315b6dfa9466f"
-    sha256 arm64_big_sur:  "f033af2b4714244846c3eabf558626d356e0cdcff6e5b8a1302e6d7a8b21a0e7"
-    sha256 ventura:        "c141379f93930f791618e95bc877743f46f809963f1b17a9b40c18b37b87db10"
-    sha256 monterey:       "309a7ff2894c4290d18a52f83c36ba9f9b8d156492d8034f7b39fe7771127a47"
-    sha256 big_sur:        "6b502ca8e38cfc2bbf63e4d72609cb70a829381240ebd1965412ec0d80013dc9"
-    sha256 catalina:       "2b3df91ceb20e12404020549f3cf94710c99379b9090dd327ec29a00f5bb1105"
-    sha256 x86_64_linux:   "9319cbd1929a839be964268450d593b3630ab749dc906a2f6ee643beb47e538b"
+    sha256 arm64_ventura:  "233b597626c0c4af10455128c9323e73bc6e0835ee03ae38a7d9f615157752dc"
+    sha256 arm64_monterey: "8985bf4ee0887fd07f78df26bcdd80cec0280a7d2b8407b725fc6d3e04e25aec"
+    sha256 arm64_big_sur:  "c99875bd2e1b23da482e3c85637af5aa540538f5bb7cbb49624053c92e85b35d"
+    sha256 ventura:        "8401dfa54a5864e0176162d3e10829f862797b883947a1ae7ff6b619a44958ea"
+    sha256 monterey:       "44f8537761575ccfcee61140ad68f50b76362bbff562b48d1724b53725ac3985"
+    sha256 big_sur:        "fcf1de89fd5090f9cf78b2e626ef0df714cab4341de811d095c030b18d362d55"
+    sha256 x86_64_linux:   "00d244b6140a22a85d164659f389f3a0f44fb28e5c273c13731a27469fbf379c"
   end
 
   depends_on "docbook" => :build
@@ -45,6 +44,11 @@ class Gtkx3 < Formula
     depends_on "libxkbcommon"
     depends_on "wayland-protocols"
     depends_on "xorgproto"
+
+    # fix ERROR: Non-existent build file 'gdk/wayland/cursor/meson.build'
+    # upstream commit reference, https://gitlab.gnome.org/GNOME/gtk/-/commit/66a19980
+    # remove in next release
+    patch :DATA
   end
 
   def install
@@ -146,3 +150,23 @@ class Gtkx3 < Formula
     assert_match version.to_s, shell_output("cat #{lib}/pkgconfig/gtk+-3.0.pc").strip
   end
 end
+
+__END__
+diff --git a/gdk/wayland/cursor/meson.build b/gdk/wayland/cursor/meson.build
+new file mode 100644
+index 0000000000000000000000000000000000000000..02d5f2bed8d926ee26bcf4c4081d18fc9d53fd5b
+--- /dev/null
++++ b/gdk/wayland/cursor/meson.build
+@@ -0,0 +1,12 @@
++wayland_cursor_sources = files([
++  'wayland-cursor.c',
++  'xcursor.c',
++  'os-compatibility.c'
++])
++
++libwayland_cursor = static_library('wayland+cursor',
++  sources: wayland_cursor_sources,
++  include_directories: [ confinc, ],
++  dependencies: [ glib_dep, wlclientdep, ],
++  c_args: common_cflags,
++)

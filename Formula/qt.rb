@@ -3,9 +3,16 @@ class Qt < Formula
 
   desc "Cross-platform application and UI framework"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.4/6.4.0/single/qt-everywhere-src-6.4.0.tar.xz"
-  sha256 "8936b0354d95fa26e87be65cc9c840495360ad93fd09b069bc780cbcab4a2ca1"
-  license all_of: ["GFDL-1.3-only", "GPL-2.0-only", "GPL-3.0-only", "LGPL-2.1-only", "LGPL-3.0-only"]
+  url "https://download.qt.io/official_releases/qt/6.4/6.4.2/single/qt-everywhere-src-6.4.2.tar.xz"
+  sha256 "689f53e6652da82fccf7c2ab58066787487339f28d1ec66a8765ad357f4976be"
+  license all_of: [
+    "BSD-3-Clause",
+    "GFDL-1.3-no-invariants-only",
+    "GPL-2.0-only",
+    { "GPL-3.0-only" => { with: "Qt-GPL-exception-1.0" } },
+    "LGPL-3.0-only",
+  ]
+  revision 1
   head "https://code.qt.io/qt/qt5.git", branch: "dev"
 
   # The first-party website doesn't make version information readily available,
@@ -16,23 +23,25 @@ class Qt < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "fd2fb8ecbe90be5f23e028264a6de270c3945dd10011f5622f3d81e84e8c8cb1"
-    sha256 cellar: :any,                 arm64_monterey: "009a797cab75f61c56ed9764219a60ebc4ba4359ec9dfb30104c6efd74c34dfb"
-    sha256 cellar: :any,                 arm64_big_sur:  "acea0b4f290b0ff85c732201606326d27e0340691921bad831abeb68741aed45"
-    sha256 cellar: :any,                 ventura:        "12b837b2a2045e9a84ed664221e955873dd318fe1a2f6519aab67debbcfa52e3"
-    sha256 cellar: :any,                 monterey:       "084544813d9eb375ed68a385e1b3e0514b07f6ad9c27c66879c75aa712af6fe6"
-    sha256 cellar: :any,                 big_sur:        "979c2b9c8b5882f16a43147b978914d98519d6103d89888bdc212e09dda4ab8c"
-    sha256 cellar: :any,                 catalina:       "7f74703923f0f74fd9cef086bd87726ca2cd0b3b62fe8486133f99257051ad82"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fe618a6e10c9d5741032d77af7df2464de22a07c1430dffb52c2dca5505303bf"
+    sha256 cellar: :any,                 arm64_ventura:  "a0f5604e855d45eff79de612c11b561d637c4da60c0e5ee2e1741196913f0b88"
+    sha256 cellar: :any,                 arm64_monterey: "48ffc4065dd5f47b9a4b4db85809aea6a4a7a45cc8fbd0190136b2e984ca84dd"
+    sha256 cellar: :any,                 arm64_big_sur:  "fabbdf9bbe7d07f337580e906e0a1304068d2c2a34ed9d792dd6b4478f63150f"
+    sha256 cellar: :any,                 ventura:        "ed67c9682499259d51678b1fd491b1aff19528bbfbb9ddcfaf304080a81d64b8"
+    sha256 cellar: :any,                 monterey:       "0076c1ac4d9ae7e82c098f1de91e04c8bb53d3a2a5f6eabc7bea036beee530ae"
+    sha256 cellar: :any,                 big_sur:        "af6d693fae6c9f5961c1e25cd418cd5a689894306ee1b14458664b5c9b7f5120"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "196dbb17d1012a0fd39e560304a6f510168a5a990ccd3d7d28993ca3e5d2966b"
   end
 
   depends_on "cmake"      => [:build, :test]
   depends_on "ninja"      => :build
   depends_on "node"       => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on "six" => :build
+  depends_on "vulkan-headers" => [:build, :test]
   depends_on xcode: :build
+
+  depends_on "vulkan-loader" => :test
 
   depends_on "assimp"
   depends_on "brotli"
@@ -40,6 +49,7 @@ class Qt < Formula
   depends_on "double-conversion"
   depends_on "freetype"
   depends_on "glib"
+  depends_on "harfbuzz"
   depends_on "hunspell"
   depends_on "icu4c"
   depends_on "jasper"
@@ -66,15 +76,18 @@ class Qt < Formula
   uses_from_macos "libxslt"
   uses_from_macos "zlib"
 
+  on_macos do
+    depends_on "molten-vk" => [:build, :test]
+  end
+
   on_linux do
     depends_on "alsa-lib"
     depends_on "at-spi2-core"
     # TODO: depends_on "bluez"
-    # TODO: depends_on "ffmpeg"
+    depends_on "ffmpeg"
     depends_on "fontconfig"
     depends_on "gstreamer"
     # TODO: depends_on "gypsy"
-    depends_on "harfbuzz"
     depends_on "libdrm"
     depends_on "libevent"
     depends_on "libice"
@@ -123,16 +136,8 @@ class Qt < Formula
     directory "qtbase"
   end
 
-  # Fix build with LLVM 15 (QTBUG-107074).
-  # Remove with 6.4.1.
-  patch do
-    url "https://github.com/qt/qttools/commit/01cae372619369d1a5a04f4d0f87817011029b78.patch?full_index=1"
-    sha256 "2ec45719fcc5b12c97040b4f30fdbb5d4c1dc1dded15f02f271ac7c668f5a2a0"
-    directory "qttools"
-  end
-
   def install
-    python = "python3.10"
+    python = "python3.11"
     # Install python dependencies for QtWebEngine
     venv_root = buildpath/"venv"
     venv = virtualenv_create(venv_root, python)
@@ -171,6 +176,7 @@ class Qt < Formula
       -testsdir share/qt/tests
 
       -no-feature-relocatable
+      -system-harfbuzz
       -system-sqlite
 
       -no-sql-mysql
@@ -200,16 +206,13 @@ class Qt < Formula
       # that cmake does not think $HOMEBREW_PREFIX/lib is the install prefix.
       cmake_args << "-DQT_BUILD_INTERNALS_RELOCATABLE_INSTALL_PREFIX=#{prefix}"
 
-      # Currently we have to use vendored ffmpeg because the chromium copy adds a symbol not
-      # provided by the brewed version.
-      # See here for an explanation of why upstream ffmpeg does not want to add this:
-      # https://www.mail-archive.com/ffmpeg-devel@ffmpeg.org/msg124998.html
       # The vendored copy of libjpeg is also used instead of the brewed copy, because the build
       # fails due to a missing symbol otherwise.
       # On macOS chromium will always use bundled copies and the QT_FEATURE_webengine_system_*
       # arguments are ignored.
       cmake_args += %w[
         -DQT_FEATURE_webengine_system_alsa=ON
+        -DQT_FEATURE_webengine_system_ffmpeg=ON
         -DQT_FEATURE_webengine_system_icu=ON
         -DQT_FEATURE_webengine_system_libevent=ON
         -DQT_FEATURE_webengine_system_libpng=ON
@@ -264,7 +267,7 @@ class Qt < Formula
       set(CMAKE_AUTORCC ON)
       set(CMAKE_AUTOUIC ON)
 
-      find_package(Qt6 COMPONENTS Core Widgets Sql Concurrent
+      find_package(Qt6 COMPONENTS Core Gui Widgets Sql Concurrent
         3DCore Svg Quick3D Network NetworkAuth REQUIRED)
 
       add_executable(test
@@ -273,18 +276,19 @@ class Qt < Formula
 
       target_link_libraries(test PRIVATE Qt6::Core Qt6::Widgets
         Qt6::Sql Qt6::Concurrent Qt6::3DCore Qt6::Svg Qt6::Quick3D
-        Qt6::Network Qt6::NetworkAuth
+        Qt6::Network Qt6::NetworkAuth Qt6::Gui
       )
     EOS
 
     (testpath/"test.pro").write <<~EOS
       QT       += core svg 3dcore network networkauth quick3d \
-        sql
+        sql gui widgets
       TARGET = test
       CONFIG   += console
       CONFIG   -= app_bundle
       TEMPLATE = app
       SOURCES += main.cpp
+      INCLUDEPATH += #{Formula["vulkan-headers"].opt_include}
     EOS
 
     (testpath/"main.cpp").write <<~EOS
@@ -297,11 +301,12 @@ class Qt < Formula
       #include <QtSql>
       #include <QtSvg>
       #include <QDebug>
+      #include <QVulkanInstance>
       #include <iostream>
 
       int main(int argc, char *argv[])
       {
-        QCoreApplication a(argc, argv);
+        QCoreApplication app(argc, argv);
         QSvgGenerator generator;
         auto *handler = new QOAuthHttpServerReplyHandler();
         delete handler; handler = nullptr;
@@ -309,6 +314,10 @@ class Qt < Formula
         delete root; root = nullptr;
         Q_ASSERT(QSqlDatabase::isDriverAvailable("QSQLITE"));
         const auto &list = QImageReader::supportedImageFormats();
+        QVulkanInstance inst;
+        // See https://github.com/actions/runner-images/issues/1779
+        // if (!inst.create())
+        //   qFatal("Failed to create Vulkan instance: %d", inst.errorCode());
         for(const char* fmt:{"bmp", "cur", "gif",
           #ifdef __APPLE__
             "heic", "heif",
@@ -321,6 +330,9 @@ class Qt < Formula
         return 0;
       }
     EOS
+
+    ENV["QT_VULKAN_LIB"] = Formula["vulkan-loader"].opt_lib/(shared_library "libvulkan")
+    ENV["QT_QPA_PLATFORM"] = "minimal" if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]
 
     system "cmake", testpath
     system "make"

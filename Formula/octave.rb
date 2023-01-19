@@ -1,20 +1,21 @@
 class Octave < Formula
   desc "High-level interpreted language for numerical computing"
   homepage "https://www.gnu.org/software/octave/index.html"
-  url "https://ftp.gnu.org/gnu/octave/octave-7.2.0.tar.xz"
-  mirror "https://ftpmirror.gnu.org/octave/octave-7.2.0.tar.xz"
-  sha256 "4aef78c3c9d49f75d64ccd55267df40b3020e6414f69ea8757a1939628b30171"
+  url "https://ftp.gnu.org/gnu/octave/octave-7.3.0.tar.xz"
+  mirror "https://ftpmirror.gnu.org/octave/octave-7.3.0.tar.xz"
+  sha256 "a508ee6aebccfa68967c9e7e0a08793c4ca8e4ddace723aabdb8f71ad34d57f1"
   license "GPL-3.0-or-later"
-  revision 1
+  revision 2
 
   bottle do
-    sha256 arm64_ventura:  "98ddea50159a6056c6fe5c4f94a98634d8eeea846e305a16ba7fbe2f7ca3ae18"
-    sha256 arm64_monterey: "5baea026579896de878336938dc603c478f7d10dded22eb2d679421d119450bf"
-    sha256 arm64_big_sur:  "db84d5907dcac3a8c0e9972cff232df68a99fc71bacacf55495ac24a8cc53513"
-    sha256 monterey:       "e2dafead6e1bc2d414e6241c8e61cef9fb1fd6e4f03658818ab6986e6129147a"
-    sha256 big_sur:        "3e4f59e424e99817477be950020b382378805e6f844814eb3ed8c29f9e767f10"
-    sha256 catalina:       "b760b86d281746ed0a9c1f706c6dc0f26b1ec82cbbc49a42820ef2c073d81320"
-    sha256 x86_64_linux:   "ded660480377a43d24edf303a65de05267fa9952f80e74e5ef7e0bb5406c5d8f"
+    rebuild 1
+    sha256 arm64_ventura:  "091704bdf050e48c1363abe1e61526a23b1fe1a0f4a7646b0f0c01501e16a32b"
+    sha256 arm64_monterey: "c5b7868ad655aaab868fe478673eb3c0fc271e898a1f71bece1ee10233285f4f"
+    sha256 arm64_big_sur:  "8674e29b6d4ea43966aa2c8af25ade1c6aed57dc7af31537c7818b09fc5b00ce"
+    sha256 ventura:        "0aab8b0dea6074bcb472d87d1efd4b2eb1b3fd71650bf8f34019360a1bd24424"
+    sha256 monterey:       "efe12e3852a4f0dc6c4283c68504d91ccce342b274b96cf13b113847e4e2c994"
+    sha256 big_sur:        "371c4ecedffc9555f8e4dacc779b966e3b510bcd47f00cbc256dacfe345d8a83"
+    sha256 x86_64_linux:   "699d62c02cad284dad7fb6d780274cce58bfff1393187e7e1d40cac30a74584c"
   end
 
   head do
@@ -55,6 +56,7 @@ class Octave < Formula
   depends_on "qrupdate"
   depends_on "qscintilla2"
   depends_on "qt@5"
+  depends_on "rapidjson"
   depends_on "readline"
   depends_on "suite-sparse"
   depends_on "sundials"
@@ -82,6 +84,9 @@ class Octave < Formula
               /%OCTAVE_CONF_OCT(AVE)?_LINK_(DEPS|OPTS)%/,
               '""'
 
+    # SUNDIALS 6.4.0 and later needs C++14 for C++ based features
+    ENV.append "CXXFLAGS", "-std=c++14"
+
     # Qt 5.12 compatibility
     # https://savannah.gnu.org/bugs/?55187
     ENV["QCOLLECTIONGENERATOR"] = "qhelpgenerator"
@@ -96,7 +101,6 @@ class Octave < Formula
     args = ["--prefix=#{prefix}",
             "--disable-dependency-tracking",
             "--disable-silent-rules",
-            "--enable-link-all-dependencies",
             "--enable-shared",
             "--disable-static",
             "--with-hdf5-includedir=#{Formula["hdf5"].opt_include}",

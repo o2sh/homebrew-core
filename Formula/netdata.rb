@@ -1,8 +1,8 @@
 class Netdata < Formula
   desc "Diagnose infrastructure problems with metrics, visualizations & alarms"
   homepage "https://netdata.cloud/"
-  url "https://github.com/netdata/netdata/releases/download/v1.36.1/netdata-v1.36.1.tar.gz"
-  sha256 "f4a1233112b55e07e2862ffda0416255f0aa4c8e2b16929b76fa7ad6b69fd931"
+  url "https://github.com/netdata/netdata/releases/download/v1.37.1/netdata-v1.37.1.tar.gz"
+  sha256 "2caa042d43ca61007a61294a5ececa037d83a1973bd38032233760341eb1706b"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -11,14 +11,13 @@ class Netdata < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "12c7e2d3ad0089dca85be9578409dfd744558c221ea7e3650633a07a61aa5a0e"
-    sha256 arm64_monterey: "d512dabe93ee951a8952636e2e006da4570ddc6c8bd496613f23f4779e43d31e"
-    sha256 arm64_big_sur:  "b0eb5533886dfc014f02b8015fdbeca1b3b8143e4911129870ae08fba11d020c"
-    sha256 ventura:        "409139e6d22caa5d43fe2c86085ffb1c6219ed23a8f81a2b0e41ea63f34da0fa"
-    sha256 monterey:       "4eb1331def7402540fbbbc9b7a5591f7ca13f2e1211afecf02cdaabbf0d2b646"
-    sha256 big_sur:        "f901b0389f560f986a9466e261782312bc90f91649e5f31804a6729b4272b202"
-    sha256 catalina:       "408ef315509af5d834b522de314d6f7f1075a569acf0ea2155a9caeeb7d8d5a6"
-    sha256 x86_64_linux:   "6dde898bd4c5e0b43ef50ba8968f97adadc4bb7fb2092da28934b050655e2b9c"
+    sha256 arm64_ventura:  "c1fe430f5ce88d9ea72fcf0493c0582a689bacd15507e1b7b5799f8dee662a99"
+    sha256 arm64_monterey: "3de0b861ac33fd618b0838e8c6c9dadd12ceca54029ad324a37d6a7edf18bd68"
+    sha256 arm64_big_sur:  "c656b23f80a25c748c8b2037b5bc9b47441b064d03d5d62b0b06e509eb7fe01b"
+    sha256 ventura:        "2f2ef21920aefbcb8f153814ad98ac0131bd6531292d450ff5fa620a4b4cef77"
+    sha256 monterey:       "98853a637787115a4ebdd12f29c87003630d51b8ca1d322610ca5d791820f6e7"
+    sha256 big_sur:        "85c3e741ae039fde4c90907143745a15fa669ea4691c36a07660ce9a0cf4bcbe"
+    sha256 x86_64_linux:   "534611878c9a565efbd45c1ea6c23744af699576b72786b274b8a4caf0cface8"
   end
 
   depends_on "autoconf" => :build

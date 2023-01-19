@@ -6,26 +6,29 @@ class Jupyterlab < Formula
   url "https://files.pythonhosted.org/packages/18/13/bad942536fdec9dce4d5c32fdb6bb54633800bdf4eb43f677fe0cbe4009a/jupyterlab-3.4.8.tar.gz"
   sha256 "1fafb8b657005d91603f3c3adfd6d9e8eaf33fdc601537fef09283332efe67cb"
   license "BSD-3-Clause"
+  license all_of: [
+    "BSD-3-Clause",
+    "MIT", # semver.py
+  ]
+  revision 1
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any,                 arm64_monterey: "6827f0ab5e8c61146d86a0bc09a242d1b728fa30314c5809da77d804038b4a15"
-    sha256 cellar: :any,                 arm64_big_sur:  "a5fdc1782ec8f7155fe25f3c26270d2f5deba94587ffc5fed8c2ef6101d00836"
-    sha256 cellar: :any,                 ventura:        "fa985e64f39a897d0d073033e6372ffff261aced7a90dfc92538b37a6458a7d6"
-    sha256 cellar: :any,                 monterey:       "28fa7e8edea8cb955694576099ebdc2ed49fff00bb19343124f1066a4f82efaf"
-    sha256 cellar: :any,                 big_sur:        "aab5f832787c55a819ae80ab083b5db7781a3ddee7d22a4f13db5a3723475f50"
-    sha256 cellar: :any,                 catalina:       "8759d5dbd883284ea6fa1494e42b6c9c5107df557152253dbb4e55da30235e81"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "265784aa6fe3b33f11143678d2748d9ce5f9ae6452c86720aaab9fb61f3963ab"
+    sha256 cellar: :any,                 arm64_ventura:  "ef65d66d25c30bf53e3f985ca3a7b7255c4108617b7434db12d745efe51a25fd"
+    sha256 cellar: :any,                 arm64_monterey: "a2b5567a0b9e52dbf9d831eacef29239aee3413d7ffd9283f612298e2870434e"
+    sha256 cellar: :any,                 arm64_big_sur:  "90ee222a6dd1fa54a315cf00bd5eb606ff82d86db9a7dc8fbbfbaa916dce300a"
+    sha256 cellar: :any,                 ventura:        "c188c10ad42309481202268c3fc20f5f75dd32db78007c221fc4351b9fd1a07f"
+    sha256 cellar: :any,                 monterey:       "c0db45836ee1c296c1fc414793647f2b7c5330f0f79f6e52ea211171ddbdc75e"
+    sha256 cellar: :any,                 big_sur:        "fbaeee46942d4c0d22733926874a0b91bbf7de3c7631b1340ea4406fe428c13a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "00737c799921ba3b0f07e4d8429e572a1640e5b209b66e5a71f177c222d4a280"
   end
 
   depends_on "hatch" => :build
   depends_on "python-build" => :build
   depends_on "ipython"
-  depends_on "jsonschema"
   depends_on "node"
   depends_on "pandoc"
   depends_on "pygments"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "six"
   depends_on "zeromq"
 
@@ -46,6 +49,11 @@ class Jupyterlab < Formula
   resource "argon2-cffi-bindings" do
     url "https://files.pythonhosted.org/packages/b9/e9/184b8ccce6683b0aa2fbb7ba5683ea4b9c5763f1356347f1312c32e3c66e/argon2-cffi-bindings-21.2.0.tar.gz"
     sha256 "bb89ceffa6c791807d1305ceb77dbfacc5aa499891d2c55661c6459651fc39e3"
+  end
+
+  resource "attrs" do
+    url "https://files.pythonhosted.org/packages/1a/cb/c4ffeb41e7137b23755a45e1bfec9cbb76ecf51874c6f1d113984ecaa32c/attrs-22.1.0.tar.gz"
+    sha256 "29adc2665447e5191d0e7c568fde78b21f9672d344281d0c6e1ab085429b22b6"
   end
 
   resource "Babel" do
@@ -121,6 +129,11 @@ class Jupyterlab < Formula
   resource "json5" do
     url "https://files.pythonhosted.org/packages/47/12/611bf15000c1fc54af909565aed1ad045e5ae1890d8c56cbfe5ceaf52446/json5-0.9.10.tar.gz"
     sha256 "ad9f048c5b5a4c3802524474ce40a622fae789860a86f10cc4f7e5f9cf9b46ab"
+  end
+
+  resource "jsonschema" do
+    url "https://files.pythonhosted.org/packages/65/9a/1951e3ed40115622dedc8b28949d636ee1ec69e210a52547a126cd4724e6/jsonschema-4.17.1.tar.gz"
+    sha256 "05b2d22c83640cde0b7e0aa329ca7754fbd98ea66ad8ae24aa61328dfe057fa3"
   end
 
   resource "jupyter-client" do
@@ -228,6 +241,11 @@ class Jupyterlab < Formula
     sha256 "2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb"
   end
 
+  resource "pyrsistent" do
+    url "https://files.pythonhosted.org/packages/b8/ef/325da441a385a8a931b3eeb70db23cb52da42799691988d8d943c5237f10/pyrsistent-0.19.2.tar.gz"
+    sha256 "bfa0351be89c9fcbcb8c9879b826f4353be10f58f8a677efab0c017bf7137ec2"
+  end
+
   resource "python-dateutil" do
     url "https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz"
     sha256 "0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"
@@ -299,7 +317,7 @@ class Jupyterlab < Formula
   end
 
   def python3
-    "python3.10"
+    "python3.11"
   end
 
   def install
@@ -307,7 +325,7 @@ class Jupyterlab < Formula
     ENV["JUPYTER_PATH"] = etc/"jupyter"
 
     site_packages = Language::Python.site_packages(python3)
-    %w[ipython jsonschema].each do |package_name|
+    %w[ipython].each do |package_name|
       package = Formula[package_name].opt_libexec
       (libexec/site_packages/"homebrew-#{package_name}.pth").write package/site_packages
     end

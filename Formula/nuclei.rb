@@ -1,20 +1,19 @@
 class Nuclei < Formula
   desc "HTTP/DNS scanner configurable via YAML templates"
   homepage "https://nuclei.projectdiscovery.io/"
-  url "https://github.com/projectdiscovery/nuclei/archive/v2.7.9.tar.gz"
-  sha256 "898b5646bcc25b96a96b067e11738fea0529df773a351d6b00ce10c64beb62fc"
+  url "https://github.com/projectdiscovery/nuclei/archive/v2.8.7.tar.gz"
+  sha256 "b89ba5784e620fceabcf726265267a1f590e93447a8866e5533228d4702eb92a"
   license "MIT"
   head "https://github.com/projectdiscovery/nuclei.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8cf9e19eff2b13519b85521e5721000d737c11f33c898ed63f8bd7cf07d34b49"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ce87ba06ae6e0190c4a375c2c14ff3001e9f25cdc9723c957acb0e7b946cb933"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "4200795e0ffb29fbf63774771a8bc1f09feecfa5e904023448341c78efb359a7"
-    sha256 cellar: :any_skip_relocation, ventura:        "34c4915681eaa63116dd1b5ec5984e583ddd52b71a3b65d2e859574853be6374"
-    sha256 cellar: :any_skip_relocation, monterey:       "9ea6e5fffc702e5eddc5c5b98f6f42e97034e0ededeae617be9d4ab96e0473a3"
-    sha256 cellar: :any_skip_relocation, big_sur:        "70d2178babbf796cc7ea926bfad6df7aa4b56bd9a2e728d7067741e865a781dd"
-    sha256 cellar: :any_skip_relocation, catalina:       "810681f711cd3afd0c09d6807a5aae41982b22922eee37e6b0ccb064ba666798"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5f50b583bbad98144349a0b2f434f9b4fd6af9d73aaef05a48f37fb746fa0292"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9d64958f8af6ddf20ae83867a2bc07ec5b8a97a411f39193986136ab30a96ce4"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9cc22fc9e7c274d7b93c13c11456dffe8e2cec4d39dae3938fba2e884ada0746"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "285e129d6a6cc946c72442ed2fd796f880494a5c01245086b6d267f007e76a26"
+    sha256 cellar: :any_skip_relocation, ventura:        "08b7f7adb80de26bad97896cc39912d7211464c7e3d6d3f7c1d1f01db0669fb3"
+    sha256 cellar: :any_skip_relocation, monterey:       "7f4d3736bd3a03c6339e08249b308cea72571eda8f5b6f35132747dfb72e43cf"
+    sha256 cellar: :any_skip_relocation, big_sur:        "6879cc031f2362f957473bac067ee238619b3b23f3411a323dba7c1c507f0727"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e37068a0095bb192537389e9ccc7dd20b81d4ae7f9e81e01bff74cc621657fe0"
   end
 
   depends_on "go" => :build
@@ -36,7 +35,7 @@ class Nuclei < Formula
         description: Check DNS functionality
 
       dns:
-        - name: \"{{FQDN}}\"
+        - name: "{{FQDN}}"
           type: A
           class: inet
           recursion: true
@@ -44,7 +43,7 @@ class Nuclei < Formula
           matchers:
             - type: word
               words:
-                - \"IN\tA\"
+                - "IN\tA"
     EOS
     system "nuclei", "-target", "google.com", "-t", "test.yaml"
   end

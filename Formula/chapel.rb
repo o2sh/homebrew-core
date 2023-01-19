@@ -1,25 +1,26 @@
 class Chapel < Formula
   desc "Programming language for productive parallel computing at scale"
   homepage "https://chapel-lang.org/"
-  url "https://github.com/chapel-lang/chapel/releases/download/1.28.0/chapel-1.28.0.tar.gz"
-  sha256 "64eacfb5915e1b3c487e865f819faf9bb8771c9f83aac6512698ded1baab250e"
+  url "https://github.com/chapel-lang/chapel/releases/download/1.29.0/chapel-1.29.0.tar.gz"
+  sha256 "f87bc7285c4641ed540f806c63ab904137b650b1e232a11c15f76e874e079804"
   license "Apache-2.0"
-  revision 1
   head "https://github.com/chapel-lang/chapel.git", branch: "main"
 
   bottle do
-    sha256 arm64_ventura:  "02f2f907d5564b80034d763144584b56c551d3ee6024dba84f77a18e3581dddf"
-    sha256 arm64_monterey: "16e3fd0177ab450a788271b0e38e417ec459fc91d70b8d388a9fe85e78d0291b"
-    sha256 arm64_big_sur:  "c36c6e7cf4b30fefb9fe65aec07a04afdb168765c1a417318f75f65df0b4bd94"
-    sha256 monterey:       "e2d386f7f931f4c684f5aa325b56c678fc1613935404d40de5d9e09933a3e41b"
-    sha256 big_sur:        "97697fee3e47ad73ad0e2cb80078ea2a7dd1110fa06e297e8b076fff4ec3bc84"
-    sha256 catalina:       "4a588c9b8fdb17f01109be986a3d8df929eb666ddc403499ffdaabd2d174e8e1"
-    sha256 x86_64_linux:   "44e78c563407371437e9cb150ffd1b1f02dfd6f2643ec82d88322ad5665346a1"
+    rebuild 1
+    sha256 arm64_ventura:  "8334d9cce471a9bacfbe8552ead3d28d730e7af0c96c036d47f23679b41aa18a"
+    sha256 arm64_monterey: "8f39f5b62a3c929c9e666279adc377f6f1427e3d17be7fc80a0744a6f061229e"
+    sha256 arm64_big_sur:  "4bc63c52fb948046a29604fdda5b16943c3e3af8de56cb668c1560f2d68b2503"
+    sha256 ventura:        "629240cca25b97de4712b70ca3c12dc2b45cf491f79bf3db76ecdb9e39be6e81"
+    sha256 monterey:       "c13b6f38cc00a193ee94983c3e512e329b4f33358263feaa84a9dec24595015d"
+    sha256 big_sur:        "8170472696b28130225bb6436d07157af4fee7874b4833806a6c0aead3013b73"
+    sha256 x86_64_linux:   "d8c10f52877206a51e095ec1cf3d515b90cdc4c168f34d777e5e7ea154f642eb"
   end
 
+  depends_on "cmake"
   depends_on "gmp"
   depends_on "llvm@14"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   # LLVM is built with gcc11 and we will fail on linux with gcc version 5.xx
   fails_with gcc: "5"
@@ -36,8 +37,8 @@ class Chapel < Formula
 
   def install
     # Always detect Python used as dependency rather than needing aliased Python formula
-    python = "python3.10"
-    # It should be noted that this will expand to: 'for cmd in python3.10 python3 python python2; do'
+    python = "python3.11"
+    # It should be noted that this will expand to: 'for cmd in python3.11 python3 python python2; do'
     # in our find-python.sh script.
     inreplace "util/config/find-python.sh", /^(for cmd in )(python3 )/, "\\1#{python} \\2"
 

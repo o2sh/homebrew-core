@@ -2,20 +2,22 @@ class Julia < Formula
   desc "Fast, Dynamic Programming Language"
   homepage "https://julialang.org/"
   # Use the `-full` tarball to avoid having to download during the build.
-  url "https://github.com/JuliaLang/julia/releases/download/v1.8.3/julia-1.8.3-full.tar.gz"
-  sha256 "52b6895a9d4ad2fe36db261ee8c4c8cc9212b837a12f93002faaf537a2151f50"
+  #
+  # TODO: Use system `suite-sparse` when `julia` supports v6.
+  # Issue ref: https://github.com/JuliaLang/julia/issues/47884
+  url "https://github.com/JuliaLang/julia/releases/download/v1.8.5/julia-1.8.5-full.tar.gz"
+  sha256 "35554080a4b4d3ce52ef220254306bd42ac0d88eff9eb85592a57d0663db5df2"
   license all_of: ["MIT", "BSD-3-Clause", "Apache-2.0", "BSL-1.0"]
   head "https://github.com/JuliaLang/julia.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "794c8c84ff5af6cacddfd1e2d21bbd75e58a7db3a8067febf2267ac03d33004b"
-    sha256 cellar: :any,                 arm64_monterey: "39497bbc88892b78c088dfc964e2ae45b4a9de4c23c709e6f2c57bb6af6d630d"
-    sha256 cellar: :any,                 arm64_big_sur:  "0ec78d6237bfcaf949837b17c7b0272c092099962bbc5f1b61d860aa8921d184"
-    sha256 cellar: :any,                 ventura:        "aeb36f848410fb10dc42c97d802537c3a08ac9492b9015d580de954ad236fdbf"
-    sha256 cellar: :any,                 monterey:       "21a48a9bec95e8833a54905600d250e10dd6e24a92744f647b0609164adda8b4"
-    sha256 cellar: :any,                 big_sur:        "4db49186abe3476d8567a1b3f6f6fb75c79c7449aba78a29c6326283010c85b2"
-    sha256 cellar: :any,                 catalina:       "3e9aadde6cc9dd6c9110d6dd6b5ab25e2555aff206b08ecd195038577e8df5c9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2c212ceba09d589373ccde32079af1d772bf18d2cd23b6db7c9500aaf61c6622"
+    sha256 cellar: :any,                 arm64_ventura:  "8b45ec4ce5468d03bb94f69dee628ee4825ffeb1367afb459b670f8133227851"
+    sha256 cellar: :any,                 arm64_monterey: "514d53743912fa14afb76b078426d50b86507bde478fe0d7eccf16d28ea3aa43"
+    sha256 cellar: :any,                 arm64_big_sur:  "33142e0cc8a8717de76b2b07cb39894b76f78abb6d633aade97786cc811094b6"
+    sha256 cellar: :any,                 ventura:        "900e344a56e58415ea29e72ef661e79adb6b484a235239d58af83bdda15c2d61"
+    sha256 cellar: :any,                 monterey:       "d0aa241d4f6aad4b5c8b6e737d12b326173cd2c5ac23c51f40e02e44785f0262"
+    sha256 cellar: :any,                 big_sur:        "f6451f63c8b8deb18ed792ba1fc2c076933e9a899d120122ef1c36862a672353"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b8533af5ab2f6e870726f974d4dec20d6fe5da9fa4336536bbe124a81e856f0b"
   end
 
   depends_on "cmake" => :build # Needed to build LLVM
@@ -32,7 +34,7 @@ class Julia < Formula
   depends_on "openlibm"
   depends_on "p7zip"
   depends_on "pcre2"
-  depends_on "suite-sparse"
+  # TODO: depends_on "suite-sparse"
   depends_on "utf8proc"
 
   uses_from_macos "perl" => :build
@@ -48,10 +50,17 @@ class Julia < Formula
   fails_with gcc: "5"
 
   # Link against libgcc_s.1.1.dylib, not libgcc_s.1.dylib
-  # https://github.com/JuliaLang/julia/pull/46240
+  # https://github.com/JuliaLang/julia/issues/48056
   patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/dd7279eea22d92688d2a821c245d92c4f8406fcf/julia/libgcc_s.diff"
-    sha256 "f12c11db53390145b4a9b1ea3b412019eee89c0d197eef6c78b0565bf7fd7aaf"
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/202ccbabd44bd5ab02fbdee2f51f87bb88d74417/julia/libgcc_s-1.8.5.diff"
+    sha256 "1eea77d8024ad8bc9c733a0e0770661bc08228d335b20c4696350ed5dfdab29a"
+  end
+
+  # Fix Linux build, listdc++ issue. Remove in next version.
+  # https://github.com/JuliaLang/julia/issues/47987
+  patch do
+    url "https://github.com/JuliaLang/julia/commit/0b211609.patch?full_index=1"
+    sha256 "f8b802ef2004320dd8039b3c4896e99f5460c9bcada29bc699eaca7f843f2737"
   end
 
   def install
@@ -69,7 +78,7 @@ class Julia < Formula
       USE_SYSTEM_LAPACK=1
       USE_SYSTEM_GMP=1
       USE_SYSTEM_MPFR=1
-      USE_SYSTEM_LIBSUITESPARSE=1
+      USE_SYSTEM_LIBSUITESPARSE=0
       USE_SYSTEM_UTF8PROC=1
       USE_SYSTEM_MBEDTLS=1
       USE_SYSTEM_LIBSSH2=1

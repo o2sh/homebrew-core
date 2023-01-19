@@ -36,6 +36,7 @@ env:
     apidoc
     apktool
     apt
+    aptos
     arb
     argo
     argocd
@@ -44,7 +45,6 @@ env:
     arkade
     armadillo
     arrayfire
-    artifactory
     arturo
     asciidoctorj
     ask-cli
@@ -494,6 +494,7 @@ env:
     micro
     micronaut
     mill
+    mimirtool
     minetest
     minikube
     miniserve

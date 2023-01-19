@@ -2,10 +2,11 @@ class Php < Formula
   desc "General-purpose scripting language"
   homepage "https://www.php.net/"
   # Should only be updated if the new version is announced on the homepage, https://www.php.net/
-  url "https://www.php.net/distributions/php-8.1.13.tar.xz"
-  mirror "https://fossies.org/linux/www/php-8.1.13.tar.xz"
-  sha256 "b15ef0ccdd6760825604b3c4e3e73558dcf87c75ef1d68ef4289d8fd261ac856"
+  url "https://www.php.net/distributions/php-8.2.1.tar.xz"
+  mirror "https://fossies.org/linux/www/php-8.2.1.tar.xz"
+  sha256 "650d3bd7a056cabf07f6a0f6f1dd8ba45cd369574bbeaa36de7d1ece212c17af"
   license "PHP-3.01"
+  revision 1
 
   livecheck do
     url "https://www.php.net/downloads"
@@ -13,18 +14,17 @@ class Php < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "d6b3b3da1ecf71eef7385eb1bdd8df46ed87f5b3634b5f21793d7e5ffcad18b7"
-    sha256 arm64_monterey: "e38cf09c4a4a42a13eeb485b1e49b05623c65c22de79f4f1d6008c0bb402eba4"
-    sha256 arm64_big_sur:  "0082443a794c70eb50bd9004cad7c5c72636be9c755dee80501fd7f5a0852954"
-    sha256 ventura:        "ca6e3f3cc64abd84389edd4c7f054470ef9a7380597843967ddeefe7a9c5432a"
-    sha256 monterey:       "fe11be88dfd7ee67d3cc522650e0024e557122080fcd83999edeed572bd457c7"
-    sha256 big_sur:        "a98e467ee71397e0a9d9848558082b88cd1c56ac0d0941e4469e43eb7d713fcf"
-    sha256 catalina:       "cf3305c4abe9e50ca8a7eb2c9f1608438d6e3feb1f411bedf730aebb689ac874"
-    sha256 x86_64_linux:   "ed386de11d1a071cb7cfc8f1334abc14f881b868ae45ddc125de12937d448b6d"
+    sha256 arm64_ventura:  "4c5e762f5a2b5d46ada4c853d063ec0f4f7ead573dd538a20a361b53d039ea9f"
+    sha256 arm64_monterey: "726b06ef84a3633959451388093f84e9b2d574842dfbad06647edc8cc28477c4"
+    sha256 arm64_big_sur:  "329f45cabb79b93c73a4c52db9e1c67cb1c1d4545f5bf4212a15b52a09e071fb"
+    sha256 ventura:        "2c8c4fac19396b19a780d3be69239873a4714daa1fed8452a712ee31d86c86aa"
+    sha256 monterey:       "30c3cc26d847a194c0ca25a57ad91746f772522539b2139aff048a2a0f4514cc"
+    sha256 big_sur:        "9e9bb8fcee29ed80fd9888554a00679482c1b43026c610edd2332d15821f4d7f"
+    sha256 x86_64_linux:   "d151ea218b48389c5371eb6c6fbc5aec9fddc0bc9a47a735f7f99ef9dd667311"
   end
 
   head do
-    url "https://github.com/php/php-src.git"
+    url "https://github.com/php/php-src.git", branch: "master"
 
     depends_on "bison" => :build # bison >= 3.0.0 required to generate parsers
     depends_on "re2c" => :build # required to generate PHP lexers
@@ -317,7 +317,6 @@ class Php < Formula
     EOS
   end
 
-  plist_options manual: "php-fpm"
   service do
     run [opt_sbin/"php-fpm", "--nodaemonize"]
     run_type :immediate

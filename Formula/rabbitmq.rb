@@ -1,8 +1,8 @@
 class Rabbitmq < Formula
   desc "Messaging broker"
   homepage "https://www.rabbitmq.com"
-  url "https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.11.3/rabbitmq-server-generic-unix-3.11.3.tar.xz"
-  sha256 "8006e6f95462f2c6b01205d2a6913dcbc8424a55d7f58579aec1f8f0c6cfa228"
+  url "https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.11.7/rabbitmq-server-generic-unix-3.11.7.tar.xz"
+  sha256 "0db2b87c4f3b695e64940552cc6145be8bed11f22d9adbd94c4a7fe6d5d4242f"
   license "MPL-2.0"
 
   livecheck do
@@ -11,10 +11,10 @@ class Rabbitmq < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "103b120f5eb997342ddfc4410121005e70098b1b83eee423b74856604fc62bad"
+    sha256 cellar: :any_skip_relocation, all: "09a9347ec8286ab3994caffd2f6616abfbad25a0c0d3f4523dcd15fabd0a09a8"
   end
 
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on "erlang"
 
   def install
@@ -67,6 +67,7 @@ class Rabbitmq < Formula
       NODE_IP_ADDRESS=127.0.0.1
       NODENAME=rabbit@localhost
       RABBITMQ_LOG_BASE=#{var}/log/rabbitmq
+      PLUGINS_DIR="#{opt_prefix}/plugins:#{HOMEBREW_PREFIX}/share/rabbitmq/plugins"
     EOS
   end
 

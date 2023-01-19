@@ -4,39 +4,57 @@ class Unisonlang < Formula
   desc "Friendly programming language from the future"
   homepage "https://unison-lang.org/"
   url "https://github.com/unisonweb/unison.git",
-      tag:      "release/M3",
-      revision: "97cce8d23147df30b0f80ae745968db09f4e1a44"
-  version "M3"
+      tag:      "release/M4f",
+      revision: "e5d9662c6c8802eecc63da2d6348e899d0d3ba8c"
+  version "M4f"
   license "MIT"
   head "https://github.com/unisonweb/unison.git", branch: "trunk"
 
-  bottle do
-    sha256 cellar: :any_skip_relocation, monterey:     "e95f66e764c2c11f2df422ae879d467ff41dae657fe5447a1aeef4fcfe9b781a"
-    sha256 cellar: :any_skip_relocation, big_sur:      "e0b5f2f8f31a9ed0bcc293159c2a0be5aa85fc1b1ac1124edfbbfa7c7364f673"
-    sha256 cellar: :any_skip_relocation, catalina:     "d0a5e819464c8260e6bd809fb86165b384212141af8c25427f23a9bc3d68f5c6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "8e01b2d90970cb66721cf5f5e5135a7867112fe6239250ea2b0cc5eeebb4f33e"
+  livecheck do
+    url :stable
+    regex(%r{^release/(M\d+[a-z]*)$}i)
   end
 
-  depends_on "ghc" => :build
+  bottle do
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "7e4367ca5c865358ca1131028819fb8f5227712f56e543cdc323531dead280e1"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "5d25efdc2b8df048b74a27183902f20edb5615ab119e33502b212900baa7c248"
+    sha256 cellar: :any_skip_relocation, ventura:        "63d5a21d23f4bad2ef1de3992269818f24ad4c68533b90ccd75a47742ae9ac01"
+    sha256 cellar: :any_skip_relocation, monterey:       "9cb24e4b01ae3ac3131dbbaf951e3e309d980b9bf6cd5d7a1ea4300da9098807"
+    sha256 cellar: :any_skip_relocation, big_sur:        "e2f9a57ba304b7b6bf22e59b22d7a8e144d0753139b2ed0656d8d8901158f5cd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5a11603a95392b83704faa61d3ffe904f1beba93768d39053e0737bbb38997a7"
+  end
+
+  depends_on "ghc@8.10" => :build
   depends_on "haskell-stack" => :build
-  depends_on "node" => :build
+  depends_on "node@18" => :build
 
-  # stack/ghc currently have a number of issues building for aarch64
-  # https://github.com/unisonweb/unison/issues/3136
-  depends_on arch: :x86_64
-
+  uses_from_macos "python" => :build
   uses_from_macos "xz" => :build
   uses_from_macos "zlib"
 
-  resource "codebase-ui" do
-    url "https://github.com/unisonweb/codebase-ui/archive/refs/tags/release/M3.tar.gz"
-    sha256 "84be9135a821615f8fc73a0a894aa46a11c55393c43dc26e16a5ce75f8063012"
-    version "M3"
+  resource "local-ui" do
+    url "https://github.com/unisonweb/unison-local-ui/archive/refs/tags/release/M4f.tar.gz"
+    sha256 "868cc77c936b15ba67818295913fc4e9da44077f780a30bfe7bee307802e3b18"
+    version "M4f"
   end
 
   def install
     jobs = ENV.make_jobs
     ENV.deparallelize
+
+    # Build and install the web interface
+    resource("local-ui").stage do
+      system "npm", "install", *Language::Node.local_npm_install_args
+      # HACK: Flaky command occasionally stalls build indefinitely so we force fail
+      # if that occurs. Problem seems to happening while running `elm-json install`.
+      # Issue ref: https://github.com/zwilias/elm-json/issues/50
+      Timeout.timeout(300) do
+        system "npm", "run", "ui-core-install"
+      end
+      system "npm", "run", "build"
+
+      prefix.install "dist/unisonLocal" => "ui"
+    end
 
     stack_args = [
       "-v",
@@ -51,19 +69,11 @@ class Unisonlang < Formula
 
     prefix.install "unison" => "ucm"
     bin.install_symlink prefix/"ucm"
-
-    # Build and install the web interface
-    resource("codebase-ui").stage do
-      system "npm", "install", *Language::Node.local_npm_install_args
-      system "npm", "run", "build"
-
-      prefix.install "dist/unisonLocal" => "ui"
-    end
   end
 
   test do
-    # Ensure the codebase-ui version matches the ucm version
-    assert_equal version, resource("codebase-ui").version
+    # Ensure the local-ui version matches the ucm version
+    assert_equal version, resource("local-ui").version
 
     # Initialize a codebase by starting the server/repl, but then run the "exit" command
     # once everything is set up.

@@ -2,11 +2,10 @@ class Protobuf < Formula
   desc "Protocol buffers (Google's data interchange format)"
   homepage "https://github.com/protocolbuffers/protobuf/"
   license "BSD-3-Clause"
-  revision 1
 
   stable do
-    url "https://github.com/protocolbuffers/protobuf/releases/download/v21.9/protobuf-all-21.9.tar.gz"
-    sha256 "c00f05e19e89b04ea72e92a3c204eedda91f871cd29b0bbe5188550d783c73c7"
+    url "https://github.com/protocolbuffers/protobuf/releases/download/v21.12/protobuf-all-21.12.tar.gz"
+    sha256 "2c6a36c7b5a55accae063667ef3c55f2642e67476d96d355ff0acb13dbb47f09"
 
     # Fix build with Python 3.11. Remove in the next release.
     patch do
@@ -21,14 +20,13 @@ class Protobuf < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "dcfd589b02e3c9ca6b0388f013223934413022f6823e39ed2732aec935c0d349"
-    sha256 cellar: :any,                 arm64_monterey: "56a18680209f0b28abbb8e0f3c6079446e976b09f24eed9e9a2aaaaed5dbbbf6"
-    sha256 cellar: :any,                 arm64_big_sur:  "46955560681fd311617fd17dc92827a7804950fa602514537b12f2b4ee004e85"
-    sha256 cellar: :any,                 ventura:        "50343754dd5021305288b7e5ecfff19586beea27e1cab786c03b8dd2086e3a16"
-    sha256 cellar: :any,                 monterey:       "1a645d011a09010b7cda09dffb54e97facb516965ad6c90ff56c59ccaa45670d"
-    sha256 cellar: :any,                 big_sur:        "42d6f1cdd90ea13c9b5e63106acaa289e781149cd34cc6b1c831e2a64f40e7bd"
-    sha256 cellar: :any,                 catalina:       "18c2e746f2a7b2fd85238b0bc7890fb66321ca83c3a67669c0706eb32abff125"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fafb7f3058823653ddc5a8b4219ece68ffc441d649f47e240223679e6e94c439"
+    sha256 cellar: :any,                 arm64_ventura:  "2bc9d7a7861c606fc5bdd6dc02cf047557cfe872f747d61fe38aab53cb9f2e54"
+    sha256 cellar: :any,                 arm64_monterey: "b0f40d63aefc10a35e1a81b6b998b1a9f6c46cc8513d0c1fd463e6fa0cf14807"
+    sha256 cellar: :any,                 arm64_big_sur:  "ad43c084c9debebb22b5bb3cfe26af9db78bd059175708181f0c11bcb51cf154"
+    sha256 cellar: :any,                 ventura:        "7e09c446953814de923998a375bb795af4eeeb7b746bc5bd308d9a62999c90f0"
+    sha256 cellar: :any,                 monterey:       "c00b5dd720d7beb66723bef40b42b39a1e098d2e6b17d08b0580a31232bc4323"
+    sha256 cellar: :any,                 big_sur:        "49517cb1603bc16c30d514ae3d84be7ee54fca252cb86734b289b56abb6c5c37"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "13a477c4b847bdb0a0f7fe06b65ba816c083152b946a55744bb41bb2921aef31"
   end
 
   head do
@@ -58,7 +56,7 @@ class Protobuf < Formula
     ENV.cxx11
 
     system "./autogen.sh" if build.head?
-    system "./configure", *std_configure_args, "--with-zlib"
+    system "./configure", *std_configure_args, "--with-zlib", "--with-pic"
     system "make"
     system "make", "check"
     system "make", "install"

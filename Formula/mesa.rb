@@ -7,8 +7,8 @@ class Mesa < Formula
   head "https://gitlab.freedesktop.org/mesa/mesa.git", branch: "main"
 
   stable do
-    url "https://mesa.freedesktop.org/archive/mesa-22.2.4.tar.xz"
-    sha256 "65d76b53ca5c7b46019e0e8e5b414de45d2fecd3fcd71707f6c3bc7691c9f7ab"
+    url "https://mesa.freedesktop.org/archive/mesa-22.3.3.tar.xz"
+    sha256 "bed799788bf2bd9ef079d97cd8e09348bf53cb086818578e40773b2b17812922"
 
     patch do
       url "https://raw.githubusercontent.com/Homebrew/formula-patches/f0a40cf7d70ee5a25639b91d9a8088749a2dd04e/mesa/fix-build-on-macOS.patch"
@@ -17,14 +17,13 @@ class Mesa < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "0e51503327aa8b10c1722a14ca204a588e729f7248cdbb3b993c1c2a7650f853"
-    sha256 arm64_monterey: "b6b2c74644de233f763ebe804cd82928bde11249582d6600585cba16fb6003c3"
-    sha256 arm64_big_sur:  "a1e1b345d97597781518782015e56c7870beb2f6a42f0a7c2dc33c72a8663c66"
-    sha256 ventura:        "ff1e0d3f6cea874752d6e7b5f47c0d6e37a2d7c123f4a324d54e6e65c112a194"
-    sha256 monterey:       "fb8532b58035a362a0a07b6ad11601f8e3ea861db20ae045756015c38869d314"
-    sha256 big_sur:        "52cb74ff1b1287b15e978fd88bbfa361bac95be070db5addce4eb410a111a940"
-    sha256 catalina:       "0329c1d3f75fd8cfd22035c070e4876ee67d7eeda5b98f0080ab0b669b02945c"
-    sha256 x86_64_linux:   "454a44dd4d8ed31f8a6c556b0c579dde1c7f0639984971f1c582f3b06b68ed66"
+    sha256 arm64_ventura:  "b85ed52b2df51e3bc7db08dcbbea361d579b7cec2fe06871156943c4c5ca27fa"
+    sha256 arm64_monterey: "078c77fbe7da5eead93cc87284e126589e1c19f16c94d2d0f1a253d529828cdd"
+    sha256 arm64_big_sur:  "18c272e1156a1a99816381e8bdafaf5e1e666b1cfc0078386c98ae39169e2fc2"
+    sha256 ventura:        "1c9522d343b65cdd25b91a94b6b5a20c55bb851635b2ae39712834b73aa4c667"
+    sha256 monterey:       "15898c65f4272cac27d352d311b7c94550860549531f08a66f406b2b70f051c8"
+    sha256 big_sur:        "822be27cbf5aeeec92a155ff93bf6d01763b97cbe7dbd9d37a85e583a9abea99"
+    sha256 x86_64_linux:   "7d11333fc975d97577edac618c7d314f2cbd9499a75aeda7fc97b84bb8ef6526"
   end
 
   depends_on "bison" => :build # can't use form macOS, needs '> 2.3'
@@ -32,7 +31,7 @@ class Mesa < Formula
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
   depends_on "pygments" => :build
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on "xorgproto" => :build
 
   depends_on "expat"
@@ -58,7 +57,6 @@ class Mesa < Formula
     depends_on "libxrandr"
     depends_on "libxshmfence"
     depends_on "libxv"
-    depends_on "libxvmc"
     depends_on "libxxf86vm"
     depends_on "lm-sensors"
     depends_on "wayland"
@@ -78,8 +76,8 @@ class Mesa < Formula
   end
 
   resource "glxgears.c" do
-    url "https://gitlab.freedesktop.org/mesa/demos/-/raw/db5ad06a346774a249b22797e660d55bde0d9571/src/xdemos/glxgears.c"
-    sha256 "3873db84d708b5d8b3cac39270926ba46d812c2f6362da8e6cd0a1bff6628ae6"
+    url "https://gitlab.freedesktop.org/mesa/demos/-/raw/caac7be425a185e191224833375413772c4aff8d/src/xdemos/glxgears.c"
+    sha256 "344a03aff01708350d90603fd6b841bccd295157670f519b459bbf3874acf847"
   end
 
   resource "gl_wrap.h" do
@@ -89,7 +87,7 @@ class Mesa < Formula
 
   def install
     venv_root = buildpath/"venv"
-    venv = virtualenv_create(venv_root, "python3.10")
+    venv = virtualenv_create(venv_root, "python3.11")
 
     %w[Mako MarkupSafe].each do |res|
       venv.pip_install resource(res)
@@ -111,9 +109,8 @@ class Mesa < Formula
         -Dopengl=true
         -Dgles1=enabled
         -Dgles2=enabled
-        -Dgallium-xvmc=disabled
         -Dvalgrind=false
-        -Dtools=drm-shim,etnaviv,freedreno,glsl,nir,nouveau,xvmc,lima
+        -Dtools=drm-shim,etnaviv,freedreno,glsl,nir,nouveau,lima
       ]
     end
 

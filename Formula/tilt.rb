@@ -2,20 +2,19 @@ class Tilt < Formula
   desc "Define your dev environment as code. For microservice apps on Kubernetes"
   homepage "https://tilt.dev/"
   url "https://github.com/tilt-dev/tilt.git",
-    tag:      "v0.30.12",
-    revision: "812e45674c2b35f359a4690b01c6a9ea5d42e214"
+    tag:      "v0.31.1",
+    revision: "72e0e98f54390a39c4812a8d2dfdda4b6889b406"
   license "Apache-2.0"
   head "https://github.com/tilt-dev/tilt.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ad5e5a2e6b9f738dd1eb99657c739901764492ca4d54b3a55d57cce110d0299a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a38d0551e58610eb0e0e3bac62fb039ed8c5fa6088333b4e6552ecaa34312b46"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "221e48cc0b31bf498062616602545ec9731a2bba8b472030ba6ce7c60b32b705"
-    sha256 cellar: :any_skip_relocation, ventura:        "1b7c94b98319691b10c803c504d88f1b7d6d5a86a5930081f6e53e55f47559c5"
-    sha256 cellar: :any_skip_relocation, monterey:       "8ac1f26e22943ce59103516ca8e7323fd9df3d06c59373329aa578eb25211d3d"
-    sha256 cellar: :any_skip_relocation, big_sur:        "6bcc677257eb67cab67f7aac87248a1402124d11060829d4426369d1bfed8c30"
-    sha256 cellar: :any_skip_relocation, catalina:       "efb5d267b70a3a56dbbb88a51290ec7fbdd88c0aab7c8d604345340b8f0e8b11"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cdd67e915d05164605e1aea92bb5d341ae02bad8ec698c7aa729b26327551527"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8642a7cf8146190bfefe90139eb63f936ead1ea404cf44fb722190ad2037be81"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a17f671c6c4547f95ca2c45159eecb2493d002288982ecfcc974316aa34c2eb0"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "444298cdc2fe9166c9590563ea25a37946cc53af41e480d3a18978362b324c81"
+    sha256 cellar: :any_skip_relocation, ventura:        "50785febb58c2ed6600552946b65e4701ff72db3b9f8e1513d6de2c9da055c35"
+    sha256 cellar: :any_skip_relocation, monterey:       "e2e3641dff1ec75c9303f5a8a49f16be55d098b226847a38f7d4407e2cc2f743"
+    sha256 cellar: :any_skip_relocation, big_sur:        "1896a3d96e1d0fac57fd9b82c4ec68ba045ca55c6cabe42973384f6a5aaa5e7b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4e50e5c198da2273aed8b458a9cd00118e191765b89418e261f39e160fd54d62"
   end
 
   depends_on "go" => :build

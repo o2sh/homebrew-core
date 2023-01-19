@@ -1,8 +1,8 @@
 class Yq < Formula
-  desc "Process YAML documents from the CLI"
+  desc "Process YAML, JSON, XML, CSV and properties documents from the CLI"
   homepage "https://github.com/mikefarah/yq"
-  url "https://github.com/mikefarah/yq/archive/v4.30.4.tar.gz"
-  sha256 "d46e4f5176d6115107909623bd89ceb7ae991acc0980112ba9b0159811229c0c"
+  url "https://github.com/mikefarah/yq/archive/v4.30.8.tar.gz"
+  sha256 "aaf6c9f37968970413b8a6daf0b313a86efd1b8e3e5959e527b50636508eb776"
   license "MIT"
   head "https://github.com/mikefarah/yq.git", branch: "master"
 
@@ -12,13 +12,13 @@ class Yq < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f8f7e5b9f53dec6fb6d421ad7edf52836bfcdb5755239d0890830523beb328f0"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "4d99e13505fb6240fea146fcfd1e187d5da595a6eabdc77a7eb9485b8d728425"
-    sha256 cellar: :any_skip_relocation, ventura:        "5c68e32a50f8f692c70d94d9e436b0043615309f93ceaff1e0575bc1c8ca9430"
-    sha256 cellar: :any_skip_relocation, monterey:       "e04e8303bbd5f2bd7a910e0e7034950db548f817c5d0b85272e607eeb80bdf04"
-    sha256 cellar: :any_skip_relocation, big_sur:        "692c809cf647f5737c15eb0fd0e9e8f4b51b443ad67861e6f3f321c95a93a757"
-    sha256 cellar: :any_skip_relocation, catalina:       "bca15d2e51a21aa22fa8ebcd2e02755a29969c00ecb9e69e70fb30adbc728bb9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2a80cd92a75388a83b8a5e8e6c3c93c6a8f49f57fa1abeecc9d565015c0cf2ba"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7f4ffc67cfd0a5a70070de90ee7a55dd6a6abd25a1e0841965a7694e4c96ff1c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "56dd66a8acda1fa6966795b4e925d930978fff7e53eac8a08f81ae5d325b8450"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "32718fd6fcd1adb3714c164314803d53931ca65bee2566f866f5ea1958a94764"
+    sha256 cellar: :any_skip_relocation, ventura:        "6560244a87b0b1aee9462203ffbd0525ea6347749889fc9064888e5999cc9e06"
+    sha256 cellar: :any_skip_relocation, monterey:       "d520a02091af982a34c1037be317e2bacfe9fa762e16b9658a38d8e216e690d9"
+    sha256 cellar: :any_skip_relocation, big_sur:        "c2014a9841538902736d198590cd67ee0143085ee8b5635cf4a1fc1e045f2f54"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4e281bc505eea64ffcef5f8e0ff66a43189cb8722ad3488a1ee139aecd1f261f"
   end
 
   depends_on "go" => :build

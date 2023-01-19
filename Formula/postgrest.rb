@@ -1,6 +1,7 @@
 class Postgrest < Formula
   desc "Serves a fully RESTful API from any existing PostgreSQL database"
   homepage "https://github.com/PostgREST/postgrest"
+  # TODO: Try to switch `ghc@9.2` to `ghc` when postgrest.cabal allows base>=4.17
   url "https://github.com/PostgREST/postgrest/archive/v10.1.1.tar.gz"
   sha256 "d8479065eddb6ddcd56835e5da4cb2359092b7934a1f56f4080f7d8cb0b24557"
   license "MIT"
@@ -12,6 +13,7 @@ class Postgrest < Formula
   end
 
   bottle do
+    sha256 cellar: :any,                 arm64_ventura:  "2c8799ebbba5b43da78c6732291e6e989d875710a0ec433db0873e08e3ac8b4b"
     sha256 cellar: :any,                 arm64_monterey: "a6e3487057fd0995e25420d30f7350e98da5dda1904b9876175fbe8d7540eb46"
     sha256 cellar: :any,                 arm64_big_sur:  "a7ce47936920a047e0b9dea9d4faee946527079acef62fc6fab4b9ba1f5d44b1"
     sha256 cellar: :any,                 ventura:        "c51015920bf8d7738f61123f4f7b89d24ecf50c54ea6622b6b3787161419a6f5"
@@ -22,7 +24,7 @@ class Postgrest < Formula
   end
 
   depends_on "cabal-install" => :build
-  depends_on "ghc" => :build
+  depends_on "ghc@9.2" => :build
   depends_on "libpq"
 
   def install

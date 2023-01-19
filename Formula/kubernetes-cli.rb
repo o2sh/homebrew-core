@@ -2,8 +2,8 @@ class KubernetesCli < Formula
   desc "Kubernetes command-line interface"
   homepage "https://kubernetes.io/"
   url "https://github.com/kubernetes/kubernetes.git",
-      tag:      "v1.25.4",
-      revision: "872a965c6c6526caa949f0c6ac028ef7aff3fb78"
+      tag:      "v1.26.1",
+      revision: "8f94681cd294aa8cfd3407b8191f6c70214973a4"
   license "Apache-2.0"
   head "https://github.com/kubernetes/kubernetes.git", branch: "master"
 
@@ -13,14 +13,13 @@ class KubernetesCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "797fa6ff1eba4830877041c7d33d2143c1b6d849627f4b1935dffacc6e747741"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c518e35f745195cd09311c0da201faca1678898e0a6a227aaf5a12cfb78f2d04"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b636ca2f7a8997012770eccd5581976cdb00762b3374512f4f4619a1b4304555"
-    sha256 cellar: :any_skip_relocation, ventura:        "2f5b488586030d18502b466da63590c9d6dfb1ff9ebf8936e63f13d7ac5cf112"
-    sha256 cellar: :any_skip_relocation, monterey:       "a907d2c257a1219618ec8e21d6cd041ea001b30a06f638dc8842621a1a9d8da3"
-    sha256 cellar: :any_skip_relocation, big_sur:        "64d895303790696067ad521617f7d6f6df810ebc76236001e058d1219542e2f7"
-    sha256 cellar: :any_skip_relocation, catalina:       "c00fdf8ef0bf56a36f1087c6d29f78ba1bd9b2fa109da80b5a003715c546b695"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "229d67cf898b8a38bc2c62eb709b768422ffd5f22d7f563cbe34b97dfd0994df"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5a831de10724c6d6d449d81135e93d6df7c947f18c11c282b47de92af017311b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "1c204b75c3b66b4ab9ab23c5ba9a7ba4eb3dd3847b94869e38eef159b32321b0"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "6500bfaf44af5b1b664fbb0bd17fe09032d4f548b3d348c781b8ca59c9a58f4f"
+    sha256 cellar: :any_skip_relocation, ventura:        "a5da0eb1fd6434dbbfe4abe8fb442c79d4c442888e82eb9cfcc78086c9d6abe8"
+    sha256 cellar: :any_skip_relocation, monterey:       "e421cee1a3cbf04cc5f7e95f1905c461a919dea708fcfe1c1fc4761eea6ddc74"
+    sha256 cellar: :any_skip_relocation, big_sur:        "d243e4764a11e59a30b3422f2fa6cc215d4f4e0a15a1838c660b4160f33ddfd4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "69d5374efc9321dc5c312e4d434b17d9b11c05e66aec480751d2ea23ef34947e"
   end
 
   depends_on "bash" => :build

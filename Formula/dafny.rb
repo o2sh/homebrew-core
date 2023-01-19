@@ -1,8 +1,8 @@
 class Dafny < Formula
   desc "Verification-aware programming language"
   homepage "https://github.com/dafny-lang/dafny/blob/master/README.md"
-  url "https://github.com/dafny-lang/dafny/archive/refs/tags/v3.9.1.tar.gz"
-  sha256 "77272ca990c4555bde5a31335227b2ba7811c29c5bc8a4381bf7cfd1294a2f20"
+  url "https://github.com/dafny-lang/dafny/archive/refs/tags/v3.10.0.tar.gz"
+  sha256 "066e1b84a552903acb389c5fbb67e65763bc2cdea463ba7a614649728adaafee"
   license "MIT"
 
   livecheck do
@@ -11,19 +11,22 @@ class Dafny < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bbed4974a3c1f4039d29c96e01b5a37335f9d44d77469cd0318286e574e89316"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8dcfdd1a53f57769ca84a8d5206e537f395e1bf491af1bb8d2971ebe61bfb2a8"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "1814604235ab9ca7cb271bd62226bfe90337ae772f7ede97c74a3ab79ebb1192"
-    sha256 cellar: :any_skip_relocation, monterey:       "02b36ed059c898ea7bf24853b5039d0136076a5a5a73dae00b594fa673b25f74"
-    sha256 cellar: :any_skip_relocation, big_sur:        "162f5e66b082353ad318d54f7588c72ba8d622b98c894b357a4de0317b43a1d0"
-    sha256 cellar: :any_skip_relocation, catalina:       "8d5e1bead5ee82461e505e1f5c2caa0890bb9e79cbdd7576ad79339ae33ea3f5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "25d87dc6b3a2041668a3e4100d3e44c61bee2a772a8405fdc8fc63d1ac35a200"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9f7259a1480d910f480527fc387512fba2628584ec05a10f12bd796920bc7eac"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "52ae72a91e4ed3223a45297036f62204041c97d5cc9e3d90c38024dc3802274e"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "da0e370cc659c409235489288f121d6a12cdaa3faef8db9cd2e2c621147b12ae"
+    sha256 cellar: :any_skip_relocation, ventura:        "e5b15828192b3d5213fce6c6963bf44888c0b255a2a1706ec4b88b87c6f687d7"
+    sha256 cellar: :any_skip_relocation, monterey:       "e7b5cad0ddc98622bd8734015f9d12f5877fd19d505ae7d69f2bde0a7aa21db5"
+    sha256 cellar: :any_skip_relocation, big_sur:        "7c428ce095d013b0e25d9c71e7bd51a8f1d3accca85d0afc39e302ea284931f5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "63ba13f9b5d77fc22acc26147d9dcd92371c6c6c76577b6de015699dbbf4e0b3"
   end
 
-  depends_on "gradle" => :build
-  depends_on "python@3.10" => :build # for z3
-  depends_on "dotnet"
-  depends_on "openjdk@11"
+  depends_on "dotnet@6"
+  # We use the latest Java version that is compatible with gradlew version in `dafny`.
+  # https://github.com/dafny-lang/dafny/blob/v#{version}/Source/DafnyRuntime/DafnyRuntimeJava/gradle/wrapper/gradle-wrapper.properties
+  # https://docs.gradle.org/current/userguide/compatibility.html
+  depends_on "openjdk@17"
+
+  uses_from_macos "python" => :build, since: :catalina # for z3
 
   # Use the following along with the z3 build below, as long as dafny
   # cannot build with latest z3 (https://github.com/dafny-lang/dafny/issues/810)
@@ -34,22 +37,18 @@ class Dafny < Formula
 
   def install
     system "make", "exe"
-
     libexec.install Dir["Binaries/*", "Scripts/quicktest.sh"]
 
-    dst_z3_bin = libexec/"z3/bin"
-    dst_z3_bin.mkpath
-
     resource("z3").stage do
-      ENV["PYTHON"] = which("python3.10")
+      ENV["PYTHON"] = which("python3")
       system "./configure"
       system "make", "-C", "build"
-      mv("build/z3", dst_z3_bin/"z3")
+      (libexec/"z3/bin").install "build/z3"
     end
 
     (bin/"dafny").write <<~EOS
       #!/bin/bash
-      dotnet #{libexec}/Dafny.dll "$@"
+      exec "#{Formula["dotnet@6"].opt_bin}/dotnet" "#{libexec}/Dafny.dll" "$@"
     EOS
   end
 

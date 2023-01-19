@@ -6,24 +6,23 @@ class AnimeDownloader < Formula
   url "https://files.pythonhosted.org/packages/00/8b/2f354c0c2e56f1fe45e805698bd6a81c472473a48b814c44aaed2d41016d/anime-downloader-5.0.9.tar.gz"
   sha256 "40eaded9508a30f35993b2fc0f436c357d9939d58625a10bd595bfc11816ead4"
   license "Unlicense"
-  revision 2
+  revision 3
   head "https://github.com/anime-dl/anime-downloader.git", branch: "master"
 
   bottle do
     rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "af6aefac7fd2d26f0f0712544d6214e292f6c0b3df0d46af8a4ffe24623098ee"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3aada71979ba35b08c9241fb9473e8d59fc8dfbd798d5243edb68a009be422ca"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "67054ab49350a67b144621caf72b5bbc0df2218cc1cbd9986d9e4ca7dff062e0"
-    sha256 cellar: :any_skip_relocation, ventura:        "187f677a3c1222e5158d2a4920c4ebaa44187d24adb191c684737b93854d7c71"
-    sha256 cellar: :any_skip_relocation, monterey:       "df4e94952b8fb14b91611e0b512da1a44a75f9032bdf0c5598ad70a22c362521"
-    sha256 cellar: :any_skip_relocation, big_sur:        "bc25d3a02ad10ea6156707f818ae3d0a8eb4a117999fa0a70f4593214f3c21cf"
-    sha256 cellar: :any_skip_relocation, catalina:       "2df98ab6e5a8f81c488d6958652394325482abfc4e5df1a44919222649dafd85"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "75f11f974bff7f7da6b7fa87617d8eea00e0ebdbe36fbc521cc4b181bff135f0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "98e0f6cfcb073096be611b18ebd8e00409b8fffe66d356d18714055b4163538d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5a0d9538acb902ab6570f479c3f64db73588f4dfd6bbc2bfe1f97c7ff088b7fe"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9f14c91f5fc8d4085b117862fab75f7f627fce41779630d39faa074d338d69b3"
+    sha256 cellar: :any_skip_relocation, ventura:        "b36953aca79c443345fd49b26aaabdf61cf51f1e3077c20932e9fd66650b7771"
+    sha256 cellar: :any_skip_relocation, monterey:       "31f79f267a1efa5df257f9fdad0e78f20669d48ea37182d7a5172356fe8caf56"
+    sha256 cellar: :any_skip_relocation, big_sur:        "cd65772b34924b995eba6966e3b62a9dc31d7bb482c34960db17f8e42f27e73b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e21296ba0f844f521e250fcff933fcf13375a3db3a8dee260c7a7a18eb97ddff"
   end
 
   depends_on "aria2"
-  depends_on "libpython-tabulate"
   depends_on "node"
+  depends_on "python-tabulate"
   depends_on "python@3.11"
   depends_on "six"
 
@@ -48,8 +47,8 @@ class AnimeDownloader < Formula
   end
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/cb/a4/7de7cd59e429bd0ee6521ba58a75adaec136d32f91a761b28a11d8088d44/certifi-2022.9.24.tar.gz"
-    sha256 "0d9c601124e5a6ba9712dbc60d9c53c21e34f5f641fe83002317394311bdce14"
+    url "https://files.pythonhosted.org/packages/37/f7/2b1b0ec44fdc30a3d31dfebe52226be9ddc40cd6c0f34ffc8923ba423b69/certifi-2022.12.7.tar.gz"
+    sha256 "35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3"
   end
 
   resource "cfscrape" do
@@ -88,8 +87,8 @@ class AnimeDownloader < Formula
   end
 
   resource "pycryptodome" do
-    url "https://files.pythonhosted.org/packages/11/e4/a8e8056a59c39f8c9ddd11d3bc3e1a67493abe746df727e531f66ecede9e/pycryptodome-3.15.0.tar.gz"
-    sha256 "9135dddad504592bcc18b0d2d95ce86c3a5ea87ec6447ef25cfedea12d6018b8"
+    url "https://files.pythonhosted.org/packages/0d/66/5e4a14e91ffeac819e6888037771286bc1b86869f25d74d60bc4a61d2c1e/pycryptodome-3.16.0.tar.gz"
+    sha256 "0e45d2d852a66ecfb904f090c3f87dc0dfb89a499570abad8590f10d9cffb350"
   end
 
   resource "pySmartDL" do
@@ -125,8 +124,8 @@ class AnimeDownloader < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/b2/56/d87d6d3c4121c0bcec116919350ca05dc3afd2eeb7dc88d07e8083f8ea94/urllib3-1.26.12.tar.gz"
-    sha256 "3fa96cf423e6987997fc326ae8df396db2a8b7c667747d47ddd8ecba91f4a74e"
+    url "https://files.pythonhosted.org/packages/c2/51/32da03cf19d17d46cce5c731967bf58de9bd71db3a379932f53b094deda4/urllib3-1.26.13.tar.gz"
+    sha256 "c083dd0dce68dbfbe1129d5271cb90f9447dea7d52097c6e0126120c521ddea8"
   end
 
   def install

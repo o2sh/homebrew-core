@@ -3,20 +3,18 @@ class Jc < Formula
 
   desc "Serializes the output of command-line tools to structured JSON output"
   homepage "https://github.com/kellyjonbrazil/jc"
-  url "https://files.pythonhosted.org/packages/63/cf/302a0a5db3d376e88ded7dc2a9881da5e542e06b92dc7709735d87485ebd/jc-1.22.2.tar.gz"
-  sha256 "2b72883f2d7e2e6678031bf5165754730057440cb0d5bcd7a134e6f29c0bb5b4"
+  url "https://files.pythonhosted.org/packages/c9/b2/ab924c4cfb407a658c9ead9e5cac38e3175f6c4287003a28bbaf00f71a99/jc-1.22.5.tar.gz"
+  sha256 "79a184b6036d82847ce8d0f0b5f4eaa7023c20878137d909c06b1645d331eec5"
   license "MIT"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "11ec67355daebadd14e7a17c9b825530a02e7d6136d3a9131e4c45bf4fcb82b1"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "11ec67355daebadd14e7a17c9b825530a02e7d6136d3a9131e4c45bf4fcb82b1"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "11ec67355daebadd14e7a17c9b825530a02e7d6136d3a9131e4c45bf4fcb82b1"
-    sha256 cellar: :any_skip_relocation, ventura:        "e7e2201b4e374cd30ee8be9d6ed94ac508064ae5056f43d767125e2bef7da1ac"
-    sha256 cellar: :any_skip_relocation, monterey:       "e7e2201b4e374cd30ee8be9d6ed94ac508064ae5056f43d767125e2bef7da1ac"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e7e2201b4e374cd30ee8be9d6ed94ac508064ae5056f43d767125e2bef7da1ac"
-    sha256 cellar: :any_skip_relocation, catalina:       "e7e2201b4e374cd30ee8be9d6ed94ac508064ae5056f43d767125e2bef7da1ac"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c9ae227d31a88b7eb294f66345f26ada0bc8c958340941ab1a288516acdba134"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ec7e6cb28b0dfb24bcc82e29bf446918170d6edfe09c11cc443228aafeb7ae5e"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ec7e6cb28b0dfb24bcc82e29bf446918170d6edfe09c11cc443228aafeb7ae5e"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ec7e6cb28b0dfb24bcc82e29bf446918170d6edfe09c11cc443228aafeb7ae5e"
+    sha256 cellar: :any_skip_relocation, ventura:        "0dbbf634cf051cc4d9c69bed5949e789e3d19b09cac5e32e174ab39a38f4dcf2"
+    sha256 cellar: :any_skip_relocation, monterey:       "0dbbf634cf051cc4d9c69bed5949e789e3d19b09cac5e32e174ab39a38f4dcf2"
+    sha256 cellar: :any_skip_relocation, big_sur:        "0dbbf634cf051cc4d9c69bed5949e789e3d19b09cac5e32e174ab39a38f4dcf2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1a4743e7595b66548039934d4f6982f2fd92ea9cd9855e5a1f5b681ff0b7159c"
   end
 
   depends_on "pygments"

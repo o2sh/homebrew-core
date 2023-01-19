@@ -4,11 +4,11 @@ class Xz < Formula
   desc "General-purpose data compression with high compression ratio"
   homepage "https://tukaani.org/xz/"
   # The archive.org mirror below needs to be manually created at `archive.org`.
-  url "https://downloads.sourceforge.net/project/lzmautils/xz-5.2.7.tar.gz"
-  mirror "https://tukaani.org/xz/xz-5.2.7.tar.gz"
-  mirror "https://archive.org/download/xz-5.2.7/xz-5.2.7.tar.gz"
-  mirror "http://archive.org/download/xz-5.2.7/xz-5.2.7.tar.gz"
-  sha256 "06327c2ddc81e126a6d9a78b0be5014b976a2c0832f492dcfc4755d7facf6d33"
+  url "https://downloads.sourceforge.net/project/lzmautils/xz-5.4.1.tar.gz"
+  mirror "https://tukaani.org/xz/xz-5.4.1.tar.gz"
+  mirror "https://archive.org/download/xz-5.4.1/xz-5.4.1.tar.gz"
+  mirror "http://archive.org/download/xz-5.4.1/xz-5.4.1.tar.gz"
+  sha256 "e4b0f81582efa155ccf27bb88275254a429d44968e488fc94b806f2a61cd3e22"
   license all_of: [
     :public_domain,
     "LGPL-2.1-or-later",
@@ -17,14 +17,13 @@ class Xz < Formula
   ]
 
   bottle do
-    sha256 cellar: :any, arm64_ventura:  "eba036dbf118e9d568f0e16a9a88c4b957a9f296434c23bf3b77e0ea81fe44c9"
-    sha256 cellar: :any, arm64_monterey: "b3e7a5b4f97b75c5c00915acaa4f2a2bad2349e481cdf943c88caf2f9dbc8776"
-    sha256 cellar: :any, arm64_big_sur:  "25f809e0aebb715870b36acfa6ef04be488b0b351521cb7a372c26c28363ea4e"
-    sha256 cellar: :any, ventura:        "07954af8750100bf0f0bc48ae24557f1bd298dc7cd3873f395142759b2d7493b"
-    sha256 cellar: :any, monterey:       "02ed422191f81ca5c476f82264b6662a1ebcf95b90fb3ee10b52462cccdc55a8"
-    sha256 cellar: :any, big_sur:        "caab4b755676f1dd4dd3e84da8ad0e86a302768d53af9bbe75dc9b72413e29a9"
-    sha256 cellar: :any, catalina:       "769a180d3e9ea3d792f9cb166a4439a9d6f08154a38cd47cc43e08390d50f2f1"
-    sha256               x86_64_linux:   "dda25f66145c180884d0550a36d68491abd648011b9ac91566773961a1d921aa"
+    sha256 cellar: :any, arm64_ventura:  "26ede511c3cc726f939dd2f61b7e6798409c86b62be4678f008a12d515584efb"
+    sha256 cellar: :any, arm64_monterey: "3908f1a9e36d68a9707718296725765885b813ee31f315e43825a2c8f2ccb33a"
+    sha256 cellar: :any, arm64_big_sur:  "80b60695eb50d9605a21dfe99db4096ae728c1d9409c532403c0accb50a98638"
+    sha256 cellar: :any, ventura:        "619b87932c5393af72b259b17ee8270275e0e5dc8893bdae2bf08fbebdc10211"
+    sha256 cellar: :any, monterey:       "a3c40525ab04986a06dc672be4912207c55363298aeb9a7e32375007b8f6c5df"
+    sha256 cellar: :any, big_sur:        "55e32fb63afac31a9d21bef5e8e310f2ca0629f055d1a72cb5f14d7afa2fc0e7"
+    sha256               x86_64_linux:   "a2e27545d92f5387a48182319b5233a42c9ce98bea335fc4cdf15c808ab1ea1b"
   end
 
   def install

@@ -1,8 +1,8 @@
 class Suricata < Formula
   desc "Network IDS, IPS, and security monitoring engine"
   homepage "https://suricata.io"
-  url "https://www.openinfosecfoundation.org/download/suricata-6.0.8.tar.gz"
-  sha256 "253ce3cc0df967ad9371d6ea8d4eed91ec593df3ed04e08229c7cf85780c91a3"
+  url "https://www.openinfosecfoundation.org/download/suricata-6.0.9.tar.gz"
+  sha256 "3225edcbd0277545b7128df7b71652e6816f3b4978347d2f4fe297d55ed070e8"
   license "GPL-2.0-only"
 
   livecheck do
@@ -12,14 +12,13 @@ class Suricata < Formula
 
   bottle do
     rebuild 1
-    sha256 arm64_ventura:  "88cf5e70008cc0f00b5975c1437b83ae45a253fd3502d51fcb145da96e900037"
-    sha256 arm64_monterey: "cc96f61071efacc85c0894570a130e5b57f93d607e62acc22124f6250aa72d76"
-    sha256 arm64_big_sur:  "d8e453f0545abcf3a7e90ac387d5a7f2972e2df2f9319bf54d85f2b4f8a1dac1"
-    sha256 ventura:        "8ae986df6288cbb5c988b26eb8791c77745f7c335dc3077f9da6b4d059d7e21b"
-    sha256 monterey:       "2d3f4b2920eabaf94c14808ad9274b70f0c04a130b5f9fcf0e285f07f0995f7e"
-    sha256 big_sur:        "b2672724d70122aef267cfaa8f05d824768456f0353df3c27c328d28136298a3"
-    sha256 catalina:       "0c38cb017da08ad33efdfbd1c107a39d33b0fe4fa156c913b497b2bf84fdd906"
-    sha256 x86_64_linux:   "19a0170cf8b26d9745856450c76f24c4a56e2d4bce8ae57de84a1a90174ee685"
+    sha256 arm64_ventura:  "b44b931e92576744d41bcf2d56a032756c0e598df5ec91ad88a41ae802746dba"
+    sha256 arm64_monterey: "54b31e8ed41e4a7b0393ac92756c78071598e375e5d4e05ab12171cc930209fb"
+    sha256 arm64_big_sur:  "aaa09cea15038f44049984def0233c38c4113d429a334e059b03da982b41b5f4"
+    sha256 ventura:        "c92e6b5b13829a4488d28520c387a26954d79e2a9f2cd621c13d4899305d4039"
+    sha256 monterey:       "c61a3c2247d304d022766d9192bccec95823b26852aec2f56580e8555522fa0a"
+    sha256 big_sur:        "4f64f5dbe1acf76afd72edb4ee4cfda8b68f0c9bc37b753172062b9a031e93e8"
+    sha256 x86_64_linux:   "8c802684f70f9164e199797f805fca059bcfd4d69e1d941df9211f76b192db7f"
   end
 
   depends_on "pkg-config" => :build
@@ -31,7 +30,7 @@ class Suricata < Formula
   depends_on "nspr"
   depends_on "nss"
   depends_on "pcre"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "pyyaml"
 
   uses_from_macos "libpcap"

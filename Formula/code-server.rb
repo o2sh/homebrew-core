@@ -3,22 +3,22 @@ require "language/node"
 class CodeServer < Formula
   desc "Access VS Code through the browser"
   homepage "https://github.com/coder/code-server"
-  url "https://registry.npmjs.org/code-server/-/code-server-4.8.3.tgz"
-  sha256 "14783926dac7c211db4e98f1630522f8ddd19d3df789e744476ae127ddd5a038"
+  url "https://registry.npmjs.org/code-server/-/code-server-4.9.1.tgz"
+  sha256 "13643c2c29fa4b5c7293161b42fed27112b51e0f7f315f9cbece40fbf37ff45b"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "dda93478432d0d471c414cc2c30d33c2064c39f118d5bc1be8be0009d1f09a76"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7401780022c2837d1d150c0ea5d1565de3677640378ff31c2e7a6065d8aa5414"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f8f7b22286fa286facb3d7e3978b2b94c11dc22ec4fe83c2212ae2d0435b3fd0"
-    sha256 cellar: :any_skip_relocation, ventura:        "6eb3dc5ca1b5a77d66ffb7483f5a2895154c581fff0240df7f54e06b2b69c40e"
-    sha256 cellar: :any_skip_relocation, monterey:       "0974b4ad120104f3725fb746311c9e149e7e037ae99683400e925ac8beefec13"
-    sha256 cellar: :any_skip_relocation, big_sur:        "3261ee61b9fa67f3ae9cae530e1a02efd990d9a48950088aedb835d7d78190c0"
-    sha256 cellar: :any_skip_relocation, catalina:       "752e15e47e4f9caccc381421766ee71ad8faaac4563f4490796ba2aa57d1ac7c"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "23db1042d30fff79757d2af6ccf1fe01dde644d71d38d6dbcc51505704c8bf4a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6d9245a000a9a299c17511a5f738256648520cb0a0cbb0680752415b0b1bb4d8"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "df0e75897e1f82f1daf0d1f57ed3b705d114e072766fbeefc9cfc034b6956457"
+    sha256 cellar: :any_skip_relocation, ventura:        "3bd1f0db93df3e04a821bf9baa474abb7a6bd355f1042218d5bd2759dde9273d"
+    sha256 cellar: :any_skip_relocation, monterey:       "a8ed063098474f9ee779c4f1ab9df7690778e6ef22d0e0e18a0271a9bef6851f"
+    sha256 cellar: :any_skip_relocation, big_sur:        "8f85bdaa4ce540716f762658bd5fdd4be92985ebf25480191eadfa19ba442101"
   end
 
   depends_on "bash" => :build
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on "yarn" => :build
   depends_on "node@16"
 

@@ -1,9 +1,9 @@
 class GoBoring < Formula
   desc "Go programming language with BoringCrypto"
   homepage "https://go.googlesource.com/go/+/dev.boringcrypto/README.boringcrypto.md"
-  url "https://go-boringcrypto.storage.googleapis.com/go1.18.8b7.src.tar.gz"
-  version "1.18.8b7"
-  sha256 "c3028846650b42cf77c1c0d540791eaa1283c8e60e2a87e28ae43658ffdc262a"
+  url "https://go-boringcrypto.storage.googleapis.com/go1.18.10b7.src.tar.gz"
+  version "1.18.10b7"
+  sha256 "4ced930d738cb30f4c4b28b7281d1e2e397eda2353b4c8f7c6de82ef589acc0b"
   license "BSD-3-Clause"
 
   livecheck do
@@ -12,14 +12,13 @@ class GoBoring < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "c9af52582c8709a3d3877d66dcc58cd6ba19011271129aace57d9d3016b38a7f"
-    sha256 arm64_monterey: "71631625a7bbe31a795277e3ddba94da2a951d8c2a0b9e6ab8fa8481220fa6d9"
-    sha256 arm64_big_sur:  "75cf8f48d21988a086e70987b75ad90fe40943cb39eead2498747a3c3470b9a0"
-    sha256 ventura:        "9f54d8ea31738624fe075779545eb74a698f3ac23b221cb2195fc26432d7281b"
-    sha256 monterey:       "8b2640416a29867198a610b6bd1aa96736752e1332ec276aa65e6f2ce806bda0"
-    sha256 big_sur:        "38b491bedc6e5bf9d5c2a15c64c9a81f437ac61289ac6dddd235b45047d402af"
-    sha256 catalina:       "19a5fe46c60092b1602a921984b66d7973576b343239a20395ad98c9a2121e0d"
-    sha256 x86_64_linux:   "d6c91d6f5df9f6bc9db0f738734c75bd401a42a96b9be1f75e226a1b7d27f951"
+    sha256 arm64_ventura:  "df09a9ebf2f79a2066d339e217915cd783ea68ec7e61e25ee70faa4ca9ac7069"
+    sha256 arm64_monterey: "56c292eaeabc94b48d5fde63cad4fe76af0c00d8842f7c1402a095ba6a14e93c"
+    sha256 arm64_big_sur:  "26ae57114f36d0869b799f80308b4c52e1f9f801b94a99e4e7b5a32e8b5378c6"
+    sha256 ventura:        "aedd219222922535e42eecdd299dfd43bb760ff1ef3de485b3c113b994bf42c0"
+    sha256 monterey:       "f0ee781456b7ad5fc6dd663d65f92d0355aad571f35addd2c8462c2e26f872c8"
+    sha256 big_sur:        "79dff7b31871e6a09296de52c02b465d744c290d3428b8f5f9e0fe39d5d54347"
+    sha256 x86_64_linux:   "d1474e5f3479f3feecda8602f5c4742db69999381e2d6539c60a01b337f5193d"
   end
 
   keg_only "it conflicts with the Go formula"

@@ -10,13 +10,14 @@ class Cp2k < Formula
     sha256 cellar: :any, arm64_ventura:  "ac8479eb5320bbf18b04b45b098cce5800f0f14f80866f5f4fac601f0f48bc82"
     sha256 cellar: :any, arm64_monterey: "1e61b286d38435d6e0b171bc4720ed1b5259abafc46478c70260303aa7a04972"
     sha256 cellar: :any, arm64_big_sur:  "77b3b54d1c2f15a60c6eba44c172b7ef412be2842fa29e5932a9832220b31791"
+    sha256 cellar: :any, ventura:        "f780fc04170f374c8a5f8910bd27a991152c3a5273666604f450a328999f5d0a"
     sha256 cellar: :any, monterey:       "cb16c0faf926a4ff2a4945edc5e93d25e11188851a77483097ce4f3758f2ef3a"
     sha256 cellar: :any, big_sur:        "86790d9de17ae60219970440993760076df2d266fde4fd488ae5b1881f11647d"
     sha256 cellar: :any, catalina:       "aff5ebf8a1f0b663f02f1377a1cc0f3ad8fdf34e6e855a955f91c7740daa9da3"
     sha256               x86_64_linux:   "5473c1cb1fd3041e69e80bdff319c5955b9aac6759ccacfa082b10ea199f417f"
   end
 
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on "fftw"
   depends_on "gcc" # for gfortran
   depends_on "libxc"

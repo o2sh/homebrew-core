@@ -1,25 +1,24 @@
 class Yosys < Formula
   desc "Framework for Verilog RTL synthesis"
   homepage "https://yosyshq.net/yosys/"
-  url "https://github.com/YosysHQ/yosys/archive/yosys-0.23.tar.gz"
-  sha256 "ec982a9393b3217deecfbd3cf9a64109b85310a949e46a51cf2e07fba1071aeb"
+  url "https://github.com/YosysHQ/yosys/archive/yosys-0.25.tar.gz"
+  sha256 "673e87eecb68fd5e889ac94b93dc9ae070f1a27d94dacbd738212cf09f39578c"
   license "ISC"
   head "https://github.com/YosysHQ/yosys.git", branch: "master"
 
   bottle do
-    sha256 arm64_ventura:  "680da6a2a5b8473b5b42562ca5fa3f346657514485854ac7262149369c8d3f0d"
-    sha256 arm64_monterey: "1d95ebb7bae0c0fcbd5ab8b276d8863baec7fbdab0fb886187af79cff48d4e5f"
-    sha256 arm64_big_sur:  "f8a013aaa182322ce2bf5d28da57f2657b75e4f55bb5bd3666f17a6288d381e4"
-    sha256 ventura:        "e6e17e8cdfc0a75768e90256ebd4b70e7badd8354bbfaedaa6aa1e8bfdaec152"
-    sha256 monterey:       "d86e6c2df87f47d2b728a6e38549a3d9324b676a6790335b18ed47dc4f5aaa23"
-    sha256 big_sur:        "d1185d44a56d4618278a608581dc483adc7916d0e16dcc7de1b675c5418975f4"
-    sha256 catalina:       "e376e65455c75ee743eb49c703e2db8f79b92632cae8115fb55dbd5b4a5da878"
-    sha256 x86_64_linux:   "c9a302bf39fdf2cd1ded64bf5076e3bfd19182bdd5808ae0e644cf6c1f7a54ea"
+    sha256 arm64_ventura:  "24941fa7064b467a9299e97397958a12e5a685f94da55444ad8913eb3caa5bdf"
+    sha256 arm64_monterey: "234ee4cd1c3d8fa96184541c93c9551fe75adfb6c35f7a19317c42479f41d435"
+    sha256 arm64_big_sur:  "e0a30205128f9a042552cf6ddfc24b956eb35c348fed7f735028d2294a8f9409"
+    sha256 ventura:        "543faae5ddd5b1656f0ad5ab049f0827d3032e523cee5659efdea644422d6e0e"
+    sha256 monterey:       "6f2168586964081142d68b02a6ea146f1aa26dc25a7cbd32b2029a60fd0c9a5a"
+    sha256 big_sur:        "f13952265bf41021e559820361364eba6baeeb61ccfbf253314b5a735a9979c5"
+    sha256 x86_64_linux:   "a49e6b4c45cb2d329d6835b64f3bfafc2bf7c3bd76b7714a09538343c234c8ba"
   end
 
   depends_on "bison" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "readline"
 
   uses_from_macos "flex"

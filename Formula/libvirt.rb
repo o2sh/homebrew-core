@@ -1,8 +1,8 @@
 class Libvirt < Formula
   desc "C virtualization API"
   homepage "https://libvirt.org/"
-  url "https://libvirt.org/sources/libvirt-8.9.0.tar.xz"
-  sha256 "c213575aaa636d41a6011ef59e5f088643b721e1ab1ca3ea05c176c05e9579a2"
+  url "https://libvirt.org/sources/libvirt-9.0.0.tar.xz"
+  sha256 "deca5cff1b7baac297bca9663907c61f71a47183371dc7ac019c107806d5435a"
   license all_of: ["LGPL-2.1-or-later", "GPL-2.0-or-later"]
   head "https://gitlab.com/libvirt/libvirt.git", branch: "master"
 
@@ -12,14 +12,13 @@ class Libvirt < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "4b009f80ba896e216117b4a1b4b1430ea98891d9132d6867ff502faf44d16389"
-    sha256 arm64_monterey: "65f0279d9f25950f3ea88b8529c558a46a25e66b7ae41ee1b952e59a514e68e3"
-    sha256 arm64_big_sur:  "38d8224f224b188f5800e05a2f2d66d49ac73adcfaff790c368b0a4b4ba0ff59"
-    sha256 ventura:        "7e758d99b6b986607fb26a8f0616673db94973ce0fd8436f733ca4d06f58fd95"
-    sha256 monterey:       "715aa9af7e8886ce443a95fac5f767937813cbfd49c17b1c1512b6ae3e3d1723"
-    sha256 big_sur:        "b59076f3a5450d75df1f62e17cb95f2254fab753b40b059838f911f93b59bf5d"
-    sha256 catalina:       "77c76a7d1710cd62301fb5d2311b4e6fdbfbb2fd5f6278ce5b33d03cfa3b1419"
-    sha256 x86_64_linux:   "f37b1b84b204f65e05e83a5c63fa9ceb5c4b3066bcb3d9671f7b5b4773bb3f70"
+    sha256 arm64_ventura:  "402a89194a98ec8f0b2770b445810bd7beb67ed171344eb9f9fcee8f15ba116d"
+    sha256 arm64_monterey: "831811c79b2361f65bddddbc0fcfb7eed9776cfe59214c055a2be54c6f4cded4"
+    sha256 arm64_big_sur:  "bf27a096b9a4fa31d7d4b6353df15a11be0c30e412d8dbb8a00f0c72533f1208"
+    sha256 ventura:        "14cd947ffa7b8749e80703faf377999dafeca993bea59a93bf019d13ea3f50cd"
+    sha256 monterey:       "b849d2281175dd130690c7d98ba5b52f7d9222560aec7cb9d42aa329481e02a9"
+    sha256 big_sur:        "3326d511d68cdecac06845f4cb1afa000a44946842ea2d65993da61dcbcf6e3f"
+    sha256 x86_64_linux:   "a489e0e5ea1d27807b2b6262159bee2fecb488280057615fc19bb2157548d98b"
   end
 
   depends_on "docutils" => :build
@@ -27,7 +26,7 @@ class Libvirt < Formula
   depends_on "ninja" => :build
   depends_on "perl" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on "gettext"
   depends_on "glib"
   depends_on "gnu-sed"

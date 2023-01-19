@@ -2,20 +2,19 @@ class Glslviewer < Formula
   desc "Live-coding console tool that renders GLSL Shaders"
   homepage "http://patriciogonzalezvivo.com/2015/glslViewer/"
   url "https://github.com/patriciogonzalezvivo/glslViewer.git",
-      tag:      "3.0.7",
-      revision: "b1a9a41f77c535e58e5dd31a71afa7c24f9d313f"
+      tag:      "v3.10.1",
+      revision: "2671e0f0b362bfd94ea5160f2ecb7f7363d4991d"
   license "BSD-3-Clause"
   head "https://github.com/patriciogonzalezvivo/glslViewer.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "81067a7d0156aaed4c7efad225a1533d822a9261c3cfaa2df57c9be2d1967ecd"
-    sha256 cellar: :any,                 arm64_monterey: "cf33a11e088d40d9d5ae96ed374756c60984cabeb2de33d52af670c091e4a81e"
-    sha256 cellar: :any,                 arm64_big_sur:  "67f4455d6abf22ee9bd69b7651f7e4346af09e27afaa3272cd1f9a22cfefce22"
-    sha256 cellar: :any,                 ventura:        "5093442e72a18fe1ed34385e9a024f6da103229dcac44d7c916b3cba6af06f7f"
-    sha256 cellar: :any,                 monterey:       "c5123fc4e0c8d1d2fb26ab0b2b787d865f1c3301df19b8b2c8d7dd777d5b8c23"
-    sha256 cellar: :any,                 big_sur:        "6fcacd65216707ce3ec09c031626cb158cf757d6a59a74ba3b0684f4518dd2be"
-    sha256 cellar: :any,                 catalina:       "6bb4be1650a54e23c4c124b229eb01d2b945df3278ba930cd28a667c109cc09c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c8c23e67dd736ed411333a91adbb5cc69e82dd8b017dd394242bf3824f436734"
+    sha256 cellar: :any,                 arm64_ventura:  "fa2379f7279b8e64880f7685f2a256e104e2fb2b8e57a47ee292cbf5ce475997"
+    sha256 cellar: :any,                 arm64_monterey: "e7fa27cf2e7eeed7429268623e63548db57a1c27f44e37a2a30700adbd1f90b3"
+    sha256 cellar: :any,                 arm64_big_sur:  "c0e1850b1180eab586d3140a64a5a7b75094cc2bae12dbf309656f13e968a737"
+    sha256 cellar: :any,                 ventura:        "b4ab276e1948ddfa3983d228a337ae2fb65555f12645b72af3966e25bd029fde"
+    sha256 cellar: :any,                 monterey:       "d8cb6038670c1a4c353a30af813b854f23c3b7e35fd0386862a19827d706fe3c"
+    sha256 cellar: :any,                 big_sur:        "c5070b326126322ab37af402a9324dc85cf16c683b1e6316c4fe40a902fd6644"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b6b25dff1066f4dd4682b48e7473089d2f710e97efb30460fbff3c1dc15edc7a"
   end
 
   depends_on "cmake" => :build
@@ -32,8 +31,8 @@ class Glslviewer < Formula
   end
 
   test do
-    cp_r "#{pkgshare}/examples/2D/01_buffers/.", testpath
-    pid = fork { exec "#{bin}/glslViewer", "00_ripples.frag", "-l" }
+    cp_r "#{pkgshare}/examples/io/.", testpath
+    pid = fork { exec "#{bin}/glslViewer", "orca.frag", "-l" }
   ensure
     Process.kill("HUP", pid)
   end

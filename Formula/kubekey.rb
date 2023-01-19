@@ -2,19 +2,19 @@ class Kubekey < Formula
   desc "Installer for Kubernetes and / or KubeSphere, and related cloud-native add-ons"
   homepage "https://kubesphere.io"
   url "https://github.com/kubesphere/kubekey.git",
-      tag:      "v3.0.2",
-      revision: "1c395d22e75528d0a7d07c40e1af4830de265a23"
+      tag:      "v3.0.7",
+      revision: "e755baf67198d565689d7207378174f429b508ba"
   license "Apache-2.0"
   head "https://github.com/kubesphere/kubekey.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "e9aab02083be551a1e3a651026d9ca65a74749708a83879674d57a4beebefa18"
-    sha256 cellar: :any,                 arm64_monterey: "b596534e704a537b3691e198e24e72204e760f68d6d3cabc4e109c8466ca05f7"
-    sha256 cellar: :any,                 arm64_big_sur:  "006df9a8b7f73fc9cb0124f809ff3f4e7e759934c42e800d418f6532ada78554"
-    sha256 cellar: :any,                 monterey:       "43dd5a6599da606ded060e2b2c4165f09a614564ea69979e11549351828eb5c0"
-    sha256 cellar: :any,                 big_sur:        "8d36c52bdfed60aca59d1ef4ee93be7f653cc16e54c73d8dc83c4955151b08ad"
-    sha256 cellar: :any,                 catalina:       "ab01358b00d84373f70943af071c4d2a609f6540363ea9a331c8634953869770"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2bdf478e04ba7967b9e09c677830f1b9949706dbb25646fb9ade5b6aef52466d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6580a242182473353033307f3ced4327bacb67a65250b3bc59d6ffef4dc1adf1"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "53ba1bd7ce4a4e52763344aee9c1e8137c486797aacfbe9a3ef493e7cece1692"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "671a555ab1b319d94e3104e8c826e1687ace5cef99877d5d718f214d2c302a56"
+    sha256 cellar: :any_skip_relocation, ventura:        "4ebd0c600f3fb755a26fa132373ab5ed071f402ba1f59b4badae7bbe7e18ce54"
+    sha256 cellar: :any_skip_relocation, monterey:       "dae8b4da8caf67d3410b2db2983164883ab89b9f35ca060fd172993a4c4b3137"
+    sha256 cellar: :any_skip_relocation, big_sur:        "4d371cafa655b8d61a9054a03abb3b60cdd4744d5e8993969d694e96fb736c58"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "458d227d0752402834ddd3a5dbab85571af9396b9f6dd8f284e347ff2d434fae"
   end
 
   depends_on "go" => :build
@@ -27,16 +27,18 @@ class Kubekey < Formula
   end
 
   def install
+    tags = "exclude_graphdriver_devicemapper exclude_graphdriver_btrfs containers_image_openpgp"
+    project = "github.com/kubesphere/kubekey/v3"
     ldflags = %W[
       -s -w
-      -X github.com/kubesphere/kubekey/version.gitMajor=#{version.major}
-      -X github.com/kubesphere/kubekey/version.gitMinor=#{version.minor}
-      -X github.com/kubesphere/kubekey/version.gitVersion=v#{version}
-      -X github.com/kubesphere/kubekey/version.gitCommit=#{Utils.git_head}
-      -X github.com/kubesphere/kubekey/version.gitTreeState=clean
-      -X github.com/kubesphere/kubekey/version.buildDate=#{time.iso8601}
+      -X #{project}/version.gitMajor=#{version.major}
+      -X #{project}/version.gitMinor=#{version.minor}
+      -X #{project}/version.gitVersion=v#{version}
+      -X #{project}/version.gitCommit=#{Utils.git_head}
+      -X #{project}/version.gitTreeState=clean
+      -X #{project}/version.buildDate=#{time.iso8601}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags, output: bin/"kk"), "./cmd/kk"
+    system "go", "build", *std_go_args(ldflags: ldflags, output: bin/"kk"), "-tags", tags, "./cmd/kk"
 
     generate_completions_from_executable(bin/"kk", "completion", "--type", shells: [:bash, :zsh], base_name: "kk")
   end

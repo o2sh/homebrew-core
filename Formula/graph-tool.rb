@@ -6,7 +6,7 @@ class GraphTool < Formula
   url "https://downloads.skewed.de/graph-tool/graph-tool-2.45.tar.bz2"
   sha256 "f92da7accfda02b29791efe4f0b3ed93329f27232af4d3afc07c92421ec68668"
   license "LGPL-3.0-or-later"
-  revision 4
+  revision 5
 
   livecheck do
     url "https://downloads.skewed.de/graph-tool/"
@@ -14,14 +14,13 @@ class GraphTool < Formula
   end
 
   bottle do
-    sha256                               arm64_ventura:  "0e5113457b48f829a823a2c27861937ed5ba3de48f02f20a73f934e84292df20"
-    sha256                               arm64_monterey: "72e51d21086a0f978b353bbf0eb273af83e10ed400df7272d282a3c810c96b73"
-    sha256                               arm64_big_sur:  "3b393a7329669564548d8edff26b613b85eb7209f952a14ed0e9c00bfff18784"
-    sha256                               ventura:        "5b7ae782226e371e57023a39b1b344187aa71de5c0d539f753811d0491bb9022"
-    sha256                               monterey:       "7f2394b7289eecc174e821204f41e756b7bc0b7070c14ef4dfe6ad671718482a"
-    sha256                               big_sur:        "912a5656461297bc57424f50258c64ef69ec6215b40e2e4ae538122d822e65cc"
-    sha256                               catalina:       "8eeb0ebb043660d3bf1ef17a8930050d992dd51084d86ac140c2b6f2b3431ec8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1b1aad1b1afa533bfe5e6a88bedc7ac876cfb67d76fcc6066a85b2fb6686fe4e"
+    sha256                               arm64_ventura:  "ca8a59a91ff9ccd4f6a9e94865522fd6558bc284a1093bfba38aea31536cb74c"
+    sha256                               arm64_monterey: "fbe4d73767249c8f4e69ec98fa4bd1745b58a2d846136e35dd4785d78c447f60"
+    sha256                               arm64_big_sur:  "e62a6902e6f82d3e958c433cdbb817eda171df61c1a50e543f0ce324e4221795"
+    sha256                               ventura:        "67d159f812b1288bc950e2dc8b126f2308d8f175b0547dd6ef9599b9079b5567"
+    sha256                               monterey:       "1c8a8339661b150715bd212198cbcdc28e8516a69ba15bd312990826a8db4fd2"
+    sha256                               big_sur:        "b02b0b13f157d0f6523d018b3cab0cdadc311ad2796f78606027f8a0cba0d8d1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8eed02783a94201e8dcc82beeb819a079dbc73b552a1ebf3846036992e280cf0"
   end
 
   depends_on "autoconf" => :build
@@ -32,6 +31,7 @@ class GraphTool < Formula
   depends_on "boost-python3"
   depends_on "cairomm@1.14"
   depends_on "cgal"
+  depends_on "fonttools"
   depends_on "google-sparsehash"
   depends_on "gtk+3"
   depends_on "librsvg"
@@ -62,11 +62,6 @@ class GraphTool < Formula
   resource "cycler" do
     url "https://files.pythonhosted.org/packages/34/45/a7caaacbfc2fa60bee42effc4bcc7d7c6dbe9c349500e04f65a861c15eb9/cycler-0.11.0.tar.gz"
     sha256 "9c87405839a19696e837b3b818fed3f5f69f16f1eec1a1ad77e043dcea9c772f"
-  end
-
-  resource "fonttools" do
-    url "https://files.pythonhosted.org/packages/55/5c/a4a25cf6db42d113d8f626901bb156b2f7cf7c7564a6bbc7b5cd6f7cb484/fonttools-4.38.0.zip"
-    sha256 "2bb244009f9bf3fa100fc3ead6aeb99febe5985fa20afbfbaa2f8946c2fbdaf1"
   end
 
   resource "kiwisolver" do
@@ -112,6 +107,11 @@ class GraphTool < Formula
     xy = Language::Python.major_minor_version(python3)
     venv = virtualenv_create(libexec, python3)
     venv.pip_install resources
+
+    %w[fonttools].each do |package_name|
+      package = Formula[package_name].opt_libexec
+      (libexec/site_packages/"homebrew-#{package_name}.pth").write package/site_packages
+    end
 
     args = %W[
       PYTHON=#{python3}

@@ -1,19 +1,18 @@
 class Gifski < Formula
   desc "Highest-quality GIF encoder based on pngquant"
   homepage "https://gif.ski/"
-  url "https://github.com/ImageOptim/gifski/archive/1.8.0.tar.gz"
-  sha256 "77bbb6736217f0fe43e2c2b49855fe22e32d41f77b5e715950b7a52903518f9c"
+  url "https://github.com/ImageOptim/gifski/archive/1.9.0.tar.gz"
+  sha256 "b2a3455243187da9a3755da5e5c5c708d9bfdc69d0020db769f610aa6311ea2a"
   license "AGPL-3.0-only"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "27a7e091fbdcd34ba75a02652b4156b464b64486694a58e8f03ba1ea6a944fae"
-    sha256 cellar: :any,                 arm64_monterey: "96ea9a1468317ad1783bcfa18aa2ca719d1607cd291b730fafff0fa0e30ead0c"
-    sha256 cellar: :any,                 arm64_big_sur:  "94704c28e4583532f0417276b1363d6b1ff8d9f1bd3735712968459cd18137e7"
-    sha256 cellar: :any,                 ventura:        "636fbf1a0cff25242cdc41fa48e89616813103e4ed37dde08c98d51257196e39"
-    sha256 cellar: :any,                 monterey:       "be3e6bdf0fbe9093e50f0c6d1f7b893c50dee885694ef9331c09677b8abdeab5"
-    sha256 cellar: :any,                 big_sur:        "d2f2efbb61e951b0fc24c419a5c329ed076e80080e383673bd43bb1b34390bef"
-    sha256 cellar: :any,                 catalina:       "e9fcf261f21ac2bcff8682f533191e807db14fb98e252126b3577231d353f724"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6be427f46718adafae0f1a2add356d42fe705a240e75745c86efe7113fa11fb3"
+    sha256 cellar: :any,                 arm64_ventura:  "eb4c31be3fa7f493b16d840d0ed7e62f356616e9c5af3826d809c4b6e2fa96a1"
+    sha256 cellar: :any,                 arm64_monterey: "17050fe339d24ebbbd40e4f979b76687a66cd173692d63cd9e454c43781eca76"
+    sha256 cellar: :any,                 arm64_big_sur:  "0a9e815d460fa201ae4bbfce979b930600d2ed8b37700ebc4e31cd35d2bf175c"
+    sha256 cellar: :any,                 ventura:        "e96d17b2c2789165f7b002110a9accad4e573332d0fbbf5b81aedcffddfc72a9"
+    sha256 cellar: :any,                 monterey:       "b8f692bbff90310bd2c9a53d498d6e018f11e4deda1fc268eff70574df23f6b2"
+    sha256 cellar: :any,                 big_sur:        "4b77e27210658817253ce7d467802cf0e9191b2d70c38f97455399863dd99957"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "106102f3e9ba2c93d3b9bdedca2bc9cb5e85e117211461840ca617d1abbd1bd4"
   end
 
   depends_on "pkg-config" => :build

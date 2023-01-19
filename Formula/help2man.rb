@@ -1,28 +1,24 @@
 class Help2man < Formula
   desc "Automatically generate simple man pages"
   homepage "https://www.gnu.org/software/help2man/"
-  url "https://ftp.gnu.org/gnu/help2man/help2man-1.49.2.tar.xz"
-  mirror "https://ftpmirror.gnu.org/help2man/help2man-1.49.2.tar.xz"
-  sha256 "9e2e0e213a7e0a36244eed6204d902b6504602a578b6ecd15268b1454deadd36"
+  url "https://ftp.gnu.org/gnu/help2man/help2man-1.49.3.tar.xz"
+  mirror "https://ftpmirror.gnu.org/help2man/help2man-1.49.3.tar.xz"
+  sha256 "4d7e4fdef2eca6afe07a2682151cea78781e0a4e8f9622142d9f70c083a2fd4f"
   license "GPL-3.0-or-later"
   revision 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f5b0bf73ebf258cb4870683c6baf8a4a029d3c46c2996413a6602ef049baf6cd"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f5b0bf73ebf258cb4870683c6baf8a4a029d3c46c2996413a6602ef049baf6cd"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f5b0bf73ebf258cb4870683c6baf8a4a029d3c46c2996413a6602ef049baf6cd"
-    sha256 cellar: :any,                 ventura:        "364fc43f7b2281c96d22494ed9f2eccec465a00cceb8e7e3169213aab6b51232"
-    sha256 cellar: :any,                 monterey:       "0481c92c77f5a3fd47271eb8a4ce4e69ac65cdd9725648fa395a2e0c5a72a30c"
-    sha256 cellar: :any,                 big_sur:        "9ad7fec41ef9f551d6fa6b0f15cc0bce69253daf0e2d1e2c0f25b14d5ca2c045"
-    sha256 cellar: :any,                 catalina:       "758ca628b5bd9e705848c5ec78b2c00d61cd1a5b4363751ccc06bf146b019c72"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8e934fa20f035226d407cb5c429ee6ae91b95710a4fd2c4445b26438d56c3450"
+    sha256 cellar: :any,                 arm64_ventura:  "ce35577716d9a055e403e65e2c2c13171820cac8bfdb0e366fba51ba633fe9bb"
+    sha256 cellar: :any,                 arm64_monterey: "de3584ad8112414015cc277926be6307cfdc4169d71c57c43f7d65e0b000b57e"
+    sha256 cellar: :any,                 arm64_big_sur:  "7f62a4c96936f3b8ed5c9c59f0906f4c3f3574b809989a9b272d743c5ec13374"
+    sha256 cellar: :any,                 ventura:        "0e51ad46b9ede5dd5a26d9c7c4da6a142717e3aaf411bed86b3bfa39180960ab"
+    sha256 cellar: :any,                 monterey:       "c472d37b92dc138e948afe53f4f54bb102dc48e613a7ed82e7a81e633a50d189"
+    sha256 cellar: :any,                 big_sur:        "03a4d9f94c6ad34b663e0a08cb66e436e672f0842479dcecc6bd60733a383e34"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "277a57825c150e4b81ec2fb17e1df684cc271140d920f02d15b0a0dfe482213b"
   end
 
-  uses_from_macos "perl", since: :mojave
-
-  on_intel do
-    depends_on "gettext"
-  end
+  depends_on "gettext"
+  depends_on "perl"
 
   resource "Locale::gettext" do
     url "https://cpan.metacpan.org/authors/id/P/PV/PVANDRY/gettext-1.07.tar.gz"
@@ -32,11 +28,9 @@ class Help2man < Formula
   def install
     ENV.prepend_create_path "PERL5LIB", libexec/"lib/perl5"
 
-    if Hardware::CPU.intel?
-      resource("Locale::gettext").stage do
-        system "perl", "Makefile.PL", "INSTALL_BASE=#{libexec}"
-        system "make", "install"
-      end
+    resource("Locale::gettext").stage do
+      system "perl", "Makefile.PL", "INSTALL_BASE=#{libexec}", "NO_MYMETA=1"
+      system "make", "install"
     end
 
     # install is not parallel safe
@@ -53,11 +47,7 @@ class Help2man < Formula
   end
 
   test do
-    out = if Hardware::CPU.intel?
-      shell_output("#{bin}/help2man --locale=en_US.UTF-8 #{bin}/help2man")
-    else
-      shell_output("#{bin}/help2man #{bin}/help2man")
-    end
+    out = shell_output("#{bin}/help2man --locale=en_US.UTF-8 #{bin}/help2man")
 
     assert_match "help2man #{version}", out
   end

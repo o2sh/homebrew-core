@@ -4,9 +4,10 @@ class Samba < Formula
   # option. The shared folder appears in the guest as "\\10.0.2.4\qemu".
   desc "SMB/CIFS file, print, and login server for UNIX"
   homepage "https://www.samba.org/"
-  url "https://download.samba.org/pub/samba/stable/samba-4.17.3.tar.gz"
-  sha256 "5d1c420cb31ec613c786f98537f959659081edc6be8373e68e87140868938e26"
+  url "https://download.samba.org/pub/samba/stable/samba-4.17.4.tar.gz"
+  sha256 "c0512079db4cac707ccea4c18aebbd6b2eb3acf6e90735e7f645a326be1f4537"
   license "GPL-3.0-or-later"
+  revision 1
 
   livecheck do
     url "https://www.samba.org/samba/download/"
@@ -14,22 +15,28 @@ class Samba < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "354dd9490f7d7055cedf59adc308d2d21226b2b6920c38a7e3d4d7d4266f5a77"
-    sha256 arm64_monterey: "4ebd6944c4f508983288f15d3ee8671cdef88aa7db172b04c67bb11243900e70"
-    sha256 arm64_big_sur:  "2a34b98843287096f182d4463b84ebe5f90bb251d7624f92a7d7099da1429925"
-    sha256 ventura:        "1d00702ea54a87620810a3bab1030295d4e6f41b011a04f7cd1e0479f9da97eb"
-    sha256 monterey:       "57aae8a01b02e32f9c6650b917a8c963d57d0cd6eb0532f803c305160da984fe"
-    sha256 big_sur:        "3eeb8cd71e7e1b4ce1e019dd3c76e802f44a654fee1355ef72cc59336a5333e4"
-    sha256 catalina:       "c8ad47ead61945b6f07330d2a60b473b7ccbd0d8380421b78d9366b154e90fb1"
-    sha256 x86_64_linux:   "1ce64a275b2815df94f1de8076eec36d54790351c1e9891995ab91e9b00ede30"
+    sha256 arm64_ventura:  "04ad33cdd80290e44791fe98ea8c0b2408f53c0bfdc3df8a1e91a11c21af06fe"
+    sha256 arm64_monterey: "057312cc260b6da7d86fa9a150aaea1eb9dc5f3da0d2f85e5628c3a18f4548bd"
+    sha256 arm64_big_sur:  "48ce223d4f46a102e1d182a0f1d98965aaff1ca96c4e20ecc5f78673be00c7a2"
+    sha256 ventura:        "705a3f2a5609ce141e38261b1624769e0b0806f169d2df12d4b80ce98de8239b"
+    sha256 monterey:       "7abcaf3a0c7078ee1d2c7a3f4b2f647499b34f75de6702b9a8eb6af60e19649a"
+    sha256 big_sur:        "09d931a7bf91fa330fcb40d0cb31b9f9347c6401244e5d9d10333c55bd8287cd"
+    sha256 x86_64_linux:   "48a0b3fe8c814b1dbdb6d6ff81e55430a04a5b07eca466b26d1656b5d81de83c"
   end
 
+  depends_on "cmocka" => :build
+  depends_on "pkg-config" => :build
   # configure requires python3 binary to be present, even when --disable-python is set.
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on "gnutls"
+  # icu4c can get linked if detected by pkg-config and there isn't a way to force disable
+  # without disabling spotlight support. So we just enable the feature for all systems.
+  depends_on "icu4c"
   depends_on "krb5"
   depends_on "libtasn1"
+  depends_on "popt"
   depends_on "readline"
+  depends_on "talloc"
 
   uses_from_macos "bison" => :build
   uses_from_macos "flex" => :build
@@ -44,6 +51,9 @@ class Samba < Formula
   on_linux do
     depends_on "libtirpc"
   end
+
+  conflicts_with "jena", because: "both install `tdbbackup` binaries"
+  conflicts_with "puzzles", because: "both install `net` binaries"
 
   resource "Parse::Yapp" do
     url "https://cpan.metacpan.org/authors/id/W/WB/WBRASWELL/Parse-Yapp-1.21.tar.gz"
@@ -63,6 +73,7 @@ class Samba < Formula
     end
     ENV.append "LDFLAGS", "-Wl,-rpath,#{lib}/private" if OS.linux?
     system "./configure",
+           "--bundled-libraries=NONE,ldb,tdb,tevent",
            "--disable-cephfs",
            "--disable-cups",
            "--disable-iprint",

@@ -2,10 +2,9 @@ class Wownero < Formula
   desc "Official wallet and node software for the Wownero cryptocurrency"
   homepage "https://wownero.org"
   url "https://git.wownero.com/wownero/wownero.git",
-      tag:      "v0.10.1.0",
-      revision: "8ab87421d9321d0b61992c924cfa6e3918118ad0"
+      tag:      "v0.10.2.1",
+      revision: "301e33520c736f308359fe0e406cc5cfa37ccd4b"
   license "BSD-3-Clause"
-  revision 4
 
   # The `strategy` code below can be removed if/when this software exceeds
   # version 10.0.0. Until then, it's used to omit a malformed tag that would
@@ -24,14 +23,13 @@ class Wownero < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "0c31343f9936cb03bdc1779f712647ef16658058d4e7d36343f6217fd538e2b7"
-    sha256 cellar: :any,                 arm64_monterey: "b627c6af02ba17fb383732cfd73d3e8c6008e411f023de9d41e87040cb4b0103"
-    sha256 cellar: :any,                 arm64_big_sur:  "0fd483fb375cb8f15b8ef0ea0834b67598d654f7c2a009b0524d789fe280f4f9"
-    sha256 cellar: :any,                 ventura:        "968aa99dc91b2ccf28d9a701597f15617109b405b7dd3b4a9a13d61c20dcc222"
-    sha256 cellar: :any,                 monterey:       "1a6df256f7c5770c20d187314b5b17d573d6a66b96f4271849f27cc4cefa745b"
-    sha256 cellar: :any,                 big_sur:        "38346fc0d87e8d5b92d258e4c9e95913d294ef78b62c44053814a3464acbb79b"
-    sha256 cellar: :any,                 catalina:       "8821221bc24cecae72e59c4a51f7f1e3583c8f2c1759baf26e046b79e94a9c47"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2c47de0a28e479265da68243b21c14a842b78c1661574ac86224736d8e55aab5"
+    sha256 cellar: :any,                 arm64_ventura:  "db1ed26a18eb4880834a3a663f25573cdb8d41f85fce1c20eb9e7a49bcdad9b2"
+    sha256 cellar: :any,                 arm64_monterey: "3df5e3bb404f8c9cfdac32a93ab4e6cb2305e3d2064b5991c3291a62505b54e5"
+    sha256 cellar: :any,                 arm64_big_sur:  "b118cfa2a51e28b35670090f964b67032409c94f1452f4e33d8eff487fd4af37"
+    sha256 cellar: :any,                 ventura:        "f2ff50fe9a169bcb7ee60442f26d642fe773dd9dcc8d16a31ab493fa475a3606"
+    sha256 cellar: :any,                 monterey:       "a264cc289ae400739d581c51404f10ab90fb29e9b5be4271882c21722a69ea51"
+    sha256 cellar: :any,                 big_sur:        "7347f465cbd840a42557bc54e6b7ee7311166387bb0fbe09c8bfd984c9c34285"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f4c4b0d90344ec79eb9f5fc112e2e3881c14b0cb21410f60e03476882d5fd991"
   end
 
   depends_on "cmake" => :build
@@ -47,18 +45,22 @@ class Wownero < Formula
 
   conflicts_with "monero", because: "both install a wallet2_api.h header"
 
-  # Boost 1.76 compatibility
-  # https://github.com/loqs/monero/commit/5e902e5e32c672661dfe5677c4a950c4dd409198
-  patch :DATA
+  # patch build issue (missing includes)
+  # remove when wownero syncs fixes from monero
+  patch do
+    url "https://github.com/monero-project/monero/commit/96677fffcd436c5c108718b85419c5dbf5da9df2.patch?full_index=1"
+    sha256 "e39914d425b974bcd548a3aeefae954ab2f39d832927ffb97a1fbd7ea03316e0"
+  end
 
   def install
     # Need to help CMake find `readline` when not using /usr/local prefix
-    system "cmake", ".", *std_cmake_args, "-DReadline_ROOT_DIR=#{Formula["readline"].opt_prefix}"
-    system "make", "install"
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-DReadline_ROOT_DIR=#{Formula["readline"].opt_prefix}"
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
 
     # Fix conflict with miniupnpc.
     # This has been reported at https://github.com/monero-project/monero/issues/3862
-    rm lib/"libminiupnpc.a"
+    (lib/"libminiupnpc.a").unlink
   end
 
   service do
@@ -76,18 +78,3 @@ class Wownero < Formula
     assert_equal address, shell_output(cmd).lines.last.split[1]
   end
 end
-
-__END__
-diff --git a/contrib/epee/include/storages/portable_storage.h b/contrib/epee/include/storages/portable_storage.h
-index f77e89cb6..066e12878 100644
---- a/contrib/epee/include/storages/portable_storage.h
-+++ b/contrib/epee/include/storages/portable_storage.h
-@@ -39,6 +39,8 @@
- #include "span.h"
- #include "int-util.h"
-
-+#include <boost/mpl/contains.hpp>
-+
- namespace epee
- {
-   class byte_slice;

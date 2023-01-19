@@ -1,8 +1,8 @@
 class Astro < Formula
   desc "To build and run Airflow DAGs locally and interact with the Astronomer API"
   homepage "https://www.astronomer.io/"
-  url "https://github.com/astronomer/astro-cli/archive/refs/tags/v1.8.2.tar.gz"
-  sha256 "60766bd5ae79cf1a72f50430f040b26571b6a071d222cfd0f1628e26ac8b1c8a"
+  url "https://github.com/astronomer/astro-cli/archive/refs/tags/v1.9.0.tar.gz"
+  sha256 "a32e52b85d19195639bd0fed05ca7ffebca4467513049a47af2504a746178738"
   license "Apache-2.0"
 
   livecheck do
@@ -11,14 +11,13 @@ class Astro < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3338b9b5b50efc61eca58a7262c3e20e30aa4e8afb86bf030d14d19cb5b20fe0"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3338b9b5b50efc61eca58a7262c3e20e30aa4e8afb86bf030d14d19cb5b20fe0"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "3338b9b5b50efc61eca58a7262c3e20e30aa4e8afb86bf030d14d19cb5b20fe0"
-    sha256 cellar: :any_skip_relocation, ventura:        "a905182b2bba2580dfd6839ea37b09cc3073bdb94524a8681caae45256f4e98d"
-    sha256 cellar: :any_skip_relocation, monterey:       "a905182b2bba2580dfd6839ea37b09cc3073bdb94524a8681caae45256f4e98d"
-    sha256 cellar: :any_skip_relocation, big_sur:        "a905182b2bba2580dfd6839ea37b09cc3073bdb94524a8681caae45256f4e98d"
-    sha256 cellar: :any_skip_relocation, catalina:       "a905182b2bba2580dfd6839ea37b09cc3073bdb94524a8681caae45256f4e98d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f284de96a738182a1459fe737361c55afa8cbb8f7b31e89fe41518bc8cd4048e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "819774e58df09821c59001d1505e9d6853ee10ce81fd2bbd1bdedea0567dd040"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "819774e58df09821c59001d1505e9d6853ee10ce81fd2bbd1bdedea0567dd040"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "819774e58df09821c59001d1505e9d6853ee10ce81fd2bbd1bdedea0567dd040"
+    sha256 cellar: :any_skip_relocation, ventura:        "9c15edc0360d8959f79e3579b4205c3110afff3d1f1dbe39ca395f076afac77f"
+    sha256 cellar: :any_skip_relocation, monterey:       "9c15edc0360d8959f79e3579b4205c3110afff3d1f1dbe39ca395f076afac77f"
+    sha256 cellar: :any_skip_relocation, big_sur:        "9c15edc0360d8959f79e3579b4205c3110afff3d1f1dbe39ca395f076afac77f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ba5da235638b779d46e21c2f8125fe5b1a844093b1dbf404e7280facb004bb68"
   end
 
   depends_on "go" => :build

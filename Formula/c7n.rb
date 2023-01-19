@@ -3,8 +3,8 @@ class C7n < Formula
 
   desc "Rules engine for cloud security, cost optimization, and governance"
   homepage "https://github.com/cloud-custodian/cloud-custodian"
-  url "https://github.com/cloud-custodian/cloud-custodian/archive/0.9.20.0.tar.gz"
-  sha256 "d9cd353ce1ae4158503aaf8b5443299fbfd65672d861b54f98208c025df4eff2"
+  url "https://github.com/cloud-custodian/cloud-custodian/archive/0.9.22.0.tar.gz"
+  sha256 "05d99fd9f2e348d2bd6c924469da94ba3b12a1a2db5639aa0009110a18c337c6"
   license "Apache-2.0"
 
   livecheck do
@@ -13,19 +13,17 @@ class C7n < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c60e9686aad975d38bcc320687c4b10a7718dc0e3409ef622ae4b000ee72ffc1"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "6d912fadfe0bb6159d5d1e8742d23ecc08f6b516cb7c8d31c455340575959bb3"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7b5c5cffe06b72344f5f7dd288587b5cedc8650b66850a1661fccbeac119fa0f"
-    sha256 cellar: :any_skip_relocation, ventura:        "1cbe0f692df3a64525374ed179561c9392d24c86f4cb7dde82df5f8f4bd9fb32"
-    sha256 cellar: :any_skip_relocation, monterey:       "ffe4f808cb194fccc39553c029251c000da39393bf8328d8bfb4bb3cd2681de9"
-    sha256 cellar: :any_skip_relocation, big_sur:        "fc6a84caa02f2cfe0323f740e0ea3dea8b4a83d98626e7c6efd92fc318cad71a"
-    sha256 cellar: :any_skip_relocation, catalina:       "07d0bb044f14970d8836365e8d5ccffd5ec8eb35c41b1bae30ef9f40593fdd90"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f8fd9426a4c7c0671210d99e7d43cf5333885b9638385aff2da479704d3fa942"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a98e229fa2c6881181c7036a2da3c9a3256decc5caece6b0d6a05d37860c74b8"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6efc81eda049d2b47489714ce01a35b81ada33c4f2f151f057e0d19166f6e20e"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a321ceb0e742a93605331e6a7705bdc0869b4aa2a878aed56dcc61c18e3d3fab"
+    sha256 cellar: :any_skip_relocation, ventura:        "2415cd2c1ba0ee891c4905e4cb5b6ba28574ba80e034ff555b2bbd1231cdc037"
+    sha256 cellar: :any_skip_relocation, monterey:       "c1f6fabb0aeeb50a3cdc9aabe7c174463dde4636b945dda4c85fa6532b97c5d1"
+    sha256 cellar: :any_skip_relocation, big_sur:        "0270e626ce4325fda86e804f0b0b663e332f26892681f32534d2d273176bc4df"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "431bca43bf505e2f0098cd1d1ff126b01623788a379bbc98cf6b796ea5dbcff9"
   end
 
-  depends_on "jsonschema"
-  depends_on "libpython-tabulate"
-  depends_on "python@3.10"
+  depends_on "python-tabulate"
+  depends_on "python@3.11"
   depends_on "pyyaml"
   depends_on "six"
 
@@ -34,14 +32,19 @@ class C7n < Formula
     sha256 "6372ad78c89d662035101418ae253668445b391755cfe94ea52f1b9d22425b20"
   end
 
+  resource "attrs" do
+    url "https://files.pythonhosted.org/packages/21/31/3f468da74c7de4fcf9b25591e682856389b3400b4b62f201e65f15ea3e07/attrs-22.2.0.tar.gz"
+    sha256 "c9227bfc2f01993c03f68db37d1d15c9690188323c067c641f1a35ca58185f99"
+  end
+
   resource "boto3" do
-    url "https://files.pythonhosted.org/packages/80/ab/956f77cbb907b486d100d5644064f02c1ddf21cda64435a9ffe0dd19ab82/boto3-1.25.4.tar.gz"
-    sha256 "03e5055d64a596f7a95ed0ca9fda1b67b7aed00d428e4ccef97f2f82b72ec875"
+    url "https://files.pythonhosted.org/packages/74/e6/f5167f2c905089966e696dcd204cfcd234717bd09ee1882d625bc8aed686/boto3-1.26.52.tar.gz"
+    sha256 "0b1f82d4565ed875c7975ac0be5665e8d948613c01bcb0e49df6d4f5af670cc8"
   end
 
   resource "botocore" do
-    url "https://files.pythonhosted.org/packages/92/d4/5a0127c24ebc39289bb5cdd4b928a24c2b8d9377778f69887984e613ca26/botocore-1.28.4.tar.gz"
-    sha256 "ade670506c9e837f61d590873a11c5d06ab9a8492b8d5b853d6c4059ecddc03d"
+    url "https://files.pythonhosted.org/packages/50/ee/f48701d596846dae86346a0a84f7911108bc7a38ee271e150ebf2c057dc5/botocore-1.29.52.tar.gz"
+    sha256 "a0b89a33305cfa6251c6e1142deb7567e216e37e25363159f45fb81dc5b474e5"
   end
 
   resource "docutils" do
@@ -50,13 +53,23 @@ class C7n < Formula
   end
 
   resource "importlib-metadata" do
-    url "https://files.pythonhosted.org/packages/7e/ec/97f2ce958b62961fddd7258e0ceede844953606ad09b672fa03b86c453d3/importlib_metadata-5.0.0.tar.gz"
-    sha256 "da31db32b304314d044d3c12c79bd59e307889b287ad12ff387b3500835fc2ab"
+    url "https://files.pythonhosted.org/packages/90/07/6397ad02d31bddf1841c9ad3ec30a693a3ff208e09c2ef45c9a8a5f85156/importlib_metadata-6.0.0.tar.gz"
+    sha256 "e354bedeb60efa6affdcc8ae121b73544a7aa74156d047311948f6d711cd378d"
   end
 
   resource "jmespath" do
     url "https://files.pythonhosted.org/packages/00/2a/e867e8531cf3e36b41201936b7fa7ba7b5702dbef42922193f05c8976cd6/jmespath-1.0.1.tar.gz"
     sha256 "90261b206d6defd58fdd5e85f478bf633a2901798906be2ad389150c5c60edbe"
+  end
+
+  resource "jsonschema" do
+    url "https://files.pythonhosted.org/packages/36/3d/ca032d5ac064dff543aa13c984737795ac81abc9fb130cd2fcff17cfabc7/jsonschema-4.17.3.tar.gz"
+    sha256 "0f864437ab8b6076ba6707453ef8f98a6a0d512a80e93f8abdb676f737ecb60d"
+  end
+
+  resource "pyrsistent" do
+    url "https://files.pythonhosted.org/packages/bf/90/445a7dbd275c654c268f47fa9452152709134f61f09605cf776407055a89/pyrsistent-0.19.3.tar.gz"
+    sha256 "1a2994773706bbb4995c31a97bc94f1418314923bd1048c6d964837040376440"
   end
 
   resource "python-dateutil" do
@@ -70,28 +83,17 @@ class C7n < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/b2/56/d87d6d3c4121c0bcec116919350ca05dc3afd2eeb7dc88d07e8083f8ea94/urllib3-1.26.12.tar.gz"
-    sha256 "3fa96cf423e6987997fc326ae8df396db2a8b7c667747d47ddd8ecba91f4a74e"
+    url "https://files.pythonhosted.org/packages/c5/52/fe421fb7364aa738b3506a2d99e4f3a56e079c0a798e9f4fa5e14c60922f/urllib3-1.26.14.tar.gz"
+    sha256 "076907bf8fd355cde77728471316625a4d2f7e713c125f51953bb5b3eecf4f72"
   end
 
   resource "zipp" do
-    url "https://files.pythonhosted.org/packages/8d/d7/1bd1e0a5bc95a27a6f5c4ee8066ddfc5b69a9ec8d39ab11a41a804ec8f0d/zipp-3.10.0.tar.gz"
-    sha256 "7a7262fd930bd3e36c50b9a64897aec3fafff3dfdeec9623ae22b40e93f99bb8"
-  end
-
-  # patch version, remove in next release
-  patch do
-    url "https://github.com/cloud-custodian/cloud-custodian/commit/690da026954f8e6c16df3fc95f3580b8fca0688d.patch?full_index=1"
-    sha256 "da4f704fa8ae63a51db0d42fcb2af0dc6ccc891d9fcf902abc97ed9a18ce8a8d"
+    url "https://files.pythonhosted.org/packages/8e/b3/8b16a007184714f71157b1a71bbe632c5d66dd43bc8152b3c799b13881e1/zipp-3.11.0.tar.gz"
+    sha256 "a7a22e05929290a67401440b39690ae6563279bced5f314609d9d03798f56766"
   end
 
   def install
     virtualenv_install_with_resources
-
-    # we depend on jsonschema, but that's a separate formula, so install a `.pth` file to link them
-    site_packages = Language::Python.site_packages("python3.10")
-    jsonschema = Formula["jsonschema"].opt_libexec
-    (libexec/site_packages/"homebrew-jsonschema.pth").write jsonschema/site_packages
   end
 
   test do

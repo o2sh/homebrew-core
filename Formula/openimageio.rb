@@ -1,10 +1,10 @@
 class Openimageio < Formula
   desc "Library for reading, processing and writing images"
   homepage "https://openimageio.org/"
-  url "https://github.com/OpenImageIO/oiio/archive/v2.4.5.0.tar.gz"
-  sha256 "21177a9665021a99123885cd8383116d15013b6610b4b09bcf209612423fedc5"
+  url "https://github.com/OpenImageIO/oiio/archive/v2.4.7.1.tar.gz"
+  sha256 "fd298f71e44c6776863db4b37c4a1388dba0d2eb37378afea95ab07a7cd6ecd4"
   license "BSD-3-Clause"
-  revision 1
+  revision 2
   head "https://github.com/OpenImageIO/oiio.git", branch: "master"
 
   livecheck do
@@ -14,14 +14,13 @@ class Openimageio < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "0a5aa7c530bbcbfc30208f8cab3a92fbc74cee9d9bc6b0dd5ff9031dcd183b3e"
-    sha256 cellar: :any,                 arm64_monterey: "b108813a8f66351fb1abb359da39e3f89f10f508c2468558e8d3fa368c63f3f0"
-    sha256 cellar: :any,                 arm64_big_sur:  "4b40843a5a06cbc1943dbb902777e538618abf3b404955d386c1376c92d81f9e"
-    sha256 cellar: :any,                 ventura:        "cc5ef65d5de784862a1dd24351aab4b00d0e661146f4ae3257a00211ff180fe8"
-    sha256 cellar: :any,                 monterey:       "9a021fa26b0bbed5f386a0829022f9a441900bb889868d36988a4db632f2a375"
-    sha256 cellar: :any,                 big_sur:        "3e7f9ed4a306ae271290c842de00f470de36f3dbac8d464d4a54e6cd0ca86146"
-    sha256 cellar: :any,                 catalina:       "d0a98bdabe52ab30e3a7cd532752bfbc63ee6c4babdb0ee081788694372b2e23"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7d59883b7a2e945c0c5b5cc22b0ff6d2eaf1f8d3ea66e07e696f7712b6367f61"
+    sha256 cellar: :any,                 arm64_ventura:  "37fbf7b4b7229f362ce8d93748f7d8ade5cae84e0240b1acf8bf96c3c2ddc0f3"
+    sha256 cellar: :any,                 arm64_monterey: "c48a6cf2544b9a584d2172112277554f52cfad11132ecf49618c1f43d9a0d9c0"
+    sha256 cellar: :any,                 arm64_big_sur:  "6e04c12b059b5c06434821f72ffe10a2e64d9b5bf4f6666af910a15caa2f43c7"
+    sha256 cellar: :any,                 ventura:        "e42caa9dc9f2c7ef89c955028b7beb0e6551dd4108b984e8598e16234198c039"
+    sha256 cellar: :any,                 monterey:       "5d849692a43027b63718adc298b3a90ecd19aeb06172682cef972956e1dceaa8"
+    sha256 cellar: :any,                 big_sur:        "b1a6a7d0b989de70430f5529d97690d79bac2e7510d17e38c2593fd7022f2c1c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b38a3c1d1bd79481efa12948c6603172b1e8ef43c19d889d33a4126df5cc1ab9"
   end
 
   depends_on "cmake" => :build
@@ -66,6 +65,7 @@ class Openimageio < Formula
       -DCCACHE_FOUND=
       -DEMBEDPLUGINS=ON
       -DOIIO_BUILD_TESTS=OFF
+      -DUSE_DCMTK=OFF
       -DUSE_EXTERNAL_PUGIXML=ON
       -DUSE_JPEGTURBO=ON
       -DUSE_NUKE=OFF

@@ -1,20 +1,19 @@
 class Lima < Formula
   desc "Linux virtual machines"
   homepage "https://github.com/lima-vm/lima"
-  url "https://github.com/lima-vm/lima/archive/v0.13.0.tar.gz"
-  sha256 "2df48d219bd8f67a3d7cfe43770f768aeb20a1b2242aaba18c58d441d5bd0d0e"
+  url "https://github.com/lima-vm/lima/archive/v0.14.2.tar.gz"
+  sha256 "8d6cd72dd1670c6ade1f92ede6dc01ab64cbeec38fbaba617d9aa93f59ca1ae1"
   license "Apache-2.0"
   head "https://github.com/lima-vm/lima.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c86a1c2cdd2579ac03511ee166b9f069abfb2e0f0b81358088ff2f83ca591a00"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2fe8be341ea6deeda9b89d17d4213672e711320e3f403c70e2562ad941cc39dc"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7ce3c0a07ad2704dede55d435002cc99ef749b8f194634a31fc107271eddc126"
-    sha256 cellar: :any_skip_relocation, ventura:        "956871016ecdc212c04af137ae04b93071ca0ae65fa6871fa046ad43c1cc9dd7"
-    sha256 cellar: :any_skip_relocation, monterey:       "3efb500a8401769824adbf056a2a94076c26a06c76fa7c86c6394ef14cc1a18b"
-    sha256 cellar: :any_skip_relocation, big_sur:        "74c7598708b43d9a389efbb1731a39d6bdee4597c069abad532371eb84e8d8ed"
-    sha256 cellar: :any_skip_relocation, catalina:       "6026a0464da0973cdc4b90b4a3966b22f2ae4a6af83a188cadf62c4806f8b6ac"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2e709a5806ac3d33793a2e2cf2528dc9d051611affe164f7791a0b76b78fc0e6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ce5088e10ef27bc559052f93dd5e38df9592b57bf69a614d351f0b46f9b12587"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f1390f3133d929dd5b24c0b1449aec981e55eaadfcb97a56056f800fdd763629"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "01fca548e0d566e3fce5ce93ae324041eec12f2b8ce3bb97982bd455125a8611"
+    sha256 cellar: :any_skip_relocation, ventura:        "c5f2f4632637a223301c66ee55a698507f2efe390a662adcb6a74f6c8024c5d2"
+    sha256 cellar: :any_skip_relocation, monterey:       "ee23098ac72c5c09b4af8c972c4e3f82c4217ad3034a0aabdb0cca2803f26830"
+    sha256 cellar: :any_skip_relocation, big_sur:        "3d24b04f2a38953d18559fda7d2852cc38e7a8966cf1b903007a4bfa8ff79d8d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "873980f58ab7b7a9c5f4b59ae87fb8ba84e85356343bb4e2af58ea1b480b4b5b"
   end
 
   depends_on "go" => :build
@@ -31,6 +30,12 @@ class Lima < Formula
   end
 
   test do
-    assert_match "Pruning", shell_output("#{bin}/limactl prune 2>&1")
+    info = JSON.parse shell_output("#{bin}/limactl info")
+    # Verify that the VM drivers are compiled in
+    assert_includes info["vmTypes"], "qemu"
+    assert_includes info["vmTypes"], "vz" if MacOS.version >= :ventura
+    # Verify that the template files are installed
+    template_names = info["templates"].map { |x| x["name"] }
+    assert_includes template_names, "default"
   end
 end

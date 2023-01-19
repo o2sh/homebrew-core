@@ -1,34 +1,35 @@
 class Libjwt < Formula
   desc "JSON Web Token C library"
   homepage "https://github.com/benmcollins/libjwt"
-  url "https://github.com/benmcollins/libjwt/archive/v1.14.0.tar.gz"
-  sha256 "df7e753b3a523008d7994396afec0ad4f02e5d5636da54319b07ad2c4eb38cd0"
+  url "https://github.com/benmcollins/libjwt/releases/download/v1.15.2/libjwt-1.15.2.tar.gz"
+  sha256 "787c9fa6ad0b542980b78517173e06c68d04c7e1d2f7ae91caf125951cb242e2"
   license "MPL-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "38ed9509a429014b28882a5970ef64e157a1906514c5f7a593c05af43d0948e0"
-    sha256 cellar: :any,                 arm64_monterey: "fc108cdd5c78b51c76ff7abcbcfb20db01521b4e2f665ce1f73079045ff2dd97"
-    sha256 cellar: :any,                 arm64_big_sur:  "3749847000103f76c8c72f33edcd3e00855c90fb5e99cb8080362be362cd4cae"
-    sha256 cellar: :any,                 ventura:        "d7a7fb357819054f228e7ee33508861639893c461408d9e2aea6c0ad0a7c01c8"
-    sha256 cellar: :any,                 monterey:       "f98f21791845f8ad5154e826a8bdfb586d7ee509ad150b8a94f77a97ddae39d6"
-    sha256 cellar: :any,                 big_sur:        "f8a4776cb98a8e345b7ab2e9d3753703e91a56c264d0e4568413a548e3bd2f23"
-    sha256 cellar: :any,                 catalina:       "c89546a6d4f6fcac752fa3a1a1d1ee91d88af04c062fb4f619c4414f9e8e1048"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ba773969e167750e3cfa3b297bfb7c1a0713eac508c6181dbbd09dd77031b745"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "671566bd4853fccc55bce01897f5ba50b96e99af507595650735997235eee6cf"
+    sha256 cellar: :any,                 arm64_monterey: "3cdd891f9b77b16dfe5fe3e33d21bb6cef6871a7d4e61d38212af30748bdf71a"
+    sha256 cellar: :any,                 arm64_big_sur:  "78c42d88ed939f07f1a0dcec5d02700bf3216549fd580dcebfdc9715ff6bf538"
+    sha256 cellar: :any,                 ventura:        "b21ccbe1d31add80d9c1284d246f3bf7dacbfded9c7d64ffb37a58a257090372"
+    sha256 cellar: :any,                 monterey:       "9ec0adfcbf694aa8f51d5c82b4bcd47e1a1bdf814e56c4caa8c4418d08182aee"
+    sha256 cellar: :any,                 big_sur:        "c017f3f8d42d2f97e2c8503e036b312e89e14f1858c4d9a63fcac198ad3db557"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "264745cd986ae67a0a6cf48c4da86e0906ec410afdd8c3b58602f9931fa22193"
   end
 
-  depends_on "autoconf" => :build
-  depends_on "automake" => :build
-  depends_on "libtool" => :build
+  head do
+    url "https://github.com/benmcollins/libjwt.git", branch: "master"
+    depends_on "autoconf" => :build
+    depends_on "automake" => :build
+    depends_on "libtool" => :build
+  end
+
   depends_on "pkg-config" => :build
   depends_on "jansson"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
 
   def install
-    system "autoreconf", "-fiv"
-    system "./configure", "--disable-dependency-tracking",
-                          "--disable-silent-rules",
-                          "--prefix=#{prefix}"
-    system "make", "all"
+    system "autoreconf", "--force", "--install", "--verbose" if build.head?
+    system "./configure", *std_configure_args, "--disable-silent-rules"
     system "make", "install"
   end
 

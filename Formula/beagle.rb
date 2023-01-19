@@ -11,18 +11,18 @@ class Beagle < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "e53a62618ddaa8f5cdd3fd99f4cb267b058862f0976f0e84de508f8f340c3623"
-    sha256 cellar: :any,                 arm64_monterey: "417d70e5874ea00a8eb1487ee490e8420599b5a6c8bd9f949b8fa296ade5df11"
-    sha256 cellar: :any,                 arm64_big_sur:  "1ea7c6f271742ecabc2b102d698bc4e65b5ab11e4445dc4829aa8cfc54c68d02"
-    sha256 cellar: :any,                 ventura:        "5fdc288d4c435430c1ef58672a5114cdca1e2b2a8a9d09b25fb782b1df8a9e0e"
-    sha256 cellar: :any,                 monterey:       "69a5e140d59bf732b928b6af01cb3ac153e4a7f841b47035edae263874abcad2"
-    sha256 cellar: :any,                 big_sur:        "ba32a1ab7c5f5d8d0b1c595e072b40cf4d4c744a946f388850834ce5a58304c2"
-    sha256 cellar: :any,                 catalina:       "858b9d97f17461ee0ba5111753c8d057d598d088566a247d0a4bb1fe2d3a2cfd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1f89845cd5fabec607b9c2c3d648142a85bae3853609c38dc23930e3532b7336"
+    rebuild 2
+    sha256 cellar: :any,                 arm64_ventura:  "ca4a6d6a63718cbfffbc3d4f4729bd0dac761e12d5249bb69dd4cc9336af12c7"
+    sha256 cellar: :any,                 arm64_monterey: "ce5c2677ecdb6a2969889eb4540188d2011c11d89254377357b798650e306d58"
+    sha256 cellar: :any,                 arm64_big_sur:  "718a01898aefd3ae1bfdb855d15e2181b2391c30aa7ae657696caaab64481013"
+    sha256 cellar: :any,                 ventura:        "fd6f151f516ea25e41988a4f84d504e058d9bb176a4d0a286ae9a961229eb0d9"
+    sha256 cellar: :any,                 monterey:       "58819eab7ee85c4ef9a5d387e49b9a71f4ed7af37e89fae1b3671277f62a4ded"
+    sha256 cellar: :any,                 big_sur:        "ad1826295881c322d817c4be45da9bc16d8e9e60908aa5f01cad8e6cc023c120"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6c43b06552d98d1890569bd221710face4cf9301336ee0ecd2f612ec8831ee9e"
   end
 
   depends_on "cmake" => :build
-  depends_on "openjdk" => [:build, :test]
+  depends_on "openjdk@11" => [:build, :test]
 
   # Reinstate versioning for libhmsbeagle. Remove in the next release
   patch do
@@ -31,7 +31,11 @@ class Beagle < Formula
   end
 
   def install
-    ENV["JAVA_HOME"] = Language::Java.java_home
+    # Avoid building Linux bottle with `-march=native`. Need to enable SSE4.1 for _mm_dp_pd
+    # Issue ref: https://github.com/beagle-dev/beagle-lib/issues/189
+    inreplace "CMakeLists.txt", "-march=native", "-msse4.1" if OS.linux? && build.bottle?
+
+    ENV["JAVA_HOME"] = Language::Java.java_home("11")
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
@@ -48,10 +52,9 @@ class Beagle < Formula
         public static void main(String[] args) {}
       }
     EOS
-    system ENV.cxx, "-I#{include}/libhmsbeagle-1",
-           testpath/"test.cpp", "-o", "test"
+    system ENV.cxx, "-I#{include}/libhmsbeagle-1", testpath/"test.cpp", "-o", "test"
     system "./test"
-    system "#{Formula["openjdk"].bin}/javac", "T.java"
-    system "#{Formula["openjdk"].bin}/java", "-Djava.library.path=#{lib}", "T"
+    system Formula["openjdk@11"].bin/"javac", "T.java"
+    system Formula["openjdk@11"].bin/"java", "-Djava.library.path=#{lib}", "T"
   end
 end

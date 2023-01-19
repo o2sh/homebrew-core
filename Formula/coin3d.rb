@@ -41,14 +41,13 @@ class Coin3d < Formula
     sha256 cellar: :any,                 monterey:       "22b2ebe3fea27b2c2636bc5e963834a5a4e29b2afb5d2a043f997e7fa5d89454"
     sha256 cellar: :any,                 big_sur:        "e823c1170d7caceff04fee98a5947a1333e1d67dc75cecf412811a8c01255275"
     sha256 cellar: :any,                 catalina:       "7cf7ce170be433841406d71f0feba6f0e69ace689986aaa0ce59453ba5294a26"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "632d169dcfe3c1b2b18464a93ad1a7ea6faf636ea2ff00d56edf8c9ae3de1a40"
   end
 
   head do
-    url "https://github.com/coin3d/coin.git"
+    url "https://github.com/coin3d/coin.git", branch: "master"
 
     resource "pivy" do
-      url "https://github.com/coin3d/pivy.git"
+      url "https://github.com/coin3d/pivy.git", branch: "master"
     end
   end
 
@@ -140,5 +139,5 @@ index 27e26a6..73162c0 100644
 -  int type_len;
 +  Py_ssize_t type_len;
    PyObject * obj = 0;
- 
+
    if (!PyArg_ParseTuple(args, "Os#:cast", &obj, &type_name, &type_len)) {

@@ -1,8 +1,8 @@
 class Nushell < Formula
   desc "Modern shell for the GitHub era"
   homepage "https://www.nushell.sh"
-  url "https://github.com/nushell/nushell/archive/0.71.0.tar.gz"
-  sha256 "0f3a279ead004c86c44b6c9991e9e838b819dad23d65add7250a9691ad29f209"
+  url "https://github.com/nushell/nushell/archive/0.74.0.tar.gz"
+  sha256 "7483fabd62e121d93f4a07c154d2f77d0a1f319b6aba996d94d86b157a206078"
   license "MIT"
   head "https://github.com/nushell/nushell.git", branch: "main"
 
@@ -13,15 +13,13 @@ class Nushell < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_ventura:  "51d415402fa98230d461bce3bca57d9076a98d13debaca60d6012bc13c67c177"
-    sha256 cellar: :any,                 arm64_monterey: "9ab3431541a906e70dbc6ff6199bfc55b60f167020586be542c6c546ecfe6bef"
-    sha256 cellar: :any,                 arm64_big_sur:  "dd19c564a15041fbdc9f2c033060beb0657c042c65eaca230738c03be44a5013"
-    sha256 cellar: :any,                 ventura:        "2d46517a0d804d8a5518d8e326553d090af4d246e799d2d265cbe19bef03fd2d"
-    sha256 cellar: :any,                 monterey:       "d8c402110fe653332bae86db9baf0c0404e36bdd0b75ac7f08f5520b9d6ff770"
-    sha256 cellar: :any,                 big_sur:        "bd772eb91d3d4e8f10be772ac58b06913640535147e122e2b28efe31e621dba3"
-    sha256 cellar: :any,                 catalina:       "b9fe355f40ef6c81a55e08e12fb7b2d5403537e370d428a1ec8c3f7c64138f8d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "40a844add05099b069cff54b043875f65ebc01bc7bc719ba06393e678c90778a"
+    sha256 cellar: :any,                 arm64_ventura:  "173c0ce85f333b60cecfbcf49f1d1673cc9cae9bfff176ce68b9b73ce9d22cf9"
+    sha256 cellar: :any,                 arm64_monterey: "891608d7014b4841a0beeae82f8515fb04b3c25f07d1495bd8d7ddac44942a25"
+    sha256 cellar: :any,                 arm64_big_sur:  "5b03176842a8ea1ebd5bb03e1da5ede5645babc3c001bb71591f7680d1882770"
+    sha256 cellar: :any,                 ventura:        "e3f1ada87ea4e1f2fec690e471ef395b83c26b62080184742a8d57b9169d765b"
+    sha256 cellar: :any,                 monterey:       "21480c373d42e117c5e8e1df482f4ace4978e2e54fa4e7b1961528c54ab8ee1c"
+    sha256 cellar: :any,                 big_sur:        "cad1863ed55566ff661caafcc363e23a7be1d0438bcc288fb8f6191574fadc49"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "54ae461d997f62d73d23b96b4391054dc4947bfeab1a14e8fe6ca3ff46ab53f1"
   end
 
   depends_on "rust" => :build
@@ -47,6 +45,6 @@ class Nushell < Formula
 
   test do
     assert_match "homebrew_test",
-      pipe_output("#{bin}/nu -c \'{ foo: 1, bar: homebrew_test} | get bar\'", nil)
+      pipe_output("#{bin}/nu -c '{ foo: 1, bar: homebrew_test} | get bar'", nil)
   end
 end

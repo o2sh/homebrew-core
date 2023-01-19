@@ -1,19 +1,18 @@
 class Thanos < Formula
   desc "Highly available Prometheus setup with long term storage capabilities"
   homepage "https://thanos.io"
-  url "https://github.com/thanos-io/thanos/archive/v0.29.0.tar.gz"
-  sha256 "45fa97935a8d4f426c677c6077e404cd863c16f758187ad16262451df3262a14"
+  url "https://github.com/thanos-io/thanos/archive/v0.30.1.tar.gz"
+  sha256 "bc389f315b6416fc226282f07500e6eb09bc7f71ad1a0d925456f306328ae8da"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1df27161f056f75adc87fd2bf2e4c0ba276fc0c461dca2e6a4ecda456ea5495a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "87189f69b99b0c9809b61717facf15934719d8db82732f7b7fecbc9ab232173a"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "99e46185231fae249a931bd781081cfb7d201774c63fafdad60af55d4cc1d8b9"
-    sha256 cellar: :any_skip_relocation, ventura:        "ecbc1d74b3400570bceee66ad1df9ff9bbf7a83661270bbcdcfdc609d97dfd00"
-    sha256 cellar: :any_skip_relocation, monterey:       "88847c74c7200e7c6a7c2f64416558df94e14d6d6a3a1ad6199d49cfc27186bf"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d517c42bf13aeda4001d6624850d3ad91d48175124f2159f612966d4da8bb46b"
-    sha256 cellar: :any_skip_relocation, catalina:       "55926a2b792a0ec2bdfd51ce2032fa714d3a7544fb36deba86baa263795aff33"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f333fd049559a17952e3c7bd40c98d65917968081acff4063b4935272eb076ca"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9627948031683b1f417a970aed9be0265de283fa2b75835a6f7737a9e57fb5a5"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ce04130aa19a7244eb9fc0a6a03932e1783ae9268555f43b589823efff01f2e1"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "24e1c8b7f2d63c5d995e6b557d3a502c14caa4e9950844182d15fee62df286bd"
+    sha256 cellar: :any_skip_relocation, ventura:        "9da8a3375ebe7bfa7569a2ed418170f32c0d36eb6e4848ca712814cddec17549"
+    sha256 cellar: :any_skip_relocation, monterey:       "8839197bc0eab7f723afe7397c3f8d3f10f01a2d3c3f40b58a8ff5f6ce0a2964"
+    sha256 cellar: :any_skip_relocation, big_sur:        "a04558e2fa71246adaaf0791684fbac6fe4966b7b1d340a11f902a09a3f2ee5e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0be442d665ceecd7cc32a8344129f317a6291791ceb901bf05da5ba8ce4a4df0"
   end
 
   depends_on "go" => :build

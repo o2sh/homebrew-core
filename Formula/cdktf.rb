@@ -3,20 +3,18 @@ require "language/node"
 class Cdktf < Formula
   desc "Cloud Development Kit for Terraform"
   homepage "https://github.com/hashicorp/terraform-cdk"
-  url "https://registry.npmjs.org/cdktf-cli/-/cdktf-cli-0.13.3.tgz"
-  sha256 "4d86b3ca68333fb5299cfdd75f63831fdc4521f2d24338cd23112355576a43dc"
+  url "https://registry.npmjs.org/cdktf-cli/-/cdktf-cli-0.15.0.tgz"
+  sha256 "77cde5f175ee612041aea64a7871d678e65b946681f0d3f4a20305c101563f09"
   license "MPL-2.0"
-  revision 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7b6cd35e08b5a54eb703d83885851dbb4251cbe1c9699858da0a3992e56ba15f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7b6cd35e08b5a54eb703d83885851dbb4251cbe1c9699858da0a3992e56ba15f"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7b6cd35e08b5a54eb703d83885851dbb4251cbe1c9699858da0a3992e56ba15f"
-    sha256 cellar: :any_skip_relocation, ventura:        "cd4531f9e210b57808091b1c899f21b80091dcd379c59d008df641564530ed37"
-    sha256 cellar: :any_skip_relocation, monterey:       "d1c2c0e89a1dd036df84827c9a8171a1f9ab1e3ff168a9e7436f5afe98ff8652"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d1c2c0e89a1dd036df84827c9a8171a1f9ab1e3ff168a9e7436f5afe98ff8652"
-    sha256 cellar: :any_skip_relocation, catalina:       "d1c2c0e89a1dd036df84827c9a8171a1f9ab1e3ff168a9e7436f5afe98ff8652"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7b6cd35e08b5a54eb703d83885851dbb4251cbe1c9699858da0a3992e56ba15f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6952bbfd69b1c73229752cb4e2d6d70946f8af2b8c9564a345d957fe6603b70a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6952bbfd69b1c73229752cb4e2d6d70946f8af2b8c9564a345d957fe6603b70a"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "6952bbfd69b1c73229752cb4e2d6d70946f8af2b8c9564a345d957fe6603b70a"
+    sha256 cellar: :any_skip_relocation, ventura:        "3e79e9fcbb4e60434d308f34899d88e931f8d26148cd93b26162ab9bab2cacc8"
+    sha256 cellar: :any_skip_relocation, monterey:       "3e79e9fcbb4e60434d308f34899d88e931f8d26148cd93b26162ab9bab2cacc8"
+    sha256 cellar: :any_skip_relocation, big_sur:        "3e79e9fcbb4e60434d308f34899d88e931f8d26148cd93b26162ab9bab2cacc8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d064535e9cde0c85594c89a6359933bd8d59f1661c68441fd71f9cf14e7f5280"
   end
 
   depends_on "node@18"
@@ -26,6 +24,14 @@ class Cdktf < Formula
     node = Formula["node@18"]
     system "npm", "install", *Language::Node.std_npm_install_args(libexec)
     (bin/"cdktf").write_env_script "#{libexec}/bin/cdktf", { PATH: "#{node.opt_bin}:$PATH" }
+
+    # remove non-native architecture pre-built binaries
+    os = OS.kernel_name.downcase
+    arch = Hardware::CPU.intel? ? "x64" : Hardware::CPU.arch.to_s
+    node_modules = libexec/"lib/node_modules/cdktf-cli/node_modules"
+    node_pty_prebuilds = node_modules/"@cdktf/node-pty-prebuilt-multiarch/prebuilds"
+    (node_pty_prebuilds/"linux-x64").glob("node.abi*.musl.node").map(&:unlink)
+    node_pty_prebuilds.each_child { |dir| dir.rmtree if dir.basename.to_s != "#{os}-#{arch}" }
 
     generate_completions_from_executable(libexec/"bin/cdktf", "completion",
                                          shells: [:bash, :zsh], shell_parameter_format: :none)

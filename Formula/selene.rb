@@ -1,19 +1,19 @@
 class Selene < Formula
   desc "Blazing-fast modern Lua linter"
   homepage "https://kampfkarren.github.io/selene"
-  url "https://github.com/Kampfkarren/selene/archive/0.22.0.tar.gz"
-  sha256 "4062413f6f07b8290d9fc9265436426980903a55cb034e5bf239284d099f3d8a"
+  url "https://github.com/Kampfkarren/selene/archive/0.24.0.tar.gz"
+  sha256 "136700c26dff0fc1e6219fd089a0a98578dc00d681a8e4fd5e494466abcd3a39"
   license "MPL-2.0"
   head "https://github.com/Kampfkarren/selene.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a4e34f86568cacba67b8c6a4ca03fa1a53df467bff680c1aca2040db56560375"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1392ed26b8b19295776c18bcf009efb1fc8f41a12688c93dfbe1e034b2ebd801"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "d3f1b2ca8986d16dd9d81f7f9ae981e78f8d6f9e974306640bb0777d17ce4cbb"
-    sha256 cellar: :any_skip_relocation, monterey:       "3cc0d4c9c717c4f6a89d400cefbec2a6a7cd5a1ef0af26aff052cdacdaa0451a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "506987d36f558afa039aa21b7e4187b6d147c33e7a2cd0365f3f66a9043f618f"
-    sha256 cellar: :any_skip_relocation, catalina:       "8a6659c962779f1e63bbcc51ac28c8fd6338baaf3a266f659946805ba82d9fdb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "aa809b8d5b3cdac200184013be9ef7c9b453a54842ed0ae38b5b50ee8b671db3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "74278a032b89a8f0d28b1a8285287b78e773f1d31a02afe61ca0b2b249df785c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "1756d3883eaebf1458f83e19b46421e3e6de79e7bf86b837b52d07c5f2497991"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "87f0bd65aa6d219360e5797411c3c311230871ba47563e97b44dc965432d0420"
+    sha256 cellar: :any_skip_relocation, ventura:        "214e7e9b9f665f860288096461e317f91d9e0f0cacc6a220cd64d2b894c041ec"
+    sha256 cellar: :any_skip_relocation, monterey:       "0d27b771f6125c46ba4ed88981aa77eddee67d535450bfb4d38344476253c564"
+    sha256 cellar: :any_skip_relocation, big_sur:        "3884763fdc134be0d358f2b9d4cfb232d0f50c8d47ced03ace9faa4414cb8fe7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d6c6c4712887a6f7fab3d7c4a7c63de817b699f7c2f6eda7ea759aeb13c7a27b"
   end
 
   depends_on "rust" => :build

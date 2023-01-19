@@ -2,19 +2,18 @@ class Xq < Formula
   desc "Command-line XML and HTML beautifier and content extractor"
   homepage "https://github.com/sibprogrammer/xq"
   url "https://github.com/sibprogrammer/xq.git",
-      tag:      "v1.1.0",
-      revision: "0a9c1d7b705b5926328576b4a3a3ec2e3430e59c"
+      tag:      "v1.1.2",
+      revision: "7c585a2e6ccd7e6e3adc63e4524023389135c938"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "eee62745373a047ed26f6c5b634bf3f1a1339bceb57e6b13989a018ec48ba011"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "eee62745373a047ed26f6c5b634bf3f1a1339bceb57e6b13989a018ec48ba011"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "eee62745373a047ed26f6c5b634bf3f1a1339bceb57e6b13989a018ec48ba011"
-    sha256 cellar: :any_skip_relocation, ventura:        "4678cf39f8f7523c79e1132e9d3c1cab7e907b06ffd16e819bad5e3e5543e152"
-    sha256 cellar: :any_skip_relocation, monterey:       "4678cf39f8f7523c79e1132e9d3c1cab7e907b06ffd16e819bad5e3e5543e152"
-    sha256 cellar: :any_skip_relocation, big_sur:        "4678cf39f8f7523c79e1132e9d3c1cab7e907b06ffd16e819bad5e3e5543e152"
-    sha256 cellar: :any_skip_relocation, catalina:       "4678cf39f8f7523c79e1132e9d3c1cab7e907b06ffd16e819bad5e3e5543e152"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0ddaa61c9f713c77d59eb0dfd6b0f40bae4aa00b5ddd52850f13cbc8923daee8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "98fa4bd7978e06568caebb3384c1a8259542832ff93700a66a0c67eaacda2909"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "98fa4bd7978e06568caebb3384c1a8259542832ff93700a66a0c67eaacda2909"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "98fa4bd7978e06568caebb3384c1a8259542832ff93700a66a0c67eaacda2909"
+    sha256 cellar: :any_skip_relocation, ventura:        "0026deed91e9ee1fc0317c10fa7cd313db673f70dea84ec013c8e20e1bc91dbb"
+    sha256 cellar: :any_skip_relocation, monterey:       "0026deed91e9ee1fc0317c10fa7cd313db673f70dea84ec013c8e20e1bc91dbb"
+    sha256 cellar: :any_skip_relocation, big_sur:        "0026deed91e9ee1fc0317c10fa7cd313db673f70dea84ec013c8e20e1bc91dbb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b98157cfd25e92c12149d1ca99e024154b98cc5f963f372c9ac13b4dc5aee998"
   end
 
   depends_on "go" => :build

@@ -3,8 +3,8 @@ require "language/node"
 class Emscripten < Formula
   desc "LLVM bytecode to JavaScript compiler"
   homepage "https://emscripten.org/"
-  url "https://github.com/emscripten-core/emscripten/archive/3.1.26.tar.gz"
-  sha256 "f4c4425e2881bd62f75c6010cfd711c3e4f420870260a20391faa83af6a51993"
+  url "https://github.com/emscripten-core/emscripten/archive/3.1.30.tar.gz"
+  sha256 "c88aab4684e40ff511f72e949ff9cabb23f05e18ece54b388b304696d0cffb3c"
   license all_of: [
     "Apache-2.0", # binaryen
     "Apache-2.0" => { with: "LLVM-exception" }, # llvm
@@ -18,14 +18,13 @@ class Emscripten < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "54cdba2e8a65fee702624fbba39e3204eefc25e678f3d6b074ce80cde83a046b"
-    sha256 cellar: :any,                 arm64_monterey: "581b68979a68214237f4b07459f543d8cd90eb4ec4ee1f121e05395888161766"
-    sha256 cellar: :any,                 arm64_big_sur:  "fca713d70c1373391c52e556c5848450c784271c2a6d9995aeadd39d0e686504"
-    sha256 cellar: :any,                 ventura:        "1128c4809eedad6d5081339d5d8a7c2414fe5661fe937603a262db1fc4121698"
-    sha256 cellar: :any,                 monterey:       "7a9a311f8313591fbdcb6f7e299c6db018bafc779e7a856b4ad1e856e05172e2"
-    sha256 cellar: :any,                 big_sur:        "2f3dfc812c27061c6bca313e579875045609ea063ab53e39e6939dd6ea126fd6"
-    sha256 cellar: :any,                 catalina:       "e132c5862dbf6a1513802590c15cbcdb19c78f15db4db726b90833a9e754f553"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "af64c9ffffeae6c4803275ae1cd9d50678ea296cebb9ae5e2858a9b8ad3310d7"
+    sha256 cellar: :any,                 arm64_ventura:  "1f5780ca6f7936eeb32d2bb3bbc2096dad0851f536a3358aeba9a8e1efe800aa"
+    sha256 cellar: :any,                 arm64_monterey: "f87cd2256b76ced0b49cc36e6660dcb98e87081320b6082650876d9ca08a8e40"
+    sha256 cellar: :any,                 arm64_big_sur:  "60c0015b1c8cf06aecfb3b49e4f32fa7231ff50e7ffa58a2b5d52c2ad9b691f2"
+    sha256 cellar: :any,                 ventura:        "f77d4b8c21b88b53a34dd9652d4c0c3317af92e7ecf77008915f9b3f82d32f11"
+    sha256 cellar: :any,                 monterey:       "84c31131ef431de909e6888caa2b7885f557d8f30ff0dd6bc47df47c13920d53"
+    sha256 cellar: :any,                 big_sur:        "91fe6dec8048881bee9ff0fdafa76c8d574d3c6aac86d6924d3e228ed228d526"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9ba52e38884f65f3b23a72231c516a75380da2e456aedc2746f72fbf1b11e403"
   end
 
   depends_on "cmake" => :build
@@ -52,7 +51,7 @@ class Emscripten < Formula
   # See llvm resource below for instructions on how to update this.
   resource "binaryen" do
     url "https://github.com/WebAssembly/binaryen.git",
-        revision: "590f63782b9ee6307a2bc0e21917001a66ba16ba"
+        revision: "a803a0830586aaa3e9c989403881298b430f312c"
   end
 
   # emscripten does not support using the stable version of LLVM.
@@ -64,7 +63,7 @@ class Emscripten < Formula
   # Then use the listed llvm_project_revision for the resource below.
   resource "llvm" do
     url "https://github.com/llvm/llvm-project.git",
-        revision: "f81f0cb75a2808a67d2662f044ad07628fc9d900"
+        revision: "800f0f1546b2352ba42a4777149afb13cb874fcd"
   end
 
   def install
@@ -206,6 +205,8 @@ class Emscripten < Formula
   test do
     # We're targetting WASM, so we don't want to use the macOS SDK here.
     ENV.remove_macosxsdk if OS.mac?
+    # Avoid errors on Linux when other formulae like `sdl12-compat` are installed
+    ENV.delete "CPATH"
 
     ENV["NODE_OPTIONS"] = "--no-experimental-fetch"
 

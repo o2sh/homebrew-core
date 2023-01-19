@@ -1,17 +1,17 @@
 class GopassJsonapi < Formula
   desc "Gopass Browser Bindings"
   homepage "https://github.com/gopasspw/gopass-jsonapi"
-  url "https://github.com/gopasspw/gopass-jsonapi/releases/download/v1.14.11/gopass-jsonapi-1.14.11.tar.gz"
-  sha256 "afb6053bd6bd628dcdef5deeb364fcabfe7830d4519b5ea71a3763cf7588760f"
+  url "https://github.com/gopasspw/gopass-jsonapi/releases/download/v1.15.3/gopass-jsonapi-1.15.3.tar.gz"
+  sha256 "15f1d7a80f29f1741d7d37402432c12a0d331b2587c91d17485d284af1b20dcc"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5995642a3234734e39d7e9c5e13e4c92a7ebddce12b86a947d4bc17bde7b080b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "14c39192b7ec1ddd0cf1844ab00572507d01ce43743e736395fe212ff828695b"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "d3de43e66243acd4362e56ba117b5abd294883b26e730a4e76c0f7affdb726aa"
-    sha256 cellar: :any_skip_relocation, monterey:       "f493c674d668a1e00a38896d2aae81bf17ca2df383e60f9dc817a25949c65759"
-    sha256 cellar: :any_skip_relocation, big_sur:        "7dd1b409a6273150a1d254e408620d4e23321e5e2255880cc2322372b69ddc7c"
-    sha256 cellar: :any_skip_relocation, catalina:       "625285b45df9135f50231165e8f24203f3a3d4a81f81532d44a093814d1170e9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "976d44d96289e8b78a6bb73e614dd91dcaa093ac3c74e5e089dfac820f57a08f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "525855818e0f1d2601029620389f67c87419c29891b1b3e186a0e586a25dd63a"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7dbac8abfa406087395cb505f38263fa50dac882e50d40e8fd4e34485cf81501"
+    sha256 cellar: :any_skip_relocation, ventura:        "37993983e7269d68480598a63336b81b8c88ec5a05ec9dfa8a40d1a021898e39"
+    sha256 cellar: :any_skip_relocation, monterey:       "3ccc08e84bbe468ae7ab91f0fed235dad2095170daa59615920dc0fcb8f8eb8d"
+    sha256 cellar: :any_skip_relocation, big_sur:        "33cf89a62c696c85e1b9c090a848ff1bbd1a38d2c80a9798b2a42e53fa380e2a"
   end
 
   depends_on "go" => :build

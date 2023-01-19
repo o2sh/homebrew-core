@@ -2,16 +2,19 @@ class Augeas < Formula
   desc "Configuration editing tool and API"
   homepage "https://augeas.net/"
   license "LGPL-2.1-or-later"
+  revision 1
   head "https://github.com/hercules-team/augeas.git", branch: "master"
 
+  # Remove stable block when patch is no longer needed.
   stable do
-    url "https://github.com/hercules-team/augeas/releases/download/release-1.13.0/augeas-1.13.0.tar.gz"
-    sha256 "5002f33f42365ab78be974609a0f3b76a4c277fc404ec79f516305cab5ce5de1"
+    url "https://github.com/hercules-team/augeas/releases/download/release-1.14.0/augeas-1.14.0.tar.gz"
+    sha256 "8c101759ca3d504bd1d805e70e2f615fa686af189dd7cf0529f71d855c087df1"
 
-    # Replace deprecated 'security_context_t' with 'char *'. Remove in the next release.
+    # Remove `#include <malloc.h>`, add `#include <libgen.h>`.
+    # Remove on next release.
     patch do
-      url "https://github.com/hercules-team/augeas/commit/f38398a2d07028b892eac59449a35e1a3d645fac.patch?full_index=1"
-      sha256 "1697379e0676edf94346a3377a75c871d1d0d033e3a37a29d69ae66f6e57553a"
+      url "https://github.com/hercules-team/augeas/commit/7b26cbb74ed634d886ed842e3d5495361d8fd9b1.patch?full_index=1"
+      sha256 "4f5c383bea873dd401b865d4c63c2660647f45c042bcd92d48ae2e8dee78c842"
     end
   end
 
@@ -22,14 +25,13 @@ class Augeas < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "916e1603688af06ca325d7ecf378f379c82e88f3712d015e0874a560103d47de"
-    sha256 arm64_monterey: "c2b38e9d3f4611a7d7c569ce62d19e35b6d9da3feb4706abddc27828fd4e2a09"
-    sha256 arm64_big_sur:  "64fd8945d6a7408664bad5acc707e587f9c54a78fe3e320c57f13bf456c61553"
-    sha256 ventura:        "b7b815ed1d01632344e3c77d7ab974115b1007958add8888edb44a5e9af7ccc3"
-    sha256 monterey:       "8978eb7d972b143ab12e895b3fc72a4e9a12bd980e02e37eb0dadba9977d8fcd"
-    sha256 big_sur:        "cb898760713b1cc45c6cfb24e8692e762037ca7d947b57d8d39fb89082681b7c"
-    sha256 catalina:       "e3b262dfad73f3b6efb01ff258a465f566fd451377f0bf3bbe37a99f57926427"
-    sha256 x86_64_linux:   "37c08a6a125569eb281a1a2812c44db90f529159418e9a0c5559697c634d2c65"
+    sha256 arm64_ventura:  "e7af25f8e908023500bcb581958c7c0f101c7637b13fc918f447112a6771a38a"
+    sha256 arm64_monterey: "05d7ba80b5c4f82922df2e74482a051fc9d2e126f349df9e20661f913c01bb77"
+    sha256 arm64_big_sur:  "1a96e1000a18fc19725e291137fbf4e303c7708b15eabffd10c23ee4171769f9"
+    sha256 ventura:        "5b2c22d8b533afae5ac6e61fad11b911625524e6d20718d2befd5b3d8a894a3e"
+    sha256 monterey:       "57ded909692f70769ab2f1940e3e93fc4273422f49c0b17b8ab832b9eabb124e"
+    sha256 big_sur:        "7f2e5d001c23b8629b24040e20d9bd7c0542c77646fe23852d730d8e442409bb"
+    sha256 x86_64_linux:   "d1c0c9c1add2c53fded9e5ad269f6afa20e2a88aa3f711bbd4d156568b1b559f"
   end
 
   depends_on "autoconf" => :build
@@ -62,6 +64,30 @@ class Augeas < Formula
   end
 
   test do
-    system bin/"augtool", "print", etc
+    assert_match version.to_s, shell_output("#{bin}/augtool --version 2>&1")
+
+    (testpath/"etc/hosts").write <<~EOS
+      192.168.0.1 brew.sh test
+    EOS
+
+    expected_augtool_output = <<~EOS
+      /files/etc/hosts/1
+      /files/etc/hosts/1/ipaddr = "192.168.0.1"
+      /files/etc/hosts/1/canonical = "brew.sh"
+      /files/etc/hosts/1/alias = "test"
+    EOS
+    assert_equal expected_augtool_output,
+                 shell_output("#{bin}/augtool --root #{testpath} 'print /files/etc/hosts/1'")
+
+    expected_augprint_output = <<~EOS
+      setm /augeas/load/*[incl='/etc/hosts' and label() != 'hosts']/excl '/etc/hosts'
+      transform hosts incl /etc/hosts
+      load-file /etc/hosts
+      set /files/etc/hosts/seq::*[ipaddr='192.168.0.1']/ipaddr '192.168.0.1'
+      set /files/etc/hosts/seq::*[ipaddr='192.168.0.1']/canonical 'brew.sh'
+      set /files/etc/hosts/seq::*[ipaddr='192.168.0.1']/alias 'test'
+    EOS
+    assert_equal expected_augprint_output,
+                 shell_output("#{bin}/augprint --lens=hosts --target=/etc/hosts #{testpath}/etc/hosts")
   end
 end

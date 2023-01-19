@@ -1,8 +1,8 @@
 class Librdkafka < Formula
   desc "Apache Kafka C/C++ library"
   homepage "https://github.com/edenhill/librdkafka"
-  url "https://github.com/edenhill/librdkafka/archive/refs/tags/v1.9.2.tar.gz"
-  sha256 "3fba157a9f80a0889c982acdd44608be8a46142270a389008b22d921be1198ad"
+  url "https://github.com/edenhill/librdkafka/archive/refs/tags/v2.0.1.tar.gz"
+  sha256 "3670f8d522e77f79f9d09a22387297ab58d1156b22de12ef96e58b7d57fca139"
   license "BSD-2-Clause"
   head "https://github.com/edenhill/librdkafka.git", branch: "master"
 
@@ -12,18 +12,17 @@ class Librdkafka < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "fa9511e6ed4fa44e60d2b6f1f380d7c646b8aaedd10ecbe564b7650ac35c43b3"
-    sha256 cellar: :any,                 arm64_monterey: "51cf809caf8626828668859f212e29dd644a8cbe6bbd1740c10edf0b565f0c2f"
-    sha256 cellar: :any,                 arm64_big_sur:  "71fd99b66724e9cde7fc862eadd2043b3c0a072c5ef564d6400da24b47e4d26c"
-    sha256                               ventura:        "abb618447accfb2ba3138ed01a4ed336aa904961a38cc828c25ded2e03fe1cfd"
-    sha256                               monterey:       "9b56f5818e278cec646eb2c93f3d32b19eddfeacb1ec96bff9ba95b7232031fd"
-    sha256                               big_sur:        "939f96a1a1f5fc8caeeb5e0256fe2ea3a319d27f7519739b2699aef96f1bbebb"
-    sha256                               catalina:       "09dee2fe5791509406023eb4510bd19ac9f32e675adbfebcdba3288864927083"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "939c1bf09ef24b036644cb8cd1f15c517e74f4ea6f015082308ac828ad135ee0"
+    sha256 cellar: :any,                 arm64_ventura:  "3ce1c8e85e204b3cc63b93f94edc8b21e6e10206fcb692d86b4a2682d8555c2e"
+    sha256 cellar: :any,                 arm64_monterey: "e5d9a345ac1bcfa80a115bff5282e575fe1cfc84c57cb0a4d4c25526e3cee58e"
+    sha256 cellar: :any,                 arm64_big_sur:  "77af759116f9d1b4073da1c3c663d332f58fc2b8879b6241ab4ecaeac18887ce"
+    sha256                               ventura:        "cac41aee4a18af7b1b903c9d1ae5ff36cd64b6a3893afceafae5f27db141648d"
+    sha256                               monterey:       "5eadf5b572a46e3376a52af5fe6b86e45bc5ca0e8796bd1fdae9ad0f2c8cf43b"
+    sha256                               big_sur:        "6c7f1275a487314b87f105a37711338e5d58c530f2f10f729f2a4bfc60ff249b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e69e7a4ba042939430ec43c22e7969de5e3d192fd7104c9407c6c74f23f34449"
   end
 
   depends_on "pkg-config" => :build
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on "lz4"
   depends_on "lzlib"
   depends_on "openssl@1.1"

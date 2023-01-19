@@ -1,6 +1,8 @@
 class Lilypond < Formula
-  desc "Music engraving program"
+  desc "Music engraving system"
   homepage "https://lilypond.org"
+  url "https://lilypond.org/download/sources/v2.24/lilypond-2.24.0.tar.gz"
+  sha256 "3cedbe3b92b02569e3a6f2f0674858967b3da278d70aa3e98aef5bdcd7f78b69"
   license all_of: [
     "GPL-3.0-or-later",
     "GPL-3.0-only",
@@ -8,20 +10,10 @@ class Lilypond < Formula
     "GFDL-1.3-no-invariants-or-later",
     :public_domain,
     "MIT",
+    "AGPL-3.0-only",
+    "LPPL-1.3c",
   ]
   revision 1
-
-  stable do
-    url "https://lilypond.org/download/sources/v2.22/lilypond-2.22.2.tar.gz"
-    sha256 "dde90854fa7de1012f4e1304a68617aea9ab322932ec0ce76984f60d26aa23be"
-
-    # Shows LilyPond's Guile version (Homebrew uses v2, other builds use v1).
-    # See https://gitlab.com/lilypond/lilypond/-/merge_requests/950
-    patch do
-      url "https://gitlab.com/lilypond/lilypond/-/commit/a6742d0aadb6ad4999dddd3b07862fe720fe4dbf.diff"
-      sha256 "2a3066c8ef90d5e92b1238ffb273a19920632b7855229810d472e2199035024a"
-    end
-  end
 
   livecheck do
     url "https://lilypond.org/source.html"
@@ -29,20 +21,17 @@ class Lilypond < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_ventura:  "ce6c92b231356bae757f2ee4d3df6e0ca42f869d4b66058294b66e04bdba7488"
-    sha256 arm64_monterey: "90d9c931ef38b4f20bfc1228b753fe00e563e45f02c22b4aca1e59b802594c06"
-    sha256 arm64_big_sur:  "2d02e4a99bfe749ae2ab24976f015ec1a38db76aa55146f441575dda15a0d2bd"
-    sha256 ventura:        "e9b7cb2f475610a72a818c9007da47c805a485079caff1af676dbc256e76db4c"
-    sha256 monterey:       "55c985abb54a13e8dfaab1bbf0deb6f5fdb6c960a7147e5c99134c7e763b6837"
-    sha256 big_sur:        "634c7aec2ac85a6fe1e04099e0b92b54e7fac31c2a586e9ca270403ddcd7d1a9"
-    sha256 catalina:       "fb23cd0100e20cdcc2de2333e8f470b3a1cd354322a7bcd257b37682c7ef4727"
-    sha256 x86_64_linux:   "1b351578a95058c9fab5f774a44ec960daf27ed498ac0546235c30da6b698fbe"
+    sha256 arm64_ventura:  "c8241845c55c18951523f4e96258281f1b5539981c33c222a1cff885f62a012f"
+    sha256 arm64_monterey: "59441cf679a019b3d6cbbfce5b87bfbae081e193ff45f5b8be0afb95614e120c"
+    sha256 arm64_big_sur:  "ce9b57df1ff009212994a0277527e96ffa0eaee192d5e07630f9aec5f4d0ea29"
+    sha256 ventura:        "5e379accb12daa34dab8cf690cf48514c35a6c0f5890b507051d65a194913188"
+    sha256 monterey:       "7cae5b84cc6d6ebd524345ae218ac48f384e06e0fd1e3c3868523386ddd67f04"
+    sha256 big_sur:        "af9e52e3270014d40863f9a3cbf6824be28367d5f6c758ed43faa1d0c917fd20"
+    sha256 x86_64_linux:   "e9e6311a81d7d1351ee75db814b4e5e997b48a27e05165b56029a7417d4e07ff"
   end
 
   head do
-    url "https://git.savannah.gnu.org/git/lilypond.git", branch: "master"
-    mirror "https://github.com/lilypond/lilypond.git"
+    url "https://gitlab.com/lilypond/lilypond.git", branch: "master"
 
     depends_on "autoconf" => :build
   end
@@ -50,6 +39,7 @@ class Lilypond < Formula
   depends_on "bison" => :build # bison >= 2.4.1 is required
   depends_on "fontforge" => :build
   depends_on "gettext" => :build
+  depends_on "libpthread-stubs" => :build
   depends_on "pkg-config" => :build
   depends_on "t1utils" => :build
   depends_on "texinfo" => :build # makeinfo >= 6.1 is required
@@ -57,38 +47,69 @@ class Lilypond < Formula
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "ghostscript"
-  depends_on "guile@2"
+  depends_on "guile"
   depends_on "pango"
   depends_on "python@3.11"
 
   uses_from_macos "flex" => :build
   uses_from_macos "perl" => :build
 
+  resource "font-urw-base35" do
+    url "https://github.com/ArtifexSoftware/urw-base35-fonts/archive/refs/tags/20200910.tar.gz"
+    sha256 "e0d9b7f11885fdfdc4987f06b2aa0565ad2a4af52b22e5ebf79e1a98abd0ae2f"
+  end
+
   def install
     system "./autogen.sh", "--noconfigure" if build.head?
 
-    texgyre_dir = "#{Formula["texlive"].opt_share}/texmf-dist/fonts/opentype/public/tex-gyre"
-    system "./configure", "--prefix=#{prefix}",
-                          "--datadir=#{share}",
-                          "--with-texgyre-dir=#{texgyre_dir}",
-                          "--disable-documentation"
+    system "./configure", "--datadir=#{share}",
+                          "--disable-documentation",
+                          "--with-flexlexer-dir=#{Formula["flex"].include}",
+                          "GUILE_FLAVOR=guile-3.0",
+                          *std_configure_args
 
-    ENV.prepend_path "LTDL_LIBRARY_PATH", Formula["guile@2"].opt_lib
     system "make"
     system "make", "install"
 
+    system "make", "bytecode"
+    system "make", "install-bytecode"
+
     elisp.install share.glob("emacs/site-lisp/*.el")
 
-    libexec.install bin/"lilypond"
+    fonts = pkgshare/version/"fonts/otf"
 
-    (bin/"lilypond").write_env_script libexec/"lilypond",
-      GUILE_WARN_DEPRECATED: "no",
-      LTDL_LIBRARY_PATH:     "#{Formula["guile@2"].opt_lib}:$LTDL_LIBRARY_PATH"
+    resource("font-urw-base35").stage do
+      ["C059", "NimbusMonoPS", "NimbusSans"].each do |name|
+        Dir["fonts/#{name}-*.otf"].each do |font|
+          fonts.install font
+        end
+      end
+    end
+
+    ["cursor", "heros", "schola"].each do |name|
+      cp Dir[Formula["texlive"].share/"texmf-dist/fonts/opentype/public/tex-gyre/texgyre#{name}-*.otf"], fonts
+    end
   end
 
   test do
     (testpath/"test.ly").write "\\relative { c' d e f g a b c }"
     system bin/"lilypond", "--loglevel=ERROR", "test.ly"
     assert_predicate testpath/"test.pdf", :exist?
+
+    output = shell_output("#{bin}/lilypond --define-default=show-available-fonts 2>&1")
+    output = output.encode("UTF-8", invalid: :replace, replace: "")
+    fonts = {
+      "C059"            => ["Roman", "Bold", "Italic", "Bold Italic"],
+      "Nimbus Mono PS"  => ["Regular", "Bold", "Italic", "Bold Italic"],
+      "Nimbus Sans"     => ["Regular", "Bold", "Italic", "Bold Italic"],
+      "TeX Gyre Cursor" => ["Regular", "Bold", "Italic", "Bold Italic"],
+      "TeX Gyre Heros"  => ["Regular", "Bold", "Italic", "Bold Italic"],
+      "TeX Gyre Schola" => ["Regular", "Bold", "Italic", "Bold Italic"],
+    }
+    fonts.each do |family, styles|
+      styles.each do |style|
+        assert_match(/^\s*#{family}:style=#{style}$/, output)
+      end
+    end
   end
 end

@@ -3,19 +3,18 @@ class SvtplayDl < Formula
 
   desc "Download videos from https://www.svtplay.se/"
   homepage "https://svtplay-dl.se/"
-  url "https://files.pythonhosted.org/packages/f2/a8/92910b45468814365ee29919b25055e99e7e7fb15d822ac404d25d713b73/svtplay-dl-4.15.tar.gz"
-  sha256 "9dcfa5679f90811d641643c07c9c599825731b608b1a44656ba2162f508e7e04"
+  url "https://files.pythonhosted.org/packages/61/0e/1fa3e8511829ca27e3cb129b9709c1c4578161213d6432c799e911b9dcf3/svtplay-dl-4.18.tar.gz"
+  sha256 "ea813d11874671944282f1d952560ebe176af77d3aac81ca82173efa029fe081"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "d62a189da51ee7ccda50b731509dc90da61e04caaeba21f25c99cb6c382ea1f0"
-    sha256 cellar: :any,                 arm64_monterey: "64dbebd5ed217ef355ca4c4257dbd2e66d80f3850f1e54f7eb5d29080e768a35"
-    sha256 cellar: :any,                 arm64_big_sur:  "d3503a497e78419dce8cfac04c3066a4cbd730705de00ac9446e2d38cb730589"
-    sha256 cellar: :any,                 ventura:        "b6f2b5202d262f3f3910c539146770eca96560c4783d18f823d549f783c2c136"
-    sha256 cellar: :any,                 monterey:       "52babfcd4067b220e5da87ac46b7f49d3b306304a1ba5d22abd96184d88eff89"
-    sha256 cellar: :any,                 big_sur:        "529ac1d03f40771f212051cf10eef37d5a83a9c07cf15dc06573e870cf3d5b66"
-    sha256 cellar: :any,                 catalina:       "02e7c2a324d996f64599b3227b8a74b6ef7c6a75a30881db715d56e25f25b449"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a6a4de3dc0eb6cea9730bdb64517da6a89b3a20a9cc17351b94e59b5534e2cd8"
+    sha256 cellar: :any,                 arm64_ventura:  "1a68165254c030c59f16bf5061a89e0b688f4d06871b7d605e3b15f1a6656725"
+    sha256 cellar: :any,                 arm64_monterey: "3187b4764346ed87e659b983dbbfc476bef8350ced4f95a5263769f7e6c32a27"
+    sha256 cellar: :any,                 arm64_big_sur:  "8c9e22e8564f19f1200f91d9d3d1473cee88496332c57695f2a6482ef523e8e7"
+    sha256 cellar: :any,                 ventura:        "0ebbc3ab4b3c994c33fbd32af8f4a9feca7508d099970d966807fe93edad017c"
+    sha256 cellar: :any,                 monterey:       "59222be7959fa8060edf76d7491b9e8764d726c0e190fa46e6a028c30ee1876b"
+    sha256 cellar: :any,                 big_sur:        "e41a004ca7d89ed8d033faa2eb005ac7bf1930f18a17d0ffcaa239f4a47bbd96"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "af1ba76a2785639e12109fad578b038f6ed553b5f92429ef937f33b44fd7f251"
   end
 
   depends_on "rust" => :build
@@ -24,8 +23,8 @@ class SvtplayDl < Formula
   depends_on "pyyaml"
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/cb/a4/7de7cd59e429bd0ee6521ba58a75adaec136d32f91a761b28a11d8088d44/certifi-2022.9.24.tar.gz"
-    sha256 "0d9c601124e5a6ba9712dbc60d9c53c21e34f5f641fe83002317394311bdce14"
+    url "https://files.pythonhosted.org/packages/37/f7/2b1b0ec44fdc30a3d31dfebe52226be9ddc40cd6c0f34ffc8923ba423b69/certifi-2022.12.7.tar.gz"
+    sha256 "35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3"
   end
 
   resource "cffi" do
@@ -39,8 +38,8 @@ class SvtplayDl < Formula
   end
 
   resource "cryptography" do
-    url "https://files.pythonhosted.org/packages/13/dd/a9608b7aebe5d2dc0c98a4b2090a6b815628efa46cc1c046b89d8cd25f4c/cryptography-38.0.3.tar.gz"
-    sha256 "bfbe6ee19615b07a98b1d2287d6a6073f734735b49ee45b11324d85efc4d5cbd"
+    url "https://files.pythonhosted.org/packages/12/e3/c46c274cf466b24e5d44df5d5cd31a31ff23e57f074a2bb30931a8c9b01a/cryptography-39.0.0.tar.gz"
+    sha256 "f964c7dcf7802d133e8dbd1565914fa0194f9d683d82411989889ecd701e8adf"
   end
 
   resource "idna" do
@@ -64,8 +63,8 @@ class SvtplayDl < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/b2/56/d87d6d3c4121c0bcec116919350ca05dc3afd2eeb7dc88d07e8083f8ea94/urllib3-1.26.12.tar.gz"
-    sha256 "3fa96cf423e6987997fc326ae8df396db2a8b7c667747d47ddd8ecba91f4a74e"
+    url "https://files.pythonhosted.org/packages/c2/51/32da03cf19d17d46cce5c731967bf58de9bd71db3a379932f53b094deda4/urllib3-1.26.13.tar.gz"
+    sha256 "c083dd0dce68dbfbe1129d5271cb90f9447dea7d52097c6e0126120c521ddea8"
   end
 
   def install

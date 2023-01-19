@@ -1,9 +1,10 @@
 class Pdns < Formula
   desc "Authoritative nameserver"
   homepage "https://www.powerdns.com"
-  url "https://downloads.powerdns.com/releases/pdns-4.7.2.tar.bz2"
-  sha256 "4dcae35ebdc04915872d7bf6e2d0bca4b05c6350a100a5cf9c29df53baa53ce2"
+  url "https://downloads.powerdns.com/releases/pdns-4.7.3.tar.bz2"
+  sha256 "8bad351b2e09426f6d4fb0346881a5155fe555497c3d85071e531e7c7afe3e76"
   license "GPL-2.0-or-later"
+  revision 1
 
   livecheck do
     url "https://downloads.powerdns.com/releases/"
@@ -11,17 +12,17 @@ class Pdns < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "f9fb4470bed7a5c12f9b6fcf01c330da80c5f8847d5c94c318d8a7ddd36ca604"
-    sha256 arm64_monterey: "0bc2833a1410994a4cd10342597f0fc3b686006eda11d770521e97790fe12543"
-    sha256 arm64_big_sur:  "cec0ef3944878a458038437c3a5769c848b3bfb773f9631733cc5bafd456d883"
-    sha256 monterey:       "27d45e5b8aeb8389964f397b0c1f13a4a47677cdf49160790decf03e40da05c1"
-    sha256 big_sur:        "857b7b5da938ef75e0cff5534580b0fb09f424c9d8895d0d655ea2d52da6f15c"
-    sha256 catalina:       "56e71f15270192931fa11e8b137ca3e8ab73629c33a052f7cb09ef4c49fa44ff"
-    sha256 x86_64_linux:   "223164b460f222660027359d46e16e4c17898aeb4276e53fe5155fea7a35f9f9"
+    sha256 arm64_ventura:  "4aa5b0228da482c638f6d081671c0abb86be08e8e82563f424d2d0c522eb4f75"
+    sha256 arm64_monterey: "c18d0332865dec9fc61589ed11f2ae486eb71d3dd6554b2426c49ff6e1bd71ab"
+    sha256 arm64_big_sur:  "a0abd610b3b2e64f6b03600d4246e27b43cc94420328503b457d359ddb0d466e"
+    sha256 ventura:        "5a9effa37cb64be78533c3a1da8102b6f9327a688fd2ea50b71148d972bbc6b3"
+    sha256 monterey:       "3064b44f8b7db382841609e68f35facfd79b1a192678206245c346491a915fcd"
+    sha256 big_sur:        "acc327271d434c27713f1cf1378aa4a011a044cd5edebf1156e59f504114421f"
+    sha256 x86_64_linux:   "23646d48d5d3910738904dce0da32e5775deaae8e8ba553a7c2d722e0bf4f81e"
   end
 
   head do
-    url "https://github.com/powerdns/pdns.git"
+    url "https://github.com/powerdns/pdns.git", branch: "master"
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build

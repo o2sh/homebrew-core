@@ -4,6 +4,7 @@ class Postgis < Formula
   url "https://download.osgeo.org/postgis/source/postgis-3.3.2.tar.gz"
   sha256 "9a2a219da005a1730a39d1959a1c7cec619b1efb009b65be80ffc25bad299068"
   license "GPL-2.0-or-later"
+  revision 2
 
   livecheck do
     url "https://download.osgeo.org/postgis/source/"
@@ -11,14 +12,13 @@ class Postgis < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "246e2d58020634e82f3d52ac473e7568d4d84fa181c14294dd64e293990613d6"
-    sha256 cellar: :any,                 arm64_monterey: "f947a00f2ee58d15d756e4ca72ebaaf0061a82279331244fdc93f7ece2b28d51"
-    sha256 cellar: :any,                 arm64_big_sur:  "fd00013b91f5a629436a4b2ba81eadac1a1379e94a68497d6d2295188dd4ac90"
-    sha256 cellar: :any,                 ventura:        "bae7340c92e6cd78a484f2803d59b993f416dd9dc481283f21b697b4bc69b684"
-    sha256 cellar: :any,                 monterey:       "b333da13061506a1750b18e586d830c143fc5568da5d7a953256ff85d01fee89"
-    sha256 cellar: :any,                 big_sur:        "8f90f76a0e17d5aea52ac26f85a0d15aee83d39dd3a0560cf16d076e0fd1766d"
-    sha256 cellar: :any,                 catalina:       "95bdd63e81578f93b16f9ef9bfae27904603576b9dffa7b433d97c90c7edd2ac"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "77dd4622cb34e1e98b2502e48b36571f4e41fd1be9f7e1885cfbc01ae4f55c15"
+    sha256 cellar: :any,                 arm64_ventura:  "3cde54b37a9a7c3c7d9aab6f259111465c6388e2cbccc062063e967d3cef9412"
+    sha256 cellar: :any,                 arm64_monterey: "aec65ddab5eaacc23dda2ce0907fc3948acf850b4a0dad038ed95cb7d64f2726"
+    sha256 cellar: :any,                 arm64_big_sur:  "38af4aaa34598c8ec54e61bef27dda8c669276e3e123535bfc269488f54b40a9"
+    sha256 cellar: :any,                 ventura:        "8cdcaa0e88d765ccc73f589d845dbe80e43f5bf04a47d48b705539c414d83b3b"
+    sha256 cellar: :any,                 monterey:       "4885236a19f3ce94d92f9f5479d00c5d2dd3b30e356abe15a499ad812674cccf"
+    sha256 cellar: :any,                 big_sur:        "869fcfdc0e6b24ccd18712cc6a8f34eafc4d74b7d1bf479258c872c7c0d1bd3e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2fa798268a282ddd7dec8b2dfe090a2e19877c4cfcde31206ee1ac2fa159ba1f"
   end
 
   head do

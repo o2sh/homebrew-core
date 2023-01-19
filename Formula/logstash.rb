@@ -1,8 +1,8 @@
 class Logstash < Formula
   desc "Tool for managing events and logs"
   homepage "https://www.elastic.co/products/logstash"
-  url "https://github.com/elastic/logstash/archive/v8.5.2.tar.gz"
-  sha256 "24c1aafc95e701a13eb5d6f3134811ac24b914457dddd3023890486413f4ebdc"
+  url "https://github.com/elastic/logstash/archive/v8.6.0.tar.gz"
+  sha256 "c7da98206fdd6cdbef3dfa9fbdded07553ddeef8a5e8454fc8f2afae26d530df"
   license "Apache-2.0"
   version_scheme 1
   head "https://github.com/elastic/logstash.git", branch: "main"
@@ -13,19 +13,27 @@ class Logstash < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "0ac0973a3dadd9e3a11c1117e6dbd778ec4c8000c3606a71bfb325aa9961ea02"
-    sha256 cellar: :any,                 arm64_monterey: "c707f2dc66f103e2b1068870a05d244dcb5cf7297399ce8d667af80c18f9c7b1"
-    sha256 cellar: :any,                 arm64_big_sur:  "2dc4d30e47b4905b2e7bbfd1c309aefc4928a658870539a9226a575ebc23c1da"
-    sha256 cellar: :any,                 ventura:        "1607cf4a2b42d1735a08fcc0af28b77541e3ce641fc120244b7faa775d5db56c"
-    sha256 cellar: :any,                 monterey:       "e0b9d37cc40446491e3c7d2254ae14152be2ec7b768568ad971bc61d29bb8f1d"
-    sha256 cellar: :any,                 big_sur:        "674cd30b818b70a84aebdb7dbdcacfce48c1c9bed2e3bbda345f0687e7fc5399"
-    sha256 cellar: :any,                 catalina:       "d36aaf2111b6d7b36d4cdbdda3abacbe89baa371c2f7250c00324a84f32f1274"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c09dfa53df65d6ea6dddd7bb8c9b8dd84772d29f00c79bc1dd31ffed92b1a3ff"
+    sha256 cellar: :any,                 arm64_ventura:  "23e36c401a126fe391ccc4a18affd3611aeeaa59bd3be41c95b4cd111781c702"
+    sha256 cellar: :any,                 arm64_monterey: "506de52410a47a28b7f27b060a9e07ab73324f7ba5de30e8b1a77fb9f36ac08b"
+    sha256 cellar: :any,                 arm64_big_sur:  "c1aed8f4a8d6ed95103b207fe5a17935978f1e1aa526895a28e3dd5ed7785ccf"
+    sha256 cellar: :any,                 ventura:        "704ca343c318cf669c7f45f3c9fb4ffa7717c735f68d2a27b0e24607accb9d50"
+    sha256 cellar: :any,                 monterey:       "05fbaae8c40529fe02c0ffd591a4fe74679e9d580cf528f08b6209ed770df357"
+    sha256 cellar: :any,                 big_sur:        "9e5288a241358349c40e5817acb0df7591d9d9442538bcef926a7cdc94531d69"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ac9ecb57f27b1a7299d67d3ba0ae2f0fdc4d755de29d6557c7a59d3cafd2b36f"
   end
 
   depends_on "openjdk@17"
 
   uses_from_macos "ruby" => :build
+
+  # Ruby 3.2 compatibility.
+  # https://github.com/elastic/logstash/pull/14838
+  patch do
+    on_linux do
+      url "https://github.com/elastic/logstash/commit/95870c0f7a7c008c10e848191f85a1065e7db800.patch?full_index=1"
+      sha256 "b09065efe41a0098266d1243df19c6e35f4d075db06b41309c8fa791b25453f5"
+    end
+  end
 
   def install
     # remove non open source files

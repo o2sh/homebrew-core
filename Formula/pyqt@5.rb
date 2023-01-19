@@ -4,17 +4,16 @@ class PyqtAT5 < Formula
   url "https://files.pythonhosted.org/packages/e1/57/2023316578646e1adab903caab714708422f83a57f97eb34a5d13510f4e1/PyQt5-5.15.7.tar.gz"
   sha256 "755121a52b3a08cb07275c10ebb96576d36e320e572591db16cfdbc558101594"
   license "GPL-3.0-only"
-  revision 1
+  revision 2
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_ventura:  "18b358288a9130c9a605390d4251c19905778562ece301038036504706322cf6"
-    sha256 cellar: :any,                 arm64_monterey: "15faf724ecd6acfaeba990499f2ab537f48eb7d218e9a6be43b6a0304ac49788"
-    sha256 cellar: :any,                 arm64_big_sur:  "904bc620f3321f4b8dc89a13867aabb976316f5d2ad775b9a75fe8a7e594fb78"
-    sha256 cellar: :any,                 monterey:       "22185aa983f4379aca7a75772102f27378f3608c9a6e1bea162eecf83d6c4fd4"
-    sha256 cellar: :any,                 big_sur:        "10edcb403d30d85b0f16f91e8c63a435c237ed5d0e0e3e1a7f7932b1c83e4703"
-    sha256 cellar: :any,                 catalina:       "4fd2718677ac353eab94f08c430cf729ed3224f5fe59e876475ade0a3cf8b66f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "87acc2a0c1808d90efff3225ad256720838a86d33ac9188512fbfc4c71ac095b"
+    sha256 cellar: :any,                 arm64_ventura:  "3e36ecd411d274f6c728ee7be982673d8a843795909a1e6a7294a9c287445292"
+    sha256 cellar: :any,                 arm64_monterey: "65d02cc59037ca2eb5dd5ac2d5e19fb46debba9a4b418764592b1cec2fdf0975"
+    sha256 cellar: :any,                 arm64_big_sur:  "054b7a3aac3ae4030c2989aca8120e97aa347ac8a8341add5b3358a298fda543"
+    sha256 cellar: :any,                 ventura:        "6f3b970bf51f05674d2d7e3a50aee7cd2fe8e68e36d2167781714579d9412d7a"
+    sha256 cellar: :any,                 monterey:       "d42f26eec225db2710a8e29939d04ab779b3487c7bc614db576c5d44110419c4"
+    sha256 cellar: :any,                 big_sur:        "08f088f6a293b8f0246afe3d25142e0d1faf43012d876bd500b979bdcdd9aca3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f3c706d51bb7d4f4fd8f7839be6a65060267d0939aa8cba042eb4e40f0a8ad49"
   end
 
   depends_on "pyqt-builder" => :build
@@ -98,7 +97,7 @@ class PyqtAT5 < Formula
     end
 
     # Replace hardcoded reference to Python version used with sip/pyqt-builder with generic python3.
-    bin.children.each { |script| inreplace script, Formula["python@3.10"].opt_bin/"python3.10", "python3" }
+    bin.children.each { |script| inreplace script, Formula["python@3.11"].opt_bin/"python3.11", "python3" }
   end
 
   test do

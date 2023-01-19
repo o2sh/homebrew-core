@@ -1,9 +1,9 @@
 class Singular < Formula
   desc "Computer algebra system for polynomial computations"
   homepage "https://www.singular.uni-kl.de/"
-  url "https://www.singular.uni-kl.de/ftp/pub/Math/Singular/SOURCES/4-3-1/singular-4.3.1p2.tar.gz"
-  version "4.3.1p2"
-  sha256 "95814bba0f0bd0290cd9799ec1d2ecc6f4c8a4e6429d9a02eb7f9c4e5649682a"
+  url "https://www.singular.uni-kl.de/ftp/pub/Math/Singular/SOURCES/4-3-1/singular-4.3.1p3.tar.gz"
+  version "4.3.1p3"
+  sha256 "66cfaeee7ab909272fd81050a09cae3ec115652a01adde014a5128a54b97397a"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -36,13 +36,13 @@ class Singular < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "5865b0a0e8438696321267a32c154f48d38738cc18cf0afafac606dbec29865b"
-    sha256 arm64_monterey: "7570ef9396f60a13517a9e42735f991f2bd5d08402808633299e43814d40ddb1"
-    sha256 arm64_big_sur:  "c549c126c15a56777dd54e20ee408fa1cf7945bd735fd615ab92c6e369bfaefd"
-    sha256 monterey:       "150e76c1e1eb10366afa1aefa3053c171e75e8813eaa4814298db4804659cdd8"
-    sha256 big_sur:        "e1acc9bf2daa815379592b57c3c1cecfcc7e7e2e167bd3c5e6ea90fc5ece2454"
-    sha256 catalina:       "732a3d7fc116f9b896042b73a727d6631f575885449eb5d7f2479d6410afe51f"
-    sha256 x86_64_linux:   "af277c92c81c40b8d53041986baea5713367e80d0d4b85f9dd5edd4e53dd4db6"
+    sha256 arm64_ventura:  "e40719ff3e0135322fc811fc76d4605269780ee4e78467755ef441476cefa452"
+    sha256 arm64_monterey: "953b7fc80df9d1a0ddb5e34855f22fe3ff3228d1b5a2b95a03ae2618a8d1462b"
+    sha256 arm64_big_sur:  "e5b7760108c5ddcf02f5ea28a87e05d1d6c51484fbf6d6ee6462af53e67d9e2e"
+    sha256 ventura:        "b7469162b220ae1d9b4139fbd7397cbe9acfd06b83bebf58ac1f7343517bc17e"
+    sha256 monterey:       "9ea25009d125b26911b50c7245c2e13f6765f3684f76e7d43d814064e004c021"
+    sha256 big_sur:        "12981be178241af439d9c68f8e4d65ea3774033438c50b03663181aeb603c12b"
+    sha256 x86_64_linux:   "320a2fc253e88e5f2eec20b3aae9ee1745587e4744f9c548d331392f306a9022"
   end
 
   head do
@@ -56,7 +56,7 @@ class Singular < Formula
   depends_on "gmp"
   depends_on "mpfr"
   depends_on "ntl"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
 
   on_macos do
     depends_on "autoconf" => :build
@@ -71,7 +71,7 @@ class Singular < Formula
                           "--disable-dependency-tracking",
                           "--disable-silent-rules",
                           "--prefix=#{prefix}",
-                          "--with-python=#{which("python3.10")}",
+                          "--with-python=#{which("python3.11")}",
                           "CXXFLAGS=-std=c++11"
     system "make", "install"
   end

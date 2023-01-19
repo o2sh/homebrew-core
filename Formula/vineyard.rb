@@ -3,23 +3,23 @@ class Vineyard < Formula
 
   desc "In-memory immutable data manager. (Project under CNCF)"
   homepage "https://v6d.io"
-  url "https://github.com/v6d-io/v6d/releases/download/v0.10.2/v6d-0.10.2.tar.gz"
-  sha256 "56d2ff4bbbb70f7954b5ebaa9c99205ec482a8fddaf6dd7ff71a680a5d6eb657"
+  url "https://github.com/v6d-io/v6d/releases/download/v0.11.7/v6d-0.11.7.tar.gz"
+  sha256 "0130d5dfd3ce2b03675793462d77b04ca937be6388a1c85410ab39be64ea0ea8"
   license "Apache-2.0"
-  revision 2
 
   bottle do
-    sha256 arm64_ventura:  "83aedb337912a413cbe23794c0a754f945210a7923afa3dd5dfcb362a5669453"
-    sha256 arm64_monterey: "2aa0e250543f42c3d4a5539fd33e25a2f5ffd1e8f75becc5b835764a510ea355"
-    sha256 arm64_big_sur:  "ef463561025b9b43163946ae0d36d8bc1fd8affef8da1de48df59e887ef6d8ed"
-    sha256 monterey:       "cf86e764602bdf5aa8283a3c62729089636d6230fb04c66a2e5ff305f46ae977"
-    sha256 big_sur:        "dd285a5eb44f00dbdf397b74fb5ad7e1eaa12cfdb2bf975774a4489869cb2b94"
-    sha256 catalina:       "097722dd68aa62618b2b767710023d2e8f4c56e88bce58b408a871454611580e"
-    sha256 x86_64_linux:   "117f4248d00a3695709d6ad2b2e9e4d7349f0f019f5aa972540367b5381309ca"
+    sha256 arm64_ventura:  "08577afbb1eddcc91472f9b7c251db4452124525119ed297bf33a043a9968076"
+    sha256 arm64_monterey: "63faf29e5bda50f10b98e2d63f0bd39ea2aaf2908d33c8f251a331cc79dadf59"
+    sha256 arm64_big_sur:  "ac681a45b2a9b050828f73f3232c2de53cc39ba941720bb4db92614631e6e5dc"
+    sha256 ventura:        "1ac5108de2421299345234576f624c248547ff257f0597ffb196cda3e36b4c6e"
+    sha256 monterey:       "fdf17829be0ac3e7b1fbdc592ba0c35982e66ea4ed9bc043177eb58226f71dc8"
+    sha256 big_sur:        "7c1dc6433eef5667b3581e50e850c0c83bad020f2e27574e43212b0856130d50"
+    sha256 x86_64_linux:   "a1967100d9c9d782a61d424920f0050795fabd5c977d98faa62a05d1e0abf939"
   end
 
   depends_on "cmake" => :build
-  depends_on "python@3.10" => :build
+  depends_on "llvm" => :build
+  depends_on "python@3.11" => :build
   depends_on "apache-arrow"
   depends_on "boost"
   depends_on "etcd"
@@ -27,7 +27,6 @@ class Vineyard < Formula
   depends_on "gflags"
   depends_on "glog"
   depends_on "libgrape-lite"
-  depends_on "llvm"
   depends_on "nlohmann-json"
   depends_on "open-mpi"
   depends_on "openssl@1.1"
@@ -36,7 +35,7 @@ class Vineyard < Formula
   fails_with gcc: "5"
 
   def install
-    python = "python3.10"
+    python = "python3.11"
     # LLVM is keg-only.
     ENV.prepend_path "PYTHONPATH", Formula["llvm"].opt_prefix/Language::Python.site_packages(python)
 
@@ -48,6 +47,7 @@ class Vineyard < Formula
                     "-DUSE_EXTERNAL_TBB_LIBS=ON",
                     "-DUSE_EXTERNAL_NLOHMANN_JSON_LIBS=ON",
                     "-DBUILD_VINEYARD_TESTS=OFF",
+                    "-DUSE_LIBUNWIND=OFF",
                     "-DOPENSSL_ROOT_DIR=#{Formula["openssl@1.1"].opt_prefix}",
                     *std_cmake_args
     system "cmake", "--build", "build"

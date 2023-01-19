@@ -1,8 +1,8 @@
 class S6 < Formula
   desc "Small & secure supervision software suite"
   homepage "https://skarnet.org/software/s6/"
-  url "https://skarnet.org/software/s6/s6-2.11.1.2.tar.gz"
-  sha256 "6c1474be3e889dac392cee307abe015cd4be0c85c725c84ea7f184f0e34503a2"
+  url "https://skarnet.org/software/s6/s6-2.11.2.0.tar.gz"
+  sha256 "9fb43690e6018d94733b4dc18cc6926f02454508a4dd86060c9b4b9d20dc8037"
   license "ISC"
 
   livecheck do
@@ -11,24 +11,23 @@ class S6 < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "6791bade06c4fe72cce175c87ed19665cf4c7546aaf8cba2ec825d55298a9997"
-    sha256 arm64_monterey: "8040b376f8b7e81456e6cdb3e2ec78ec5efd1000aaa4303c36740502eaf725fb"
-    sha256 arm64_big_sur:  "34a66871395e134964e4f20658c37d615d83f2bb23d8ea6b561a71401f2e1bf1"
-    sha256 ventura:        "94d2859266a7695e7b3fc46e7f5a415321aff5683dc8e61431eab8fe0a28c233"
-    sha256 monterey:       "84aa2c3a0f4529d6a2927dedb2ed32710a6eb1a979b1098150fa779e17ea5c78"
-    sha256 big_sur:        "55ded7a207a4db5c804bb966e6f8565f3b3f41160412a98e76441eea28365aef"
-    sha256 catalina:       "1a87f90655ae72c9a47421df1b74726224e2a5a715506bbcd103c7925f91a430"
-    sha256 x86_64_linux:   "670d1cc52edecdf5f08ff795533cd9b6f2f36c444a91262284e44fd267f17d76"
+    sha256 arm64_ventura:  "9036deb01a38925a5a2224617aba7215b7e2bd090c604e7fffb19664a1496a01"
+    sha256 arm64_monterey: "f30edaca6c99ca5375595ccb9aed3ad15a453ddea2e26d6240af305df521ad60"
+    sha256 arm64_big_sur:  "267b0c2cd212a38eb8e166c4d60759a3701d8276f7624d5adaa9c4b086f11d7a"
+    sha256 ventura:        "db1053bd3a19a232999a4d51d34c60594cf7932bb4dfe918b28d8631d3f1ddc7"
+    sha256 monterey:       "c169933c1a6903f900295b4b7993762df24a63f2ab73129200a7de415b18faef"
+    sha256 big_sur:        "9eef22c17e62fcad2a02830dd15d395ef89966ebbbd68e6be41489170f6449dd"
+    sha256 x86_64_linux:   "1ddcba8807707b9221dd242f72b3d72ef6fa8f5a5e66d938dc7a1166f65ba995"
   end
 
   resource "skalibs" do
-    url "https://skarnet.org/software/skalibs/skalibs-2.12.0.1.tar.gz"
-    sha256 "3e228f72f18d88c17f6c4e0a66881d6d3779427b7e7e889f3142b6f26da30285"
+    url "https://skarnet.org/software/skalibs/skalibs-2.13.0.0.tar.gz"
+    sha256 "b875bf3df3f0f500984ccafe45a9a95add7e4026b39ee8da620f09606be74fcc"
   end
 
   resource "execline" do
-    url "https://skarnet.org/software/execline/execline-2.9.0.1.tar.gz"
-    sha256 "01260fcaf80ffbca2a94aa55ea474dfb9e39b3033b55c8af88126791879531f6"
+    url "https://skarnet.org/software/execline/execline-2.9.1.0.tar.gz"
+    sha256 "b5d68e021fa0c4679089d265110a6c81f4ecc141067bf686dccb4bfd061c0404"
   end
 
   def install

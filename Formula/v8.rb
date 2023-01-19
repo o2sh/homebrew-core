@@ -2,8 +2,8 @@ class V8 < Formula
   desc "Google's JavaScript engine"
   homepage "https://github.com/v8/v8/wiki"
   # Track V8 version from Chrome stable: https://omahaproxy.appspot.com
-  url "https://github.com/v8/v8/archive/10.6.194.18.tar.gz"
-  sha256 "e852d29e06ab28ba6b97dcf0a401ccab8b2dde0d7f0c91fa487f594d57d641c2"
+  url "https://github.com/v8/v8/archive/10.9.194.9.tar.gz"
+  sha256 "c85a6049a70d646e99bd6348751f47391367ad4e9c7db56a1cf5a5d3a50e8250"
   license "BSD-3-Clause"
 
   livecheck do
@@ -12,18 +12,17 @@ class V8 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "491653864182a5fa462689c80815ab2d40bb73cb7c7c9a9a3d01f6b96801d2a6"
-    sha256 cellar: :any,                 arm64_monterey: "5fef057a6447ffa2d2ad9cd362c5c64c48d5ed7a8432834df5dca3becab4a575"
-    sha256 cellar: :any,                 arm64_big_sur:  "217d011ef57acee2c6091764a5bee4cfa61fe930e335f9ba565abb12cd944c44"
-    sha256 cellar: :any,                 ventura:        "431df01e27cb64e2f1db2cb471f85d74bebfa137a91b8e4aab7d60aca9bda62b"
-    sha256 cellar: :any,                 monterey:       "c4a343e6eac3b8f24d65836d8ba9f05a20dd8b3b3345fd6d17767100c0dd8418"
-    sha256 cellar: :any,                 big_sur:        "2a5b8a521fa1c976e9b6a951f1b26593a3d9efca6ac16d971e74a3ca70a45e82"
-    sha256 cellar: :any,                 catalina:       "fc5affb79c309a261178f6ff0984dab6b8251d2be80d2a37a2db68d907e1de9f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8939b81baa665cddf54ed9097eb9b755c27a4ae079474bc57a8dcfd778bc3644"
+    sha256 cellar: :any,                 arm64_ventura:  "2ba5d14a28ac37ead5c1826fc10e31539fa415e389c893a28dabb61915f17a6b"
+    sha256 cellar: :any,                 arm64_monterey: "42fa5b9748621b0c961f2ba0fb47782103c809a90d65c1a2d6d25a77b6b9f833"
+    sha256 cellar: :any,                 arm64_big_sur:  "1db13ec89fe88a89636260391087b6d1090aafbb9ea2f0855c2b3c1f7ae28972"
+    sha256 cellar: :any,                 ventura:        "5f02f14c7d06155eedb6e0f6a01e831a467249c96f88368544bb73fac6fd3ac0"
+    sha256 cellar: :any,                 monterey:       "4a21a3f3dfa15c73c06401e06ec99e93195cd288bc66a3c9c4d32a3c7cc6e5f6"
+    sha256 cellar: :any,                 big_sur:        "cb21da06f2af8026f35ca35f73cf930e5d67192d0981b85aec4aa4ce0b4f4335"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "283c5106e8c337d781deb5bdd370d78372edf22ef98f3b03aeada5a412bea570"
   end
 
   depends_on "ninja" => :build
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
 
   on_macos do
     depends_on "llvm" => :build
@@ -38,21 +37,20 @@ class V8 < Formula
   fails_with gcc: "5"
 
   # Look up the correct resource revisions in the DEP file of the specific releases tag
-  # e.g. for CIPD dependency gn: https://chromium.googlesource.com/v8/v8.git/+/refs/tags/10.6.194.17/DEPS#46
+  # e.g. for CIPD dependency gn: https://chromium.googlesource.com/v8/v8.git/+/refs/tags/10.9.194.9/DEPS#48
   resource "gn" do
     url "https://gn.googlesource.com/gn.git",
-        revision: "0bcd37bd2b83f1a9ee17088037ebdfe6eab6d31a"
+        revision: "a4d67be044b42963de801001e7146f9657c7fad4"
   end
 
-  # e.g.: https://chromium.googlesource.com/v8/v8.git/+/refs/tags/10.6.194.17/DEPS#92
   resource "v8/base/trace_event/common" do
     url "https://chromium.googlesource.com/chromium/src/base/trace_event/common.git",
-        revision: "2ba7a48ca6167ee8ef311a7f3bc60b5e5cf5ee79"
+        revision: "521ac34ebd795939c7e16b37d9d3ddb40e8ed556"
   end
 
   resource "v8/build" do
     url "https://chromium.googlesource.com/chromium/src/build.git",
-        revision: "339f8c652787781e6dd39ce0624c1a012f69ece8"
+        revision: "875cb19167f2e0d7b1eca89a4d5b5693421424c6"
   end
 
   resource "v8/third_party/googletest/src" do
@@ -62,22 +60,22 @@ class V8 < Formula
 
   resource "v8/third_party/icu" do
     url "https://chromium.googlesource.com/chromium/deps/icu.git",
-        revision: "b3070c52557323463e6b9827e2343e60e1b91f85"
+        revision: "da07448619763d1cde255b361324242646f5b268"
   end
 
   resource "v8/third_party/jinja2" do
     url "https://chromium.googlesource.com/chromium/src/third_party/jinja2.git",
-        revision: "ee69aa00ee8536f61db6a451f3858745cf587de6"
+        revision: "4633bf431193690c3491244f5a0acbe9ac776233"
   end
 
   resource "v8/third_party/markupsafe" do
     url "https://chromium.googlesource.com/chromium/src/third_party/markupsafe.git",
-        revision: "1b882ef6372b58bfd55a3285f37ed801be9137cd"
+        revision: "13f4e8c9e206567eeb13bf585406ddc574005748"
   end
 
   resource "v8/third_party/zlib" do
     url "https://chromium.googlesource.com/chromium/src/third_party/zlib.git",
-        revision: "8d1d3e341948009ed8dc807a545204e7a1854c33"
+        revision: "8bbd6c3129b5146489f2321f054e855c347857f4"
   end
 
   def install
@@ -92,7 +90,7 @@ class V8 < Formula
     # Build gn from source and add it to the PATH
     (buildpath/"gn").install resource("gn")
     cd "gn" do
-      system "python3.10", "build/gen.py"
+      system "python3.11", "build/gen.py"
       system "ninja", "-C", "out/", "gn"
     end
     ENV.prepend_path "PATH", buildpath/"gn/out"

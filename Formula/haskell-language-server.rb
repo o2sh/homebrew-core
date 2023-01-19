@@ -1,9 +1,10 @@
 class HaskellLanguageServer < Formula
   desc "Integration point for ghcide and haskell-ide-engine. One IDE to rule them all"
   homepage "https://github.com/haskell/haskell-language-server"
-  url "https://github.com/haskell/haskell-language-server/archive/1.8.0.0.tar.gz"
-  sha256 "e1081ac581d21547d835beb8561e815573944aa0babe752a971479da3a207235"
+  url "https://github.com/haskell/haskell-language-server/archive/1.9.0.0.tar.gz"
+  sha256 "f62114928956090ea84c7e6b2fd16ca0d598c6d877e84dd87aebe81a9dabdd9c"
   license "Apache-2.0"
+  revision 2
   head "https://github.com/haskell/haskell-language-server.git", branch: "master"
 
   # we need :github_latest here because otherwise
@@ -14,25 +15,22 @@ class HaskellLanguageServer < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "bf00ea6424aeca6c4159348fb18e098edba657166616bccda8e32fe457382589"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "1ad7dfeb2638c5a9938dc6f3b7724f7ef0dfd748f58024172bda77567ef54f55"
-    sha256 cellar: :any_skip_relocation, monterey:       "b5ee85bbf76737036206843fb9d3381e712495c5ecf19d30500fa0738d6dc3f5"
-    sha256 cellar: :any_skip_relocation, big_sur:        "b916bba19076554209aea3fb359b323762044ca8a74bfb9ff67662b15cd335c8"
-    sha256 cellar: :any_skip_relocation, catalina:       "eaabfb9b4f28088843f180577afbf811b5273fc091261fbb2ab637d373bea85a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "068dde2e6fec89fdc79e710befe909b86570024da48f4daf9be135df6d4c04d6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "21b04bcc5ecf3a1350605cbb48094359d5435ca1ee0ff2a0aff065c3552413b8"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "1b2f375b12b54338b17782202c7b81d4f5c7e754d14a7d79b6773e685bf59f6b"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "6e181bb3f6d163f120532efef9523a7db7661e88e421665d7cf09fc1a1e6fb2f"
+    sha256 cellar: :any_skip_relocation, ventura:        "78e4211c42ea0a6e3f25e8218d662f9899af5d783a21923fed0da7469436f9ab"
+    sha256 cellar: :any_skip_relocation, monterey:       "524d8ac705fbb381a389bead45770afeadd80758ef7473dd2d2b6d6c8873ba47"
+    sha256 cellar: :any_skip_relocation, big_sur:        "ccd0655f3475d1e738ebadcfc90a1b4a1c44f346ec48403cfc70a24da147ea13"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6b066beb744863f22a7b9d57f9676f8038e866410f78188589e698d41c693be4"
   end
 
   depends_on "cabal-install" => [:build, :test]
   depends_on "ghc" => [:build, :test]
   depends_on "ghc@8.10" => [:build, :test]
+  depends_on "ghc@9.2" => [:build, :test]
 
   uses_from_macos "ncurses"
   uses_from_macos "zlib"
-
-  on_intel do
-    depends_on "ghc@8.6" => [:build, :test]
-    depends_on "ghc@8.8" => [:build, :test]
-  end
 
   def ghcs
     deps.map(&:to_formula)

@@ -1,18 +1,18 @@
 class DuaCli < Formula
   desc "View disk space usage and delete unwanted data, fast"
   homepage "https://lib.rs/crates/dua-cli"
-  url "https://github.com/Byron/dua-cli/archive/refs/tags/v2.18.0.tar.gz"
-  sha256 "ef283b8a7b97e6b6f7d3a837f73f7898e54beb2689c1bcb6a9e414991b5aee18"
+  url "https://github.com/Byron/dua-cli/archive/refs/tags/v2.19.0.tar.gz"
+  sha256 "fcbf2d9dbcdad2db17d2a3b690fb05d69ad3953237f2971d546d341339bf6271"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "860306b9c9d2ce3425097d24870feaecac2d262a572dedb2c0572853f71c7c06"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e23c20078566ea51ebd2f6fbd1d0707e9c4d323e2912c49d921b482f006bae23"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "530fba7665685055e64fc22d293c99988c98cdda45b43f9f074fd734e1cd9d82"
-    sha256 cellar: :any_skip_relocation, monterey:       "47b184df5117dfa26c75d6dd57ce386d9e9bbe13305aae4002612d92986e59c7"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e0df98778d08d57ac4e620553f4b1fcef6f77219edecaa46a247fa0f53297ad8"
-    sha256 cellar: :any_skip_relocation, catalina:       "5b88c97365fb59958e6e3442534f6c0129c50132fa6d4e0475b4366af08a41fc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "03e2c40bb9a9cefffca962a6dc8fe2c01a4143835831fb8369d59331be197cb7"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c656dd5db50f4b6c0b3929ee26c20509c3049b736bfb56156b79902d8e83f030"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "7c418798198a941200bafbff149718fd68fbeb562a42b1e5bd2c1ef8f9580b31"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ad934dc90d4244f8ada781c1578f97d7906d9eab85ca492c0306bd5129b77cba"
+    sha256 cellar: :any_skip_relocation, ventura:        "39a94f06ad1d1a11523019d2fe716fceeb2209c96e391c885809969dd864b0dd"
+    sha256 cellar: :any_skip_relocation, monterey:       "34e4ea8105dda9757a032a0edf46eba61e37c7aef54b222f365338c93e8e55c2"
+    sha256 cellar: :any_skip_relocation, big_sur:        "13c953dab15d9b77c39b803872c1186e3dac6181d7c68645a5addaa31609c80c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "761e419fe2244d40cd7495cef6a5e375e7e7237bf8334f5b62fcb655d4cc398f"
   end
 
   depends_on "rust" => :build
@@ -26,12 +26,10 @@ class DuaCli < Formula
     (testpath/"empty.txt").write("")
     (testpath/"file.txt").write("01")
 
-    # The "-EOS" is needed instead of "~EOS" in order to keep
-    # the expected indentation at the start of each line.
-    expected = <<-EOS
-      0  B #{testpath}/empty.txt
-      2  B #{testpath}/file.txt
-      2  B total
+    expected = <<~EOS
+      \e[32m      0  B\e[39m #{testpath}/empty.txt
+      \e[32m      2  B\e[39m #{testpath}/file.txt
+      \e[32m      2  B\e[39m total
     EOS
 
     assert_equal expected, shell_output("#{bin}/dua -A #{testpath}/*.txt")

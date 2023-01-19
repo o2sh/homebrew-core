@@ -1,8 +1,8 @@
 class PetscComplex < Formula
   desc "Portable, Extensible Toolkit for Scientific Computation (complex)"
   homepage "https://petsc.org/"
-  url "https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.18.1.tar.gz"
-  sha256 "02f5979a22f5961bb775d527f8450db77bc6a8d2541f3b05fb586829b82e9bc8"
+  url "https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-3.18.3.tar.gz"
+  sha256 "8aaa005479c8ec2eed2b9cbb067cfc1ac0900b0de2176439f0d4f21e09c2020b"
   license "BSD-2-Clause"
 
   livecheck do
@@ -10,13 +10,13 @@ class PetscComplex < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "2a49ab2d6a07745cd8f44841084850860734828fd4fb8dcd45261773ff5d0436"
-    sha256 arm64_monterey: "5490282a75c17e8515cf468565632ca1b4eb15b929b26e5c2af1c663aeb2b894"
-    sha256 arm64_big_sur:  "cc28a40ed41fbb27188617e1d5e0244916a29d13ef52a56309f9bc5161da1d45"
-    sha256 monterey:       "9496ce9e97685e95fd2dc9a1cdf43d04216445871e32016d0aeea8e9629a1dd5"
-    sha256 big_sur:        "9022d0077d0cfd290e939631e0c0f8426b246c135575b0e2d9c76e47e322c52b"
-    sha256 catalina:       "ccdc0846799fa239fc0124655634bdd0ecca276c8dd5868aa0b7ad7eb3db3e5c"
-    sha256 x86_64_linux:   "ba086667d19bc7d0e274d762babff968a64faef9f55ee2e1d5f6a7e261ef9fd9"
+    sha256 arm64_ventura:  "2db2a37b26f7e832db5d80965d5b70c899158713b1fab24f6f912e466beff1f7"
+    sha256 arm64_monterey: "8106afe6ae2e3ddeaac79b3a8044ed6298a23f296cb4b718a0c9ec0291c1b435"
+    sha256 arm64_big_sur:  "7a4b1916c770a4c99b2262dae11a73b88d3b4a2dfdb8e24685d0c93caa2f7f75"
+    sha256 ventura:        "a353aef5130c373bd0a2e69c2f95a20aa4bd4833acfb187a9840e44cc28feb85"
+    sha256 monterey:       "17bf05d172bb4869d57cb80dcaf55c6497b9e90a3d4e83d656dc61ed4d66e27f"
+    sha256 big_sur:        "4e0bac323b4147ef5b0c6243eda52909ef4654bfb562469eda2d0cfa00c75ccc"
+    sha256 x86_64_linux:   "d766bc143720f43437cd99a32be8e1434769851a6d59bc209761688f22e63194"
   end
 
   depends_on "hdf5"
@@ -25,7 +25,7 @@ class PetscComplex < Formula
   depends_on "netcdf"
   depends_on "open-mpi"
   depends_on "openblas"
-  depends_on "python@3.10"
+  depends_on "python@3.11"
   depends_on "scalapack"
   depends_on "suite-sparse"
 
