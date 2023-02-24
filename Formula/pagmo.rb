@@ -1,19 +1,18 @@
 class Pagmo < Formula
   desc "Scientific library for massively parallel optimization"
   homepage "https://esa.github.io/pagmo2/"
-  url "https://github.com/esa/pagmo2/archive/v2.18.0.tar.gz"
-  sha256 "5ad40bf3aa91857a808d6b632d9e1020341a33f1a4115d7a2b78b78fd063ae31"
+  url "https://github.com/esa/pagmo2/archive/v2.19.0.tar.gz"
+  sha256 "701ada528de7d454201e92a5d88903dd1c22ea64f43861d9694195ddfef82a70"
   license any_of: ["LGPL-3.0-or-later", "GPL-3.0-or-later"]
-  revision 3
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "af3498b215e2f9d649acd0b0117c873329fb85183ddee69cc9525c75f7c02a99"
-    sha256 cellar: :any,                 arm64_monterey: "6e9f221a9c7d5fc475c10b71ed61f975ec935b60ce95b2a5d386a48d3855a8eb"
-    sha256 cellar: :any,                 arm64_big_sur:  "7d41e40c5cc13fdccf10797ae625d997e9b3f144bfe47a5e473ba8f4803d7588"
-    sha256 cellar: :any,                 ventura:        "52fd8fa749297993c064a8c6271ad9e1b3e8433b201a856a6d6610ff477d13d4"
-    sha256 cellar: :any,                 monterey:       "0ffd37782e82eb101546316c117d70f6f2cab6e780f4c47cf60095551246d670"
-    sha256 cellar: :any,                 big_sur:        "f40421043c90181ffb0f59eb1b8e79fdf43ebbb5efec79cf5453e69554b250c8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "322f06e922c7b3368e6396e28b625a1863906021570b6494b516c2f9b304b6d0"
+    sha256 cellar: :any,                 arm64_ventura:  "310df884da16bdb83fc9d1d890f4badfeafbfcc5d26e3182b516b8816ddb50f7"
+    sha256 cellar: :any,                 arm64_monterey: "765c33daf58fb08fcb240bd60c3bd6c72d7a16ce83da175c9693f766107e5592"
+    sha256 cellar: :any,                 arm64_big_sur:  "6298767893209c1e81b3c6ded53f84581c30a1b288b5c9d2ca27d1cd3a97c9d5"
+    sha256 cellar: :any,                 ventura:        "dd5652d55e5c58c22e93fbf8b895b6cb8563c109f1a0f58c9293a97e899bfc9d"
+    sha256 cellar: :any,                 monterey:       "eab152f7b7620d1afb8db53642f7da540a656cd13e742a241ca658c9928deecd"
+    sha256 cellar: :any,                 big_sur:        "afe5a7c7f449f3bcbae91a9d23d9548828ea3ebaaf992c4a6e9152283c58406e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a4b1be604b7367a9719ce437d12f6bd72f8c821bdb5e639ed6f7cc921d4bb7fe"
   end
 
   depends_on "cmake" => :build

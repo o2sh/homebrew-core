@@ -1,18 +1,18 @@
 class CargoEdit < Formula
   desc "Utility for managing cargo dependencies from the command-line"
   homepage "https://killercup.github.io/cargo-edit/"
-  url "https://github.com/killercup/cargo-edit/archive/v0.11.7.tar.gz"
-  sha256 "73b3300afda280685be2a2391d5238aea341c2e15ac95ab288fa0f5ad38137fb"
+  url "https://github.com/killercup/cargo-edit/archive/v0.11.9.tar.gz"
+  sha256 "46670295e2323fc2f826750cdcfb2692fbdbea87122fe530a07c50c8dba1d3d7"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "57b5b6273b132b7eb822e17a09f89b6605bbeede8d141858c4dbdd9dcf5dc306"
-    sha256 cellar: :any,                 arm64_monterey: "7d5e6d0ed054eab45fd1facc2eda64d947de710ce674e94deee9fe66c322fbb2"
-    sha256 cellar: :any,                 arm64_big_sur:  "34086245329042029a43c94d8cb9a18ef25c3a2262a32113b8c39ddf7f6d5ef8"
-    sha256 cellar: :any,                 ventura:        "94deecc24a053295c766200d09e738f92a7fd65648752b59b4da9699d7cb38fb"
-    sha256 cellar: :any,                 monterey:       "aab9d60e9316bb6f66c12589fb9e8575e17f475fec266828042b392d620dba5b"
-    sha256 cellar: :any,                 big_sur:        "364a86ad39aad7335ef5df7ca695c30718e2545b3600e1180fa7c97293a4367d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9c8fa02debe0c1da2d0376a57407a6050cd1aecb1933f9efb6bd796850d45eee"
+    sha256 cellar: :any,                 arm64_ventura:  "d0f0e80915118ac4f68d9480c847da8c6232bc8aa159ab99730f4393aa62398a"
+    sha256 cellar: :any,                 arm64_monterey: "cfc42d301f4868eb1e16436f717876e14f93f69ce87aeb3b00a6be90c3fdf4bf"
+    sha256 cellar: :any,                 arm64_big_sur:  "9c142f7dda50023824f5be76ecbe25e02ea5bfd0a7708bcc4f221be568984a57"
+    sha256 cellar: :any,                 ventura:        "c6c73db9a959d24e68a88cdac53ab246149d8bc7c9e6aa4018da132bd9d008a7"
+    sha256 cellar: :any,                 monterey:       "43a854c7b69f2e028fc786962849e26c5dbab9cadf36472bb326d0b05e6bfa29"
+    sha256 cellar: :any,                 big_sur:        "c0ac725185acda284bce3e79c1eb9ff361aa25c2570f22899f339a917cc2d42d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "369459c3c1c778113fb1e17b9ede22ae43d0faef13cc73f6cb21413a89af766d"
   end
 
   depends_on "libgit2"

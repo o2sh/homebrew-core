@@ -2,18 +2,18 @@ class Argocd < Formula
   desc "GitOps Continuous Delivery for Kubernetes"
   homepage "https://argoproj.github.io/cd"
   url "https://github.com/argoproj/argo-cd.git",
-      tag:      "v2.5.7",
-      revision: "e0ee3458d0921ad636c5977d96873d18590ecf1a"
+      tag:      "v2.6.2",
+      revision: "6e02f8b23201b0620a4ff1bce5d38229ba1eb02e"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "86e09f89f6122caeac8d6304bc69f195bd68fa792c82f495474839802e59058b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2c12f3251beb2c13773b6d01f00001dda54c5264cd9dd1e8b6f0e2bb31c93a7a"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "5725c13f9426a8e7edccc0b922d8d3d038fbf1d368bee369ecbbae1635ee2c61"
-    sha256 cellar: :any_skip_relocation, ventura:        "2ec0771fcd49aeab4689c2f6582d7006da0d10abd613ee2e06f4593e047ec4d6"
-    sha256 cellar: :any_skip_relocation, monterey:       "7a0dc5e1316d5ccb88e1c81c28cd2a6779d098eac470438f95af161e3becb80e"
-    sha256 cellar: :any_skip_relocation, big_sur:        "c334c288c47a764d170ac2f3c34e98919ef3db313dc98f7638487159e82fac5f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e91fa7b5a4ff0de676bc93b5b963ac84f3be9a7d4ca2f7024c8dc3d5da2816ac"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "65e89740625461c3bc7f83b3c8576dc8f1ef6a4c8c76fd6b5d7f30ddfdf80646"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e7afdeb9742fd0288e5ac3aafb266bd1c219ac9f34b671d3ba58937297aec108"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ef71bf5de95d3171bfc603f04f95adaa5309fa3ee020a6e3252cdfafcd3aac7c"
+    sha256 cellar: :any_skip_relocation, ventura:        "caa7df1752fd12acfadca9951429f5f3cfdfe85efc9de13d9d66d53b7dba3937"
+    sha256 cellar: :any_skip_relocation, monterey:       "7422037be7a75428693dd59d9c31891dd19ac03a585230ccd3f5a4450868dc61"
+    sha256 cellar: :any_skip_relocation, big_sur:        "49fa7e3a415782c9066c6e3fb5748a28b1e0197c1f7431f32dcfa87a0d39a93b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c993d2f34b64664fe41ffaacce1af8d1af379ec750a8f087317934f1e5f0314d"
   end
 
   depends_on "go" => :build

@@ -3,18 +3,18 @@ class Prowler < Formula
 
   desc "Open Source Security tool to perform Cloud Security best practices"
   homepage "https://prowler.pro/"
-  url "https://github.com/prowler-cloud/prowler/archive/refs/tags/3.1.0.tar.gz"
-  sha256 "ee847e951c0ade68894bb62978d0beacfd6cffe031566f96d37b2e17b2322845"
+  url "https://files.pythonhosted.org/packages/32/0a/5ad5cd66e46905abf264e1fa1636466b9a236c458b135976af3f229c2994/prowler-3.2.2.tar.gz"
+  sha256 "d9f349dbed2d710dbb6309eed9f2635eabed84680fe03c8760d743260a1b6c0e"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "168c058331886bc9074161abe0338f3639c6416d55c9365a2d5004346e9184a1"
-    sha256 cellar: :any,                 arm64_monterey: "cf75308102097ad1ccabbc6c705afe3d1ffbad85cc8c000fadd5e555bce3bd0c"
-    sha256 cellar: :any,                 arm64_big_sur:  "069c2c73abfb3a7d6544ca1e6d5921569e986a21570674fd740b18e55542d99f"
-    sha256 cellar: :any,                 ventura:        "adb8f6595a0e276dee40b5d5186fdea2b4a6c096cfb29853bca1203d19680ddf"
-    sha256 cellar: :any,                 monterey:       "ba85ec45f9e4478d3468e2bf2173707a6edd98c656fd6d8e72d6a65bd89f50ba"
-    sha256 cellar: :any,                 big_sur:        "d3fdb3a9ee04438294ea7acfa2de9b3c5759ee20f0e590e891f3ecb97ef4dace"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bbab27b20b392e3bea8f1a9174bcc7556eb989ef40f0946e6189646abc5886e5"
+    sha256 cellar: :any,                 arm64_ventura:  "8f2cc577aeaa6274dba0083c60f80191b0c04a47c5e9a478c52a6b12cd2c4a1e"
+    sha256 cellar: :any,                 arm64_monterey: "815d07eeb6b88d816c7e9daac108c0360ae9dd5607b936152e84df6895acfafb"
+    sha256 cellar: :any,                 arm64_big_sur:  "e15459e692119c346bb74316b23d1878810fdb43fdaed2418d2397ee08f9f37c"
+    sha256 cellar: :any,                 ventura:        "c8e44c681cdee470808b7a2e45d86a234d10334f860fa6cdd6057a3cb0856334"
+    sha256 cellar: :any,                 monterey:       "e7773691b600a51736bc86927a4f76eb8062c702128a6d5d2b302938d67cb18b"
+    sha256 cellar: :any,                 big_sur:        "67299f3c4deff900f5c03fdef5a79ec1932c25bb6082ae785f5db5ce7a97cfb1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e6f987d002d327eca31fe26428fa16d8e679d331db0b3fba17b3f02e9bcca92d"
   end
 
   depends_on "rust" => :build # for cryptography
@@ -45,8 +45,8 @@ class Prowler < Formula
   end
 
   resource "azure-core" do
-    url "https://files.pythonhosted.org/packages/05/71/21dd6d5f227a5d82b869068a0b652b26edc9efb86c7a5139740a0ffeb775/azure-core-1.26.2.zip"
-    sha256 "986bfd8687889782d79481d4c5d0af04ab4a18ca2f210364804a88e4eaa1586a"
+    url "https://files.pythonhosted.org/packages/0e/53/8983f401b153a5d8482880b3155cac7d8f313a3c69a01fdb4442f635fc1a/azure-core-1.26.3.zip"
+    sha256 "acbd0daa9675ce88623da35c80d819cdafa91731dee6b2695c64d7ca9da82db4"
   end
 
   resource "azure-identity" do
@@ -85,13 +85,13 @@ class Prowler < Formula
   end
 
   resource "boto3" do
-    url "https://files.pythonhosted.org/packages/c3/b9/51ad579e26c3cbb6589687b20887e30e8180866140f67d5817ff0251396b/boto3-1.26.50.tar.gz"
-    sha256 "3737d8a506f50065bb2366a6b8e7545d88034f4771527790a125e0abd307d8e8"
+    url "https://files.pythonhosted.org/packages/e3/3f/d6c306834e79189cc7af84f097a27ba2568763a52edcc386c8375a6daba0/boto3-1.26.74.tar.gz"
+    sha256 "a3cf126d18194e5d350ec46f99f1fff15beacdf091d1979e8471681688e14ba1"
   end
 
   resource "botocore" do
-    url "https://files.pythonhosted.org/packages/2f/90/6ef8ae718153f970fa28e019d4768b2767ec03dd8701d7df1036bf7ed4d9/botocore-1.29.50.tar.gz"
-    sha256 "5cc68b78a48217550c18b4639420b7c3b48ed9e09e749343143acbfa423ceec5"
+    url "https://files.pythonhosted.org/packages/32/98/3bb3b395b6bb6f3ae78c14e31b1ca73f56d429fe6f0904320ab780dd412f/botocore-1.29.74.tar.gz"
+    sha256 "bf1515908c8ffdffa249e112fd9bbb54d919ce8fb5ee88baf9c198dda6172fd5"
   end
 
   resource "certifi" do
@@ -120,13 +120,18 @@ class Prowler < Formula
   end
 
   resource "colorama" do
-    url "https://files.pythonhosted.org/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz"
-    sha256 "08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"
+    url "https://files.pythonhosted.org/packages/2b/65/24d033a9325ce42ccbfa3ca2d0866c7e89cc68e5b9d92ecaba9feef631df/colorama-0.4.5.tar.gz"
+    sha256 "e6c6b4334fc50988a639d9b98aa429a0b57da6e17b9a44f0451f930b6967b7a4"
+  end
+
+  resource "contextlib2" do
+    url "https://files.pythonhosted.org/packages/c7/13/37ea7805ae3057992e96ecb1cffa2fa35c2ef4498543b846f90dd2348d8f/contextlib2-21.6.0.tar.gz"
+    sha256 "ab1e2bfe1d01d968e1b7e8d9023bc51ef3509bba217bb730cee3827e1ee82869"
   end
 
   resource "cryptography" do
-    url "https://files.pythonhosted.org/packages/12/e3/c46c274cf466b24e5d44df5d5cd31a31ff23e57f074a2bb30931a8c9b01a/cryptography-39.0.0.tar.gz"
-    sha256 "f964c7dcf7802d133e8dbd1565914fa0194f9d683d82411989889ecd701e8adf"
+    url "https://files.pythonhosted.org/packages/6a/f5/a729774d087e50fffd1438b3877a91e9281294f985bda0fd15bf99016c78/cryptography-39.0.1.tar.gz"
+    sha256 "d1f6198ee6d9148405e49887803907fe8962a23e6c6f83ea7d98f1c0de375695"
   end
 
   resource "detect-secrets" do
@@ -155,8 +160,8 @@ class Prowler < Formula
   end
 
   resource "msal" do
-    url "https://files.pythonhosted.org/packages/c5/f8/05c343f2652b5b32f063bc908f428ffd14da65939d96b7adc48986f242a8/msal-1.20.0.tar.gz"
-    sha256 "78344cd4c91d6134a593b5e3e45541e666e37b747ff8a6316c3668dd1e6ab6b2"
+    url "https://files.pythonhosted.org/packages/06/ec/002278ed40a1ec6c85f72330cac2699dc7e9b3a36af686783c0fd8d05c7a/msal-1.21.0.tar.gz"
+    sha256 "96b5c867830fd116e5f7d0ec8ef1b238b4cda4d1aea86d8fecf518260e136fbf"
   end
 
   resource "msal-extensions" do
@@ -180,8 +185,8 @@ class Prowler < Formula
   end
 
   resource "portalocker" do
-    url "https://files.pythonhosted.org/packages/a6/5c/57ef8091f9f1d01bf5413fcd0fd1f2f255f45536e42bfd34bc45b6cc2786/portalocker-2.6.0.tar.gz"
-    sha256 "964f6830fb42a74b5d32bce99ed37d8308c1d7d44ddf18f3dd89f4680de97b39"
+    url "https://files.pythonhosted.org/packages/1f/f8/969e6f280201b40b31bcb62843c619f343dcc351dff83a5891530c9dd60e/portalocker-2.7.0.tar.gz"
+    sha256 "032e81d534a88ec1736d03f780ba073f047a06c478b06e2937486f334e955c51"
   end
 
   resource "pycparser" do
@@ -190,8 +195,8 @@ class Prowler < Formula
   end
 
   resource "pydantic" do
-    url "https://files.pythonhosted.org/packages/fd/8f/3f7e88b507dbdfec8f1f914294aa8831edffb03d668799c65b4b46331c8a/pydantic-1.9.2.tar.gz"
-    sha256 "8cb0bc509bfb71305d7a59d00163d5f9fc4530f0881ea32c74ff4f74c85f3d3d"
+    url "https://files.pythonhosted.org/packages/28/59/5d2fc3499d9ce8ce48ee7e00f043d5cc429a9198bd96c3512809428ade15/pydantic-1.10.5.tar.gz"
+    sha256 "9e337ac83686645a46db0e825acceea8e02fca4062483f40e9ae178e8bd1103a"
   end
 
   resource "PyJWT" do
@@ -219,6 +224,11 @@ class Prowler < Formula
     sha256 "2ed07d3866f523cc561bf4a00fc5535827981b117dd7876f036b0c1aca42c947"
   end
 
+  resource "schema" do
+    url "https://files.pythonhosted.org/packages/4e/e8/01e1b46d9e04cdaee91c9c736d9117304df53361a191144c8eccda7f0ee9/schema-0.7.5.tar.gz"
+    sha256 "f06717112c61895cabc4707752b88716e8420a8819d71404501e114f91043197"
+  end
+
   resource "shodan" do
     url "https://files.pythonhosted.org/packages/fd/e3/8a76f8cb021d712ba966f7385d3635165a70222e5ca1a92a8887470dd1a0/shodan-1.28.0.tar.gz"
     sha256 "18bd2ae81114b70836e0e3315227325e14398275223998a8c235b099432f4b0b"
@@ -230,8 +240,8 @@ class Prowler < Formula
   end
 
   resource "XlsxWriter" do
-    url "https://files.pythonhosted.org/packages/b3/24/5253b50d798674d4d3212df938ab50e2b14a672073e4308b3c46f7590ccd/XlsxWriter-3.0.7.tar.gz"
-    sha256 "1239958b12da12be6abf05b32f64ff162eb75fff0fdf00d901ca0f46dc0557cf"
+    url "https://files.pythonhosted.org/packages/6a/31/f94f5707827ecd84f3fa03e55e263b9aeddb7da4ae0f7f1541e214e81b15/XlsxWriter-3.0.8.tar.gz"
+    sha256 "ec77335fb118c36bc5ed1c89e33904d649e4989df2d7980f7d6a9dd95ee5874e"
   end
 
   def install
@@ -243,7 +253,7 @@ class Prowler < Formula
     assert_match "rds", shell_output("#{bin}/prowler aws --list-services")
 
     assert_match "NoCredentialsError -- Unable to locate credentials",
-      shell_output("#{bin}/prowler aws --quick-inventory 2>&1")
+      shell_output("#{bin}/prowler aws --quick-inventory 2>&1", 1)
 
     assert_match "Prowler #{version}", shell_output("#{bin}/prowler -v")
   end

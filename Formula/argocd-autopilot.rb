@@ -2,18 +2,18 @@ class ArgocdAutopilot < Formula
   desc "Opinionated way of installing Argo CD and managing GitOps repositories"
   homepage "https://argoproj.io"
   url "https://github.com/argoproj-labs/argocd-autopilot.git",
-      tag:      "v0.4.10",
-      revision: "1ce7c092ccb1487b20313aa273568bdd723c785f"
+      tag:      "v0.4.12",
+      revision: "472c6a0f828841ab8c20959bf0fe72df2d6f2093"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f708f5e3b4d57f25a0c185da1dd8851233bad13076a2e3df5a6f4d6193b105d5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9397e5e4144887f20a9c9aed4430a9f6973bb4cbec9b66d62c38f8aa15776d08"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ba5ae6c5fd7f465bbe84dc316916b0179e3ec83089f23fb16a4d52f95ab20051"
-    sha256 cellar: :any_skip_relocation, ventura:        "d7e9a44718ae1ff3090c50d6435b870108309e96d389e3af3761f9591882a6fa"
-    sha256 cellar: :any_skip_relocation, monterey:       "6fd860ced81cfe63237a2c1a63c763257dfdf4d4b0d21105fb7f63816c368f0a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "ad50df3215710372eeffff08683f2365f32273696e14e43e699cd1c8009fad97"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8cf880182e2710eb09a314ddffbbbe115a176f12cc77e9a85eab2307455e9989"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e8d39d1e3ffa32248d890c4669d7be88291469b3bf52adc52ef6b6e60044231c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "04bc236a3b782a7cde24091ba5597aacca2278f1dc526506922442c5092e26d5"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "5cd3d029a1dffe04bbb992da960ade6646a68c1ec6e986139afd4602e55027a7"
+    sha256 cellar: :any_skip_relocation, ventura:        "d7c8ef4b4f2c3c992241fc12a4930f6f202f514cce1355dab79399ac37cea8fa"
+    sha256 cellar: :any_skip_relocation, monterey:       "e5a2b589918588357aead8017d853d8051ed6548c8c96696f60255cfced7fc6b"
+    sha256 cellar: :any_skip_relocation, big_sur:        "4f24ebd1295e3368e89a2052377427994f83b71827f62cec82179656e2354ca1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "536780890bf342762fd20335a872a0ba2f5807c7c1aaececc230fe4a89c27caf"
   end
 
   depends_on "go" => :build

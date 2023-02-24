@@ -21,8 +21,7 @@ class Cayley < Formula
   end
 
   depends_on "breezy" => :build
-  # Bump to 1.18 on the next release, if possible.
-  depends_on "go@1.17" => :build
+  depends_on "go" => :build
   depends_on "mercurial" => :build
 
   def install

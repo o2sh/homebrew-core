@@ -3,8 +3,8 @@ class Trino < Formula
 
   desc "Distributed SQL query engine for big data"
   homepage "https://trino.io"
-  url "https://search.maven.org/remotecontent?filepath=io/trino/trino-server/405/trino-server-405.tar.gz", using: :nounzip
-  sha256 "22de0430a9da9229df8392d67d3e0a0e09b1b736560dcb9fa2ac3bcf97be0c7f"
+  url "https://search.maven.org/remotecontent?filepath=io/trino/trino-server/407/trino-server-407.tar.gz", using: :nounzip
+  sha256 "748679eeac0b4f1976d79c5364aa66e45bb43b9bb868f56b1023738fc48a4fb5"
   license "Apache-2.0"
 
   livecheck do
@@ -13,7 +13,13 @@ class Trino < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "c7d8f4144a5a67f76c1fad4fd790f0f351b0a9dfd7881f9489bae4db98282890"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "427ff436b02a4dcfcea0fe83d11e46d5c2c65bc430e43ef57dcd0f3313663457"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "427ff436b02a4dcfcea0fe83d11e46d5c2c65bc430e43ef57dcd0f3313663457"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "427ff436b02a4dcfcea0fe83d11e46d5c2c65bc430e43ef57dcd0f3313663457"
+    sha256 cellar: :any_skip_relocation, ventura:        "427ff436b02a4dcfcea0fe83d11e46d5c2c65bc430e43ef57dcd0f3313663457"
+    sha256 cellar: :any_skip_relocation, monterey:       "427ff436b02a4dcfcea0fe83d11e46d5c2c65bc430e43ef57dcd0f3313663457"
+    sha256 cellar: :any_skip_relocation, big_sur:        "427ff436b02a4dcfcea0fe83d11e46d5c2c65bc430e43ef57dcd0f3313663457"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7ffa2bbcf5a179adf526525a9c760359729ec8102e0a83ebd1aac7ee52f0a70a"
   end
 
   depends_on "gnu-tar" => :build
@@ -21,25 +27,23 @@ class Trino < Formula
   depends_on "python@3.11"
 
   resource "trino-src" do
-    url "https://github.com/trinodb/trino/archive/refs/tags/405.tar.gz", using: :nounzip
-    sha256 "6e13ea2bbe4b4cf53e0700d434afe04da4027e9296f008665964e97b39169db3"
+    url "https://github.com/trinodb/trino/archive/refs/tags/407.tar.gz", using: :nounzip
+    sha256 "e8a777efcab913ed80bd2a08ad18a5afaf9338e0ab15fc996edaa74f5863e11b"
   end
 
   resource "trino-cli" do
-    url "https://search.maven.org/remotecontent?filepath=io/trino/trino-cli/405/trino-cli-405-executable.jar"
-    sha256 "4953912e3bc0e74efd0375b5a33881d66cd9ebc97a6993246df136939e295db4"
+    url "https://search.maven.org/remotecontent?filepath=io/trino/trino-cli/407/trino-cli-407-executable.jar"
+    sha256 "1b1fd386501758b7a392a4791e49da061614b2890d3bf76ecfa130aa56380912"
   end
 
   def install
     # Manually extract tarball to avoid losing hardlinks which increases bottle
     # size from MBs to GBs. Remove once Homebrew is able to preserve hardlinks.
-    # Ref: https://github.com/Homebrew/brew/pull/13154
     libexec.mkpath
     system "tar", "-C", libexec.to_s, "--strip-components", "1", "-xzf", "trino-server-#{version}.tar.gz"
 
     # Manually untar, since macOS-bundled tar produces the error:
     #   trino-363/plugin/trino-hive/src/test/resources/<truncated>.snappy.orc.crc: Failed to restore metadata
-    # Remove when https://github.com/trinodb/trino/issues/8877 is fixed
     resource("trino-src").stage do |r|
       ENV.prepend_path "PATH", Formula["gnu-tar"].opt_libexec/"gnubin"
       system "tar", "-xzf", "trino-#{r.version}.tar.gz"

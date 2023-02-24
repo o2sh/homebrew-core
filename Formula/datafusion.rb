@@ -1,19 +1,19 @@
 class Datafusion < Formula
   desc "Apache Arrow DataFusion and Ballista query engines"
   homepage "https://arrow.apache.org/datafusion"
-  url "https://github.com/apache/arrow-datafusion/archive/refs/tags/16.0.0.tar.gz"
-  sha256 "095ba47478034ebd249080964066478832c411fcf5abaed1bd361650b38ec701"
+  url "https://github.com/apache/arrow-datafusion/archive/refs/tags/18.0.0.tar.gz"
+  sha256 "8bdb695f0db084c36f9880f13517408fe642aee6b94c154427102627a37d74ba"
   license "Apache-2.0"
   head "https://github.com/apache/arrow-datafusion.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b62ca884947d160a61214a0cf3dd37602bfa0ae99fa10e2c0abe637725e2f142"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ae1ff3bf8ff90537975af878b1afe4fc11d02e2eddc78ef13b81cb4c3e871678"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b5c00d8e72bfa59e4985565f5e639c6a0e3cfbffe9fdbf03a1e0de5d9850d8be"
-    sha256 cellar: :any_skip_relocation, ventura:        "feff195131a1cf4b4d22763c40d27f510a13f3e4a3a0ab9561cfbe45d0f2254b"
-    sha256 cellar: :any_skip_relocation, monterey:       "1e66ac4d1d2a9e67a02af87d4b1fdeea3d5c47a9a202753105f24eabca6484d3"
-    sha256 cellar: :any_skip_relocation, big_sur:        "6664a6e8f6b2a9feb8fccca9f312851cc0e5569a712ce27f26f9fb48498b1d25"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1f536b810076e4e428c2b149eb24a1bfcf58c2470879726498b04b4d39233156"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ad3e1c806b727cba54bf29537171e29c7b30ed5fc7a13a4e9c03a6e820477c37"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "1690229454bc351d25077bf203a27de252a8299afd9125941327b9a29e81ce82"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "67e33c791c9a6f3acd51b3cd0274f80563c9f9acabc3b9e986f4efba652ab2fa"
+    sha256 cellar: :any_skip_relocation, ventura:        "5251f1a17071058099d4caead0946afb70e03716944dedf119058b779cc14825"
+    sha256 cellar: :any_skip_relocation, monterey:       "230b943cb7df92ca03dcaabcca73120bff105a383a6bfc9ea484a38e733a86b4"
+    sha256 cellar: :any_skip_relocation, big_sur:        "cd381c070f244481b0a2a0e6e95d95cbba846742cc09dfd8e48a8f2c099898fc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ea60ed0f29fd26a1d7e0eb8c1e47e2afe1c1ee6879fdec1cce3b0cd67055287f"
   end
 
   depends_on "rust" => :build

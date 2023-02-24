@@ -1,19 +1,20 @@
 class Watchman < Formula
   desc "Watch files and take action when they change"
   homepage "https://github.com/facebook/watchman"
-  url "https://github.com/facebook/watchman/archive/v2023.01.16.00.tar.gz"
-  sha256 "a0678d8ca4ea54bd7c37517671e30d6349d4c3b7dbefb0cd44247db482d73f6c"
+  # TODO: Remove `inreplace` at version bump.
+  url "https://github.com/facebook/watchman/archive/v2023.02.20.00.tar.gz"
+  sha256 "b192a36ca1be43e70d32cb189988c3f801326f344fd160ba439e6a953e49e398"
   license "MIT"
   head "https://github.com/facebook/watchman.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "d4d910e479e35ea493da97f79f077c8f01929418c8848060d4426c23bfd21b93"
-    sha256 cellar: :any,                 arm64_monterey: "3986f63dd92d153f422983ed6003e44290e2312f3231b81733a30640e64744bb"
-    sha256 cellar: :any,                 arm64_big_sur:  "8122fbd0becf5359e160a21aab02ac298baaf947f4e79a5a32c52d5eb0e810af"
-    sha256 cellar: :any,                 ventura:        "90c74d7077031356c8ac5aa99d3b393c0cedfdd05400d553d708a0815fb2b169"
-    sha256 cellar: :any,                 monterey:       "ea4667c6509cfaa097bce6c12fb7835cb29d8ac2a15fd69e6dbf1198513fc299"
-    sha256 cellar: :any,                 big_sur:        "491cecd99139fef1e89c13ae931ee38635e1dd4ea2dec34e578893de070d20b3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1c359a50a378ed5208cddd27d5532305a6cdb2d194d33ba567c6897ebe106714"
+    sha256 cellar: :any,                 arm64_ventura:  "686c3a601cb88d188327f7186cf1925de3f3a3cb4226a1b7529fd366751e9260"
+    sha256 cellar: :any,                 arm64_monterey: "f1e4a8f6dd73fe8e7a9f7de4fe4bf69a0552307381126dc14570e7674f367efb"
+    sha256 cellar: :any,                 arm64_big_sur:  "8e05bf3531ad35699d2c42fcb1fc879e79f3bf2993614876a5269588889229bf"
+    sha256 cellar: :any,                 ventura:        "2a954f0ca0f0790970f58ef3c94c490950f25a8f4ab233b047f1874e1b534e19"
+    sha256 cellar: :any,                 monterey:       "3c30326495212e0cd46ff16b557e2bef1a83376cc21583b8a74d779f341675a3"
+    sha256 cellar: :any,                 big_sur:        "f55df2be4d40914996ffa3246e8ac7925a8bad965bd6745e7dcc9a68611f476a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "39e1fb1a7a1e7da9418fd5ace6e8852293c544a69eaf7fc3ebbd6fb20f20cb72"
   end
 
   # https://github.com/facebook/watchman/issues/963
@@ -43,6 +44,11 @@ class Watchman < Formula
     inreplace "CMakeLists.txt",
               /gtest_discover_tests\((.*)\)/,
               "gtest_discover_tests(\\1 DISCOVERY_TIMEOUT 30)"
+
+    # Workaround for build failure. Reported at:
+    # https://github.com/facebook/watchman/issues/1099
+    # Remove in next release.
+    inreplace "watchman/cli/Cargo.toml", 'default = ["fb"]', "default = []" if build.stable?
 
     # NOTE: Setting `BUILD_SHARED_LIBS=ON` will generate DSOs for Eden libraries.
     #       These libraries are not part of any install targets and have the wrong

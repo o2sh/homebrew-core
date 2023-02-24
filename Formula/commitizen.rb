@@ -3,19 +3,19 @@ class Commitizen < Formula
 
   desc "Defines a standard way of committing rules and communicating it"
   homepage "https://commitizen-tools.github.io/commitizen/"
-  url "https://files.pythonhosted.org/packages/68/f7/bae25705cf7566f6ac86d033abe7e90c8fac253b7abae25c32bd5cafc137/commitizen-2.39.1.tar.gz"
-  sha256 "1f4b77a6b6cf43fc75e7fc604081add66026a5031c2a5032b2b9e8202bc57d47"
+  url "https://files.pythonhosted.org/packages/24/d9/48c618e32bcb672b19b22f77c13e6c796fb43ee5931e003b27333c786793/commitizen-2.42.0.tar.gz"
+  sha256 "c4c944408f3d55ca22b1c136e22217c167123c54f46730eb27a1c6503d705c69"
   license "MIT"
   head "https://github.com/commitizen-tools/commitizen.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "97ba401b74bfe0be2fe8d48580a9b41851c679f73e5c998594cbb64bcbcc79e3"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b827a898d9afdb02f7bdbbe954a91fa372c881e40da3849b2f4b485787d8c480"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b43db794209f600d88aadeda84991ac9841aaefbe642289d045183905bffb470"
-    sha256 cellar: :any_skip_relocation, ventura:        "6b1676ac460cb13cafaca74ed9d9d8331550a68e1efaf9ef27a563e063b0eb05"
-    sha256 cellar: :any_skip_relocation, monterey:       "b0fa41acaeec90e5bb2f2c2d71eeb34f8f1577dbeea27ffc435d16b9159b566b"
-    sha256 cellar: :any_skip_relocation, big_sur:        "4545134e37c25db8d64000423a3e2cb84bbbe08b06d3398ad01f988e27b90200"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "95586dda4dc3aa56b1d23f61fbe7e206ecdbef8c6f2cfb4cf1eb577497fcf914"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b9f8ee458a8656e601f377be97fec3b8be0a8b07c8cebe777258dcb09a31d324"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2ff256714d54d72bc11bdba7a3484ccd7d0466a6186b5deb44604509e415cfe9"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "92354388616ab928cea84e9310b063bffc62c98b104616500f20bd2a02bff257"
+    sha256 cellar: :any_skip_relocation, ventura:        "122f7da3863cb59334c6fb090d8f3f7d1d01e6e7938d05f31c8a7f1d7c9c289f"
+    sha256 cellar: :any_skip_relocation, monterey:       "fab27c30aea1551d97b21d35ecd67f3bb15f7b1cec6cd459265b4e21f0143777"
+    sha256 cellar: :any_skip_relocation, big_sur:        "917d41be8315ce6fe5f3b234fbe86b60779d0c75593f6820a041a39486e42bd9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6a39e312b923235facd272f355b508961ba3175f841d24f7252879036e51a944"
   end
 
   depends_on "python-typing-extensions"
@@ -48,13 +48,13 @@ class Commitizen < Formula
   end
 
   resource "MarkupSafe" do
-    url "https://files.pythonhosted.org/packages/1d/97/2288fe498044284f39ab8950703e88abbac2abbdf65524d576157af70556/MarkupSafe-2.1.1.tar.gz"
-    sha256 "7f91197cc9e48f989d12e4e6fbc46495c446636dfc81b9ccf50bb0ec74b91d4b"
+    url "https://files.pythonhosted.org/packages/95/7e/68018b70268fb4a2a605e2be44ab7b4dd7ce7808adae6c5ef32e34f4b55a/MarkupSafe-2.1.2.tar.gz"
+    sha256 "abcabc8c2b26036d62d4c746381a6f7cf60aafcc653198ad678306986b09450d"
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/6b/f7/c240d7654ddd2d2f3f328d8468d4f1f876865f6b9038b146bec0a6737c65/packaging-22.0.tar.gz"
-    sha256 "2198ec20bd4c017b8f9717e00f0c8714076fc2fd93816750ab48e2c41de2cfd3"
+    url "https://files.pythonhosted.org/packages/47/d5/aca8ff6f49aa5565df1c826e7bf5e85a6df852ee063600c1efa5b932968c/packaging-23.0.tar.gz"
+    sha256 "b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"
   end
 
   resource "prompt-toolkit" do
@@ -68,8 +68,8 @@ class Commitizen < Formula
   end
 
   resource "termcolor" do
-    url "https://files.pythonhosted.org/packages/19/da/ff1f0906818a5bd2e69e773d88801ca3c9e92d0d7caa99db1665658819ea/termcolor-2.1.1.tar.gz"
-    sha256 "67cee2009adc6449c650f6bcf3bdeed00c8ba53a8cda5362733c53e0a39fb70b"
+    url "https://files.pythonhosted.org/packages/e5/4e/b2a54a21092ad2d5d70b0140e4080811bee06a39cc8481651579fe865c89/termcolor-2.2.0.tar.gz"
+    sha256 "dfc8ac3f350788f23b2947b3e6cfa5a53b630b612e6cd8965a015a776020b99a"
   end
 
   resource "tomlkit" do
@@ -78,8 +78,8 @@ class Commitizen < Formula
   end
 
   resource "wcwidth" do
-    url "https://files.pythonhosted.org/packages/89/38/459b727c381504f361832b9e5ace19966de1a235d73cdbdea91c771a1155/wcwidth-0.2.5.tar.gz"
-    sha256 "c4d647b99872929fdb7bdcaa4fbe7f01413ed3d98077df798530e5b04f116c83"
+    url "https://files.pythonhosted.org/packages/5e/5f/1e4bd82a9cc1f17b2c2361a2d876d4c38973a997003ba5eb400e8a932b6c/wcwidth-0.2.6.tar.gz"
+    sha256 "a5220780a404dbe3353789870978e472cfe477761f06ee55077256e509b156d0"
   end
 
   def install

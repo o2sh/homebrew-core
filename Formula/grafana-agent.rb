@@ -1,21 +1,24 @@
 class GrafanaAgent < Formula
   desc "Exporter for Prometheus Metrics, Loki Logs, and Tempo Traces"
   homepage "https://grafana.com/docs/agent/"
-  url "https://github.com/grafana/agent/archive/refs/tags/v0.30.2.tar.gz"
-  sha256 "6b98f04dbfd2c106012d729200d7734302bfd923c3dbf284cf24c92951158dc4"
+  url "https://github.com/grafana/agent/archive/refs/tags/v0.31.3.tar.gz"
+  sha256 "b55218728cbbbc86ca8242d073bfe6297d04314edaeaab7e6b63b69d80ee61a2"
   license "Apache-2.0"
+  revision 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2e939578782b1f131d02745817d0ce292a98e85852364135a532ecd50afea22a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ebf49db6472bc2e5325f764d82b79ed92cf426da8b80d7803e34f0058864dd02"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "fd5691486d9ad604af38b54ecccf14ae204c5ce0b903bf6d81b9bfd2bfd21f22"
-    sha256 cellar: :any_skip_relocation, ventura:        "a6de2e77ccb56495c96e06083a2ac0bb15f4d7543cd0a810292e70fbef63aa56"
-    sha256 cellar: :any_skip_relocation, monterey:       "5a41ed36b795304ae278978bf293646c01830cf4a3ec2d47a250f1f562b7c956"
-    sha256 cellar: :any_skip_relocation, big_sur:        "55ca13561a26e89d09de9b607ee857e87302a4e281f480f862aca201c09d9f04"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "aee0e18946028edfec3bb00312226f17236126659d62bfcc943075a27ec0f1c5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "629a35a5c58bfbd1d40167eec9bc2a76053448c755b88e42a4ae5e0ce1cac1c5"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "99fda1983c8212cd6a4e010809c9b772d3f78ea868a2c26319919453aac0d561"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "87372730d065abf91cd0a24a2491f3a012dfa2084919c173b3c925a036811441"
+    sha256 cellar: :any_skip_relocation, ventura:        "ae13010b4c9420681a7820be00d6653d6a70cc507bc5ee7ff27624cab1005bb9"
+    sha256 cellar: :any_skip_relocation, monterey:       "f7312955514ef3cd17414a958773e4946fdea532db0deaa54574aec262ddc1c1"
+    sha256 cellar: :any_skip_relocation, big_sur:        "c9914794581638bba0235105e544e134e397d383b72eb0ba30762344a3f4f045"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "15abbfdb1b21987578fba78e9bc7bdcf07b0de799b07c3df593ec8e4666f9837"
   end
 
   depends_on "go" => :build
+  depends_on "node" => :build
+  depends_on "yarn" => :build
 
   on_linux do
     depends_on "systemd" => :build
@@ -27,12 +30,19 @@ class GrafanaAgent < Formula
       -X github.com/grafana/agent/pkg/build.Branch=HEAD
       -X github.com/grafana/agent/pkg/build.Version=v#{version}
       -X github.com/grafana/agent/pkg/build.BuildUser=#{tap.user}
-      -X github.com/grafana/agent/pkg/build.BuildDate=#{time.rfc3339}
+      -X github.com/grafana/agent/pkg/build.BuildDate=#{time.iso8601}
     ]
-    args = std_go_args(ldflags: ldflags) + %w[-tags=noebpf]
+    args = std_go_args(ldflags: ldflags) + %w[-tags=builtinassets,noebpf]
 
-    system "go", "build", *args, "./cmd/agent"
-    system "go", "build", *args, "-o", bin/"grafana-agentctl", "./cmd/agentctl"
+    # Build the UI, which is baked into the final binary when the builtinassets
+    # tag is set.
+    cd "web/ui" do
+      system "yarn"
+      system "yarn", "run", "build"
+    end
+
+    system "go", "build", *args, "./cmd/grafana-agent"
+    system "go", "build", *args, "-o", bin/"grafana-agentctl", "./cmd/grafana-agentctl"
   end
 
   def post_install

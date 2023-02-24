@@ -2,42 +2,25 @@ class Agda < Formula
   desc "Dependently typed functional programming language"
   homepage "https://wiki.portal.chalmers.se/agda/"
   license "BSD-3-Clause"
-  revision 3
 
   stable do
-    url "https://hackage.haskell.org/package/Agda-2.6.2.2/Agda-2.6.2.2.tar.gz"
-    sha256 "e5be3761717b144f64e760d8589ec6fdc0dda60d40125c49cdd48f54185c527a"
-
-    # Use Hackage metadata revision to support GHC 9.4.
-    # TODO: Remove this resource on next release along with corresponding install logic
-    resource "Agda.cabal" do
-      url "https://hackage.haskell.org/package/Agda-2.6.2.2/revision/2.cabal"
-      sha256 "b69c2f317db2886cb387134af00a3e42a06fab6422686938797924d034255a55"
-    end
+    url "https://hackage.haskell.org/package/Agda-2.6.3/Agda-2.6.3.tar.gz"
+    sha256 "beacc9802c470e42bb0707f9ffe7db488a936c635407dada5d4db060b58d6016"
 
     resource "stdlib" do
-      url "https://github.com/agda/agda-stdlib/archive/v1.7.1.tar.gz"
-      sha256 "6f92ae14664e5d1217e8366c647eb23ca88bc3724278f22dc6b80c23cace01df"
-
-      # Backport upstream commits to support GHC 9.4.
-      # TODO: Remove patches when updating resource to 1.7.2 or later
-      # Ref: https://github.com/agda/agda-stdlib/commit/43c36399a8ca35e0bb2d99bf6359c931e5838990
-      patch :DATA
-      patch do
-        url "https://github.com/agda/agda-stdlib/commit/81a924e41d24669a8935cc1b7168a96f0087ac21.patch?full_index=1"
-        sha256 "8b84d751119a55db06bb88284a8e29a96cccea343cb5104e8eb38a1c22deac05"
-      end
+      url "https://github.com/agda/agda-stdlib/archive/v1.7.2.tar.gz"
+      sha256 "d86a41b9d2e1d2e956ec91bdef9cb34646da11f50f76996761c9a1562c3c47a2"
     end
   end
 
   bottle do
-    sha256 arm64_ventura:  "e31d191ef423a0f117ed049a50c9127591468ac26c58a37d13d01e7ee3b7f475"
-    sha256 arm64_monterey: "b6b713ce6891addc6bf52cb657e9d213aaf777678f37dfcda531b057cee4a417"
-    sha256 arm64_big_sur:  "1a60fb70b2bf56533826bf88bf6afdc0ccad126df4484ea4eba8ac952e371e02"
-    sha256 ventura:        "4b5ec9578cdc5fd4adce69bbb6426501dfe728e2ebf11ae12590fdc3e0cce36e"
-    sha256 monterey:       "194a78eefdb8ed61b23a4e6cdea3242c85c608a472b9f96c22ac0bccc5b86654"
-    sha256 big_sur:        "004a04daee4ae54327644fd9655404d60e9626f9c52d735de60dbe53470e7550"
-    sha256 x86_64_linux:   "3d412f5f1c06c2e456548deb05ec192af88558bfb2cd319adf8c06536862ac0e"
+    sha256 arm64_ventura:  "e6d794683df004cb540fc13038cb80378b7e5ee42fe8c20bd7c87cd7313606fe"
+    sha256 arm64_monterey: "ef61f482507d2e0f89c2df9136f83fee454701c570f7834d60da72ec0f707264"
+    sha256 arm64_big_sur:  "ccfb912d275052fb8d0a81ea3216e921c77f46cf0b2ec7b7dba5ef238f1868e1"
+    sha256 ventura:        "5dbae0ce1b653e7dc099e234e137bb703dc8ded804d2785aaab3129440befb6d"
+    sha256 monterey:       "afffee3246e21852bae17f1587a35a279fcdba0b87cda6fd8ed20c4166218a56"
+    sha256 big_sur:        "e3a67f21d8e018dc4bb3ba17f08e1906125a7f2920b1e36a3af691cd1ad4f6ad"
+    sha256 x86_64_linux:   "764d1eb2568588b1cb9a9e62dbc78e8caadd361424c2dde1b060f024cec399f9"
   end
 
   head do
@@ -56,8 +39,6 @@ class Agda < Formula
   uses_from_macos "zlib"
 
   def install
-    resource("Agda.cabal").stage { buildpath.install "2.cabal" => "Agda.cabal" } unless build.head?
-
     system "cabal", "v2-update"
     system "cabal", "--store-dir=#{libexec}", "v2-install", *std_cabal_v2_args
 
@@ -151,36 +132,3 @@ class Agda < Formula
     assert_equal "", shell_output(testpath/"IOTest")
   end
 end
-
-__END__
-diff --git a/agda-stdlib-utils.cabal b/agda-stdlib-utils.cabal
-index ceaabafdb..502bb3eb9 100644
---- a/agda-stdlib-utils.cabal
-+++ b/agda-stdlib-utils.cabal
-@@ -9,8 +9,9 @@ tested-with:     GHC == 8.0.2
-                  GHC == 8.4.4
-                  GHC == 8.6.5
-                  GHC == 8.8.4
--                 GHC == 8.10.5
--                 GHC == 9.0.1
-+                 GHC == 8.10.7
-+                 GHC == 9.0.2
-+                 GHC == 9.2.1
-
- executable GenerateEverything
-   hs-source-dirs:   .
-@@ -21,7 +22,7 @@ executable GenerateEverything
-                     , directory >= 1.0.0.0 && < 1.4
-                     , filemanip >= 0.3.6.2 && < 0.4
-                     , filepath  >= 1.4.1.0 && < 1.5
--                    , mtl       >= 2.2.2   && < 2.3
-+                    , mtl       >= 2.2.2   && < 2.4
-
- executable AllNonAsciiChars
-   hs-source-dirs:   .
-@@ -29,4 +30,4 @@ executable AllNonAsciiChars
-   default-language: Haskell2010
-   build-depends:      base      >= 4.9.0.0 && < 4.17
-                     , filemanip >= 0.3.6.2 && < 0.4
--                    , text      >= 1.2.3.0 && < 1.3
-+                    , text      >= 1.2.3.0 && < 2.1

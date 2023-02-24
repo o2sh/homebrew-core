@@ -1,10 +1,9 @@
 class NodeAT18 < Formula
   desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v18.13.0/node-v18.13.0.tar.xz"
-  sha256 "fd4ac562e01d172896e3a959bd59552dbf647331c90d726f8d3471683dd3da68"
+  url "https://nodejs.org/dist/v18.14.2/node-v18.14.2.tar.xz"
+  sha256 "fbc364dd25fee2cacc0f2033db2d86115fc07575310ea0e64408b8170d09c685"
   license "MIT"
-  revision 1
 
   livecheck do
     url "https://nodejs.org/dist/"
@@ -12,13 +11,13 @@ class NodeAT18 < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "08dd5ce5cb821518762a82a886ec43998ad8e603508a93c1a5ed0b27ab9cb10e"
-    sha256 arm64_monterey: "0c7f46cb6e723fcb20b71cf811df6af85906052363f7b40fa166fb10942697ab"
-    sha256 arm64_big_sur:  "840bc002acd94e2bb7b617881f838c0711a6ad6f3fdccc80bb0da7808f736d24"
-    sha256 ventura:        "a04f361b6cd7c4ba25514d9b6319043645d81e7fe2efd790f7e4c7befff7771d"
-    sha256 monterey:       "e83865c3537178d009ff523c17c16849fe7bdcd03a88f035174803bd4019530c"
-    sha256 big_sur:        "5352f1d8498aa8316b6155d9393f3a12735386315ff2b9e0ba562fdb2ac991ca"
-    sha256 x86_64_linux:   "0bf1a3714523c6483c9ae1680d4ae3294063489c69b9b46215ee4df150fd1cfa"
+    sha256 arm64_ventura:  "dfe797dfc6822856d2be5c01e1b06c2a6e277c5da1d9a8393e112efa823a9f4e"
+    sha256 arm64_monterey: "d549a0ef29f080fdba77252902e8bbff235470bae1dd5cc3c229b016138778c5"
+    sha256 arm64_big_sur:  "c8e5fd9e42b38a2bcabe91bcf193c7346dc299bf87b11031f866b0977117513c"
+    sha256 ventura:        "504f2256f9326b9124f4e25ff9a060438c7388dd08f26f747e7a7bb447f1e47e"
+    sha256 monterey:       "076a43fb6a1cc1d74981a0def7a73535aac804083a6c1dbac853a336704eb2ca"
+    sha256 big_sur:        "09c1de140b4506b708ac0b9ad88d700cdb9e6309781060b4ac97e0b67bee4647"
+    sha256 x86_64_linux:   "4a7740c45d26df65134670a22fa9170bd58034e875318cad85996a5858ca18bb"
   end
 
   keg_only :versioned_formula
@@ -28,9 +27,7 @@ class NodeAT18 < Formula
   deprecate! date: "2023-10-18", because: :unsupported
 
   depends_on "pkg-config" => :build
-  # Bump to python@3.11 with node v18.13
-  # https://github.com/nodejs/node/commit/fee62ea05d6f958f5209a44df087efd25f356262
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on "brotli"
   depends_on "c-ares"
   depends_on "icu4c"

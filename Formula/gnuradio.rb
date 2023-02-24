@@ -3,10 +3,10 @@ class Gnuradio < Formula
 
   desc "SDK for signal processing blocks to implement software radios"
   homepage "https://gnuradio.org/"
-  url "https://github.com/gnuradio/gnuradio/archive/refs/tags/v3.10.5.0.tar.gz"
-  sha256 "04aae0c45e55c8fcaf99829d92db102395c7e10a7ad9910533694806d5ae121a"
+  url "https://github.com/gnuradio/gnuradio/archive/refs/tags/v3.10.5.1.tar.gz"
+  sha256 "85d90147f7f28450bff75eeefd2b44adc88b231d29fe8e86cc3a65437dba6d9f"
   license "GPL-3.0-or-later"
-  revision 2
+  revision 1
   head "https://github.com/gnuradio/gnuradio.git", branch: "main"
 
   livecheck do
@@ -15,13 +15,13 @@ class Gnuradio < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "6c26fd771d828a878fb072e87067cf726cc8fcd604c9b2a61113a6492f7fabbc"
-    sha256 cellar: :any,                 arm64_monterey: "56480d1f565569a8ba892509764141ce72f6c85c659fa3a1af5d04e5fde745ef"
-    sha256 cellar: :any,                 arm64_big_sur:  "e7ee15c65f61b1f9dad1bb93328d8888662fc786cad0aaa7ef2b1f633c84f09e"
-    sha256 cellar: :any,                 ventura:        "9ad42da14fa2aecc5d7f9515e133bd718480bd00dd5044ea4359e3fcd34a7be4"
-    sha256 cellar: :any,                 monterey:       "d2fe0ab849bfc1f72589cc954bbbdb8d41955fa7749f7a3d802ad0e59565bc49"
-    sha256 cellar: :any,                 big_sur:        "833e70faf50af639c2a4e2367b8ca1041e97d4424954eca3fc796ad878b44931"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e7145863841e7b6367b99ecfa8b75c7a8bf334382780c8e03b4e333ba136fd92"
+    sha256 cellar: :any,                 arm64_ventura:  "9e503a9ddcae5b1ec5374203f1e3c934a4273124cfd47558a2317f9f24e3f3a3"
+    sha256 cellar: :any,                 arm64_monterey: "8eec0192d5bb71a7463a7d4897cc4bdfbb0b18f74c0727785c95241195ffef01"
+    sha256 cellar: :any,                 arm64_big_sur:  "9e8612eb49cca805ac288b339529beda3362fc0736d7c55524465363e3cdb901"
+    sha256 cellar: :any,                 ventura:        "51589efc82382f1d64ca1b4cabbf129caf09e7a52d4aae2ad6180b81ac3d969a"
+    sha256 cellar: :any,                 monterey:       "2d95928ce50ab257d0fb2900acbdd9f9b0eac4357668ff51f3e0f04da36172e5"
+    sha256 cellar: :any,                 big_sur:        "268f1ccc2ced067680581fbcba54a74c36cf0a68dd412252de8d5cb8dbca9338"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3324f42deb5220277e3d0c248e9aa94f9ff0f0f1e18ffaf55ac410fe697e6222"
   end
 
   depends_on "cmake" => :build
@@ -77,13 +77,13 @@ class Gnuradio < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/6b/f7/c240d7654ddd2d2f3f328d8468d4f1f876865f6b9038b146bec0a6737c65/packaging-22.0.tar.gz"
-    sha256 "2198ec20bd4c017b8f9717e00f0c8714076fc2fd93816750ab48e2c41de2cfd3"
+    url "https://files.pythonhosted.org/packages/47/d5/aca8ff6f49aa5565df1c826e7bf5e85a6df852ee063600c1efa5b932968c/packaging-23.0.tar.gz"
+    sha256 "b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"
   end
 
   resource "markupsafe" do
-    url "https://files.pythonhosted.org/packages/1d/97/2288fe498044284f39ab8950703e88abbac2abbdf65524d576157af70556/MarkupSafe-2.1.1.tar.gz"
-    sha256 "7f91197cc9e48f989d12e4e6fbc46495c446636dfc81b9ccf50bb0ec74b91d4b"
+    url "https://files.pythonhosted.org/packages/95/7e/68018b70268fb4a2a605e2be44ab7b4dd7ce7808adae6c5ef32e34f4b55a/MarkupSafe-2.1.2.tar.gz"
+    sha256 "abcabc8c2b26036d62d4c746381a6f7cf60aafcc653198ad678306986b09450d"
   end
 
   # pygccxml only published a .whl file on PyPi

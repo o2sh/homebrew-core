@@ -1,26 +1,22 @@
 class Opensearch < Formula
   desc "Open source distributed and RESTful search engine"
   homepage "https://github.com/opensearch-project/OpenSearch"
-  url "https://github.com/opensearch-project/OpenSearch/archive/2.4.1.tar.gz"
-  sha256 "df87d5aac8b44aa08788394723d8d458b6bc3b0808aa5891bd9797959921c632"
+  url "https://github.com/opensearch-project/OpenSearch/archive/2.5.0.tar.gz"
+  sha256 "a79fa55320126e0292b6d1b7a5225c8f5cae2c30b5d2784611eb0b71710f9bb7"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3c4154bac462a7268b8bed4020efc5ebd7718e95fb08cdf3fd832d74a26dc986"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3c4154bac462a7268b8bed4020efc5ebd7718e95fb08cdf3fd832d74a26dc986"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "3c4154bac462a7268b8bed4020efc5ebd7718e95fb08cdf3fd832d74a26dc986"
-    sha256 cellar: :any_skip_relocation, ventura:        "a87cd8104ceb3efec4741d4a1ee8e333522b43078ff563ef771dee74ea72c25a"
-    sha256 cellar: :any_skip_relocation, monterey:       "a87cd8104ceb3efec4741d4a1ee8e333522b43078ff563ef771dee74ea72c25a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "a87cd8104ceb3efec4741d4a1ee8e333522b43078ff563ef771dee74ea72c25a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "48e31263abd13f372af3414ed7206ff1bb47d70d1cabe33a8470f4a39eefe717"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ba6f3f7d97418a752af479cc249f251a02b8d363383aa5adc74e3e2ffaabe1e7"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e8d6d15a6bb96ad3291e6520d4cd45596afcef150b4fc82e6abeb73171043434"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "871091f1c83d7b858f77a738637cea82f5a419d6f6609ceff77af5b315e48cb8"
+    sha256 cellar: :any_skip_relocation, ventura:        "21a3a27d19d7fc711b0f05a2e9427f9983572413743e7eb8539462405f2ccba1"
+    sha256 cellar: :any_skip_relocation, monterey:       "70f4b0d6d0eec31da9072477561facfc88ae58a2ac0d3732b0018815b1772c32"
+    sha256 cellar: :any_skip_relocation, big_sur:        "227e7d35da3b6afac733ec6726709b9473f536205cc847864d9e92f4e5dd9f8b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "392310a02bcf75c3349aeba9bf9a365185e9eefbb865bc76f45cc331eaf94be1"
   end
 
   depends_on "gradle" => :build
   depends_on "openjdk"
-
-  # Compatibility with Gradle 7.6
-  # Based on https://github.com/opensearch-project/OpenSearch/commit/ab85c67bb002e2fb440be659cf156b3f5c06e0f1
-  patch :DATA
 
   def install
     platform = OS.kernel_name.downcase
@@ -108,64 +104,3 @@ class Opensearch < Formula
     system "#{bin}/opensearch-plugin", "list"
   end
 end
-
-__END__
---- a/buildSrc/src/main/java/org/opensearch/gradle/info/GlobalBuildInfoPlugin.java
-+++ b/buildSrc/src/main/java/org/opensearch/gradle/info/GlobalBuildInfoPlugin.java
-@@ -45,6 +45,7 @@ import org.gradle.api.provider.ProviderFactory;
- import org.gradle.internal.jvm.Jvm;
- import org.gradle.internal.jvm.inspection.JvmInstallationMetadata;
- import org.gradle.internal.jvm.inspection.JvmMetadataDetector;
-+import org.gradle.jvm.toolchain.internal.InstallationLocation;
- import org.gradle.util.GradleVersion;
-
- import javax.inject.Inject;
-@@ -52,6 +53,8 @@ import java.io.File;
- import java.io.FileInputStream;
- import java.io.IOException;
- import java.io.UncheckedIOException;
-+import java.lang.invoke.MethodHandles;
-+import java.lang.invoke.MethodType;
- import java.nio.charset.StandardCharsets;
- import java.nio.file.Files;
- import java.nio.file.Path;
-@@ -196,7 +199,29 @@ public class GlobalBuildInfoPlugin implements Plugin<Project> {
-     }
-
-     private JvmInstallationMetadata getJavaInstallation(File javaHome) {
--        return jvmMetadataDetector.getMetadata(javaHome);
-+        final InstallationLocation location = new InstallationLocation(javaHome, "Java home");
-+
-+        try {
-+            try {
-+                // The getMetadata(File) is used by Gradle pre-7.6
-+                return (JvmInstallationMetadata) MethodHandles.publicLookup()
-+                    .findVirtual(JvmMetadataDetector.class, "getMetadata", MethodType.methodType(JvmInstallationMetadata.class, File.class))
-+                    .bindTo(jvmMetadataDetector)
-+                    .invokeExact(location.getLocation());
-+            } catch (NoSuchMethodException | IllegalAccessException ex) {
-+                // The getMetadata(InstallationLocation) is used by Gradle post-7.6
-+                return (JvmInstallationMetadata) MethodHandles.publicLookup()
-+                    .findVirtual(
-+                        JvmMetadataDetector.class,
-+                        "getMetadata",
-+                        MethodType.methodType(JvmInstallationMetadata.class, InstallationLocation.class)
-+                    )
-+                    .bindTo(jvmMetadataDetector)
-+                    .invokeExact(location);
-+            }
-+        } catch (Throwable ex) {
-+            throw new IllegalStateException("Unable to find suitable JvmMetadataDetector::getMetadata", ex);
-+        }
-     }
-
-     private List<JavaHome> getAvailableJavaVersions(JavaVersion minimumCompilerVersion) {
-@@ -206,7 +231,7 @@ public class GlobalBuildInfoPlugin implements Plugin<Project> {
-             String javaHomeEnvVarName = getJavaHomeEnvVarName(Integer.toString(version));
-             if (System.getenv(javaHomeEnvVarName) != null) {
-                 File javaHomeDirectory = new File(findJavaHome(Integer.toString(version)));
--                JvmInstallationMetadata javaInstallation = jvmMetadataDetector.getMetadata(javaHomeDirectory);
-+                JvmInstallationMetadata javaInstallation = getJavaInstallation(javaHomeDirectory);
-                 JavaHome javaHome = JavaHome.of(version, providers.provider(() -> {
-                     int actualVersion = Integer.parseInt(javaInstallation.getLanguageVersion().getMajorVersion());
-                     if (actualVersion != version) {

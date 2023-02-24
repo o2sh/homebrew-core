@@ -3,8 +3,8 @@ class Prestodb < Formula
 
   desc "Distributed SQL query engine for big data"
   homepage "https://prestodb.io"
-  url "https://search.maven.org/remotecontent?filepath=com/facebook/presto/presto-server/0.278.1/presto-server-0.278.1.tar.gz"
-  sha256 "27340a48c5c88f630863134001894d7a43b6cf0641ae39f2f2f2cbfaf761a085"
+  url "https://search.maven.org/remotecontent?filepath=com/facebook/presto/presto-server/0.279/presto-server-0.279.tar.gz"
+  sha256 "11f0d712be6a78dcd7e314c286e892b6b9e84b57cc49880ce7e3474cb0f0e51e"
   license "Apache-2.0"
 
   # Upstream has said that we should check Maven for Presto version information
@@ -16,8 +16,10 @@ class Prestodb < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, all: "4dbe1a80c79cb58dbb3cd389f227892010f8525b47770866b2cf8ec2150d2a95"
+    sha256 cellar: :any_skip_relocation, ventura:      "ed50ff8d5aac4b2d5350cba0f6bde2ad848e0ee8e4208ff300c36e4691ee22e1"
+    sha256 cellar: :any_skip_relocation, monterey:     "ed50ff8d5aac4b2d5350cba0f6bde2ad848e0ee8e4208ff300c36e4691ee22e1"
+    sha256 cellar: :any_skip_relocation, big_sur:      "ed50ff8d5aac4b2d5350cba0f6bde2ad848e0ee8e4208ff300c36e4691ee22e1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "6753781f0e7e9c852b24f1f83254ae3574522874cd45dc9a1b90758a0c2927d6"
   end
 
   # https://github.com/prestodb/presto/issues/17146
@@ -26,8 +28,8 @@ class Prestodb < Formula
   depends_on "python@3.11"
 
   resource "presto-cli" do
-    url "https://search.maven.org/remotecontent?filepath=com/facebook/presto/presto-cli/0.278.1/presto-cli-0.278.1-executable.jar"
-    sha256 "f50abc8e54e6bfc23ef0ee3a29ce41029793c92136254672d264155423bd0f77"
+    url "https://search.maven.org/remotecontent?filepath=com/facebook/presto/presto-cli/0.279/presto-cli-0.279-executable.jar"
+    sha256 "29bbe4ae034299339ba51de51532ee4278fb3d6c1344930b7daad9040872447c"
   end
 
   def install

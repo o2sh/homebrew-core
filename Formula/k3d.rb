@@ -2,8 +2,8 @@ class K3d < Formula
   desc "Little helper to run CNCF's k3s in Docker"
   homepage "https://k3d.io"
   url "https://github.com/k3d-io/k3d.git",
-    tag:      "v5.4.6",
-    revision: "f6838597ddf1cab5bcdb391f883748c6e4d69b48"
+    tag:      "v5.4.7",
+    revision: "05d839b2b880cd0c764f0794fe0aa029f1300d19"
   license "MIT"
 
   livecheck do
@@ -12,17 +12,23 @@ class K3d < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "427e88513e325b9fadd3898a69d33a86b66256d56f088cbcf4064b4aecc2edee"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "588d17cc7f9f064c55a39971ef17d19718bd7b0f96271a119e277372277c3175"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "43ba3973c5ef2b3f7263a21593ad118676c0191b87bb4cda263567f8f44dab68"
-    sha256 cellar: :any_skip_relocation, ventura:        "97db82d1247894a53d72ebe5e7c63840fba30f53730fbe1c40ace6c819ee9429"
-    sha256 cellar: :any_skip_relocation, monterey:       "61056bb1b12548a2eebe84a69d25c2daee8b264af7c62f192903b320d27f7f00"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d52673edb9907ae737223b24e59d6285d28658b13f0f8fbb4c3bbb3162344709"
-    sha256 cellar: :any_skip_relocation, catalina:       "83e7f2aaaf59b6454099d73ae4229bf04dfd7871e056e2956ecedafae9669395"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d42eda8fc36ae8871f9cffffd09bca6a9357ee12f3dc42224c24a03fd7fd15d2"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "70de9968bfe299fafd689ad73a306c2cd8b22cf5997de224ffd76e245305fc77"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "1ad3e41baa5cdcee825c716a043f7e1324edc5875b9501d07158c4e8152b86e6"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a5770041d0636fae5f3b370fc8fdbd51dd0f51032a3c8c97629c4822af00676a"
+    sha256 cellar: :any_skip_relocation, ventura:        "2d21356473666c54aaee7436c91da157746e6b091f17475069c91233c573f40d"
+    sha256 cellar: :any_skip_relocation, monterey:       "f1fa2be81ffbed9cf23a9f2258d539e87a5e2feec5177392683f4ecd6b9a363c"
+    sha256 cellar: :any_skip_relocation, big_sur:        "740722dd62a2a36bb2eb3f657ed6aa25c01f4db0e41a64d1bbef65d4b351ae39"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ab6e8dbc60e972893a34168c37cda4e644aa1df0db72d4fd464e799bd1118b83"
   end
 
   depends_on "go" => :build
+
+  # Backport Go 1.20 support. Remove in the next release.
+  patch do
+    url "https://github.com/k3d-io/k3d/commit/cc10d6a27d850b49a103a923a2aea5018b964a8d.patch?full_index=1"
+    sha256 "db429ee760adf1d605cb5a141ad627431813d7dc21acc537882f9d69b3cf4d63"
+  end
 
   def install
     require "net/http"

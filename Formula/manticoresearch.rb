@@ -1,22 +1,11 @@
 class Manticoresearch < Formula
   desc "Open source text search engine"
   homepage "https://www.manticoresearch.com"
+  url "https://github.com/manticoresoftware/manticoresearch/archive/refs/tags/6.0.2.tar.gz"
+  sha256 "319dcdaa17fc4672cdec5cd5a679187f691cd9aec8ce31c3012dc113d99b7d80"
   license "GPL-2.0-only"
-  revision 2
   version_scheme 1
   head "https://github.com/manticoresoftware/manticoresearch.git", branch: "master"
-
-  stable do
-    url "https://github.com/manticoresoftware/manticoresearch/archive/refs/tags/5.0.2.tar.gz"
-    sha256 "ca7828a6841ed8bdbc330516f85ad3a85749998f443b9de319cec60e12c64c07"
-
-    # Allow system ICU usage and tune build (config from homebrew; release build; don't split symbols).
-    # Remove with next release
-    patch do
-      url "https://github.com/manticoresoftware/manticoresearch/commit/70ede046a1ed.patch?full_index=1"
-      sha256 "8c15dc5373898c2788cea5c930c4301b9a21d8dc35d22a1bbb591ddcf94cf7ff"
-    end
-  end
 
   # Only even patch versions are stable releases
   livecheck do
@@ -25,13 +14,13 @@ class Manticoresearch < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "2cd2c5406f4f464f960a3b2ee67d76988c6a8ace8c1e82db8659623628d9046a"
-    sha256 arm64_monterey: "89930dacf6668593f506ec7f2a353e94b0e0b20d141dc116c916d0f4e39bb54c"
-    sha256 arm64_big_sur:  "5395826686d53d7213550e84976202a6a78654844db8e322d8b1b19989838061"
-    sha256 ventura:        "af1bc06680f36e7526d680e01ca89e9172c8eaf4ca6f02c4b1e319b2ad33a50b"
-    sha256 monterey:       "457beeda7981495d4ea609066f35aa90ad9bb65b46acfa19fc2534f3804b19fd"
-    sha256 big_sur:        "6edb5cbeddca6fa981682578da0597c7f92698e291401ee2a5b0dc4ecfcc98b4"
-    sha256 x86_64_linux:   "9938c37089d9bdb8055ddb6fb70c9872caa098fb4b78150575d3369465c6014f"
+    sha256                               arm64_ventura:  "1a7f1eca5d4999b51e14ba55eda00d106ffeadd3f36648c5f7214b11c4f4e2a2"
+    sha256                               arm64_monterey: "cbe75fa0b8d5f9f06d177857dba9ef164334e4f5a46781979b6938b796a88e9d"
+    sha256                               arm64_big_sur:  "0b0aabd17ee2a8f7e9e0a643259e111230f06286e6ba0a2d8cd022903aa4ca9a"
+    sha256                               ventura:        "d7831346f4165106b356a4d41963a5bd7f8de9da150bdfe64d04e86b1c8c2458"
+    sha256                               monterey:       "5a8f02675fa0b63d4b6dbba62b7ea68be3512f543944c2660b8971a93d0a7eac"
+    sha256                               big_sur:        "dfe3fdc2f39b47f775fd135432211a6d08a1e45f266842ab770deb5388de678c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a4a3f6273d6ac178773b8f445ba52693b3edc77a8af4abc0c63697088ed3b371"
   end
 
   depends_on "boost" => :build

@@ -1,49 +1,38 @@
 class HasteClient < Formula
   desc "CLI client for haste-server"
   homepage "https://hastebin.com/"
+  url "https://github.com/toptal/haste-client/archive/v0.3.0.tar.gz"
+  sha256 "9f7e943be47408ba0b9765328794e7b87bdb2a785f1e9edb5d541d67b4a75d31"
   license "MIT"
-  revision 7
   head "https://github.com/toptal/haste-client.git", branch: "master"
 
-  stable do
-    url "https://github.com/toptal/haste-client/archive/v0.2.3.tar.gz"
-    sha256 "becbc13c964bb88841a440db4daff8e535e49cc03df7e1eddf16f95e2696cbaf"
-
-    # Remove for > 0.2.3
-    # Upstream commit from 19 Jul 2017 "Bump version to 0.2.3"
-    patch do
-      url "https://github.com/toptal/haste-client/commit/1037d89.patch?full_index=1"
-      sha256 "1e9c47f35c65f253fd762c673b7677921b333c02d2c4e4ae5f182fcd6a5747c6"
-    end
-  end
-
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "dc801c71f126d37c41d0a482dbc45764fd5ed30c7d1c89e549274cf37f984017"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "dc801c71f126d37c41d0a482dbc45764fd5ed30c7d1c89e549274cf37f984017"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "0d4950a8e14856b464bdd84e2622979a0f5fb80a44566ebf172286b714887bdd"
-    sha256 cellar: :any_skip_relocation, ventura:        "dc801c71f126d37c41d0a482dbc45764fd5ed30c7d1c89e549274cf37f984017"
-    sha256 cellar: :any_skip_relocation, monterey:       "dc801c71f126d37c41d0a482dbc45764fd5ed30c7d1c89e549274cf37f984017"
-    sha256 cellar: :any_skip_relocation, big_sur:        "dc801c71f126d37c41d0a482dbc45764fd5ed30c7d1c89e549274cf37f984017"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1863cf6bdf7665c478d3c440a7841afbfa1d50f3a25841eac3e50559909d6fd1"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "867a679e7daef529fa36bd744eb7ce3326867bed1fb5588fe79b626121247232"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "867a679e7daef529fa36bd744eb7ce3326867bed1fb5588fe79b626121247232"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b0bf267cb522df7e54546c61342ab74db3610856894b4a6f4e010e70ba2c0308"
+    sha256 cellar: :any_skip_relocation, ventura:        "867a679e7daef529fa36bd744eb7ce3326867bed1fb5588fe79b626121247232"
+    sha256 cellar: :any_skip_relocation, monterey:       "867a679e7daef529fa36bd744eb7ce3326867bed1fb5588fe79b626121247232"
+    sha256 cellar: :any_skip_relocation, big_sur:        "867a679e7daef529fa36bd744eb7ce3326867bed1fb5588fe79b626121247232"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3e8ca7f96707ff93d23f2faf3deb15bdaf7faeca5a78115823bc1c00a22e436d"
   end
 
   uses_from_macos "ruby", since: :high_sierra
 
   resource "faraday" do
-    url "https://rubygems.org/gems/faraday-0.17.4.gem"
-    sha256 "11677b5b261fbbfd4d959f702078d81c0bb66006c00ab2f329f32784778e4d9c"
+    url "https://rubygems.org/gems/faraday-0.17.6.gem"
+    sha256 "a572118695fce2937e3a8bed33498ac0c25a263cdb570ea5cd2e41b36c821c34"
   end
 
   resource "json" do
     on_system :linux, macos: :sierra_or_older do
-      url "https://rubygems.org/gems/json-2.5.1.gem"
-      sha256 "918d8c41dacb7cfdbe0c7bbd6014a5372f0cf1c454ca150e9f4010fe80cc3153"
+      url "https://rubygems.org/gems/json-2.6.3.gem"
+      sha256 "86aaea16adf346a2b22743d88f8dcceeb1038843989ab93cda44b5176c845459"
     end
   end
 
   resource "multipart-post" do
-    url "https://rubygems.org/gems/multipart-post-2.1.1.gem"
-    sha256 "d2dd7aa957650e0d99e0513cd388401b069f09528441b87d884609c8e94ffcfd"
+    url "https://rubygems.org/gems/multipart-post-2.3.0.gem"
+    sha256 "3dcdd74a767302559fcf91a63b568ee00770494ce24195167b1c147ab3f6fe51"
   end
 
   def install
@@ -60,7 +49,9 @@ class HasteClient < Formula
   end
 
   test do
-    output = pipe_output("#{bin}/haste", "testing", 0)
-    assert_match(%r{^https://hastebin\.com/.+}, output)
+    test_file = testpath/"dummy_file"
+    touch test_file
+    output = shell_output("#{bin}/haste #{test_file} 2>&1", 1)
+    assert_match "Unauthorized request: missing access token", output
   end
 end

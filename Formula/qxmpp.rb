@@ -1,33 +1,30 @@
 class Qxmpp < Formula
   desc "Cross-platform C++ XMPP client and server library"
   homepage "https://github.com/qxmpp-project/qxmpp/"
-  url "https://github.com/qxmpp-project/qxmpp/archive/v1.4.0.tar.gz"
-  sha256 "2148162138eaf4b431a6ee94104f87877b85a589da803dff9433c698b4cf4f19"
+  url "https://github.com/qxmpp-project/qxmpp/archive/v1.5.1.tar.gz"
+  sha256 "13cddaea206385202346fc7c0479c22da4c1463ef36a8e07ba09131eece06198"
   license "LGPL-2.1-or-later"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_ventura:  "c5855b91c763052baa2d2a05505cf26502e3433af8dacd607ba1ab5bbcc03e66"
-    sha256 cellar: :any,                 arm64_monterey: "a45dee27f1476a882f3bb9c813c50ca7ade0f8746e3bb5597d17f0ac5e556691"
-    sha256 cellar: :any,                 arm64_big_sur:  "6899676686e3bbe23b37d8d55c80f732ca0cf9d8da93c184957d278be653c77a"
-    sha256 cellar: :any,                 ventura:        "73d8a3edbda6481135f1f41bf9487c8dc95cb87758d1a8e2378c2bc1c2c8093a"
-    sha256 cellar: :any,                 monterey:       "c2ed7027d5075c6963d352978b1f314e93b2d7625fc1390276dbd0888403bb5d"
-    sha256 cellar: :any,                 big_sur:        "10b61feb8873148644facc80cc794e7d5a942e25e2e340dd60345e8e9d336cd0"
-    sha256 cellar: :any,                 catalina:       "9134a8266be698258ba7943fc19b662c4c056c96465e50d7bae34a8d8181e8c4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e4e34f0a44f98a1810af111a56841d7964204d2924fa4b8b3d78309d6c1ee81f"
+    sha256 cellar: :any,                 arm64_ventura:  "41ee2cc8d1ce336ab3ae51f6341b65615bf69fdff1fbc437079740180fb56388"
+    sha256 cellar: :any,                 arm64_monterey: "7608654ff68ea5e85f247fe6b7a371da0253dabd4a5b52e77a5e39c349ac78cd"
+    sha256 cellar: :any,                 arm64_big_sur:  "aa70f35f7bd948d48ad2f87979b59c09f0794ee980c3e5c712da9a8c84ddbf40"
+    sha256 cellar: :any,                 ventura:        "a35b8b8aba3007ec5bef729f7acc3da1cd88aad702b61210b01fdb15ab43e1a1"
+    sha256 cellar: :any,                 monterey:       "cabf6dfd56b1523f69d60cd6011408cde00a174558c94783649d05b2cf702ddd"
+    sha256 cellar: :any,                 big_sur:        "26e7c8faf89cc2302f7b67fbc632c2e93111089fb072acfe2cd872ffbf80706d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "02387de3793afccd0635bd8d77c19600a8d1ab8ce0e7d4cdaa6473f78e218917"
   end
 
   depends_on "cmake" => :build
   depends_on xcode: :build
-  depends_on "qt@5"
+  depends_on "qt"
 
   fails_with gcc: "5"
 
   def install
-    mkdir "build" do
-      system "cmake", "..", *std_cmake_args
-      system "cmake", "--build", ".", "--target", "install"
-    end
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
@@ -53,7 +50,7 @@ class Qxmpp < Formula
       }
     EOS
 
-    system "#{Formula["qt@5"].bin}/qmake", "test.pro"
+    system "#{Formula["qt"].bin}/qmake", "test.pro"
     system "make"
     assert_predicate testpath/"test", :exist?, "test output file does not exist!"
     system "./test"

@@ -2,8 +2,8 @@ class Zeek < Formula
   desc "Network security monitor"
   homepage "https://www.zeek.org"
   url "https://github.com/zeek/zeek.git",
-      tag:      "v5.1.1",
-      revision: "80d359af4993d8202bb735da5e3ebe8a75a24431"
+      tag:      "v5.1.3",
+      revision: "0b8bb63846ecddb7e3a8105669a3a992c994c721"
   license "BSD-3-Clause"
   head "https://github.com/zeek/zeek.git", branch: "master"
 
@@ -13,13 +13,13 @@ class Zeek < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "fa93e6176cf97f82780d2110414e7934fdbcf8070bebc8ef9407b5ab589ad4b9"
-    sha256 arm64_monterey: "80060a6e15fbaa65b7a74a2712e31bca292a20c713a9563cd1da714e3d63a385"
-    sha256 arm64_big_sur:  "ef2b9e304742a56d4f0652453620721188a525f8e0778d6ee4a4b4d8b81fc770"
-    sha256 ventura:        "8b0c9da0ac2c56f3e3f1ff99ef840d261dc693b4716af04efe297027dec4cfcd"
-    sha256 monterey:       "9c4a13980311f9245221e5f3eb27c968daab730f83ee3e1fff9516755caf9b08"
-    sha256 big_sur:        "cb5eff2965c0acafbe74111e22c062482226c423034b91956e12a4e19322616b"
-    sha256 x86_64_linux:   "284858db0d06901a300639c78e39527846955640c0cfde7226983dee5a384d74"
+    sha256 arm64_ventura:  "ab342dda2effd3cc86dd825fe322995ac0a758742803fdb30d653084dde30a60"
+    sha256 arm64_monterey: "d4c3856fbd177cb6de1b9cd3fe5133668995facf80e2ab621664b27c650e0374"
+    sha256 arm64_big_sur:  "ba6b6af1d2cd50edd0fe54b7ba743f6df772d0f91889a50f627fbeaa1471049f"
+    sha256 ventura:        "8b28eae61955a3cde9d669d5365928d3549d1c4ce68bac6f0fea25a9cfd4606b"
+    sha256 monterey:       "159074a3f4dac0310f487ff6ca6d990866d4342a8cb5c9c3fab7550877d2fb0f"
+    sha256 big_sur:        "ca993f113156f8c6bafff6f3f60c8c49490cf439c85e58cca354791caf1fcc91"
+    sha256 x86_64_linux:   "8a5770068695010f4fe7b61570b8c3d7334126df72af26904bf583be8e65ce0c"
   end
 
   depends_on "bison" => :build
@@ -42,7 +42,7 @@ class Zeek < Formula
     (buildpath/"auxil/c-ares").rmtree
 
     # Remove SDK paths from zeek-config. This breaks usage with other SDKs.
-    # https://github.com/corelight/zeek-community-id/issues/15
+    # https://github.com/Homebrew/homebrew-core/pull/74932
     inreplace "zeek-config.in" do |s|
       s.gsub! "@ZEEK_CONFIG_PCAP_INCLUDE_DIR@", ""
       s.gsub! "@ZEEK_CONFIG_ZLIB_INCLUDE_DIR@", ""

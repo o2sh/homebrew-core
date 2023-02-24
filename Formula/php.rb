@@ -2,11 +2,10 @@ class Php < Formula
   desc "General-purpose scripting language"
   homepage "https://www.php.net/"
   # Should only be updated if the new version is announced on the homepage, https://www.php.net/
-  url "https://www.php.net/distributions/php-8.2.1.tar.xz"
-  mirror "https://fossies.org/linux/www/php-8.2.1.tar.xz"
-  sha256 "650d3bd7a056cabf07f6a0f6f1dd8ba45cd369574bbeaa36de7d1ece212c17af"
+  url "https://www.php.net/distributions/php-8.2.3.tar.xz"
+  mirror "https://fossies.org/linux/www/php-8.2.3.tar.xz"
+  sha256 "b9b566686e351125d67568a33291650eb8dfa26614d205d70d82e6e92613d457"
   license "PHP-3.01"
-  revision 1
 
   livecheck do
     url "https://www.php.net/downloads"
@@ -14,13 +13,13 @@ class Php < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "4c5e762f5a2b5d46ada4c853d063ec0f4f7ead573dd538a20a361b53d039ea9f"
-    sha256 arm64_monterey: "726b06ef84a3633959451388093f84e9b2d574842dfbad06647edc8cc28477c4"
-    sha256 arm64_big_sur:  "329f45cabb79b93c73a4c52db9e1c67cb1c1d4545f5bf4212a15b52a09e071fb"
-    sha256 ventura:        "2c8c4fac19396b19a780d3be69239873a4714daa1fed8452a712ee31d86c86aa"
-    sha256 monterey:       "30c3cc26d847a194c0ca25a57ad91746f772522539b2139aff048a2a0f4514cc"
-    sha256 big_sur:        "9e9bb8fcee29ed80fd9888554a00679482c1b43026c610edd2332d15821f4d7f"
-    sha256 x86_64_linux:   "d151ea218b48389c5371eb6c6fbc5aec9fddc0bc9a47a735f7f99ef9dd667311"
+    sha256 arm64_ventura:  "6b6e08ce673598dff946cfe49d5c9020c84cdfb731a66016d11d01b459f2d3de"
+    sha256 arm64_monterey: "5b0e2af510e09f75225342116ace301689edc13578b242f045e862e4df012aa4"
+    sha256 arm64_big_sur:  "ac70300d7e6c5916d6c0aff5adcd92d2610cb43f51dbdeff91a8ead6998053fb"
+    sha256 ventura:        "150b42f609f8cea7e474f99af64897a1f400c74edf0725d6aa03607a3e691186"
+    sha256 monterey:       "d687c9db80341af5876cf74d3066a2eaf6201c2b4639cff4de9c678148ec5119"
+    sha256 big_sur:        "f04bcff9af793b3ff237bc140f1b10e79540cf1181b8fc4c251efd764d6aac0a"
+    sha256 x86_64_linux:   "b154f5712d282e68684581b52bbe0c3df6b02bca711a2439d37c5c254cc8c223"
   end
 
   head do
@@ -117,6 +116,10 @@ class Php < Formula
     # sdk path or it won't find the headers
     headers_path = "=#{MacOS.sdk_path_if_needed}/usr" if OS.mac?
 
+    # `_www` only exists on macOS.
+    fpm_user = OS.mac? ? "_www" : "www-data"
+    fpm_group = OS.mac? ? "_www" : "www-data"
+
     args = %W[
       --prefix=#{prefix}
       --localstatedir=#{var}
@@ -150,8 +153,8 @@ class Php < Formula
       --with-external-gd
       --with-external-pcre
       --with-ffi
-      --with-fpm-user=_www
-      --with-fpm-group=_www
+      --with-fpm-user=#{fpm_user}
+      --with-fpm-group=#{fpm_group}
       --with-gettext=#{Formula["gettext"].opt_prefix}
       --with-gmp=#{Formula["gmp"].opt_prefix}
       --with-iconv#{headers_path}

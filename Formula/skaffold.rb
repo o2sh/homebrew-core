@@ -2,19 +2,20 @@ class Skaffold < Formula
   desc "Easy and Repeatable Kubernetes Development"
   homepage "https://skaffold.dev/"
   url "https://github.com/GoogleContainerTools/skaffold.git",
-      tag:      "v2.0.4",
-      revision: "01dd5065e6c1f91b046edef95074e68050a9c28c"
+      tag:      "v2.1.0",
+      revision: "c037d6f51276e178a2c05c1c59665956ff34aa4c"
   license "Apache-2.0"
   head "https://github.com/GoogleContainerTools/skaffold.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e5a573a87bbe90fdf10e349380b65be965716b04dd44d110432b97c148546de5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3a62dbfef499d47e54a85825d105d62244e44c81641e1ece15a70eac3ea7dbb9"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "4c0fbcb49d785db009b132f10e1e933c7606edaf46fc9eed53e7c9f235f58f3d"
-    sha256 cellar: :any_skip_relocation, ventura:        "15e20a3251af8604a8627aaeadf8a0bfe0709c5b37afbd123a1940dd2caaf8ad"
-    sha256 cellar: :any_skip_relocation, monterey:       "d8f720533099d4ccf76e66523d1fb84a2eff40ae222e44111047a8b134dac632"
-    sha256 cellar: :any_skip_relocation, big_sur:        "53aa216e1eaa03d2e9f2266745596b30d22df5e6dcf499c75783b5d87ba19303"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a6615b786e04648135c930eb0a97681c51569f0fccd952a45cdcf4ceefae82e2"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f60f2374710d54762e8e0d5cf25793980411cdf9ecfec10085785f84e253e47b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4102990f228e02265e52cdd6a1cf380a14d981673d2b745523297e765befcb29"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "faa59bdce824e7ae3d1c965cf73c6ea0b4225dd2b160f2241f122edc16f4066f"
+    sha256 cellar: :any_skip_relocation, ventura:        "fede808a5437920e66fb6578a5ae724fe87df60f64a75caa673cf94176f69b29"
+    sha256 cellar: :any_skip_relocation, monterey:       "33b31b0d8068139640feaa38182c6d8f173a0e62afd2497f273e6244302c5103"
+    sha256 cellar: :any_skip_relocation, big_sur:        "9c98a140c81d14c8737b477a31c0e8e64a515a3ba9668ee52601f1c9ed88fab6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "aca7dc50074b37c22ae0a24bf5c0c725ceb02dccc49159328dbf19c20d1afa6a"
   end
 
   depends_on "go" => :build
@@ -22,7 +23,7 @@ class Skaffold < Formula
   def install
     system "make"
     bin.install "out/skaffold"
-    generate_completions_from_executable(bin/"skaffold", "completion", shells: [:bash, :zsh])
+    generate_completions_from_executable(bin/"skaffold", "completion")
   end
 
   test do

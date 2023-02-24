@@ -1,8 +1,8 @@
 class StorjUplink < Formula
   desc "Uplink CLI for the Storj network"
   homepage "https://storj.io"
-  url "https://github.com/storj/storj/archive/refs/tags/v1.68.2.tar.gz"
-  sha256 "024629df45fb7434c790b88f1908dab4af69aa19f02cf1215da57947e02814ee"
+  url "https://github.com/storj/storj/archive/refs/tags/v1.71.2.tar.gz"
+  sha256 "74e70f180c258f58c9e048d24e4e6a2ac4d71240d342d942ee6255cfe2827418"
   license "AGPL-3.0-only"
 
   livecheck do
@@ -11,16 +11,20 @@ class StorjUplink < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b07611217ecf6f9a24f2c38b860d94ceb289b0a264bdb1ae7111907bddc41af0"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "878e52b794bca9559969d9594cb54be8a78726bfc4d1341706d6cf131254798e"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "122a2ae1f13a3e0c2cec2caacfe898c8d79173d9be5c104259a2621ae9a8d422"
-    sha256 cellar: :any_skip_relocation, ventura:        "f09c42c8a3e0c35d970ad0e2682a21ad7ac9a45b22c0a6f1fed9955551ab4205"
-    sha256 cellar: :any_skip_relocation, monterey:       "d4c6f393a8cc9743e7fecee9b8593d174c59b480044673f0e54932bd5aaf2230"
-    sha256 cellar: :any_skip_relocation, big_sur:        "eb3733cb017f9f94b74120b720453e89af03841be76a156b4cae42dcb9bf023a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9b96e462373fe06561f442565361bc81a24b3719faf5f8b88da19cf6743aacda"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2645db079a3998873e8f4f7d35b7f09da2e1e39ec7e4a340ece1f3202be5211c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "76b2aabd5d1852c538e7608e0c64d5e3f95c7ec8d4f9dcfeb312ac89d8441ec7"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "d3cd55494f5fe820cb36c6cbd120841927e07a9874ef61191e9d6b924645a0fe"
+    sha256 cellar: :any_skip_relocation, ventura:        "a9062922cd377dda2542b87b0548cad2a1401f351d9f45654ebb0b8472f9a9f8"
+    sha256 cellar: :any_skip_relocation, monterey:       "6a17e6d3576810c527e42874ca4804382a49af3d7ae048500a9092d4478e9d28"
+    sha256 cellar: :any_skip_relocation, big_sur:        "3b244a75c3348137316567c5d217fa1a739985c1c8af9fc24efa9841a660a6d3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7750b031bb79718eaaa0cc839a356e7894314f88375cecf01975490f2d11b7c8"
   end
 
-  depends_on "go" => :build
+  # Support for go 1.20 is merged upstream but not yet landed in a tag:
+  # https://github.com/storj/storj/commit/873a2025307ef85a1ff2f6bab37513ce3a0e0b4c
+  # Remove on next release.
+  depends_on "go@1.19" => :build
 
   def install
     system "go", "build", *std_go_args(output: bin/"uplink"), "./cmd/uplink"

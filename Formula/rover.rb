@@ -1,28 +1,19 @@
 class Rover < Formula
   desc "CLI for managing and maintaining data graphs with Apollo Studio"
   homepage "https://www.apollographql.com/docs/rover/"
+  url "https://github.com/apollographql/rover/archive/refs/tags/v0.12.2.tar.gz"
+  sha256 "bbb04e68a8772f46daae1b19840640026f1ba8d7202557b15a90b10259ec3090"
   license "MIT"
   head "https://github.com/apollographql/rover.git", branch: "main"
 
-  stable do
-    url "https://github.com/apollographql/rover/archive/refs/tags/v0.10.0.tar.gz"
-    sha256 "5132d1e1f4f5eb3c6e8b2254e7c75c638d35023992869185704e3ead2c99e2ff"
-
-    # Fix build for Rust 1.66.0
-    # Upstream commit ref, https://github.com/apollographql/rover/commit/f41e0894824663f62caf8fab6d10a6904449ec39
-    # remove in next release
-    patch :DATA
-  end
-
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e4870951580fd04489eb919d2dd32449b0125966ae08b3b57f763d1e55779bb6"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7edd5e0cbdb2157440042abb506c6874076c69dc76055dd6ef364f55d4713306"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "30fbb6ca81d7bdab3a19527779418d51d1761c13b4b8015c42130240285dc0d1"
-    sha256 cellar: :any_skip_relocation, ventura:        "730545ededa10e202f9874927adfc0c896bae32c7cb5399be732470ed5b01d11"
-    sha256 cellar: :any_skip_relocation, monterey:       "7818bb257d22e0fdaad8f211d3b5171012687296d4bf418786dfcb3c9c8baef7"
-    sha256 cellar: :any_skip_relocation, big_sur:        "79466bed67bcf94fc1e1e6249f1e2e9f7753916cd77b07cd2f43dd686e51dd06"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6f82800525cdb5b3fd57c07ecbe7813d9f278285e48310b4b7abd13b7de3003b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b8348ee639d8db9e32f1fcc0b5961f5a555793b09ba2dff036701596854494df"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "84c915911535e57213564b68e7d7674bc825ceebc745f89c4e7a934ab875f7c2"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "009b0723b4d33218f69a81dc3f2644e04e8a907bed3f70cdfe0764e69559fda8"
+    sha256 cellar: :any_skip_relocation, ventura:        "3799c024ac8502c875a4f7592a5a05a3bd8dbbf94c0fd41212d388c3c7b10506"
+    sha256 cellar: :any_skip_relocation, monterey:       "84d05a18063d49aadfdad4dca9bea3059af131dabc0d1288eeab04399dae1b73"
+    sha256 cellar: :any_skip_relocation, big_sur:        "d2fd4c29c83b951de22b19b1b7bc9eea3d1c84a7b52157a5b14c84ab01e706c2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "68ea2753a333e18da4cf2506524db21298a96388960bef62ed387d8470ebd7ef"
   end
 
   depends_on "rust" => :build
@@ -41,31 +32,3 @@ class Rover < Formula
     assert_match version.to_s, shell_output("#{bin}/rover --version")
   end
 end
-
-__END__
-diff --git a/crates/rover-client/src/operations/graph/check/types.rs b/crates/rover-client/src/operations/graph/check/types.rs
-index 842db8e..9074c32 100644
---- a/crates/rover-client/src/operations/graph/check/types.rs
-+++ b/crates/rover-client/src/operations/graph/check/types.rs
-@@ -22,7 +22,7 @@ impl From<CheckSchemaAsyncInput> for MutationVariables {
-             graph_id: input.graph_ref.name,
-             name: input.graph_ref.variant,
-             input: MutationInput {
--                graph_ref: graph_ref.to_string(),
-+                graph_ref: Some(graph_ref.to_string()),
-                 proposed_schema_document: Some(input.proposed_schema),
-                 git_context: input.git_context.into(),
-                 config: input.config.into(),
-diff --git a/crates/rover-client/src/operations/subgraph/check/types.rs b/crates/rover-client/src/operations/subgraph/check/types.rs
-index 6a76692..cb06d72 100644
---- a/crates/rover-client/src/operations/subgraph/check/types.rs
-+++ b/crates/rover-client/src/operations/subgraph/check/types.rs
-@@ -23,7 +23,7 @@ impl From<SubgraphCheckAsyncInput> for MutationVariables {
-             graph_id: input.graph_ref.name,
-             name: input.graph_ref.variant,
-             input: MutationInput {
--                graph_ref: graph_ref.to_string(),
-+                graph_ref: Some(graph_ref.to_string()),
-                 proposed_schema: input.proposed_schema,
-                 git_context: input.git_context.into(),
-                 config: input.config.into(),

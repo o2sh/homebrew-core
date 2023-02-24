@@ -1,20 +1,19 @@
 class Passenger < Formula
   desc "Server for Ruby, Python, and Node.js apps via Apache/NGINX"
   homepage "https://www.phusionpassenger.com/"
-  url "https://github.com/phusion/passenger/releases/download/release-6.0.16/passenger-6.0.16.tar.gz"
-  sha256 "f2a4e9d718e62cc4aca5f03ed461cca14eb0c383d2bd96f47cebcc40b619873a"
+  url "https://github.com/phusion/passenger/releases/download/release-6.0.17/passenger-6.0.17.tar.gz"
+  sha256 "385559ed1d78eb83165222d568721dcc4222bb57c1939811ecd2c4ef33937ba7"
   license "MIT"
-  revision 1
   head "https://github.com/phusion/passenger.git", branch: "stable-6.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "edb5c8d94569c932c9cf7e164a1c11bb87e81c68997bb46c066d11e32fd7b650"
-    sha256 cellar: :any,                 arm64_monterey: "de3e03a9a40e4239092faf19293202192374871c73b2e28f6caffb6d0fe74bd3"
-    sha256 cellar: :any,                 arm64_big_sur:  "608b5e5215c6bf8330b85af91a7bfff315824719285d299a0463408318c93cd4"
-    sha256 cellar: :any,                 ventura:        "60ebadb635e30a048e81e4a20f3b3b2c5738b2f21f092fd8bfe03b4dcb4823ce"
-    sha256 cellar: :any,                 monterey:       "fe35f8a353b495b477377582fce7e2b84baebe5ceeb47b0a15d00acebcb7bda8"
-    sha256 cellar: :any,                 big_sur:        "90c1d3511b97e8e2061f5f5743991a04e807b4dae19dc1abdaffe0f64da150c5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "01786b3c6b4280892e36f298285980d2e54a2771c73e577cbf5ca846a3f38e44"
+    sha256 cellar: :any,                 arm64_ventura:  "c337215890e0a2098401123699e2d35f6517a1ef99fa2e9af572d36af2b5580f"
+    sha256 cellar: :any,                 arm64_monterey: "9a159825e6ed8472fd3239be0f54f8a9998474fa9e35bdb4d49150886504bd39"
+    sha256 cellar: :any,                 arm64_big_sur:  "4dd57f1a385100f5f2c166e1c898f5db6709e4a0606c4479764775a82276cb1f"
+    sha256 cellar: :any,                 ventura:        "dc9e0a09ac83404ea6b6931acd53a94e9ca5e4558d1474fe12b2acb76477915a"
+    sha256 cellar: :any,                 monterey:       "ff6302650bf8cdf1b6d4bb813e6dcc41b1ecd6308464ce6fb6b8dd524e5449fe"
+    sha256 cellar: :any,                 big_sur:        "ff96d0f9373027403e51c69762802c1b324d5ad777d97d28796677e50252ba1d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8eb4b9076c2da3c0590ba4ee76e80ac8ef1b99880dfc7ed900c996c7b8f426af"
   end
 
   depends_on "httpd" => :build # to build the apache2 module
@@ -23,15 +22,12 @@ class Passenger < Formula
   depends_on "apr-util"
   depends_on "openssl@1.1"
   depends_on "pcre"
+  depends_on "pcre2"
 
   uses_from_macos "xz" => :build
   uses_from_macos "curl"
   uses_from_macos "libxcrypt"
   uses_from_macos "ruby", since: :catalina
-
-  # Fix compatibility with Ruby 3.2.
-  # Remove after next 6.0.17 release.
-  patch :DATA
 
   def install
     if MacOS.version >= :mojave && MacOS::CLT.installed?
@@ -88,7 +84,15 @@ class Passenger < Formula
     system "./dev/install_scripts_bootstrap_code.rb",
       "--ruby", ruby_libdir, *Dir[libexec/"bin/*"]
 
-    system "./bin/passenger-config", "compile-nginx-engine"
+    # Recreate the tarball with a top-level directory, and use Gzip compression.
+    mkdir "nginx-#{Formula["nginx"].version}" do
+      system "tar", "-xf", "#{Formula["nginx"].opt_pkgshare}/src/src.tar.xz", "--strip-components", "1"
+    end
+    system "tar", "-czf", buildpath/"nginx.tar.gz", "nginx-#{Formula["nginx"].version}"
+
+    system "./bin/passenger-config", "compile-nginx-engine",
+      "--nginx-tarball", buildpath/"nginx.tar.gz",
+      "--nginx-version", Formula["nginx"].version
     cp Dir["buildout/support-binaries/nginx*"], libexec/"buildout/support-binaries", preserve: true
 
     nginx_addon_dir.gsub!(/^#{Regexp.escape Dir.pwd}/, libexec)
@@ -155,30 +159,3 @@ class Passenger < Formula
     system "#{Formula["nginx"].opt_bin}/nginx", "-t", "-c", testpath/"nginx.conf"
   end
 end
-__END__
-diff --git a/src/ruby_native_extension/extconf.rb b/src/ruby_native_extension/extconf.rb
-index 95964c5f1..09c820d51 100644
---- a/src/ruby_native_extension/extconf.rb
-+++ b/src/ruby_native_extension/extconf.rb
-@@ -24,7 +24,7 @@
- 
- # Apple has a habit of getting their Ruby headers wrong, so if we are building using system ruby we need to patch things up, sierra & mojave both did this.
- # eg https://openradar.appspot.com/46465917
--if RUBY_PLATFORM =~ /darwin/ && !File.exists?(RbConfig::CONFIG["rubyarchhdrdir"])
-+if RUBY_PLATFORM =~ /darwin/ && !File.exist?(RbConfig::CONFIG["rubyarchhdrdir"])
-   RbConfig::CONFIG["rubyarchhdrdir"].sub!(RUBY_PLATFORM.split('-').last, Dir.entries(File.dirname(RbConfig::CONFIG["rubyarchhdrdir"])).reject{|d|d.start_with?(".","ruby")}.first.split('-').last)
- end
- 
-diff --git a/src/ruby_supportlib/phusion_passenger/platform_info/operating_system.rb b/src/ruby_supportlib/phusion_passenger/platform_info/operating_system.rb
-index de17c072a..ecc24b710 100644
---- a/src/ruby_supportlib/phusion_passenger/platform_info/operating_system.rb
-+++ b/src/ruby_supportlib/phusion_passenger/platform_info/operating_system.rb
-@@ -247,7 +247,7 @@ def self.supports_lfence_instruction?
-     memoize :supports_lfence_instruction?, true
- 
-     def self.requires_no_tls_direct_seg_refs?
--      return File.exists?("/proc/xen/capabilities") && cpu_architectures[0] == "x86"
-+      return File.exist?("/proc/xen/capabilities") && cpu_architectures[0] == "x86"
-     end
-     memoize :requires_no_tls_direct_seg_refs?, true
- 

@@ -3,27 +3,27 @@ class Fabric < Formula
 
   desc "Library and command-line tool for SSH"
   homepage "https://www.fabfile.org/"
-  url "https://files.pythonhosted.org/packages/1f/36/9969093324a67cee916f484eda7b3547e8f8e6077f5f2a1814cde80d6fc2/fabric-2.7.1.tar.gz"
-  sha256 "76f8fef59cf2061dbd849bbce4fe49bdd820884385004b0ca59136ac3db129e4"
+  url "https://files.pythonhosted.org/packages/2f/84/dbcbc78055397a783134f56b30c70a61a645fae568d73ec7aa301f5f93fd/fabric-3.0.0.tar.gz"
+  sha256 "bfe960c1ae904e7624af9d40ad5b9b99581ed9c4fd09349c0d02b7486e1d0f89"
   license "BSD-2-Clause"
-  revision 2
+  revision 1
   head "https://github.com/fabric/fabric.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "1c383f4b427c8df4a8ec18aadc845f66f2901162c2e720cf06fadf71130e9373"
-    sha256 cellar: :any,                 arm64_monterey: "cbca54d55cf21dc0118f5aabcd845fc4c25cb61164980a7a2a7299f12e219f1b"
-    sha256 cellar: :any,                 arm64_big_sur:  "4ed0495fc1d8711b8be3defcfa68c9bd7fc728f3d9b2b091d96dfb19e2beb7bc"
-    sha256 cellar: :any,                 ventura:        "7e269cc7e83d6715267577c5ddc8218f5e86dca11a00c550f89c837baee11d3d"
-    sha256 cellar: :any,                 monterey:       "4b8091d8425fdb568673c6023eeeaf7ea42dabb0e8ce7140539ad8877c523486"
-    sha256 cellar: :any,                 big_sur:        "2c838b6a71d10bff7561e310833e790c37cdfa498368f45960fae90afc071226"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e0cf726a0575e5076a774def8cee85a3d603c6aba5757369a30e28a0e4af685e"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "3e7a998cbf4c4b494913fd5b490993da538664297fd1914cc8515b690c884b18"
+    sha256 cellar: :any,                 arm64_monterey: "03e191da03a9635719ddf90cb9609694efd61bca6951f5546d598887464b2691"
+    sha256 cellar: :any,                 arm64_big_sur:  "f1c8329161860111aeee27be89c54b4b33ca9240a3d7bb16231ce278998e48b1"
+    sha256 cellar: :any,                 ventura:        "9020bd6bee66200685748c2bb2d7e88c6e67e3f1c14f76d0c9d541b50742ffa5"
+    sha256 cellar: :any,                 monterey:       "b0b5a088a0fe8edca05cd28bd58ce37ff61a7ba229d130e783fd053623f87ca6"
+    sha256 cellar: :any,                 big_sur:        "7be3304df4e392f04a6adc9990fb4e15467b71ce0129d4eb6d5ec1ef879836a6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e15b8c75bb33f2b76915cda69bead546dd2a6c354078820712dad79736a826c2"
   end
 
   depends_on "rust" => :build
   depends_on "openssl@1.1"
   depends_on "pyinvoke"
   depends_on "python@3.11"
-  depends_on "six"
 
   resource "bcrypt" do
     url "https://files.pythonhosted.org/packages/8c/ae/3af7d006aacf513975fd1948a6b4d6f8b4a307f8a244e1a3d3774b297aad/bcrypt-4.0.1.tar.gz"
@@ -36,8 +36,8 @@ class Fabric < Formula
   end
 
   resource "cryptography" do
-    url "https://files.pythonhosted.org/packages/12/e3/c46c274cf466b24e5d44df5d5cd31a31ff23e57f074a2bb30931a8c9b01a/cryptography-39.0.0.tar.gz"
-    sha256 "f964c7dcf7802d133e8dbd1565914fa0194f9d683d82411989889ecd701e8adf"
+    url "https://files.pythonhosted.org/packages/6a/f5/a729774d087e50fffd1438b3877a91e9281294f985bda0fd15bf99016c78/cryptography-39.0.1.tar.gz"
+    sha256 "d1f6198ee6d9148405e49887803907fe8962a23e6c6f83ea7d98f1c0de375695"
   end
 
   resource "decorator" do
@@ -46,13 +46,8 @@ class Fabric < Formula
   end
 
   resource "paramiko" do
-    url "https://files.pythonhosted.org/packages/98/75/e78ddbe671a4a59514b59bc6a321263118e4ac3fe88175dd784d1a47a00f/paramiko-2.12.0.tar.gz"
-    sha256 "376885c05c5d6aa6e1f4608aac2a6b5b0548b1add40274477324605903d9cd49"
-  end
-
-  resource "pathlib2" do
-    url "https://files.pythonhosted.org/packages/31/51/99caf463dc7c18eb18dad1fffe465a3cf3ee50ac3d1dccbd1781336fe9c7/pathlib2-2.3.7.post1.tar.gz"
-    sha256 "9fe0edad898b83c0c3e199c842b27ed216645d2e177757b2dd67384d4113c641"
+    url "https://files.pythonhosted.org/packages/3b/6b/554c00e5e68cd573bda345322a4e895e22686e94c7fa51848cd0e0442a71/paramiko-3.0.0.tar.gz"
+    sha256 "fedc9b1dd43bc1d45f67f1ceca10bc336605427a46dcdf8dec6bfea3edf57965"
   end
 
   resource "pycparser" do

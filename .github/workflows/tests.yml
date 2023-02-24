@@ -10,6 +10,7 @@ env:
   HOMEBREW_DEVELOPER: 1
   HOMEBREW_GITHUB_ACTIONS: 1
   HOMEBREW_NO_AUTO_UPDATE: 1
+  HOMEBREW_NO_INSTALL_FROM_API: 1
 
 concurrency:
   group: "tests-${{ github.ref }}"
@@ -234,6 +235,7 @@ jobs:
       - name: Run brew test-bot ${{ needs.setup_tests.outputs.test-bot-formulae-args }}
         id: brew-test-bot-formulae
         run: |
+          rm -rf bottles
           mkdir bottles
           cd bottles
           brew test-bot ${{ needs.setup_tests.outputs.test-bot-formulae-args }}
@@ -299,10 +301,10 @@ jobs:
           cd bottles
           count=$(ls *.json | wc -l | xargs echo -n)
           echo "$count bottles"
-          echo "::set-output name=count::$count"
+          echo "count=$count" >> $GITHUB_OUTPUT
           failures=$(ls failed/*.json | wc -l | xargs echo -n)
           echo "$failures failed bottles"
-          echo "::set-output name=failures::$failures"
+          echo "failures=$failures" >> $GITHUB_OUTPUT
 
       - name: Upload failed bottles
         if: always() && steps.bottles.outputs.failures > 0

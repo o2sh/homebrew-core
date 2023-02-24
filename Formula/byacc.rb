@@ -1,8 +1,8 @@
 class Byacc < Formula
   desc "(Arguably) the best yacc variant"
   homepage "https://invisible-island.net/byacc/"
-  url "https://invisible-mirror.net/archives/byacc/byacc-20221229.tgz"
-  sha256 "1316c6f790fafa6688427f1ff91267b61d8b7873b443c620eef69a6eff0503bc"
+  url "https://invisible-mirror.net/archives/byacc/byacc-20230219.tgz"
+  sha256 "36b972a6d4ae97584dd186925fbbc397d26cb20632a76c2f52ac7653cd081b58"
   license :public_domain
 
   livecheck do
@@ -11,13 +11,13 @@ class Byacc < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "aa9607f33e445754df53a511e4709c20c59b6153fb14bc46145b8e72ba494a57"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c49f9e9a375aafb1e91c440f672b87169947bfb6ed5e7d2ac549ccd789a14b6f"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "d2808bfeaaaf39410087e2d69c71aed20d7cc623e0694a67ab0f1a4cf9438b04"
-    sha256 cellar: :any_skip_relocation, ventura:        "28fda19c22a42d213e96d96a3339e6153f035844c01795b850ef684b3054f507"
-    sha256 cellar: :any_skip_relocation, monterey:       "73cde3c5b5e0d8a10272c6ffc8be39fcd8c9317b0879c2abe797271cf44264a0"
-    sha256 cellar: :any_skip_relocation, big_sur:        "0337093fd4866b45c5498e5ccf4aa2235dc7f4a80a35f14028c140feb9ef22af"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d35126d07e966467a7c3a2174288357542ad7e2bc56a98879c3e0ef2414d5dd1"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c27d3b4306a3f6da130924168f2547747dfba84c53b25f54c9f91909392eab2f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "b4d6ae246c3e6dcac5ecb016d4c649631c2ab11a426e673158d003a74715f3e4"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "49bc1409746ef53be72ae0984ec561ae5d80cadf235999f0785543e75f26084d"
+    sha256 cellar: :any_skip_relocation, ventura:        "ccb4ee0e9db64ae04cffeac6726565c94e67d17de0c73380053f198b29c812dc"
+    sha256 cellar: :any_skip_relocation, monterey:       "d4fe491d44ce577bee9175373529edb9e935e75c97eda16898608032c8c76307"
+    sha256 cellar: :any_skip_relocation, big_sur:        "0c73f59a258c3bb72639af19f6a40e57d50153aab96b229227252d87682deb0b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "497cd593142ec405b5f3515589e6e4cb8b50479a8f1a3ceaa99bdf6d00f70424"
   end
 
   def install

@@ -3,18 +3,18 @@ class Dotdrop < Formula
 
   desc "Save your dotfiles once, deploy them everywhere"
   homepage "https://deadc0de.re/dotdrop"
-  url "https://files.pythonhosted.org/packages/a7/ed/6c24d9ab04e483b16dacf0fc4e7de26b90b9f46801537a69db4c62674aab/dotdrop-1.12.4.tar.gz"
-  sha256 "1630cd14aa3495b3de4eb3c1dbdc8f9566cfe52a1dbaaff127167215b798a0ba"
+  url "https://files.pythonhosted.org/packages/9d/24/5ee874ea959151216778320b910c11b5d829066314e0fbeee5a2a7439958/dotdrop-1.12.11.tar.gz"
+  sha256 "6874134b5f023725a3553731ec4603e0064f0ca4f794acec5165c41f53fcdbe1"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9d99d52464a00683eecebae2bb00e800e6bf0b42ad6f5dba05ec2b5fd6d18091"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7ccc139b9130552941e5b32fafb3dd75405e6054e44a714546e93592d5153e78"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "00b87d21b5107d43ce16d987c9b65f5c58a841ed4dba8bd1db74d574342af988"
-    sha256 cellar: :any_skip_relocation, ventura:        "fc8a68f18c77746d92d4738cefd5535909ab3381ee06a6ff03247f52699edb46"
-    sha256 cellar: :any_skip_relocation, monterey:       "b95d7692c5a7d822b7dd64eaee9a3d5be343a3022bdfe9f92d446dd78537d5fa"
-    sha256 cellar: :any_skip_relocation, big_sur:        "860ecd23e6fdbde742ee868b08ad47336290c5862fddbc9a53768b8ebbbb08aa"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "22674f25aaf1039b9130619429fc9ac42e7bca4aadb496afc19250999def3631"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "00a6ed4481a110a25064e8685e2db48bf5f11af8634298bf6528fb0ebfa80671"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8e923ac3650b11b34b86a75be4e963a3dff85952e28acc00c9d39a3102b4537f"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "fa6316f51cd8157fa25137c499108dc0315b862f199b33d7a71014eb252a8f3b"
+    sha256 cellar: :any_skip_relocation, ventura:        "fac0a818e8436df9273aad21f33017b14dcc53c262ca45ab6ad2fc878c5d829c"
+    sha256 cellar: :any_skip_relocation, monterey:       "cc5c96aa8620f0ec96892036b7862997d040d9d50803b3433b3f1deea069f1a2"
+    sha256 cellar: :any_skip_relocation, big_sur:        "3561229fdd1b0cb1dafb8ce61f835f1092fd8a96486b3255d7d084ed4d7b9b18"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8c29782440c2079731f426bcbcece829bc4e8734e899c0b380b965850a24cd50"
   end
 
   depends_on "libmagic"
@@ -51,8 +51,8 @@ class Dotdrop < Formula
   end
 
   resource "MarkupSafe" do
-    url "https://files.pythonhosted.org/packages/1d/97/2288fe498044284f39ab8950703e88abbac2abbdf65524d576157af70556/MarkupSafe-2.1.1.tar.gz"
-    sha256 "7f91197cc9e48f989d12e4e6fbc46495c446636dfc81b9ccf50bb0ec74b91d4b"
+    url "https://files.pythonhosted.org/packages/95/7e/68018b70268fb4a2a605e2be44ab7b4dd7ce7808adae6c5ef32e34f4b55a/MarkupSafe-2.1.2.tar.gz"
+    sha256 "abcabc8c2b26036d62d4c746381a6f7cf60aafcc653198ad678306986b09450d"
   end
 
   resource "packaging" do

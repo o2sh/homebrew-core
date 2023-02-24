@@ -3,19 +3,19 @@ require "language/node"
 class Pyright < Formula
   desc "Static type checker for Python"
   homepage "https://github.com/microsoft/pyright"
-  url "https://registry.npmjs.org/pyright/-/pyright-1.1.290.tgz"
-  sha256 "7272f0eeac3664a35da00858e585b3927dfcde3a64957e455f2602f6e1417b18"
+  url "https://registry.npmjs.org/pyright/-/pyright-1.1.295.tgz"
+  sha256 "abd46d8f4258673fdf2167f0bb6ee243019d086b7e49ad5bb305013abd4be0a9"
   license "MIT"
   head "https://github.com/microsoft/pyright.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "95f56aa23e85e11d51fd3cdc1596e1060351a796fc075ac74d73f2889d21620d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "95f56aa23e85e11d51fd3cdc1596e1060351a796fc075ac74d73f2889d21620d"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "95f56aa23e85e11d51fd3cdc1596e1060351a796fc075ac74d73f2889d21620d"
-    sha256 cellar: :any_skip_relocation, ventura:        "1304f4c7364ad7d3b5afb4f9994db1c0e16d0c5b784f247f10e5bb6d4e9fd14a"
-    sha256 cellar: :any_skip_relocation, monterey:       "1304f4c7364ad7d3b5afb4f9994db1c0e16d0c5b784f247f10e5bb6d4e9fd14a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "1304f4c7364ad7d3b5afb4f9994db1c0e16d0c5b784f247f10e5bb6d4e9fd14a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "95f56aa23e85e11d51fd3cdc1596e1060351a796fc075ac74d73f2889d21620d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3a8700842eea745e39e2adf04523204627b1dc2697815d5f712f3b6d63d4df6c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "3a8700842eea745e39e2adf04523204627b1dc2697815d5f712f3b6d63d4df6c"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "3a8700842eea745e39e2adf04523204627b1dc2697815d5f712f3b6d63d4df6c"
+    sha256 cellar: :any_skip_relocation, ventura:        "00abf24a233ba56c330a1b28c9d431e220a6223859fc1506a159298d92d4783e"
+    sha256 cellar: :any_skip_relocation, monterey:       "00abf24a233ba56c330a1b28c9d431e220a6223859fc1506a159298d92d4783e"
+    sha256 cellar: :any_skip_relocation, big_sur:        "00abf24a233ba56c330a1b28c9d431e220a6223859fc1506a159298d92d4783e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3a8700842eea745e39e2adf04523204627b1dc2697815d5f712f3b6d63d4df6c"
   end
 
   depends_on "node"

@@ -1,22 +1,26 @@
 class Kwctl < Formula
   desc "CLI tool for the Kubewarden policy engine for Kubernetes"
   homepage "https://www.kubewarden.io/"
-  url "https://github.com/kubewarden/kwctl/archive/refs/tags/v1.4.2.tar.gz"
-  sha256 "e04e75063689e73a386e841987307d473520a8f9834acf8d08434cc6cc688d60"
+  url "https://github.com/kubewarden/kwctl/archive/refs/tags/v1.5.3.tar.gz"
+  sha256 "a09eef843cfc8301706718165dac499fac546b5cc7dc170f7b2dfa2ab0f25c07"
   license "Apache-2.0"
   head "https://github.com/kubewarden/kwctl.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e9c2c796d3c25ba33d6c8f907a1755dbd639f31e51dd83268c5efc91aca3d4a7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ea8e61cbf57feb4fab235d78dc4ad629babb58a6e277bfc27c6e5e7ce9dce2ad"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "32d2ee30a7ee663fd8ab7809016e7c4b1c6ae41526e185f41a7591f4804d2457"
-    sha256 cellar: :any_skip_relocation, ventura:        "4078c8caaa3aa2388465ef1bd2cf084e8e3f771f2e5e0a8b9d0200f67dcea492"
-    sha256 cellar: :any_skip_relocation, monterey:       "5f431513a9fee9aa40302909df7f653be7ceb9427eb78e303e74f6d26da7c2b8"
-    sha256 cellar: :any_skip_relocation, big_sur:        "cebc85df660e2624ff4353764c181d4b2a96c8c320261af889d0024ad0447728"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fd435cefc90b9ef6eaf66f05e9fbf9f669e54a851e57731c62172920f708ce01"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2011149b19a67cc3f1ea8eb539464a052fdb5ef689ed3eea110e53053f0f19a9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "503425d99e773c7fe953c2c4a5e062a31f51ddfed412223c2dd49463ca32bab1"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "0b9223f94cfc784e7fd4abd71cc1ba75a44ced7ac5fedaad1b6674c8b68ba049"
+    sha256 cellar: :any_skip_relocation, ventura:        "c47e3ff8eb049a6d2549cc4f722949b29044e5ec3a81ef999f81570b34be2124"
+    sha256 cellar: :any_skip_relocation, monterey:       "53bab7336e137d7f1d6c2f4071d6987108ae343ad965dc464d1739afc859d17c"
+    sha256 cellar: :any_skip_relocation, big_sur:        "72239fc5132f2a49a46cc1a1e13a0d1c6d413491e71270e0b31bfabe996918e5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "05f38a10b116c057ac821d784f450fc692162a4fbc7d6010f476563927ccea84"
   end
 
   depends_on "rust" => :build
+
+  on_linux do
+    depends_on "pkg-config" => :build
+  end
 
   def install
     system "cargo", "install", *std_cargo_args

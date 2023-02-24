@@ -1,10 +1,9 @@
 class Pdal < Formula
   desc "Point data abstraction library"
   homepage "https://www.pdal.io/"
-  url "https://github.com/PDAL/PDAL/releases/download/2.4.3/PDAL-2.4.3-src.tar.gz"
-  sha256 "abac604c6dcafdcd8a36a7d00982be966f7da00c37d89db2785637643e963e4c"
+  url "https://github.com/PDAL/PDAL/releases/download/2.5.0/PDAL-2.5.0-src.tar.gz"
+  sha256 "5eab602af7003be84935fae3548a6e7018a4b4a6d8f8812c845847eea33239d2"
   license "BSD-3-Clause"
-  revision 4
   head "https://github.com/PDAL/PDAL.git", branch: "master"
 
   # The upstream GitHub repository sometimes creates tags that only include a
@@ -13,18 +12,18 @@ class Pdal < Formula
   # substitute the version from livecheck in the `stable` URL, so we check the
   # first-party download page, which links to the tarballs on GitHub.
   livecheck do
-    url "https://pdal.io/en/stable/download.html"
+    url "https://pdal.io/en/latest/download.html"
     regex(/href=.*?PDAL[._-]v?(\d+(?:\.\d+)+)[._-]src\.t/i)
   end
 
   bottle do
-    sha256                               arm64_ventura:  "b145597a2bc716cbcbaf26d84decccb036ec13b128660ed75650a0b1d701ddca"
-    sha256                               arm64_monterey: "da9093b3d6f58a288c57d1881655d8ff40eda857fe64927d04dcdb123f638289"
-    sha256                               arm64_big_sur:  "9eff84edbe30ac408fd28f0903af506ae6864a0b108d6ed5c32bb726292751b1"
-    sha256                               ventura:        "8aace20f820b6f384a629d003ff9a868ab7b65ce93342d1da0db7a4cad9fa97a"
-    sha256                               monterey:       "c8e4d8faebdb46f9e9884f4a84dc58fc5cc82ec15e86ec6b70a2c5d860b55d72"
-    sha256                               big_sur:        "4862f29cfc6f7778ba3427cab71d77598830f178b196edb61827321f9940bd34"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6c2eea1807baa6fd1a77cf2068b8b42853188fc20b38fdf4073285633a2d4819"
+    sha256                               arm64_ventura:  "0fcae423bf1948c7d87d7c10bcfc7c163b33a24052e5d7658947e8f59aede8e1"
+    sha256                               arm64_monterey: "153f751482e3eb3a7f6843f948ace993841e3b5ed9d893007a8b8bb2e7c046c7"
+    sha256                               arm64_big_sur:  "dc190d2b8ec5b7ba6b25a40376a118076673660c606ca40c7c63b070cea739c8"
+    sha256                               ventura:        "3950233d6a9a9c04c1853d76ab2fdf4df2db7a69eeb2cf8fac10e6d98fd23474"
+    sha256                               monterey:       "2ad2b5e91d3054429d7e475d50158e89148b06124decbdda65e91fcf011903f6"
+    sha256                               big_sur:        "0f39bbac6c839f8c8a3c282aaa86c5f5928162e1393d464c5219e7d4eb08c23d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "060664f801ff90d2f1a4e5b223ea24f5767b75d246aae418f3d92afbf4698795"
   end
 
   depends_on "cmake" => :build

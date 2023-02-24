@@ -1,10 +1,9 @@
 class Webkitgtk < Formula
   desc "GTK interface to WebKit"
   homepage "https://webkitgtk.org"
-  url "https://webkitgtk.org/releases/webkitgtk-2.38.3.tar.xz"
-  sha256 "41f001d1ed448c6936b394a9f20e4640eebf83a7f08262df28504f7410604a5a"
+  url "https://webkitgtk.org/releases/webkitgtk-2.38.5.tar.xz"
+  sha256 "40c20c43022274df5893f22b1054fa894c3eea057389bb08aee08c5b0bb0c1a7"
   license "GPL-3.0-or-later"
-  revision 1
 
   livecheck do
     url "https://webkitgtk.org/releases/"
@@ -12,12 +11,12 @@ class Webkitgtk < Formula
   end
 
   bottle do
-    sha256 x86_64_linux: "9771341c774e6727f80793398b2625115b3c544d8bb89dac2e6141f8ac7de083"
+    sha256 x86_64_linux: "fa7f309762791e239d5ad1a28a73dc84351bb6cf4bb479e30c274024e623ffa2"
   end
 
   depends_on "cmake" => :build
   depends_on "gobject-introspection" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkg-config" => [:build, :test]
   depends_on "python@3.11" => :build
   depends_on "cairo"
   depends_on "enchant"

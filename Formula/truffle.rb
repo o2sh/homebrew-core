@@ -3,18 +3,18 @@ require "language/node"
 class Truffle < Formula
   desc "Development environment, testing framework and asset pipeline for Ethereum"
   homepage "https://trufflesuite.com"
-  url "https://registry.npmjs.org/truffle/-/truffle-5.7.3.tgz"
-  sha256 "7faa8c5a8b6861bcfe5cb0821f328f5f228bf63c923817a755b6fc05c498a716"
+  url "https://registry.npmjs.org/truffle/-/truffle-5.7.7.tgz"
+  sha256 "552b930012e4e2adfdd97343f3e74ae57766f793dc27a6ca9c8cd119e8bf67cd"
   license "MIT"
 
   bottle do
-    sha256                               arm64_ventura:  "17f295be7a5d58db564da7e2ddf87ddc313f64cc8493311ad92c6dd918da5fe5"
-    sha256                               arm64_monterey: "d92a77d0963aca3c346da47ef86ec3b3305390d7807dae29240df8a726791458"
-    sha256                               arm64_big_sur:  "ebf701e249324a113f0278be34648698c85aaaf7361887d4fb16fe9f395edc33"
-    sha256                               ventura:        "e153296cffd27acc88be7d9cb9d48c91c374e087b7d9442084f0ddcb9ac3be5f"
-    sha256                               monterey:       "e011357b2286eb1b467b61f6519611c4840b1a116f3561d480ab1d7ae4172651"
-    sha256                               big_sur:        "fa59c46becb41c3c99b1cb7255a30b808d0aa3ffb4e8f988a8cf136fca68641e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "52c365c79c396e5ca8a37256fbc541737058dba2420017d7440a034004b088d8"
+    sha256                               arm64_ventura:  "498689feddeef8e282d4739177409c033dc4e8aff9eb306e33856dff88a95f2a"
+    sha256                               arm64_monterey: "cff31151c9942f689c4cb8b7516edf1d9c552a0bd2d1d39e3e2d986ece311e0e"
+    sha256                               arm64_big_sur:  "98480fce2b1b7fd5a415019189a84781d4c239e319e0b8d1bb5e7bccbe318768"
+    sha256                               ventura:        "37ec68efb0f6dde5fb492d3fbb14704a1b649612ceb3cb4e316a5ae121d7fc30"
+    sha256                               monterey:       "940c9504d8282b9ad0b14e407dcaff485467e7347f5959c8c23d4add8692a1bd"
+    sha256                               big_sur:        "7070b306841756c105006ef4407a43ed1ee5303232a26a6de962688eb53681f0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "30484fee4d3d6a6bcb0ca5b5fa2d475f133dc6631c12c31de440dbc88b52ef1e"
   end
 
   depends_on "node"

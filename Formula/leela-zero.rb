@@ -5,17 +5,18 @@ class LeelaZero < Formula
   url "https://github.com/leela-zero/leela-zero.git",
       tag:      "v0.17",
       revision: "3f297889563bcbec671982c655996ccff63fa253"
-  license "GPL-3.0"
+  license "GPL-3.0-or-later"
   revision 3
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "0f2c0c4a069b613bf9c685447bead6375f71ccb9737800049b3bac3ef8b00525"
-    sha256 cellar: :any,                 arm64_monterey: "6774b93733d09000e1dee96c30121bdd33727734bad3a9d622d7f0e918a26c87"
-    sha256 cellar: :any,                 arm64_big_sur:  "06ae17d8ad3475b1deecee730a1b016eea91aa223267105fa925c708f4d30576"
-    sha256 cellar: :any,                 ventura:        "def45059b0e71028374487e27b2f540218ff9057b79a351b31a53d609f989d18"
-    sha256 cellar: :any,                 monterey:       "69f9f6e60bb36b5d1eabbdc33d58c4772d37dfe4c6e17e4f3745569292153b6b"
-    sha256 cellar: :any,                 big_sur:        "ab3c6444d9b61cfef71f3055e93716e7ec3c7af5315766b9ff1f6be5239289a8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "23edd4fefe24d94423a93561c2055dc06f0ab0322b9658abac34b6e1c33dc44f"
+    rebuild 2
+    sha256 cellar: :any,                 arm64_ventura:  "f3cfeaf311cd1715bf4d7b7045e489e9c35c5dd3a9d4eed2abe27f696564dd80"
+    sha256 cellar: :any,                 arm64_monterey: "3416764fa7047342ff9a7972e4e22aef964f00d20df18f754f45c36a4f95f6ff"
+    sha256 cellar: :any,                 arm64_big_sur:  "c7dac38a5dbd96d2581a6b3ef6abb2cf4cf1dc2ac9bf4817bbaed93d84e52af8"
+    sha256 cellar: :any,                 ventura:        "c0a94fee58b9250b31479a1bc6a6dc8ed39df132500e1e52427dac3f22d78a66"
+    sha256 cellar: :any,                 monterey:       "4aafab60cf165569f6062866a9ed6385177d976d4fb9869f8cc3b8c09b7f5c00"
+    sha256 cellar: :any,                 big_sur:        "c488bd8ecb4ef01d1237de4048a99466ce946cb0afd98e1b5363dd779111555b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f1ae871d017708d7663f1957bc120bf474fca14332e543f99625ce730478fdae"
   end
 
   depends_on "cmake" => :build
@@ -23,7 +24,7 @@ class LeelaZero < Formula
 
   on_linux do
     depends_on "opencl-headers" => :build
-    depends_on "ocl-icd"
+    depends_on "opencl-icd-loader"
     depends_on "pocl"
   end
 
@@ -33,17 +34,14 @@ class LeelaZero < Formula
   end
 
   def install
-    mkdir "build"
-    cd "build" do
-      system "cmake", "..", *std_cmake_args
-      system "cmake", "--build", "."
-      bin.install "leelaz"
-    end
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
     pkgshare.install resource("network")
   end
 
   test do
-    system "#{bin}/leelaz", "--help"
+    system bin/"leelaz", "--help"
     assert_match(/^= [A-T][0-9]+$/,
       pipe_output("#{bin}/leelaz --cpu-only --gtp -w #{pkgshare}/*.gz", "genmove b\n", 0))
   end

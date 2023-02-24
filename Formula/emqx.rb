@@ -1,19 +1,19 @@
 class Emqx < Formula
   desc "MQTT broker for IoT"
   homepage "https://www.emqx.io/"
-  url "https://github.com/emqx/emqx/archive/refs/tags/v5.0.14.tar.gz"
-  sha256 "6c737e65c9d569c47d47b8de91b93cb11ee4a7ab592e4146c80b6c3c6153887c"
+  url "https://github.com/emqx/emqx/archive/refs/tags/v5.0.17.tar.gz"
+  sha256 "4fadb30b28d2bdad529342cfce55fd00f56d21bcbf929c51479dcbc5648bd1a6"
   license "Apache-2.0"
   head "https://github.com/emqx/emqx.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any, arm64_ventura:  "baededdd38781bf253b44885ce5ecf2faef9cf8763a6fbe1a0e3b0dca092e4a0"
-    sha256 cellar: :any, arm64_monterey: "7599d9e411842438601070bf8bcbe76564ad1e0a8f54584cdad4091970bd76cf"
-    sha256 cellar: :any, arm64_big_sur:  "71c6dbc62ab62d28ea5f9c1df75564c1a4d4cd1d67b28f6513f2e7b42bda6f57"
-    sha256 cellar: :any, ventura:        "ab56a504231d5bafc8204e5a9481e44ffa964e6839ab5e633843aedde26e9495"
-    sha256 cellar: :any, monterey:       "36ea307caa022b5329c8775cb2061077713997435d2840a58febf4db2330a915"
-    sha256 cellar: :any, big_sur:        "c7450e95fbc7abe43450aff0679657917bb5bc7657fc8d2192eacfefe1d10c45"
-    sha256               x86_64_linux:   "96904f77f3b53d2bdd0d8b8d2431f0cc6929061879dcce08b369207af156fcd0"
+    sha256 cellar: :any, arm64_ventura:  "e0bdaebbf52cfe482dc052560c40b9885b48cc82cf1692a7a09a2ce507515820"
+    sha256 cellar: :any, arm64_monterey: "41198334dcb55b82e9517e6ae1481171042e4cf1b676051509e6e5a8d81ec796"
+    sha256 cellar: :any, arm64_big_sur:  "f3b8d0b56cbe2090db51f6e1cdaa1165796252fbab73a7c0ba7539d722e1089c"
+    sha256 cellar: :any, ventura:        "db7d6080d74aa415b63c707d75bd624a8b046a835e3189d8336ba0d6e9b9a042"
+    sha256 cellar: :any, monterey:       "113a9d20183fe3b918861923a0893201ed25084032744166fc07d9b1df180aa0"
+    sha256 cellar: :any, big_sur:        "56a6664c0ebafda67df336cc3886db73f2d1d2b211d95cdecbed790d9cbab7fa"
+    sha256               x86_64_linux:   "5d0a03a8ddede04390b2a1c5036a46028fad8aee5470ade02fdc97d01b9255dd"
   end
 
   depends_on "autoconf"  => :build
@@ -21,14 +21,14 @@ class Emqx < Formula
   depends_on "ccache"    => :build
   depends_on "cmake"     => :build
   depends_on "coreutils" => :build
-  depends_on "erlang@24" => :build
+  depends_on "erlang"    => :build
   depends_on "freetds"   => :build
   depends_on "libtool"   => :build
-  depends_on "openssl@3"
+  depends_on "openssl@1.1"
 
-  uses_from_macos "curl"    => :build
-  uses_from_macos "unzip"   => :build
-  uses_from_macos "zip"     => :build
+  uses_from_macos "curl"  => :build
+  uses_from_macos "unzip" => :build
+  uses_from_macos "zip"   => :build
 
   on_linux do
     depends_on "ncurses"
@@ -38,13 +38,13 @@ class Emqx < Formula
   def install
     ENV["PKG_VSN"] = version.to_s
     touch(".prepare")
-    system "make", "emqx-rel"
-    prefix.install Dir["_build/emqx/rel/emqx/*"]
-    rm %W[
-      #{bin}/emqx.cmd
-      #{bin}/emqx_ctl.cmd
-      #{bin}/no_dot_erlang.boot
-    ]
+    system "make", "emqx"
+    system "tar", "xzf", "_build/emqx/rel/emqx/emqx-#{version}.tar.gz", "-C", prefix
+    %w[emqx.cmd emqx_ctl.cmd no_dot_erlang.boot].each do |f|
+      rm bin/f
+    end
+    chmod "+x", prefix/"releases/#{version}/no_dot_erlang.boot"
+    bin.install_symlink prefix/"releases/#{version}/no_dot_erlang.boot"
   end
 
   test do

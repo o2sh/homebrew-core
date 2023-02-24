@@ -3,7 +3,7 @@ class Julia < Formula
   homepage "https://julialang.org/"
   # Use the `-full` tarball to avoid having to download during the build.
   #
-  # TODO: Use system `suite-sparse` when `julia` supports v6.
+  # TODO: Use system `suite-sparse` when `julia` supports v7.
   # Issue ref: https://github.com/JuliaLang/julia/issues/47884
   url "https://github.com/JuliaLang/julia/releases/download/v1.8.5/julia-1.8.5-full.tar.gz"
   sha256 "35554080a4b4d3ce52ef220254306bd42ac0d88eff9eb85592a57d0663db5df2"
@@ -11,16 +11,18 @@ class Julia < Formula
   head "https://github.com/JuliaLang/julia.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "8b45ec4ce5468d03bb94f69dee628ee4825ffeb1367afb459b670f8133227851"
-    sha256 cellar: :any,                 arm64_monterey: "514d53743912fa14afb76b078426d50b86507bde478fe0d7eccf16d28ea3aa43"
-    sha256 cellar: :any,                 arm64_big_sur:  "33142e0cc8a8717de76b2b07cb39894b76f78abb6d633aade97786cc811094b6"
-    sha256 cellar: :any,                 ventura:        "900e344a56e58415ea29e72ef661e79adb6b484a235239d58af83bdda15c2d61"
-    sha256 cellar: :any,                 monterey:       "d0aa241d4f6aad4b5c8b6e737d12b326173cd2c5ac23c51f40e02e44785f0262"
-    sha256 cellar: :any,                 big_sur:        "f6451f63c8b8deb18ed792ba1fc2c076933e9a899d120122ef1c36862a672353"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b8533af5ab2f6e870726f974d4dec20d6fe5da9fa4336536bbe124a81e856f0b"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "c1037240e426c9fc671d5789cac61d0b3d549c1030575531f1521ddb1c86874f"
+    sha256 cellar: :any,                 arm64_monterey: "0167c6cf98e943213b5e0008f606b451a2af33d7e096225734c7511d06031420"
+    sha256 cellar: :any,                 arm64_big_sur:  "7917478a969d2c77943e06b838870598667c9ffba66d1e0ab7a8cf10a6779d8e"
+    sha256 cellar: :any,                 ventura:        "9df6a752cddfcf40c2557142dda80affe16a65cba15ae38804e7db56b72e5117"
+    sha256 cellar: :any,                 monterey:       "838b1e930dd3c706a09760e15c16297522744ea6c34858dcfdbc4eb7ce404f67"
+    sha256 cellar: :any,                 big_sur:        "04d835e6a1f86cbdeed2008abbee5f67875d2d4530f38dec8c7ea32ad298200b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f654ce16ae86789190edc823dcaeadffd175311897e58dc55ae14135a61c09a7"
   end
 
   depends_on "cmake" => :build # Needed to build LLVM
+  depends_on "suite-sparse" => :test # Check bundled copy is used
   depends_on "ca-certificates"
   depends_on "curl"
   depends_on "gcc" # for gfortran
@@ -34,7 +36,6 @@ class Julia < Formula
   depends_on "openlibm"
   depends_on "p7zip"
   depends_on "pcre2"
-  # TODO: depends_on "suite-sparse"
   depends_on "utf8proc"
 
   uses_from_macos "perl" => :build
@@ -111,6 +112,7 @@ class Julia < Formula
     args << "JULIA_CPU_TARGET=#{cpu_targets.join(";")}" if build.stable?
     args << "TAGGED_RELEASE_BANNER=Built by #{tap.user} (v#{pkg_version})"
 
+    ENV.append "LDFLAGS", "-Wl,-rpath,#{lib}/julia"
     # Help Julia find keg-only dependencies
     deps.map(&:to_formula).select(&:keg_only?).map(&:opt_lib).each do |libdir|
       ENV.append "LDFLAGS", "-Wl,-rpath,#{libdir}"
@@ -125,7 +127,6 @@ class Julia < Formula
       ENV.append "LDFLAGS", "-Wl,-rpath,/usr/lib" # Needed to find macOS zlib.
     else
       ENV.append "LDFLAGS", "-Wl,-rpath,#{lib}"
-      ENV.append "LDFLAGS", "-Wl,-rpath,#{lib}/julia"
     end
 
     # Remove library versions from MbedTLS_jll, nghttp2_jll and others

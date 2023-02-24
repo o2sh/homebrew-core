@@ -2,19 +2,19 @@ class Chezmoi < Formula
   desc "Manage your dotfiles across multiple diverse machines, securely"
   homepage "https://chezmoi.io/"
   url "https://github.com/twpayne/chezmoi.git",
-      tag:      "v2.29.2",
-      revision: "b9536aae9100a2367e7b5baad8a7e251542c45bd"
+      tag:      "v2.31.0",
+      revision: "4d2bc846212e27fae1e5bbd45d70e00908da603b"
   license "MIT"
   head "https://github.com/twpayne/chezmoi.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8efb217012484117ce390de8d15af632c790c46f12be82e5d4ebcba017acf9c3"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7f640d608f3358ba71fa1d05b7ca03999f5005e6b8d20b52c87217f2ee43694c"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "bb107e1e3f928f464e638324dd30928bd1e0ff2a93cbc326fac09295aea4b47f"
-    sha256 cellar: :any_skip_relocation, ventura:        "6bdaffb6ec111b5b2817b22a26e435338a3153906192731ca28b373b29bc5994"
-    sha256 cellar: :any_skip_relocation, monterey:       "9a5b379953177da2aa340258017892f642ca2b1e2e893b412f95e1de39eb5d3c"
-    sha256 cellar: :any_skip_relocation, big_sur:        "414cfabec946d6d6526bf1ff586ba26fb6eee8c669a29d0f89cf2d67284e9612"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "09b34c1142f9396d5bc71993fb5a955bad0878bb94793eef3538b81595463f73"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "948c68885b0de2a96aacc8411a45bc1f6c1d8652d7dcd270d0d497c962d66b43"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "dc0b79aed71f41bd410af6061e387155c36076f91657c0212fbd433b298ef68b"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "d2d9b770af6f4c323e07e10caf856f280ea8967b73be729fa45d2065f3021957"
+    sha256 cellar: :any_skip_relocation, ventura:        "c5fc46dbe2f066a40829ab504684ecfc0598aff118fd14f91229713d4e1753e8"
+    sha256 cellar: :any_skip_relocation, monterey:       "23377358ab940177f57630e78fadf28d28e14c24a55bee29e3b3c30fa750eb1e"
+    sha256 cellar: :any_skip_relocation, big_sur:        "c491864f12398ee8602c083a3f86b7d20f1373ec8177c4be2188e6675a1cb605"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "408895387f94019773dee74554073d4a6657c67e0764735710ee2f46b0e47d6c"
   end
 
   depends_on "go" => :build
@@ -24,7 +24,7 @@ class Chezmoi < Formula
       -s -w
       -X main.version=#{version}
       -X main.commit=#{Utils.git_head}
-      -X main.date=#{time.rfc3339}
+      -X main.date=#{time.iso8601}
       -X main.builtBy=#{tap.user}
     ]
     system "go", "build", *std_go_args(ldflags: ldflags)

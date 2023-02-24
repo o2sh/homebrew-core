@@ -4,6 +4,7 @@ class Gdal < Formula
   url "http://download.osgeo.org/gdal/3.6.2/gdal-3.6.2.tar.xz"
   sha256 "35f40d2e08061b342513cdcddc2b997b3814ef8254514f0ef1e8bc7aa56cf681"
   license "MIT"
+  revision 3
 
   livecheck do
     url "https://download.osgeo.org/gdal/CURRENT/"
@@ -11,13 +12,13 @@ class Gdal < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "d08762b512461dee51727b5f9039f8f7cda24f45af98f079a394c886d69d796e"
-    sha256 arm64_monterey: "57ee5af7856afd3d7de3c9100826e7a564b2aad8f7baca123da52d55d6eeab46"
-    sha256 arm64_big_sur:  "5b51bb6dfc5d237ed7d2309dc2d893565479a6d3106de8206bf2e9eab271a087"
-    sha256 ventura:        "a4fec61bbc5ac86eabd4c06d2b86a961a26d05ab8983a131e07772356a74c483"
-    sha256 monterey:       "6d3c327fb8482acaa12a4532dd0193b044e36a58161b54e18c6ff72ca0482a8f"
-    sha256 big_sur:        "f2bf6ce3f81043819dde60f065428c64a9fadd92f0b892669874b888a713973f"
-    sha256 x86_64_linux:   "7e3f364f934ddc0048563a3085a4d10bb962d233806ce235dc6284b6ae87d398"
+    sha256 arm64_ventura:  "a09caa6cd22ac96250419ecbde02872fdecc702a8bf1bfc6d5fded6c2b61276f"
+    sha256 arm64_monterey: "d2532b7324a6a9bf5ee69cdb137f2bdd742650876a0d45a5b70e90c709178a90"
+    sha256 arm64_big_sur:  "2f5577e416507e97326f9201c53fff03490ea3413b8432861b350302f1f328b6"
+    sha256 ventura:        "23d0a19c201d33b6f1d1fc015341b32e86f9a9bc1af8d185fe928b8ab5afb754"
+    sha256 monterey:       "807ef51b603b7a6677c70c8087da02d1a83a89f57d6b1be2952de651c3b069c3"
+    sha256 big_sur:        "b90886dc07fdfd4e8c6cbf74bedf4ce0b1baa2005b94a3f787f8de8ac26dc642"
+    sha256 x86_64_linux:   "48d9c5dcba2417194cc0ddc1cff846cb6621efa3cb5953a57cc96b50aa462ecf"
   end
 
   head do
@@ -41,6 +42,7 @@ class Gdal < Formula
   depends_on "libdap"
   depends_on "libgeotiff"
   depends_on "libheif"
+  depends_on "liblerc"
   depends_on "libpng"
   depends_on "libpq"
   depends_on "libspatialite"
@@ -54,6 +56,7 @@ class Gdal < Formula
   depends_on "poppler"
   depends_on "proj"
   depends_on "python@3.11"
+  depends_on "qhull"
   depends_on "sqlite"
   depends_on "unixodbc"
   depends_on "webp"
@@ -83,12 +86,19 @@ class Gdal < Formula
               /(set\(INSTALL_ARGS "--single-version-externally-managed --record=record.txt")\)/,
               "\\1 --install-lib=#{prefix/Language::Python.site_packages(python3)})"
 
-    system "cmake", "-S", ".", "-B", "build",
-                    "-DBUILD_PYTHON_BINDINGS=ON",
-                    "-DPython_EXECUTABLE=#{which(python3)}",
-                    "-DENABLE_PAM=ON",
-                    "-DCMAKE_INSTALL_RPATH=#{lib}",
-                    *std_cmake_args
+    # keep C++ standard in sync with `abseil.rb`
+    args = %W[
+      -DENABLE_PAM=ON
+      -DBUILD_PYTHON_BINDINGS=ON
+      -DCMAKE_INSTALL_RPATH=#{lib}
+      -DPython_EXECUTABLE=#{which(python3)}
+      -DCMAKE_CXX_STANDARD=17
+    ]
+
+    # JavaVM.framework in SDK causing Java bindings to be built
+    args << "-DBUILD_JAVA_BINDINGS=OFF" if MacOS.version <= :catalina
+
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end

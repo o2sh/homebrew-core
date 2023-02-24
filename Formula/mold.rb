@@ -1,19 +1,19 @@
 class Mold < Formula
   desc "Modern Linker"
   homepage "https://github.com/rui314/mold"
-  url "https://github.com/rui314/mold/archive/v1.9.0.tar.gz"
-  sha256 "faf381ba268e714bec7f872de0dd6ea9187ae20b4e12c434a67ac92854701280"
+  url "https://github.com/rui314/mold/archive/v1.10.1.tar.gz"
+  sha256 "19e4aa16b249b7e6d2e0897aa1843a048a0780f5c76d8d7e643ab3a4be1e4787"
   license "AGPL-3.0-only"
   head "https://github.com/rui314/mold.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "3442e57a91ae0af551479f1f8790c83877fb955d2491e4b4ee681002dda1ee06"
-    sha256 cellar: :any,                 arm64_monterey: "313dd3345e75ba5ebf9f9cf3240556222bc7305688b0f36c8c28b20fce4da186"
-    sha256 cellar: :any,                 arm64_big_sur:  "8f91804c4cce8ffc31c5e98b9ecd110faaf5a6132a4fdd0cb29c4733e86fa59e"
-    sha256 cellar: :any,                 ventura:        "92219fb96541e7376c9f3473b8bd3e2266cec4e475a58ca28c9aff3ef21a17e9"
-    sha256 cellar: :any,                 monterey:       "7c42c20f814d72ddc41d62c0e4a2b14c3037c841f4260f022bd63b622e3a4efc"
-    sha256 cellar: :any,                 big_sur:        "aa96462ca9ffb19d0d57ef173d5decc96ba8c3633cfa2199bf972bab94697e40"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f0ea60dcfa4fe095ef0038132178568dd0034b6122ab546efe694cef25f6f84d"
+    sha256 cellar: :any,                 arm64_ventura:  "41c470ed38ccb4a7693582514388d09394f8a1aa82a38facaf8f32606a8a346a"
+    sha256 cellar: :any,                 arm64_monterey: "daefd55abeb1761a76aa964e202d2b5775bd93c1c48eaf044b5693b2e18a3f77"
+    sha256 cellar: :any,                 arm64_big_sur:  "c12a49ee4a1fa780959c08960c211d7df05b49881e2dbb32f119de528f1e9ee1"
+    sha256 cellar: :any,                 ventura:        "d724d5b837a060f95f10d4fdd2888b84e8fe4f18a31e99d83463bc268196553a"
+    sha256 cellar: :any,                 monterey:       "b305856bb491e3db7c3d185a967840e10d602b0c6c3bedfcfdd47800919dfeac"
+    sha256 cellar: :any,                 big_sur:        "a819a049f75bc106e6ba4bba4712b4a86718397bd18d15e2bf0b96d9305f8c13"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bf0da43e2724210e3850bdbdb0dd4f686af84c068afb0d9db5a37424cdf37248"
   end
 
   depends_on "cmake" => :build
@@ -45,7 +45,7 @@ class Mold < Formula
 
     # Avoid embedding libdir in the binary.
     # This helps make the bottle relocatable.
-    inreplace "config.h.in", "@CMAKE_INSTALL_FULL_LIBDIR@", ""
+    inreplace "common/config.h.in", "@CMAKE_INSTALL_FULL_LIBDIR@", ""
     # Ensure we're using Homebrew-provided versions of these dependencies.
     %w[mimalloc tbb zlib zstd].map { |dir| (buildpath/"third-party"/dir).rmtree }
     args = %w[

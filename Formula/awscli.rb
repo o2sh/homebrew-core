@@ -3,19 +3,19 @@ class Awscli < Formula
 
   desc "Official Amazon AWS command-line interface"
   homepage "https://aws.amazon.com/cli/"
-  url "https://github.com/aws/aws-cli/archive/2.9.16.tar.gz"
-  sha256 "54a041d71752d0c90875dbda4eea95863740c582a6f78eb5a089ef87014c4b0f"
+  url "https://github.com/aws/aws-cli/archive/2.10.2.tar.gz"
+  sha256 "6007460875c10a9e3e5f07b3dfecfd6e5216756ced4399f9e498cf8a847289f5"
   license "Apache-2.0"
   head "https://github.com/aws/aws-cli.git", branch: "v2"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "cd090f1a6318f3e4a069253fc72c2d73f22bc2deadc7687a769257c133807618"
-    sha256 cellar: :any,                 arm64_monterey: "d58c7f37a73d3787f63c0f2510c09b3a22df971591c8570340405e7b66f3ba89"
-    sha256 cellar: :any,                 arm64_big_sur:  "16cddc4f5126f4e720c749df167ccf08cbfc39fec750fefdb2669e7c220d3a57"
-    sha256 cellar: :any,                 ventura:        "bb558910ddd11c6ce79f35255a7e6ca673741021ab53568fe2be36eaaea9a290"
-    sha256 cellar: :any,                 monterey:       "caa56e6a2bb10af8ee1bdb939a1eba3ec7358953f3ca726488c298ae16230885"
-    sha256 cellar: :any,                 big_sur:        "d19f9ba4b162bbb5c133ff6ae4962845c68a7d0e8295a9c2683e5475ed612ae9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "30a5d84f7a4dcc3070fe31ff599e63fb8051ef40833a822b610bbf52c4f0bf42"
+    sha256 cellar: :any,                 arm64_ventura:  "18efaa089b9ff15b474467f045db4f9de85a6a641a86978821658612be7c3eb8"
+    sha256 cellar: :any,                 arm64_monterey: "1766775dd3686e249560bb42a262b07979e6d844df2b171b0f22ade30b0fe537"
+    sha256 cellar: :any,                 arm64_big_sur:  "a339fb83d7560be0a0482465f696c666e16213c3d6eee68245a33b0843d02348"
+    sha256 cellar: :any,                 ventura:        "34b444647c98237ffe5eeecd2b2935e3119c8859d8c55ea7afa77b91c734c2df"
+    sha256 cellar: :any,                 monterey:       "04c454b29e2d48088b5c873821d2733ea2be76599160c094039be8638fcae5e2"
+    sha256 cellar: :any,                 big_sur:        "272b1d06d23052a7740c3e33aa21042ab19ff2b276e9c1d01b5f5ee423707233"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "099fb52ce14436f7b8c90d154c4b9e9e6ff8ea3928c09c4aae9bfd461062afb3"
   end
 
   depends_on "cmake" => :build
@@ -28,11 +28,11 @@ class Awscli < Formula
 
   # Python resources should be updated based on setup.cfg. One possible way is:
   # 1. Run `pipgrip 'awscli @ #{url}' --sort`
-  # 2. Ignore `six`. Update all other PyPI packages
+  # 2. Ignore `docutils` and `six`. Update all other PyPI packages
 
   resource "awscrt" do
-    url "https://files.pythonhosted.org/packages/0d/97/5afeb22210c2133bad3560f2030b43ef7d47acee04fe32ac9004287e7dd9/awscrt-0.16.4.tar.gz"
-    sha256 "65f7e7555aa2ede7e49eab5b24561299faddadf899e0b5b7f17e54d34a95188c"
+    url "https://files.pythonhosted.org/packages/ae/98/dda092078f2d47bad08e184ab9d364b8f89166497062bc1cf811c0bbbde2/awscrt-0.16.10.tar.gz"
+    sha256 "3101499b479b82f0403f615bf520c1f8b9506818d275e3e28ade25cc6bcdb92b"
   end
 
   resource "cffi" do

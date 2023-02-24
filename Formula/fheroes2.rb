@@ -1,8 +1,8 @@
 class Fheroes2 < Formula
   desc "Free Heroes of Might and Magic II is a recreation of HoMM2 game engine"
   homepage "https://ihhub.github.io/fheroes2/"
-  url "https://github.com/ihhub/fheroes2/archive/1.0.0.tar.gz"
-  sha256 "80468b4eaf128ac5179a3416a02e2a2ef4ab34d90876b179fccd8d505f950440"
+  url "https://github.com/ihhub/fheroes2/archive/1.0.1.tar.gz"
+  sha256 "1e913cffec5cd29671b0aecdb55f1792887ec315f45978abfe8b0c1a1b0b642b"
   license "GPL-2.0-or-later"
   head "https://github.com/ihhub/fheroes2.git", branch: "master"
 
@@ -12,14 +12,13 @@ class Fheroes2 < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_ventura:  "a32abbe9d2f4fbff2cdbb89dc62e1a870af240ceefcb17d5aea083f7fb4d655f"
-    sha256 arm64_monterey: "c9ec77d02b1093b67b674e2a3ea719fda143b3f3e08736838791cd555b198e21"
-    sha256 arm64_big_sur:  "14248f4986bd21089bb40fe7a1930dd2d3943c7f0472b3f8a6e3df5570613e7b"
-    sha256 ventura:        "1e9a98edc985f06cc4f7378f2b05364faee649806f25a38b0b130f9677dff530"
-    sha256 monterey:       "9110c6760f98fcb3d23230e340019963cfa8c7a4adc7133fa9444436216fe26a"
-    sha256 big_sur:        "f2d77f652b180fbac69cf02fcce377fb6af2fb251e27a7308556a1168bd9ecb3"
-    sha256 x86_64_linux:   "46c8eec9bfef8be247b3b85e35f61b9837b4bf578ecffe224c8f1e83c3aa0e4c"
+    sha256 arm64_ventura:  "4f109b15e54ce782de7f78d563157d71c47c0476bd172deb678615a9fcd0927c"
+    sha256 arm64_monterey: "822fa6f6031b20d3ffc71ae18042ea33ad7f59d2e0b8072ba02d9fc5be0fa763"
+    sha256 arm64_big_sur:  "36ab1c9eaee524bf4db83af7a86e2b96ae4cf899f335b1ba1c0a7cb94f119071"
+    sha256 ventura:        "f8cf038351081623efccad7d3a03e8dbd930e3725eb71d80b4a94c09421cb131"
+    sha256 monterey:       "979854b758480a67a7c6839b0b2ee565d1a14ce8efb9e3cbf2758a78391bec4f"
+    sha256 big_sur:        "072480d670634a6b8fa294c89f33b9800eac9bd24a8d26d23f24235d950d9430"
+    sha256 x86_64_linux:   "7b2d3132501e32e4b2c7c09402206c31cda481f17466c5dfd2ddb0b229e439d1"
   end
 
   depends_on "cmake" => :build
@@ -43,10 +42,17 @@ class Fheroes2 < Formula
     bin.install "script/homm2/extract_homm2_resources.sh" => "fheroes2-extract-resources"
   end
 
+  def caveats
+    <<~EOS
+      Documentation is available at:
+      #{share}/doc/fheroes2/README.txt
+    EOS
+  end
+
   test do
     io = IO.popen("#{bin}/fheroes2 2>&1")
     io.any? do |line|
-      /fheroes2 engine, version:/.match?(line)
+      line.include?("fheroes2 engine, version:")
     end
   end
 end

@@ -4,8 +4,8 @@ class Semgrep < Formula
   desc "Easily detect and prevent bugs and anti-patterns in your codebase"
   homepage "https://semgrep.dev"
   url "https://github.com/returntocorp/semgrep.git",
-      tag:      "v1.4.0",
-      revision: "56be8122b10b8d99b8973bb93651fe1da4df64cd"
+      tag:      "v1.12.1",
+      revision: "9823c976c9650d84ec89c5d3b00a7714cf241cac"
   license "LGPL-2.1-only"
   head "https://github.com/returntocorp/semgrep.git", branch: "develop"
 
@@ -15,13 +15,13 @@ class Semgrep < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_ventura:  "b10f1e6af43d967d0ca4a9b68472764ccf33e6a86754a4dba456aba4e4c2df94"
-    sha256 cellar: :any, arm64_monterey: "8596eb76f0b23a30237c3706783e6b490e73d06eb24e13c963c26f04062471b7"
-    sha256 cellar: :any, arm64_big_sur:  "b7887ddb33b85e881ad01e4a0815e0dda2be88ffb5d7a1d3629e2b9ec188cb46"
-    sha256 cellar: :any, ventura:        "e491162db777f01c88549bdad426d7f8b40126af6ec5189381e256af18e9e578"
-    sha256 cellar: :any, monterey:       "753d8698a9ada469bbe7c9df831bcac9b05acd87f86b5ffe3f512e007c086d32"
-    sha256 cellar: :any, big_sur:        "68abe3c1b8a20792d55baf0f00c34120fbfd6aa9a55f13fe263af551a7ef0872"
-    sha256               x86_64_linux:   "2a2a813cebc0bd59ecc327ade674029bd8f327ebcb6e82a8fdbeac3906941e5c"
+    sha256 cellar: :any, arm64_ventura:  "0e452f46e66a73e5bdc3db6dc83c6d021841ee297d35504e6744cc68c8d0d062"
+    sha256 cellar: :any, arm64_monterey: "df2f76e778d65e579b4cd444d55aeb31d45bf5666f2143a732a25963ac012ebc"
+    sha256 cellar: :any, arm64_big_sur:  "54d2b51fdee9ebbea80b086fe5419184c2829e764a26b4a1e3dd4b5ee032460a"
+    sha256 cellar: :any, ventura:        "c50df9b6096d665189d2905ab7cc35538d291b875d9c8e21a5b2c6c6b849a0b1"
+    sha256 cellar: :any, monterey:       "924d9f8a440a188aee51bdb0f64d7bbe5e929b6d4f5414a97fda39f8ef65cb6a"
+    sha256 cellar: :any, big_sur:        "d026d1dfcf9940ea080abd552e3ac5d14e2918592d36868af86321b7e430d128"
+    sha256               x86_64_linux:   "ceeed84b749bfa0e75f40317b7bf2808bec5f0304ffc404f2dc7cb3415e3abf4"
   end
 
   depends_on "cmake" => :build
@@ -105,9 +105,19 @@ class Semgrep < Formula
     sha256 "0f864437ab8b6076ba6707453ef8f98a6a0d512a80e93f8abdb676f737ecb60d"
   end
 
+  resource "markdown-it-py" do
+    url "https://files.pythonhosted.org/packages/33/e9/ac8a93e9eda3891ecdfecf5e01c060bbd2c44d4e3e77efc83b9c7ce9db32/markdown-it-py-2.1.0.tar.gz"
+    sha256 "cf7e59fed14b5ae17c0006eff14a2d9a00ed5f3a846148153899a0224e2c07da"
+  end
+
+  resource "mdurl" do
+    url "https://files.pythonhosted.org/packages/d6/54/cfe61301667036ec958cb99bd3efefba235e65cdeb9c84d24a8293ba1d90/mdurl-0.1.2.tar.gz"
+    sha256 "bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba"
+  end
+
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/df/9e/d1a7217f69310c1db8fdf8ab396229f55a699ce34a203691794c5d1cad0c/packaging-21.3.tar.gz"
-    sha256 "dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb"
+    url "https://files.pythonhosted.org/packages/47/d5/aca8ff6f49aa5565df1c826e7bf5e85a6df852ee063600c1efa5b932968c/packaging-23.0.tar.gz"
+    sha256 "b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"
   end
 
   resource "peewee" do
@@ -115,9 +125,9 @@ class Semgrep < Formula
     sha256 "2581520c8dfbacd9d580c2719ae259f0637a9e46eda47dfc0ce01864c6366205"
   end
 
-  resource "pyparsing" do
-    url "https://files.pythonhosted.org/packages/71/22/207523d16464c40a0310d2d4d8926daffa00ac1f5b1576170a32db749636/pyparsing-3.0.9.tar.gz"
-    sha256 "2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb"
+  resource "Pygments" do
+    url "https://files.pythonhosted.org/packages/da/6a/c427c06913204e24de28de5300d3f0e809933f376e0b7df95194b2bb3f71/Pygments-2.14.0.tar.gz"
+    sha256 "b3ed06a9e8ac9a9aae5a6f5dbe78a8a58655d17b43b93c078f094ddc476ae297"
   end
 
   resource "pyrsistent" do
@@ -133,6 +143,11 @@ class Semgrep < Formula
   resource "requests" do
     url "https://files.pythonhosted.org/packages/9d/ee/391076f5937f0a8cdf5e53b701ffc91753e87b07d66bae4a09aa671897bf/requests-2.28.2.tar.gz"
     sha256 "98b1b2782e3c6c4904938b84c0eb932721069dfdb9134313beff7c83c2df24bf"
+  end
+
+  resource "rich" do
+    url "https://files.pythonhosted.org/packages/68/31/b8934896818c885001aeb7df388ba0523ea3ec88ad31805983d9b0480a50/rich-13.3.1.tar.gz"
+    sha256 "125d96d20c92b946b983d0d392b84ff945461e5a06d3867e9f9e575f8697b67f"
   end
 
   resource "ruamel.yaml" do
@@ -185,23 +200,20 @@ class Semgrep < Formula
       # We pass --no-depexts so as to disable the check for pkg-config.
       # It seems to not be found when building on ubuntu
       # See discussion on https://github.com/Homebrew/homebrew-core/pull/82693
-      system "opam", "install", "-y", "--deps-only", "--no-depexts", "./semgrep-core/src/pfff"
-      system "opam", "install", "-y", "--deps-only", "--no-depexts", "./semgrep-core/src/ocaml-tree-sitter-core"
-      system "opam", "install", "-y", "--deps-only", "--no-depexts", "./semgrep-core"
+      system "opam", "install", "-y", "--deps-only", "--no-depexts", "./libs/ocaml-tree-sitter-core"
+      system "opam", "install", "-y", "--deps-only", "--no-depexts", "./"
 
       # Run configure script in ocaml-tree-sitter-core
-      cd "semgrep-core/src/ocaml-tree-sitter-core" do
+      cd "./libs/ocaml-tree-sitter-core" do
         system "./configure"
       end
 
       # Install semgrep-core and spacegrep
-      cd "semgrep-core" do
-        system "opam", "install", "--deps-only", "-y", "."
-        system "opam", "exec", "--", "make", "all"
-        system "opam", "exec", "--", "make", "install"
-        bin.install "_build/install/default/bin/semgrep-core" => "semgrep-core"
-        bin.install "_build/install/default/bin/spacegrep" => "spacegrep"
-      end
+      system "opam", "install", "--deps-only", "-y", "."
+      system "opam", "exec", "--", "make", "core"
+      system "opam", "exec", "--", "make", "core-install"
+      bin.install "_build/install/default/bin/semgrep-core" => "semgrep-core"
+      bin.install "_build/install/default/bin/spacegrep" => "spacegrep"
     end
 
     ENV["SEMGREP_SKIP_BIN"] = "1"

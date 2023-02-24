@@ -1,8 +1,8 @@
 class SuiteSparse < Formula
   desc "Suite of Sparse Matrix Software"
   homepage "https://people.engr.tamu.edu/davis/suitesparse.html"
-  url "https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/v6.0.3.tar.gz"
-  sha256 "7111b505c1207f6f4bd0be9740d0b2897e1146b845d73787df07901b4f5c1fb7"
+  url "https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/v7.0.1.tar.gz"
+  sha256 "dc2f8d5c2657c120b30cce942f634ec08fc3a4b0b10e19d3eef7790b2bec8d1e"
   license all_of: [
     "BSD-3-Clause",
     "LGPL-2.1-or-later",
@@ -18,13 +18,13 @@ class SuiteSparse < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "b19d379787b225266f4ac0d8844099f6abc2e619419d15052ca401247dd52a83"
-    sha256 cellar: :any,                 arm64_monterey: "e2337bd5db3169e5c2b5b4bd869046f3ab2a2a45deae9bb5c4f016b105183227"
-    sha256 cellar: :any,                 arm64_big_sur:  "9a7a4daf35874c2eb86b106730b74add2d82ab5b25759a2a3a25dd8a5f3f9ace"
-    sha256 cellar: :any,                 ventura:        "78a06034ae76cfc508e3e28a1d4536b00425d234b615434029f442c4b55d2211"
-    sha256 cellar: :any,                 monterey:       "55bff923c3d4fc50851ebbed8117120ca4d0fad57804d246dd275c405f69329e"
-    sha256 cellar: :any,                 big_sur:        "7db60d709ecfc631b19ee164196dc1174c726b0a35184373b3ceb4862d3e6acc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4b74e86097e8da7b3fb661776a97b0c116a6ed4c281a70476e2341a51f8cfbfa"
+    sha256 cellar: :any,                 arm64_ventura:  "b6f9bfc437eb8c888ad2b49127dd8b6d6d2ace0fe39ce5c375b6f59b4edcfbb2"
+    sha256 cellar: :any,                 arm64_monterey: "6e8b79482446c5d3651af243673c38bddb77c4bf12b04cf241bf3d1d3803abcb"
+    sha256 cellar: :any,                 arm64_big_sur:  "717d20eabb9375578fbb3eb2dc1983528b594bd79a19d169630d59c2293dace0"
+    sha256 cellar: :any,                 ventura:        "690df0fd91c2e9fc691f0d22c9d3f32ba233eb29d4d249a8abdf3c3d22ee1a08"
+    sha256 cellar: :any,                 monterey:       "e33accf36e6cbe4680f30435ce7678137df51adecc0dd567b871524097659097"
+    sha256 cellar: :any,                 big_sur:        "0830a6f917ff6bb25488761cc7c932bc168db3bd28d0d361941c7d7042c060ca"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "45e6d11898083878b3fef560f985e74a3f2f9a659c63e7575acba297d374a7d3"
   end
 
   depends_on "cmake" => :build

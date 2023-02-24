@@ -1,9 +1,9 @@
 class Snort < Formula
   desc "Flexible Network Intrusion Detection System"
   homepage "https://www.snort.org"
-  url "https://github.com/snort3/snort3/archive/3.1.52.0.tar.gz"
-  mirror "https://fossies.org/linux/misc/snort3-3.1.52.0.tar.gz"
-  sha256 "351ef4295b54d750ea557bdd5a10c8a04d1edc35003b0d84620451c998591117"
+  url "https://github.com/snort3/snort3/archive/3.1.55.0.tar.gz"
+  mirror "https://fossies.org/linux/misc/snort3-3.1.55.0.tar.gz"
+  sha256 "61cc080943a37b1c9ce1f398958ec0415181a31390dc165ebbf32d9af7b3dfa6"
   license "GPL-2.0-only"
   head "https://github.com/snort3/snort3.git", branch: "master"
 
@@ -13,13 +13,13 @@ class Snort < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_ventura:  "77431c987e8c7192ef04adb20bf382d4acc7b170e07258becc5e4bd54b6ee170"
-    sha256 cellar: :any, arm64_monterey: "e54de40051417c3017d139132577f7a7c5c61c0d4411e57e5ea2c3a6b7f0acfa"
-    sha256 cellar: :any, arm64_big_sur:  "71fa43cbd29cea85ed0a60644b7982a9f7e772951aeae089f1a93dd0ecb409ca"
-    sha256 cellar: :any, ventura:        "13cd22b953156c9704d6aca38001d7674e1cbc4b53d968fa11915d4e23ac20fd"
-    sha256 cellar: :any, monterey:       "2994e9a2aa5a5f392604f74f5dd037f02b1824004984a4a90915be5a02413b24"
-    sha256 cellar: :any, big_sur:        "5a82986b1edb7f3579de0585644d0443b8c426534dba33d72f51b585ca604d2c"
-    sha256               x86_64_linux:   "0e17ceb4f6ff8e78fd2f91639f5631780ebbd168a22a7a5ff25615250b67fc99"
+    sha256 cellar: :any, arm64_ventura:  "c7320d51a082558bd902cc3bca54cdf34aab4020faf0cdea508d1560cd57b086"
+    sha256 cellar: :any, arm64_monterey: "0c57fc226a52024c77624cbb27f375d71c00b941db8e709dd7939ba29b039e00"
+    sha256 cellar: :any, arm64_big_sur:  "9314cf28843e11f6d7f1c30abfbf6f888b60357c9e64965cb0075830f7beb7bb"
+    sha256 cellar: :any, ventura:        "c607cdd2351cae4ef5bf56dd445a35e54049bd888f3631e458f0d3672d5b46af"
+    sha256 cellar: :any, monterey:       "c3c0492f9b117a9e3af01664f12b71e24320fabacf85bb27167e9019bd40f0c1"
+    sha256 cellar: :any, big_sur:        "cc90bc1a1da477db17e8aab7bbf1682c7c20f614a0783fb597f2cc6972e15f3e"
+    sha256               x86_64_linux:   "8f9f1bb30325897133b7c8c4c6e9255644c02d7644591fb9b4b023a2730bc387"
   end
 
   depends_on "cmake" => :build

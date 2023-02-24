@@ -1,19 +1,19 @@
 class PlzCli < Formula
   desc "Copilot for your terminal"
   homepage "https://github.com/m1guelpf/plz-cli"
-  url "https://github.com/m1guelpf/plz-cli/archive/refs/tags/v0.1.6.tar.gz"
-  sha256 "c6f20fc3b60caa39b347b38054f5f1f766339ecf4ab0ef19864ef5cbe18f520d"
+  url "https://github.com/m1guelpf/plz-cli/archive/refs/tags/v0.1.8.tar.gz"
+  sha256 "84a8835f091b305d21f52c36a19b4f4264ee72348f576ea2dd5a4c383f84acce"
   license "MIT"
   head "https://github.com/m1guelpf/plz-cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "52f9b33a7c71716c449f149917edded90c289e4b4b3a686915e7a2d215209608"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "65a068de71817e7420350a8ad4cc6e8b80e9a4082b9356f4acbf6372037055c9"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "864faf853dc0a8296d7713a49ecd346aa9b5c2b8609ae83bc1b8eef935239c8d"
-    sha256 cellar: :any_skip_relocation, ventura:        "ec81d160a3e163bd8b438719061a3540743c79aca1580947c84efd224a234cea"
-    sha256 cellar: :any_skip_relocation, monterey:       "5162ed279aa33bb15a122d632b87b73c4ee4f3b383f6b2cb5bad69db4da2d787"
-    sha256 cellar: :any_skip_relocation, big_sur:        "4ccfd187e4f9ef17b489e4d3ad7d93239d76dd19e4268a858d63c88e8b88b0fb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "843e67cdcad7210a37f73ea3c4e0f42ac536b1d26eb232b159eeae7e55e39ba0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "712daed5162a08666a528b6ac4a39ee38d823ad901f4ee99e7a4cf84c8347a44"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e21593300690424d358f6a89b269901fc0b0d0d0a280fd26cf946aea957ab5e6"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "11f8a1dff87667615edf74528f56ba9d0154a82bfee8cf6f6d4bc48ebe6eae27"
+    sha256 cellar: :any_skip_relocation, ventura:        "98cdd319c98ab3f97188ea676c5dbfb6e25688421169cca9bb11d55e0d29a648"
+    sha256 cellar: :any_skip_relocation, monterey:       "9b5e3b8d1338d44c175939695d27d071d46c59016f99428bf9125764344aefe4"
+    sha256 cellar: :any_skip_relocation, big_sur:        "40a9e0bb5b19683781d3e192981fd718fc8053b701df5e7a9baa972919387d4b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "418a5123b2bee4b8ab221598b5eedbfa3c94d48caad848617f36e43f28ae3db8"
   end
 
   depends_on "rust" => :build
@@ -24,7 +24,7 @@ class PlzCli < Formula
 
   test do
     ENV["OPENAI_API_KEY"] = "sk-XXXXXXXX"
-    expected = "✖ Failed to get a response. Have you set the OPENAI_API_KEY variable?"
+    expected = "Incorrect API key provided: sk-XXXXXXXX"
     assert_match expected, shell_output("#{bin}/plz brewtest", 1)
   end
 end

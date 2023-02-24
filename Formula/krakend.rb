@@ -1,29 +1,25 @@
 class Krakend < Formula
   desc "Ultra-High performance API Gateway built in Go"
   homepage "https://www.krakend.io/"
-  url "https://github.com/krakendio/krakend-ce/archive/refs/tags/v2.1.4.tar.gz"
-  sha256 "0a3a51cf8f309cb6798e8be1885c312e38dfd5d30e0e62ebc967a2875d816296"
+  url "https://github.com/krakendio/krakend-ce/archive/refs/tags/v2.2.1.tar.gz"
+  sha256 "64a65f17f46a92d09bfa9d76561887b515a8044c82e39becf700a9948317ca92"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ff7541ffe4a6b8bfd66bc5813f18886d8cde74ba8494ec64eec82fe1838de75f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "42530680192e2c40819954380502d7086cb8fa8dd5b57f294f2abb674c190b02"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "988775616e9e45b55431ea01c33c9d30a9ced3a19f4c28c7aafd48b7e75a8d34"
-    sha256 cellar: :any_skip_relocation, ventura:        "ccd80c0e4dde059b51fa2610de71c8f0d841b5ddfb3942753f5d5b32a8da7639"
-    sha256 cellar: :any_skip_relocation, monterey:       "88bcfbccaf7606b24e0e34add15555a4787f9c6d1176f871450c3af7cd451aa9"
-    sha256 cellar: :any_skip_relocation, big_sur:        "f55fbfe74ae0d8b51988dfa8824f1988c7979695cfdef416b406c7fd374b8f0e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a158a65134872ea4a981724ac47445519ad4ee9dee7b7ae0c6bcf9fa55996759"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "021ca55192df22903341e5faf2d1181de67eb8f4ded1e0032551b22d2634563d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "135af3ec9b828e06a67d79f85be210845cd7ca866ea9b66679bdb85d1feea007"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "18f327983128e891f2545aebb4619c55410e98150bf10df0097800432a401a0e"
+    sha256 cellar: :any_skip_relocation, ventura:        "b1e1108e881dc716c6381f6d28bebde1a5c9da4ff43ba6f4266652db5a57ca2a"
+    sha256 cellar: :any_skip_relocation, monterey:       "9bce8ccad86a4e3bdd9b05313f597fac19febe47f8cb973789bfee2aec95d7ae"
+    sha256 cellar: :any_skip_relocation, big_sur:        "22953f3d9c0d7603a3ce9b49126ec6acdd2133755cc8375c7a2c604fa1bcfdfa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8efa9e81fc38fda0863c7c5950d9eebd7a0c898f9706f40a4e36400e290adf72"
   end
 
   depends_on "go" => :build
 
   def install
-    (buildpath/"src/github.com/devopsfaith/krakend-ce").install buildpath.children
-    cd "src/github.com/devopsfaith/krakend-ce" do
-      system "make", "build"
-      bin.install "krakend"
-      prefix.install_metafiles
-    end
+    system "make", "build"
+    bin.install "krakend"
   end
 
   test do
