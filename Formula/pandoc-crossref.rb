@@ -1,18 +1,18 @@
 class PandocCrossref < Formula
   desc "Pandoc filter for numbering and cross-referencing"
   homepage "https://github.com/lierdakil/pandoc-crossref"
-  url "https://hackage.haskell.org/package/pandoc-crossref-0.3.15.0/pandoc-crossref-0.3.15.0.tar.gz"
-  sha256 "b9d8b6ed246fcac6955e14d38b229b62b0682b98ec2caf7fdc095438f16dfd4f"
+  url "https://github.com/lierdakil/pandoc-crossref/archive/v0.3.15.2.tar.gz"
+  sha256 "f91e69cd0c69923353ea4c3d408ccb245b7acf47153f95a670e5a3bc4bb7ea8d"
   license "GPL-2.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5591d300c898f9d4a5b40e3dab2ce27147bd72251077e7b6b73376a1fa4cc662"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "30fcbb23f6527a9d44f456f44c186a446468edcb8bf14d7df5535242f5ad9fc9"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f796a9c9809df40700fb2af46a009c40f135314d4392b44751c9cb81236f6838"
-    sha256 cellar: :any_skip_relocation, ventura:        "b87c5ce5d372428a81b2f3052e2d67d0fd89a6f8ecc08ba7eeac3059e8896629"
-    sha256 cellar: :any_skip_relocation, monterey:       "f32ce47d7730d9f5427b4c88c729b7aca40a3d7566608ceb2c9a08fe4381a239"
-    sha256 cellar: :any_skip_relocation, big_sur:        "3daca1c25e801e07d99e1150500dc4d0da1cb8c04abebad6386338d38e8a73b7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2f3ad93c79e05ba06946cdd19bea2cb1954c880957c9decd1562b662b111c96a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0e2c98c25ab0db1bee2e565afba2f93d147a8a898fc87a3b7ace18119f941465"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "786b6a1453e315a1cf2e404d3b92da999ed6e03ab224cec996a30e681c906a65"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "268429e3aaba8a06975c5912f0349c88d044b7448b4bbc7dcc1b0c969d8ffddf"
+    sha256 cellar: :any_skip_relocation, ventura:        "2baecf196f1d2e66af5b4786e433cd28475ed200d8ce7a24efab9922c40ffc6b"
+    sha256 cellar: :any_skip_relocation, monterey:       "12ad68245c994e340841e65656fdb43f6feb055feb3686e9cfa2cc5282fb4ce5"
+    sha256 cellar: :any_skip_relocation, big_sur:        "9df54cf1477d5eaeb2a363ad56137484368cbc82c5becf9c4dcfc8c23bb9989e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "50bea6c997674d2e1fc0f7921d9cf88e3f2ad106c3d5ac641c87e49475bc001f"
   end
 
   depends_on "cabal-install" => :build

@@ -1,19 +1,19 @@
 class Emqx < Formula
   desc "MQTT broker for IoT"
   homepage "https://www.emqx.io/"
-  url "https://github.com/emqx/emqx/archive/refs/tags/v5.0.17.tar.gz"
-  sha256 "4fadb30b28d2bdad529342cfce55fd00f56d21bcbf929c51479dcbc5648bd1a6"
+  url "https://github.com/emqx/emqx/archive/refs/tags/v5.0.21.tar.gz"
+  sha256 "1167eccc4bf04d7c6e124d03218e3d6dc7fcea255b530dd4bbe4fcc27b35b142"
   license "Apache-2.0"
   head "https://github.com/emqx/emqx.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any, arm64_ventura:  "e0bdaebbf52cfe482dc052560c40b9885b48cc82cf1692a7a09a2ce507515820"
-    sha256 cellar: :any, arm64_monterey: "41198334dcb55b82e9517e6ae1481171042e4cf1b676051509e6e5a8d81ec796"
-    sha256 cellar: :any, arm64_big_sur:  "f3b8d0b56cbe2090db51f6e1cdaa1165796252fbab73a7c0ba7539d722e1089c"
-    sha256 cellar: :any, ventura:        "db7d6080d74aa415b63c707d75bd624a8b046a835e3189d8336ba0d6e9b9a042"
-    sha256 cellar: :any, monterey:       "113a9d20183fe3b918861923a0893201ed25084032744166fc07d9b1df180aa0"
-    sha256 cellar: :any, big_sur:        "56a6664c0ebafda67df336cc3886db73f2d1d2b211d95cdecbed790d9cbab7fa"
-    sha256               x86_64_linux:   "5d0a03a8ddede04390b2a1c5036a46028fad8aee5470ade02fdc97d01b9255dd"
+    sha256 cellar: :any,                 arm64_ventura:  "8e00ea523cea4358eb95b6b59b50f007c505cdff208c90d5b1e24790139d07a6"
+    sha256 cellar: :any,                 arm64_monterey: "a6645430ccff7142edb251ec1475abfd825ea0a70a9619ae6c60b60c9c83c02a"
+    sha256 cellar: :any,                 arm64_big_sur:  "91dd349cc9e37e7848fc151c9abe2a15707cb9652185a096439a20661039348a"
+    sha256 cellar: :any,                 ventura:        "e9daab8c0ed995f404d6e9b5dec54630510c0c90903c3be7f36a3899319fb670"
+    sha256 cellar: :any,                 monterey:       "047e09bd19d36c0e30c089a6e4f29eda06893c2b835f859c793c4a57180160da"
+    sha256 cellar: :any,                 big_sur:        "e0dfd8e2b04859abecd813ad99f5bb6e14e341079d1430dfc1b69c793ac8bddb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7aef2f35b39222c694698569fced5402ea5c5bc1201cc7f5e27da244b4dc9978"
   end
 
   depends_on "autoconf"  => :build

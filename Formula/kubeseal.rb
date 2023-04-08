@@ -2,8 +2,8 @@ class Kubeseal < Formula
   desc "Kubernetes controller and tool for one-way encrypted Secrets"
   homepage "https://github.com/bitnami-labs/sealed-secrets"
   url "https://github.com/bitnami-labs/sealed-secrets.git",
-      tag:      "v0.19.5",
-      revision: "d74823e8258c0e1028023c3d80de46b553f8e27e"
+      tag:      "v0.20.2",
+      revision: "8de5579df4a683d95135275938d9000d4407da8b"
   license "Apache-2.0"
 
   livecheck do
@@ -12,13 +12,13 @@ class Kubeseal < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8a59413cb925609032fdb9d39375986c63155b3985b7f60a56fa514f7c699295"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "52ddaebb438dd990119b9fe1871052a3a6f9cc8df4a4c4713c699f931da934d0"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "cf313cbeb11ff07f6a1b8aedb836e6d3353cd76fe9ce1f6831639bb52a9dca7e"
-    sha256 cellar: :any_skip_relocation, ventura:        "666cb73258df7d4915a5e13ed7c71797bf034f2c46918ecf508dde29e8c76b68"
-    sha256 cellar: :any_skip_relocation, monterey:       "f11c5d2bcbb2936a3c8a1aeb555e41a8a90244b389e59cdcb596de2569ae8d1a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "7f5d5f6ea5a944c810fe5bcc9bb297742074321944a4338feb4c9c31ad1e6416"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "75f96eacaf2ce02087eee6cb276269a51a17d77944069b3d9e15a1df7b705635"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b556ee8451ec26acc50f000ba6a45781ab2d96d24cbda1ad9f19ccc764ab5920"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "3d8bf846d65673ff44aba9b90f1d586ddf1f1a6d96ee1d70eacf1a13cdb14c45"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "5af2f58b625a13371b71e5bdd55a5f8c84324b991a1871e7b6dfedf39a27648b"
+    sha256 cellar: :any_skip_relocation, ventura:        "7348521366f3622fe52888b8eaabdc508df5ff2d22b4ee342709987b307b6502"
+    sha256 cellar: :any_skip_relocation, monterey:       "483469502c2d632cf2c54f8e4118a49f50349977a268e40a546d41e5b13e3f70"
+    sha256 cellar: :any_skip_relocation, big_sur:        "bf13a72fef1ab817b09f3b65fcd02472c70fccc802fd27048c1dc572462a8436"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "13f763d8e51b0f06081f1140192b66f8d54ba9016b3bf034eb79bee0c230a913"
   end
 
   depends_on "go" => :build

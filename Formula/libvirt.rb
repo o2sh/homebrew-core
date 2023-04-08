@@ -1,25 +1,24 @@
 class Libvirt < Formula
   desc "C virtualization API"
   homepage "https://libvirt.org/"
-  url "https://libvirt.org/sources/libvirt-9.0.0.tar.xz"
-  sha256 "deca5cff1b7baac297bca9663907c61f71a47183371dc7ac019c107806d5435a"
+  url "https://download.libvirt.org/libvirt-9.2.0.tar.xz"
+  sha256 "a07f501e99093ac1374888312be32182e799de17407ed7547d0e469fae8188c5"
   license all_of: ["LGPL-2.1-or-later", "GPL-2.0-or-later"]
   head "https://gitlab.com/libvirt/libvirt.git", branch: "master"
 
   livecheck do
-    url "https://libvirt.org/sources/"
+    url "https://download.libvirt.org"
     regex(/href=.*?libvirt[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_ventura:  "cc75afa96b97bf89fd6081f45111a5a57d42ba76b9b3e6b3ea55aeeded8c8904"
-    sha256 arm64_monterey: "3a29f44beb9928fabd06aeaffac383e2ad6f79c00ca2e57b696919ba98969f93"
-    sha256 arm64_big_sur:  "47b581a3bf826640ae7dd4b8be53daf978a562348f303ff4b04f6dcc18b6c52b"
-    sha256 ventura:        "9a81be693ca08b32b1819a72bc6e7fd5ba38388ce19201fda4f2feed541746cb"
-    sha256 monterey:       "3ff1b7aff29ab47e4c3fe3d18c73231b5057f74c33ad0f4ee8671236a8da405a"
-    sha256 big_sur:        "2c8eda21b6d05503cfef0095af9cf6199cff20b07384635fc656e38d1cd9c862"
-    sha256 x86_64_linux:   "bb79a9bfa9a59cd6fc5d836230e1c50077ade0a007530cf96314dd85d5c3da98"
+    sha256 arm64_ventura:  "8490cc596c1e2e0d6cb934ddcafbc9ef2fd03524549c2483228b1c689bed437b"
+    sha256 arm64_monterey: "e97ce4c3bc2a1745a77befcaced6f6ddadc278449b6ee7dd63d9c3a0bb36112a"
+    sha256 arm64_big_sur:  "9740937b22116646c3bd18ab65385eb5d7392bf35d226670ec1b34792e272a3a"
+    sha256 ventura:        "5cbbd93d3d3e866746150d3b05b57c3ca65c4d805914a9bdeafe0776964b4b7b"
+    sha256 monterey:       "d9857386ea6dc3ce2f299cee4ca62fb75aee315c61200fecf593251d6ad125d9"
+    sha256 big_sur:        "db11576b9d2437727363dd115cc1e452a932d37fb8820014bd4e9a75148dacd9"
+    sha256 x86_64_linux:   "ae99c9c721bb09d55735cf12725a50c092de5fa2ea494c5d8a010b82af0f384b"
   end
 
   depends_on "docutils" => :build

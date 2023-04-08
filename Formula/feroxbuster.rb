@@ -1,18 +1,18 @@
 class Feroxbuster < Formula
   desc "Fast, simple, recursive content discovery tool written in Rust"
   homepage "https://epi052.github.io/feroxbuster"
-  url "https://github.com/epi052/feroxbuster/archive/refs/tags/v2.7.3.tar.gz"
-  sha256 "b7fe8e2d1b1e7ea3a118c6be4421eaef05209ebae0fa018e8ad606dce84c56ac"
+  url "https://github.com/epi052/feroxbuster/archive/refs/tags/v2.9.2.tar.gz"
+  sha256 "c10b9667c738a0d70824b6833c2b8218591e8e827fddbff4a9d685f3284c7cc2"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ab9abae35a450b728e8c16039fc97f768684cce6bc65dc1c0155f2b20722f851"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a0a0849c3b196f44e8e2241b63adb72125acebaa70d5ff8d5ad463e3c3bb658e"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "617974f072d85d78744fea29739f5b3cd655195dfd4c52332608cca1a65100a4"
-    sha256 cellar: :any_skip_relocation, ventura:        "348d2dcf82aa0ee60f290ae83d9a873ed351686a98c651fe6d0ef68b72aa881e"
-    sha256 cellar: :any_skip_relocation, monterey:       "d0ec01c0e8f3b49726829fdb1e1e06ce337614d8fc3e92d024cb35d2fc7ee672"
-    sha256 cellar: :any_skip_relocation, big_sur:        "9b533d83c4bc0f6cbac44805895a737c2d078c379eeb48b97169181f3b249c17"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6a9a3e4b6c486073cb9a55e8ee27b6a077f865a542f92002f6afe7d0f804f2e3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "77553775b63281783c0c43080712c0b4bcc85768d5dc6c464431aecd5580fbac"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f7835783bc43f60049802d4e862272b4e0f96ae262dc3c9745ea14ea248a2885"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "e23b235ceac3264af1d129c240417e644c8bf39b94d260289a5029c759d0ecab"
+    sha256 cellar: :any_skip_relocation, ventura:        "32b08841dd0686be6d397e6969029f4d7df40779a446f1ca11642ef2b848b7dd"
+    sha256 cellar: :any_skip_relocation, monterey:       "8f01aad6c2103a0562680b9974d7f30144d10b5053180a92e2318b14ba1e0c13"
+    sha256 cellar: :any_skip_relocation, big_sur:        "70398275aed0bc8ac776a80f767ef8363b0c2c13c1c4987fcf896a085104f62e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "860a73d44d8a3ded342fb24d624d528900294d0362f952c9ac0191d5a2647599"
   end
 
   depends_on "rust" => :build

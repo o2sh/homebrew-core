@@ -4,19 +4,21 @@ class Cocogitto < Formula
   url "https://github.com/cocogitto/cocogitto/archive/refs/tags/5.3.1.tar.gz"
   sha256 "ac6847ce55ba284184d0792afb53c6579da415600bc1b01c180dd87ad34597d0"
   license "MIT"
+  revision 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0afcff66d43ccd5fbc73acc749a6ccb4aa809bde574c5b76c2146d43dfbdf937"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "aca16d35db198afd58e3ba2fe1eb180ee21a702361873480970e28bfbeda7500"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "cb362b0af4bd62af39e49b2737d9b034874997088e937b128239be632385ea38"
-    sha256 cellar: :any_skip_relocation, ventura:        "85d23bbeb2ee06d602e9e78fda757aa00c9a36431b67bf0fa1e59360c1414fa1"
-    sha256 cellar: :any_skip_relocation, monterey:       "f6645a3f30b55f1446952ece67ca49f2c1058b0ce3595fa0aa7ac6a7c054c445"
-    sha256 cellar: :any_skip_relocation, big_sur:        "9c8058d3fdeed4c3d9c652a9e136745b79c09d9a7f77dfbe031a196bce2373dd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "11a9c51c4a4a154710e738290684698cf0dab3952321d9ec6d86e26bb565859f"
+    sha256 cellar: :any,                 arm64_ventura:  "0583adb5859665c58a9b29096ac38373897a4e3f8feb5ec9fa787f7cadaeb091"
+    sha256 cellar: :any,                 arm64_monterey: "8da40f6052e3f885aaefb6b503b2e1a7e80350b5e4d254f85dd82d3341fec642"
+    sha256 cellar: :any,                 arm64_big_sur:  "e073b9d86cc5075212b03b4063bf8b3e2e9772d89c51338ea2734c121554e6b7"
+    sha256 cellar: :any,                 ventura:        "bcfee79519b9dc44686c6c24c93de7886dfb58c9299d61b6fd992778c8e1390d"
+    sha256 cellar: :any,                 monterey:       "247b6ae88bb6e84735531495f35f8de1ce27d74002072408ff0c590a9ea56b51"
+    sha256 cellar: :any,                 big_sur:        "6adab7d771e341bc4d6452b625bcbfc3531ae86b3e162d43c2797cc9b93aaf29"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c1d334a3ef113c5f3aaf47029fb1d3e259c89f82f086743db634ee21df51bcb0"
   end
 
+  depends_on "pkg-config" => :build
   depends_on "rust" => :build
-  uses_from_macos "zlib"
+  depends_on "libgit2@1.5"
 
   def install
     system "cargo", "install", *std_cargo_args
@@ -32,5 +34,13 @@ class Cocogitto < Formula
     system "git", "config", "user.email", "author@example.com"
     system "git", "commit", "-m", "chore: initial commit"
     assert_equal "No errored commits", shell_output("#{bin}/cog check 2>&1").strip
+
+    linkage_with_libgit2 = (bin/"cog").dynamically_linked_libraries.any? do |dll|
+      next false unless dll.start_with?(HOMEBREW_PREFIX.to_s)
+
+      File.realpath(dll) == (Formula["libgit2@1.5"].opt_lib/shared_library("libgit2")).realpath.to_s
+    end
+
+    assert linkage_with_libgit2, "No linkage with libgit2! Cargo is likely using a vendored version."
   end
 end

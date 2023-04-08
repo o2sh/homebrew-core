@@ -1,19 +1,19 @@
 class Simdjson < Formula
   desc "SIMD-accelerated C++ JSON parser"
   homepage "https://simdjson.org"
-  url "https://github.com/simdjson/simdjson/archive/refs/tags/v3.1.2.tar.gz"
-  sha256 "c4f663d5c8f8d8829d9f771188c7e12a2f24c3df1c7c02b59a5ee7996b7838ec"
+  url "https://github.com/simdjson/simdjson/archive/refs/tags/v3.1.6.tar.gz"
+  sha256 "ad1462fde83b00f37a320ce5387a4b9c3eba5e3e107a880e8362d7ecb64203d0"
   license "Apache-2.0"
   head "https://github.com/simdjson/simdjson.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "92371ce7da1ed71d0bdfad9518bb9c1290f2daaac85594fea3350a9c1443de1d"
-    sha256 cellar: :any,                 arm64_monterey: "7d62ac359720458b531af883a8b6abc04b027ca317ba2d6a4fe23bf733787367"
-    sha256 cellar: :any,                 arm64_big_sur:  "7c0cfda076f1a4e02208c3b810e2f10abb0b1fd82ca93f4fa4d4818474453b8a"
-    sha256 cellar: :any,                 ventura:        "caaefdd5b90aff13608a26558e54068012c0f45c7ef5914d12086df04cf448c1"
-    sha256 cellar: :any,                 monterey:       "0153b7bcacd3ad0d95ec544e47395eea00ca0a2bccad0d396841bd579cb9dd35"
-    sha256 cellar: :any,                 big_sur:        "315dca7cc4890393ff3c4961eb067305d1c0addf11ebd7499e5de60120faa959"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "61634127f7223c125bdedca2b988822e2220465d2434258bff0547e2784431bb"
+    sha256 cellar: :any,                 arm64_ventura:  "5072c566387801e7745a112a33d42889ab1350272c6521e0a841a3e8e525631c"
+    sha256 cellar: :any,                 arm64_monterey: "4431abd5cc63dc8d8df8bea6a3ee822203a60e23872d8b66550c7b0982e7a3d4"
+    sha256 cellar: :any,                 arm64_big_sur:  "1bf74030e71480a310e55ebeccb410ff0f764c6f6f26d219d6b48572ddb9cb65"
+    sha256 cellar: :any,                 ventura:        "22326ed91dc15b7d1c5c77237ae5c91b855a8f2f44fcdfbe9b0b4563b3dd5dbc"
+    sha256 cellar: :any,                 monterey:       "491ad7743895d052aa0865ff2a98731b8cda8a7c021bc0322591217b278478fa"
+    sha256 cellar: :any,                 big_sur:        "bddb9ace9ad15df1b6ff3bfe1d366bedd5b76eee6621dbf40ddfb628b895ca50"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "284d350dbe0018c5e39d8365012b17fc4a16a8efdfbf5b1d15a1d5f4ae02914c"
   end
 
   depends_on "cmake" => :build

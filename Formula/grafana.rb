@@ -1,19 +1,19 @@
 class Grafana < Formula
   desc "Gorgeous metric visualizations and dashboards for timeseries databases"
   homepage "https://grafana.com"
-  url "https://github.com/grafana/grafana/archive/refs/tags/v9.3.6.tar.gz"
-  sha256 "59f3c82fa934869ac5d9292cd5c38277748399207c4ae552bb1fa58abb2bf25e"
+  url "https://github.com/grafana/grafana/archive/refs/tags/v9.4.7.tar.gz"
+  sha256 "e051cf50cbbf5a7ce4de2d2544b3385464399fa5690713afc17f6c8467e4a0b5"
   license "AGPL-3.0-only"
   head "https://github.com/grafana/grafana.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3125af963e891394dd7abf51bba8f2aaa7b148a9ab7331d9e9b4ef923be69aa4"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "6a1d628c9afc242b0a6fe40dc91ccf61f0d116cde0a0fe46c3e8bf0ed3df7b96"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "4d1e3e26e635053d21d334f3d96808984d021f7bc1c6fdbd22b1c0ee76cad6a6"
-    sha256 cellar: :any_skip_relocation, ventura:        "051b47f248daf9bc870d5d5645bd852f41d6158fed636897952fd24b0d4502e3"
-    sha256 cellar: :any_skip_relocation, monterey:       "37352c2bd925c4ba9a5b2199162c7a51c38fb255cfe347ce4e0911c31676208b"
-    sha256 cellar: :any_skip_relocation, big_sur:        "751c0a442a0a061da8d7cf7569162c2e4e1b8411ca61cf6ac8f151f8da746f2d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a62fb7f99ebdf8a2dc606d06888fdb7619db2b4866e45132dd88951e7ac0595d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "cbbd48c17804dbe1bfd1563f236f266bea783b8ee5ee4013a19c69771d8882b6"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c004780a04c324b7b642f0fa7f74ecd70d07cc6e42c59ae3c22ecc734f5450e4"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ec032a30564c7ecc2338754894a26598397181b4b09aedea5ff3c73312d8cfbf"
+    sha256 cellar: :any_skip_relocation, ventura:        "130f8408371cd054aafa05e72b5ea76f6427acfae9f5a9ecec22673f165a62b9"
+    sha256 cellar: :any_skip_relocation, monterey:       "33b089ed5501776c8ce49b29bfe13c020701bd421e1f64f44e954dd810c02912"
+    sha256 cellar: :any_skip_relocation, big_sur:        "6eef810edfe905709b5f29c666baaf88dffbc7c1bb7a2877c91da1ea69b550ee"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b413852554126735f61b5772003ee587f94fc8922129b331625f6af898267694"
   end
 
   depends_on "go" => :build
@@ -37,6 +37,7 @@ class Grafana < Formula
 
     os = OS.kernel_name.downcase
     arch = Hardware::CPU.intel? ? "amd64" : Hardware::CPU.arch.to_s
+    bin.install "bin/#{os}-#{arch}/grafana"
     bin.install "bin/#{os}-#{arch}/grafana-cli"
     bin.install "bin/#{os}-#{arch}/grafana-server"
 
@@ -53,7 +54,7 @@ class Grafana < Formula
   end
 
   service do
-    run [opt_bin/"grafana-server",
+    run [opt_bin/"grafana", "server",
          "--config", etc/"grafana/grafana.ini",
          "--homepath", opt_pkgshare,
          "--packaging=brew",
@@ -71,7 +72,7 @@ class Grafana < Formula
     require "timeout"
 
     # first test
-    system bin/"grafana-server", "-v"
+    system bin/"grafana", "server", "-v"
 
     # avoid stepping on anything that may be present in this directory
     tdir = File.join(Dir.pwd, "grafana-test")
@@ -84,7 +85,7 @@ class Grafana < Formula
     end
     Dir.chdir(pkgshare)
 
-    res = PTY.spawn(bin/"grafana-server",
+    res = PTY.spawn(bin/"grafana", "server",
       "cfg:default.paths.logs=#{logdir}",
       "cfg:default.paths.data=#{datadir}",
       "cfg:default.paths.plugins=#{plugdir}",

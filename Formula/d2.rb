@@ -1,19 +1,19 @@
 class D2 < Formula
   desc "Modern diagram scripting language that turns text to diagrams"
   homepage "https://d2lang.com/"
-  url "https://github.com/terrastruct/d2/archive/refs/tags/v0.2.1.tar.gz"
-  sha256 "d379c6270540e899a84b5ed6667bd02c82c81787ca37eb7d79acbfe00ff1a24d"
+  url "https://github.com/terrastruct/d2/archive/refs/tags/v0.3.0.tar.gz"
+  sha256 "28901237ad0c16b49c62a89c6246dfd38dd245e530d25fc74dca1fe2e3b9348f"
   license "MPL-2.0"
   head "https://github.com/terrastruct/d2.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e92265086b402c517158ab0b1d4ce3430852db17129147e11f29cb3b77c4c875"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e92265086b402c517158ab0b1d4ce3430852db17129147e11f29cb3b77c4c875"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "e92265086b402c517158ab0b1d4ce3430852db17129147e11f29cb3b77c4c875"
-    sha256 cellar: :any_skip_relocation, ventura:        "852590384bb1281a15d7239078c7023446f37b4bb8717b6bdcac3a316673cd20"
-    sha256 cellar: :any_skip_relocation, monterey:       "852590384bb1281a15d7239078c7023446f37b4bb8717b6bdcac3a316673cd20"
-    sha256 cellar: :any_skip_relocation, big_sur:        "852590384bb1281a15d7239078c7023446f37b4bb8717b6bdcac3a316673cd20"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "24e5a6405a62726184443c09ce86cc15914837bb739ba237096e63445a612d5d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e3f314d0484c0e4f35a0d853565413ac6093476ee7bbc66194eb2bef138683c9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e3f314d0484c0e4f35a0d853565413ac6093476ee7bbc66194eb2bef138683c9"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "e3f314d0484c0e4f35a0d853565413ac6093476ee7bbc66194eb2bef138683c9"
+    sha256 cellar: :any_skip_relocation, ventura:        "4432206c116456ee7eb53ee7d388213896e1567011117bd88562cad3c16d3a21"
+    sha256 cellar: :any_skip_relocation, monterey:       "4432206c116456ee7eb53ee7d388213896e1567011117bd88562cad3c16d3a21"
+    sha256 cellar: :any_skip_relocation, big_sur:        "4432206c116456ee7eb53ee7d388213896e1567011117bd88562cad3c16d3a21"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b9331f83727a4c9229a8885146ddb4834b7f53b0e5d30bb8c7dc738bed11c709"
   end
 
   depends_on "go" => :build
@@ -30,7 +30,7 @@ class D2 < Formula
       homebrew-core -> brew: depends
     EOS
 
-    system bin/"d2", test_file
+    system bin/"d2", "test.d2"
     assert_predicate testpath/"test.svg", :exist?
 
     assert_match "dagre is a directed graph layout library for JavaScript",

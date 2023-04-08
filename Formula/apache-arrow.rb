@@ -5,21 +5,22 @@ class ApacheArrow < Formula
   mirror "https://archive.apache.org/dist/arrow/arrow-11.0.0/apache-arrow-11.0.0.tar.gz"
   sha256 "2dd8f0ea0848a58785628ee3a57675548d509e17213a2f5d72b0d900b43f5430"
   license "Apache-2.0"
-  head "https://github.com/apache/arrow.git", branch: "master"
+  revision 2
+  head "https://github.com/apache/arrow.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any, arm64_ventura:  "a183cf3b6c7f425fad34254901a0677e1142d4a96023fb3197528a103eb96d7b"
-    sha256 cellar: :any, arm64_monterey: "c1ba570fd2a3dc85bd3971920e34d1972a3689ccb88f7d83fd18e2fe317ce1ba"
-    sha256 cellar: :any, arm64_big_sur:  "cde408491a6ea9b8b1907a5199c4247af7fe5b37428b1a113b60f979f4d70f88"
-    sha256 cellar: :any, ventura:        "2a1437afe8e70951a35da383c29ed7399f6d8ca27669d0139a55db7e58fd69bb"
-    sha256 cellar: :any, monterey:       "6e9a17b3b93a8a4722c7dd0a291a89316557266019e4ba516752326a10729bc8"
-    sha256 cellar: :any, big_sur:        "53674723ef6536c0bd745eb5003d2767e6294d0a70ab6a78db287e8c08a4077c"
-    sha256               x86_64_linux:   "f67506a4453f7636db810d5bcf567ec541e09e3eeee3b812b343ddb7dee77f5e"
+    sha256 cellar: :any, arm64_ventura:  "1e82ceb62855281d1577da1af98ebc4f3b7752e434d64ab7770b14ba71c9f4ea"
+    sha256 cellar: :any, arm64_monterey: "589f203391674714dc8e82e8ddb15f2150a38a0f49d88426e9636028967814fb"
+    sha256 cellar: :any, arm64_big_sur:  "5fc70de9056612b260c325a858430affb1ae253ac97cabd77d3b1da0f194b7a9"
+    sha256 cellar: :any, ventura:        "6502e207d95504789a339b6921c4a015c0baaa61988bc6c6a72f77be4e51cad3"
+    sha256 cellar: :any, monterey:       "c4672c2a8f24154a60d75bcadd109dbfa7390ff6dbf54aec63cc30f18f8f9387"
+    sha256 cellar: :any, big_sur:        "8fde4aa99bc619e843be7873682b80fe111898c195429e03df1f67ca9442c5aa"
+    sha256               x86_64_linux:   "c91cd3ecaeb072983e16844b82a07c19b03020d81bc67d0deceebf8410cff866"
   end
 
   depends_on "boost" => :build
   depends_on "cmake" => :build
-  depends_on "llvm" => :build
+  depends_on "llvm@15" => :build
   depends_on "aws-sdk-cpp"
   depends_on "brotli"
   depends_on "bzip2"
@@ -35,6 +36,7 @@ class ApacheArrow < Formula
   depends_on "utf8proc"
   depends_on "z3"
   depends_on "zstd"
+  uses_from_macos "python" => :build
 
   fails_with gcc: "5"
 

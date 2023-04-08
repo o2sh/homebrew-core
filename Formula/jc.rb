@@ -3,18 +3,18 @@ class Jc < Formula
 
   desc "Serializes the output of command-line tools to structured JSON output"
   homepage "https://github.com/kellyjonbrazil/jc"
-  url "https://files.pythonhosted.org/packages/c9/b2/ab924c4cfb407a658c9ead9e5cac38e3175f6c4287003a28bbaf00f71a99/jc-1.22.5.tar.gz"
-  sha256 "79a184b6036d82847ce8d0f0b5f4eaa7023c20878137d909c06b1645d331eec5"
+  url "https://files.pythonhosted.org/packages/67/4f/092f0393f4d9ef95d4601586ee9775a2b8a27993cbec62c010518df968d1/jc-1.23.1.tar.gz"
+  sha256 "a0f3d7bb2f25a186bc80606927b33e55dd0c1fe2ebc3ad4d58b149b7e299b4ba"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ec7e6cb28b0dfb24bcc82e29bf446918170d6edfe09c11cc443228aafeb7ae5e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ec7e6cb28b0dfb24bcc82e29bf446918170d6edfe09c11cc443228aafeb7ae5e"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ec7e6cb28b0dfb24bcc82e29bf446918170d6edfe09c11cc443228aafeb7ae5e"
-    sha256 cellar: :any_skip_relocation, ventura:        "0dbbf634cf051cc4d9c69bed5949e789e3d19b09cac5e32e174ab39a38f4dcf2"
-    sha256 cellar: :any_skip_relocation, monterey:       "0dbbf634cf051cc4d9c69bed5949e789e3d19b09cac5e32e174ab39a38f4dcf2"
-    sha256 cellar: :any_skip_relocation, big_sur:        "0dbbf634cf051cc4d9c69bed5949e789e3d19b09cac5e32e174ab39a38f4dcf2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1a4743e7595b66548039934d4f6982f2fd92ea9cd9855e5a1f5b681ff0b7159c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a36568d697b5b9ab56d0a4d73515f6b32f02462375187d9f257185608be4bc0c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a36568d697b5b9ab56d0a4d73515f6b32f02462375187d9f257185608be4bc0c"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a36568d697b5b9ab56d0a4d73515f6b32f02462375187d9f257185608be4bc0c"
+    sha256 cellar: :any_skip_relocation, ventura:        "902a2b14c45903ff8cc225e6d25d1e6258f1f584d4d2de859df3a76d305a26c8"
+    sha256 cellar: :any_skip_relocation, monterey:       "902a2b14c45903ff8cc225e6d25d1e6258f1f584d4d2de859df3a76d305a26c8"
+    sha256 cellar: :any_skip_relocation, big_sur:        "902a2b14c45903ff8cc225e6d25d1e6258f1f584d4d2de859df3a76d305a26c8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c0fc14269a938757cbef7681e032711f2ea8aade7f80c7db8eea5a2f36480287"
   end
 
   depends_on "pygments"
@@ -38,7 +38,7 @@ class Jc < Formula
   end
 
   test do
-    assert_equal "[{\"header1\":\"data1\",\"header2\":\"data2\"}]\n", \
+    assert_equal "[{\"header1\":\"data1\",\"header2\":\"data2\"}]\n",
                   pipe_output("#{bin}/jc --csv", "header1, header2\n data1, data2")
   end
 end

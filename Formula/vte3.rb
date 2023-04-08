@@ -1,18 +1,18 @@
 class Vte3 < Formula
   desc "Terminal emulator widget used by GNOME terminal"
   homepage "https://wiki.gnome.org/Apps/Terminal/VTE"
-  url "https://download.gnome.org/sources/vte/0.70/vte-0.70.3.tar.xz"
-  sha256 "9457134a02f3157fca04f7e0d39bdb0f3099be0a3ce82b7139d0c98a80748f23"
+  url "https://download.gnome.org/sources/vte/0.72/vte-0.72.0.tar.xz"
+  sha256 "40fe914d6c70db34176c922725b6c6ea15d5f3cb2a9b44c57e200a5f950a6736"
   license "LGPL-2.0-or-later"
 
   bottle do
-    sha256 arm64_ventura:  "a00b29654da9ca4848e6440138f45b4d4a38b21a1b9779d56e37a98c5e8b5294"
-    sha256 arm64_monterey: "32675fbdc8616a47b50b39a49b9d7550c4419edf37bcd9468e56c641ef588ce3"
-    sha256 arm64_big_sur:  "909ff146ce0049d2e476e8ff1f03fab93175f20a08fff748574f17fcb41a822f"
-    sha256 ventura:        "bfd378f646a32825f99fa4e343608d192334d1dea115a723bb0604ca2c8e1fd1"
-    sha256 monterey:       "c9d67b4e8136264b9e9f86c194fb71dfaf2a43d88d1a1b2d21480f1a83a85db1"
-    sha256 big_sur:        "cc5261cf75d92b3001278501e02c760ea5684dcf167d294571bc0187a7aad918"
-    sha256 x86_64_linux:   "689ecb9ebb72864529863e971c4551ebb2bd061ba2bc9bf4ae7e11fad1c1fb6f"
+    sha256 arm64_ventura:  "b56511e84d5bf70126c300a3a9392dd852ec2f503854567eefcc5a05eecb4014"
+    sha256 arm64_monterey: "7a5dba9dd16a2fe0cb6402da11a4123e7e827eb28650961ac019b45a07066b39"
+    sha256 arm64_big_sur:  "8aa9b761c5ec4530e4fe55ce95a9a1aed797377320c878b5b133395b413b3dd5"
+    sha256 ventura:        "73adb5c4be3e6ca2e65d415773a2adf69bdc053180df8580d98d5eeefc1c4ea0"
+    sha256 monterey:       "b1a86b3cb574b909a5872367c051e5f8100e1919d3581aa95ddca6cd3eaad703"
+    sha256 big_sur:        "4a433969681a34bc20a7fa3131106edd1039dfaece275042fb6be3acd4f65319"
+    sha256 x86_64_linux:   "5ed7185eca71ca28092a96eef57f9b2694e73b4cba5f010d95b725ef84d62103"
   end
 
   depends_on "gettext" => :build
@@ -25,6 +25,7 @@ class Vte3 < Formula
   depends_on "glib"
   depends_on "gnutls"
   depends_on "gtk+3"
+  depends_on "gtk4"
   depends_on "icu4c"
   depends_on macos: :mojave
   depends_on "pango"
@@ -59,6 +60,7 @@ class Vte3 < Formula
 
     system "meson", "setup", "build", "-Dgir=true",
                                       "-Dgtk3=true",
+                                      "-Dgtk4=true",
                                       "-Dgnutls=true",
                                       "-Dvapi=true",
                                       "-D_b_symbolic_functions=false",
@@ -79,6 +81,10 @@ class Vte3 < Formula
       }
     EOS
     flags = shell_output("pkg-config --cflags --libs vte-2.91").chomp.split
+    system ENV.cc, "test.c", "-o", "test", *flags
+    system "./test"
+
+    flags = shell_output("pkg-config --cflags --libs vte-2.91-gtk4").chomp.split
     system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
   end

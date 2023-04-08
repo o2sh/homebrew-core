@@ -2,8 +2,8 @@ class NewrelicInfraAgent < Formula
   desc "New Relic infrastructure agent"
   homepage "https://github.com/newrelic/infrastructure-agent"
   url "https://github.com/newrelic/infrastructure-agent.git",
-      tag:      "1.37.2",
-      revision: "37fc10d266a82d9b29b8c59ffbbd21e36fe6dc37"
+      tag:      "1.40.0",
+      revision: "5d29fddbb1dc7c9d05495623203bdbd5e58d2e7f"
   license "Apache-2.0"
   head "https://github.com/newrelic/infrastructure-agent.git", branch: "master"
 
@@ -15,13 +15,13 @@ class NewrelicInfraAgent < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a2c8cd604ad09a61a9b9d4f819d9a7595f5e166a537370755838fa08c701491d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "df076775a1fc442593ba39c12383568d512ca5c6c15dd8d4d8c9e00550eef1b5"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "0e44a64c5a902885a990e9de3451bdb3a6335026f25005623e95031aa981fb06"
-    sha256 cellar: :any_skip_relocation, ventura:        "992189031e12866150e4e9634434285afd16f1bd4dc960a8da17172cb967a9bc"
-    sha256 cellar: :any_skip_relocation, monterey:       "885cdf6c2ee682bff95ecc61971bf2c81253fd1c9977b1d68ebcc09c9b73adc3"
-    sha256 cellar: :any_skip_relocation, big_sur:        "5ceec5943d8a3fa4a68023ac70b68f6510727a8ec154df165441417ee96681aa"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3204c54af005e1e3ac99dc113affddac567fc3fca95f5235b451c7b8e794db7e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8bfc50ace3896cbdd9bcdd27daa12c9bd38bf4c10fd5a3327914637d354fabc3"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "0dfe9ea4d640dde258022112c9b17cfb7d5a805fa798cb0f5f89e79f5a7f30a3"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b9bf4eaeccb2d4dc246bc37f709a09670095fbb45529f4f6e28677bd592264be"
+    sha256 cellar: :any_skip_relocation, ventura:        "76512062e3c58fed6326155867f266ba8bc8a4e03b32830002d5b2af7dbe261a"
+    sha256 cellar: :any_skip_relocation, monterey:       "8946b0dee70498e6f564ff70a1b24aa46dd3277e85e45c8292ce46fc90e9a425"
+    sha256 cellar: :any_skip_relocation, big_sur:        "57bd49bae7f699fd1d5d84b3f7deca415261f1238796b059cbeb533d8b356dac"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fe8a419b9718f1841cc36d28edd63da3dcacfb2e033b48ea4e8c9f00244e6a8c"
   end
 
   depends_on "go" => :build
@@ -47,7 +47,7 @@ class NewrelicInfraAgent < Formula
   end
 
   service do
-    run [bin/"newrelic-infra-service", "-config", etc/"newrelic-infra/newrelic-infra.yml"]
+    run [opt_bin/"newrelic-infra-service", "-config", etc/"newrelic-infra/newrelic-infra.yml"]
     log_path var/"log/newrelic-infra/newrelic-infra.log"
     error_log_path var/"log/newrelic-infra/newrelic-infra.stderr.log"
   end

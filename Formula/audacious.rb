@@ -1,16 +1,15 @@
 class Audacious < Formula
-  desc "Free and advanced audio player based on GTK+"
+  desc "Lightweight and versatile audio player"
   homepage "https://audacious-media-player.org/"
   license "BSD-2-Clause"
-  revision 2
 
   stable do
-    url "https://distfiles.audacious-media-player.org/audacious-4.2.tar.bz2"
-    sha256 "feb304e470a481fe2b3c4ca1c9cb3b23ec262540c12d0d1e6c22a5eb625e04b3"
+    url "https://distfiles.audacious-media-player.org/audacious-4.3.tar.bz2"
+    sha256 "27584dc845c7e70db8c9267990945f17322a1ecc80ff8b452e9ca916a0ce9091"
 
     resource "plugins" do
-      url "https://distfiles.audacious-media-player.org/audacious-plugins-4.2.tar.bz2"
-      sha256 "6fa0f69c3a1041eb877c37109513ab4a2a0a56a77d9e8c13a1581cf1439a417f"
+      url "https://distfiles.audacious-media-player.org/audacious-plugins-4.3.tar.bz2"
+      sha256 "662ef6c8c4bd70d0f35fd1c5f08b91549b9436638b65f8a1a33956b09df89fc6"
     end
   end
 
@@ -20,14 +19,14 @@ class Audacious < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "54de674d0590c05be8d17fddbe15175919e137de43b65ce70aded7173a4df72f"
-    sha256 arm64_monterey: "a3015cefc23d7e52def1896203de76922c652b8234ddc2cf0c4e4a90bace04d7"
-    sha256 arm64_big_sur:  "325d25c7d0998253960ad4344e5dbd0055806de247163d79724a0392dc5c3730"
-    sha256 ventura:        "946f75f5419edb4d49193cc616c5d0a9b3d1e59813ad273c3b592cb96c7b63ec"
-    sha256 monterey:       "4d85ec6a6ee927388bf4f1d3956116901798ca30f1a63a85c674df5037097ee9"
-    sha256 big_sur:        "3016b1ce25b2055357f52138030166773ec5445cf45c87032d7771133c352886"
-    sha256 catalina:       "0ab3edc5ffe3f71c8f7c453bdd929939264b4e4f51373909da3720111b96466d"
-    sha256 x86_64_linux:   "a9b7551315f0fab21041da8c8d6f864573ed83c9db54f01bc0b099cadac87583"
+    rebuild 1
+    sha256 arm64_ventura:  "2a756fe8a57417aa55537b2cdd65f2e50664a739ab66d3bd797b31d7f335bac2"
+    sha256 arm64_monterey: "8d4a4740672e229459e2f601e4553b849464ff38461bd1854941b43a4a0931b2"
+    sha256 arm64_big_sur:  "f15b24a6d5a954f502ebbe5030e47d0e400a8b73a9bc7b84e3122cc18dc7263a"
+    sha256 ventura:        "e5855bda267587d3f70fe0ec77a1da489609201ef675e75ad9e93895025e5e0d"
+    sha256 monterey:       "314a9048383b80f71c3182bfd7c161e5709d85cf664fc8a28c5e3dfb2ddb4247"
+    sha256 big_sur:        "a4d1252e7c7517d884bde70b23c330b32101953e453bba182e99995675befe28"
+    sha256 x86_64_linux:   "3d5f0079b4479ed1a50b6f46ef403d99a27b30ea2d23090799d5bd03cf683956"
   end
 
   head do
@@ -58,7 +57,8 @@ class Audacious < Formula
   depends_on "libvorbis"
   depends_on "mpg123"
   depends_on "neon"
-  depends_on "qt@5"
+  depends_on "opusfile"
+  depends_on "qt"
   depends_on "sdl2"
   depends_on "wavpack"
 
@@ -67,38 +67,31 @@ class Audacious < Formula
   fails_with gcc: "5"
 
   def install
-    args = std_meson_args + %w[
+    args = %w[
       -Dgtk=false
-      -Dqt=true
+      -Dqt6=true
     ]
 
-    mkdir "build" do
-      system "meson", *args, "-Ddbus=false", ".."
-      system "ninja", "-v"
-      system "ninja", "install", "-v"
-    end
+    system "meson", "setup", "build", *std_meson_args, *args, "-Ddbus=false"
+    system "meson", "compile", "-C", "build", "--verbose"
+    system "meson", "install", "-C", "build"
 
     resource("plugins").stage do
       args += %w[
-        -Dcoreaudio=false
         -Dmpris2=false
         -Dmac-media-keys=true
-        -Dcpp_std=c++14
       ]
 
       ENV.prepend_path "PKG_CONFIG_PATH", lib/"pkgconfig"
-      mkdir "build" do
-        system "meson", *args, ".."
-        system "ninja", "-v"
-        system "ninja", "install", "-v"
-      end
+      system "meson", "setup", "build", *std_meson_args, *args
+      system "meson", "compile", "-C", "build", "--verbose"
+      system "meson", "install", "-C", "build"
     end
   end
 
   def caveats
     <<~EOS
       audtool does not work due to a broken dbus implementation on macOS, so it is not built.
-      Core Audio output has been disabled as it does not work (fails to set audio unit input property).
       GTK+ GUI is not built by default as the Qt GUI has better integration with macOS, and the GTK GUI would take precedence if present.
     EOS
   end

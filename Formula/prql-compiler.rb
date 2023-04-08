@@ -1,18 +1,18 @@
 class PrqlCompiler < Formula
   desc "Simple, powerful, pipelined SQL replacement"
   homepage "https://prql-lang.org"
-  url "https://github.com/prql/prql/archive/refs/tags/0.5.2.tar.gz"
-  sha256 "27b3fe85315322dbfa3f5c7622af3a0d8a343b85910d3a0f760f4ebb9246be52"
+  url "https://github.com/prql/prql/archive/refs/tags/0.7.1.tar.gz"
+  sha256 "ac19dc6fb942a727d0a66c28711a8f77cd3905549737e1f60848525901e7d5b9"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ff87c25ace2699a868f2b782bb1a7c07bf4458686794ef69f9ca5b4641a743e9"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "13a28a5a726ad9aca994343eb1955ea15fa2d3f8b562ec157cb422f9b78f1695"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b32b63b0644ec503c73913fd90dbb5a8948f05fa9cb6491e0ab60b74ef3c084e"
-    sha256 cellar: :any_skip_relocation, ventura:        "91e0c650cecb0b6eeb23f213057f60be7f8bebe29769d8c9d2c0a23d78ca5a3c"
-    sha256 cellar: :any_skip_relocation, monterey:       "c6b632f3612f874b49853951c96565ec37ba033d87626a5f0c5aac279edc53fb"
-    sha256 cellar: :any_skip_relocation, big_sur:        "a30297101f875ab52f81eee9ce85536770ba5b878d677514480d2bf45210e798"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "97f8b4facfcf8b1c28db08e7b89f6016d0882ed071b887c667c015b7cf3ddd0e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0d2b476ed84f18569745c72e031617c79b72aa353cf2b00a95e8b7ee76e46e67"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9802f052ed9d0ff12ce16f0957a9e643eb86a6b8aeed3e28a29ae5dff2a686c1"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9daf752dd8b9cc1d2973794299fec637dba82d4fd7eddbc49a2582e20e07605f"
+    sha256 cellar: :any_skip_relocation, ventura:        "498d98270190f48be1b485be9e985ea72535bb1ca713c17d3599ad79b194ec07"
+    sha256 cellar: :any_skip_relocation, monterey:       "ca042041fec47084899ac6a98c4bbbca9c0664a88e0cd24187eaf0bfc3e718f7"
+    sha256 cellar: :any_skip_relocation, big_sur:        "dc0661736cb13ea79aa85dd34a18aa75d8b78a1b55040bf096c216c25b16000b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9bc4c92b6060519d0c176ed1aed5966175a68365b6237b4debd4924008c1ceb6"
   end
 
   depends_on "rust" => :build

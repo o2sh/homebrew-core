@@ -1,8 +1,8 @@
 class Treefrog < Formula
   desc "High-speed C++ MVC Framework for Web Application"
   homepage "https://www.treefrogframework.org/"
-  url "https://github.com/treefrogframework/treefrog-framework/archive/v2.6.1.tar.gz"
-  sha256 "1da87fc702905c008ccb1cdfd51604b2ec5061a78387ab74fdef44cb5f235ffd"
+  url "https://github.com/treefrogframework/treefrog-framework/archive/v2.7.1.tar.gz"
+  sha256 "c7d2cb55a8796d7d0710af62068471dfb606fc5fdcdbaf7c91ec4b2c31a63a26"
   license "BSD-3-Clause"
   head "https://github.com/treefrogframework/treefrog-framework.git", branch: "master"
 
@@ -12,13 +12,13 @@ class Treefrog < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "57327c1eab74babf1ea4b1b661ed83c731a0fbf67fa05e3ae81c53b76b7d3632"
-    sha256 arm64_monterey: "2cda35d89279eb669ffd0483b561b736180b540166360cd16705600397276dd0"
-    sha256 arm64_big_sur:  "2aa8ed9dc3b192b8e68f32519154ad7b40122e6b384cfab4793baa8e39747b65"
-    sha256 ventura:        "7904a37a4810adce21c768212623d5fb5bcc0239978f4c6bcf7e5121a7cccb10"
-    sha256 monterey:       "404d87c20a1b963bad0f5ff21b34c7bddb1d09b09d5a5d7263b934a24fec5e7d"
-    sha256 big_sur:        "0c49ef371594442cd70a8fda81dc14895d83440a29c535fbf396f577b69ed049"
-    sha256 x86_64_linux:   "8a6ddbf29eb61446254a3c1c41161c36d0235e8ecfbb746f72ffdf7f08226673"
+    sha256 arm64_ventura:  "24ff7d1885a2facb2ebab3e44e57a46204e9da4f3081a68a7c06d3c56a11d458"
+    sha256 arm64_monterey: "8689db039ecb5c5e995633167686066bf5b8c647eb2c5aa09aca37f2f6a5f816"
+    sha256 arm64_big_sur:  "8e22e6d22821a946a7dee1998e9c2454ab2d1328c9fd4034573cf686d87cc18c"
+    sha256 ventura:        "61374c291147748e5d05cd4d260e2943eb5062343233958de37548e74dd2ba7a"
+    sha256 monterey:       "e4dc9e48620c52d7c897c5ea2d0a8895e75d7c3aa7e91a6f42fd9ef4eb307ae6"
+    sha256 big_sur:        "61761bf0d4017491a07436d5270a8a97427ac378a52ca4cd1c6ec6304042332b"
+    sha256 x86_64_linux:   "f5c91db15d91d8f992c7c59f6c890e50d6664e6ae87ce4390e862b266248ddd6"
   end
 
   depends_on "cmake" => :build
@@ -58,10 +58,6 @@ class Treefrog < Formula
     assert_predicate testpath/"hello", :exist?
     cd "hello" do
       assert_predicate Pathname.pwd/"hello.pro", :exist?
-      # FIXME: `qmake` has a broken mkspecs file on Linux.
-      # Remove when the following PR is merged:
-      # https://github.com/Homebrew/homebrew-core/pull/107400
-      return if OS.linux?
 
       system Formula["qt"].opt_bin/"qmake"
       assert_predicate Pathname.pwd/"Makefile", :exist?

@@ -3,19 +3,19 @@ class Sqlmap < Formula
 
   desc "Penetration testing for SQL injection and database servers"
   homepage "https://sqlmap.org"
-  url "https://github.com/sqlmapproject/sqlmap/archive/1.7.2.tar.gz"
-  sha256 "58db9fb0a79332927634cdb8de6df7e62997ec85b77daef0ce733612a1d79de1"
+  url "https://github.com/sqlmapproject/sqlmap/archive/1.7.4.tar.gz"
+  sha256 "ad09a2e58d489762055f289a2e39c5f94e1ec80973cf7be488c4582bc43ae8e6"
   license "GPL-2.0-or-later"
   head "https://github.com/sqlmapproject/sqlmap.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2f78c876e31c3d6d1da72ab159e9cd173bc5de9b85bb91d92d4af4399c0f637c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2f78c876e31c3d6d1da72ab159e9cd173bc5de9b85bb91d92d4af4399c0f637c"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "2f78c876e31c3d6d1da72ab159e9cd173bc5de9b85bb91d92d4af4399c0f637c"
-    sha256 cellar: :any_skip_relocation, ventura:        "59ff1490cb1bcd310f57c564eaa766d7c5bf81c7e30022584152ec6247b3e990"
-    sha256 cellar: :any_skip_relocation, monterey:       "59ff1490cb1bcd310f57c564eaa766d7c5bf81c7e30022584152ec6247b3e990"
-    sha256 cellar: :any_skip_relocation, big_sur:        "59ff1490cb1bcd310f57c564eaa766d7c5bf81c7e30022584152ec6247b3e990"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5254bdecaa42d5f48ce7b3f10ba962d10d55e57749fa1aa22c9c05f04f70bed6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2be08e8d1cb30af57700d7da098f5f35fb2d3dd4fbaec18f132dec0b7d3af168"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2be08e8d1cb30af57700d7da098f5f35fb2d3dd4fbaec18f132dec0b7d3af168"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "2be08e8d1cb30af57700d7da098f5f35fb2d3dd4fbaec18f132dec0b7d3af168"
+    sha256 cellar: :any_skip_relocation, ventura:        "ed05d756bbcf8285e81af22345ceaf7d6a97e051f654e55c081ad59af14407b4"
+    sha256 cellar: :any_skip_relocation, monterey:       "ed05d756bbcf8285e81af22345ceaf7d6a97e051f654e55c081ad59af14407b4"
+    sha256 cellar: :any_skip_relocation, big_sur:        "ed05d756bbcf8285e81af22345ceaf7d6a97e051f654e55c081ad59af14407b4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f1293115565c33a0b70f1fb8650633d007e9f8c001ad459bfee35b81f08016e3"
   end
 
   depends_on "python@3.11"

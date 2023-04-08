@@ -1,19 +1,19 @@
 class Xmake < Formula
   desc "Cross-platform build utility based on Lua"
   homepage "https://xmake.io/"
-  url "https://github.com/xmake-io/xmake/releases/download/v2.7.6/xmake-v2.7.6.tar.gz"
-  sha256 "6ae8ba15d5e6d8ebd05c70fb35ae0ade49f2742185a2908b25589a54f39de62f"
+  url "https://github.com/xmake-io/xmake/releases/download/v2.7.8/xmake-v2.7.8.tar.gz"
+  sha256 "d4112587fb0e74037ff1ac32d2f1000591ac1a297fbd74645f9b031cb079585e"
   license "Apache-2.0"
   head "https://github.com/xmake-io/xmake.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8185d7ecaca3829491c6b707d23ac37ff763de2e21c92681600229c01a2d6338"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "506a82530a7cff0217d6fab0a8e378502e9c56a040402152787906886c9d92da"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a8866311fc2b085199cd46946801ff942ebc9c712c1e37f49b1d2ac779e94cc4"
-    sha256 cellar: :any_skip_relocation, ventura:        "9795ba1a21b591fc47e9cf6764a342d47c0106ed4f052342598747b4bd9a8eee"
-    sha256 cellar: :any_skip_relocation, monterey:       "0bc50c40cc1c17f4049c69ae8b463ba5ef230cb8347a34d60bd8bcf973d1f784"
-    sha256 cellar: :any_skip_relocation, big_sur:        "882fc7e3f8bcb217156b2f54dcfc548bad96e608cbcee14efdc20c134abd3aa4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b333e94c8ef4da5c3c170973c83b0c79fca68b8240d77d233f9d6d312d9327e6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "31870026eb5ee44ebe2f8eb906dede2d09417cc4c9cc24dae036ad767f7e2b91"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "78e8b4a2ac8cb357348b5d4ff237e2083bf3a0f6a5ec11df8798f771e8711eb0"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "fc03592b0828e60790787240950969d9a7af2438cc682ed010e448b69cfb030f"
+    sha256 cellar: :any_skip_relocation, ventura:        "ab530a91b0a303f5b45b4533ede19520abf28935d0ffbf3a9ea0618515177e67"
+    sha256 cellar: :any_skip_relocation, monterey:       "ff5b9de0e725c72d3264d394e3008c9565b9674d16aa526bb0b61c9a404e8de1"
+    sha256 cellar: :any_skip_relocation, big_sur:        "ab7d4686d0ace0f599f07d2ec004608d75daf153206c72cb34997e31dfa4567a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ed5945e56c6356310c57d4ef19baffe4ab2ee5f862ab3f0563dd96391b1d7d97"
   end
 
   on_linux do

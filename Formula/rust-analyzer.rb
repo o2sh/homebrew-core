@@ -2,19 +2,19 @@ class RustAnalyzer < Formula
   desc "Experimental Rust compiler front-end for IDEs"
   homepage "https://rust-analyzer.github.io/"
   url "https://github.com/rust-lang/rust-analyzer.git",
-       tag:      "2023-02-20",
-       revision: "a6603fc21d50b3386a488c96225b2d1fd492e533"
-  version "2023-02-20"
+       tag:      "2023-04-04",
+       revision: "236576227a299fd19ba836b1834ab50c948af994"
+  version "2023-04-04"
   license any_of: ["Apache-2.0", "MIT"]
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "99c0a13630bef5f37d544c1538b15ff372fd4b0da98088ca911d053698650b01"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "011de49c114638bdc4b067e06ae343efbcfb79f695c2afdc7b5692e484c8e290"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "db305df4234df478d86ca669ad5d3f8161633fb96e49fc0fad58e2d95026693f"
-    sha256 cellar: :any_skip_relocation, ventura:        "666feef8da7e9b28e3ab58709f62eec477202287547c65ea836464884fb85f4f"
-    sha256 cellar: :any_skip_relocation, monterey:       "7283b97096c9639a27ec3103b7489fafe9f660f5df4480106e7be3e16ee87d1e"
-    sha256 cellar: :any_skip_relocation, big_sur:        "4633f6969e6db6dd474a740442ab77477f974a66655743431bf0c3ea312a30e0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d571ddbc9ddb6a84c8e1f15dd7cdd505c12eec14fe0628f316d0d0dda9ad51bd"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3eb77a7566a2a57589229357637a74c4f436bf82ec88c8daf20695013a017d25"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "7c4deeff447495c69a539e0c2bd61e9461338410bf263f4fb8b6cda5a48e9ada"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b7cb80f0dc71c4d493b0f2b00700f063dc1e4be60a38451e4545c95e117d798f"
+    sha256 cellar: :any_skip_relocation, ventura:        "51c121f8a1cf2748a4048420124ea0bcfd36310f7745273a1978207b8246606f"
+    sha256 cellar: :any_skip_relocation, monterey:       "8086fe7cf1f655bdb686b99da75428a73d90fd75f71bf329c6469c4f47722714"
+    sha256 cellar: :any_skip_relocation, big_sur:        "bffb58129cf8c1c82c8d5d377f60739d5ad6fd774eb221ec8138d3c782079c5f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0a235f94859c6ffe2862d2152a34076cf7fc813c41de3a2ee3707d8e6653b194"
   end
 
   depends_on "rust" => :build

@@ -3,19 +3,18 @@ class JenkinsJobBuilder < Formula
 
   desc "Configure Jenkins jobs with YAML files stored in Git"
   homepage "https://docs.openstack.org/infra/jenkins-job-builder/"
-  url "https://files.pythonhosted.org/packages/45/9b/bf0f284d27fd41707d849126b5bac29a1a02919304372a334ed869613318/jenkins-job-builder-4.1.0.tar.gz"
-  sha256 "e630a5b5da260f8bb92d9ad824550707fb0b3915d8b96a1e24e6a501c8b4f974"
+  url "https://files.pythonhosted.org/packages/bc/e4/fccd5e2d0b8826bc465ea98dab5196bb2f7268619efaa58a04e5527e8739/jenkins-job-builder-4.3.0.tar.gz"
+  sha256 "a6f91af132cc11c973276230e222d2891d62a15ddfaf3412b4bbb6d7e9124872"
   license "Apache-2.0"
 
   bottle do
-    rebuild 3
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b40f87867d119e87c2d5f9ef99b36d4a0f69f03fe6a51a8a1df045852f503d86"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "19a74f39c3a6d907a9beec188d04e443f8387ed6b139ff44497e22c27e523c19"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "50218be4da055e335e9ad50bc7d5075251ea52ddf86ecbac4ba8713e6c82a399"
-    sha256 cellar: :any_skip_relocation, ventura:        "fc37b940474a459dd89faad6a83b71a645d1fbccce6bf46b9d0c6f8ddc9c57a5"
-    sha256 cellar: :any_skip_relocation, monterey:       "596cf393567832612ad75c1a220f771ba79c284a618386d81a03aae8f765bdde"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d0a5a54d8e50b3d5e1bcf89521b0af287230e04da48aa5c37be81071a3ea67d5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f3f913f9cffd5e70cd668c73c582786002e7e17428b5e6a18b3b2627fa503d57"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ee8d5db9e0b31d47c2abe3c7b0a8721219fced440f9e0d537135ebe74659bcec"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "32500a8cfaf45202c676f27e3e1e56d4cb9add33d1c33f02a0b1c3a6970ebc24"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "1f6e054f850a8dc4106ec1f4fe13e11968d3a3162f8fb6deb869559ba3e204c2"
+    sha256 cellar: :any_skip_relocation, ventura:        "ac76b24ad009d163cb93945f6a2d12c95ecb3b1ab57b170cb1eb5ba7d633f8b2"
+    sha256 cellar: :any_skip_relocation, monterey:       "f9c986a593b9149771b5e20e75bfa8fd623e3c441ef0aa0739a882db66ee5111"
+    sha256 cellar: :any_skip_relocation, big_sur:        "b3621a4bd5d8a1a0075cb57a6b22d2ce897ddbce363662df0c7e6dad12f62ae2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "01ba9b2876c14f6e26a31d9c4adaae655070eaf33d66785393a572c316a8f402"
   end
 
   depends_on "python@3.11"
@@ -73,8 +72,8 @@ class JenkinsJobBuilder < Formula
   end
 
   resource "stevedore" do
-    url "https://files.pythonhosted.org/packages/66/c0/26afabea111a642f33cfd15f54b3dbe9334679294ad5c0423c556b75eba2/stevedore-4.1.1.tar.gz"
-    sha256 "7f8aeb6e3f90f96832c301bff21a7eb5eefbe894c88c506483d355565d88cc1a"
+    url "https://files.pythonhosted.org/packages/f1/25/993d09dc7be3e7927228853c75324104d734bb784bd766b025ebf9f47b16/stevedore-5.0.0.tar.gz"
+    sha256 "2c428d2338976279e8eb2196f7a94910960d9f7ba2f41f3988511e95ca447021"
   end
 
   resource "urllib3" do

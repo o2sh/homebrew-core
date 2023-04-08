@@ -2,8 +2,8 @@ class ArduinoCli < Formula
   desc "Arduino command-line interface"
   homepage "https://github.com/arduino/arduino-cli"
   url "https://github.com/arduino/arduino-cli.git",
-      tag:      "0.31.0",
-      revision: "940c94573b1f446c2aa7f2011f123550e068d9e4"
+      tag:      "0.32.1",
+      revision: "a8787b8275e9f87e46da8f5364c5577a6a757fd3"
   license "GPL-3.0-only"
   head "https://github.com/arduino/arduino-cli.git", branch: "master"
 
@@ -13,13 +13,13 @@ class ArduinoCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9e1c20b673fbc1a1a5b25a2ab60d9219df289f29a10954121f504d2efa67895d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9951a5c0990b6f1e6c6ce9be982b5597fac30c5404e676739f4717efb7e001a2"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "bb265c92a8d2e64aca7b8b8b9edb2f3e45af88b74b3934a8c0299b59db247135"
-    sha256 cellar: :any_skip_relocation, ventura:        "3408b5b23bbb18275ac672a0d463d32d32a27736ae2982ef45c98bceed07236f"
-    sha256 cellar: :any_skip_relocation, monterey:       "94c4b7d8d4e34228978806c156b8c3a205135cb0ca236ba3b20ec024a74982e5"
-    sha256 cellar: :any_skip_relocation, big_sur:        "dc322c8d740eb79f1e5d543406ff8126b10b7277b44a6abd886ae39e500e4f27"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "44eea103b891e5186353d9c7dc269fd6aefe2e6abf8f86f6d2d6e7e1739b666d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "af8956438f241dd83c6422dec108497041517f74166894871b59722a37c0d37a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4bf293cdfea3dfd39c0a75c81fe85b1653bb0d3755c79f4adb30c4705d55a0a2"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a485ffc2484bb6df17666b87512c7a469a6565b7f85ef4a18a277c5e0e5bc116"
+    sha256 cellar: :any_skip_relocation, ventura:        "cfdc0d462781d853fd32ae983159b96f581fd799151e2273b21eef0fca0c8e8e"
+    sha256 cellar: :any_skip_relocation, monterey:       "7e3b54e34f69fcc31bf382ee07b5639b7fea273b9f3d6d1aa6549fb09ef94ba0"
+    sha256 cellar: :any_skip_relocation, big_sur:        "e4076be38bf9e1e9308b2e6267cee00912cabcbb135a73199f777e74e0dab7d1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "98bf36d5d0653b25b679d198e1537f068c6494c9fd65b980c3b0e48e0daaa871"
   end
 
   depends_on "go" => :build

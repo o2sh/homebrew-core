@@ -1,18 +1,18 @@
 class Nvc < Formula
   desc "VHDL compiler and simulator"
   homepage "https://github.com/nickg/nvc"
-  url "https://github.com/nickg/nvc/releases/download/r1.8.2/nvc-1.8.2.tar.gz"
-  sha256 "d2fee04dbf5b08f3f39f535482ecb9d92c0dd09e7fa11588a9e57ac07ee5ef77"
+  url "https://github.com/nickg/nvc/releases/download/r1.9.0/nvc-1.9.0.tar.gz"
+  sha256 "2fd35db474ca5c2d8620de19b1f4bdd5d83123695f8459f8249c4c840a5e95dd"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 arm64_ventura:  "5f68e0391a3511891db3ef59c5184385849dba5f2c2695eda8a4cdcca2eec5fa"
-    sha256 arm64_monterey: "f828b5c7c8655d4ecb71d9e2a3423cfe3a6eb3b3723f58311b1f7f64d72a4ad8"
-    sha256 arm64_big_sur:  "849d64610daf8069cc26d4b006df942f1f873858ba21f380a91befcfab255c26"
-    sha256 ventura:        "f8910732b41d6d5365bee48f6295f4798256254b3db057d0765dd0a512e6a2bc"
-    sha256 monterey:       "3127e8715c0c3807226f38906725a2d84b768f95c4daa659c78a7bc00a67d7d7"
-    sha256 big_sur:        "397f1db39543a55d5ebe186f5f8ad73006838e479866e330cd628d8219f8d899"
-    sha256 x86_64_linux:   "7d75946e492901bab0c9a8036bdea67edcebcc139121ea2322f776824a3e5f6c"
+    sha256 arm64_ventura:  "311a7c255f0834937556f6935948aef55bc1b64d4bc4c6fdbe5d9be7dae8c52f"
+    sha256 arm64_monterey: "e25511728f1966c35711fba6ac6b9d001995a2e4410709e6a0f1d16ecc1b34d8"
+    sha256 arm64_big_sur:  "32661f3a4dd52aae7b56b255008f8fa508af42cf9f6febeeb44530ae855c70f7"
+    sha256 ventura:        "327b15158a3b0b89caefc682d8a9a2217adffcfe8c29d0c5ea847dc5e24c5aa4"
+    sha256 monterey:       "023b33efe4333d2a7a3eca4f6be892289f89e98fbbef560b560982c129ffb417"
+    sha256 big_sur:        "72add91009a37a50e0944de75210e39d74ec5497a66d297c16f69b4ff9056e01"
+    sha256 x86_64_linux:   "9c87901dbacc0bc6d2ed8d87d4955632ea30b0d0bd51fe2b84316fe99bb48795"
   end
 
   head do
@@ -31,8 +31,15 @@ class Nvc < Formula
   fails_with gcc: "5" # LLVM is built with GCC
 
   resource "homebrew-test" do
-    url "https://github.com/suoto/vim-hdl-examples.git",
-        revision: "fcb93c287c8e4af7cc30dc3e5758b12ee4f7ed9b"
+    url "https://raw.githubusercontent.com/suoto/vim-hdl-examples/fcb93c287c8e4af7cc30dc3e5758b12ee4f7ed9b/basic_library/very_common_pkg.vhd"
+    sha256 "42560455663d9c42aaa077ca635e2fdc83fda33b7d1ff813da6faa790a7af41a"
+  end
+
+  # Fix build failure.
+  # https://github.com/nickg/nvc/issues/667
+  patch do
+    url "https://github.com/nickg/nvc/commit/c857e16c33851f8a5386b97bc0dada2836b5db83.patch?full_index=1"
+    sha256 "8be3f5a0621266dfba89b0efe4f3b48fb9a4f05642f6d0e32e2b63b9661368a0"
   end
 
   def install
@@ -52,10 +59,13 @@ class Nvc < Formula
       system "make", "V=1"
       system "make", "V=1", "install"
     end
+
+    (pkgshare/"examples").install "test/regress/wait1.vhd"
   end
 
   test do
-    resource("homebrew-test").stage testpath
-    system bin/"nvc", "-a", testpath/"basic_library/very_common_pkg.vhd"
+    testpath.install resource("homebrew-test")
+    system bin/"nvc", "-a", testpath/"very_common_pkg.vhd"
+    system bin/"nvc", "-a", pkgshare/"examples/wait1.vhd", "-e", "wait1", "-r"
   end
 end

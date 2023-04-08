@@ -1,18 +1,18 @@
 class Step < Formula
   desc "Crypto and x509 Swiss-Army-Knife"
   homepage "https://smallstep.com"
-  url "https://github.com/smallstep/cli/releases/download/v0.23.2/step_0.23.2.tar.gz"
-  sha256 "98b561b185e43fa48567bffa65011dc55d4c762f477cb975511828d6d0934059"
+  url "https://github.com/smallstep/cli/releases/download/v0.23.4/step_0.23.4.tar.gz"
+  sha256 "b8cfdbe167e008951488e75450a80d49651b586ce6c4bacb73ad2df081a66da5"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "42872ca0a1062f412ceac6d7ceb42ee1b3e96df51cf6a8bbfe48390ea8e24a33"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e7c3fd5a2569f994db13dc98b07542679590d42e773fa1166478e72ad8691352"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "4bed9ec62340fe5037e76bc17b2c80ba8d6857e490c7912e15a5d719024c3f2f"
-    sha256 cellar: :any_skip_relocation, ventura:        "a5004770596a96134462ac3eeb13b0743c1e1739a4aab29c8bbb5f644e045ef4"
-    sha256 cellar: :any_skip_relocation, monterey:       "e38bef735d3e3fcaa5cd54aed9420620078f94ccdbb21a3c9382a5ae05c1946e"
-    sha256 cellar: :any_skip_relocation, big_sur:        "6d9ddfbfb46fb6269da5d6d5412df6f214ddfd92cb0894f16e572682bbf17b0e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "23d6e996e87bbbbb41c76f6c8876fd5876bbadeefade39090b40b6370285251e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8f769b428ed76aeaeebc49dc2a2a01726ce025e5696c638293d90a5263952225"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "fdfeedcd6c4805047f1b4d259d807f0a8a2d7927bcb63f855ce4c908b5fc118d"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "5b7e4d0127a46e353c8bfbb19746792726b719175165109464bbf604266b335b"
+    sha256 cellar: :any_skip_relocation, ventura:        "6c605f79a385fcec19da4e47b9ee5e2c979db77b97cc84598a96d199a4c0aadc"
+    sha256 cellar: :any_skip_relocation, monterey:       "4272514c0be5074854f83d1fc3a32eb02cac11e5732d238b076a3ab400da9445"
+    sha256 cellar: :any_skip_relocation, big_sur:        "ea82990e1eff16ae9b0470c0d5a4ee4d29e9c32cbd7e38f56a7074748e5936dd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "72edf7d3ada35059e5e9b5123e1094acf2a825d544f5db387375e87125f06dc6"
   end
 
   depends_on "go" => :build

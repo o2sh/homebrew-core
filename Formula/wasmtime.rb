@@ -2,8 +2,8 @@ class Wasmtime < Formula
   desc "Standalone JIT-style runtime for WebAssembly, using Cranelift"
   homepage "https://wasmtime.dev/"
   url "https://github.com/bytecodealliance/wasmtime.git",
-      tag:      "v6.0.0",
-      revision: "c00d3f0542855a13adffffd5f4ff0177dfbdcb34"
+      tag:      "v7.0.0",
+      revision: "0d8b737cbe0d4c8c6a939064995fd03d9afdb2b8"
   license "Apache-2.0" => { with: "LLVM-exception" }
   head "https://github.com/bytecodealliance/wasmtime.git", branch: "main"
 
@@ -13,13 +13,13 @@ class Wasmtime < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "473874f6fb894318c4103e7da8c9d3d8edd28ecbff990bcf348770ce01276394"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f5c190052b52b39767e411c775c27e008b580383804d8b0be549eebf7978adef"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "933eb376c1a0f377e0d5a43849ceacc4ed9fa84d84153bfcbc49d2ca6db26335"
-    sha256 cellar: :any_skip_relocation, ventura:        "077c2403af47e0613a52adfc6f8afc3bc1861414c8b8c1d13b6ff3bd8a59f608"
-    sha256 cellar: :any_skip_relocation, monterey:       "cf2f1caf0cd0e8fd4b65616455ecdd0546dd9ac170f14e6ca75fa0dece213a7e"
-    sha256 cellar: :any_skip_relocation, big_sur:        "f34460f548a7f2cea54860a6ff3b503d5781cf0e9e9a95134da5da08868d10e9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9a78e5d4f31287236d45a2d87c1275542383f533ba974def6b127ebfe27cc09b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "dc3b5dc8c6ef062c2f9a58ede833cc094b00d9ee769c2d4ea3fc87bc785fd6a1"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "bef254a62c5eac4073d1aa43d068fb58fbc9b53176eb8add89b1d54489f46e07"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "15e2d9298087b52f9f4b19f92170e748b6d6dd17b78f0e3339f9c0f9b56be373"
+    sha256 cellar: :any_skip_relocation, ventura:        "433dff36c9344c3883932dd370b7abace13bc97eb34630b4ec75b33f0b03e52b"
+    sha256 cellar: :any_skip_relocation, monterey:       "785d26f68a26fc424910099919da924d80fa7d874f2dbc30e685cc23d33006dd"
+    sha256 cellar: :any_skip_relocation, big_sur:        "60526c8b541d3ac1c4680a5d31594f8e0156fd5de9ecc20e9cc4235f88c9e68f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fd1a988018ff87926381e6378632f9606a8871ff8d36ec0d1247c7877a476a91"
   end
 
   depends_on "rust" => :build

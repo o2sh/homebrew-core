@@ -1,8 +1,8 @@
 class Consul < Formula
   desc "Tool for service discovery, monitoring and configuration"
   homepage "https://www.consul.io"
-  url "https://github.com/hashicorp/consul/archive/refs/tags/v1.13.3.tar.gz"
-  sha256 "bdc3dc7e4d5d4448528e9bf6fee1cb3b613a0f730820988d4fc550e189bfd46c"
+  url "https://github.com/hashicorp/consul/archive/refs/tags/v1.15.2.tar.gz"
+  sha256 "ce5e6666c9bd3ee8dcd60b2ed6e082ab9893fda3c0a2218add649c197f34f2f3"
   license "MPL-2.0"
   head "https://github.com/hashicorp/consul.git", branch: "main"
 
@@ -12,14 +12,13 @@ class Consul < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0f4e073d5b5e016044a4e47d3dabdbe22cbb30f33da13f4412c2f41c2f1c0b97"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d167ce4266c1397e3905c2eceda4ca6e06a9e8e1bb651e47037fb0438a1d079a"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7e39a1e36a9ff85057372ce3cf642e7a7e097355cf21bd4b05ad955be36c7ed7"
-    sha256 cellar: :any_skip_relocation, ventura:        "977037f7e8cf7e845d03af2adbc2c8a848c63500ba50470b4cbb96f9c4dfdbc9"
-    sha256 cellar: :any_skip_relocation, monterey:       "4c79d9775ed7bdea9f0c41e50e5bad96aca8aee86085357352e6fb797c6a10a3"
-    sha256 cellar: :any_skip_relocation, big_sur:        "8feb852c1f5f09617faee8aa7b82e61ee70d890b9b73aca7f8ea08ad761827d2"
-    sha256 cellar: :any_skip_relocation, catalina:       "6143ff8b4a04cdde35d9b1933c087d13a0158f007ea078aac4fa6da5052f9bac"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d6ad31a4f93ee5bedbb9d2806c6bed1dbcf5a253cdcc3a01fb35d5c04df51100"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ec49635056c1b199dd1d78841f39da706f6099df5f65267f5ce61df97b11b070"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "805349e6eeb5cdb1892b1d68ae438c8c045dcd252873d13ea1fdfab527fd16c1"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c70bd3e75d4c9102664870fa20c77cea97a6ef816d045c170254d42befce6773"
+    sha256 cellar: :any_skip_relocation, ventura:        "a733a7305168457948c5dee53058b72ff2ca2100e575a7ad5944ea3f80dc7cc7"
+    sha256 cellar: :any_skip_relocation, monterey:       "b8ffd436a13526201f813c8ae0d1edef328718d2dc4cfb859a8c060301bb3fd0"
+    sha256 cellar: :any_skip_relocation, big_sur:        "83f750c982b5847de776f377b9f47bf619dd2239f0d22fe452db73c6b01d228b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "77d9ad6713af388ae988ab56e60466606181be0407f8a27927d3b33a30adfc78"
   end
 
   depends_on "go" => :build
@@ -61,5 +60,7 @@ class Consul < Formula
     v = "value"
     system bin/"consul", "kv", "put", "-http-addr", "127.0.0.1:#{http_port}", k, v
     assert_equal v, shell_output(bin/"consul kv get -http-addr 127.0.0.1:#{http_port} #{k}").chomp
+
+    system bin/"consul", "leave", "-http-addr", "127.0.0.1:#{http_port}"
   end
 end

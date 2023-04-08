@@ -1,10 +1,9 @@
 class R < Formula
   desc "Software environment for statistical computing"
   homepage "https://www.r-project.org/"
-  url "https://cran.r-project.org/src/base/R-4/R-4.2.2.tar.gz"
-  sha256 "0ff62b42ec51afa5713caee7c4fde7a0c45940ba39bef8c5c9487fef0c953df5"
+  url "https://cran.r-project.org/src/base/R-4/R-4.2.3.tar.gz"
+  sha256 "55e4a9a6d43be314e2c03d0266a6fa5444afdce50b303bfc3b82b3979516e074"
   license "GPL-2.0-or-later"
-  revision 1
 
   livecheck do
     url "https://cran.rstudio.com/banner.shtml"
@@ -12,13 +11,14 @@ class R < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "fc5834a3ae121615ddd4d37b9c9ead1eaa8a49ddb62924db85783e89eaca7523"
-    sha256 arm64_monterey: "da8a9d616ad6378683b2c053a1eb21979de6fb87f0b2a167dc817e3621efabd4"
-    sha256 arm64_big_sur:  "27dfc85cb338bd47ab2c4d2056084c0c0c2b7b2e7274487da1d33c5b6e02f5b3"
-    sha256 ventura:        "10efb9286514143cb2a29ed3722122434a844c70c211b9b6b1ae6aa6ac6efcc4"
-    sha256 monterey:       "f7198e01cae195c5b91a8a2105fb1bfd5a76376f97b30c84f4e76fe3dff9c42a"
-    sha256 big_sur:        "c30d89edffe0b4e6b56fea24ddf0b594e08b96d372d45767f052363647ba985c"
-    sha256 x86_64_linux:   "7662bb5a6d42fdf07da6b41b2a47df8c8f9dc36f6e4438912826041c65c11b65"
+    rebuild 2
+    sha256 arm64_ventura:  "1aaac6bb43b269782761b3907dc933321bd6d75409ba8c3e2a83f447e34b3c8f"
+    sha256 arm64_monterey: "959da346785758951f801909e643af01c90457f19c3317aca31260a6182c4b8f"
+    sha256 arm64_big_sur:  "a5dab7bcf27e3786be0987b54526f0f6920427d5015dc3fc677f03ba8518a20e"
+    sha256 ventura:        "503142af4cd4cbf11e85e55ce2c3f38a8ceb57d0be3395851d8b9474c3a61049"
+    sha256 monterey:       "99775b7e6f83d77adab4bf9b58f11e0fa9e14584e948f5388b82870a5511a04c"
+    sha256 big_sur:        "960359af6bac95c9b18d58ded947b35f6b7c1dd67365df7147a4321b1217998b"
+    sha256 x86_64_linux:   "bd74ea85ecaeebc71abf1376492bdd1084ae37a43eb65e295d82f8b0dd1c8212"
   end
 
   depends_on "pkg-config" => :build
@@ -57,15 +57,15 @@ class R < Formula
   # https://bugs.r-project.org/show_bug.cgi?id=18426
   patch do
     on_ventura :or_newer do
-      url "https://raw.githubusercontent.com/Homebrew/formula-patches/d647f4e1d61c8dba5f15edf7a0fc567f681641fb/r/ventura.diff"
-      sha256 "0b3c230432ef6a9231eaf48f39fd22155d3e1c7cd4f2a497e96ff4bdc7d91b84"
+      url "https://raw.githubusercontent.com/Homebrew/formula-patches/1b1104166dc06444e691dd1b2bec3606b095e382/r/ventura.diff"
+      sha256 "de146793532e4498480014f824bf2446e02aa70206284851127561f6c37108bf"
     end
   end
 
   def install
-    # BLAS detection fails with Xcode 12 due to missing prototype
-    # https://bugs.r-project.org/bugzilla/show_bug.cgi?id=18024
-    ENV.append "CFLAGS", "-Wno-implicit-function-declaration"
+    # `configure` doesn't like curl 8+, but convince it that everything is ok.
+    # TODO: report this upstream.
+    ENV["r_cv_have_curl728"] = "yes"
 
     args = [
       "--prefix=#{prefix}",
@@ -138,11 +138,13 @@ class R < Formula
   end
 
   def post_install
-    short_version =
-      `#{bin}/Rscript -e 'cat(as.character(getRversion()[1,1:2]))'`.strip
-    site_library = HOMEBREW_PREFIX/"lib/R/#{short_version}/site-library"
+    short_version = Utils.safe_popen_read(bin/"Rscript", "-e", "cat(as.character(getRversion()[1,1:2]))")
+    site_library = HOMEBREW_PREFIX/"lib/R"/short_version/"site-library"
     site_library.mkpath
-    ln_s site_library, lib/"R/site-library"
+    touch site_library/".keepme"
+    site_library_cellar = lib/"R/site-library"
+    site_library_cellar.unlink if site_library_cellar.exist?
+    site_library_cellar.parent.install_symlink site_library
   end
 
   test do

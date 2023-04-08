@@ -1,8 +1,8 @@
 class Pyenv < Formula
   desc "Python version management"
   homepage "https://github.com/pyenv/pyenv"
-  url "https://github.com/pyenv/pyenv/archive/refs/tags/v2.3.13.tar.gz"
-  sha256 "9105de5e5cf8dc0eca2a520ed04493d183128d46a2cfb402d4cc271af1bf144b"
+  url "https://github.com/pyenv/pyenv/archive/refs/tags/v2.3.17.tar.gz"
+  sha256 "bffe53bcbb5e40515385a94410e2dbda3af644e6d94d2daddd5c5a136b6eb5df"
   license "MIT"
   version_scheme 1
   head "https://github.com/pyenv/pyenv.git", branch: "master"
@@ -13,13 +13,13 @@ class Pyenv < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "beea55c96989f84f1b804b63f1612b0b899a0d4f2011f9ecfae4e73d90f92fc1"
-    sha256 cellar: :any,                 arm64_monterey: "f0f23b8562cee015f0e8c69f73228638bbe78b57ee03a0bf67fc055f2f5fdf99"
-    sha256 cellar: :any,                 arm64_big_sur:  "2b34ade9cfb53fff88a38df4e5713afed38ef1bc0ac106dc2aa882594055a5a0"
-    sha256 cellar: :any,                 ventura:        "35b2d29269ba890bea675e95ed110a76efd97ce85c5bf06ab1453216d2a38dce"
-    sha256 cellar: :any,                 monterey:       "11c51f2f20084cbf5d022077712245a4cb89779e0a4f982a5f0002991512b4d2"
-    sha256 cellar: :any,                 big_sur:        "be30d5ce494bec31c5ec01126b47867abfa9fda59753d438c0260a683af157d3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "78c314a1fe30a8df290b30ebe008f03c38099515f8c11feca506f273b2a3a2cf"
+    sha256 cellar: :any,                 arm64_ventura:  "252cbdec73fd36d36154565b163e7e483daa47f03caea969a35564cd037c4fba"
+    sha256 cellar: :any,                 arm64_monterey: "fd02f2762eb920b724f9e7fb4d62d50cdccf13add045cb50c038aeefb0fe6f5b"
+    sha256 cellar: :any,                 arm64_big_sur:  "24a000901c6fd2b98f67a0b6c92b2a0b61529298420eff04b8529520d4f5933b"
+    sha256 cellar: :any,                 ventura:        "9139171688871f7d292fe18e17308463b1def90e0879d702f7173d2fb627e2cd"
+    sha256 cellar: :any,                 monterey:       "86090438471b2fd52d9b953c934fd06dccac8ce87a90859b238ad2c99a590f7a"
+    sha256 cellar: :any,                 big_sur:        "219425b6f81f8202c92af558d7af80cfb0ddcfb95c49dc5dc412d1005b6495cd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0588e3066df3c716828255535a01103ad56c3c072dfe9b08a3646998e4685c47"
   end
 
   depends_on "autoconf"

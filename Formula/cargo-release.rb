@@ -1,19 +1,19 @@
 class CargoRelease < Formula
   desc "Cargo subcommand `release`: everything about releasing a rust crate"
   homepage "https://github.com/crate-ci/cargo-release"
-  url "https://github.com/crate-ci/cargo-release/archive/refs/tags/v0.24.4.tar.gz"
-  sha256 "7645ced715c7629fcef39e786fa89c946183f1adc84d28df524605bc92988d5f"
+  url "https://github.com/crate-ci/cargo-release/archive/refs/tags/v0.24.8.tar.gz"
+  sha256 "6607cebbb460cf4372d7c3473d8dd333f87a371113c064ba35f742cb83ae7ee0"
   license any_of: ["Apache-2.0", "MIT"]
   head "https://github.com/crate-ci/cargo-release.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "32ac6182b9d748c8bc1280fa8cca07f5c6c167ff4ab85dfe25a0a30292680128"
-    sha256 cellar: :any,                 arm64_monterey: "2318e0591acfe3b86c8a57cecb609cdd46f7977af37381e668ebb8cd67fa3050"
-    sha256 cellar: :any,                 arm64_big_sur:  "9bfcfbf663a7a4b16ad7c11a1e83e156fd322817d2985fdbda5f443a547d09dc"
-    sha256 cellar: :any,                 ventura:        "e4067abfde7b0275e4fa7ea398035819a7a4a760cc3694266700bb929c3347b0"
-    sha256 cellar: :any,                 monterey:       "985578325cda3d320c6b1bbd97a5d4ed9e1bdd32aac7227dd8ef9f432cba8a5a"
-    sha256 cellar: :any,                 big_sur:        "6a2065f089e19268940efb4787817dd32caac6c9eb905923d90a8e6bd1137009"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5ac62bfd2440af055eebcd383c52c493cba13d03968b7741d58a4ba85b045de5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c82d4e12c944494778cf3f857a0b22a3e2c039164f0e63964affae32a93c8dfa"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "42b3070fad9e9cc798fd76ff8c7fb5eb0f2ef4c64f9590f444c90ced6cbb7411"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c94ca9e2ba26bcdd82ee8e7ca962bb50e1c16e7db02966650343f55a97edc5fc"
+    sha256 cellar: :any_skip_relocation, ventura:        "898b41a787a4a043995cbd347548a1763b0ca695f4eb9f4e30583c01c28df5e4"
+    sha256 cellar: :any_skip_relocation, monterey:       "807da9cc8641ef34bc86dbed8b156443151742dc47b1ccc67f94aceb12b17979"
+    sha256 cellar: :any_skip_relocation, big_sur:        "ddd89daebf09eac983b81dd1e7944bf570ad3e5887f6f5d57ea40c9fa947f3cb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f4ee9ab2e9a0802a0307febe757a75976d368be3e15900e7e35e97414ff5d77a"
   end
 
   depends_on "rust" # uses `cargo` at runtime

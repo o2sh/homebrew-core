@@ -3,18 +3,18 @@ class Borgmatic < Formula
 
   desc "Simple wrapper script for the Borg backup software"
   homepage "https://torsion.org/borgmatic/"
-  url "https://files.pythonhosted.org/packages/40/91/388826893d2f32f10cbdf80e1bedd24089e540b96ae616b2518f8db3b26b/borgmatic-1.7.7.tar.gz"
-  sha256 "79ba9787f829adb711911fcbe23fd559c3a7a40019a6830a2442f29858e0fceb"
+  url "https://files.pythonhosted.org/packages/bc/67/1634584d94b6964d401df59673326ddcd35bbf5ab579d3238026d4ac0d14/borgmatic-1.7.11.tar.gz"
+  sha256 "f12871fed27c80b665bb81040198137e0bde7c6047be21cb4484e9698bda20e7"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4cb9e9bbd86e6e87eb7dcdc41cc4a84ddc30b900275d2d738fad9bc439efca1d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a1f244c564bc029e47e3c7ea5cfb1b44f2d8efd2ae1f9824598b313a024e0196"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c92bb6ec32364c5426d58311c52253c088ca9630ad7f7c4ceac27d4e8acba713"
-    sha256 cellar: :any_skip_relocation, ventura:        "316a6023307bcd07cf018182b84d457b62e6b5096be67c849f7d7ca3f6989b9d"
-    sha256 cellar: :any_skip_relocation, monterey:       "635caa1957980385f1591765f56937196aa26232a9b3e5968f1ef052ed9ff2c2"
-    sha256 cellar: :any_skip_relocation, big_sur:        "ae46e60d4b6a17173a8649a59afaff176ef096b80c04bee066e07522b21692db"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1f77873f50d9c49ce1bdcd3ab9158eecd1986c7a9a93add1d322a5ca3388ba6c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "60705069b7acb517da4847462e0b26a3d300ded144e37766655432d878dcea34"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ff453147d2e3c1b3135a7818ffbc5a96ad7589cbe8ce9ab6f2fb3e46fd6f5895"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "73948c533642c8f271aab2b16f44ab3179622ec2ece61c1957d0c33f14495e47"
+    sha256 cellar: :any_skip_relocation, ventura:        "941bae2822aecb3fe8ef0fa6609c0496495b88a8c240be9a92b039a818b34867"
+    sha256 cellar: :any_skip_relocation, monterey:       "0062e55e33de7fd2b6f2d6a9f90efbad7f2b8f9c7cb2cf0beb7e7d5ec79694b6"
+    sha256 cellar: :any_skip_relocation, big_sur:        "9a7505edd04aaa0889c9858078ffa6f8f6af6cc5d736366c3c3d690be677a6a5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d62a6490ccbf1f451d8778a168dbee7194254f367118502fd5922523d259b285"
   end
 
   depends_on "python@3.11"
@@ -30,8 +30,8 @@ class Borgmatic < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/96/d7/1675d9089a1f4677df5eb29c3f8b064aa1e70c1251a0a8a127803158942d/charset-normalizer-3.0.1.tar.gz"
-    sha256 "ebea339af930f8ca5d7a699b921106c6e29c617fe9606fa7baa043c1cdae326f"
+    url "https://files.pythonhosted.org/packages/ff/d7/8d757f8bd45be079d76309248845a04f09619a7b17d6dfc8c9ff6433cac2/charset-normalizer-3.1.0.tar.gz"
+    sha256 "34e0a2f9c370eb95597aae63bf85eb5e96826d81e3dcf88b8886012906f509b5"
   end
 
   resource "colorama" do
@@ -70,8 +70,8 @@ class Borgmatic < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/c5/52/fe421fb7364aa738b3506a2d99e4f3a56e079c0a798e9f4fa5e14c60922f/urllib3-1.26.14.tar.gz"
-    sha256 "076907bf8fd355cde77728471316625a4d2f7e713c125f51953bb5b3eecf4f72"
+    url "https://files.pythonhosted.org/packages/21/79/6372d8c0d0641b4072889f3ff84f279b738cd8595b64c8e0496d4e848122/urllib3-1.26.15.tar.gz"
+    sha256 "8a388717b9476f934a21484e8c8e61875ab60644d29b9b39e11e4b9dc1c6b305"
   end
 
   def install
@@ -147,12 +147,11 @@ class Borgmatic < Formula
 
     # Replace defaults values
     inreplace config_path do |s|
-      s.gsub!(/# ?local_path: borg1/, "local_path: #{borg}")
-      s.gsub! "- ssh://user@backupserver/./sourcehostname.borg", "- #{repo_path}"
-      s.gsub! "- ssh://user@backupserver/./{fqdn}", ""
-      s.gsub! "- /var/local/backups/local.borg", ""
       s.gsub! "- /var/log/syslog*", ""
       s.gsub! "- /home/user/path with spaces", ""
+      s.gsub! "- path: ssh://user@backupserver/./sourcehostname.borg", "- path: #{repo_path}"
+      s.gsub! "- path: /mnt/backup", ""
+      s.gsub!(/# ?local_path: borg1/, "local_path: #{borg}")
     end
 
     # Initialize Repo
@@ -168,17 +167,21 @@ class Borgmatic < Formula
     log_content = File.read(log_path)
 
     # Assert that the proper borg commands were executed
-    assert_match <<~EOS, log_content
+    assert_equal <<~EOS, log_content
       --version --debug --show-rc
       info --json #{repo_path}
       init --encryption repokey --debug #{repo_path}
       --version
-      prune --keep-daily 7 --glob-archives {hostname}-* #{repo_path}
-      compact #{repo_path}
       create #{repo_path}::{hostname}-{now:%Y-%m-%dT%H:%M:%S.%f} /etc /home
+      prune --keep-daily 7 #{repo_path}
+      compact #{repo_path}
       info --json #{repo_path}
-      check --glob-archives {hostname}-* #{repo_path}
+      check #{repo_path}
       --version
+      create #{repo_path}::{hostname}-{now:%Y-%m-%dT%H:%M:%S.%f} /etc /home #{testpath}/.borgmatic --json
+      prune --keep-daily 7 --list #{repo_path}
+      compact #{repo_path}
+      info --json #{repo_path}
     EOS
   end
 end

@@ -2,19 +2,19 @@ class AnsibleLint < Formula
   include Language::Python::Virtualenv
 
   desc "Checks ansible playbooks for practices and behaviour"
-  homepage "https://github.com/ansible/ansible-lint/"
-  url "https://files.pythonhosted.org/packages/55/40/389a376cf6fa992374ac7eaa64985b297d614135ebbef0c0f5d12ad1bbb4/ansible-lint-6.13.1.tar.gz"
-  sha256 "435c12b4fd88da815af6821f3bf8b04ebb651811da89a11c9d190baff21badaa"
+  homepage "https://ansible-lint.readthedocs.io/"
+  url "https://files.pythonhosted.org/packages/65/8e/07462cd3d181fa16d67196a397a628a04c9ccdd2fd4302c404bab843265c/ansible-lint-6.14.4.tar.gz"
+  sha256 "4258a41e766cb16a88fea4c3d535f390f967c5af36e0e8cac2364c5ec99043db"
   license all_of: ["MIT", "GPL-3.0-or-later"]
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "71eeaa2e471d11c3830b552c35c7bfa842b8cd75194f44e3ff2ccfb8ed8054cb"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "809161f10f7b38544e29ecb554221d7206f474c4a95f818e34972102d6671eef"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "63e1c774d7cf14ba4c6bc4323fd0d2fc7df066ac2bbe9da5f758130fab5fa447"
-    sha256 cellar: :any_skip_relocation, ventura:        "e60d5938ad15fa28c0fd61108154501e10661a24b4221142db612d006ebe5a1e"
-    sha256 cellar: :any_skip_relocation, monterey:       "03b83e0305d2889198ca0935fa24f7eada7ed6f203015b7d2be0937a94dec89d"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e8ac80fdf9063d0373447111949445d39111ab98d86fde36a53197bdcac06a79"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "00545a90c8a2169897cb33f4681e2d7156ae3bad73a66395f3591ac5ee10c541"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a3e2ee7ab4d502573b84c45a11387e3b9609747f5836b8f88931d6d2135658fb"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6ebd426e77c099231e46f6549d1c6e18f8671fe94b843a32300f2416a2fa8ea5"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "342ddc5fb3b126294d592da4fd3726e090cbf83c50a9351935b41a5bf1cc8439"
+    sha256 cellar: :any_skip_relocation, ventura:        "eb4ae09ceb6baea203e665c0b2a717aec37c23aa762995abb2106662ec74aac0"
+    sha256 cellar: :any_skip_relocation, monterey:       "fbd752522116699a807d46123812bb643ba29df77ee088536811c9fe349fc7e9"
+    sha256 cellar: :any_skip_relocation, big_sur:        "e0172f27e45c955945a400d4f2428ea743d590b1157f31f249de5bc95e59f913"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5497c2af60106632c74d7bb2cffbfbceeda43787edabfe91ae99b71a8e66efc4"
   end
 
   depends_on "pkg-config" => :build
@@ -36,8 +36,8 @@ class AnsibleLint < Formula
   end
 
   resource "filelock" do
-    url "https://files.pythonhosted.org/packages/0b/dc/eac02350f06c6ed78a655ceb04047df01b02c6b7ea3fc02d4df24ca87d24/filelock-3.9.0.tar.gz"
-    sha256 "7b319f24340b51f55a2bf7a12ac0755a9b03e718311dac567a0f4f7fabd2f5de"
+    url "https://files.pythonhosted.org/packages/5b/65/5dfde43d5e4d7d31a2392bf4aa20e464b8aa0601f34fd9b050781291f666/filelock-3.10.7.tar.gz"
+    sha256 "892be14aa8efc01673b5ed6589dbccb95f9a8596f0507e232626155495c18105"
   end
 
   resource "jsonschema" do
@@ -46,8 +46,8 @@ class AnsibleLint < Formula
   end
 
   resource "markdown-it-py" do
-    url "https://files.pythonhosted.org/packages/33/e9/ac8a93e9eda3891ecdfecf5e01c060bbd2c44d4e3e77efc83b9c7ce9db32/markdown-it-py-2.1.0.tar.gz"
-    sha256 "cf7e59fed14b5ae17c0006eff14a2d9a00ed5f3a846148153899a0224e2c07da"
+    url "https://files.pythonhosted.org/packages/e4/c0/59bd6d0571986f72899288a95d9d6178d0eebd70b6650f1bb3f0da90f8f7/markdown-it-py-2.2.0.tar.gz"
+    sha256 "7c9a5e412688bc771c67432cbfebcdd686c93ce6484913dccf06cb5a0bea35a1"
   end
 
   resource "mdurl" do
@@ -66,8 +66,8 @@ class AnsibleLint < Formula
   end
 
   resource "rich" do
-    url "https://files.pythonhosted.org/packages/68/31/b8934896818c885001aeb7df388ba0523ea3ec88ad31805983d9b0480a50/rich-13.3.1.tar.gz"
-    sha256 "125d96d20c92b946b983d0d392b84ff945461e5a06d3867e9f9e575f8697b67f"
+    url "https://files.pythonhosted.org/packages/9a/50/672a8d347f92bc752b04c338bbf932fbd0104fbc416c82cc91aa5f7b4b0b/rich-13.3.3.tar.gz"
+    sha256 "dc84400a9d842b3a9c5ff74addd8eb798d155f36c1c91303888e0a66850d2a15"
   end
 
   resource "ruamel.yaml" do

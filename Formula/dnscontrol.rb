@@ -1,8 +1,8 @@
 class Dnscontrol < Formula
   desc "It is system for maintaining DNS zones"
   homepage "https://github.com/StackExchange/dnscontrol"
-  url "https://github.com/StackExchange/dnscontrol/archive/v3.26.0.tar.gz"
-  sha256 "1309d68455db348e78d3616136e283ee56060c521eea8f5bd12260fda223d12f"
+  url "https://github.com/StackExchange/dnscontrol/archive/v3.30.0.tar.gz"
+  sha256 "decec616a5364c9b494a529b7ba2e6e6f972ad7a47adfde455b0ea30e4ce4626"
   license "MIT"
   version_scheme 1
 
@@ -12,13 +12,13 @@ class Dnscontrol < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a5d57d6454113b9c0d1331dcef0d91323ed51578f570b54c675aef95c355f2d4"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "58bc2aa00f02b0d6a6555b55901ecc0dd255dee7244db5b55886656916451f5e"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9c0ec2ebb9b9e5c4af3d1f0a420511a06d16369dd2beafb85379d78523e32e94"
-    sha256 cellar: :any_skip_relocation, ventura:        "669648e575af5947a9704e270fdb303f88b023b21262dbc0538f8a6716d3e0d4"
-    sha256 cellar: :any_skip_relocation, monterey:       "775a253e0d39509895a45c27c3d643ca9494488db2d7283e4086fa9f963ef324"
-    sha256 cellar: :any_skip_relocation, big_sur:        "56a74f2366011219b971e939aa17e63350b8d317ca008bab33637fa72676c46f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cf1c828bab681bd8ab8ecd485d1981384336132e51bd243750f03af52ed242a3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9d1dc9d3ea60d99323c4b26dc0ba84068466a4b694a7da5b3b8131eb325a6e76"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "85f323c74656eb9da672eb644c1751a0ae6d554900087b2f3343bbe724a569ea"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9a56dd26f97b1f437189015f76c46af25343f0695b97fd7c97b086398d94a32a"
+    sha256 cellar: :any_skip_relocation, ventura:        "29e09cb96bdfba4b0c464f3682b1c97e68fed00826727de80d358253774186e1"
+    sha256 cellar: :any_skip_relocation, monterey:       "b4a22027be6cd61cd3f3f91dee14760d7a66e0548c9517ac09623ff7e2df4228"
+    sha256 cellar: :any_skip_relocation, big_sur:        "daa6b559376e158aaec81029e0473706fa560c85dd034de4cca564f48f8f0120"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "63fa79ce8a6b62718f3a795079e4a90b3ff182fe62a594d45becfb56eda9e4d6"
   end
 
   depends_on "go" => :build

@@ -3,19 +3,19 @@ class Pdm < Formula
 
   desc "Modern Python package and dependency manager supporting the latest PEP standards"
   homepage "https://pdm.fming.dev"
-  url "https://files.pythonhosted.org/packages/e5/f0/bbc0eda94630a297ee8b0d179715bcae15bdda16bb14c3691e930853c8a6/pdm-2.4.6.tar.gz"
-  sha256 "83e7d0c6ada4c213575c4246da7e67e1ff463249a62ec8e91e86b2d79d9f7154"
+  url "https://files.pythonhosted.org/packages/4b/6b/8363b9dca9039674b9bbbe4f57f9f0ed775b150c80ba2d1319862e0d9f02/pdm-2.4.9.tar.gz"
+  sha256 "dbc6ffb195f39ab24b4bcb507fe99789a61a32159d8bf227f3117b94f327f2f2"
   license "MIT"
   head "https://github.com/pdm-project/pdm.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a28eecb4deecfa209231fef64f92173ba8b32ba5f76689cf1734b6037f0dc3bd"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "bdcd0248d9e1fa0d675293d9b8a3b41496ee8a7cbeb9c124445c90e0a02c63e8"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "e3ce4d1fe4ea94e83d5e9bbcb5d8bcf1ec04bcd13f03ba11461bec179461d6bf"
-    sha256 cellar: :any_skip_relocation, ventura:        "caed941671e081b2841b7390df822569fa66b48e5e38c59acb20db30286ddf2a"
-    sha256 cellar: :any_skip_relocation, monterey:       "20ef2d60e6bdf3103799304f704aaeee544998fc6170afc4fc3549f399d8a55d"
-    sha256 cellar: :any_skip_relocation, big_sur:        "c47e728ad11ac99552233ff8b99375acfa8fc22584ae83fe500d8006c6a99a1a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "821e87fd6cfba3e3e3fb8c9329ea818b7a93f6683d76d7b385ac0959500b0f49"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8c99443538e66842d4b26bccd1ccee9d09b752239cdfeb0bda6c2c494af11ec4"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "09123cdd44bb9446dcffdefb64c892df259e43bd12b9ff37dc9fded47c5810d9"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "3cd69aebbae9763df4d881232c2e088db92c9ca1971a038bb5af7ca0ebe2f2f7"
+    sha256 cellar: :any_skip_relocation, ventura:        "815f208004c7bc8a89fc631dfec19a15707c4765c1665ef8ce5be5915ec343f0"
+    sha256 cellar: :any_skip_relocation, monterey:       "d2a882a3ab7f1b874b0ac22c4a81d8524e9b01dabcfe93e0f4bcd1c09f532e2b"
+    sha256 cellar: :any_skip_relocation, big_sur:        "814dcf70fbe0a1b458c7b9a5f9a66e67aedab78c7c67c72d10af34f9e4a67118"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cf00c0af40cbaa30965b90e7a6144e29166ed24ae98d8c48909c29859df1953b"
   end
 
   depends_on "pygments"
@@ -37,8 +37,8 @@ class Pdm < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/96/d7/1675d9089a1f4677df5eb29c3f8b064aa1e70c1251a0a8a127803158942d/charset-normalizer-3.0.1.tar.gz"
-    sha256 "ebea339af930f8ca5d7a699b921106c6e29c617fe9606fa7baa043c1cdae326f"
+    url "https://files.pythonhosted.org/packages/ff/d7/8d757f8bd45be079d76309248845a04f09619a7b17d6dfc8c9ff6433cac2/charset-normalizer-3.1.0.tar.gz"
+    sha256 "34e0a2f9c370eb95597aae63bf85eb5e96826d81e3dcf88b8886012906f509b5"
   end
 
   resource "distlib" do
@@ -47,8 +47,8 @@ class Pdm < Formula
   end
 
   resource "filelock" do
-    url "https://files.pythonhosted.org/packages/0b/dc/eac02350f06c6ed78a655ceb04047df01b02c6b7ea3fc02d4df24ca87d24/filelock-3.9.0.tar.gz"
-    sha256 "7b319f24340b51f55a2bf7a12ac0755a9b03e718311dac567a0f4f7fabd2f5de"
+    url "https://files.pythonhosted.org/packages/4f/1f/6e1b740698069650b245744957a25957d599b953550a959ab2a584a8825b/filelock-3.10.0.tar.gz"
+    sha256 "3199fd0d3faea8b911be52b663dfccceb84c95949dd13179aa21436d1a79c4ce"
   end
 
   resource "findpython" do
@@ -67,8 +67,8 @@ class Pdm < Formula
   end
 
   resource "markdown-it-py" do
-    url "https://files.pythonhosted.org/packages/33/e9/ac8a93e9eda3891ecdfecf5e01c060bbd2c44d4e3e77efc83b9c7ce9db32/markdown-it-py-2.1.0.tar.gz"
-    sha256 "cf7e59fed14b5ae17c0006eff14a2d9a00ed5f3a846148153899a0224e2c07da"
+    url "https://files.pythonhosted.org/packages/e4/c0/59bd6d0571986f72899288a95d9d6178d0eebd70b6650f1bb3f0da90f8f7/markdown-it-py-2.2.0.tar.gz"
+    sha256 "7c9a5e412688bc771c67432cbfebcdd686c93ce6484913dccf06cb5a0bea35a1"
   end
 
   resource "mdurl" do
@@ -77,8 +77,8 @@ class Pdm < Formula
   end
 
   resource "msgpack" do
-    url "https://files.pythonhosted.org/packages/22/44/0829b19ac243211d1d2bd759999aa92196c546518b0be91de9cacc98122a/msgpack-1.0.4.tar.gz"
-    sha256 "f5d869c18f030202eb412f08b28d2afeea553d6613aee89e200d7aca7ef01f5f"
+    url "https://files.pythonhosted.org/packages/dc/a1/eba11a0d4b764bc62966a565b470f8c6f38242723ba3057e9b5098678c30/msgpack-1.0.5.tar.gz"
+    sha256 "c075544284eadc5cddc70f4757331d99dcbc16b2bbd4849d15f8aae4cf36d31c"
   end
 
   resource "packaging" do
@@ -87,8 +87,8 @@ class Pdm < Formula
   end
 
   resource "platformdirs" do
-    url "https://files.pythonhosted.org/packages/11/39/702094fc1434a4408783b071665d9f5d8a1d0ba4dddf9dadf3d50e6eb762/platformdirs-3.0.0.tar.gz"
-    sha256 "8a1228abb1ef82d788f74139988b137e78692984ec7b08eaa6c65f1723af28f9"
+    url "https://files.pythonhosted.org/packages/79/c4/f98a05535344f79699bbd494e56ac9efc986b7a253fe9f4dba7414a7f505/platformdirs-3.1.1.tar.gz"
+    sha256 "024996549ee88ec1a9aa99ff7f8fc819bb59e2c3477b410d90a16d32d6e707aa"
   end
 
   resource "pyproject_hooks" do
@@ -97,8 +97,8 @@ class Pdm < Formula
   end
 
   resource "python-dotenv" do
-    url "https://files.pythonhosted.org/packages/f5/d7/d548e0d5a68b328a8d69af833a861be415a17cb15ce3d8f0cd850073d2e1/python-dotenv-0.21.1.tar.gz"
-    sha256 "1c93de8f636cde3ce377292818d0e440b6e45a82f215c3744979151fa8151c49"
+    url "https://files.pythonhosted.org/packages/31/06/1ef763af20d0572c032fa22882cfbfb005fba6e7300715a37840858c919e/python-dotenv-1.0.0.tar.gz"
+    sha256 "a8df96034aae6d2d50a4ebe8216326c61c3eb64836776504fcca410e5937a3ba"
   end
 
   resource "requests" do
@@ -117,8 +117,8 @@ class Pdm < Formula
   end
 
   resource "rich" do
-    url "https://files.pythonhosted.org/packages/68/31/b8934896818c885001aeb7df388ba0523ea3ec88ad31805983d9b0480a50/rich-13.3.1.tar.gz"
-    sha256 "125d96d20c92b946b983d0d392b84ff945461e5a06d3867e9f9e575f8697b67f"
+    url "https://files.pythonhosted.org/packages/5e/0e/ef0a49be56dbc4052a086888cd2490e15fcc95b0eda79e9d0e737b1ab93d/rich-13.3.2.tar.gz"
+    sha256 "91954fe80cfb7985727a467ca98a7618e5dd15178cc2da10f553b36a93859001"
   end
 
   resource "shellingham" do
@@ -132,23 +132,23 @@ class Pdm < Formula
   end
 
   resource "unearth" do
-    url "https://files.pythonhosted.org/packages/67/97/1ec0064708bf8fb7d494487f1523e38a8de56cfc98ce537fb06c8e092d6b/unearth-0.7.2.tar.gz"
-    sha256 "e2341ba7b99e431955a10cd3da0c15ab0d42a5f9cb3f1e3f460df42bc3396dcf"
+    url "https://files.pythonhosted.org/packages/b4/b2/104164436e7cbdd9db5524fe89055ccb51385570df30f278b7421e5bda5a/unearth-0.8.1.tar.gz"
+    sha256 "62d3493619d181746c0e0586dfcf6cef957b95f4d3b042698eda312fdbf0617b"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/c5/52/fe421fb7364aa738b3506a2d99e4f3a56e079c0a798e9f4fa5e14c60922f/urllib3-1.26.14.tar.gz"
-    sha256 "076907bf8fd355cde77728471316625a4d2f7e713c125f51953bb5b3eecf4f72"
+    url "https://files.pythonhosted.org/packages/21/79/6372d8c0d0641b4072889f3ff84f279b738cd8595b64c8e0496d4e848122/urllib3-1.26.15.tar.gz"
+    sha256 "8a388717b9476f934a21484e8c8e61875ab60644d29b9b39e11e4b9dc1c6b305"
   end
 
   resource "virtualenv" do
-    url "https://files.pythonhosted.org/packages/3d/ad/906d59bbcb0e6178989cee52166a8a6651ddaea18b38e728eaac22e61cad/virtualenv-20.19.0.tar.gz"
-    sha256 "37a640ba82ed40b226599c522d411e4be5edb339a0c0de030c0dc7b646d61590"
+    url "https://files.pythonhosted.org/packages/87/14/ca9890d58cd33d9122eb87ffec2f3c6be0714785f992a0fd3b56a3b6c993/virtualenv-20.21.0.tar.gz"
+    sha256 "f50e3e60f990a0757c9b68333c9fdaa72d7188caa417f96af9e52407831a3b68"
   end
 
   resource "wheel" do
-    url "https://files.pythonhosted.org/packages/a2/b8/6a06ff0f13a00fc3c3e7d222a995526cbca26c1ad107691b6b1badbbabf1/wheel-0.38.4.tar.gz"
-    sha256 "965f5259b566725405b05e7cf774052044b1ed30119b5d586b2703aafe8719ac"
+    url "https://files.pythonhosted.org/packages/fc/ef/0335f7217dd1e8096a9e8383e1d472aa14717878ffe07c4772e68b6e8735/wheel-0.40.0.tar.gz"
+    sha256 "cd1196f3faee2b31968d626e1731c94f99cbdb67cf5a46e4f5656cbee7738873"
   end
 
   def install

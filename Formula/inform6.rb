@@ -1,32 +1,25 @@
 class Inform6 < Formula
   desc "Design system for interactive fiction"
   homepage "https://inform-fiction.org/inform6.html"
-  url "https://ifarchive.org/if-archive/infocom/compilers/inform6/source/inform-6.41-r2.tar.gz"
-  version "6.41-r2"
-  sha256 "a6043b2df82173474635dcbcccfe510cdb2e1ef24be8abb9a8b0e46cd8a5f6e0"
+  url "https://ifarchive.org/if-archive/infocom/compilers/inform6/source/inform-6.41-r4.tar.gz"
+  version "6.41-r4"
+  sha256 "cb9e45ff357ff7d7d2e19213b4fb12824a4c35fa27173b5910ffd06714908df7"
   license "Artistic-2.0"
   head "https://gitlab.com/DavidGriffith/inform6unix.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "27c5ab4616b8e363a4ac5f23697da66cb3524538e1ab87344a4adf3714ac20ca"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1b23f0804583534b513318f2815e0d75f0824ca203bc2572537afae617c75c19"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "8e51f92d6c9268284a1288c6ab956bb64fb75e2f450ef4600963a73fee5af0f2"
-    sha256 cellar: :any_skip_relocation, ventura:        "10e317ad4c970a853dd723e6386a7fb30e33f131f3c3f8c101b154921787ca47"
-    sha256 cellar: :any_skip_relocation, monterey:       "e5777d8aa13b0d11aeee545fa8c333ed02e3b1e4095e93c5224849126211e240"
-    sha256 cellar: :any_skip_relocation, big_sur:        "eaa7b6772af8973a21ccf5d956847930b74fd009ee71e3fa4feead7d69d51321"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5b442fafb251231f8aa097e81b9dd0146b41b139cda5242ceb2b11a538be1952"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "25eba4436a8d796d55735073aa2ac014f2f6298822c7726e1465b97ce56a6cc7"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "da175d9c1efc3a1fd047369bd9597450cd0b768a7aee66fc58899363fdf08ce9"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "3ec2856e88fa78920a08ac3f94601434010781e232d137cb2ec8a4eae9e9db1d"
+    sha256 cellar: :any_skip_relocation, ventura:        "09ddaf3b4567df6109b4c26f5803f402305a0bbe0c61d96cafbe3fb5fe68d100"
+    sha256 cellar: :any_skip_relocation, monterey:       "d823205659e0837e9012a51de378360aec2e18c4de1926468b73d0984e3a0aae"
+    sha256 cellar: :any_skip_relocation, big_sur:        "2d36b42868f7a6943ce07d09300ecab00393b0e7ce92d22678a074dcab7067dd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a24565f25dcd24ca25e68a8a02805bf0160731c724bbc82ec63cedd5feb07636"
   end
 
   resource "homebrew-test_resource" do
     url "https://inform-fiction.org/examples/Adventureland/Adventureland.inf"
     sha256 "3961388ff00b5dfd1ccc1bb0d2a5c01a44af99bdcf763868979fa43ba3393ae7"
-  end
-
-  # patch Makefile to make it portable
-  # upstream PR ref, https://gitlab.com/DavidGriffith/inform6unix/-/merge_requests/24
-  patch do
-    url "https://gitlab.com/DavidGriffith/inform6unix/-/commit/ba179ca1.diff"
-    sha256 "05b6027009d4f936c503ef25397c3f106d16c7dad3585e926f277dbbda54e893"
   end
 
   def install

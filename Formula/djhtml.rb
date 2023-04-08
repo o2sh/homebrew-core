@@ -3,18 +3,18 @@ class Djhtml < Formula
 
   desc "Django/Jinja template indenter"
   homepage "https://github.com/rtts/djhtml"
-  url "https://files.pythonhosted.org/packages/13/e9/ddaf9ddda47baf30908f2e1b7ad8dc914d12a6f5975bc61243ef87c851f0/djhtml-3.0.1.tar.gz"
-  sha256 "076c2f35040a63dcc1333169d670c66a26769e8dbd9a74abf8405b0195db602c"
+  url "https://files.pythonhosted.org/packages/a0/03/aac9bfb7c9b03604a2c4b0d474af22731ef41cb662fad07f956ae7bf0f6b/djhtml-3.0.6.tar.gz"
+  sha256 "abfc4d7b4730432ca6a98322fbdf8ae9d6ba254ea57ba3759a10ecb293bc57de"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "23f9bf11f2f02d88247e6ab185899e942966e900bec10be3945f73c35fb67a0b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f31cfd241dc93b5c43a712520e50498b4ae7f32ac69ed31ad993ae952f866bba"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7b6c8f2891e2b9e690dd67a15c20897aa3c2607adaa45cce952d755abcd64116"
-    sha256 cellar: :any_skip_relocation, ventura:        "7b76e4ab4698b540744c66829a67cbf2098d446f170ac6e497df4c5e55971ee4"
-    sha256 cellar: :any_skip_relocation, monterey:       "30923468ff1108c5580a3dd135817e815515b20121f24fcd063fcfc2ee3e776f"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e812566e4cf47aea5205cd63111925d18f58340a7ab88bddcbdf64b9c3b51ac5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8130a6eaffec8464aede54d04839b5ab226587826f9694d8053a5ed9e8ad1e95"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bdbeb839a0a9b284dc4c2eb9e3eecc74af5930ec4f9098db10c49511746e4d44"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "0fb937a34da3f5e3a1252fa38b2d716a3868048f8cc18b1d9f00f3391450bca5"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ff978720de6b56e295b274b126ecfc9f07689f7b39b72358e76abeb02196bf9d"
+    sha256 cellar: :any_skip_relocation, ventura:        "affec39a5174a4333fd6bb2c7f6ce36fb817c7032faa565ddc3ef505ef7512a4"
+    sha256 cellar: :any_skip_relocation, monterey:       "f8b66288fb9f60a09f0f284d64c7a4019eb0e66940a879101d5e20abc878540e"
+    sha256 cellar: :any_skip_relocation, big_sur:        "84465d0a9bcc2ce550d35e359b490f98c2ae345076db1c0b28f8fce85c60ce9f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d6f36520350fa0d608c6ea74fb2949e62b9d3503e5dbbb923459d264a3e722e9"
   end
 
   depends_on "python@3.11"

@@ -1,19 +1,19 @@
 class Activemq < Formula
   desc "Apache ActiveMQ: powerful open source messaging server"
   homepage "https://activemq.apache.org/"
-  url "https://www.apache.org/dyn/closer.lua?path=activemq/5.17.3/apache-activemq-5.17.3-bin.tar.gz"
-  mirror "https://archive.apache.org/dist/activemq/5.17.3/apache-activemq-5.17.3-bin.tar.gz"
-  sha256 "a4cc4c3a2f136707c2c696f3bb3ee2a86dbeff1b9eb5e237b14edc0c5e5a328f"
+  url "https://www.apache.org/dyn/closer.lua?path=activemq/5.18.0/apache-activemq-5.18.0-bin.tar.gz"
+  mirror "https://archive.apache.org/dist/activemq/5.18.0/apache-activemq-5.18.0-bin.tar.gz"
+  sha256 "d96b380d68d1f0575b93d25e7a8913edb69c1d459f205af9e6f94328c2f17690"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9c55bea01c00d9296476958c2ba76ba70e7c8faff1a07d0ee780321e1bb3d987"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f19e6b4f5f27f29f0c96ed3a907d9723d19abe4183207bfe4c9c64ffdcfdf5cd"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7f1eb1be2a00a89006e6ef6c7758906623cbed733a50a799a6578296b276fc63"
-    sha256 cellar: :any_skip_relocation, ventura:        "0e06241f9a21802366786397ab543ce18b5bfeeb09caeeaeef5b81b2e123dbce"
-    sha256 cellar: :any_skip_relocation, monterey:       "6b1703e5ba80d3f59407f63277b5a66f3c819885f8783806816a4f37643f5fb6"
-    sha256 cellar: :any_skip_relocation, big_sur:        "c52e7df7035b2e7aef646371b5e48c5ac3e522f18e12d5411d28d3b9699b8a0a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "134ed8c69b96290bc83505e5e24f001d6e005a641a69990a99a8e2eb59169abf"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "09d8630a86b7e8c5c6418a004989507a60a279a63ffd596607a7139ccd8e2ea2"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5986802e25e204a3c2342ac3b49149b4f42529f156667d304a81742ad2db8608"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "923f9f4c266b294960339171dafbd0c734c7e88bfcd9d37fdb4f5cbdfbc9b9ed"
+    sha256 cellar: :any_skip_relocation, ventura:        "83434ad2dba48f8d187bd190f2df778947d5fd9ac15ea75e2195fb8ab7352faa"
+    sha256 cellar: :any_skip_relocation, monterey:       "37cc16f56e5e9fcaaddec04e03cc626cd1ac07842e6f40a8b8d7ae62c3b43157"
+    sha256 cellar: :any_skip_relocation, big_sur:        "c64157250b77c96113a5ffabc86413a986d2f27f1f8b4ac098cc29150fac02a3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fc746aa74c407063dbfadf46fb962f4a0b2f207b25dc3549ef562f0bf8bab5f0"
   end
 
   depends_on "java-service-wrapper"

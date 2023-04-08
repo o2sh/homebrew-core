@@ -1,9 +1,9 @@
 class Glassfish < Formula
   desc "Java EE application server"
   homepage "https://glassfish.org/"
-  url "https://download.eclipse.org/ee4j/glassfish/glassfish-7.0.1.zip"
-  mirror "https://github.com/eclipse-ee4j/glassfish/releases/download/7.0.1/glassfish-7.0.1.zip"
-  sha256 "24d2f12dbff42782af1adb6e2c2898c19c901669ef3e4428b0cb9bf74595e6ac"
+  url "https://download.eclipse.org/ee4j/glassfish/glassfish-7.0.3.zip"
+  mirror "https://github.com/eclipse-ee4j/glassfish/releases/download/7.0.3/glassfish-7.0.3.zip"
+  sha256 "5c8a7028d7145d56cbed3c2eea7edd055d5dbb87654398314cd332ced4336834"
   license "EPL-2.0"
 
   livecheck do
@@ -12,15 +12,12 @@ class Glassfish < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "dbd8ad7e40f11a6b08bf9cf4a217c146e8de3945a4ae5aa3ab38acafbebbcf7d"
+    sha256 cellar: :any_skip_relocation, all: "6d1b89f97b6672c83b952a4e90d822f1ef9d317cc335083669b6fdc75d3f8daa"
   end
 
   depends_on "openjdk@17"
 
   conflicts_with "payara", because: "both install the same scripts"
-
-  # upstream PR ref, https://github.com/eclipse-ee4j/glassfish/pull/24283
-  patch :DATA
 
   def install
     # Remove all windows files
@@ -64,18 +61,3 @@ class Glassfish < Formula
     assert_match version.to_s, shell_output("#{bin}/asadmin version")
   end
 end
-
-__END__
-diff --git a/glassfish/config/branding/glassfish-version.properties b/glassfish/config/branding/glassfish-version.properties
-index e92142e..2147005 100644
---- a/glassfish/config/branding/glassfish-version.properties
-+++ b/glassfish/config/branding/glassfish-version.properties
-@@ -19,7 +19,7 @@ product_name=Eclipse GlassFish
- abbrev_product_name=GlassFish
- major_version=7
- minor_version=0
--update_version=0
-+update_version=1
- build_id=master-b160-g0b1e109 2020-12-19T17:24:00+0000
- version_prefix=
- version_suffix=

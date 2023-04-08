@@ -2,19 +2,19 @@ class Xcbeautify < Formula
   desc "Little beautifier tool for xcodebuild"
   homepage "https://github.com/tuist/xcbeautify"
   url "https://github.com/tuist/xcbeautify.git",
-      tag:      "0.17.0",
-      revision: "9f3d55d3b6e048f91e03af843b488f99c483f1aa"
+      tag:      "0.19.0",
+      revision: "e3bc4e04618efa7aaf8fac4727f7fe7ffd951e08"
   license "MIT"
   head "https://github.com/tuist/xcbeautify.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1e8a0f7be505d25c2299a61abce654b5454fab38cc2c24886980e4384b52952a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "28cb656704923128766d29687731800976df593be5a2d96474029c1cd68df749"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "89eed24c81acd0a326b0363dc6de29cbf183f5970d71a66f8117879c06a2d9ed"
-    sha256 cellar: :any_skip_relocation, ventura:        "be5ceedbe36fa740796947fb116d7ed1484bad937d45bd1a202456a532e74f2b"
-    sha256 cellar: :any_skip_relocation, monterey:       "0187587cf3b74e0cd27d35b85136278546733fc75356c703958f8a6fdecd557f"
-    sha256 cellar: :any_skip_relocation, big_sur:        "fc0bd2ce8be91e7a8915aabdec8aaaf7a363f479594d86fa867ad69c03e7943d"
-    sha256                               x86_64_linux:   "098c332e0f02b63458e7eb7eb564cddfff2e0b636de7e0100d8bcf0da1d03102"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "87f301017b3d76ad255d9c3c615135b1827f99dbb52522d82c454c7e404c2046"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ba78c805ee0cc3f239cbe17553e315c95d886f9c37147af1835b25fc5a97350f"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ecfcb6e8ddccc2d7e6c59d4882fbdb372c9dd5211322f8cba52d4f3d1788917a"
+    sha256 cellar: :any_skip_relocation, ventura:        "7e10dfa20b368a552c4a4b9c7dbda5b5f707b244792473b5262d961b4c462671"
+    sha256 cellar: :any_skip_relocation, monterey:       "e0623eecc23efad9e1c83b3b2adc992d0931ec16b1b312d929cc429180093807"
+    sha256 cellar: :any_skip_relocation, big_sur:        "2e00b12e6da090652f30a7b10ce4f71d34768f39ec0d51c9a1b8763b40ae245d"
+    sha256                               x86_64_linux:   "6af0ff8f1a58266c3447057020b9cfb9ad400f5d3802d972b6525cad3abbab4d"
   end
 
   depends_on xcode: ["11.4", :build]

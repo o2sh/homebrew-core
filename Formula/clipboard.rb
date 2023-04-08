@@ -1,17 +1,17 @@
 class Clipboard < Formula
   desc "Cut, copy, and paste anything, anywhere, all from the terminal"
   homepage "https://getclipboard.app"
-  url "https://github.com/Slackadays/Clipboard/archive/refs/tags/0.3.2.tar.gz"
-  sha256 "6784aac212307cd7e6957e2ae9f71b4a98c1ce520351d8ca86c8a414b723c899"
+  url "https://github.com/Slackadays/Clipboard/archive/refs/tags/0.5.0.tar.gz"
+  sha256 "4ef29040b871c8d6238408e61a569b0a41609398e0360ab375b9a32be062de81"
   license "GPL-3.0-or-later"
   head "https://github.com/Slackadays/Clipboard.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2e5e31417b447abae3fc5f894f44d8f91cbca6437200ee268d7c0a9fdcfe0ef8"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "80a55860d2a5cae77caf4ee411bb475b4c4964d115258c9e24f652fc04fc6628"
-    sha256 cellar: :any_skip_relocation, ventura:        "bd37f12d2857e2796e95a7a826e407976da9482c4b2457a64baa2bc1c13d3424"
-    sha256 cellar: :any_skip_relocation, monterey:       "30c672dffc025e258f3fe09873668e5069c36fdccd71fb611481dd22914d4a4f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "306606b0588bee5288dc88a1df28e210fccc541d504bcfc34b5bce57628908df"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "aaa3dcda9c39c4aed64d21078caf5906f7bf4f8736d20ec6632256d4b5bd03a1"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e8d9e49a0ab13bc9370d10613966f4f4f3709a4bf59bc664eacd3e310e664e17"
+    sha256 cellar: :any_skip_relocation, ventura:        "42fee22cb2ea20ae12c49ce1a47de073522c618d8987a08c5344baa5f161c8d6"
+    sha256 cellar: :any_skip_relocation, monterey:       "85ca33f032ccdf6da7db29a118502e1ace3408a3e0423e563832b84b4a893f5d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "23c0caf06d5544b4494dd06df5513df904d7a9a6b738fce33826375016462cd1"
   end
 
   depends_on "cmake" => :build

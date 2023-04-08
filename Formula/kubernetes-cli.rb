@@ -2,8 +2,8 @@ class KubernetesCli < Formula
   desc "Kubernetes command-line interface"
   homepage "https://kubernetes.io/"
   url "https://github.com/kubernetes/kubernetes.git",
-      tag:      "v1.26.1",
-      revision: "8f94681cd294aa8cfd3407b8191f6c70214973a4"
+      tag:      "v1.26.3",
+      revision: "9e644106593f3f4aa98f8a84b23db5fa378900bd"
   license "Apache-2.0"
   head "https://github.com/kubernetes/kubernetes.git", branch: "master"
 
@@ -13,13 +13,13 @@ class KubernetesCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5a831de10724c6d6d449d81135e93d6df7c947f18c11c282b47de92af017311b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1c204b75c3b66b4ab9ab23c5ba9a7ba4eb3dd3847b94869e38eef159b32321b0"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "6500bfaf44af5b1b664fbb0bd17fe09032d4f548b3d348c781b8ca59c9a58f4f"
-    sha256 cellar: :any_skip_relocation, ventura:        "a5da0eb1fd6434dbbfe4abe8fb442c79d4c442888e82eb9cfcc78086c9d6abe8"
-    sha256 cellar: :any_skip_relocation, monterey:       "e421cee1a3cbf04cc5f7e95f1905c461a919dea708fcfe1c1fc4761eea6ddc74"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d243e4764a11e59a30b3422f2fa6cc215d4f4e0a15a1838c660b4160f33ddfd4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "69d5374efc9321dc5c312e4d434b17d9b11c05e66aec480751d2ea23ef34947e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "74d45a9014fed104f214ed073abaf1da46ab40f2f8424347781bea0169899e90"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "79c51d0bc3eb3375e74813ef558efa97362216f4e0ec74d1a3dce2524ec119a4"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ad0a4fc00aa52f211848c5f134245ce054b94dee27434a234a61739c8191e764"
+    sha256 cellar: :any_skip_relocation, ventura:        "d3be2017c4c06224f0302a1aeef23d9a6fb3010b289a5a3419f14c79c39bee18"
+    sha256 cellar: :any_skip_relocation, monterey:       "9e33e2361de76c5f9bbfdbfbfa69f90c1e912f64a506a3b04e88f6ce25500fbe"
+    sha256 cellar: :any_skip_relocation, big_sur:        "55ef53084f2016e19c7364ab882b2d78b9a6e0680f14408f557c7689ae0aa103"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dbc3fc0ed190c2d32dfad78938013acbe11d1193ebd1c490bebf3d4f61ebcb27"
   end
 
   depends_on "bash" => :build
@@ -32,11 +32,6 @@ class KubernetesCli < Formula
     # Don't dirty the git tree
     rm_rf ".brew_home"
 
-    # Make binary
-    # Deparallelize to avoid race conditions in creating symlinks, creating an error like:
-    #   ln: failed to create symbolic link: File exists
-    # See https://github.com/kubernetes/kubernetes/issues/106165
-    ENV.deparallelize
     ENV.prepend_path "PATH", Formula["coreutils"].libexec/"gnubin" # needs GNU date
     system "make", "WHAT=cmd/kubectl"
     bin.install "_output/bin/kubectl"

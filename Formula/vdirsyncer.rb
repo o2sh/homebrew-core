@@ -3,27 +3,26 @@ class Vdirsyncer < Formula
 
   desc "Synchronize calendars and contacts"
   homepage "https://github.com/pimutils/vdirsyncer"
-  url "https://files.pythonhosted.org/packages/c9/77/4c6a43d26b75811885aff211b73e078eeeea86d5601c5c12dd188d7e2fd5/vdirsyncer-0.19.0.tar.gz"
-  sha256 "8e1e8403a08659e5a4e7fa3e9caaa2e2dce2bf1f98d923029049a34db75a2525"
+  url "https://files.pythonhosted.org/packages/51/b6/92dcd91a6b9c6581edf14357f24ea11de7f402cde6b27f483d491313c51f/vdirsyncer-0.19.1.tar.gz"
+  sha256 "aa76c7725aa5a711f6374bc5cd83be78aae68c74829635a9ed073cd4c09f03ae"
   license "BSD-3-Clause"
   head "https://github.com/pimutils/vdirsyncer.git", branch: "main"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1a4dac0a66b0f812f7b3750ebe729e451b4bb3be8aa577b61c47be885b111a84"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "093dabcf5b7335fdd200c5bf0a68d14ab5d5fb96f11f0650f494c32c62a84a20"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c93268324a59c32565f9c3c3415c023b766e3a6f0f80ebb936b4cec4335c6b13"
-    sha256 cellar: :any_skip_relocation, ventura:        "ca2ae478f843e92a51d0ef2b829cb750ed803c0033361eb455505cdc60439e34"
-    sha256 cellar: :any_skip_relocation, monterey:       "267f54d52b7aa8a9c98007b4399cf0d10213ed55abc87d5bf2f1315807e9261f"
-    sha256 cellar: :any_skip_relocation, big_sur:        "7ec70d8ae0e379ec8455fea3e345942c15f0da57af1ff0e50d425a7da3484e2d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6e4779bcb38e7805e9aebd8368f859db0f7bb698a3eff10f102eac4debb434d9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "32b27a0f370872e3e0b1183574e46d62e5d92979f74dbf1465f63a5e6e0ca9ea"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "cd0d966e4f5f331064a10aa7a9330d4da023e0692775bbd6d629c2609e753ec5"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ff941b73824ac92986f9fe8ed54a4f244ad945ed4d77cd7aa3fd79da5dea467f"
+    sha256 cellar: :any_skip_relocation, ventura:        "f14e16c7f21017b4da6242ae5111fc0b4236efc75533dda133642ffe787776e8"
+    sha256 cellar: :any_skip_relocation, monterey:       "3d12d7c7da77fadcf3fbc9075dfe96ba9f9c0f41a749b4204ea5eb84d01ff2d3"
+    sha256 cellar: :any_skip_relocation, big_sur:        "096f298ecde234f524b6bcfec2781257e25524cadd61d46e5d17a244d4bedb7b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7fec9c7114b6784994a8a6afc145b2b4b2d2dde9c16d23700bc0fd20fcbbf3cb"
   end
 
   depends_on "python@3.11"
 
   resource "aiohttp" do
-    url "https://files.pythonhosted.org/packages/ff/4f/62d9859b7d4e6dc32feda67815c5f5ab4421e6909e48cbc970b6a40d60b7/aiohttp-3.8.3.tar.gz"
-    sha256 "3828fb41b7203176b82fe5d699e0d845435f2374750a44b480ea6b930f6be269"
+    url "https://files.pythonhosted.org/packages/c2/fd/1ff4da09ca29d8933fda3f3514980357e25419ce5e0f689041edb8f17dab/aiohttp-3.8.4.tar.gz"
+    sha256 "bf2e1a9162c1e441bf805a1fd166e249d574ca04e03b34f97e2928769e91ab5c"
   end
 
   resource "aiohttp-oauthlib" do
@@ -62,8 +61,8 @@ class Vdirsyncer < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/a1/34/44964211e5410b051e4b8d2869c470ae8a68ae274953b1c7de6d98bbcf94/charset-normalizer-2.1.1.tar.gz"
-    sha256 "5a3d016c7c547f69d6f81fb0db9449ce888b418b5b9952cc5e6e66843e9dd845"
+    url "https://files.pythonhosted.org/packages/96/d7/1675d9089a1f4677df5eb29c3f8b064aa1e70c1251a0a8a127803158942d/charset-normalizer-3.0.1.tar.gz"
+    sha256 "ebea339af930f8ca5d7a699b921106c6e29c617fe9606fa7baa043c1cdae326f"
   end
 
   resource "click" do

@@ -1,10 +1,10 @@
 class Gdal < Formula
   desc "Geospatial Data Abstraction Library"
   homepage "https://www.gdal.org/"
-  url "http://download.osgeo.org/gdal/3.6.2/gdal-3.6.2.tar.xz"
-  sha256 "35f40d2e08061b342513cdcddc2b997b3814ef8254514f0ef1e8bc7aa56cf681"
+  url "http://download.osgeo.org/gdal/3.6.3/gdal-3.6.3.tar.xz"
+  sha256 "3cccbed883b1fb99b913966aa3a650ad930e7c3afc714f5823f9754176ee49ea"
   license "MIT"
-  revision 3
+  revision 1
 
   livecheck do
     url "https://download.osgeo.org/gdal/CURRENT/"
@@ -12,13 +12,13 @@ class Gdal < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "a09caa6cd22ac96250419ecbde02872fdecc702a8bf1bfc6d5fded6c2b61276f"
-    sha256 arm64_monterey: "d2532b7324a6a9bf5ee69cdb137f2bdd742650876a0d45a5b70e90c709178a90"
-    sha256 arm64_big_sur:  "2f5577e416507e97326f9201c53fff03490ea3413b8432861b350302f1f328b6"
-    sha256 ventura:        "23d0a19c201d33b6f1d1fc015341b32e86f9a9bc1af8d185fe928b8ab5afb754"
-    sha256 monterey:       "807ef51b603b7a6677c70c8087da02d1a83a89f57d6b1be2952de651c3b069c3"
-    sha256 big_sur:        "b90886dc07fdfd4e8c6cbf74bedf4ce0b1baa2005b94a3f787f8de8ac26dc642"
-    sha256 x86_64_linux:   "48d9c5dcba2417194cc0ddc1cff846cb6621efa3cb5953a57cc96b50aa462ecf"
+    sha256 arm64_ventura:  "66f7da03f7b695e02e30ba1194e94d9ef4f825505623a796c5c2bb2ae0cf7cda"
+    sha256 arm64_monterey: "1937eede30ad6babeeb8c92724a491e513fc49b847ada7c6201677e2e5de39e5"
+    sha256 arm64_big_sur:  "1d1014aee8a316764845110b350e9061fd368c35cd39e4dafc9dd6d6bd1feab8"
+    sha256 ventura:        "8691b64c3f67c54fd73a0fa4d26a86347a397fbe21fecb694d3b333aa70b2eeb"
+    sha256 monterey:       "74ecb143641aa6b2d55774a63d55c1dc2eda41e498d608b680e39171435ed08e"
+    sha256 big_sur:        "08bc30b21c64828c11448cc4eec6b71b1fb0d764306e2fc2fac48c7539a16b2c"
+    sha256 x86_64_linux:   "f24c8b24a954507ef72fe9f7d89c0f94603e5f54b5800ba326a852561e1ae98f"
   end
 
   head do
@@ -80,18 +80,23 @@ class Gdal < Formula
   end
 
   def install
+    site_packages = prefix/Language::Python.site_packages(python3)
     # Work around Homebrew's "prefix scheme" patch which causes non-pip installs
     # to incorrectly try to write into HOMEBREW_PREFIX/lib since Python 3.10.
     inreplace "swig/python/CMakeLists.txt",
-              /(set\(INSTALL_ARGS "--single-version-externally-managed --record=record.txt")\)/,
-              "\\1 --install-lib=#{prefix/Language::Python.site_packages(python3)})"
+              'set(INSTALL_ARGS "--single-version-externally-managed --record=record.txt',
+              "\\0 --install-lib=#{site_packages} --install-scripts=#{bin}"
 
+    osgeo_ext = site_packages/"osgeo"
+    rpaths = [rpath, rpath(source: osgeo_ext)]
+    ENV.append "LDFLAGS", "-Wl,#{rpaths.map { |rp| "-rpath,#{rp}" }.join(",")}"
     # keep C++ standard in sync with `abseil.rb`
     args = %W[
       -DENABLE_PAM=ON
       -DBUILD_PYTHON_BINDINGS=ON
-      -DCMAKE_INSTALL_RPATH=#{lib}
+      -DCMAKE_INSTALL_RPATH=#{rpaths.join(";")}
       -DPython_EXECUTABLE=#{which(python3)}
+      -DGDAL_PYTHON_INSTALL_LIB=#{site_packages}
       -DCMAKE_CXX_STANDARD=17
     ]
 
@@ -101,6 +106,8 @@ class Gdal < Formula
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
+
+    bash_completion.install (share/"bash-completion/completions").children
   end
 
   test do

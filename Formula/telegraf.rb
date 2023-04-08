@@ -1,8 +1,8 @@
 class Telegraf < Formula
   desc "Plugin-driven server agent for collecting & reporting metrics"
   homepage "https://www.influxdata.com/time-series-platform/telegraf/"
-  url "https://github.com/influxdata/telegraf/archive/v1.25.2.tar.gz"
-  sha256 "e7038dc5be123a7e8906100d48f145d806030dafbcdb4dbd52f0343b6d1837e0"
+  url "https://github.com/influxdata/telegraf/archive/refs/tags/v1.26.1.tar.gz"
+  sha256 "6896dddd06e0756df54f2678c77e3eea45354b2ae167ccec1de8352f0554b8cb"
   license "MIT"
   head "https://github.com/influxdata/telegraf.git", branch: "master"
 
@@ -12,20 +12,29 @@ class Telegraf < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "731e62b846be57a24240cd197d1ab27ebf523c0494356caa45bb9ad1e9a84f20"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3d9ade4ab4c3921ce1e818614f971be25bbf80853076f77c4f095cbfc9018f43"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "2375e5e6a39c8c5b0b9d2122276d1c51603ebfe6f5596d77346e8e11f96bcdf9"
-    sha256 cellar: :any_skip_relocation, ventura:        "3e8191c7e12d27b277c157e49b05ccf89087de2a6d4eb9ee402f157c16390655"
-    sha256 cellar: :any_skip_relocation, monterey:       "4a26f08b15615e3d45ece15cde682df27ba10610c4c8e1a15b2b164d905d4f9c"
-    sha256 cellar: :any_skip_relocation, big_sur:        "8c0b369f1e34d54758601df1c0b09919a4d07eb3c730a4758e3a26da1b194115"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9b0d2b217d7cf8a2f6f6f75a4dde8599e908faca94bda1d276f477ef5990efd2"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "22f5f355511b0b978e286318606c8d5561de75c1c16c3f4d9bfe471ccd272887"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "1e551f2b1a7b7bdde2720436597de54448276194e0fdf25f16e1a20304cee08a"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "e84c4f3f6d8b936b988800dbf221d88b09a030dd6795d0bcc2eff2d8007daca5"
+    sha256 cellar: :any_skip_relocation, ventura:        "f3d5e3915a42a3a9afc5546ca6e892cb7ee0d83701454bd99472c5bd6df4ba81"
+    sha256 cellar: :any_skip_relocation, monterey:       "3c213b73711d4b35bdb9b2176abeee772be7806abe1b9f224c80b13e102ab470"
+    sha256 cellar: :any_skip_relocation, big_sur:        "322ceb458f74ddd66e12a64a404b83ebe0c21d0efebee186d482edb479679792"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5f07c5704fe69e312b4485f1342f3672e921163481c7606c4071b96272e4fa49"
   end
 
   depends_on "go" => :build
 
+  # Fix an undefined symbol error on Apple Silicon.
+  # Remove when `github.com/shoenig/go-m1cpu` v0.1.5 is used by upstream.
+  on_macos do
+    on_arm do
+      patch :DATA
+    end
+  end
+
   def install
-    system "go", "build", *std_go_args(ldflags: "-s -w -X github.com/influxdata/telegraf/internal.Version=#{version}"), "./cmd/telegraf"
-    etc.install "etc/telegraf.conf" => "telegraf.conf"
+    ldflags = "-s -w -X github.com/influxdata/telegraf/internal.Version=#{version}"
+    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/telegraf"
+    (etc/"telegraf.conf").write Utils.safe_popen_read("#{bin}/telegraf", "config")
   end
 
   def post_install
@@ -48,3 +57,27 @@ class Telegraf < Formula
            "-input-filter", "cpu:mem"
   end
 end
+
+__END__
+--- a/go.mod
++++ b/go.mod
+@@ -388,7 +388,7 @@ require (
+ 	github.com/rogpeppe/fastuuid v1.2.0 // indirect
+ 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
+ 	github.com/samuel/go-zookeeper v0.0.0-20200724154423-2164a8ac840e // indirect
+-	github.com/shoenig/go-m1cpu v0.1.4 // indirect
++	github.com/shoenig/go-m1cpu v0.1.5 // indirect
+ 	github.com/signalfx/com_signalfx_metrics_protobuf v0.0.3 // indirect
+ 	github.com/signalfx/gohistogram v0.0.0-20160107210732-1ccfd2ff5083 // indirect
+ 	github.com/signalfx/sapm-proto v0.7.2 // indirect
+--- a/go.sum
++++ b/go.sum
+@@ -2062,6 +2062,8 @@ github.com/shirou/gopsutil/v3 v3.23.3 h1:Syt5vVZXUDXPEXpIBt5ziWsJ4LdSAAxF4l/xZeQ
+ github.com/shirou/gopsutil/v3 v3.23.3/go.mod h1:lSBNN6t3+D6W5e5nXTxc8KIMMVxAcS+6IJlffjRRlMU=
+ github.com/shoenig/go-m1cpu v0.1.4 h1:SZPIgRM2sEF9NJy50mRHu9PKGwxyyTTJIWvCtgVbozs=
+ github.com/shoenig/go-m1cpu v0.1.4/go.mod h1:Wwvst4LR89UxjeFtLRMrpgRiyY4xPsejnVZym39dbAQ=
++github.com/shoenig/go-m1cpu v0.1.5 h1:LF57Z/Fpb/WdGLjt2HZilNnmZOxg/q2bSKTQhgbrLrQ=
++github.com/shoenig/go-m1cpu v0.1.5/go.mod h1:Wwvst4LR89UxjeFtLRMrpgRiyY4xPsejnVZym39dbAQ=
+ github.com/shoenig/test v0.6.3 h1:GVXWJFk9PiOjN0KoJ7VrJGH6uLPnqxR7/fe3HUPfE0c=
+ github.com/shoenig/test v0.6.3/go.mod h1:byHiCGXqrVaflBLAMq/srcZIHynQPQgeyvkvXnjqq0k=
+ github.com/shopspring/decimal v0.0.0-20180709203117-cd690d0c9e24/go.mod h1:M+9NzErvs504Cn4c5DxATwIqPbtswREoFCre64PpcG4=

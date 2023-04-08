@@ -3,18 +3,18 @@ class HuggingfaceCli < Formula
 
   desc "Client library for huggingface.co hub"
   homepage "https://huggingface.co/docs/huggingface_hub/index"
-  url "https://files.pythonhosted.org/packages/90/d7/4629218f05e188e21b4d68decda8566ff6898013f5e96f4d8caf9211d701/huggingface_hub-0.12.1.tar.gz"
-  sha256 "6f960f6246ef9c3446d0d6275e853485515682c350917fdaf2a59705f8b9ebb3"
+  url "https://files.pythonhosted.org/packages/ef/99/b47e4639754dcc98a4b4b7df370341d8b86b0799d361efe30334907e3be2/huggingface_hub-0.13.4.tar.gz"
+  sha256 "db83d9c2f76aed8cf49893ffadd6be24e82074da2f64b1d36b8ba40eb255e115"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "61939972a365ac9040f9d278b081a9249bc8d6f633eed7a42b05d20537b0bb5e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d9cd26f5768b6facb3050b61ee0ff6f0a49ed747a4d30503b7a1bcf64a4f10c6"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9d6c965a381dcc6ea81105c3e84713884315a7757b94f250604158e380d8b2ec"
-    sha256 cellar: :any_skip_relocation, ventura:        "ddc08ff2e3df6b2fff8d77b0f984ad99e9ac882e3ac9dbcc97bcd7c05f9f0ddc"
-    sha256 cellar: :any_skip_relocation, monterey:       "8107edaaa4963a1b720d844bb22f3c476194b4db2e95951e5c4db1828f939de6"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d66148fe44ddba373897766127b973984e547b1c4eca3ecdf527d6e310607e6b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f9eea13fd90842c98bf1e5feb5a341a75ccb54b13bbae47eeb135d10fb32687d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f626b7d164f2f199651085375ad868e0cbe5afc4b3cb8123e8875d349ab632aa"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "7f1be476dd5bf3c001c8f533b2c62084c54ea05cce815ca9a08ae21af5a463f7"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "fa0bb6d32b7b2b593f4a6eb2c609c74d48adb5a4d615ce8105599f52d3f39464"
+    sha256 cellar: :any_skip_relocation, ventura:        "d6ce807b78fd22647b66137bfd99b5d8f1392955bbecd743b0f9b59fb9b577d1"
+    sha256 cellar: :any_skip_relocation, monterey:       "0bbc8df2af9886001b8891998bbb94bde269d9154c66cd0a527a5698e76ab113"
+    sha256 cellar: :any_skip_relocation, big_sur:        "4937bcac914101b94f00c1c703ef84b50a213b956f80becee6a161ce4de766ba"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c073ee5b1e5d33b0a3424a533bc3d41308784de0548d751d44a8f010e94aeba6"
   end
 
   depends_on "git-lfs"
@@ -28,13 +28,13 @@ class HuggingfaceCli < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/96/d7/1675d9089a1f4677df5eb29c3f8b064aa1e70c1251a0a8a127803158942d/charset-normalizer-3.0.1.tar.gz"
-    sha256 "ebea339af930f8ca5d7a699b921106c6e29c617fe9606fa7baa043c1cdae326f"
+    url "https://files.pythonhosted.org/packages/ff/d7/8d757f8bd45be079d76309248845a04f09619a7b17d6dfc8c9ff6433cac2/charset-normalizer-3.1.0.tar.gz"
+    sha256 "34e0a2f9c370eb95597aae63bf85eb5e96826d81e3dcf88b8886012906f509b5"
   end
 
   resource "filelock" do
-    url "https://files.pythonhosted.org/packages/0b/dc/eac02350f06c6ed78a655ceb04047df01b02c6b7ea3fc02d4df24ca87d24/filelock-3.9.0.tar.gz"
-    sha256 "7b319f24340b51f55a2bf7a12ac0755a9b03e718311dac567a0f4f7fabd2f5de"
+    url "https://files.pythonhosted.org/packages/5b/65/5dfde43d5e4d7d31a2392bf4aa20e464b8aa0601f34fd9b050781291f666/filelock-3.10.7.tar.gz"
+    sha256 "892be14aa8efc01673b5ed6589dbccb95f9a8596f0507e232626155495c18105"
   end
 
   resource "idna" do
@@ -53,13 +53,13 @@ class HuggingfaceCli < Formula
   end
 
   resource "tqdm" do
-    url "https://files.pythonhosted.org/packages/c1/c2/d8a40e5363fb01806870e444fc1d066282743292ff32a9da54af51ce36a2/tqdm-4.64.1.tar.gz"
-    sha256 "5f4f682a004951c1b450bc753c710e9280c5746ce6ffedee253ddbcbf54cf1e4"
+    url "https://files.pythonhosted.org/packages/3d/78/81191f56abb7d3d56963337dbdff6aa4f55805c8afd8bad64b0a34199e9b/tqdm-4.65.0.tar.gz"
+    sha256 "1871fb68a86b8fb3b59ca4cdd3dcccbc7e6d613eeed31f4c332531977b89beb5"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/c5/52/fe421fb7364aa738b3506a2d99e4f3a56e079c0a798e9f4fa5e14c60922f/urllib3-1.26.14.tar.gz"
-    sha256 "076907bf8fd355cde77728471316625a4d2f7e713c125f51953bb5b3eecf4f72"
+    url "https://files.pythonhosted.org/packages/21/79/6372d8c0d0641b4072889f3ff84f279b738cd8595b64c8e0496d4e848122/urllib3-1.26.15.tar.gz"
+    sha256 "8a388717b9476f934a21484e8c8e61875ab60644d29b9b39e11e4b9dc1c6b305"
   end
 
   def install

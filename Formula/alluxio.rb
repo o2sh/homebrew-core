@@ -1,8 +1,8 @@
 class Alluxio < Formula
   desc "Open Source Memory Speed Virtual Distributed Storage"
   homepage "https://www.alluxio.io/"
-  url "https://downloads.alluxio.io/downloads/files/2.9.1/alluxio-2.9.1-bin.tar.gz"
-  sha256 "6f964be791c29d8c47bd7a87c798d668eade293d324543b51eefb8f5a3f7f6b1"
+  url "https://downloads.alluxio.io/downloads/files/2.9.3/alluxio-2.9.3-bin.tar.gz"
+  sha256 "c71abc5e852d37cfd6b1dea076f056c6997e3f60fbb940bf005acb3a6354a369"
   license "Apache-2.0"
 
   livecheck do
@@ -11,13 +11,13 @@ class Alluxio < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a8e749ffce5b7ec29fc80b9cc955600b095959e748395bc306e316acd1af849f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a8e749ffce5b7ec29fc80b9cc955600b095959e748395bc306e316acd1af849f"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a8e749ffce5b7ec29fc80b9cc955600b095959e748395bc306e316acd1af849f"
-    sha256 cellar: :any_skip_relocation, ventura:        "3019c4436d34bdfa4cf6d3797ad92619ca5c2c68c3b093074d4c195773ae94d1"
-    sha256 cellar: :any_skip_relocation, monterey:       "3019c4436d34bdfa4cf6d3797ad92619ca5c2c68c3b093074d4c195773ae94d1"
-    sha256 cellar: :any_skip_relocation, big_sur:        "3019c4436d34bdfa4cf6d3797ad92619ca5c2c68c3b093074d4c195773ae94d1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a8e749ffce5b7ec29fc80b9cc955600b095959e748395bc306e316acd1af849f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c38d5e85079041c189c0fe008618802ee1a87f2efb94f1b3d0be35c23e27ec01"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c38d5e85079041c189c0fe008618802ee1a87f2efb94f1b3d0be35c23e27ec01"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c38d5e85079041c189c0fe008618802ee1a87f2efb94f1b3d0be35c23e27ec01"
+    sha256 cellar: :any_skip_relocation, ventura:        "f32a22feeccef5d59267a8936b1bc400996e96bd0a8f935eccf30fa8afb74722"
+    sha256 cellar: :any_skip_relocation, monterey:       "f32a22feeccef5d59267a8936b1bc400996e96bd0a8f935eccf30fa8afb74722"
+    sha256 cellar: :any_skip_relocation, big_sur:        "f32a22feeccef5d59267a8936b1bc400996e96bd0a8f935eccf30fa8afb74722"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c38d5e85079041c189c0fe008618802ee1a87f2efb94f1b3d0be35c23e27ec01"
   end
 
   # Alluxio requires Java 8 or Java 11
@@ -58,7 +58,7 @@ class Alluxio < Formula
 
   test do
     output = shell_output("#{bin}/alluxio validateConf")
-    assert_match "ValidateConf - Validating configuration.", output
+    assert_match "Validating configuration.", output
 
     output = shell_output("#{bin}/alluxio clearCache 2>&1", 1)
     expected_output = OS.mac? ? "drop_caches: No such file or directory" : "drop_caches: Read-only file system"
