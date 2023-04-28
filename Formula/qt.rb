@@ -14,7 +14,7 @@ class Qt < Formula
     { "GPL-3.0-only" => { with: "Qt-GPL-exception-1.0" } },
     "LGPL-3.0-only",
   ]
-  revision 1
+  revision 3
   head "https://code.qt.io/qt/qt5.git", branch: "dev"
 
   # The first-party website doesn't make version information readily available,
@@ -25,13 +25,13 @@ class Qt < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "317da48254687f1244fd4472778289eba2b091cc13b5a735d27ecb5ab1ff926c"
-    sha256 cellar: :any,                 arm64_monterey: "4269b8744e5b7ed386086746ef89161b6ff026b557b4ce9ff9db4e26f66df745"
-    sha256 cellar: :any,                 arm64_big_sur:  "509e7d75f96096478ea91b8e9a94a1bb6d431ae3e3ec846d171243fdbcd95820"
-    sha256 cellar: :any,                 ventura:        "0bfc734ad533782db5b83fef2f18cecb124455fd51b031932cdcdadeeff7fdaa"
-    sha256 cellar: :any,                 monterey:       "9f53b6a77cd1848099b72143dfeefaea16e7752788035d1af4373e22e9368cf7"
-    sha256 cellar: :any,                 big_sur:        "57469106c5b4072ebaeca694044769df68ef052a30cf81f6e1ec7b287848a78f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b65bbc811ed9638ac93513f399cc9aaced9edeee3aec72a3cb90104f2e4c8205"
+    sha256 cellar: :any,                 arm64_ventura:  "95a371fe5bec88d39320069e26dcfe5bc3f6a48d3d50318cb0c9da3ee1ddaf06"
+    sha256 cellar: :any,                 arm64_monterey: "0da62163a4ea8f6f28bd4e728ce6b95ca6e7f998845f72735b0c3f99c5c8561b"
+    sha256 cellar: :any,                 arm64_big_sur:  "8d79014d8a90ad652488074609a824c0f8b9e2af85f6ad42d29d2479ac71f019"
+    sha256 cellar: :any,                 ventura:        "f4657edf719af98577659196e104e28efe5fdfb0635950a094da1af70116276b"
+    sha256 cellar: :any,                 monterey:       "11e2f77297f3007ad34f4c2ebc47fa695a1dabab0a32f41e66f14e7158f02c24"
+    sha256 cellar: :any,                 big_sur:        "b00ddf29bf3c32d79bc05705971806cacfbd4599d3d2b7fcf4912a3e8f39aac4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1552d48a9309aa0dd720adc843480d68142bf9e09b034e3da5c26ea3f1e1a651"
   end
 
   depends_on "cmake"      => [:build, :test]
@@ -359,6 +359,7 @@ class Qt < Formula
         Q_ASSERT(QSqlDatabase::isDriverAvailable("QSQLITE"));
         const auto &list = QImageReader::supportedImageFormats();
         QVulkanInstance inst;
+        // See https://github.com/actions/runner-images/issues/1779
         // if (!inst.create())
         //   qFatal("Failed to create Vulkan instance: %d", inst.errorCode());
         for(const char* fmt:{"bmp", "cur", "gif",
@@ -381,7 +382,7 @@ class Qt < Formula
     system "make"
     system "./test"
 
-    ENV.delete "CPATH" unless MacOS.version <= :mojave
+    ENV.delete "CPATH" if MacOS.version > :mojave
     system bin/"qmake", testpath/"test.pro"
     system "make"
     system "./test"

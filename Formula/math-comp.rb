@@ -4,17 +4,17 @@ class MathComp < Formula
   url "https://github.com/math-comp/math-comp/archive/mathcomp-1.16.0.tar.gz"
   sha256 "36fe4f5487f4685db9c6e6affa92abb47248440e6d4dfaaa01ab31df5fd4b513"
   license "CECILL-B"
-  revision 1
+  revision 3
   head "https://github.com/math-comp/math-comp.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "dede842bd48fa520d3f8dd2a18b34aaeca71b774d58989f38c3dfb9ae70ed641"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "be41daf71e27a55d33d26ec46444425a74997e475ac8e77090defc38f02e638c"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ecda54248cb932e538dd22c498e990141c07670be6029023e1a4ee8f2ba7ce1b"
-    sha256 cellar: :any_skip_relocation, ventura:        "fb4a9f131486c583f6f6cc31b6a11cf572457a7e943b98f23d3e4276ece15f5a"
-    sha256 cellar: :any_skip_relocation, monterey:       "97c65a86df6bb527a643091c2b7751a3997727a4534042d4ed684aaeb7048986"
-    sha256 cellar: :any_skip_relocation, big_sur:        "14979b3bb8ae23ac9740520516dd7645a4bd7f47e0170cb58fdbbc1b18565c92"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3f8910d836172b74ec7f9caa30ed1a28ec582b2c1c39fc2f1bf1c0a9fb1d5d33"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ace12cde40f2db32630a1ff753610edc8bcb342d26a9d10950b5fd6f98f2c25a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "db32dee17e571106f2ec790dda283c73fc35125584f79cd48b4c385673dc972d"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "3c8df168f2dd02eebf73a5c0b9e07c05a7e6ddf2920cac2972b6dc161607483a"
+    sha256 cellar: :any_skip_relocation, ventura:        "008e294ef785cd25162d2b8330995ff3efdc7a550f290649c847b215b785467a"
+    sha256 cellar: :any_skip_relocation, monterey:       "4be2eef559fb8201c7e9aae3583332b1e964d876a75ee55b809e1bdc34d35214"
+    sha256 cellar: :any_skip_relocation, big_sur:        "d09925860278d2ffb8e5df2463757b6b2f3e9809a3eb2b4385ee620bb67dec0a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0cd07c39a4bd148ad1f8644088869a67291af294e58553c58a1367dfeaa70261"
   end
 
   depends_on "ocaml" => :build

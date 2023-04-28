@@ -2,18 +2,18 @@ class SingBox < Formula
   desc "Universal proxy platform"
   homepage "https://sing-box.sagernet.org"
   # using `:homebrew_curl` to work around audit failure from TLS 1.3-only homepage
-  url "https://github.com/SagerNet/sing-box/archive/refs/tags/v1.2.3.tar.gz", using: :homebrew_curl
-  sha256 "a12b81950deb181cf2c1783685e0dd66502376471db57e3787fad3f3e27fd48c"
+  url "https://github.com/SagerNet/sing-box/archive/refs/tags/v1.2.6.tar.gz", using: :homebrew_curl
+  sha256 "8f7adf55ed9afe6ec0dd8b04ed64dd3a6243578ee779f909dfb3778fa2dbda10"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7b6fa3ce9646d7241e507e6022f09daebef3b0ab33c0fad348172787edd9d4ff"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7b6fa3ce9646d7241e507e6022f09daebef3b0ab33c0fad348172787edd9d4ff"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7b6fa3ce9646d7241e507e6022f09daebef3b0ab33c0fad348172787edd9d4ff"
-    sha256 cellar: :any_skip_relocation, ventura:        "7c44c3c59299f606103f62148113b4d14a2ee47888c1f09d4e763c113e9acbec"
-    sha256 cellar: :any_skip_relocation, monterey:       "7c44c3c59299f606103f62148113b4d14a2ee47888c1f09d4e763c113e9acbec"
-    sha256 cellar: :any_skip_relocation, big_sur:        "7c44c3c59299f606103f62148113b4d14a2ee47888c1f09d4e763c113e9acbec"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "caa0731210b2c2a3d54fdcf480c645be98cfc7cebc04b8167f81f2c5c73dc81f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "af35409f5cf18d7713cb1d848b35c5398527817cd4edf789c602b7a464c40bb9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "af35409f5cf18d7713cb1d848b35c5398527817cd4edf789c602b7a464c40bb9"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "af35409f5cf18d7713cb1d848b35c5398527817cd4edf789c602b7a464c40bb9"
+    sha256 cellar: :any_skip_relocation, ventura:        "c0c54532b1412e621752f3035153b4a08d38a39e9b6ded5e49fed23045286c1e"
+    sha256 cellar: :any_skip_relocation, monterey:       "c0c54532b1412e621752f3035153b4a08d38a39e9b6ded5e49fed23045286c1e"
+    sha256 cellar: :any_skip_relocation, big_sur:        "c0c54532b1412e621752f3035153b4a08d38a39e9b6ded5e49fed23045286c1e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "01300f3e662cc4dca7fbf95e7b3f800188946eaaedf698a43d25a573042114fa"
   end
 
   depends_on "go" => :build

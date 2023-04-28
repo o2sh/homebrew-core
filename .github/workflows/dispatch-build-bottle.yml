@@ -74,6 +74,9 @@ jobs:
     runs-on: ${{matrix.runner}}
     container: ${{matrix.container}}
     timeout-minutes: ${{fromJson(github.event.inputs.timeout)}}
+    permissions:
+      contents: read
+      issues: write # for Homebrew/actions/post-comment
     defaults:
       run:
         shell: /bin/bash -e {0}
@@ -81,6 +84,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       HOMEBREW_GITHUB_API_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      BOTTLES_DIR: ${{ matrix.workdir || github.workspace }}/bottles
     steps:
       - name: ${{inputs.formula}}
         id: print_details
@@ -95,7 +99,7 @@ jobs:
       - name: Set environment variables
         if: runner.os == 'macOS'
         run: |
-          echo 'PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin' >> $GITHUB_ENV
+          echo 'PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin' >> "$GITHUB_ENV"
 
       - name: Set up Homebrew
         id: set-up-homebrew
@@ -105,10 +109,13 @@ jobs:
 
       - run: brew test-bot --only-setup
 
-      - name: Run brew test-bot --only-formulae --keep-old --only-json-tab --skip-online-checks --skip-dependents ${{inputs.formula}}
+      - name: Set up bottles directory
         run: |
-          mkdir bottles
-          cd bottles
+          rm -rvf "${BOTTLES_DIR}"
+          mkdir "${BOTTLES_DIR}"
+
+      - working-directory: ${{ env.BOTTLES_DIR }}
+        run: |
           brew test-bot \
             --only-formulae \
             --keep-old \
@@ -117,86 +124,19 @@ jobs:
             --skip-dependents \
             '${{inputs.formula}}'
 
-      - name: Failures summary for brew test-bot --only-formulae
+      - name: Post-build steps
         if: always()
-        uses: Homebrew/actions/failures-summary-and-bottle-result@master
+        uses: Homebrew/actions/post-build@master
         with:
-          workdir: ${{matrix.workdir || github.workspace}}
-          result_path: bottles/steps_output.txt
-          step_name: "Build summary on ${{ matrix.runner }}"
-
-      - name: Output brew linkage result
-        if: always()
-        uses: Homebrew/actions/failures-summary-and-bottle-result@master
-        with:
-          workdir: ${{matrix.workdir || github.workspace}}
-          result_path: bottles/linkage_output.txt
-          step_name: "`brew linkage` output on ${{ matrix.runner }}"
-
-      - name: Output brew bottle result
-        if: always()
-        uses: Homebrew/actions/failures-summary-and-bottle-result@master
-        with:
-          workdir: ${{matrix.workdir || github.workspace}}
-          result_path: bottles/bottle_output.txt
-          step_name: "`brew bottle` output on ${{ matrix.runner }}"
-
-      - name: Upload logs
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: logs-${{ matrix.runner }}
-          path: ${{matrix.workdir || github.workspace}}/bottles/logs
-
-      - name: Delete logs and home
-        if: always()
-        run: |
-          rm -rvf bottles/logs
-          rm -rvf bottles/home
-
-      - name: Count bottles
-        id: bottles
-        if: always()
-        run: |
-          cd bottles
-          count=$(ls *.json | wc -l | xargs echo -n)
-          echo "$count bottles"
-          echo "count=$count" >> $GITHUB_OUTPUT
-          failures=$(ls failed/*.json | wc -l | xargs echo -n)
-          echo "$failures failed bottles"
-          echo "failures=$failures" >> $GITHUB_OUTPUT
-
-      - name: Upload failed bottles
-        if: always() && steps.bottles.outputs.failures > 0
-        uses: actions/upload-artifact@v3
-        with:
-          name: bottles-${{ matrix.runner }}
-          path: ${{matrix.workdir || github.workspace}}/bottles/failed
-
-      # Must be run before the `Upload bottles` step so that failed
-      # bottles are not included in the `bottles` artifact.
-      - name: Delete failed bottles
-        if: always()
-        run: rm -rvf bottles/failed
-
-      - name: Upload bottles
-        if: always() && steps.bottles.outputs.count > 0
-        uses: actions/upload-artifact@v3
-        with:
-          name: bottles
-          path: ${{matrix.workdir || github.workspace}}/bottles
-
-      - name: Post cleanup
-        if: always()
-        run: |
-          brew test-bot --only-cleanup-after
-          rm -rvf bottles
+          runner: ${{ matrix.runner }}
+          bottles-directory: ${{ env.BOTTLES_DIR }}
+          logs-directory: ${{ env.BOTTLES_DIR }}/logs
 
       - name: Post comment on failure
         if: ${{!success() && inputs.issue > 0}}
         uses: Homebrew/actions/post-comment@master
         with:
-          token: ${{secrets.HOMEBREW_GITHUB_PUBLIC_REPO_TOKEN}}
+          token: ${{secrets.GITHUB_TOKEN}}
           issue: ${{inputs.issue}}
           body: ":x: @${{github.actor}} bottle request for ${{inputs.formula}} [failed](${{env.RUN_URL}})."
           bot_body: ":x: Bottle request for ${{inputs.formula}} [failed](${{env.RUN_URL}})."
@@ -204,10 +144,17 @@ jobs:
 
   upload:
     permissions:
-      pull-requests: write
-    runs-on: ubuntu-22.04
+      contents: read
+      issues: write # for Homebrew/actions/post-comment
+      pull-requests: write # for `gh pr edit`
+    runs-on: ubuntu-latest
     needs: bottle
     if: inputs.upload
+    container:
+      image: ghcr.io/homebrew/ubuntu22.04:master
+    defaults:
+      run:
+        shell: bash
     env:
       HOMEBREW_SIMULATE_MACOS_ON_LINUX: 1
       GH_REPO: ${{github.repository}}
@@ -218,6 +165,8 @@ jobs:
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
+        with:
+          test-bot: false
 
       - name: Download bottles from GitHub Actions
         uses: actions/download-artifact@v3
@@ -248,7 +197,7 @@ jobs:
 
       - name: Checkout branch for bottle commit
         working-directory: ${{steps.set-up-homebrew.outputs.repository-path}}
-        run: git checkout -b "$BOTTLE_BRANCH"
+        run: git checkout -b "$BOTTLE_BRANCH" origin/master
 
       - name: Upload bottles to GitHub Packages
         env:
@@ -272,31 +221,44 @@ jobs:
           HOMEBREW_GPG_PASSPHRASE: ${{ secrets.BREWTESTBOT_GPG_SIGNING_SUBKEY_PASSPHRASE }}
 
       - name: Open PR with bottle commit
+        id: create-pr
         working-directory: ${{steps.set-up-homebrew.outputs.repository-path}}
         env:
           GH_TOKEN: ${{secrets.HOMEBREW_GITHUB_PUBLIC_REPO_TOKEN}}
         run: |
-          # shellcheck disable=SC2016
           gh pr create \
-            --base master \
-            --body 'Created by `brew dispatch-build-bottle`'\
+            --base "$GITHUB_REF" \
+            --body "Created by [\`brew dispatch-build-bottle\`]($RUN_URL)" \
             --fill \
             --head "$BOTTLE_BRANCH" \
-            --label CI-published-bottle-commits \
             --reviewer '${{github.actor}}'
 
+          pull_number="$(gh pr list --head "$BOTTLE_BRANCH" --limit 1 --json number --jq '.[].number')"
+          echo "pull_number=$pull_number" >> "$GITHUB_OUTPUT"
+          echo "head_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      # There is a GitHub bug where labels are not properly recognised by workflows
+      # when added by `gh pr create`. We use the CI-published-bottle-commits label in
+      # the `formulae_detect` step in `tests.yml`, so let's add the label separately
+      # to avoid the bug.
+      - name: Label PR
+        env:
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          PR: ${{steps.create-pr.outputs.pull_number}}
+        run: gh pr edit --add-label CI-published-bottle-commits "$PR"
+
       - name: Enable automerge
+        run: gh pr merge --auto --merge --delete-branch --match-head-commit "$SHA" "$PR"
         env:
           GH_TOKEN: ${{secrets.HOMEBREW_GITHUB_PUBLIC_REPO_TOKEN}}
-        run: |
-          pull_number="$(gh pr list --head "$BOTTLE_BRANCH" | cut -f1 | tr -d '\n')"
-          gh pr merge --auto --merge "$pull_number"
+          PR: ${{steps.create-pr.outputs.pull_number}}
+          SHA: ${{steps.create-pr.outputs.head_sha}}
 
       - name: Post comment on failure
         if: ${{!success() && inputs.issue > 0}}
         uses: Homebrew/actions/post-comment@master
         with:
-          token: ${{secrets.HOMEBREW_GITHUB_PUBLIC_REPO_TOKEN}}
+          token: ${{secrets.GITHUB_TOKEN}}
           issue: ${{github.event.inputs.issue}}
           body: ":x: @${{github.actor}} bottle request for ${{inputs.formula}} [failed](${{env.RUN_URL}})."
           bot_body: ":x: Bottle request for ${{inputs.formula}} [failed](${{env.RUN_URL}})."

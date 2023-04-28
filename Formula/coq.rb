@@ -1,8 +1,8 @@
 class Coq < Formula
   desc "Proof assistant for higher-order logic"
   homepage "https://coq.inria.fr/"
-  url "https://github.com/coq/coq/archive/V8.16.1.tar.gz"
-  sha256 "583471c8ed4f227cb374ee8a13a769c46579313d407db67a82d202ee48300e4b"
+  url "https://github.com/coq/coq/archive/V8.17.0.tar.gz"
+  sha256 "712890e4c071422b0c414f260a35c5cb504f621be8cd2a2f0edfe6ef7106a1af"
   license "LGPL-2.1-only"
   revision 1
   head "https://github.com/coq/coq.git", branch: "master"
@@ -13,13 +13,13 @@ class Coq < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "aff2a9150694707e18c31c4d6ade5fb3e1c8c6716f7cc4a6a657877336940925"
-    sha256 arm64_monterey: "0d9e3a32437f36132cd5fe797be914aa4442289d72831fcd6f077ff566dcc8d7"
-    sha256 arm64_big_sur:  "308b07a1712a2940fc91ef0830a4e7aa2bcde4131f9b6cb5a3f88726816fa87c"
-    sha256 ventura:        "9990d885c2547c1c23e9a29e5960d9e19ec55082704afd05e46d1e913963d1b3"
-    sha256 monterey:       "af3439249d6ddbb5af4d06f710787e73111fe5f079fb0009febc7cd89a0418ab"
-    sha256 big_sur:        "76047bcf0396c24152d2043c2e30d036bb521936f456197a3ed42f2d1579cd41"
-    sha256 x86_64_linux:   "b7048cceda6124f4485a56f642ea68a432ff32bc7bfb8938a5fad1c4f6bc05a4"
+    sha256 arm64_ventura:  "008699456159b5a2aaa2ada32ce99e76036e6274217874d5d3ac85e3b686fed6"
+    sha256 arm64_monterey: "63b89cf96a2210f6dc498a8af41910e765270f7de01b4e734a73c2fc562626b4"
+    sha256 arm64_big_sur:  "34a66210a42dee8c70b371a362028232f57ab78b8b1e41d9b05b61d45b9916cc"
+    sha256 ventura:        "409829c3d07dae2378e54e33efb175e8582b1e3c034cff0968ac9eca0dc829a3"
+    sha256 monterey:       "9d16f8ee02778a71241be1a897af50d5abaa9c5c05705387c92cb5954739a9ab"
+    sha256 big_sur:        "e6379d0240df1e9bda2f68ce60bab72fe63e49099cb2f1fbb4c772503949405f"
+    sha256 x86_64_linux:   "85202a5fb75b2942e13b1b5d3537e1bfa1e86169e00ef0b68f56c0070e78dfed"
   end
 
   depends_on "dune" => :build
@@ -36,11 +36,15 @@ class Coq < Formula
     ENV.prepend_path "OCAMLPATH", Formula["ocaml-findlib"].opt_lib/"ocaml"
     system "./configure", "-prefix", prefix,
                           "-mandir", man,
-                          "-docdir", pkgshare/"latex",
-                          "-coqide", "no",
-                          "-with-doc", "no"
-    system "make", "world"
-    ENV.deparallelize { system "make", "install" }
+                          "-docdir", pkgshare/"latex"
+    system "make", "dunestrap"
+    system "dune", "build", "-p", "coq-core,coq-stdlib,coqide-server,coq"
+    system "dune", "install", "--prefix=#{prefix}",
+                              "--mandir=#{man}",
+                              "coq-core",
+                              "coq-stdlib",
+                              "coqide-server",
+                              "coq"
   end
 
   test do

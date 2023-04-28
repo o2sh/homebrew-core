@@ -5,8 +5,8 @@ class Sysdig < Formula
   revision 1
 
   stable do
-    url "https://github.com/draios/sysdig/archive/refs/tags/0.31.4.tar.gz"
-    sha256 "b8f43326506f85e99a3455f51b75ee79bf4db9dc12908ef43af672166274a795"
+    url "https://github.com/draios/sysdig/archive/refs/tags/0.31.5.tar.gz"
+    sha256 "9af98cae7c38273f7429ba0df628c9745bd92c949f444e180b9dd800af14c6dd"
 
     # Update to value of FALCOSECURITY_LIBS_VERSION found in
     # https://github.com/draios/sysdig/blob/#{version}/cmake/modules/falcosecurity-libs.cmake
@@ -16,7 +16,11 @@ class Sysdig < Formula
 
       # Fix 'file INSTALL cannot make directory "/sysdig/userspace/libscap"'.
       # Reported upstream at https://github.com/falcosecurity/libs/issues/995.
-      patch :DATA
+      # Remove when `falcosecurity-libs` is upgraded to 0.11.0 or newer.
+      patch do
+        url "https://github.com/falcosecurity/libs/commit/73020ac4fdd1ba84b53f431e1c069049828480e9.patch?full_index=1"
+        sha256 "97fde5e4aa8e20e91ffaaca4020b7a38751d1ad95d69db02bf10c82588c6595b"
+      end
     end
   end
 
@@ -26,13 +30,13 @@ class Sysdig < Formula
   end
 
   bottle do
-    sha256                               arm64_ventura:  "fc0b6d775216a41f48f90bed342bd0d8d685f6bafda7af0c679bba7fef7750a4"
-    sha256                               arm64_monterey: "aff4d26ac29272328b59b16a788caf5ac441f3c19de956e56196b84d68d1e5b0"
-    sha256                               arm64_big_sur:  "ab88cc179ffa31ee7ed62f157f22c8c0029aa7251f1be8747cd6ad227156010f"
-    sha256                               ventura:        "85b85a9c3f18fea4cbe8b20f63e6df9d4560273601cbda1907fee54da793d0f1"
-    sha256                               monterey:       "1b8ba6006c8ee808978ab0b2c259711e7f95de54cb6cd82e31c214e84d1e7452"
-    sha256                               big_sur:        "49f3c8b2ee5849bd97f9f8a3ddb9ca61aa4878d23e3505484458138b247d8d0c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "35e7aa08c24f5c063fe8268ed2ca1cb3cac04d47e42a36310e6d8e8e89da58dc"
+    sha256                               arm64_ventura:  "a7dbbaaa73d3e72c849a0d1c600db4af64c32efd50e72a92be91f1dc841d5541"
+    sha256                               arm64_monterey: "c4e71ab34ad98f927b5b2adddce3b607758fecb63a6a8d2b8e6eab740bd2f00f"
+    sha256                               arm64_big_sur:  "039d010b447f0a330f84a041fb5c5293c42d12a9933d0ffacce1f209c0d63ddd"
+    sha256                               ventura:        "3b7cf7c8297294d080205ffa4a23311ea7110acd592a3451eb33a1e91a94d203"
+    sha256                               monterey:       "a7eecbb515fe22f8cdabf452195a5bc49dd7bab1302335c992d74aa863c413d0"
+    sha256                               big_sur:        "f0fb5a56fcc9cb39f965b7ff17f9aa9b84b84cbbcfb274420b7260c5f3d23a34"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "60a0b84ad26f9af2cffccd12bc5800f657ce27b699ccfc9c8c18d641cb7a0262"
   end
 
   head do
@@ -118,17 +122,3 @@ class Sysdig < Formula
     assert_match "/tmp/sysdig/sample", output
   end
 end
-
-__END__
---- a/cmake/modules/libscap.cmake
-+++ b/cmake/modules/libscap.cmake
-@@ -49,6 +49,9 @@ if(BUILD_LIBSCAP_MODERN_BPF)
-        "${PROJECT_BINARY_DIR}/libpman/libpman.a"
- endif()
- )
-+
-+include(GNUInstallDirs)
-+
- install(FILES ${LIBSCAP_LIBS} DESTINATION "${CMAKE_INSTALL_LIBDIR}/${LIBS_PACKAGE_NAME}"
-                        COMPONENT "scap" OPTIONAL)
- install(DIRECTORY "${LIBSCAP_INCLUDE_DIR}" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${LIBS_PACKAGE_NAME}/userspace"

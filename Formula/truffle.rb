@@ -3,18 +3,18 @@ require "language/node"
 class Truffle < Formula
   desc "Development environment, testing framework and asset pipeline for Ethereum"
   homepage "https://trufflesuite.com"
-  url "https://registry.npmjs.org/truffle/-/truffle-5.8.1.tgz"
-  sha256 "2aa6d516fd4760e9d3f43cd5f9548f8b1a8d6b36e30dacd371468d89775ebe25"
+  url "https://registry.npmjs.org/truffle/-/truffle-5.8.4.tgz"
+  sha256 "560bd67d6de22677a7f32919f2bda6655782fa818679ed5ebf2cc356dd9ae8f7"
   license "MIT"
 
   bottle do
-    sha256                               arm64_ventura:  "3e117108948c0688d7f500ae31be7d908c727abce075873d1d6ae93b59b3acee"
-    sha256                               arm64_monterey: "dba136f51943a56258def2ee39aff91abd29a7fc20325346a51907ca45fffcc3"
-    sha256                               arm64_big_sur:  "8fcc455840bd2c0021f7946d4d3198b3a8114ae8ebfe677288d408b44845ef1e"
-    sha256                               ventura:        "08bfa075a42b07a3f8dca9b623320872566d616434ee893e8b80b2e50e21224e"
-    sha256                               monterey:       "9e632a250c10fc0f665494afcc39e1ef49c38449e7b1f5b27232763e04a931db"
-    sha256                               big_sur:        "b6cfe7e3d6bbe3d38d8ab3d3a8f182f7c04abb2aca6851041d636a6d19ba682b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "63e4c4db12ec08b55f64640887312ab6fd6e5f17337cabff88a09661d120db1e"
+    sha256                               arm64_ventura:  "b0c13021cdb4c761bd54b872289a51de6485b242eb83e772e7ed3a9ecb4aad8f"
+    sha256                               arm64_monterey: "4507ab3d1db6df954b7b6ac5557bd7c9097d3717258a89613c429e9773784e45"
+    sha256                               arm64_big_sur:  "680fd99fa13f10841c9f9f54757ff43492c73dd0239655e38304e3c5dbba3cb5"
+    sha256                               ventura:        "e0c901ff4aca1f6f95666659aecc40513bea0acbb32f7c0da81a83d528842668"
+    sha256                               monterey:       "dcf934009231debb88e355fc6cb2f7c55f8e1b765a67352f7ae5f5f8abf82bd3"
+    sha256                               big_sur:        "74e32061ca8a0689287610ff1ffc60ebdf1ace951c5438e4e8d8200ca31424da"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "df9414f1473e48f674ade5336464d7b7d0bf6017ec843c469b6c2decffadaf44"
   end
 
   depends_on "node"
@@ -29,8 +29,9 @@ class Truffle < Formula
     %w[
       **/node_modules/*
       node_modules/ganache/node_modules/@trufflesuite/bigint-buffer
+      node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial
     ].each do |pattern|
-      truffle_dir.glob("#{pattern}/prebuilds/*").each do |dir|
+      truffle_dir.glob("#{pattern}/{prebuilds,binaries}/*").each do |dir|
         if OS.mac? && dir.basename.to_s == "darwin-x64+arm64"
           # Replace universal binaries with their native slices
           deuniversalize_machos dir/"node.napi.node"

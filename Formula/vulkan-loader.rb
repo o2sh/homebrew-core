@@ -1,10 +1,10 @@
 class VulkanLoader < Formula
   desc "Vulkan ICD Loader"
   homepage "https://github.com/KhronosGroup/Vulkan-Loader"
-  url "https://github.com/KhronosGroup/Vulkan-Loader/archive/refs/tags/v1.3.246.tar.gz"
-  sha256 "2531b6ef63b18040e5b0a3aa56df51e6e3cc42e7314c67a88a363be4c6975b2f"
+  url "https://github.com/KhronosGroup/Vulkan-Loader/archive/refs/tags/v1.3.249.tar.gz"
+  sha256 "dad9cda73559b277e9b188f5222bedcbf39b35a201d23a2c35dba25953511311"
   license "Apache-2.0"
-  head "https://github.com/KhronosGroup/Vulkan-Loader.git", branch: "master"
+  head "https://github.com/KhronosGroup/Vulkan-Loader.git", branch: "main"
 
   livecheck do
     url :stable
@@ -12,13 +12,13 @@ class VulkanLoader < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "3934a7709e455dc7e3ad4ff3cdff78d9ee760f97be02e69a6150d6b4c2ed3b26"
-    sha256 arm64_monterey: "3eee6f368267921f8e2d124fc5a09bbe71c661594cef9d5249c3ada43a83a2e9"
-    sha256 arm64_big_sur:  "ea1045d2291a973583a6144497f6643e2fe870fd1f8ca55e8e1befef5626dcd2"
-    sha256 ventura:        "427345ed9ccf260eb5eae57ebcdb831d6337743c6d0b24e6e60a7c7b0658e0da"
-    sha256 monterey:       "d4258e4c77875f6fe7138933c984268e27547d06f862dafc17e8c66aeb796e78"
-    sha256 big_sur:        "4adcd80da4cbf4e1df5adcb3a5c40c2f03caba164398aa49b2d76a2e1c48d6eb"
-    sha256 x86_64_linux:   "a4fe31a6c62091f41221ce47c29fbb6dbcb820524dda157996e5966b46b51fd7"
+    sha256 arm64_ventura:  "3763f97618da91b90428ba9b12e89740af1a547146e2b00b7334450e4f62f380"
+    sha256 arm64_monterey: "7c32e8696fa44e676f8dde5994f196e47b1f01184b911138798718c408be5dea"
+    sha256 arm64_big_sur:  "bd9bcd11b8c732aadccd715d5fee83341d43e0d976158436a5c00da3b314c941"
+    sha256 ventura:        "61f038599a611367da8f3601318295af843c7cd54bacb1995961c4a1b78860ba"
+    sha256 monterey:       "6410d4dc06502f5ff450c2d510282df72b2e23f039964532b99dd25f9984d990"
+    sha256 big_sur:        "080bd5710588ba9566dd1a2235d605a3d7acd0b9ac6a6536b332319b132400db"
+    sha256 x86_64_linux:   "e2e3e01fc0c1878dbf1a54b4cc994c5ddcf557b5e3f45d713eb0155287998a80"
   end
 
   depends_on "cmake" => :build

@@ -71,7 +71,7 @@
     "exclude_packages": ["six"]
   },
   "bandit": {
-    "exclude_packages": ["PyYAML"]
+    "exclude_packages": ["PyYAML", "pygments"]
   },
   "beancount": {
     "exclude_packages": ["six"]
@@ -89,7 +89,6 @@
   },
   "buku": {
     "package_name": "buku[server]",
-    "extra_packages": ["flask==1.1.4"],
     "exclude_packages": ["six"]
   },
   "bzt": {
@@ -139,6 +138,9 @@
   "charm-tools": {
     "exclude_packages": ["six"],
     "extra_packages": ["wheel"]
+  },
+  "chatblade": {
+    "exclude_packages": ["PyYAML", "pygments"]
   },
   "checkov": {
     "exclude_packages": ["six", "tabulate", "PyYAML", "typing-extensions"]
@@ -259,6 +261,9 @@
   "fobis": "fobis-py",
   "fonttools": {
     "extra_packages": ["Brotli"]
+  },
+  "ford": {
+    "exclude_packages": ["pygments"]
   },
   "gcalcli": {
     "exclude_packages": ["six"]
@@ -408,6 +413,11 @@
     "package_name": "mdv[yaml]",
     "exclude_packages": ["tabulate", "PyYAML", "Pygments"],
     "extra_packages": ["Markdown==2.6.11"]
+  },
+  "meta-package-manager": {
+    "exclude_packages": [
+      "docutils", "Pygments", "PyYAML", "tabulate", "typing-extensions"
+    ]
   },
   "mkdocs": {
     "exclude_packages": ["six", "PyYAML"]
@@ -638,7 +648,7 @@
     "exclude_packages": ["six"]
   },
   "search-that-hash": {
-    "exclude_packages": ["typing-extensions", "Pygments"]
+    "exclude_packages": ["typing-extensions", "Pygments", "name-that-hash", "click", "commonmark", "rich"]
   },
   "semgrep": {
     "package_name": "semgrep",
@@ -698,6 +708,9 @@
   },
   "todoman": {
     "exclude_packages": ["six", "tabulate"]
+  },
+  "touca": {
+    "exclude_packages": ["pygments"]
   },
   "trailscraper": {
     "exclude_packages": ["six"]

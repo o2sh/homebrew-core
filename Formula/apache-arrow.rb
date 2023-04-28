@@ -5,17 +5,18 @@ class ApacheArrow < Formula
   mirror "https://archive.apache.org/dist/arrow/arrow-11.0.0/apache-arrow-11.0.0.tar.gz"
   sha256 "2dd8f0ea0848a58785628ee3a57675548d509e17213a2f5d72b0d900b43f5430"
   license "Apache-2.0"
-  revision 2
+  revision 3
   head "https://github.com/apache/arrow.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any, arm64_ventura:  "1e82ceb62855281d1577da1af98ebc4f3b7752e434d64ab7770b14ba71c9f4ea"
-    sha256 cellar: :any, arm64_monterey: "589f203391674714dc8e82e8ddb15f2150a38a0f49d88426e9636028967814fb"
-    sha256 cellar: :any, arm64_big_sur:  "5fc70de9056612b260c325a858430affb1ae253ac97cabd77d3b1da0f194b7a9"
-    sha256 cellar: :any, ventura:        "6502e207d95504789a339b6921c4a015c0baaa61988bc6c6a72f77be4e51cad3"
-    sha256 cellar: :any, monterey:       "c4672c2a8f24154a60d75bcadd109dbfa7390ff6dbf54aec63cc30f18f8f9387"
-    sha256 cellar: :any, big_sur:        "8fde4aa99bc619e843be7873682b80fe111898c195429e03df1f67ca9442c5aa"
-    sha256               x86_64_linux:   "c91cd3ecaeb072983e16844b82a07c19b03020d81bc67d0deceebf8410cff866"
+    rebuild 1
+    sha256 cellar: :any, arm64_ventura:  "feaad3298bfead7e7db923080a9cb456da73f5e524e5c4730a902549c29e9f3b"
+    sha256 cellar: :any, arm64_monterey: "9636f651f80f85bff656d2e5dabab7aad712e44dbb0132c328dda85c2020f9e4"
+    sha256 cellar: :any, arm64_big_sur:  "71378bc8d8e4415bd5b29b1c6fc353d74fdd880f87357a38c2c6bb74fa485fce"
+    sha256 cellar: :any, ventura:        "93c8438344f95496fa9cf2cbebe9595254445b884f8dbbb1b3644a5349d8e5b4"
+    sha256 cellar: :any, monterey:       "ab1f0e15092c23b7b549ac0e611b3b31d914c40c84f774e2fea64a3836655119"
+    sha256 cellar: :any, big_sur:        "b0cc4ec0fadb154ab79abac9da1163b25f6f1aa73118bfd7ba73e42da3ab962e"
+    sha256               x86_64_linux:   "43780d9f971171a92817398c1db18bb4bed70c632e4ef82d434470ce876956a4"
   end
 
   depends_on "boost" => :build
@@ -34,7 +35,6 @@ class ApacheArrow < Formula
   depends_on "snappy"
   depends_on "thrift"
   depends_on "utf8proc"
-  depends_on "z3"
   depends_on "zstd"
   uses_from_macos "python" => :build
 

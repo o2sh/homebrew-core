@@ -1,19 +1,19 @@
 class Glab < Formula
   desc "Open-source GitLab command-line tool"
   homepage "https://gitlab.com/gitlab-org/cli"
-  url "https://gitlab.com/gitlab-org/cli/-/archive/v1.27.1/cli-v1.27.1.tar.gz"
-  sha256 "c2959152b51c39097607f13d64bcecc04121ab7c52590505ebaa0693c6058507"
+  url "https://gitlab.com/gitlab-org/cli/-/archive/v1.28.1/cli-v1.28.1.tar.gz"
+  sha256 "243a0f15e4400aab7b4d27ec71c6ae650bf782473c47520ffccd57af8d939c90"
   license "MIT"
   head "https://gitlab.com/gitlab-org/cli.git", branch: "trunk"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e050f01dfe4d9284eeaa20269a422b0225bbe71e5a4fecbd4d6fc4d0e76bc10b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e050f01dfe4d9284eeaa20269a422b0225bbe71e5a4fecbd4d6fc4d0e76bc10b"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "e050f01dfe4d9284eeaa20269a422b0225bbe71e5a4fecbd4d6fc4d0e76bc10b"
-    sha256 cellar: :any_skip_relocation, ventura:        "023403f7807f375e526f11f4e40dc29d343a6498d12ead70d165575ec7ed7981"
-    sha256 cellar: :any_skip_relocation, monterey:       "023403f7807f375e526f11f4e40dc29d343a6498d12ead70d165575ec7ed7981"
-    sha256 cellar: :any_skip_relocation, big_sur:        "023403f7807f375e526f11f4e40dc29d343a6498d12ead70d165575ec7ed7981"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "eefe6ec059faa193c6a9600ab84c5fe3fb6f8e0488957bc7adcbcbe9ebf5e4fb"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5d5011e959584f635f59a28afbbf3f2a629350381a1405e94e55cdfe29f02898"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5d5011e959584f635f59a28afbbf3f2a629350381a1405e94e55cdfe29f02898"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "5d5011e959584f635f59a28afbbf3f2a629350381a1405e94e55cdfe29f02898"
+    sha256 cellar: :any_skip_relocation, ventura:        "1756e54d378eafbce806d0763481024663d216190d175eb717d33ec1fed7dd50"
+    sha256 cellar: :any_skip_relocation, monterey:       "1756e54d378eafbce806d0763481024663d216190d175eb717d33ec1fed7dd50"
+    sha256 cellar: :any_skip_relocation, big_sur:        "1756e54d378eafbce806d0763481024663d216190d175eb717d33ec1fed7dd50"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fccc8f32daab746772b1e4494ea83d5e9345c3cefcf0f47bd1126e00058daffd"
   end
 
   depends_on "go" => :build
@@ -21,7 +21,7 @@ class Glab < Formula
   def install
     ENV["CGO_ENABLED"] = "1" if OS.mac?
 
-    system "make", "GLAB_VERSION=#{version}"
+    system "make", "GLAB_VERSION=v#{version}"
     bin.install "bin/glab"
     generate_completions_from_executable(bin/"glab", "completion", "--shell")
   end

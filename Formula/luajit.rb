@@ -9,12 +9,12 @@ class Luajit < Formula
   # Update this to the tip of the `v2.1` branch at the start of every month.
   # Get the latest commit with:
   #   `git ls-remote --heads https://github.com/LuaJIT/LuaJIT.git v2.1`
-  url "https://github.com/LuaJIT/LuaJIT/archive/505e2c03de35e2718eef0d2d3660712e06dadf1f.tar.gz"
+  url "https://github.com/LuaJIT/LuaJIT/archive/1c279127050e86e99970100e9c42e0f09cd54ab7.tar.gz"
   # Use the version scheme `2.1.0-beta3-yyyymmdd.x` where `yyyymmdd` is the date of the
   # latest commit at the time of updating, and `x` is the number of commits on that date.
   # `brew livecheck luajit` will generate the correct version for you automatically.
-  version "2.1.0-beta3-20230221.4"
-  sha256 "67c88399b901a22e9a236f4b77e6fe39af00f6b7144ce9dd6f51141d921f1076"
+  version "2.1.0-beta3-20230416.4"
+  sha256 "c62f6e6d5bff89e4718709841cd6be71ad419ac9fa780c91abf1635cda923f8f"
   license "MIT"
   head "https://luajit.org/git/luajit-2.0.git", branch: "v2.1"
 
@@ -40,13 +40,14 @@ class Luajit < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "2646bec768991d8ce8b3f9769e85b8df1b95743e0513abf1381752903e7690cd"
-    sha256 cellar: :any,                 arm64_monterey: "2319bb87370f3af7e867b018cee66e4e2a47fb57a06482d504b6af3efe07beb3"
-    sha256 cellar: :any,                 arm64_big_sur:  "fde5aba0499f146d0e5692d56d07170689d815351007d9454c6817a76d212df5"
-    sha256 cellar: :any,                 ventura:        "3a6f80b482fa6c582e377b32f3b65122d24673f6e02d61d5c8c6a88516e83a09"
-    sha256 cellar: :any,                 monterey:       "a335657c2a3fc21381c51869bace5e8fecdc03962606ff20b3837b21af68dbc4"
-    sha256 cellar: :any,                 big_sur:        "90e1d75a32ca6dab26428a172cf930b43586259e40a46f0a0e073d76d62e08ca"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e9d5edd5b67ab6a31ed0c7d393b4fcefad82b66686494bcc545c3783600a4332"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "7558e2c030b59319306b79182fa60230cd2f6f810beca4df7780987aa88de45d"
+    sha256 cellar: :any,                 arm64_monterey: "0980f2f920eb3bab6cabf6ae3779b9f75841a5d4e53017974367cc9682621cd5"
+    sha256 cellar: :any,                 arm64_big_sur:  "2e093d7643c894cf84c74b2908db00ab330a2299d527dcc5537cfe27be41977b"
+    sha256 cellar: :any,                 ventura:        "90d4e4af88e70d671fc07e6b5eeff08357221db48644c204781da6430a1aed1e"
+    sha256 cellar: :any,                 monterey:       "44aa71f15410a53072b5eef8459f71ede77b605c249a8b89182a26bae5a46ca2"
+    sha256 cellar: :any,                 big_sur:        "bb1f3b5c9fe72c20113a06daf9b3e1e43ea246abfb17589abd8427a341ef42d0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1b0812f4fd7f3bf967a0f25f702be4bbcfacf761e4097e08b96f28887d373ed4"
   end
 
   def install
@@ -61,6 +62,9 @@ class Luajit < Formula
     # Per https://luajit.org/install.html: If MACOSX_DEPLOYMENT_TARGET
     # is not set then it's forced to 10.4, which breaks compile on Mojave.
     ENV["MACOSX_DEPLOYMENT_TARGET"] = MacOS.version
+
+    # Help the FFI module find Homebrew-installed libraries.
+    ENV.append "LDFLAGS", "-Wl,-rpath,#{rpath(target: HOMEBREW_PREFIX/"lib")}" if HOMEBREW_PREFIX.to_s != "/usr/local"
 
     # Pass `Q= E=@:` to build verbosely.
     verbose_args = %w[Q= E=@:]

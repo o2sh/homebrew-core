@@ -1,10 +1,13 @@
 class Zig < Formula
   desc "Programming language designed for robustness, optimality, and clarity"
   homepage "https://ziglang.org/"
-  url "https://ziglang.org/download/0.10.1/zig-0.10.1.tar.xz"
-  sha256 "69459bc804333df077d441ef052ffa143d53012b655a51f04cfef1414c04168c"
   license "MIT"
-  head "https://github.com/ziglang/zig.git", branch: "master"
+
+  stable do
+    url "https://ziglang.org/download/0.10.1/zig-0.10.1.tar.xz"
+    sha256 "69459bc804333df077d441ef052ffa143d53012b655a51f04cfef1414c04168c"
+    depends_on "llvm@15" => :build
+  end
 
   bottle do
     rebuild 2
@@ -17,9 +20,14 @@ class Zig < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "eefd8e8b1a71b27ce3b5a9c9c3ea8bcb4cf0f74221035d5da84b11d31fa33569"
   end
 
+  head do
+    url "https://github.com/ziglang/zig.git", branch: "master"
+    depends_on "llvm" => :build
+    depends_on "z3"
+  end
+
   depends_on "cmake" => :build
-  depends_on "llvm@15" => :build
-  depends_on macos: :big_sur # ziglang/zig#13313
+  depends_on macos: :big_sur # https://github.com/ziglang/zig/issues/13313
   depends_on "zstd"
   uses_from_macos "ncurses"
   uses_from_macos "zlib"
@@ -52,7 +60,7 @@ class Zig < Formula
     assert_equal "Hello, world!", shell_output("./hello")
 
     # error: 'TARGET_OS_IPHONE' is not defined, evaluates to 0
-    # ziglang/zig#10377
+    # https://github.com/ziglang/zig/issues/10377
     ENV.delete "CPATH"
     (testpath/"hello.c").write <<~EOS
       #include <stdio.h>

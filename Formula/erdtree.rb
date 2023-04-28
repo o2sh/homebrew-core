@@ -1,18 +1,18 @@
 class Erdtree < Formula
   desc "Multi-threaded file-tree visualizer and disk usage analyzer"
   homepage "https://github.com/solidiquis/erdtree"
-  url "https://github.com/solidiquis/erdtree/archive/refs/tags/v1.7.1.tar.gz"
-  sha256 "b945a173367bca8bdf79e95629269290d93be49840225bd00a2ca5290e7a04a5"
+  url "https://github.com/solidiquis/erdtree/archive/refs/tags/v2.0.0.tar.gz"
+  sha256 "9e85f1d92ce4668fa4648348e98aed53fdca4bcbf61c2d5ba53174d459693099"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4535c1e232da054cd41dc3cc1d31b7fae8d0cf6ae584bd47a9db1d2c6ce0c7b0"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "97199abe0eae43a0ab4a407bfbe132cd033d4abd56b9183c889bb81e88f89106"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "e365be8cc385fd155382a01b141f3b3605936f25b4561efc43d34959d90906b3"
-    sha256 cellar: :any_skip_relocation, ventura:        "323cf8beacff214f2088756dde28818ee3920c4fd9ba76d413c1730cf42b4fb7"
-    sha256 cellar: :any_skip_relocation, monterey:       "9b60d188089f6c9ffd826635e0381a9e578872df3a6eefebfc3a13bbfd00909e"
-    sha256 cellar: :any_skip_relocation, big_sur:        "94a799bacc0c9c4fab01b9c979b78fba8b8e0c831894203534034fb4fa37f290"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1f1469dc85534a7dc2232082189eebd4f500dea081dad79609d85a891d61db6a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "54cc4766235991ea24f3c00b6e18c332e01afcb6be277c8d27c1bfbea1fced44"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d7877f045b088b4780d90579aae7ca5c8ed4fbcb0369a7c3d5036a20f0cf5c17"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ec2754e71bd16f8504d1015aea47d77f2dd3e9e4432c0114ae9b740d4820006f"
+    sha256 cellar: :any_skip_relocation, ventura:        "f7392805a38c4590c4b0230d1910467ee6f0dc32cd1eaf637c358194970c33f0"
+    sha256 cellar: :any_skip_relocation, monterey:       "cb8264322dccb0733e36d6f4c83794649cd968f82cd270fafd656e6c3feffd78"
+    sha256 cellar: :any_skip_relocation, big_sur:        "64f2a40c3c98ca831a9802c00e86bd1d7c16257442a92d561d04aea707549337"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7ac86e575ba8672c788420eafce7d03d3ab9d094b5a27d54029ed3fe38065bda"
   end
 
   depends_on "rust" => :build
@@ -23,6 +23,6 @@ class Erdtree < Formula
 
   test do
     touch "test.txt"
-    assert_match "test.txt", shell_output("#{bin}/et")
+    assert_match "test.txt", shell_output("#{bin}/erd")
   end
 end

@@ -1,8 +1,8 @@
 class Gdal < Formula
   desc "Geospatial Data Abstraction Library"
   homepage "https://www.gdal.org/"
-  url "http://download.osgeo.org/gdal/3.6.3/gdal-3.6.3.tar.xz"
-  sha256 "3cccbed883b1fb99b913966aa3a650ad930e7c3afc714f5823f9754176ee49ea"
+  url "http://download.osgeo.org/gdal/3.6.4/gdal-3.6.4.tar.xz"
+  sha256 "889894cfff348c04ac65b462f629d03efc53ea56cf04de7662fbe81a364e3df1"
   license "MIT"
   revision 1
 
@@ -12,13 +12,13 @@ class Gdal < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "66f7da03f7b695e02e30ba1194e94d9ef4f825505623a796c5c2bb2ae0cf7cda"
-    sha256 arm64_monterey: "1937eede30ad6babeeb8c92724a491e513fc49b847ada7c6201677e2e5de39e5"
-    sha256 arm64_big_sur:  "1d1014aee8a316764845110b350e9061fd368c35cd39e4dafc9dd6d6bd1feab8"
-    sha256 ventura:        "8691b64c3f67c54fd73a0fa4d26a86347a397fbe21fecb694d3b333aa70b2eeb"
-    sha256 monterey:       "74ecb143641aa6b2d55774a63d55c1dc2eda41e498d608b680e39171435ed08e"
-    sha256 big_sur:        "08bc30b21c64828c11448cc4eec6b71b1fb0d764306e2fc2fac48c7539a16b2c"
-    sha256 x86_64_linux:   "f24c8b24a954507ef72fe9f7d89c0f94603e5f54b5800ba326a852561e1ae98f"
+    sha256 arm64_ventura:  "f83469fc4425a28a8dc895b5cb34a9e8f85f2c174b15e9a8104d4fef6e4386e6"
+    sha256 arm64_monterey: "b584528e63bf5ab61d13760b72c802939eaeeb874e23b681b395964880562f75"
+    sha256 arm64_big_sur:  "766cc1259d3c44de65442b1511adb4415bb5e6a7807a371f862e698528a812af"
+    sha256 ventura:        "2b24c63f0c4790b0469f73d25f457acfa76a691d69a7929a1fe26f69a06a089c"
+    sha256 monterey:       "ce49fc44281eb4e836e24443904f3db93b09033020e8804d675b06e945d673c0"
+    sha256 big_sur:        "842558e12469faa26e9f85a4e959109c7a582264b9753d305d6418257c4b3763"
+    sha256 x86_64_linux:   "c4621652f79e014de907a85bddaea7cfb56f927f42017ad47d3223260694e5c6"
   end
 
   head do
@@ -26,6 +26,7 @@ class Gdal < Formula
     depends_on "doxygen" => :build
   end
 
+  depends_on "boost" => :build  # for `libkml`
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "apache-arrow"
@@ -39,9 +40,9 @@ class Gdal < Formula
   depends_on "jpeg-turbo"
   depends_on "jpeg-xl"
   depends_on "json-c"
-  depends_on "libdap"
   depends_on "libgeotiff"
   depends_on "libheif"
+  depends_on "libkml"
   depends_on "liblerc"
   depends_on "libpng"
   depends_on "libpq"

@@ -1,9 +1,9 @@
 class UniversalCtags < Formula
   desc "Maintained ctags implementation"
   homepage "https://github.com/universal-ctags/ctags"
-  url "https://github.com/universal-ctags/ctags/archive/refs/tags/p6.0.20230402.0.tar.gz"
-  version "p6.0.20230402.0"
-  sha256 "3c31362c75e993029e4d801803fdecef132bd5157715bfa0c7681e4cef459455"
+  url "https://github.com/universal-ctags/ctags/archive/refs/tags/p6.0.20230423.0.tar.gz"
+  version "p6.0.20230423.0"
+  sha256 "1873bb5b9369d4cfa60d503e303b3521602084ea5e79826669086dac9f60381b"
   license "GPL-2.0-only"
   head "https://github.com/universal-ctags/ctags.git", branch: "master"
 
@@ -13,13 +13,13 @@ class UniversalCtags < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "cbba16b4371367eb67c5412a8eeeb16524a30c85200db4162c1962678b7aea2e"
-    sha256 cellar: :any,                 arm64_monterey: "433aa4eaac3075f326a5f19d7c2965eb838bfa47efa827f91c967fe59c9acb40"
-    sha256 cellar: :any,                 arm64_big_sur:  "913dcb41613686fb200d17f134b4fa486bda7547209633b0ae2c9e275c26e2a3"
-    sha256 cellar: :any,                 ventura:        "407cab6ba8a4810fd4c91a09e96a1d87a59b411e113c18cc553efe27c771a025"
-    sha256 cellar: :any,                 monterey:       "144babea9e628b883bf66eec1873a21ba4e6b469167d7eadcb76fc494fe85ef7"
-    sha256 cellar: :any,                 big_sur:        "e6eabdb87443ac325321c052ade77a3561ce8c452fed5a370ea40193d48f8ed2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "17ab177cce2ac5c82efb8d68fb46e6154a189b252bbe0fc72624338157b7321d"
+    sha256 cellar: :any,                 arm64_ventura:  "573d206bf36db5f86fe3e28eab33f85c5dbf97ae5eb15ec85feeb37ef7fa6bf3"
+    sha256 cellar: :any,                 arm64_monterey: "cb955dc9e66e87469864a6fee7be3e80ee55e0641479b69fea9a023c5313bb04"
+    sha256 cellar: :any,                 arm64_big_sur:  "1498be1802845801febd107662c6f36436f4eaa444c21bdba6f9295429147316"
+    sha256 cellar: :any,                 ventura:        "55a097c3417fe71dfc430a411ae7c2799ec3917d15f7b05a1e993d7dc0d3f8c6"
+    sha256 cellar: :any,                 monterey:       "d458467da1c7dbe5fe538661e3b01a305c0677398fb51cbc8f98be4ae16348d4"
+    sha256 cellar: :any,                 big_sur:        "36de602bd15107a614ea0b9cac87f0f0fb1b00c031033ca8d2a8afa244782602"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cd95cecbc42ef9033aa45c20c1b65ca4cd76edc75d2c460bde45cce96ff54cdd"
   end
 
   depends_on "autoconf" => :build
@@ -28,6 +28,7 @@ class UniversalCtags < Formula
   depends_on "pkg-config" => :build
   depends_on "jansson"
   depends_on "libyaml"
+  depends_on "pcre2"
 
   uses_from_macos "libxml2"
 

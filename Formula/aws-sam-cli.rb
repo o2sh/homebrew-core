@@ -3,18 +3,18 @@ class AwsSamCli < Formula
 
   desc "CLI tool to build, test, debug, and deploy Serverless applications using AWS SAM"
   homepage "https://aws.amazon.com/serverless/sam/"
-  url "https://files.pythonhosted.org/packages/44/03/21f71a31cf32b4da5491127328a680f73ed7ae27a2becea79882389ade8c/aws-sam-cli-1.79.0.tar.gz"
-  sha256 "17943caad64d43234e726640fbdb8466bf381b437ea19a4402899caf9091bc8c"
+  url "https://files.pythonhosted.org/packages/fe/45/652a972ee87b937a1dcf2f0faed874f5ad598c21ff1d6c08098ed9d59772/aws-sam-cli-1.82.0.tar.gz"
+  sha256 "ce5fe63b938217b995f680e590abe28bff4edd68aa956e5baccf28bd4562e0a4"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "a9e86d12d945066c3ee25429f361f4bc262caceee416933107fd4d050df5456c"
-    sha256 cellar: :any,                 arm64_monterey: "c47a903a9ba3933a4885222d409e6042018046fddd163ac488c6cd770f81ff09"
-    sha256 cellar: :any,                 arm64_big_sur:  "d273cc79cbd7d9025c230feac62a2de3505afe0f3576a63406cca58b03531507"
-    sha256 cellar: :any,                 ventura:        "9355ec397443d462cac5235033e1c3208c37a99fc7b8e7becb51cbb6165335e4"
-    sha256 cellar: :any,                 monterey:       "9ebc4dae7c9bced5a6a6130ca8fb8512947ed8c0028e05fa1911b0b955ab9f8a"
-    sha256 cellar: :any,                 big_sur:        "b066abc60ebbadfbe1ba78ac19a6b683a4d4f96785a7c3464fe5b7af0b92f7b6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "044540500adbc82b83d5906b51641050ac1c866b4ddf3b2b9cff404a7425604d"
+    sha256 cellar: :any,                 arm64_ventura:  "25ff537cf9cf6500cb229ff5e2ddbf2e27a5fc7b061aa6b8b699578b88b4382b"
+    sha256 cellar: :any,                 arm64_monterey: "299afaf0686c0ee60933510450373559976475375a79cb33f46c9fd358e61a4f"
+    sha256 cellar: :any,                 arm64_big_sur:  "111c49465a0de18c3035a3f30d781b0b5bbb20c9467262f637ba66fcc86b7524"
+    sha256 cellar: :any,                 ventura:        "cfed177579459fd1a167c5fdcbdb43d9a9e0c9fb3484e5cdb257ba0ce6702cec"
+    sha256 cellar: :any,                 monterey:       "37fe05332e833445008e831343e8114fd1728062b654e309fb9d15ae0bb58f34"
+    sha256 cellar: :any,                 big_sur:        "8a7f939acb9be86e11ff4ed153ce999853a9718af94817e278f5202f7d368331"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "38111081be1ba41a0be49cf29e391e77dae4e6713fdc3ef2ae72c3fc91fad264"
   end
 
   depends_on "rust" => :build # for cryptography
@@ -28,18 +28,18 @@ class AwsSamCli < Formula
   end
 
   resource "attrs" do
-    url "https://files.pythonhosted.org/packages/21/31/3f468da74c7de4fcf9b25591e682856389b3400b4b62f201e65f15ea3e07/attrs-22.2.0.tar.gz"
-    sha256 "c9227bfc2f01993c03f68db37d1d15c9690188323c067c641f1a35ca58185f99"
+    url "https://files.pythonhosted.org/packages/97/90/81f95d5f705be17872843536b1868f351805acf6971251ff07c1b8334dbb/attrs-23.1.0.tar.gz"
+    sha256 "6279836d581513a26f1bf235f9acd333bc9115683f14f7e8fae46c98fc50e015"
   end
 
   resource "aws-lambda-builders" do
-    url "https://files.pythonhosted.org/packages/85/f7/b1386ac6148ee41187b9250c5ec906ba7b6e799b79f2da49b54e2b70dc5c/aws_lambda_builders-1.28.0.tar.gz"
-    sha256 "6ea2fb607057436f03e2a8a857b5c5cbd18f7b2b907c53c2b461e65f843a4f38"
+    url "https://files.pythonhosted.org/packages/b8/14/7ddb64974b5683e623b1b8030e05cfd3b551bfd8aa51b79d88c13ec95039/aws_lambda_builders-1.30.0.tar.gz"
+    sha256 "ab22ffe47995bbbaff531af453746f3365fe01947c1ea8d98a7ae3ab52b46426"
   end
 
   resource "aws-sam-translator" do
-    url "https://files.pythonhosted.org/packages/e5/49/a14ff9c35cf44f2c94ddc0cc04d9c3adf764812312d4a66d310e120a26ee/aws-sam-translator-1.64.0.tar.gz"
-    sha256 "0cc5b07dd6ef1de3525d887a3b9557168e04cb44327706a43661653bad30687f"
+    url "https://files.pythonhosted.org/packages/12/67/e2f10cfef9cbbd2a9bfe2cb2511a9c12d3197d18e0e07c6f5a7d9afa2d8a/aws-sam-translator-1.65.0.tar.gz"
+    sha256 "34dcd1f86bfc3ae11f3defe6f67b74fe863dacf0a3b04156c41dc92600e8dc8d"
   end
 
   resource "binaryornot" do
@@ -48,13 +48,13 @@ class AwsSamCli < Formula
   end
 
   resource "boto3" do
-    url "https://files.pythonhosted.org/packages/a6/14/1227d73a5cbbbb1cdd52bea5a8551674c91cdfe70cd479bb33f340ae8a94/boto3-1.26.108.tar.gz"
-    sha256 "22bb45185eaf0e4548a08d35ec11b910d55fa14f5ccd1048d1b95c8615afcc53"
+    url "https://files.pythonhosted.org/packages/36/2c/2624ad97723f7e741cf86d50a951bcea55c32cfa2aef4a1359da7c04788f/boto3-1.26.122.tar.gz"
+    sha256 "38ca632be379963f2a2749b5f63a81fe1679913b954914f470ad282c77674bbc"
   end
 
   resource "botocore" do
-    url "https://files.pythonhosted.org/packages/da/00/141d205c6ebd911414d17263e1da10709c1da87cf1ba9e172fbce7b16e6b/botocore-1.29.108.tar.gz"
-    sha256 "e62154af6771690e4833f6102a5e31fcc3687449e6110ae32919d134394a29ea"
+    url "https://files.pythonhosted.org/packages/28/10/a265d67a181a83a827892d42160252d33eafd1b0f600a763d1a0c3c3236c/botocore-1.29.122.tar.gz"
+    sha256 "9e4984a9e9777c6b949aa1e98323fa35480d9f99d447af7e179ae611f7ed5af9"
   end
 
   resource "certifi" do
@@ -68,8 +68,8 @@ class AwsSamCli < Formula
   end
 
   resource "cfn-lint" do
-    url "https://files.pythonhosted.org/packages/a7/f1/2df089f77ffe93acc2b96145f1d33b6493336f13c46d598035630e0a9df2/cfn-lint-0.76.2.tar.gz"
-    sha256 "997be30acb914c19f4df570bd53811dd8f0f3781f6864725bd07c1b5c3144439"
+    url "https://files.pythonhosted.org/packages/57/0e/3a54afe12f5c82c47b0dc1a4cfc45538c669bd08f018712098769c45bbe3/cfn-lint-0.77.3.tar.gz"
+    sha256 "d2a51a0ee222f3772fd87c3e4de82c59539172db34c2e5dc60ead7ce354365e0"
   end
 
   resource "chardet" do
@@ -298,8 +298,8 @@ class AwsSamCli < Formula
   end
 
   resource "Werkzeug" do
-    url "https://files.pythonhosted.org/packages/02/3c/baaebf3235c87d61d6593467056d5a8fba7c75ac838b8d100a5e64eba7a0/Werkzeug-2.2.3.tar.gz"
-    sha256 "2e1ccc9417d4da358b9de6f174e3ac094391ea1d4fbef2d667865d819dfd0afe"
+    url "https://files.pythonhosted.org/packages/aa/70/3874542be48f8da37cecf59d931c56543a9b5704da26fad48ddf8bd024ae/Werkzeug-2.3.1.tar.gz"
+    sha256 "2d35a28a75ae03727eae14ea7d13627c0f77aed6b9998441e6dae0b387f697fc"
   end
 
   resource "wheel" do

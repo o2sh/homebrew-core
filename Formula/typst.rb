@@ -1,8 +1,8 @@
 class Typst < Formula
   desc "Markup-based typesetting system"
   homepage "https://github.com/typst/typst"
-  url "https://github.com/typst/typst/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "9da7543266c7776aed56c36b9fab95fdb7241674b426cfba287a21f4cf07c172"
+  url "https://github.com/typst/typst/archive/refs/tags/v0.3.0.tar.gz"
+  sha256 "e0bfff4749549ff519be6659b16958eb47f7f39957c0ffd2a74adb7a421d23c6"
   license "Apache-2.0"
   version_scheme 1
   head "https://github.com/typst/typst.git", branch: "main"
@@ -13,13 +13,13 @@ class Typst < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d74eaf00501438862a3da7d2be76450095f0d8775eb7a8f597c7fb3a3d543534"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "bf7603ebe7c91fa2b3d8d6d50d7fd788bb2abd79275190a5313617cca2cb32a3"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9936e67f13fac6fb554730193b6bfcc0f73a5286088283bed0f5d3379c0b7a64"
-    sha256 cellar: :any_skip_relocation, ventura:        "1aa6ad41f2ba479ae8f908b711b3ed1b5f0689dba526f6efe2ff2db659c745f6"
-    sha256 cellar: :any_skip_relocation, monterey:       "24feaec9f03c6c0561e92f778f3af871aadf2f28f79bf60170130927794d9a8b"
-    sha256 cellar: :any_skip_relocation, big_sur:        "45d9e54239b5d60b6532f84097884ed3af8eab88125a5b82ee1431e0656e7dd0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f2b7fc9fedd59af2d98e82ade33b1c4302c5d291274d754ba91d6be026d718cf"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a766ace358328cc1590a000e5b6458a4ff2c8dd9c5831f0ade1ae917d41c0b1f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "310a0dee41f4f0df63cab2e8d78d7b7d35257b1fb71cb99195a265c9f6af01ec"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "d0f89ea63a21fc302a8cd8fe916e41deb7455889cde01427b9ca8c7d5538e622"
+    sha256 cellar: :any_skip_relocation, ventura:        "95a6b4f01e105a426e80e496c8dc875177d2310bd202c07cedfbaafab71f4bd4"
+    sha256 cellar: :any_skip_relocation, monterey:       "b8a91c1553a4620954400ca7dd78020e9da9645401609b5fe36698d06a8d4c31"
+    sha256 cellar: :any_skip_relocation, big_sur:        "e27443db57fbceb6735a0c4da81115227e3af9fd8afad9b6459944385583ea73"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e3cad27b08626f199598f320741f2b024f0acabbc2c18ced504bcb0b11bd4099"
   end
 
   depends_on "rust" => :build
