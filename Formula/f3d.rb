@@ -4,6 +4,7 @@ class F3d < Formula
   url "https://github.com/f3d-app/f3d/archive/refs/tags/v2.0.0.tar.gz"
   sha256 "5b335de78a9f68903d7023d947090d4b36fa15b9e165749906a82153e0f56d05"
   license "BSD-3-Clause"
+  revision 3
 
   livecheck do
     url :stable
@@ -11,13 +12,13 @@ class F3d < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "a447954a1ff2bfb443080a828c516c904525b56c1880bb3245dc86422d787cb3"
-    sha256 cellar: :any,                 arm64_monterey: "7db7bc844612e18b57487981d5e34c9e190d0e7dd34a08deb39ca6634730af92"
-    sha256 cellar: :any,                 arm64_big_sur:  "d45e2fbacc28240b02c1387efd673c715d2d43281d6e97ccf5c6d250cdbf5b86"
-    sha256 cellar: :any,                 ventura:        "572968e3215ae319245d6bc64c04946a6653ee4150dd44ba5f7dae2c4f458b6a"
-    sha256 cellar: :any,                 monterey:       "ab222c40a4e03f59f3694cca5032113e15a99f1e9a277d93c6cdd55c09873773"
-    sha256 cellar: :any,                 big_sur:        "d15f5979071c9b0a391665abb79078f29e979f2a8bdf01ebcbd453911c1bcd47"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ffc42a929c64005071d87f3455edeb1e802fba134c45d9ef71491935a7c6c600"
+    sha256 cellar: :any,                 arm64_ventura:  "f22ecfa24ffe1b117aa267c2effcfa0fe3079c0fefe7aecf8dcf03c4acdac938"
+    sha256 cellar: :any,                 arm64_monterey: "692c5513911b98f3fb97814f23543dbc6438446c4d11b5071af4553f61be4da1"
+    sha256 cellar: :any,                 arm64_big_sur:  "88e1c26380ed6efb881801cd6147afde1059ed733cac542be74439e24418fdbf"
+    sha256 cellar: :any,                 ventura:        "02d9445c9a452ef47c1926cf734589b49c4c50a58c777d827a324d0b4b420f78"
+    sha256 cellar: :any,                 monterey:       "012cccb02f44bd7f4e330f57f0f258dae34daf48c786e8144a1e07b3580c806c"
+    sha256 cellar: :any,                 big_sur:        "9e3c7624e6d8aad96547a5bca8aa6a87a54aa0ecd1b7cdd930366ee5b2957e20"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4934d18b9f5d6cc431efee68761892a984f7ee4822b451cdc0e10ef972deedc6"
   end
 
   depends_on "cmake" => :build
@@ -28,19 +29,20 @@ class F3d < Formula
 
   def install
     args = %W[
-      -DF3D_MACOS_BUNDLE:BOOL=OFF
       -DBUILD_SHARED_LIBS:BOOL=ON
       -DBUILD_TESTING:BOOL=OFF
-      -DF3D_INSTALL_DEFAULT_CONFIGURATION_FILE:BOOL=ON
-      -DF3D_MODULE_ALEMBIC:BOOL=ON
-      -DF3D_MODULE_ASSIMP:BOOL=ON
-      -DF3D_MODULE_OCCT:BOOL=ON
       -DCMAKE_INSTALL_RPATH:STRING=#{rpath}
+      -DF3D_MACOS_BUNDLE:BOOL=OFF
+      -DF3D_PLUGIN_BUILD_ALEMBIC:BOOL=ON
+      -DF3D_PLUGIN_BUILD_ASSIMP:BOOL=ON
+      -DF3D_PLUGIN_BUILD_OCCT:BOOL=ON
     ]
 
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
+    system "cmake", "--install", "build", "--component", "configuration"
+    system "cmake", "--install", "build", "--component", "sdk"
   end
 
   test do

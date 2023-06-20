@@ -1,8 +1,8 @@
 class Neo4j < Formula
   desc "Robust (fully ACID) transactional property graph database"
   homepage "https://neo4j.com/"
-  url "https://neo4j.com/artifact.php?name=neo4j-community-5.7.0-unix.tar.gz"
-  sha256 "e13e94d8c8730f9525f30f98821ade79b349af1697d7ac94a8c3cc8b0273b734"
+  url "https://neo4j.com/artifact.php?name=neo4j-community-5.9.0-unix.tar.gz"
+  sha256 "5c8774afac24e8a43d1de94d7b200ed6ad27f51b6ab7802bc325f5d27992930a"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -12,13 +12,13 @@ class Neo4j < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b49d8467b1040cb979dc3a75b8329f41fe28533d56de86557e7cf630b60d1b82"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b49d8467b1040cb979dc3a75b8329f41fe28533d56de86557e7cf630b60d1b82"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b49d8467b1040cb979dc3a75b8329f41fe28533d56de86557e7cf630b60d1b82"
-    sha256 cellar: :any_skip_relocation, ventura:        "8cd3656d593943a199921342e55837866dfc7a84e63efaa505264c37779b97c5"
-    sha256 cellar: :any_skip_relocation, monterey:       "8cd3656d593943a199921342e55837866dfc7a84e63efaa505264c37779b97c5"
-    sha256 cellar: :any_skip_relocation, big_sur:        "8cd3656d593943a199921342e55837866dfc7a84e63efaa505264c37779b97c5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b49d8467b1040cb979dc3a75b8329f41fe28533d56de86557e7cf630b60d1b82"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5d36261954f844093f3dced51efa6909bf7b7844054e150e024b5e1c9dd31603"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5d36261954f844093f3dced51efa6909bf7b7844054e150e024b5e1c9dd31603"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "5d36261954f844093f3dced51efa6909bf7b7844054e150e024b5e1c9dd31603"
+    sha256 cellar: :any_skip_relocation, ventura:        "0e1e604ad1eeead7c689f61a89114bce4d11ff2d91f5cbe4a485774bc4ec7178"
+    sha256 cellar: :any_skip_relocation, monterey:       "0e1e604ad1eeead7c689f61a89114bce4d11ff2d91f5cbe4a485774bc4ec7178"
+    sha256 cellar: :any_skip_relocation, big_sur:        "0e1e604ad1eeead7c689f61a89114bce4d11ff2d91f5cbe4a485774bc4ec7178"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5d36261954f844093f3dced51efa6909bf7b7844054e150e024b5e1c9dd31603"
   end
 
   depends_on "openjdk"
@@ -41,10 +41,9 @@ class Neo4j < Formula
     # Adjust UDC props
     # Suppress the empty, focus-stealing java gui.
     (libexec/"conf/neo4j.conf").append_lines <<~EOS
-      wrapper.java.additional=-Djava.awt.headless=true
-      wrapper.java.additional.4=-Dneo4j.ext.udc.source=homebrew
-      dbms.directories.data=#{var}/neo4j/data
-      dbms.directories.logs=#{var}/log/neo4j
+      server.jvm.additional=-Djava.awt.headless=true-Dunsupported.dbms.udc.source=homebrew
+      server.directories.data=#{var}/neo4j/data
+      server.directories.logs=#{var}/log/neo4j
     EOS
   end
 

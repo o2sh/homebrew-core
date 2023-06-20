@@ -3,8 +3,8 @@ class Nginx < Formula
   homepage "https://nginx.org/"
   # Use "mainline" releases only (odd minor version number), not "stable"
   # See https://www.nginx.com/blog/nginx-1-12-1-13-released/ for why
-  url "https://nginx.org/download/nginx-1.23.4.tar.gz"
-  sha256 "d43300e36bb249a7e6edc60bca1b0fc372a0bafce2f346d76acfb677a8790fc0"
+  url "https://nginx.org/download/nginx-1.25.1.tar.gz"
+  sha256 "f09071ac46e0ea3adc0008ef0baca229fc6b4be4533baef9bbbfba7de29a8602"
   license "BSD-2-Clause"
   head "https://hg.nginx.org/nginx/", using: :hg
 
@@ -14,13 +14,13 @@ class Nginx < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "e619828547bb5fe50761d5dcfb0271478ed734e576e2a589f9f1eaea0a3076a3"
-    sha256 arm64_monterey: "8ab09e9af739290cbbed5edf009e35d96c800ee297654398fa9943dd0ac76457"
-    sha256 arm64_big_sur:  "5374d1f5307182ecc3efad29b6415636249515a029c510b6cd92d7dd4d032184"
-    sha256 ventura:        "ac0b36d06be48be3815fcda961c4adb963079ca50f15f2da68c698205a665068"
-    sha256 monterey:       "3f02fb05ab215ff10c49e260015d16878460e028f71c051f0f2f6ff6f1f11370"
-    sha256 big_sur:        "9bf83c5819979d453da152d5099f2f77b60c6dd4fe2bed4577c561753c7b716c"
-    sha256 x86_64_linux:   "35016c046d90373bc2c9060d881bfab9488dbde7ab9909333f595048be04e7d4"
+    sha256 arm64_ventura:  "8f799ba86a104689c5532cccdc27e69573b87b16496d223673ebb641424cab73"
+    sha256 arm64_monterey: "337f9cbdf7c84f52e4ed221df80f3388414b6b4dd235d7736880909fac9b5fe4"
+    sha256 arm64_big_sur:  "6ce36612a149cff6a0c02f27a336782daf85e5f08f58c337c991f44fbc12d008"
+    sha256 ventura:        "517255ab9502e744a0ee3174c12e1f4633de045a23a4dc653b0a948ffd39aabc"
+    sha256 monterey:       "4ac6af55f1fba14110aeedba5857f5eb994a2fa7dd4d7114b81df683398201b9"
+    sha256 big_sur:        "044c98af6252c65aa9278b5ba1c4baec52f2f1335ff38c920ac68c0d92441b07"
+    sha256 x86_64_linux:   "a41e73356d64eef3205f24c6550b813e5b3b5f5717a9d70b3225fd5aec9344d6"
   end
 
   depends_on "openssl@1.1"
@@ -79,6 +79,7 @@ class Nginx < Formula
       --with-http_stub_status_module
       --with-http_sub_module
       --with-http_v2_module
+      --with-http_v3_module
       --with-ipv6
       --with-mail
       --with-mail_ssl_module

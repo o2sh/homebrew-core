@@ -1,9 +1,10 @@
 class Webkitgtk < Formula
   desc "GTK interface to WebKit"
   homepage "https://webkitgtk.org"
-  url "https://webkitgtk.org/releases/webkitgtk-2.40.1.tar.xz"
-  sha256 "64e526984f8cd2161ef03ae949af99c002ff333d615e6386b460164a3c1b7ef6"
+  url "https://webkitgtk.org/releases/webkitgtk-2.40.2.tar.xz"
+  sha256 "96898870d994da406ee7a632816dcde9a3bb395ee5f344fcb3f3b8cc8a77e000"
   license "GPL-3.0-or-later"
+  revision 1
 
   livecheck do
     url "https://webkitgtk.org/releases/"
@@ -11,7 +12,7 @@ class Webkitgtk < Formula
   end
 
   bottle do
-    sha256 x86_64_linux: "e48eaade60ca21f8dc8c77845091a4e81f30419b8410b053423f46f14f0b3dfa"
+    sha256 x86_64_linux: "99a1439b13abfe2bcac3e84a7580a6f763a8ce8e2b25491de53b460209ab319d"
   end
 
   depends_on "cmake" => :build
@@ -56,6 +57,12 @@ class Webkitgtk < Formula
   uses_from_macos "zlib"
 
   fails_with gcc: "5"
+
+  # patch to fix `BWRAP_EXECUTABLE` undefailed failure
+  patch do
+    url "https://github.com/WebKit/WebKit/commit/4977290ab4ab35258a6da9b13795c9b0f7894bf4.patch?full_index=1"
+    sha256 "5d5fa4af5ae355ee1ea93aebb15d232cdb508c9804e31fe30c768ff4d330120d"
+  end
 
   def install
     args = %w[

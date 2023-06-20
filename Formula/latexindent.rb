@@ -1,18 +1,18 @@
 class Latexindent < Formula
   desc "Add indentation to LaTeX files"
   homepage "https://latexindentpl.readthedocs.io"
-  url "https://github.com/cmhughes/latexindent.pl/archive/V3.20.6.tar.gz"
-  sha256 "37f8b6909276790db54d330d7116609d6e72a16b75c76ae1ec1c65127e1b949c"
+  url "https://github.com/cmhughes/latexindent.pl/archive/V3.22.tar.gz"
+  sha256 "d9b42bf21ccf77dd844bddbf38fd5cb5d94eb7e9f77bdd9078da5c5c410f0980"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "579fff492b1b9afee76247f3d2f7719fb367a80f4bc843b9c403ecbd7c8ddf69"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1650d17cc77efcc7cdb0c72dcdd1e38fb4bbf863ca188907ed9403451c15ce64"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "3f6911e985128a0f5b02ebf6d4da9990607ff26c1fd71628717cb66bc2665db5"
-    sha256 cellar: :any_skip_relocation, ventura:        "870767a3372265e2d8c9920ceea94b99124619ed9e28f9dabbcd26122addf468"
-    sha256 cellar: :any_skip_relocation, monterey:       "6a9c9b164448ac36b410d486a1232d382760196bb57b7112af63f0a9e9bda5b0"
-    sha256 cellar: :any_skip_relocation, big_sur:        "3eb6dcad800825106c7795284a4bef4e22d629b15efb28098287e41e516442af"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c273beb1528473cdcf47f85f79036081774dd13a24c1230ffff5332189be25d7"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9d1f638e603de1a63fdd4c30489c8defbd96fa8326cf7be8d7abdd540773c98c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "1ee297e6dca8fb6093ae397543e22ead760568270a28b4d15b3872d7bddf0726"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "0fa2cfde7bb1b9a5bd94e9ec5fe0828f7bf59a865acb19b38b6f28e38b219152"
+    sha256 cellar: :any_skip_relocation, ventura:        "bbc4bf93e1ba56e01abe5bc7ec78ebcd57d039eeb2b4377a2a2f35395248edcd"
+    sha256 cellar: :any_skip_relocation, monterey:       "6e93d65c299fa6bb847562d6fa85038f70d1f3bb67e91b50b309125e5da3712d"
+    sha256 cellar: :any_skip_relocation, big_sur:        "213840102f75854205235b5cb79f8679d188967347def0799d4be52477035775"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f6ebdde9f0d94c57865965514fa5c20c6c366b08c184c36a105885a3284eddef"
   end
 
   depends_on "perl"
@@ -90,8 +90,8 @@ class Latexindent < Formula
   end
 
   resource "Module::Build" do
-    url "https://cpan.metacpan.org/authors/id/L/LE/LEONT/Module-Build-0.4232.tar.gz"
-    sha256 "67c82ee245d94ba06decfa25572ab75fdcd26a9009094289d8f45bc54041771b"
+    url "https://cpan.metacpan.org/authors/id/L/LE/LEONT/Module-Build-0.4234.tar.gz"
+    sha256 "66aeac6127418be5e471ead3744648c766bd01482825c5b66652675f2bc86a8f"
   end
 
   resource "Module::Implementation" do

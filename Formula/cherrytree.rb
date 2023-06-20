@@ -4,6 +4,7 @@ class Cherrytree < Formula
   url "https://www.giuspen.com/software/cherrytree_0.99.55.tar.xz"
   sha256 "7daa4358463eb41c133d9b4b742df18f68f47fa5bf398fc2e0801fc4c8381e84"
   license "GPL-3.0-or-later"
+  revision 1
 
   livecheck do
     url :homepage
@@ -11,13 +12,13 @@ class Cherrytree < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "293e735fc95337ead4c3cd16180ff7c2ab25ae1ae902653f87c2abbffce9060d"
-    sha256 arm64_monterey: "18532c16d0c2307b358446a5ec18f9fed6f04bbcdbbfae7ef29ed8dec9679156"
-    sha256 arm64_big_sur:  "eddd058e8fe1c6f64b8cf62b0429ef3a17aa3fbe48c64e71d0533094e7896d1d"
-    sha256 ventura:        "8c33b6c06ba254d62bebef0204e663cf01463b1f165c00f768b47c1ae46d46cf"
-    sha256 monterey:       "49f7d3a9e0075846ac0d4764a0a238fd258db83bb7d3e77d3b53ed5ad8a18513"
-    sha256 big_sur:        "5576d0d1bed929d7926d061f3ffa5badc3b70c76815e2d66197e40b3e96604c5"
-    sha256 x86_64_linux:   "28dba85727ed316f2c832294c63af42f8423d321d8208049dfb8b5982359e3de"
+    sha256 arm64_ventura:  "97e6fb6daf6d6c8ae58e6fc16a341e131874d22c739701aa7990b6a7a224b7b7"
+    sha256 arm64_monterey: "2c5b3e508f82d5cb50159ed7c9c01229542cfc8468f76613df2fc1bbf10d9342"
+    sha256 arm64_big_sur:  "452e380923648ad286b867be2ee8a882cd99f6ed7218f5a3bb5e8d10fcb71e80"
+    sha256 ventura:        "c53e5d3eb6e4bc751e5213f43064169e2ef69acf950d1dd498eecd908391af9d"
+    sha256 monterey:       "6b0d2f1f6b976429ab45c44136356ef99766537d9ec5c2a6b21258451d0292b8"
+    sha256 big_sur:        "c47a13705ad8845390b127158b3867d4b87e95ffee4d81ae6823ea7e94ccd9f4"
+    sha256 x86_64_linux:   "a9297eaace67da039b59b30f443cfc9357e328373aaf4bdc799f9d64a17eb942"
   end
 
   depends_on "cmake" => :build
@@ -37,6 +38,11 @@ class Cherrytree < Formula
   uses_from_macos "curl"
 
   fails_with gcc: "5" # Needs std::optional
+
+  patch do
+    url "https://github.com/giuspen/cherrytree/commit/dacf5ba650b4495705184e63d495ac730c4e00b0.patch?full_index=1"
+    sha256 "e427653dbe91e00cab0243fa996afae1bcd7fd0f97cc433e5d0a08a7941d1974"
+  end
 
   def install
     system "cmake", ".", "-DBUILD_TESTING=''", "-GNinja", *std_cmake_args

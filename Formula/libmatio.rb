@@ -4,19 +4,22 @@ class Libmatio < Formula
   url "https://downloads.sourceforge.net/project/matio/matio/1.5.23/matio-1.5.23.tar.gz"
   sha256 "9f91eae661df46ea53c311a1b2dcff72051095b023c612d7cbfc09406c9f4d6e"
   license "BSD-2-Clause"
+  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "f054bccc0f7b6bb47c001f89bd71c3a506ea2826b4b175ecc4eca800013cc662"
-    sha256 cellar: :any,                 arm64_monterey: "2ebdabd8423bbaeaa00d7083a52b83ff3fe2f0bcd451c2ed6594a75e5344eaa0"
-    sha256 cellar: :any,                 arm64_big_sur:  "121e79cf19f53276b35be99b8f5ddf1922eac000a60005876d74039e63acf3c6"
-    sha256 cellar: :any,                 ventura:        "ead0d4c1020d6a8650bc87e57c0782f99fe2e46625b9506e2035f5918303ff02"
-    sha256 cellar: :any,                 monterey:       "065fdfe8c7d13dd17f2082ec55c02d4aa445c391ce3eaff3b5ff987f5a1f3f68"
-    sha256 cellar: :any,                 big_sur:        "056c699084c0a29cf51cbc3a58cc5ae469501a27ccc7785773b260d0c2cbe09b"
-    sha256 cellar: :any,                 catalina:       "4a5fb729796b011d5ee47e924d6b9c10084803d436c6234011f499c07b5d664f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "90857721a7996319c0b57ed2c87bb7331f9c237a3b0a72a21d404493a83eca4a"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "692ff91102a1882368444eaffb2b4134f25550f2792698d1fd36337f318e8465"
+    sha256 cellar: :any,                 arm64_monterey: "779a488063e24d4d9ab188be23f94f53155d5014a478d55500ef27c26fb2911b"
+    sha256 cellar: :any,                 arm64_big_sur:  "0a0c9260534dfe974fa4bd9ca28c26e321db5b2e36c53494c1e56a6f79c00ee4"
+    sha256 cellar: :any,                 ventura:        "7b6ded7eaa0c7e18c0e4a3835a0bcfde53878416ac82d816adba21a622911d61"
+    sha256 cellar: :any,                 monterey:       "e93c4b9479da91da21e25673bd9ca8f6d752cafd65c302fa37477e1ed6743465"
+    sha256 cellar: :any,                 big_sur:        "b0d10fef3792de609e10b14720f5c632e4c179273de51de3da07a13d2ae7ae3d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "93c7c6f5e6fff8637b9e7fd5467057e1662546e7e44a00db08743f12eab6b838"
   end
 
+  depends_on "pkg-config" => :test
   depends_on "hdf5"
+  uses_from_macos "zlib"
 
   resource "homebrew-test_mat_file" do
     url "https://web.uvic.ca/~monahana/eos225/poc_data.mat.sfx"
@@ -25,14 +28,13 @@ class Libmatio < Formula
 
   def install
     args = %W[
-      --prefix=#{prefix}
       --enable-extended-sparse=yes
       --enable-mat73=yes
       --with-hdf5=#{Formula["hdf5"].opt_prefix}
-      --with-zlib=/usr
     ]
+    args << "--with-zlib=#{Formula["zlib"].opt_prefix}" unless OS.mac?
 
-    system "./configure", *args
+    system "./configure", *std_configure_args, *args
     system "make", "install"
   end
 
@@ -68,5 +70,7 @@ class Libmatio < Formula
     EOS
     system ENV.cc, "mat.c", "-o", "mat", "-I#{include}", "-L#{lib}", "-lmatio"
     system "./mat", "poc_data.mat.sfx"
+
+    refute_includes shell_output("pkg-config --cflags matio"), "-I/usr/include"
   end
 end

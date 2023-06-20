@@ -1,8 +1,8 @@
 class Calabash < Formula
   desc "XProc (XML Pipeline Language) implementation"
   homepage "https://xmlcalabash.com/"
-  url "https://github.com/ndw/xmlcalabash1/releases/download/1.5.4-120/xmlcalabash-1.5.4-120.zip"
-  sha256 "f50d132d0c55a363fdcb4e7541d77558d700e8235853908f2925d45ad55c4334"
+  url "https://github.com/ndw/xmlcalabash1/releases/download/1.5.6-120/xmlcalabash-1.5.6-120.zip"
+  sha256 "22b144edd2dc6901b04fd540cea3cff539b4d8d1bb55794b59d40a8bcec72535"
   license any_of: ["GPL-2.0-only", "CDDL-1.0"]
 
   # According to ndw/xmlcalabash1#342, each release comes in "flavours" that
@@ -22,7 +22,7 @@ class Calabash < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "987d80a656f9d416b87f30ac3306e5b1bd3d4ed525770643ae569b9210e18041"
+    sha256 cellar: :any_skip_relocation, all: "8013c68877bb6698bf8690e4e845344a114d3d33663b6a2647672764effef5bf"
   end
 
   depends_on "openjdk"

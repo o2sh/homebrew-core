@@ -1,18 +1,18 @@
 class Dav1d < Formula
   desc "AV1 decoder targeted to be small and fast"
   homepage "https://code.videolan.org/videolan/dav1d"
-  url "https://code.videolan.org/videolan/dav1d/-/archive/1.1.0/dav1d-1.1.0.tar.bz2"
-  sha256 "ec5f2dae9b1a7e1da44a7fc9c8fcee476e345df290c50935344bde57543a4cd6"
+  url "https://code.videolan.org/videolan/dav1d/-/archive/1.2.1/dav1d-1.2.1.tar.bz2"
+  sha256 "a4003623cdc0109dec3aac8435520aa3fb12c4d69454fa227f2658cdb6dab5fa"
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "09b2ecc597d2bfd42943e4f1942fe7e2345ad7bb4b73163325e9a995a44b4608"
-    sha256 cellar: :any,                 arm64_monterey: "5326cd563c172c25161cbd69248b3109452cc04ffe97da757652ed75f2f7cabc"
-    sha256 cellar: :any,                 arm64_big_sur:  "7d552c2b1becebf8d0c7783ed85fe63ba4cbf71cf53abe0e9a235f542691e68a"
-    sha256 cellar: :any,                 ventura:        "1867e720b29df42f57cdd2644efea8c4918153f8b65af5427114db43781ac5fd"
-    sha256 cellar: :any,                 monterey:       "c9cc918847005baff18a28015e6dce362f91f5edb9995540aa439734f2749b37"
-    sha256 cellar: :any,                 big_sur:        "d11459b6990b9baf1e3fe19195c6e7ef4f42d9a2137351d1037f45a4e5638964"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cc5de59a1ecae93b8ca823f659aa8aa6d46ea47a24ab6216d0eb272406c414a8"
+    sha256 cellar: :any,                 arm64_ventura:  "6e6f9a4347a07287d9649296ba3869740f4e4c01c2cc72337fea97b727b4e5cd"
+    sha256 cellar: :any,                 arm64_monterey: "4094bfec75dd9d4882b4c64de01f02ecb6fb3f276057fd4d4b68e4e866790a66"
+    sha256 cellar: :any,                 arm64_big_sur:  "2d039d7cc3ed14f6d02c56f992855814d63b8d3dc5a6b81673a3216c69fcf356"
+    sha256 cellar: :any,                 ventura:        "4f5ced0cc79911fe4e27e56e092e1a2414748ad59ea5c52a9f186c09427f1469"
+    sha256 cellar: :any,                 monterey:       "5fc42888f64d5a7138c2246c7ff98dd1940bb7a47ecc0415616b0c232e2f8891"
+    sha256 cellar: :any,                 big_sur:        "cce7e0c46ad8f826eb7c1e12340e77a5cc699522968edfc619bf093bbc9ff80e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b1091a61449a45f062bb16d17d84fd09e966d5fa7ba5513492cd28b78586eeb8"
   end
 
   depends_on "meson" => :build

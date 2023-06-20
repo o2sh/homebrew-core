@@ -1,8 +1,8 @@
 class Duck < Formula
   desc "Command-line interface for Cyberduck (a multi-protocol file transfer tool)"
   homepage "https://duck.sh/"
-  url "https://dist.duck.sh/duck-src-8.5.9.39636.tar.gz"
-  sha256 "c05f42ee791a1e8f774d2fedf03f955c3d100dda6c973f12ae00fc5c39a7a2f7"
+  url "https://dist.duck.sh/duck-src-8.6.0.39818.tar.gz"
+  sha256 "2c61b56ff076f0c99822d720f8d4b5f6615cbb5fca1949442a019c0116a9a08d"
   license "GPL-3.0-only"
   head "https://github.com/iterate-ch/cyberduck.git", branch: "master"
 
@@ -12,13 +12,13 @@ class Duck < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_ventura:  "02fe98a2d36acf886983c2d7f280f8a28618e624a6a77486505bec656e8e7190"
-    sha256 cellar: :any, arm64_monterey: "ec42ec56f9907feed723abf55c17af0f8f5c300336b005d45eb095274ed0f0a2"
-    sha256 cellar: :any, arm64_big_sur:  "74eeb36f5c3d64bf72f5ff1e2b45c175d3ffae83593754e6b9759ed302b4a474"
-    sha256 cellar: :any, ventura:        "250d5fa8c311ed4c9ff735e19ad2d3dfec964e047ca47ebeacaf42c9b2f6c896"
-    sha256 cellar: :any, monterey:       "8e40cfad7d247501187f2e2e5e280a16aaac4603c959aebd2bb3e85bf21afeb7"
-    sha256 cellar: :any, big_sur:        "4cbe56a6f8646eb3ac576e786aeae9280224ce2988d0e0acf4e551b35399e928"
-    sha256               x86_64_linux:   "970d5058c1f1b85ea24b4cfcda066c3781d2bc6d4086d73d7169dddd7d963279"
+    sha256 cellar: :any, arm64_ventura:  "11074899873ce51533839720a556438efae7cc6c3a89387e9ee446ac7b48fc11"
+    sha256 cellar: :any, arm64_monterey: "33695f088369881f75fe101d404b2c1b03097840afa1e1673682be312cc89069"
+    sha256 cellar: :any, arm64_big_sur:  "fef8a4d373fee31472552fbdfaeeadaef467fc93364587e32457a7ef270cb24e"
+    sha256 cellar: :any, ventura:        "a5853e0216a47a7d24e9fe87cbf1f840b020a909f0bfee7ada72949b97908c48"
+    sha256 cellar: :any, monterey:       "f41b298b82b271c5c9f4d43cbb23b04e3535d51b778caf65010027a71e4e467b"
+    sha256 cellar: :any, big_sur:        "379788fda9cb45021204e0f84c5c6ca5c5b85235e515c6b2160314628b031244"
+    sha256               x86_64_linux:   "2b94608495c243347c26ceda7d2c4f7c5327f94814a70a35308c085a89a3b0c5"
   end
 
   depends_on "ant" => :build
@@ -142,7 +142,7 @@ class Duck < Formula
     end
 
     revision = version.to_s.rpartition(".").last
-    system "mvn", "-DskipTests", "-Dgit.commitsCount=#{revision}",
+    system "mvn", "-DskipTests", "-Dconfiguration=default", "-Dgit.commitsCount=#{revision}",
                   "--projects", "cli/#{os}", "--also-make", "verify"
 
     libdir, bindir = if OS.mac?
@@ -166,7 +166,7 @@ class Duck < Formula
       rm_r libexec/"Contents/PlugIns/Runtime.jre"
       ln_s Formula["openjdk"].libexec/"openjdk.jdk", libexec/"Contents/PlugIns/Runtime.jre"
     else
-      libexec.install Dir["cli/linux/target/release/duck/*"]
+      libexec.install Dir["cli/linux/target/default/duck/*"]
     end
 
     rm libdir/shared_library("libjnidispatch")

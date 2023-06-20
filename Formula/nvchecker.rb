@@ -3,18 +3,18 @@ class Nvchecker < Formula
 
   desc "New version checker for software releases"
   homepage "https://github.com/lilydjwg/nvchecker"
-  url "https://files.pythonhosted.org/packages/02/08/ee78cbb49fcbafbf566546439368a87466763a698f1483aeb93c0f4bdda2/nvchecker-2.11.tar.gz"
-  sha256 "80d22af6bcdfa08a336b086eca98cef863ae21ca8a4822e2577075e2bca6cf00"
+  url "https://files.pythonhosted.org/packages/22/25/e42c9be788883c94ed3a2bbaf37c2351cfe0d82cdb96676a629ed3adedec/nvchecker-2.12.tar.gz"
+  sha256 "4200ddf733448c52309f110c6fa916727a7400f444855afa8ffe7ff1e5b0b6c8"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2e551381109835b19d2f1ce0773d284f2fc66d1f0dace2d7092b04cd7549e752"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "042a0f9f0f041f35f62199ba7b66e2e85b2450ccd0e41f6c0469a796d60ff069"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "d1634e545aa0fff727fb5202670eb35aa7177703439afabfe75c7cbe63ac0496"
-    sha256 cellar: :any_skip_relocation, ventura:        "294fe053176313442262654518fd8a287670079d2cc62a9e08e5ec92b32241f0"
-    sha256 cellar: :any_skip_relocation, monterey:       "388f71246fea0528a261189a3d5e4ecd8bd2b16f6d63d85671722cf232aa33aa"
-    sha256 cellar: :any_skip_relocation, big_sur:        "46f875a1c7e28df40183c78daf005ae22d94a33fe8606c55c6d0edd1bfbd5304"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "83fadfb67eee1c182e2b1aa76e85e8960c34c750c55fd343918e06a8a96ab4a7"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0fa3a0add363b1a7491e722482424dbd96b133d42466a71f0afc021b2eef8551"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "7d0fe36aab3a200ccdde47a6296cee0634787447c3ed1eb38c340760a3a7f1c0"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "3d383fbb043ed1496fe153e3e2228c0fe40fd6037b2c65460f485360eb1434fb"
+    sha256 cellar: :any_skip_relocation, ventura:        "a3c7a63a1c42c2132d432439649008188d43284c8fec3ca80bb08fe391e582c8"
+    sha256 cellar: :any_skip_relocation, monterey:       "e8b181828282012e3563126a61fe34ca02086adf6f7b5c082af1e5a443911d22"
+    sha256 cellar: :any_skip_relocation, big_sur:        "b9ad0b007650497ef3ff860b5184e4702742c4163d1e831979f85116b4e1ae5a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3dcd42039d8f12ec471b99f77914aca95b4854da57961033a9bd731175155629"
   end
 
   depends_on "jq" => :test
@@ -23,13 +23,13 @@ class Nvchecker < Formula
   uses_from_macos "curl"
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/47/d5/aca8ff6f49aa5565df1c826e7bf5e85a6df852ee063600c1efa5b932968c/packaging-23.0.tar.gz"
-    sha256 "b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"
+    url "https://files.pythonhosted.org/packages/b9/6c/7c6658d258d7971c5eb0d9b69fa9265879ec9a9158031206d47800ae2213/packaging-23.1.tar.gz"
+    sha256 "a392980d2b6cffa644431898be54b0045151319d1e7ec34f0cfed48767dd334f"
   end
 
   resource "platformdirs" do
-    url "https://files.pythonhosted.org/packages/15/04/3f882b46b454ab374ea75425c6f931e499150ec1385a73e55b3f45af615a/platformdirs-3.2.0.tar.gz"
-    sha256 "d5b638ca397f25f979350ff789db335903d7ea010ab28903f57b27e1b16c2b08"
+    url "https://files.pythonhosted.org/packages/d2/5d/29eed8861e07378ef46e956650615a9677f8f48df7911674f923236ced2b/platformdirs-3.5.3.tar.gz"
+    sha256 "e48fabd87db8f3a7df7150a4a5ea22c546ee8bc39bc2473244730d4b56d2cc4e"
   end
 
   resource "pycurl" do
@@ -42,14 +42,9 @@ class Nvchecker < Formula
     sha256 "270d681dd7d163c11ba500bc914b2472d2b50a8ef00faa999ded5ff83a2f906b"
   end
 
-  resource "tomli" do
-    url "https://files.pythonhosted.org/packages/c0/3f/d7af728f075fb08564c5949a9c95e44352e23dee646869fa104a3b2060a3/tomli-2.0.1.tar.gz"
-    sha256 "de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"
-  end
-
   resource "tornado" do
-    url "https://files.pythonhosted.org/packages/f3/9e/225a41452f2d9418d89be5e32cf824c84fe1e639d350d6e8d49db5b7f73a/tornado-6.2.tar.gz"
-    sha256 "9b630419bde84ec666bfd7ea0a4cb2a8a651c2d5cccdbdd1972a0c859dfc3c13"
+    url "https://files.pythonhosted.org/packages/30/f0/6e5d85d422a26fd696a1f2613ab8119495c1ebb8f49e29f428d15daf79cc/tornado-6.3.2.tar.gz"
+    sha256 "4b927c4f19b71e627b13f3db2324e4ae660527143f9e1f2e2fb404f3a187e2ba"
   end
 
   def install

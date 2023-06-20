@@ -1,19 +1,19 @@
 class Ccache < Formula
   desc "Object-file caching compiler wrapper"
   homepage "https://ccache.dev/"
-  url "https://github.com/ccache/ccache/releases/download/v4.8/ccache-4.8.tar.xz"
-  sha256 "b963ee3bf88d7266b8a0565e4ba685d5666357f0a7e364ed98adb0dc1191fcbb"
+  url "https://github.com/ccache/ccache/releases/download/v4.8.2/ccache-4.8.2.tar.xz"
+  sha256 "3d3fb3f888a5b16c4fa7ee5214cca76348afd6130e8443de5f6f2424f2076a49"
   license "GPL-3.0-or-later"
   head "https://github.com/ccache/ccache.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "1256f221c0db2dce9111077378a386c31aae88e030882ea4890da8bb9a15aa76"
-    sha256 cellar: :any,                 arm64_monterey: "18f910678dd3c957307423cf70fd637364be509138c386b2aee817efbd933a82"
-    sha256 cellar: :any,                 arm64_big_sur:  "5ad50d725a25c3438dda4d9f29e0338eb45402d0f02578fe96a0b8b30f2db65e"
-    sha256 cellar: :any,                 ventura:        "36c1d3385e5b5fd734f5b75e7224bdd8171e86a333b7b69c76bdbe7a7f795883"
-    sha256 cellar: :any,                 monterey:       "50e5c9744229a7bc4da0467f7b4348d3b671b4deded2ff9cfd801ca48ebe5aa1"
-    sha256 cellar: :any,                 big_sur:        "85f2346f9e95a3befa6f58a9b4085b2aa3049a1894529947a1f19eb4000ebcfb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bfb0da0d60457bd690022fa805d1af86ac69b8bcf1061f3f5ae9f031f161250f"
+    sha256 cellar: :any,                 arm64_ventura:  "02ecd933e834f58013d924090d13dafeb46a6f9606bf74b62205d06d47fe4b22"
+    sha256 cellar: :any,                 arm64_monterey: "8ce666a0d2258dc9b6cbdf1ca02edc92369e44f36290da3ca13be7336eb0835d"
+    sha256 cellar: :any,                 arm64_big_sur:  "c99b876a2c4e912e27f9d2b3cb4a1f7259707bbc58aafe4ed328b73dfb757a76"
+    sha256 cellar: :any,                 ventura:        "f1bf50fc023daa9fe10c68c66758033e673953c93d3643227a5f50be5b63994b"
+    sha256 cellar: :any,                 monterey:       "40b05ad0704bb9fd3cd1ede4ca7a21ee936c5ce819a77477c1c3ec8d4b62c091"
+    sha256 cellar: :any,                 big_sur:        "5e48876771950ca60fb0e1cb6f708d27efe6d4704b58d275a994180611a4946d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "867e06447d02727a3d24e651a578aa0440920367a1630b7f783ddfe686e1a7e8"
   end
 
   depends_on "asciidoctor" => :build
@@ -48,13 +48,13 @@ class Ccache < Formula
       cc
       gcc gcc2 gcc3 gcc-3.3 gcc-4.0
       gcc-4.2 gcc-4.3 gcc-4.4 gcc-4.5 gcc-4.6 gcc-4.7 gcc-4.8 gcc-4.9
-      gcc-5 gcc-6 gcc-7 gcc-8 gcc-9 gcc-10 gcc-11 gcc-12
+      gcc-5 gcc-6 gcc-7 gcc-8 gcc-9 gcc-10 gcc-11 gcc-12 gcc-13
       c++ c++3 c++-3.3 c++-4.0
       c++-4.2 c++-4.3 c++-4.4 c++-4.5 c++-4.6 c++-4.7 c++-4.8 c++-4.9
-      c++-5 c++-6 c++-7 c++-8 c++-9 c++-10 c++-11 c++-12
+      c++-5 c++-6 c++-7 c++-8 c++-9 c++-10 c++-11 c++-12 c++-13
       g++ g++2 g++3 g++-3.3 g++-4.0
       g++-4.2 g++-4.3 g++-4.4 g++-4.5 g++-4.6 g++-4.7 g++-4.8 g++-4.9
-      g++-5 g++-6 g++-7 g++-8 g++-9 g++-10 g++-11 g++-12
+      g++-5 g++-6 g++-7 g++-8 g++-9 g++-10 g++-11 g++-12 g++-13
       i686-w64-mingw32-gcc i686-w64-mingw32-g++
       x86_64-w64-mingw32-gcc x86_64-w64-mingw32-g++
     ].each do |prog|

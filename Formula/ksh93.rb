@@ -1,20 +1,19 @@
 class Ksh93 < Formula
   desc "KornShell, ksh93"
   homepage "https://github.com/ksh93/ksh#readme"
-  url "https://github.com/ksh93/ksh/archive/refs/tags/v1.0.4.tar.gz"
-  sha256 "7ab7785a277f96acd8b645dc70769adf0cc92546dac356639852bff1d708275f"
+  url "https://github.com/ksh93/ksh/archive/refs/tags/v1.0.6.tar.gz"
+  sha256 "bcb230cb3cbe045e0c08ed8d379fb4e1b434784bb0aab0e990c51a03e63d6721"
   license "EPL-2.0"
   head "https://github.com/ksh93/ksh.git", branch: "dev"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2e3c9d85dc84136fb32e1b922359a39c4a53ae9515bd056316e15657c7b4510c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8e7454d428bfbd6d0179e4fa9ba47bfb2431de6ef06e65396359072da90fdd6f"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c8749b975877f34b340a823d1b66fa2a0b31f27674ddd7f05dfff28d655e56cf"
-    sha256 cellar: :any_skip_relocation, ventura:        "eeed5bbbe9300e033fcbd351fcc58c051419529ec00c3dabfa794cf59bcaa46f"
-    sha256 cellar: :any_skip_relocation, monterey:       "559d57f600a47a3ac16b21aca6801e7c53830742145c751add0786616d8e0a17"
-    sha256 cellar: :any_skip_relocation, big_sur:        "fee9f1e32efa911bae78e25abdcc43c708908a68b7388bf1fc2b2a3bac45d189"
-    sha256 cellar: :any_skip_relocation, catalina:       "0b8ea5bee41bbd6813d9d8f8782867b0e890d650e976d5afe829764f149fdd3f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f48e51ee03cc6d1956d6df4e062869e8820e163c8fc9a78a9688603c4de6f7a3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "99a2a912374d3ed6719aa4b5550bf3c45907766a104213a3935f074fb5c76ccd"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2d8988a76dba906d6240b26fc41b0bd1befd78ec2c356a47472ac44a2a8b17d8"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f264566bab99d740910710686ff2cdd65b80d6a31a5046c7aa6b1f1c09d69527"
+    sha256 cellar: :any_skip_relocation, ventura:        "4923534c98ae8e24c40ccb852aa82e0298d3406cd41eaf541544b9892e24dff2"
+    sha256 cellar: :any_skip_relocation, monterey:       "e009dfe1425f226ec4ebd0eecbf430c5784cb00d32ef0063ce1e2ad813bb2461"
+    sha256 cellar: :any_skip_relocation, big_sur:        "07a2dc2b1aa2e3c8f061d5da3604b6ed3a0554f47de7c5ed1e3b4fde60c07caa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c4dde2a02e972428a7cf9f8b9ba285de8be8e3386dfeba21206da66f920565c9"
   end
 
   def install

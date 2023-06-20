@@ -1,8 +1,8 @@
 class Rsyslog < Formula
   desc "Enhanced, multi-threaded syslogd"
   homepage "https://www.rsyslog.com/"
-  url "https://www.rsyslog.com/files/download/rsyslog/rsyslog-8.2304.0.tar.gz"
-  sha256 "d090e90283eb4b80de8b43e5ffc6e4b59c4e3970f2aa91e63beef0a11720d74d"
+  url "https://www.rsyslog.com/files/download/rsyslog/rsyslog-8.2306.0.tar.gz"
+  sha256 "f6283efaadc609540a56e6bec88a362c966e77f29fe48e6b734bd6c1123e0be5"
   license all_of: ["Apache-2.0", "GPL-3.0-or-later", "LGPL-3.0-or-later"]
 
   livecheck do
@@ -11,39 +11,25 @@ class Rsyslog < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "0a4fcad36d21b12b9cbfa594a847a0e06edf54472edaffd23f6ac3f433953ccd"
-    sha256 arm64_monterey: "80c02825e6a0af2cbd25c43c69b56fad0376e0a847429878e0044ecef8c2a51c"
-    sha256 arm64_big_sur:  "96f9efab15f6f918fae94b6bbb9d606054aec4daf05c4de1f021fec011a58cc5"
-    sha256 ventura:        "950cbc5384ed9cb58ff35ca03212b91b59383138549af632c0e20f11b101049e"
-    sha256 monterey:       "37570aee68bdc7b2cb7686550ee2d57eccbb79bdb2bd17de30168b0aaaa673ff"
-    sha256 big_sur:        "42ea1e3c316466a6520bfcc246be05b5f4daa92a53e5c68d76b390bbd26b42f3"
-    sha256 x86_64_linux:   "3aff4c470389cdf5b5669780422a6c00d28eefeb7cd929a694c3b80c671c0ce5"
+    sha256 arm64_ventura:  "0e87599061b683f506ff7b9a22c2b7336ba3c1f1760e0f3cd87aa33fb091b6b3"
+    sha256 arm64_monterey: "89b65620354a74aad09489d9e0fd7e6ff91c22c30ad73768a4783b805cf1cd86"
+    sha256 arm64_big_sur:  "a8953dbec76cb974e5cdb0c987ea9db63d2bc1512c191d2d5b0e3cc7a91c592d"
+    sha256 ventura:        "b1a7f61656bdd456119dc3800610152f01c1cff08c00a144d9e9800acd860854"
+    sha256 monterey:       "9e71497d53ac5436f11043cc80f855308f5861037c70e8c94161c8fedc592d49"
+    sha256 big_sur:        "2ebdf312059ccecd04c71684cb93e7e8d16239de6fe67a5ed693f69499e07287"
+    sha256 x86_64_linux:   "3039099815eddd25dc2e6ec8e15e96bc266e459184c18c876d52228177d413e2"
   end
 
   depends_on "pkg-config" => :build
   depends_on "gnutls"
   depends_on "libestr"
+  depends_on "libfastjson"
 
   uses_from_macos "curl"
   uses_from_macos "zlib"
 
-  resource "libfastjson" do
-    url "https://download.rsyslog.com/libfastjson/libfastjson-1.2304.0.tar.gz"
-    sha256 "ef30d1e57a18ec770f90056aaac77300270c6203bbe476f4181cc83a2d5dc80c"
-  end
-
   def install
-    resource("libfastjson").stage do
-      system "./configure", "--disable-dependency-tracking",
-                            "--disable-silent-rules",
-                            "--prefix=#{libexec}"
-      system "make", "install"
-    end
-
-    ENV.prepend_path "PKG_CONFIG_PATH", libexec/"lib/pkgconfig"
-
-    system "./configure", "--prefix=#{prefix}",
-                          "--disable-dependency-tracking",
+    system "./configure", *std_configure_args,
                           "--enable-imfile",
                           "--enable-usertools",
                           "--enable-diagtools",

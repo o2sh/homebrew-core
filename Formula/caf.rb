@@ -2,19 +2,19 @@ class Caf < Formula
   # Renamed from libccpa
   desc "Implementation of the Actor Model for C++"
   homepage "https://www.actor-framework.org/"
-  url "https://github.com/actor-framework/actor-framework/archive/0.19.0.tar.gz"
-  sha256 "9ecf8bf9b4add10a44f71332f15e02a4ac7799062de76efb8e8f2999aa9b3713"
+  url "https://github.com/actor-framework/actor-framework/archive/0.19.2.tar.gz"
+  sha256 "aa3fcc494424e0e20b177125458a6a6ed39c751a3d3d5193054e88bdf8a146d2"
   license "BSD-3-Clause"
   head "https://github.com/actor-framework/actor-framework.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "3286dc81e3092fa2fafb1ffa90c592b4c50c277b5f2efdada7b2c1e64a9e2073"
-    sha256 cellar: :any,                 arm64_monterey: "e794cf0adc14e0cf873932bccf5f687c1a2a5f60e5ddf422d6ec2288c80d6401"
-    sha256 cellar: :any,                 arm64_big_sur:  "b0fc90b1417fc198e74c493405b5a7d0c60b415d44d963054b22a2dbf0061d97"
-    sha256 cellar: :any,                 ventura:        "e775289c33d7805f865e66c28f79da477a44c26b6879be787d276434f1135094"
-    sha256 cellar: :any,                 monterey:       "4130afcc0fbbf2f7ae244decfb67a3b18b75cf012fee20976c5084ed1b678e38"
-    sha256 cellar: :any,                 big_sur:        "fb219d00c81062add8c0a1ee2b70d472207da2cce383b402b097f0079cce89a1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cbb0118932d42be7371109957fb80db134f635c1a7d53a447df5bf17c9e5b2d6"
+    sha256 cellar: :any,                 arm64_ventura:  "609d719785b67a50f40506e53a0ebb8498c686c9743193a9e947fa96966d9068"
+    sha256 cellar: :any,                 arm64_monterey: "b027aa0f3603f33a7937ed75532acfddcdfac3c1c582f32657adadc926b3ee6b"
+    sha256 cellar: :any,                 arm64_big_sur:  "60d23a2eab1a0e88b3f80209b4dfb89f8cbf869961ca0929e97ae13113ef1caf"
+    sha256 cellar: :any,                 ventura:        "0572216a7290c486985a01b5d04be6f0998e4a8bce2266aea8c8f95ea1b0a05d"
+    sha256 cellar: :any,                 monterey:       "f400f05eb048026d74a4b0f7a067c1f4b2480691881546addb34304a9ee74088"
+    sha256 cellar: :any,                 big_sur:        "1a547233c2fb0aaa90a9f04df7c27e84b9f29ea6dcd9368cab34acca9adfddcc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bebe4f8bfb33f6624f8341bdc18fd34dfb0392424ccea26eee245d56ff037d2a"
   end
 
   depends_on "cmake" => :build

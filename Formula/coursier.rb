@@ -1,8 +1,8 @@
 class Coursier < Formula
   desc "Pure Scala Artifact Fetching"
   homepage "https://get-coursier.io/"
-  url "https://github.com/coursier/coursier/releases/download/v2.1.2/coursier.jar"
-  sha256 "fc3bbb5e83334d67458f2a274fc89b38ac58f25d9eaf83e7128705badde89531"
+  url "https://github.com/coursier/coursier/releases/download/v2.1.5/coursier.jar"
+  sha256 "4bea0aad07d4cc45a96f04db2a2f32a9f98c8251e98043d0395a29cac3beba46"
   license "Apache-2.0"
 
   livecheck do
@@ -11,7 +11,7 @@ class Coursier < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "310e76ebe9b22415eefbc37dd11e536908875a56af58b2e3745193a0b21843eb"
+    sha256 cellar: :any_skip_relocation, all: "910f039790932a79aff886e658f1fadefbc2691d25ff09fec9c7912b9ebe77b8"
   end
 
   depends_on "openjdk"

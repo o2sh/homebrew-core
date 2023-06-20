@@ -4,6 +4,7 @@ class OrTools < Formula
   url "https://github.com/google/or-tools/archive/v9.6.tar.gz"
   sha256 "bc4b07dc9c23f0cca43b1f5c889f08a59c8f2515836b03d4cc7e0f8f2c879234"
   license "Apache-2.0"
+  revision 2
   head "https://github.com/google/or-tools.git", branch: "stable"
 
   livecheck do
@@ -12,13 +13,13 @@ class OrTools < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "0d822b8c261e0bbb33c58f3c783c56beebf2a1cd606654926f267630573de915"
-    sha256 cellar: :any,                 arm64_monterey: "15cbd9f44e5c07072cc5ca8cf3e1e29a266d7366a73af937e6c9e67a37c765ba"
-    sha256 cellar: :any,                 arm64_big_sur:  "367007d1964b818761c6b51b404cb75a86c05e98e83dc59c01bcb9e10b8dd500"
-    sha256 cellar: :any,                 ventura:        "c2f440e0ff49ee1a51fd920ae42d4e9d37e31594befcac47911d602ade0e9a90"
-    sha256 cellar: :any,                 monterey:       "2ac4b800fd5e041fc47d2e8b1d7449048f18a2ee7171e90cc5de9dd3a50fcd8b"
-    sha256 cellar: :any,                 big_sur:        "6fe28066976797a12e7fa15ac47f1ee8640483dc2057f454506baf52b9073689"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a96970f1b7cc4b252dfc0fc79740500afb8fcb70fb0d8b3ae50c2c565efbf49b"
+    sha256 cellar: :any,                 arm64_ventura:  "c38f6d8ab5b99e81909295316cf3d17e586ebcbc2adc775b048f83f8065d1a8b"
+    sha256 cellar: :any,                 arm64_monterey: "b4eabd71515566ca3647c508f019ae60cb4ec4b61dbcceb2b86498729838367a"
+    sha256 cellar: :any,                 arm64_big_sur:  "9d8e3402c72eacb9391f085213116975d1d66932319fc3835e05a0d1b49fc004"
+    sha256 cellar: :any,                 ventura:        "67867a210ee11f1764319bb142cd0887d0d0e0b9986a8ab730ca51c81c4b1f00"
+    sha256 cellar: :any,                 monterey:       "c3bd48d08052e7f9f26a076ab0232bf91c78b41399e4d341ec023c474a45ae20"
+    sha256 cellar: :any,                 big_sur:        "c95cd68dd9fa3b2a62fbe59adea564dfd0695fad0668323339dc8663db4a01bc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4b05c8f4bfe99c64a8ffe30561ec76e726f08db62879a1920fce9a7c0646d37d"
   end
 
   depends_on "cmake" => :build
@@ -38,7 +39,8 @@ class OrTools < Formula
 
   fails_with gcc: "5"
 
-  # Add missing <errno.h> include to numbers.cc
+  # Fix definition duplicated from Protobuf.
+  # https://github.com/google/or-tools/issues/3826
   patch :DATA
 
   def install
@@ -58,37 +60,44 @@ class OrTools < Formula
   test do
     # Linear Solver & Glop Solver
     system ENV.cxx, "-std=c++17", pkgshare/"simple_lp_program.cc",
-           "-I#{include}", "-L#{lib}", "-lortools",
-           *shell_output("pkg-config --cflags --libs absl_check absl_log").chomp.split,
-           "-o", "simple_lp_program"
+                    "-I#{include}", "-L#{lib}", "-lortools",
+                    *shell_output("pkg-config --cflags --libs absl_check absl_log").chomp.split,
+                    "-o", "simple_lp_program"
     system "./simple_lp_program"
 
     # Routing Solver
     system ENV.cxx, "-std=c++17", pkgshare/"simple_routing_program.cc",
-           "-I#{include}", "-L#{lib}", "-lortools",
-           *shell_output("pkg-config --cflags --libs absl_check absl_log").chomp.split,
-           "-o", "simple_routing_program"
+                    "-I#{include}", "-L#{lib}", "-lortools",
+                    *shell_output("pkg-config --cflags --libs absl_check absl_log").chomp.split,
+                    "-o", "simple_routing_program"
     system "./simple_routing_program"
 
     # Sat Solver
     system ENV.cxx, "-std=c++17", pkgshare/"simple_sat_program.cc",
-           "-I#{include}", "-L#{lib}", "-lortools",
-           *shell_output("pkg-config --cflags --libs absl_log absl_raw_hash_set").chomp.split,
-           "-o", "simple_sat_program"
+                    "-I#{include}", "-L#{lib}", "-lortools",
+                    *shell_output("pkg-config --cflags --libs absl_log absl_raw_hash_set").chomp.split,
+                    "-o", "simple_sat_program"
     system "./simple_sat_program"
   end
 end
 
 __END__
-diff --git a/ortools/base/numbers.cc b/ortools/base/numbers.cc
-index e9f5a57..e49182c 100644
---- a/ortools/base/numbers.cc
-+++ b/ortools/base/numbers.cc
-@@ -16,6 +16,7 @@
-
- #include "ortools/base/numbers.h"
-
-+#include <errno.h>
- #include <cfloat>
- #include <cstdint>
- #include <cstdlib>
+diff --git a/ortools/base/logging.h b/ortools/base/logging.h
+index 7f570f9..183b3a4 100644
+--- a/ortools/base/logging.h
++++ b/ortools/base/logging.h
+@@ -52,6 +52,7 @@ enum LogSeverity {
+ };
+ }  // namespace google
+ 
++#if GOOGLE_PROTOBUF_VERSION <= 3021012
+ // Implementation of the `AbslStringify` interface. This adds `DebugString()`
+ // to the sink. Do not rely on exact format.
+ namespace google {
+@@ -62,5 +63,6 @@ void AbslStringify(Sink& sink, const Message& msg) {
+ }
+ }  // namespace protobuf
+ }  // namespace google
++#endif
+ 
+ #endif  // OR_TOOLS_BASE_LOGGING_H_

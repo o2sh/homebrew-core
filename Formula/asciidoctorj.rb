@@ -1,8 +1,8 @@
 class Asciidoctorj < Formula
   desc "Java wrapper and bindings for Asciidoctor"
   homepage "https://github.com/asciidoctor/asciidoctorj"
-  url "https://search.maven.org/remotecontent?filepath=org/asciidoctor/asciidoctorj/2.5.8/asciidoctorj-2.5.8-bin.zip"
-  sha256 "1a99c39fbff715fa4d6eff7f1954e164e5d60169ad64005a87fcd9827adc8c90"
+  url "https://search.maven.org/remotecontent?filepath=org/asciidoctor/asciidoctorj/2.5.10/asciidoctorj-2.5.10-bin.zip"
+  sha256 "292db5e831192982ce485d1a1ffa37590b17d5e3757f11052145f07b6d1161bd"
   license "Apache-2.0"
 
   livecheck do
@@ -11,7 +11,7 @@ class Asciidoctorj < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "e8cf5503e41be22bc414d75a17bff9b3c6def268ddc1bd45ee9bbc2270162d19"
+    sha256 cellar: :any_skip_relocation, all: "902df3c34d2131f33bf18a26999e4e05b4700a8bb0224921ef06f9f583503774"
   end
 
   depends_on "openjdk"

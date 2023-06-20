@@ -1,18 +1,23 @@
 class Bitrise < Formula
   desc "Command-line automation tool"
   homepage "https://github.com/bitrise-io/bitrise"
-  url "https://github.com/bitrise-io/bitrise/archive/2.2.5.tar.gz"
-  sha256 "1947b7aa24d9907be06cb0acb8706f0b6ad1f3ba900457a72679340a312a3ceb"
+  url "https://github.com/bitrise-io/bitrise/archive/2.2.7.tar.gz"
+  sha256 "057031270b4d0ab0be42831614ce45b96c3fc779d201950da7ababf922625391"
   license "MIT"
 
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8c0288ed60ad95d515ea13c417dda3c327e98e5b6b482debdd5ba49ff6fc97ba"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8c0288ed60ad95d515ea13c417dda3c327e98e5b6b482debdd5ba49ff6fc97ba"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "8c0288ed60ad95d515ea13c417dda3c327e98e5b6b482debdd5ba49ff6fc97ba"
-    sha256 cellar: :any_skip_relocation, ventura:        "65df4088747c06b341e154fbe1d4f3090b62dab6fb70d69c6125c4b1767df8e7"
-    sha256 cellar: :any_skip_relocation, monterey:       "65df4088747c06b341e154fbe1d4f3090b62dab6fb70d69c6125c4b1767df8e7"
-    sha256 cellar: :any_skip_relocation, big_sur:        "65df4088747c06b341e154fbe1d4f3090b62dab6fb70d69c6125c4b1767df8e7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "64eb43074aab757164c2a7be3e9dc44242478c95267ab6373d2cbcf287fcda4c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1267bb2b2a5f63b362856ce5d26e7f4ae8b51ffbd0725997327d8d75874a357c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "1267bb2b2a5f63b362856ce5d26e7f4ae8b51ffbd0725997327d8d75874a357c"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "1267bb2b2a5f63b362856ce5d26e7f4ae8b51ffbd0725997327d8d75874a357c"
+    sha256 cellar: :any_skip_relocation, ventura:        "4f52f7f57bfe8a87be489c0fe5c1d251db81abac6e97a1621290e6e0605cee22"
+    sha256 cellar: :any_skip_relocation, monterey:       "4f52f7f57bfe8a87be489c0fe5c1d251db81abac6e97a1621290e6e0605cee22"
+    sha256 cellar: :any_skip_relocation, big_sur:        "4f52f7f57bfe8a87be489c0fe5c1d251db81abac6e97a1621290e6e0605cee22"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "36670ed8949456d6d2455e9655625cee23363d5b97565312b00a686b0ed86ad6"
   end
 
   depends_on "go" => :build

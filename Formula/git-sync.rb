@@ -1,18 +1,18 @@
 class GitSync < Formula
   desc "Clones a git repository and keeps it synchronized with the upstream"
   homepage "https://github.com/kubernetes/git-sync#readme"
-  url "https://github.com/kubernetes/git-sync/archive/refs/tags/v3.6.5.tar.gz"
-  sha256 "cd627f00f291ca4745863a6f62ec834a54f3b64980eb0f3f4e8527d3203e815b"
+  url "https://github.com/kubernetes/git-sync/archive/refs/tags/v3.6.7.tar.gz"
+  sha256 "a80e8ce53caaefc8ada89f36a57b43fd9cefc1fb3e30ab111a10a1ea280804a6"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "06152b684efba4d46fe0981d379d94aa8f126e2ba466712ce6ec4cc1780dfc2a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "06152b684efba4d46fe0981d379d94aa8f126e2ba466712ce6ec4cc1780dfc2a"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "06152b684efba4d46fe0981d379d94aa8f126e2ba466712ce6ec4cc1780dfc2a"
-    sha256 cellar: :any_skip_relocation, ventura:        "51925ce6b0ec567a5c16b02075aaeb1f31219d1ff8cc2dafa24443a9453cb2fc"
-    sha256 cellar: :any_skip_relocation, monterey:       "51925ce6b0ec567a5c16b02075aaeb1f31219d1ff8cc2dafa24443a9453cb2fc"
-    sha256 cellar: :any_skip_relocation, big_sur:        "51925ce6b0ec567a5c16b02075aaeb1f31219d1ff8cc2dafa24443a9453cb2fc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1c73e0f9e63a95d27f941ff117c4ed275c1f0880f74debae8b63f4bc453d6dce"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "94d9fb95eba77a2b434758016e8f6710dbdc07747661374b42f65a471e826c3b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "94d9fb95eba77a2b434758016e8f6710dbdc07747661374b42f65a471e826c3b"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "94d9fb95eba77a2b434758016e8f6710dbdc07747661374b42f65a471e826c3b"
+    sha256 cellar: :any_skip_relocation, ventura:        "df57ed694e6c29d0c685eedf8e72a8a3e79b01f5bdcf2d320598140815de4af0"
+    sha256 cellar: :any_skip_relocation, monterey:       "df57ed694e6c29d0c685eedf8e72a8a3e79b01f5bdcf2d320598140815de4af0"
+    sha256 cellar: :any_skip_relocation, big_sur:        "df57ed694e6c29d0c685eedf8e72a8a3e79b01f5bdcf2d320598140815de4af0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "079d3d7564e0ddccffd3b569b7445c83cae02db7d9b5b652068a76fd79f7fc88"
   end
 
   head do

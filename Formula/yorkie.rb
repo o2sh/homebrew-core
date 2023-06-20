@@ -2,8 +2,8 @@ class Yorkie < Formula
   desc "Document store for collaborative applications"
   homepage "https://yorkie.dev/"
   url "https://github.com/yorkie-team/yorkie.git",
-    tag:      "v0.3.4",
-    revision: "0b9f994459380e44deea211790bb8357acc97776"
+    tag:      "v0.4.2",
+    revision: "dcea8c4666b4da149292f3da2e5b731d6416cd28"
   license "Apache-2.0"
   head "https://github.com/yorkie-team/yorkie.git", branch: "main"
 
@@ -13,13 +13,13 @@ class Yorkie < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6f6c2b9a2a71f175cd4df317ded3c5c68ec17ed018f8c6a1aca2a23eacb3bf44"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "41f8c321e590ca4784fb7c5e280397209c2db5fe300b9ae42c073e0e4a9291cd"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "8a4188b91299d776e04c5b434d992aa9aaf19eb7c30f929fb1ffb6ae7fbcca5c"
-    sha256 cellar: :any_skip_relocation, ventura:        "79ca8ce890b3b2b3197ce404f626151ccb3fb9e34d896e2f2464564100cacc3c"
-    sha256 cellar: :any_skip_relocation, monterey:       "dcf548b05857e7590354411764a9f6fcbfc8902537c5d9e3d9aebe32d8abab8b"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e6843ef8fed0242c2069a3e3e47a6003ef910e3ddeb4cf7d56ae721abc8f90d0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f0ef65e5452802fe95e5d869ed439e4de54f2de5bef3c60d78ea95c7e0dd03d7"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "fbbf79ba9354208e9e46be7ed4386bc4df19c7ed6197764a2d64d3ca122e82ed"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "edf258322dcca43f646a1eb40e56af348a7fa793e9324204f42d8d33dcaaf216"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "12046ef6d5242b026e3b9d94df95c365c5b645b490a68bdf1c21dc302ae70c72"
+    sha256 cellar: :any_skip_relocation, ventura:        "1a7d99598034a2f93a2e41c9cbeceb5739a51ec5cc90eb94c1e1df54fb3220be"
+    sha256 cellar: :any_skip_relocation, monterey:       "9a7531a7c58e856d37c5b43bdbaf637e70e480fd666307cbfb7a31b551b1050c"
+    sha256 cellar: :any_skip_relocation, big_sur:        "6bbfcf58b5cdf60e53c511b9e23f54d81de9dfe022db99bc34249b2bbfed5183"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b3b158480109046f98cdc44dc7ea63332601b0b5c8062c83346c48b1c8a0f58c"
   end
 
   depends_on "go" => :build
@@ -44,10 +44,10 @@ class Yorkie < Formula
     end
     # sleep to let yorkie get ready
     sleep 3
-    system bin/"yorkie", "login", "-u", "admin", "-p", "admin"
+    system bin/"yorkie", "login", "-u", "admin", "-p", "admin", "--insecure"
 
     test_project = "test"
-    output = shell_output("#{bin}/yorkie project create #{test_project} 2>&1")
+    output = shell_output("#{bin}/yorkie project create #{test_project} --insecure 2>&1")
     project_info = JSON.parse(output)
     assert_equal test_project, project_info.fetch("name")
   ensure

@@ -1,26 +1,27 @@
 class Fastnetmon < Formula
   desc "DDoS detection tool with sFlow, Netflow, IPFIX and port mirror support"
   homepage "https://github.com/pavel-odintsov/fastnetmon/"
-  url "https://github.com/pavel-odintsov/fastnetmon/archive/refs/tags/v1.2.4.tar.gz"
-  sha256 "84cd5db0e270f6c268923592eabd5cb0d1689293d9d9f6f0634af548b29f9bb4"
+  # TODO: Check if we can use unversioned `grpc` at version bump
+  url "https://github.com/pavel-odintsov/fastnetmon/archive/refs/tags/v1.2.5.tar.gz"
+  sha256 "d92a1f16e60b6ab6f5c5e023a215570e9352ce9d0c9a9d7209416f8cd0227ae6"
   license "GPL-2.0-only"
   revision 2
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "8be6c0d421aa58f9ce3373050d9f946d0dd5487e37312a12d5f8c5daaa1eaaf1"
-    sha256 cellar: :any,                 arm64_monterey: "4ce200d84d0a28bac3073c6be8eb084382732238a99fe9cbd2c0094ef7b7826f"
-    sha256 cellar: :any,                 arm64_big_sur:  "e18037e32e58e0d23edc0f59804dc52c1ee0006149facfebf0f20c7ec59f1cef"
-    sha256 cellar: :any,                 ventura:        "84f0ad256f7c8265c0ee15d355e2fd3ebb6c422d13588a6ff8fc65c8f6d92bc7"
-    sha256 cellar: :any,                 monterey:       "8b7cde1d1a39987caf6ed51359309c937bfff25a9839a3198d34b3520d4a6e3d"
-    sha256 cellar: :any,                 big_sur:        "2a735e77fd27bc3c0a06acd5cb2c82e1144565a46e6634860c4ae6ca5ab35dc2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e55038ba9fd79ef65de4695d744a8796f7cce3f4e745832273cd7c9fa853bcb9"
+    sha256 cellar: :any,                 arm64_ventura:  "cfbee7fcc9c447bb72969d973f7b130a338e6802e77f9eed269389620f576d93"
+    sha256 cellar: :any,                 arm64_monterey: "2dce88a68ddf802ef663443eb4a694a72c265b250d203a6b1e980f25f8e01fc7"
+    sha256 cellar: :any,                 arm64_big_sur:  "26b5966e4f025903c24178723c683b3cdbfe353afb20216de6a4758f4c8da285"
+    sha256 cellar: :any,                 ventura:        "4cc7dbd890eb50fe2c6469a873e10b4decc5c2130ad2328f75923ce8dd910e6c"
+    sha256 cellar: :any,                 monterey:       "ab7982e2f4769464eb0ef67a81b27c6463231b40893734b1eafcc5d4a368520c"
+    sha256 cellar: :any,                 big_sur:        "8d61e825bacb369d6eb524950841d328781007a27f618a96b55a4f10ca244194"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4114950c93a97ec831923b78acbbaa45b3031229c1e3bc95ef912b3cc404ca91"
   end
 
   depends_on "cmake" => :build
   depends_on "abseil"
   depends_on "boost"
   depends_on "capnp"
-  depends_on "grpc"
+  depends_on "grpc@1.54"
   depends_on "hiredis"
   depends_on "log4cpp"
   depends_on macos: :big_sur # We need C++ 20 available for build which is available from Big Sur
@@ -64,9 +65,9 @@ class Fastnetmon < Formula
   test do
     cp etc/"fastnetmon.conf", testpath
 
-    inreplace testpath/"fastnetmon.conf", "/tmp/fastnetmon.dat", testpath/"fastnetmon.dat"
+    inreplace testpath/"fastnetmon.conf", "/tmp/fastnetmon.dat", (testpath/"fastnetmon.dat").to_s
 
-    inreplace testpath/"fastnetmon.conf", "/tmp/fastnetmon_ipv6.dat", testpath/"fastnetmon_ipv6.dat"
+    inreplace testpath/"fastnetmon.conf", "/tmp/fastnetmon_ipv6.dat", (testpath/"fastnetmon_ipv6.dat").to_s
 
     fastnetmon_pid = fork do
       exec opt_sbin/"fastnetmon",

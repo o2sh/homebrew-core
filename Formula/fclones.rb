@@ -1,24 +1,24 @@
 class Fclones < Formula
   desc "Efficient Duplicate File Finder"
   homepage "https://github.com/pkolaczk/fclones"
-  url "https://github.com/pkolaczk/fclones/archive/refs/tags/v0.30.0.tar.gz"
-  sha256 "d22eec734dbc7c4b179d650c3e259c6682e923b72e596978adac5cd6f2fccbb2"
+  url "https://github.com/pkolaczk/fclones/archive/refs/tags/v0.32.1.tar.gz"
+  sha256 "313d4dad30ed1db4d74abd78f30a7a9917c361918d2bc6d84c9d97a2a8c7c5cb"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5daa7251fcbc0562c8290353672358499cf380c5372ccb7cf99fc91ae542c493"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a305dc530951fd805edd15776cf102152968563f05d1c9f7ead7180a37cedd64"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "64362480969c3b7d9a29502da92310d7be6fe48a8563fa1189f047d46d4e7525"
-    sha256 cellar: :any_skip_relocation, ventura:        "811e49cb44c7d333b631b254aa1021e569020697529471457ddc7393cb824c6f"
-    sha256 cellar: :any_skip_relocation, monterey:       "b0134f7f1c610cc457f6eaf83219016b718c733c764d1332ed7618508bf74c79"
-    sha256 cellar: :any_skip_relocation, big_sur:        "2ca886e5be393a60fa6ca69db5ac72582f4c79aa760f2c0bc3f2563d4af75818"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "02f08377506c1b342b6f593e82fd4fb13c1c8230ab2547fe9805f5b605845d0f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9067e8185d41cf16f5d3bc29fdc2b3ce8f4edad185b3c9ec383ab06aa811cca0"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "03eff43c5ae76de8a591cc95a73ea5e0c65a689677d88e09f916da80606fa35b"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "14f6717c129313c4d7547dbd9019045d2a1104c42bbe5885350c84ddc7ab15ee"
+    sha256 cellar: :any_skip_relocation, ventura:        "d5c29c8cde27f210b3980b15956bd1324c659e0c3651bf47db9038ff5295d901"
+    sha256 cellar: :any_skip_relocation, monterey:       "e36b45ce1b8df565f6d3cad2524457cc5ac8ce8052f37b515b2f9f22c1dd17ce"
+    sha256 cellar: :any_skip_relocation, big_sur:        "6d92e888eb4d5636bf721e3cf195d2d8228a2ca3e1d4362dafa1e2d2469dc0a6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8fb8949117746fa9a7d854b2f075c7ca21397f257ae46e39a6e1bfad5202a4e8"
   end
 
   depends_on "rust" => :build
 
   def install
-    system "cargo", "install", *std_cargo_args
+    system "cargo", "install", *std_cargo_args(path: "fclones")
   end
 
   test do

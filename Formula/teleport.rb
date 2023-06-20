@@ -1,28 +1,26 @@
 class Teleport < Formula
   desc "Modern SSH server for teams managing distributed infrastructure"
   homepage "https://gravitational.com/teleport"
-  url "https://github.com/gravitational/teleport/archive/v12.2.4.tar.gz"
-  sha256 "8fc6d5e9b3c26764852df82ab67874b15167b4a28dbc140224cfa3db2ba8d3e5"
+  url "https://github.com/gravitational/teleport/archive/v13.1.1.tar.gz"
+  sha256 "385aa94568019b05e3e8249e91aac1e2c196a000de91508312ce166633501379"
   license "Apache-2.0"
   head "https://github.com/gravitational/teleport.git", branch: "master"
 
-  # We check the Git tags instead of using the `GithubLatest` strategy, as the
-  # "latest" version can be incorrect. As of writing, two major versions of
-  # `teleport` are being maintained side by side and the "latest" tag can point
-  # to a release from the older major version.
+  # As of writing, two major versions of `teleport` are being maintained
+  # side by side and the "latest" release can point to an older major version.
   livecheck do
     url :stable
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "3d4a57fb2f536628cc82d9281944bbe268117e6661499270054f7f2775eec502"
-    sha256 cellar: :any,                 arm64_monterey: "cf89b516873f9e3b497ae82c8ea85f22927aac786939e7ef9a1f4813298f2da7"
-    sha256 cellar: :any,                 arm64_big_sur:  "a49b44eb2928fb225252b8a5d3d475547325c2f6a1c02c0d2344335ddf75eb2f"
-    sha256 cellar: :any,                 ventura:        "7efb88f70cb07d6b4555db0ad52af6133fc42b6dbe657483314c361adaea246d"
-    sha256 cellar: :any,                 monterey:       "5171e290f185d5b8acee94d18d366bd3ce35631bd39d2425d14ce05470bc624e"
-    sha256 cellar: :any,                 big_sur:        "13d22430eadd309504001ad6cbd868db9239009771ad9e3be53ea8d259f4fba0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f9d9b38d6008f72d93a232dd636381f277a5b65b4495f5deee11b3321e0c03fc"
+    sha256 cellar: :any,                 arm64_ventura:  "c9627a4a448bb0b735fd53ba940d6d3e7e94e73455c90ff2825a4048f2adaa75"
+    sha256 cellar: :any,                 arm64_monterey: "7f1678b48c16935d06d27ac1641e7d276439bd3d27bc3dd4ec06b396b360d59e"
+    sha256 cellar: :any,                 arm64_big_sur:  "745a9dbdbfab1e77ba450a43a8b4b335fcc1edf5977c395256a3a386e8cb144f"
+    sha256 cellar: :any,                 ventura:        "8d661d0321ac2b0247c886912a8e0f8c663b79eac6a36dab70dd24067d0afb9e"
+    sha256 cellar: :any,                 monterey:       "26a396b4eb04037576922926f8ccec87b73c1619912d755ae31bf74a01dc801b"
+    sha256 cellar: :any,                 big_sur:        "504c34af7e60d74c34bbbf1d3030c48740beb4d93ccb8f249464583b00fed246"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "25512ee729cc81abbf08435d1036aac6cc76c300218cdef91c5372db49eaf23e"
   end
 
   depends_on "go" => :build

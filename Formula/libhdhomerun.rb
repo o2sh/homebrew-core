@@ -1,8 +1,8 @@
 class Libhdhomerun < Formula
   desc "C library for controlling SiliconDust HDHomeRun TV tuners"
   homepage "https://www.silicondust.com/support/linux/"
-  url "https://download.silicondust.com/hdhomerun/libhdhomerun_20230323.tgz"
-  sha256 "4f599c4f774c7accfc78fe07a2d492f2352c7b5ed9aa03f39b74f39c937b96e6"
+  url "https://download.silicondust.com/hdhomerun/libhdhomerun_20230505.tgz"
+  sha256 "aa8f1c23e6d38f0d684426cdc1cbfced953a2a9dec3fbe645ab11c15a8c0b4d6"
   license "LGPL-2.1-or-later"
 
   livecheck do
@@ -12,13 +12,13 @@ class Libhdhomerun < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "b4aac235495fe859eba9a955a21532be0eec6ff8fafbc60ad3b125579444eae9"
-    sha256 cellar: :any,                 arm64_monterey: "557651b31ef704c6684028639eddbc6d98116cc14c551aeb58c948ed5cef8fe5"
-    sha256 cellar: :any,                 arm64_big_sur:  "b9cd7a728c67f0cde031da717764921af4fd9ed400c89b6b57b76b9f8ba21813"
-    sha256 cellar: :any,                 ventura:        "a51783ee53c4d04b4129dd79aa2eb1602a1efa64571364136450208420ea859a"
-    sha256 cellar: :any,                 monterey:       "cbe0701e22a84bba98d73230e2dbe6ce47c5e3f4cc4f3368e18ad5fa053cd8fb"
-    sha256 cellar: :any,                 big_sur:        "72117f54b1ca2bb2bce8ec1c1f668f84f6abad15e3e2d6239f96b05fef5be66d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "35734ea2d7aa31c1941b6adaa5b554cb4b34a0a18f7b604e0dd003987ce358f6"
+    sha256 cellar: :any,                 arm64_ventura:  "d689d92bc54327a823aa282602c89480941e26d1316b123a16491d4d8bddbfee"
+    sha256 cellar: :any,                 arm64_monterey: "aafd9311022302cfc15fbc3607a573215b7d5d367d7437555e6bb8a5658f4b5b"
+    sha256 cellar: :any,                 arm64_big_sur:  "349db90961c509f61a4314fcb6a72151c88e71771342f40a25d1eae1bb716ea1"
+    sha256 cellar: :any,                 ventura:        "a88197af57f160b3dbdf05497ca18931d5141c40807fc4c632828554a42cb710"
+    sha256 cellar: :any,                 monterey:       "e7a9e400a7d3d602520586157397b5c8dcc17bcc2cf94c8228381c5b88116e97"
+    sha256 cellar: :any,                 big_sur:        "ade0887894eeb4b32f5b2fd0a293277c36eb500df9fac60883816c011f5b3a8b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1da26129c26072098fd07015edd7a37ba54bbddc9cb2c3e708c9ac750fd265b5"
   end
 
   def install

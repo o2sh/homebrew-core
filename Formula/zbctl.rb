@@ -2,8 +2,8 @@ class Zbctl < Formula
   desc "Zeebe CLI client"
   homepage "https://docs.camunda.io/docs/apis-clients/cli-client/index/"
   url "https://github.com/camunda/zeebe.git",
-      tag:      "8.2.3",
-      revision: "25bdd43aba09d8189b8a60c3def3e6ed14984c4b"
+      tag:      "8.2.7",
+      revision: "e386bbd132c4b286d76bc825f781c77e76f90eb4"
   license "Apache-2.0"
   head "https://github.com/camunda/zeebe.git", branch: "develop"
 
@@ -16,13 +16,13 @@ class Zbctl < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "17f64b68b7e763f1402651030f26bee82815ca0e8ec417cf846f39f4643646d2"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "17f64b68b7e763f1402651030f26bee82815ca0e8ec417cf846f39f4643646d2"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "17f64b68b7e763f1402651030f26bee82815ca0e8ec417cf846f39f4643646d2"
-    sha256 cellar: :any_skip_relocation, ventura:        "f2a31e45562437c27c1951f6229f6af4c0e2b49862c779776d71e8bc46bd1a8a"
-    sha256 cellar: :any_skip_relocation, monterey:       "f2a31e45562437c27c1951f6229f6af4c0e2b49862c779776d71e8bc46bd1a8a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "f2a31e45562437c27c1951f6229f6af4c0e2b49862c779776d71e8bc46bd1a8a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9d5404bb161eadb7b6569c258297e0e6d7b28d25863b28a65038acebad8c4f0f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3464dd86d5a1572492ff94cf7bf45ec9f1498ecc01e86bf5cc9ea7fee4f0ced8"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "3464dd86d5a1572492ff94cf7bf45ec9f1498ecc01e86bf5cc9ea7fee4f0ced8"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "3464dd86d5a1572492ff94cf7bf45ec9f1498ecc01e86bf5cc9ea7fee4f0ced8"
+    sha256 cellar: :any_skip_relocation, ventura:        "029e7b16275a75bb2bf49e6aeba2cea06a10a56c66a0cfb000ce795bac6d3f2b"
+    sha256 cellar: :any_skip_relocation, monterey:       "029e7b16275a75bb2bf49e6aeba2cea06a10a56c66a0cfb000ce795bac6d3f2b"
+    sha256 cellar: :any_skip_relocation, big_sur:        "029e7b16275a75bb2bf49e6aeba2cea06a10a56c66a0cfb000ce795bac6d3f2b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7cbf7140c9412a2ca795972c42f0258194eba16648ca518af15a0d8c3c477839"
   end
 
   depends_on "go" => :build
@@ -47,7 +47,7 @@ class Zbctl < Formula
     status_error_message =
       "Error: rpc error: code = " \
       "Unavailable desc = connection error: " \
-      "desc = \"transport: Error while dialing dial tcp 127.0.0.1:26500: connect: connection refused\""
+      "desc = \"transport: Error while dialing: dial tcp 127.0.0.1:26500: connect: connection refused\""
     output = shell_output("#{bin}/zbctl status 2>&1", 1)
     assert_match status_error_message, output
     # Check version

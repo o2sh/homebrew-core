@@ -1,8 +1,9 @@
 class Singular < Formula
   desc "Computer algebra system for polynomial computations"
   homepage "https://www.singular.uni-kl.de/"
-  url "https://www.singular.uni-kl.de/ftp/pub/Math/Singular/SOURCES/4-3-2/singular-4.3.2.tar.gz"
-  sha256 "3fd565d1bd4265fa8ba7cc189137a36d9daf9939b5bb411466c2028d9191f6db"
+  url "https://www.singular.uni-kl.de/ftp/pub/Math/Singular/SOURCES/4-3-2/singular-4.3.2p2.tar.gz"
+  version "4.3.2p2"
+  sha256 "660ae93ace79db4209203770d93baf16b5b741dc26b6bae06c9b2c98ad188df1"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -23,7 +24,7 @@ class Singular < Formula
 
       # Fetch the page for the newest version directory
       dir_page = Homebrew::Livecheck::Strategy.page_content(
-        URI.join(@url, "#{newest_version.to_s.tr(".", "-")}/"),
+        URI.join(@url, "#{newest_version.to_s.tr(".", "-")}/").to_s,
       )
       next versions if dir_page[:content].blank?
 
@@ -35,13 +36,13 @@ class Singular < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "a09bbe11e96ea0ede75ccce6e27ee298eb93084e3bb65e4775cfca76e03a923c"
-    sha256 arm64_monterey: "a4979fab796c8db15f9a9387560c3ced01ed6fa892796fb1795bf07fcfb2ea88"
-    sha256 arm64_big_sur:  "adb7c53e6492ae1fb270dbb63c09df102d295ffd651a989bf1ec763fdbbd896f"
-    sha256 ventura:        "105352f402f24a014a5ff9817154b803cc2f222e02e60277fa2f182ce5bd4a38"
-    sha256 monterey:       "b3ac765755f9181cf2e75f40905d17c8229de0834d16447074ccf278c30a60c5"
-    sha256 big_sur:        "eb5ab8271b4810247dd58d44951b6611610f7d805973541a72869298e9a8a99f"
-    sha256 x86_64_linux:   "7d8a9346480d55af00fb1bf2290cefc06643b5d11e187970dd5ecc59ab604966"
+    sha256 arm64_ventura:  "cd3ca39feba69347558a0e08ed5025b13f8fc61bd7c4ae8b2099e555db63a3b0"
+    sha256 arm64_monterey: "e15effe8146eed0ffa64e4a963308eb9a3729331a5df792c5fcee28f28bee4f6"
+    sha256 arm64_big_sur:  "2c48ef40c8329e92af3501db0cdb60c5026d379f885c46d270a89361f40c73b2"
+    sha256 ventura:        "3cdb409f43fed4a8096fc625d91b3943a7ee531ed6808b73d1baa627187c8079"
+    sha256 monterey:       "67a42a53f17d3e35af8530f7f4616ffd7a44629e51776db583a54463a81f72be"
+    sha256 big_sur:        "b3c72f44be646fd295d1edc466c52a2f8f3800eca7cbe7d1286b6b1c5c8cab41"
+    sha256 x86_64_linux:   "f20281d5b6fd85c880df5b21953a822307945e856c4f34e453d7a39d82a327c0"
   end
 
   head do

@@ -2,8 +2,8 @@ class Onnxruntime < Formula
   desc "Cross-platform, high performance scoring engine for ML models"
   homepage "https://github.com/microsoft/onnxruntime"
   url "https://github.com/microsoft/onnxruntime.git",
-      tag:      "v1.14.1",
-      revision: "c57cf374b67f72575546d7b4c69a1af4972e2b54"
+      tag:      "v1.15.1",
+      revision: "baeece44ba075009c6bfe95891a8c1b3d4571cb3"
   license "MIT"
 
   livecheck do
@@ -12,13 +12,13 @@ class Onnxruntime < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "59fa13559228408224899e11052207b905a42117ea344044cca443f83f786dc6"
-    sha256 cellar: :any,                 arm64_monterey: "68722726524b8c0fa36ffdc7bb580a727727e3ccad0c68b8bf7a0f24168029ba"
-    sha256 cellar: :any,                 arm64_big_sur:  "2db795684913f49fa2ed5644b9d0942b422e16dea469eda38c65c558eb2b6f81"
-    sha256 cellar: :any,                 ventura:        "9f941aa3dff793062720d49b38914481e7aa92dba09a70f6940c400c6c684710"
-    sha256 cellar: :any,                 monterey:       "9a8c6ea07f884d275c37f965d4d1cd363014ccb77c3abcca9e870cb309a5b402"
-    sha256 cellar: :any,                 big_sur:        "5391f619684d0d583e510cc472903047dc85780b91c65212c7dd685ce48498de"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1a6ab66baa78bbd14374d024c86972dacfea886703d8d96ad8c9297cb792e250"
+    sha256 cellar: :any,                 arm64_ventura:  "fa1614a946d6b74b70975191cc6d737371bda484702a6647b9c7653aba36293f"
+    sha256 cellar: :any,                 arm64_monterey: "0ede3332d4a1371429a8ebfdb91ec5783f7853fa963311cd5e8d9439d8a0c9f8"
+    sha256 cellar: :any,                 arm64_big_sur:  "c01b8c3bc163fd3848fda6b7b64d62117a614b1d6a0065e59fa72a0844375fe5"
+    sha256 cellar: :any,                 ventura:        "6bf6dcff3ce48adf469a9862c8c9287b749312c1974a67cf80c261c908537824"
+    sha256 cellar: :any,                 monterey:       "f32d282661b950e8012b8fc8ca3785cf22f51f9242ce3e3518306caf5c9ce3ec"
+    sha256 cellar: :any,                 big_sur:        "9372f3aff5069794712399f9af4fa170f1c96e7d8b33869baa860967e18b1533"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f9b3e169149c0eff76f9ef8a9400f7ca6f585049f75669cc9c8b805818da44ab"
   end
 
   depends_on "cmake" => :build

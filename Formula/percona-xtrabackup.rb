@@ -1,23 +1,31 @@
 class PerconaXtrabackup < Formula
   desc "Open source hot backup tool for InnoDB and XtraDB databases"
   homepage "https://www.percona.com/software/mysql-database/percona-xtrabackup"
-  url "https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-8.0.29-22/source/tarball/percona-xtrabackup-8.0.29-22.tar.gz"
-  sha256 "7c3bdfaf0b02ec4c09b3cdb41b2a7f18f79dce9c5d396ada36fbc2557562ff55"
-  revision 2
+  # TODO: Check if we can use unversioned `protobuf` at version bump
+  url "https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-8.0.33-27/source/tarball/percona-xtrabackup-8.0.33-27.tar.gz"
+  sha256 "64b3b0ecaab5a5ee50af02ec40f12664bfe4c94f929ff0c189705ae886da0b12"
+  license "GPL-2.0-only"
 
   livecheck do
-    url "https://www.percona.com/downloads/Percona-XtraBackup-LATEST/"
-    regex(/value=.*?Percona-XtraBackup[._-]v?(\d+(?:\.\d+)+-\d+)["' >]/i)
+    url "https://docs.percona.com/percona-xtrabackup/latest/"
+    regex(/href=.*?v?(\d+(?:[.-]\d+)+)\.html/i)
+    strategy :page_match do |page, regex|
+      page.scan(regex).map do |match|
+        # Convert a version like 1.2.3-4.0 to 1.2.3-4 (but leave a version like
+        # 1.2.3-4.5 as-is).
+        match[0].sub(/(-\d+)\.0$/, '\1')
+      end
+    end
   end
 
   bottle do
-    sha256 arm64_ventura:  "6cf8b9eb0878c54482e738fcec0a5268d322ea5ccb48dbae06561ff4453b940d"
-    sha256 arm64_monterey: "955566d27d963005be5d04e165afe2620fcdd5398737689cf22f8af45492c7f0"
-    sha256 arm64_big_sur:  "db1a36b5d778dacbd69617c91bacc29e3e6b4c4b5e143efb34e125fb82eebc19"
-    sha256 ventura:        "196356bb33ba9ba04b2caf0eedff1eb860c49bb042bd8387304402ec474d8739"
-    sha256 monterey:       "932086f3316a559c5065ac52526db1a6a548901d1e98e676c53b881046832df8"
-    sha256 big_sur:        "74e90100a581e3bfc8a0a0ca7d9965ea912603910651f22c132812369d8e54f5"
-    sha256 x86_64_linux:   "c97d299db52ead71ea70660de8b20ffa71c9aa39a0211e237703f3b50e9a00ed"
+    sha256 arm64_ventura:  "a9ab6bb9546c58c1183507c1fbf72c92d467bdfb8f92de3b71572ef65b3690ef"
+    sha256 arm64_monterey: "e16e58439c285b6ab010bfbcaedc21758050b4387379d846d8895ef74768efa1"
+    sha256 arm64_big_sur:  "df4f8b720f7c19fd65b82aa18d07f03cb32ce34ec3f07f17e5175c5a1c1d6efe"
+    sha256 ventura:        "8162482dc5e6429febbc902933eb9317af576ff6d618fdb28c16f2b7f46d4f18"
+    sha256 monterey:       "c9970fccd57427a12f8fdf540574ce2f7ee3584754c818e81a0343ebf2f6761a"
+    sha256 big_sur:        "9a3a49b67e5ad6809e8c8d127892f8e750529bb0369e5576b91ec450e726f242"
+    sha256 x86_64_linux:   "c18f432456cf0da03d67a63cea959fe267e1b6c64a468b1d6d3dc40047c74508"
   end
 
   depends_on "cmake" => :build
@@ -29,9 +37,9 @@ class PerconaXtrabackup < Formula
   depends_on "libfido2"
   depends_on "libgcrypt"
   depends_on "lz4"
-  depends_on "mysql-client"
+  depends_on "mysql"
   depends_on "openssl@1.1"
-  depends_on "protobuf"
+  depends_on "protobuf@21"
   depends_on "zstd"
 
   uses_from_macos "vim" => :build # needed for xxd
@@ -44,6 +52,8 @@ class PerconaXtrabackup < Formula
   on_linux do
     depends_on "patchelf" => :build
     depends_on "libaio"
+    # Incompatable with procps-4 https://jira.percona.com/browse/PXB-2993
+    depends_on "procps@3"
   end
 
   conflicts_with "percona-server", because: "both install a `kmip.h`"
@@ -55,8 +65,8 @@ class PerconaXtrabackup < Formula
 
   # Should be installed before DBD::mysql
   resource "Devel::CheckLib" do
-    url "https://cpan.metacpan.org/authors/id/M/MA/MATTN/Devel-CheckLib-1.14.tar.gz"
-    sha256 "f21c5e299ad3ce0fdc0cb0f41378dca85a70e8d6c9a7599f0e56a957200ec294"
+    url "https://cpan.metacpan.org/authors/id/M/MA/MATTN/Devel-CheckLib-1.16.tar.gz"
+    sha256 "869d38c258e646dcef676609f0dd7ca90f085f56cf6fd7001b019a5d5b831fca"
   end
 
   # This is not part of the system Perl on Linux and on macOS since Mojave
@@ -76,19 +86,21 @@ class PerconaXtrabackup < Formula
     sha256 "fc9f85fc030e233142908241af7a846e60630aa7388de9a5fafb1f3a26840854"
   end
 
-  # Fix CMake install error with manpages.
-  # https://github.com/percona/percona-xtrabackup/pull/1266
-  patch do
-    url "https://github.com/percona/percona-xtrabackup/commit/1d733eade782dd9fdf8ef66b9e9cb9e00f572606.patch?full_index=1"
-    sha256 "9b38305b4e4bae23b085b3ef9cb406451fa3cc14963524e95fc1e6cbf761c7cf"
-  end
-
   # Patch out check for Homebrew `boost`.
   # This should not be necessary when building inside `brew`.
   # https://github.com/Homebrew/homebrew-test-bot/pull/820
+  # Re-using variant from mysql
   patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/030f7433e89376ffcff836bb68b3903ab90f9cdc/percona-server/boost-check.patch"
-    sha256 "3223f7eebd04b471de1c21104c46b2cdec3fe7b26e13535bdcd0d7b8fd341bde"
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/030f7433e89376ffcff836bb68b3903ab90f9cdc/mysql/boost-check.patch"
+    sha256 "af27e4b82c84f958f91404a9661e999ccd1742f57853978d8baec2f993b51153"
+  end
+
+  # Fix for "Cannot find system zlib libraries" even though they are installed.
+  # https://bugs.mysql.com/bug.php?id=110745
+  # https://bugs.mysql.com/bug.php?id=111467
+  patch do
+    url "https://bugs.mysql.com/file.php?id=32361&bug_id=111467"
+    sha256 "3fe1ebb619583fc1778b249042184ef48a4f85555c573fb3618697cf024d19cc"
   end
 
   def install
@@ -118,16 +130,12 @@ class PerconaXtrabackup < Formula
     (buildpath/"boost").install resource("boost")
     cmake_args << "-DWITH_BOOST=#{buildpath}/boost"
 
-    cmake_args.concat std_cmake_args
-
     # Remove conflicting manpages
     rm (Dir["man/*"] - ["man/CMakeLists.txt"])
 
-    mkdir "build" do
-      system "cmake", "..", *cmake_args
-      system "make"
-      system "make", "install"
-    end
+    system "cmake", "-S", ".", "-B", "build", *cmake_args, *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
 
     # remove conflicting library that is already installed by mysql
     rm lib/"libmysqlservices.a"

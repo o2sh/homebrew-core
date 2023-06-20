@@ -1,19 +1,20 @@
 class Zk < Formula
   desc "Plain text note-taking assistant"
   homepage "https://github.com/mickael-menu/zk"
-  url "https://github.com/mickael-menu/zk/archive/refs/tags/v0.13.0.tar.gz"
-  sha256 "8f3d9957652583fae7045392091ee53be1afe3fcf9aed1a911d0cf5e0691a021"
+  url "https://github.com/mickael-menu/zk/archive/refs/tags/v0.14.0.tar.gz"
+  sha256 "bd96f93d50e2e72ce05f36c3dab5b7942ae205756f26d4c68ba2a7ccc783abc8"
   license "GPL-3.0-only"
+  revision 1
   head "https://github.com/mickael-menu/zk.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "8ff6ac839af8f09ede3db7f9517cd4a4b255e0c8807b758dc7b4e8c9f62d91ff"
-    sha256 cellar: :any,                 arm64_monterey: "44d7ce7d40393f8de0cea3cffb0bbd3f9c184e87e2e50cd9ee35d6f51f930d43"
-    sha256 cellar: :any,                 arm64_big_sur:  "fd21bc8178875b1df99339ad31b60973181583d49fe81e86b6ba9826d1f5323a"
-    sha256 cellar: :any,                 ventura:        "475eac02a56fa55fd1ed1941d45b6c4d9f5c90a998978b4a6b1b36597761bbd2"
-    sha256 cellar: :any,                 monterey:       "d9a7b4c9c63437479f7ecef729d1807b563aa85cf70b13d14cc67e0d2554cf5b"
-    sha256 cellar: :any,                 big_sur:        "04fa882b52d47700465fe21689ad2d1ecb2dc1836dd7b0de87d71ec5b8c800b0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "936943183e29e3ee48211734566c0add16c1a48a2e8f593f4d3d7c1830d274bc"
+    sha256 cellar: :any,                 arm64_ventura:  "4971122839654adbff8642e44ba166117cbb09f53a4ee35cb3bd73c1c32625dc"
+    sha256 cellar: :any,                 arm64_monterey: "fa87223acb14ee1d33b5493498b19380b0b4a94c3bebdf2faa64e0bf3335026e"
+    sha256 cellar: :any,                 arm64_big_sur:  "ba7dec1077c88ec64205cba25cdae02518ba69507ee9acea84358a130b25858a"
+    sha256 cellar: :any,                 ventura:        "a1e96b6d47ff1ce7316d12f0d659db84885c7b9c9f752186d6ab875d78884f2d"
+    sha256 cellar: :any,                 monterey:       "83b294c1fd7da4e5976129741a8abc9d8fb8d8a96ddec7d4d8e473b2c79d0720"
+    sha256 cellar: :any,                 big_sur:        "59becb9aa1e9296c69a713b57c2fa4567170bf00fc0c77ea2b33525be8d90f63"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "92e8999c69b2a43d1ce03a54a0cc2c6cc87e2741419c9bff24d96b4fc9075afd"
   end
 
   depends_on "go" => :build

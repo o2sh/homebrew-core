@@ -2,19 +2,20 @@ class Openrct2 < Formula
   desc "Open source re-implementation of RollerCoaster Tycoon 2"
   homepage "https://openrct2.io/"
   url "https://github.com/OpenRCT2/OpenRCT2.git",
-      tag:      "v0.4.4",
-      revision: "9e4918cdbc3a90f3da0373fc824f675d9332d3f6"
+      tag:      "v0.4.5",
+      revision: "76ca8400cade0c6de5b47a7e44d405d56f278a83"
   license "GPL-3.0-only"
+  revision 1
   head "https://github.com/OpenRCT2/OpenRCT2.git", branch: "develop"
 
   bottle do
-    sha256 cellar: :any, arm64_ventura:  "409295cd72ee4a37053153c077916c1788877963d126285fb3df0608ef8552b6"
-    sha256 cellar: :any, arm64_monterey: "374ab18c18e2fc3aa218566c14254f9991c581d148cfb46677efebf6c2857840"
-    sha256 cellar: :any, arm64_big_sur:  "8223d770906d95a8d4b020c743e1f7be1d81f336e4d624191c5c2206e545c343"
-    sha256 cellar: :any, ventura:        "b222c11b74f412b7df1570fc31a00bbf70eb31b78d3bbc1c6991c47226b63b62"
-    sha256 cellar: :any, monterey:       "78a743b962b1507dcdf23efb159e6d6277b2b0c0fc5d7766599374364a757247"
-    sha256 cellar: :any, big_sur:        "e3f0f414820ac845b5a640671415025f6b3c76ad42071520143123eed9e77a2c"
-    sha256               x86_64_linux:   "8f2c2d34e23b9a2c15c82a236caec6c4255e0c846b7f2d8d2615c53c63fb1352"
+    sha256 cellar: :any, arm64_ventura:  "5e6e9c1e1f9a4a4acfc6e2387c13cc05b6ddbc0a03f3ba913380b0ccaf671c44"
+    sha256 cellar: :any, arm64_monterey: "d5c1d2cbbfc2298ddf7a0e7ec220de5dd56754a2a5b8bbbe9d4248d2831c249d"
+    sha256 cellar: :any, arm64_big_sur:  "983d716c2387fc3e880ec538c3692ac2e8ef620e23a94e0a6e08200eb05e85d2"
+    sha256 cellar: :any, ventura:        "ded071b51b5f1d348bc54811ceb3e52c4119e8d10af91eb8f2d98feb247213e1"
+    sha256 cellar: :any, monterey:       "1184d72083b432273a1971c920e26de61afe4dbb298815c2bcd33281da62e049"
+    sha256 cellar: :any, big_sur:        "0b9497bb1ef582f6fe6482d83e604dc2a2f1a5f67e91715d0d2586869ff4dee5"
+    sha256               x86_64_linux:   "f74ccde2fa7d945fe06511674c46588f05608b41fddf0173a5b5db57910e929a"
   end
 
   depends_on "cmake" => :build

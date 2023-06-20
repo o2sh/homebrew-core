@@ -4,12 +4,12 @@ on:
   workflow_run:
     workflows:
       - CI
-      - Track approved PRs
+      - Trigger automerge
     types:
       - completed
 
 concurrency:
-  group: automerge-${{ github.event.workflow_run.event }}-${{ github.event.workflow_run.pull_requests[0].number || github.event.workflow_run.id }}
+  group: automerge-${{ github.event.workflow_run.event }}-${{ github.event.workflow_run.id }}
   cancel-in-progress: true
 
 env:
@@ -25,8 +25,7 @@ jobs:
     if: >
       github.repository_owner == 'Homebrew' &&
       github.event.workflow_run.conclusion == 'success' &&
-      (github.event.workflow_run.event == 'pull_request' ||
-       github.event.workflow_run.name != 'CI')
+      startsWith(github.event.workflow_run.event, 'pull_request')
     outputs:
       pull-number: ${{ steps.pr.outputs.number }}
       publishable: ${{ steps.check-labels.outputs.publishable }}
@@ -38,13 +37,18 @@ jobs:
       pull-requests: read
       actions: read
     steps:
-      - name: Download `pull-number` artifact
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WORKFLOW_ID: ${{ github.event.workflow_run.id }}
-        run: gh run download --name pull-number "$WORKFLOW_ID"
+      - uses: Homebrew/actions/find-related-workflow-run-id@master
+        with:
+          run-id: ${{ github.event.workflow_run.id }}
+          workflow-name: Triage tasks
 
-      - run: echo "number=$(cat number)" >> "$GITHUB_OUTPUT"
+      - name: Download `event_payload` artifact
+        uses: Homebrew/actions/gh-try-download@master
+        with:
+          artifact-name: event_payload
+          workflow-id: ${{ env.workflow_run_id }}
+
+      - run: echo "number=$(jq --raw-output .number event.json)" >> "$GITHUB_OUTPUT"
         id: pr
 
       - name: Check PR labels
@@ -56,11 +60,9 @@ jobs:
           publishable=true
           while IFS='' read -r label
           do
-            if [[ "$label" = "do not merge" ]] ||
-               [[ "$label" = "new formula" ]] ||
+            if [[ "$label" = "new formula" ]] ||
                [[ "$label" = "automerge-skip" ]] ||
                [[ "$label" = "pre-release" ]] ||
-               [[ "$label" = "CI-syntax-only" ]] ||
                [[ "$label" = "CI-published-bottle-commits" ]]
             then
               publishable=false
@@ -70,7 +72,7 @@ jobs:
             gh api \
               --header 'Accept: application/vnd.github+json' \
               --header 'X-GitHub-Api-Version: 2022-11-28' \
-              "repos/$GH_REPO/pulls/$PR" \
+              "repos/{owner}/{repo}/pulls/$PR" \
               --jq '.labels[].name'
           )
           echo "publishable=$publishable" >> "$GITHUB_OUTPUT"
@@ -81,6 +83,30 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR: ${{ steps.pr.outputs.number }}
+          QUERY: |-
+            query ($owner: String!, $name: String!, $pr: Int!) {
+              repository(owner: $owner, name: $name) {
+                pullRequest(number: $pr) {
+                  reviewDecision
+                  commits(last: 1) {
+                    nodes {
+                      commit {
+                        checkSuites(last: 100) {
+                          nodes {
+                            conclusion
+                            workflowRun {
+                              workflow {
+                                name
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
         run: |
           attempt=0
           max_attempts=5
@@ -90,40 +116,32 @@ jobs:
           do
             attempt=$(( attempt + 1 ))
 
-            approved=false
-            complete=false
-            mergeable=false
+            query_response="$(
+              gh api graphql \
+                --field owner='{owner}' \
+                --field name='{repo}' \
+                --field pr="$PR" \
+                --raw-field query="$QUERY" \
+                --jq '.data.repository.pullRequest'
+            )"
 
-            review_data="$(
+            approved="$(
+              jq --raw-output '.reviewDecision == "APPROVED"' <<< "$query_response"
+            )"
+            complete="$(
+              jq --raw-output \
+                '.commits.nodes[].commit.checkSuites.nodes |
+                   map(select(.workflowRun.workflow.name == "CI")) |
+                     last | .conclusion == "SUCCESS"' <<< "$query_response"
+            )"
+            # See https://github.com/octokit/octokit.net/issues/1763 for possible `mergeable_state` values.
+            mergeable="$(
               gh api \
                 --header 'Accept: application/vnd.github+json' \
                 --header 'X-GitHub-Api-Version: 2022-11-28' \
-                "repos/$GH_REPO/pulls/$PR/reviews"
+                "repos/{owner}/{repo}/pulls/$PR" \
+                --jq '(.mergeable_state == "clean") and (.draft | not)'
             )"
-            if jq --exit-status 'any(.[].state; .== "APPROVED")' <<< "$review_data" &&
-               jq --exit-status 'all(.[].state; .!= "CHANGES_REQUESTED" )' <<< "$review_data"
-            then
-              approved=true
-            fi
-
-            if gh pr checks "$PR"
-            then
-              complete=true
-            fi
-
-            pr_data="$(
-              gh api \
-                --header 'Accept: application/vnd.github+json' \
-                --header 'X-GitHub-Api-Version: 2022-11-28' \
-                "repos/$GH_REPO/pulls/$PR"
-            )"
-
-            # See https://github.com/octokit/octokit.net/issues/1763 for possible values.
-            if jq --exit-status '.mergeable_state == "clean"' <<< "$pr_data" &&
-               jq --exit-status '.draft | not' <<< "$pr_data"
-            then
-              mergeable=true
-            fi
 
             if [[ "$approved" = "true" ]] &&
                [[ "$complete" = "true" ]] &&

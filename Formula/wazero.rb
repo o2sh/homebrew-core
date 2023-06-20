@@ -1,18 +1,18 @@
 class Wazero < Formula
   desc "Zero dependency WebAssembly runtime"
   homepage "https://wazero.io"
-  url "https://github.com/tetratelabs/wazero/archive/v1.0.3.tar.gz"
-  sha256 "d83f71e6a30b5097b70c550a5ad0317a00849b401206bab89ee7226809b481c1"
+  url "https://github.com/tetratelabs/wazero/archive/v1.2.1.tar.gz"
+  sha256 "c6668ba0210baaf9b75367989ca958d089ebc377e7752b9179799e73e5659f21"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "08bd24a3a3162faf6cbc18bf11526e800a077098b26bbca2fd0a84a85cfbc06b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "08bd24a3a3162faf6cbc18bf11526e800a077098b26bbca2fd0a84a85cfbc06b"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "08bd24a3a3162faf6cbc18bf11526e800a077098b26bbca2fd0a84a85cfbc06b"
-    sha256 cellar: :any_skip_relocation, ventura:        "f2a9b7f900638c82c56c257ae674d8fbc2b87bb3d11779d806ea28d4b9d646cf"
-    sha256 cellar: :any_skip_relocation, monterey:       "f2a9b7f900638c82c56c257ae674d8fbc2b87bb3d11779d806ea28d4b9d646cf"
-    sha256 cellar: :any_skip_relocation, big_sur:        "f2a9b7f900638c82c56c257ae674d8fbc2b87bb3d11779d806ea28d4b9d646cf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "48fab2eb4e93103fbe47af04f37ca0d09e7ce3d99336805e893cf33d53ece5ad"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "973b5f2a0b1e52509026e41fb56f0a149d53accd434e39a56e06779c6cd3a21b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "973b5f2a0b1e52509026e41fb56f0a149d53accd434e39a56e06779c6cd3a21b"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "973b5f2a0b1e52509026e41fb56f0a149d53accd434e39a56e06779c6cd3a21b"
+    sha256 cellar: :any_skip_relocation, ventura:        "a2b775f1147d9f21496d3af76f1e7eb18513a8f20f5d27f7479169b2591af05d"
+    sha256 cellar: :any_skip_relocation, monterey:       "a2b775f1147d9f21496d3af76f1e7eb18513a8f20f5d27f7479169b2591af05d"
+    sha256 cellar: :any_skip_relocation, big_sur:        "a2b775f1147d9f21496d3af76f1e7eb18513a8f20f5d27f7479169b2591af05d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a94e899df52b91f6f23f7dfeb4912100e73c2174ca8668f26a2b207db049ba95"
   end
 
   depends_on "go" => :build

@@ -1,19 +1,18 @@
 class Gnuplot < Formula
   desc "Command-driven, interactive function plotting"
   homepage "http://www.gnuplot.info/"
-  url "https://downloads.sourceforge.net/project/gnuplot/gnuplot/5.4.6/gnuplot-5.4.6.tar.gz"
-  sha256 "02fc27918200ed64d8f0c3b84fe81b95b59cd47ad99f270939ae497c19f27419"
+  url "https://downloads.sourceforge.net/project/gnuplot/gnuplot/5.4.8/gnuplot-5.4.8.tar.gz"
+  sha256 "931279c7caad1aff7d46cb4766f1ff41c26d9be9daf0bcf0c79deeee3d91f5cf"
   license "gnuplot"
 
   bottle do
-    rebuild 1
-    sha256 arm64_ventura:  "9ef39f0cb000b8dd008db72f49cd277041b8ba3f34f15b3995d972e6612a50c5"
-    sha256 arm64_monterey: "d1b94c5596e51a56aa333c5ec14cc38c44255fd6825ec76a01b14c97bc09473b"
-    sha256 arm64_big_sur:  "2398694f2376c3f317f7149ca6f2982ecf601c49089f2daeb1ef23321082af2e"
-    sha256 ventura:        "8124f27d5b1f367e4b1db8461e0bbb57c55827dae0f3827e911ad4b8683b5756"
-    sha256 monterey:       "51b119f2ad7b52edb828b0ed20604eaf863c3d7de9b785bbec60277ab6404597"
-    sha256 big_sur:        "1a89eec4082121ca67df4fd46f2557a46d69f0d93a6a47a95bdb1867fdaebbdc"
-    sha256 x86_64_linux:   "308b8f7cef916cb9b220ad681a52e6df118c0582e3d4d793718600220db12ddd"
+    sha256 arm64_ventura:  "d28fd17192c568cab10c13b72944bc9076121faceb2dab7e2c51cce1e6fb0c22"
+    sha256 arm64_monterey: "f87bb3fa742ae6eb041f23825053f28d2dc9e5975b59b3664a446b84e40e038c"
+    sha256 arm64_big_sur:  "813bba15d876c4135ae2c0d9ca9f53c0365f251ec330dbf6d9ec55ef4793a046"
+    sha256 ventura:        "bebc366a17cfb9642ffe889d34c6dd76763d75ef255c00bf607c9529d8e9420c"
+    sha256 monterey:       "eb54ce5936943b9c1d30c67dfb979c416fb35511741052a840985f2ef3110cea"
+    sha256 big_sur:        "65d82798f52b983f01921fbcf7b1b2c76e88aefd9ab684c8a2e9c4ed591fc998"
+    sha256 x86_64_linux:   "5b92e8302552d465b54c149bd6b54645db88b8a1b4aeeaab5c85a6f2751a36ac"
   end
 
   head do

@@ -1,19 +1,19 @@
 class Mdbook < Formula
   desc "Create modern online books from Markdown files"
   homepage "https://rust-lang.github.io/mdBook/"
-  url "https://github.com/rust-lang/mdBook/archive/v0.4.28.tar.gz"
-  sha256 "b7785a0e69a6628bedebb31257113ae659de3b561458cc635d30d07794284b14"
+  url "https://github.com/rust-lang/mdBook/archive/v0.4.30.tar.gz"
+  sha256 "9df217a6a4c22d4b0fef0d13e04b1a9ae896a0c1084af36b93d032c9fa2c4148"
   license "MPL-2.0"
   head "https://github.com/rust-lang/mdBook.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1e73a1b30c439918c52f886ef5e4defa184a33f8bca958489c51a76c216ae38c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2874e11b6af64aeeb7c250e1d193a3c0dd3f268d3aadf407d8817408d2a3bd06"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "de1dfe6747c91421c081eb7491a6abf80a766c66ca9ad9f3fa4077b5321031a2"
-    sha256 cellar: :any_skip_relocation, ventura:        "81c7a87f9403e059e95a3fd1ab2815ef55e5b46e933360ef3a30d6d38e2b080f"
-    sha256 cellar: :any_skip_relocation, monterey:       "4362acbc45631e81d15eb9924cb64d5245d6ef052ee422d95a140569057338d0"
-    sha256 cellar: :any_skip_relocation, big_sur:        "486c957fb8a101ad4f13b261df24ef4ff65be3580f5a1e008a2cb35f1070757f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "15bde612e954819f7b0189e22b48a916fd0866fe65b153e67fbe38eee5ee3f5b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "438f33d83ac8c00ccf93396ac0dd7455d4c92e87a39f731a374e402f0f176bb2"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "991e1e76ea3bcca869dc9acad181fba2ffefead2cf31790f8af7063b5cdf4cdc"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a7ee4654aab96713612982c7983cb7aec35f4f57960b4b7599419fd76ad8e37e"
+    sha256 cellar: :any_skip_relocation, ventura:        "4acc4a12c1c41ecb4093cee4bff05dba3c341b74feb3834f3090ad6dde24f292"
+    sha256 cellar: :any_skip_relocation, monterey:       "8f1c105249dcd3a789b859ce1c385bc84d1a742399717319ac7724361d37fd52"
+    sha256 cellar: :any_skip_relocation, big_sur:        "0e2f19a55baeb5999705e6923fbf3f36f25ae05209c4eeaa663a90a037735855"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2f12d3621d0272caa81673803184885b625e3b6cf5d904ab12f723fe3e3a68be"
   end
 
   depends_on "rust" => :build

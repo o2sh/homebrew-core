@@ -1,20 +1,20 @@
 class Inform6 < Formula
   desc "Design system for interactive fiction"
   homepage "https://inform-fiction.org/inform6.html"
-  url "https://ifarchive.org/if-archive/infocom/compilers/inform6/source/inform-6.41-r4.tar.gz"
-  version "6.41-r4"
-  sha256 "cb9e45ff357ff7d7d2e19213b4fb12824a4c35fa27173b5910ffd06714908df7"
+  url "http://ifarchive.org/if-archive/infocom/compilers/inform6/source/inform-6.41-r6.tar.gz"
+  version "6.41-r6"
+  sha256 "609de4f5cfae611cc8e6f3333d7016bdb2e802fe39096c59db50c5b31e14b557"
   license "Artistic-2.0"
   head "https://gitlab.com/DavidGriffith/inform6unix.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "25eba4436a8d796d55735073aa2ac014f2f6298822c7726e1465b97ce56a6cc7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "da175d9c1efc3a1fd047369bd9597450cd0b768a7aee66fc58899363fdf08ce9"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "3ec2856e88fa78920a08ac3f94601434010781e232d137cb2ec8a4eae9e9db1d"
-    sha256 cellar: :any_skip_relocation, ventura:        "09ddaf3b4567df6109b4c26f5803f402305a0bbe0c61d96cafbe3fb5fe68d100"
-    sha256 cellar: :any_skip_relocation, monterey:       "d823205659e0837e9012a51de378360aec2e18c4de1926468b73d0984e3a0aae"
-    sha256 cellar: :any_skip_relocation, big_sur:        "2d36b42868f7a6943ce07d09300ecab00393b0e7ce92d22678a074dcab7067dd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a24565f25dcd24ca25e68a8a02805bf0160731c724bbc82ec63cedd5feb07636"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3f375c1af6d193350be16319b80c545e53985b38cdc1988939c191ce45478703"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "364bd6fa090ec1ca128cf678e2066e1aa3620df42b6d2b8bcf955206b9baa157"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "492008bc56dc0468c0994dac47501a91ee02d179d747544b7e1cd1183b785d9c"
+    sha256 cellar: :any_skip_relocation, ventura:        "368a1105afc2be3fa8448b91ee93f1d4e13a90e7f2236711a1f1f6bd88662613"
+    sha256 cellar: :any_skip_relocation, monterey:       "0aeaa2879d6ea06fb1373117115e239059da2ed04e68d9a647a13fcb34bea1e0"
+    sha256 cellar: :any_skip_relocation, big_sur:        "a7c8ba8cad52b5652188721bb5c7a98b490d6f23f2479a374d8784b80cdd9fa0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "74616af11d9700f2ca7f0de9661ace30b5883d728fbb8bc8b91cdca9ffdc5f77"
   end
 
   resource "homebrew-test_resource" do

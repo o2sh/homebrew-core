@@ -1,25 +1,20 @@
 class Mpd < Formula
   desc "Music Player Daemon"
-  homepage "https://www.musicpd.org/"
-  url "https://www.musicpd.org/download/mpd/0.23/mpd-0.23.12.tar.xz"
-  sha256 "b7fca62284ecc25a681ea6a07abc49200af5353be42cb5a31e3173be9d8702e7"
+  homepage "https://web.archive.org/web/20230506090801/https://www.musicpd.org/"
+  url "https://github.com/MusicPlayerDaemon/MPD/archive/refs/tags/v0.23.13.tar.gz"
+  sha256 "c002fd15033d791c8ac3dcc009b728b0e8440ed483ba56e3ff8964587fe9f97d"
   license "GPL-2.0-or-later"
   revision 1
   head "https://github.com/MusicPlayerDaemon/MPD.git", branch: "master"
 
-  livecheck do
-    url "https://www.musicpd.org/download.html"
-    regex(/href=.*?mpd[._-]v?(\d+(?:\.\d+)+)\.t/i)
-  end
-
   bottle do
-    sha256 cellar: :any, arm64_ventura:  "94d6625b6f0856f943be92f641730a8da69629f73fda739000295ab9f103f59a"
-    sha256 cellar: :any, arm64_monterey: "27596b0311bac6d28d01b3d307b96ddf441191b5df0609211a6210b222b67984"
-    sha256 cellar: :any, arm64_big_sur:  "4c59d268d89fca543efc89a5c9b87c741dd4c5fbea0e33bea51298eeaf0579a2"
-    sha256 cellar: :any, ventura:        "6e6cd24a93408f4d67dc7a6b0a395aab1b52f175cc5eb6b7c367d0817eb23a70"
-    sha256 cellar: :any, monterey:       "9096c6017cfff08f5cd99c8294f976862cf308d15caa032edec0529e871feda3"
-    sha256 cellar: :any, big_sur:        "2c598121d34a100179f13e9acdc71808a2bf911e5ae29d0bb1221513b72abfd2"
-    sha256               x86_64_linux:   "bc1155789cb605d7237ff2ee173ff08827bba44b6d68f26ba38a1dd3c171de9c"
+    sha256 cellar: :any, arm64_ventura:  "fa9cd11e5bbe4d9b30b3af5b39914b43946c145d83447b79ce51f9bab6c6da3a"
+    sha256 cellar: :any, arm64_monterey: "66e53255d65450435c792e043ea312ba3cdb487df388ea5e3f767d7ace183f6f"
+    sha256 cellar: :any, arm64_big_sur:  "06644e8bbbfe2db88880b5eff435abda354ab9b2ca71c1450eff958015e0efe2"
+    sha256 cellar: :any, ventura:        "b34f0e6df048aeeaf16f89b5f3a5821b0bd26262459c5e33f9a5befd3ab2b67d"
+    sha256 cellar: :any, monterey:       "8635a464ff00e30d4486b5d8bff9ce2a885f3cef5941d6084aef5bf29d2bb183"
+    sha256 cellar: :any, big_sur:        "0fda32e1f629baaae537f2542ceeb5983a6a3e0b3807fcd8453be07d2d13a96a"
+    sha256               x86_64_linux:   "f01776e8946de962cdd307cc73a1cac1ea8e9a9540a9677a4f5f614bf7cd35ee"
   end
 
   depends_on "boost" => :build
@@ -50,6 +45,10 @@ class Mpd < Formula
 
   uses_from_macos "curl"
 
+  on_linux do
+    depends_on "systemd" => :build
+  end
+
   fails_with gcc: "5"
 
   def install
@@ -72,10 +71,12 @@ class Mpd < Formula
       -Dshout=enabled
       -Dupnp=pupnp
       -Dvorbisenc=enabled
+      -Dsystemd_system_unit_dir=#{lib}/systemd/system
+      -Dsystemd_user_unit_dir=#{lib}/systemd/user
     ]
 
     system "meson", "setup", "output/release", *args, *std_meson_args
-    system "meson", "compile", "-C", "output/release"
+    system "meson", "compile", "-C", "output/release", "--verbose"
     ENV.deparallelize # Directories are created in parallel, so let's not do that
     system "meson", "install", "-C", "output/release"
 

@@ -3,25 +3,22 @@ require "language/node"
 class Apidoc < Formula
   desc "RESTful web API Documentation Generator"
   homepage "https://apidocjs.com"
-  url "https://github.com/apidoc/apidoc/archive/1.0.1.tar.gz"
-  sha256 "70508f5bba19940b2e1f0f71186e9f1abe2b5d08f6569fa8116fb21b92e084e4"
+  url "https://github.com/apidoc/apidoc/archive/1.0.3.tar.gz"
+  sha256 "822756eacfd7c12f3221bf8c0b85b8c1d30b8bc714e6f8c7da3de60b219c6d44"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3dceaf411ae051794c9e727f5a554cc8d3a5632b5beb846722cd0101a5e6d0e5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3dceaf411ae051794c9e727f5a554cc8d3a5632b5beb846722cd0101a5e6d0e5"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "3dceaf411ae051794c9e727f5a554cc8d3a5632b5beb846722cd0101a5e6d0e5"
-    sha256 cellar: :any_skip_relocation, ventura:        "954c08c8c81e294270ea164aa947092633da88c712f230e739bf61dfdbc3e81b"
-    sha256 cellar: :any_skip_relocation, monterey:       "954c08c8c81e294270ea164aa947092633da88c712f230e739bf61dfdbc3e81b"
-    sha256 cellar: :any_skip_relocation, big_sur:        "954c08c8c81e294270ea164aa947092633da88c712f230e739bf61dfdbc3e81b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c8656188e99c7f8868acbb63abcdc58fb8f9a4a854c4dd10e6752bf7271a40d9"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ec24bc9e8fe7916aa23a1920d176641a8ccfca7f04b29656d31f09d97465c2a1"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ec24bc9e8fe7916aa23a1920d176641a8ccfca7f04b29656d31f09d97465c2a1"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ec24bc9e8fe7916aa23a1920d176641a8ccfca7f04b29656d31f09d97465c2a1"
+    sha256 cellar: :any_skip_relocation, ventura:        "fd4e6b3b17a2bdef549fd578802154f30c306d9af1905212383ae57bd73d70e2"
+    sha256 cellar: :any_skip_relocation, monterey:       "fd4e6b3b17a2bdef549fd578802154f30c306d9af1905212383ae57bd73d70e2"
+    sha256 cellar: :any_skip_relocation, big_sur:        "fd4e6b3b17a2bdef549fd578802154f30c306d9af1905212383ae57bd73d70e2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f3db7d4dbd0ebdab723a5e2b23c991dfdaf7562888965f793162c28959533e65"
   end
 
   depends_on "node"
-
-  on_macos do
-    depends_on "macos-term-size"
-  end
 
   def install
     system "npm", "install", *Language::Node.std_npm_install_args(libexec)

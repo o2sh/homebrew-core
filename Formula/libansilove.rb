@@ -1,18 +1,18 @@
 class Libansilove < Formula
   desc "Library for converting ANSI, ASCII, and other formats to PNG"
   homepage "https://www.ansilove.org"
-  url "https://github.com/ansilove/libansilove/releases/download/1.3.1/libansilove-1.3.1.tar.gz"
-  sha256 "4919d9a1243df7b23de677ea595f56aa7f6be7187fb0835f1915a06865c11f85"
+  url "https://github.com/ansilove/libansilove/releases/download/1.4.1/libansilove-1.4.1.tar.gz"
+  sha256 "c6aa32bcef54b05b9af535c621f7044156295a49cea3cfaf1c868e359be59203"
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "a119370b770618edb36cba9dd12c3ca461c5203ede0a3e9b35e260aeea2a1c04"
-    sha256 cellar: :any,                 arm64_monterey: "72a6824d93c50b1745a9a9b0540f7e6037136322017bfdae7a691fa82a432508"
-    sha256 cellar: :any,                 arm64_big_sur:  "7e16775fc888b219e6a1aa91cbc364f95bd4b29be6969301b72b8cd4d9ecddba"
-    sha256 cellar: :any,                 ventura:        "58302db2bcfef0eb28c35a05b565a954936b8fb864fcfd5556118d4001992680"
-    sha256 cellar: :any,                 monterey:       "8a51214b8cab8d5f07831ece9877f436b3f6982fb23a8cf2158e406dbc4525e0"
-    sha256 cellar: :any,                 big_sur:        "85b2bbf28557b4105ba352129e50bec2013bfff45e7e69c44490b52d4ec5ddd3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ba47e2c915af469866f1d726e03cad019a33872d147c344c06523d1a223b1c1d"
+    sha256 cellar: :any,                 arm64_ventura:  "6faf95a578791fa28160614d77e0b4460e61d80cdf4c55069955e3889f15f658"
+    sha256 cellar: :any,                 arm64_monterey: "c97602ff04201633015f09d08e401c4c95a7b42579471826107733ec2f718764"
+    sha256 cellar: :any,                 arm64_big_sur:  "ad9a0d7124bf2e66ed5618752d1aa06c079d39f2b686da766c0cf50ec5b55680"
+    sha256 cellar: :any,                 ventura:        "5e6272f3834cabff4fc7bc6e852ac5577cbe7ee7902fb17b86fde334edb51d47"
+    sha256 cellar: :any,                 monterey:       "413f7125c3d514de63cf889a761ef8f572e0c2eea2992aaf8fcd9d40bf3dc816"
+    sha256 cellar: :any,                 big_sur:        "c48c991d4e2f7c3962a81305c96d68651d315815acb50d2f714e7bde6dc24942"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7c04a7521aa0bb995f39e69fa720149b8307e176ab5580b6df6c7a45ce5f35ef"
   end
 
   depends_on "cmake" => :build

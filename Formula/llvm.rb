@@ -1,11 +1,23 @@
 class Llvm < Formula
   desc "Next-gen compiler infrastructure"
   homepage "https://llvm.org/"
-  url "https://github.com/llvm/llvm-project/releases/download/llvmorg-16.0.2/llvm-project-16.0.2.src.tar.xz"
-  sha256 "6d8acae041ccd34abe144cda6eaa76210e1491f286574815b7261b3f2e58734c"
   # The LLVM Project is under the Apache License v2.0 with LLVM Exceptions
   license "Apache-2.0" => { with: "LLVM-exception" }
   head "https://github.com/llvm/llvm-project.git", branch: "main"
+
+  # Remove stable block when patch is no longer needed.
+  stable do
+    # TODO: Remove `six` dependency and `LLDB_USE_SYSTEM_SIX` at next release.
+    url "https://github.com/llvm/llvm-project/releases/download/llvmorg-16.0.6/llvm-project-16.0.6.src.tar.xz"
+    sha256 "ce5e71081d17ce9e86d7cbcfa28c4b04b9300f8fb7e78422b1feb6bc52c3028e"
+
+    # Fixes https://github.com/mesonbuild/meson/issues/11642
+    # Remove at next release.
+    patch do
+      url "https://github.com/llvm/llvm-project/commit/ab8d4f5a122fde5740f8c084c8165f51a26c93c7.patch?full_index=1"
+      sha256 "9b01de9708e4eb5cef10c18f25dd42e126306ed8cbd9d9a26bb5fbb91ac7d7a3"
+    end
+  end
 
   livecheck do
     url :stable
@@ -13,13 +25,13 @@ class Llvm < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "ac3f20e8b4534c82de29ec95535288f7b4d155d2414b8483816575be1cb8f757"
-    sha256 cellar: :any,                 arm64_monterey: "939aa411b4126b4c6599864eb3637132b94b2359fe842d1f5365c9962bb1172e"
-    sha256 cellar: :any,                 arm64_big_sur:  "4d653c69b748ef6e06b354dd3f7d979fb5415001c562b7b7b288ed799739c5b9"
-    sha256 cellar: :any,                 ventura:        "7fb3a51454ad3cb681680415645912e658437c78daa375625c8b9b4b04073a01"
-    sha256 cellar: :any,                 monterey:       "49d4e530c6b33423589b0982ded3200540859fec7b0125805c207d9af7aad1de"
-    sha256 cellar: :any,                 big_sur:        "d029652c49e7fd544c02bd5a2ce54c3711670d30d4bb440ce55f0a91e19bc87b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cf3277683e0b241e9fee6b5faf1d9ebebcbccccba85036f1c638082b3d1959b1"
+    sha256 cellar: :any,                 arm64_ventura:  "4c667405d232b5764d5faed87e3c462085e45c4e1c2559f9c88009a98d66af0f"
+    sha256 cellar: :any,                 arm64_monterey: "c1a04891b33fb6cce160a572f2424f505a7736415d1dc90299bcee3743e51290"
+    sha256 cellar: :any,                 arm64_big_sur:  "72982f15a23ac9442c843ce899cccb1018d47cb3f20cd1d45294f17bb0a255a1"
+    sha256 cellar: :any,                 ventura:        "ee50dde4d1998630ff40c9cce19b0f180c36ef58b8d8e627be5e44d4902ed3fc"
+    sha256 cellar: :any,                 monterey:       "ab4d69c11183a536f52dfd4eb8c14f3fc047b8433b03eff99cea76f778e61305"
+    sha256 cellar: :any,                 big_sur:        "6ed8c0fd73a1686429627e036ef4adb43a11a7dd753cdb4631451d2a01e35124"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "eac29c15c4e506aa90ab2b95d2845fea812aee43a957e3b0ce807d30cad8a254"
   end
 
   # Clang cannot find system headers if Xcode CLT is not installed
@@ -33,7 +45,7 @@ class Llvm < Formula
   depends_on "cmake" => :build
   depends_on "swig" => :build
   depends_on "python@3.11"
-  depends_on "six"
+  depends_on "six" # TODO: Remove at next release.
   depends_on "z3"
   depends_on "zstd"
 
@@ -149,14 +161,6 @@ class Llvm < Formula
       args << "-DDEFAULT_SYSROOT=#{macos_sdk}" if macos_sdk
       runtimes_cmake_args << "-DCMAKE_INSTALL_RPATH=#{loader_path}"
 
-      # Prevent CMake from defaulting to `lld` when it's found next to `clang`.
-      # This can be removed after CMake 3.25. See:
-      # https://gitlab.kitware.com/cmake/cmake/-/merge_requests/7671
-      args << "-DLLVM_USE_LINKER=ld"
-      [args, runtimes_cmake_args, builtins_cmake_args].each do |arg_array|
-        arg_array << "-DCMAKE_LINKER=ld"
-      end
-
       # Disable builds for OSes not supported by the CLT SDK.
       clt_sdk_support_flags = %w[I WATCH TV].map { |os| "-DCOMPILER_RT_ENABLE_#{os}OS=OFF" }
       builtins_cmake_args += clt_sdk_support_flags
@@ -243,11 +247,6 @@ class Llvm < Formula
       stage1_targets = ["clang", "llvm-profdata", "compiler-rt"]
       stage1_targets += if OS.mac?
         extra_args << "-DLLVM_ENABLE_LIBCXX=ON"
-        # Prevent CMake from defaulting to `lld` when it's found next to `clang`.
-        # This can be removed after CMake 3.25. See:
-        # https://gitlab.kitware.com/cmake/cmake/-/merge_requests/7671
-        extra_args << "-DLLVM_USE_LINKER=ld"
-        extra_args << "-DCMAKE_LINKER=ld"
         extra_args += clt_sdk_support_flags
 
         args << "-DLLVM_ENABLE_LTO=Thin" if lto_build
@@ -412,17 +411,6 @@ class Llvm < Formula
       system "/usr/libexec/PlistBuddy", "-c", "Add:CompatibilityVersion integer 2", "Info.plist"
       xctoolchain.install "Info.plist"
       (xctoolchain/"usr").install_symlink [bin, include, lib, libexec, share]
-    end
-
-    # Install LLVM Python bindings
-    # Clang Python bindings are installed by CMake
-    (lib/site_packages).install llvmpath/"bindings/python/llvm"
-
-    # Create symlinks so that the Python bindings can be used with alternative Python versions
-    python_versions.each do |py_ver|
-      next if py_ver == Language::Python.major_minor_version(python3).to_s
-
-      (lib/"python#{py_ver}/site-packages").install_symlink (lib/site_packages).children
     end
 
     # Install Vim plugins

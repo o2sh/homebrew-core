@@ -1,8 +1,8 @@
 class WpCli < Formula
   desc "Command-line interface for WordPress"
   homepage "https://wp-cli.org/"
-  url "https://github.com/wp-cli/wp-cli/releases/download/v2.7.1/wp-cli-2.7.1.phar"
-  sha256 "bbf096bccc6b1f3f1437e75e3254f0dcda879e924bbea403dff3cfb251d4e468"
+  url "https://github.com/wp-cli/wp-cli/releases/download/v2.8.1/wp-cli-2.8.1.phar"
+  sha256 "8503cd579480d0cb237b4bef35e0c3da11c2ab872a1bc8f26d2da0ca0729b6a7"
   license "MIT"
 
   livecheck do
@@ -11,14 +11,13 @@ class WpCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7868eabba4f5f380a94488c1f136d9945ee152836a4a44456cd8ab24add74c98"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7868eabba4f5f380a94488c1f136d9945ee152836a4a44456cd8ab24add74c98"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7868eabba4f5f380a94488c1f136d9945ee152836a4a44456cd8ab24add74c98"
-    sha256 cellar: :any_skip_relocation, ventura:        "6be0dde0e3a8e8d64b7cb81a373b91938ab054cc22a107ecf8149251cd7f40ab"
-    sha256 cellar: :any_skip_relocation, monterey:       "6be0dde0e3a8e8d64b7cb81a373b91938ab054cc22a107ecf8149251cd7f40ab"
-    sha256 cellar: :any_skip_relocation, big_sur:        "6be0dde0e3a8e8d64b7cb81a373b91938ab054cc22a107ecf8149251cd7f40ab"
-    sha256 cellar: :any_skip_relocation, catalina:       "6be0dde0e3a8e8d64b7cb81a373b91938ab054cc22a107ecf8149251cd7f40ab"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7868eabba4f5f380a94488c1f136d9945ee152836a4a44456cd8ab24add74c98"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9ffb49dd4e4f31aba979ab2619d095fcea87ed9881a9aa59584c753a41ef4e67"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9ffb49dd4e4f31aba979ab2619d095fcea87ed9881a9aa59584c753a41ef4e67"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9ffb49dd4e4f31aba979ab2619d095fcea87ed9881a9aa59584c753a41ef4e67"
+    sha256 cellar: :any_skip_relocation, ventura:        "6f48c52ef73dde3146221da2c72a83137efcdf1a35c737fd043bf9718109d1bc"
+    sha256 cellar: :any_skip_relocation, monterey:       "6f48c52ef73dde3146221da2c72a83137efcdf1a35c737fd043bf9718109d1bc"
+    sha256 cellar: :any_skip_relocation, big_sur:        "6f48c52ef73dde3146221da2c72a83137efcdf1a35c737fd043bf9718109d1bc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9ffb49dd4e4f31aba979ab2619d095fcea87ed9881a9aa59584c753a41ef4e67"
   end
 
   depends_on "php"

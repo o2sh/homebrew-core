@@ -3,18 +3,18 @@ class Johnnydep < Formula
 
   desc "Display dependency tree of Python distribution"
   homepage "https://github.com/wimglenn/johnnydep"
-  url "https://files.pythonhosted.org/packages/b7/12/8fbc18d41ca9b0d19334f2748a67d150e6eb21277ff58e829f8a71636f71/johnnydep-1.18.0.tar.gz"
-  sha256 "e18ea3dfe5be21ff194e28155f0188f4aaefeb54ba83485ef2b387f22d577ce7"
+  url "https://files.pythonhosted.org/packages/01/74/b42da2690d994ff3d1998417d63682bd42600b2fc49cc8a3e90db5246247/johnnydep-1.20.2.tar.gz"
+  sha256 "21d361ca4c25ffc043e7a47acd9c619c68880bef91cb4be820e4ce2d085726d0"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "caedee0307c8887d8d094908ba0a0fedf3202b98462343225473f480aea69947"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "75833888c50e239c98635cb01be3ca4f3666864504685684b42f40c66d792d77"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ba6474180514c77357c54a4d16c123f773d8979e465c8f44b73c785f81ca5edf"
-    sha256 cellar: :any_skip_relocation, ventura:        "8c40c733cd0b9c3a8703e0097b4fd911be179ae90de9e71e12d3bd2808c0c01d"
-    sha256 cellar: :any_skip_relocation, monterey:       "a5b863dd2808a73538989c22db54b33eead318caf5f8c58c9cd946f86f9d931f"
-    sha256 cellar: :any_skip_relocation, big_sur:        "c104d0707b1c6dd48663a326be10c59bd38e5d9b8540137bbf573fbf6edce616"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5103caf76bb4db7f318dc2badf9f331cc07344bdebba512b0ee6332133625ba7"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7f7c70c8bf4ed7397ee0bed083c0180f98402b4825e4026ffae50123617f4608"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "399ad1d36df12143559dd6c9b2ae53d422f20ae6505972e70b964ee6a2fae643"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "313e0a1fd805e8ec6acb0fcbfc8c791e6446dd472b4b3f7288742977a603b5c5"
+    sha256 cellar: :any_skip_relocation, ventura:        "898af3d51d8985a3536a305899733b3c09f85e4ffdc8c79838157b529f1aa275"
+    sha256 cellar: :any_skip_relocation, monterey:       "c9f2be79cfaac4726adeaf188eb68364665041b2aa57050d3bf65ec7333bd641"
+    sha256 cellar: :any_skip_relocation, big_sur:        "674994f562d6c8615bc44f83432ba143ec8fff6f1bb7a7479b78243507cf6c98"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c67100bf7b2eba21a1eff1bb6bcd04f93a24bebdbcea12a2dd2f28bc2d875cb2"
   end
 
   depends_on "python-tabulate"
@@ -28,8 +28,8 @@ class Johnnydep < Formula
   end
 
   resource "cachetools" do
-    url "https://files.pythonhosted.org/packages/4d/91/5837e9f9e77342bb4f3ffac19ba216eef2cd9b77d67456af420e7bafe51d/cachetools-5.3.0.tar.gz"
-    sha256 "13dfddc7b8df938c21a940dfa6557ce6e94a2f1cdfa58eb90c805721d58f2c14"
+    url "https://files.pythonhosted.org/packages/9d/8b/8e2ebf5ee26c21504de5ea2fb29cc6ae612b35fd05f959cdb641feb94ec4/cachetools-5.3.1.tar.gz"
+    sha256 "dce83f2d9b4e1f732a8cd44af8e8fab2dbe46201467fc98b3ef8f269092bf62b"
   end
 
   resource "oyaml" do
@@ -40,11 +40,6 @@ class Johnnydep < Formula
   resource "packaging" do
     url "https://files.pythonhosted.org/packages/b9/6c/7c6658d258d7971c5eb0d9b69fa9265879ec9a9158031206d47800ae2213/packaging-23.1.tar.gz"
     sha256 "a392980d2b6cffa644431898be54b0045151319d1e7ec34f0cfed48767dd334f"
-  end
-
-  resource "pkginfo" do
-    url "https://files.pythonhosted.org/packages/b4/1c/89b38e431c20d6b2389ed8b3926c2ab72f58944733ba029354c6d9f69129/pkginfo-1.9.6.tar.gz"
-    sha256 "8fd5896e8718a4372f0ea9cc9d96f6417c9b986e23a4d116dda26b62cc29d046"
   end
 
   resource "structlog" do

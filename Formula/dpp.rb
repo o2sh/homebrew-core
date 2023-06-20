@@ -2,19 +2,18 @@ class Dpp < Formula
   desc "Directly include C headers in D source code"
   homepage "https://github.com/atilaneves/dpp"
   url "https://github.com/atilaneves/dpp.git",
-      tag:      "v0.5.1",
-      revision: "23339d566032419501b005e13f601bb6b6b1ebe5"
+      tag:      "v0.5.3",
+      revision: "52c7e845e1158208847cb299e9f8ad5377429027"
   license "BSL-1.0"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "04399f95b0fae7c0f542155e5c17a3fdd8889dfa42de78069ca70d5a2f54e138"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "adfabbdac982965b03148f7955a5a04230a2bf25f33f0ffa0005a0381fa422ed"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ae1003d31e23fff5adebd6f0ce12df581395ae262670465e50236a490d8bee4a"
-    sha256 cellar: :any_skip_relocation, ventura:        "a23ff111cdad3793c3f18275a5a7925ccb3b00d8cf6fbe20c99223ff21b7a9c5"
-    sha256 cellar: :any_skip_relocation, monterey:       "2f653d2b80bb65c1e6751a65900bd4229ed8c812eb14665e0ec2dc841bc84467"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e26e0e8af8c013d1e3bbe8eb83228b9d9cd596021c8ca7115c5e0a80196ce761"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "217a38e243f6b931307b1be30a278432b66674bf9061f5a534fb452a01de7cea"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e5021696fe689678470a64ef419451026966b7028012f440796a42a1e9314aae"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4f24fa2bdae5c9a967342eb59a2264079be4c3ce16c5f0516b92ae87aa65ddf1"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "4c03d14de31167881c66d21431452d8e46a2345fd0016dac0bf005a64524e82e"
+    sha256 cellar: :any_skip_relocation, ventura:        "71e37fc9821ca4e400ff5fb907af4d98d042fbadf0524d82dc94ff7706477831"
+    sha256 cellar: :any_skip_relocation, monterey:       "1378d8f5b03142b008c4d1358fec0a28c786198f9c433f12fe602848b8ae8ba2"
+    sha256 cellar: :any_skip_relocation, big_sur:        "69c0e6133c84d329addfab43b5de6d12518cdb59ffb4e69f15e643b3200047d0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e09a5b4ec29d46d9bd7a80729752d0ea263953936a226108df53fa5bf2d85c03"
   end
 
   depends_on "dtools" => :build

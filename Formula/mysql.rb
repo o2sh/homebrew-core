@@ -1,9 +1,12 @@
 class Mysql < Formula
   desc "Open source relational database management system"
   homepage "https://dev.mysql.com/doc/refman/8.0/en/"
-  url "https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-boost-8.0.32.tar.gz"
-  sha256 "1a83a2e1712a2d20b80369c45cecbfcc7be9178d4fc0e81ffba5c273ce947389"
+  # TODO: Check if we can use unversioned `protobuf` at version bump
+  # https://bugs.mysql.com/bug.php?id=111469
+  url "https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-boost-8.0.33.tar.gz"
+  sha256 "ae31e6368617776b43c82436c3736900067fada1289032f3ac3392f7380bcb58"
   license "GPL-2.0-only" => { with: "Universal-FOSS-exception-1.0" }
+  revision 2
 
   livecheck do
     url "https://dev.mysql.com/downloads/mysql/?tpl=files&os=src"
@@ -11,13 +14,13 @@ class Mysql < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "6cca8387c02ad0932892d792711395359df3f14ae62f7968b9ece17ff7f01d6d"
-    sha256 arm64_monterey: "6bcaa04f58dceb28478a81ff49dd2fc9886523270e5aae26ed7b6a433c6ba549"
-    sha256 arm64_big_sur:  "aa3e16c17c365fbcb8ed69d59b529d7abc02d686c8fc23ea529edc8a803002c6"
-    sha256 ventura:        "133aa61d00aeffaa026f5920a41634c7e1f73948582e66cf6dfaac054d41ac2d"
-    sha256 monterey:       "427395db33ab3143886f6c25b0aa28b51ac651037d887bfb4547af7b2e0f8496"
-    sha256 big_sur:        "8678cc4dc2a4881e0b3fbba64ffece73f153254966ed7ae8816ee76cd5e14daa"
-    sha256 x86_64_linux:   "4cfda2a94eec80f35024aa3c80f4ee47c40397869853ebae29571907227c9ae5"
+    sha256 arm64_ventura:  "24f2f2b3c502c0d0aca5ce3037c73eeadd624894002f7c2d611e83838dec880a"
+    sha256 arm64_monterey: "c50a59345c76255a1a30ff39f4890029e172375b169371f4cc28971d79902452"
+    sha256 arm64_big_sur:  "0c87b349f8aa14cf09aff0f3db1118437ad21fe0ff290f4d0c03b5384591d357"
+    sha256 ventura:        "6a72900e7c8995a3dfbc5681d221398e9c4c45aa3470934a861d700636201b38"
+    sha256 monterey:       "0adb9e4b62e1a67ad82cd9e05e5675c8a806d905ece55b60f6f8005d0a12694a"
+    sha256 big_sur:        "c5e6619ef7d8c447e7818cd84de8b9f3cd8695bde2417f17969d223d582811ca"
+    sha256 x86_64_linux:   "afb0ba0057f91bfaf3df48ef769f2e8de08aaef47a02b69f46e00bedc2ba5dee"
   end
 
   depends_on "cmake" => :build
@@ -27,7 +30,7 @@ class Mysql < Formula
   depends_on "libfido2"
   depends_on "lz4"
   depends_on "openssl@1.1"
-  depends_on "protobuf"
+  depends_on "protobuf@21" # https://bugs.mysql.com/bug.php?id=111469
   depends_on "zlib" # Zlib 1.2.12+
   depends_on "zstd"
 
@@ -53,6 +56,10 @@ class Mysql < Formula
     sha256 "af27e4b82c84f958f91404a9661e999ccd1742f57853978d8baec2f993b51153"
   end
 
+  # Fix for "Cannot find system zlib libraries" even though they are installed.
+  # https://bugs.mysql.com/bug.php?id=110745
+  patch :DATA
+
   def datadir
     var/"mysql"
   end
@@ -70,7 +77,6 @@ class Mysql < Formula
 
     # -DINSTALL_* are relative to `CMAKE_INSTALL_PREFIX` (`prefix`)
     args = %W[
-      -DFORCE_INSOURCE_BUILD=1
       -DCOMPILATION_COMMENT=Homebrew
       -DINSTALL_DOCDIR=share/doc/#{name}
       -DINSTALL_INCLUDEDIR=include/mysql
@@ -96,9 +102,13 @@ class Mysql < Formula
       -DWITH_INNODB_MEMCACHED=ON
     ]
 
-    system "cmake", ".", *std_cmake_args, *args
-    system "make"
-    system "make", "install"
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
+
+    # Fix bad linker flags in `mysql_config`.
+    # https://bugs.mysql.com/bug.php?id=111011
+    inreplace bin/"mysql_config", "-lzlib", "-lz"
 
     (prefix/"mysql-test").cd do
       system "./mysql-test-run.pl", "status", "--vardir=#{Dir.mktmpdir}"
@@ -184,3 +194,27 @@ class Mysql < Formula
     system "#{bin}/mysqladmin", "--port=#{port}", "--user=root", "--password=", "shutdown"
   end
 end
+
+__END__
+diff --git a/cmake/zlib.cmake b/cmake/zlib.cmake
+index 460d87a..36fbd60 100644
+--- a/cmake/zlib.cmake
++++ b/cmake/zlib.cmake
+@@ -50,7 +50,7 @@ FUNCTION(FIND_ZLIB_VERSION ZLIB_INCLUDE_DIR)
+   MESSAGE(STATUS "ZLIB_INCLUDE_DIR ${ZLIB_INCLUDE_DIR}")
+ ENDFUNCTION(FIND_ZLIB_VERSION)
+ 
+-FUNCTION(FIND_SYSTEM_ZLIB)
++MACRO(FIND_SYSTEM_ZLIB)
+   FIND_PACKAGE(ZLIB)
+   IF(ZLIB_FOUND)
+     ADD_LIBRARY(zlib_interface INTERFACE)
+@@ -61,7 +61,7 @@ FUNCTION(FIND_SYSTEM_ZLIB)
+         ${ZLIB_INCLUDE_DIR})
+     ENDIF()
+   ENDIF()
+-ENDFUNCTION(FIND_SYSTEM_ZLIB)
++ENDMACRO(FIND_SYSTEM_ZLIB)
+ 
+ MACRO (RESET_ZLIB_VARIABLES)
+   # Reset whatever FIND_PACKAGE may have left behind.

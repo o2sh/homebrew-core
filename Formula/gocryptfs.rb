@@ -1,12 +1,12 @@
 class Gocryptfs < Formula
   desc "Encrypted overlay filesystem written in Go"
   homepage "https://nuetzlich.net/gocryptfs/"
-  url "https://github.com/rfjakob/gocryptfs/releases/download/v2.3.1/gocryptfs_v2.3.1_src-deps.tar.gz"
-  sha256 "62a856a9771307b34a75a1e9ab9489abe4a4e7e7f9230c2b1046ca037ea2ba50"
+  url "https://github.com/rfjakob/gocryptfs/releases/download/v2.4.0/gocryptfs_v2.4.0_src-deps.tar.gz"
+  sha256 "45158daf20df7f94e0c9ec57ba07af21df2e25e15b8584bf3c7de96adbbc2efd"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "8ba609268953709b02ba038118ea8f5193ef8e5c30318673bd5967e408fad84b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "dda3ad1b778225c58589831ecb20d95906e1f731c794c5982734ee19bcc3b68b"
   end
 
   depends_on "go" => :build

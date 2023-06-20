@@ -10,6 +10,10 @@ class CloudWatch < Formula
     sha256 cellar: :any_skip_relocation, all: "97caa527e08a03964f9b132cd491ab653bd0640ad4f81508aa65644a77cd711b"
   end
 
+  # No longer supported as of 2017-11-07
+  # https://docs.aws.amazon.com/AmazonCloudWatch/latest/cli/SetupCLI.html
+  deprecate! date: "2023-05-06", because: :deprecated_upstream
+
   depends_on "openjdk"
 
   def install

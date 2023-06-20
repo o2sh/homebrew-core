@@ -1,33 +1,47 @@
 class Dnscontrol < Formula
-  desc "It is system for maintaining DNS zones"
-  homepage "https://github.com/StackExchange/dnscontrol"
-  url "https://github.com/StackExchange/dnscontrol/archive/v3.31.2.tar.gz"
-  sha256 "304432c804c30042c575893e28a8c7af4222fa4d3159e8c4ff18eef24c5b6a07"
+  desc "Synchronize your DNS to multiple providers from a simple DSL"
+  homepage "https://dnscontrol.org/"
+  url "https://github.com/StackExchange/dnscontrol/archive/v4.1.1.tar.gz"
+  sha256 "8617afe9af8fd40ee2ddcf8ebc6464290a5a5fff0e5b5723e4e0f55b7604065e"
   license "MIT"
   version_scheme 1
 
+  # Upstream appears to use GitHub releases to indicate that a version is
+  # released and they sometimes re-tag versions before that point, so it's
+  # necessary to check release versions instead of tags.
   livecheck do
     url :stable
-    regex(/^v?(\d+(?:\.\d+)+)$/i)
+    strategy :github_latest
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8f1d73eaa8e3316867f84065c1f322bff0dbebe0d5082a96013c5d65546f30cf"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7e9c18f67ad5ac265346eeada8cc3c916cff44d2b1ea749515c12bccd02c816b"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c6595360d6652c604a43662dd90e91c86d98b6d4d4ad4813284ed790b2fdbb93"
-    sha256 cellar: :any_skip_relocation, ventura:        "76633c1af07d91c12653ed09ffe471d34ea74c8780ce66a94f568b6357a1e552"
-    sha256 cellar: :any_skip_relocation, monterey:       "8578f4078ec5db938f20d5fed62a782497e113c7a2ba336f3783a842f9c69b79"
-    sha256 cellar: :any_skip_relocation, big_sur:        "f45e7d5905909ca52cb2ffba0aabcb061bcc8f2cf2973eb3876403c0ddcdd2fb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "51ee9bea8d19ff1943267ba4e7318e40b709fbb1297c76fde4ac248ef983e5eb"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8fb7f73c114a46f590717e42862fd2b95e6e9a596bc1ab4369eaab71d1e84064"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8fb7f73c114a46f590717e42862fd2b95e6e9a596bc1ab4369eaab71d1e84064"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "8fb7f73c114a46f590717e42862fd2b95e6e9a596bc1ab4369eaab71d1e84064"
+    sha256 cellar: :any_skip_relocation, ventura:        "341932b24e8da6f666f87665fc59db797215150ecc86ced5d66b74591c94cb34"
+    sha256 cellar: :any_skip_relocation, monterey:       "341932b24e8da6f666f87665fc59db797215150ecc86ced5d66b74591c94cb34"
+    sha256 cellar: :any_skip_relocation, big_sur:        "341932b24e8da6f666f87665fc59db797215150ecc86ced5d66b74591c94cb34"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "787d6b8e7fadfb7ba432ebb945a035e95d676e0f7a79af932a10af87a83379e6"
   end
 
   depends_on "go" => :build
 
   def install
-    system "go", "build", *std_go_args(ldflags: "-s -w")
+    go_ldflags = %W[
+      -s -w
+      -X main.SHA=#{tap.user}
+      -X main.Version=#{version}
+      -X main.BuildTime=#{time.iso8601}
+    ]
+    system "go", "build", *std_go_args(ldflags: go_ldflags)
   end
 
   test do
+    version_output = shell_output("#{bin}/dnscontrol version")
+    assert_match version.to_s, version_output
+    assert_match tap.user, version_output
+
     (testpath/"dnsconfig.js").write <<~EOS
       var namecom = NewRegistrar("name.com", "NAMEDOTCOM");
       var r53 = NewDnsProvider("r53", "ROUTE53")

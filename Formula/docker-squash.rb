@@ -3,37 +3,37 @@ class DockerSquash < Formula
 
   desc "Docker image squashing tool"
   homepage "https://github.com/goldmann/docker-squash"
-  url "https://files.pythonhosted.org/packages/7d/f8/23a9721de4888be7eb59e21d2d4c86da8273d3fa4535052f153b4b8bfacf/docker-squash-1.0.10.tar.gz"
-  sha256 "cf88e2f23e0de109c6636acbdd5c705fa4a6a33a783bdb087f700bcd09cf8683"
+  url "https://files.pythonhosted.org/packages/6c/0b/3684b7e34c46045dda03b34be50392c689b23fa8788a0c0f7daf98db35d8/docker-squash-1.1.0.tar.gz"
+  sha256 "819a87bf44c575c76d8d8f15544363a7a81ca2b176d424b67b39cd2cd9acc89e"
   license "MIT"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "cf0c62b8723354ec5dfad884e18e2b3cd7a3694b9fc62c9c2e2db4239b77863a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "403c13d1e7f6a74fb3c9d92c55ee5d21c037ca135607e102204f3e01aa18105d"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "79e15a895d36531ac87ba617d2075f803d311ebd26f7a844d2f19c8ce3f3ebc6"
-    sha256 cellar: :any_skip_relocation, ventura:        "ec799802efd9828bd21023fd3d89aab9bfd4ef3d8e07e6dc28f0da36aa3c2b55"
-    sha256 cellar: :any_skip_relocation, monterey:       "37ad4f9d6671d0eab04868fc80621259df8106f8b2bf608bdc6e2e294d049bd8"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d1d526a45df27a046f9615f77bc19cd04a6e79b335425c8a164376e73e8598d3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "928b047b8fcdbfadb7c28c1cff520c535cd92e660aade405ae80868dd08530c6"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7c2ebf1e29641a705509921e98bfc3aae0af095059c69433a1142658c6c7546a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6141b6c9198aec3ff13f63fe30961463ff90dc62dc836b2e787e6c9062995689"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ef478f4f7e31dcc4cd22c1c6e900881deb076aa8d92e5a2ca63e67b3a0a8d6ee"
+    sha256 cellar: :any_skip_relocation, ventura:        "b6f5004341b3aa418cd9340f989391587421e0cc6fdd2ddda00ea472cde753b6"
+    sha256 cellar: :any_skip_relocation, monterey:       "ff93c1fe09d47aa2bbed8d55e51f3c243e808f1944f88d19ac39cc9aa0a19a71"
+    sha256 cellar: :any_skip_relocation, big_sur:        "f65419f05f08cbac7eaea7cde12987393afeacce7a7883c005c9df6508b205d3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "44a284c1ff1bf3a221bd5a48e31bc3660aef1c7a6e183805d3596e348a3eff91"
   end
 
   depends_on "python@3.11"
   depends_on "six"
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/37/f7/2b1b0ec44fdc30a3d31dfebe52226be9ddc40cd6c0f34ffc8923ba423b69/certifi-2022.12.7.tar.gz"
-    sha256 "35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3"
+    url "https://files.pythonhosted.org/packages/93/71/752f7a4dd4c20d6b12341ed1732368546bc0ca9866139fe812f6009d9ac7/certifi-2023.5.7.tar.gz"
+    sha256 "0f0d56dc5a6ad56fd4ba36484d6cc34451e1c6548c61daad8c320169f91eddc7"
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/96/d7/1675d9089a1f4677df5eb29c3f8b064aa1e70c1251a0a8a127803158942d/charset-normalizer-3.0.1.tar.gz"
-    sha256 "ebea339af930f8ca5d7a699b921106c6e29c617fe9606fa7baa043c1cdae326f"
+    url "https://files.pythonhosted.org/packages/ff/d7/8d757f8bd45be079d76309248845a04f09619a7b17d6dfc8c9ff6433cac2/charset-normalizer-3.1.0.tar.gz"
+    sha256 "34e0a2f9c370eb95597aae63bf85eb5e96826d81e3dcf88b8886012906f509b5"
   end
 
   resource "docker" do
-    url "https://files.pythonhosted.org/packages/79/26/6609b51ecb418e12d1534d00b888ce7e108f38b47dc6cd589598d5c6aaa2/docker-6.0.1.tar.gz"
-    sha256 "896c4282e5c7af5c45e8b683b0b0c33932974fe6e50fc6906a0a83616ab3da97"
+    url "https://files.pythonhosted.org/packages/d4/5f/48add223bfc02f7645b990418d1d3e01f6d4de7e6fcee31919f40129e893/docker-6.1.2.tar.gz"
+    sha256 "dcc088adc2ec4e7cfc594e275d8bd2c9738c56c808de97476939ef67db5af8c2"
   end
 
   resource "idna" do
@@ -42,23 +42,23 @@ class DockerSquash < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/47/d5/aca8ff6f49aa5565df1c826e7bf5e85a6df852ee063600c1efa5b932968c/packaging-23.0.tar.gz"
-    sha256 "b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"
+    url "https://files.pythonhosted.org/packages/b9/6c/7c6658d258d7971c5eb0d9b69fa9265879ec9a9158031206d47800ae2213/packaging-23.1.tar.gz"
+    sha256 "a392980d2b6cffa644431898be54b0045151319d1e7ec34f0cfed48767dd334f"
   end
 
   resource "requests" do
-    url "https://files.pythonhosted.org/packages/9d/ee/391076f5937f0a8cdf5e53b701ffc91753e87b07d66bae4a09aa671897bf/requests-2.28.2.tar.gz"
-    sha256 "98b1b2782e3c6c4904938b84c0eb932721069dfdb9134313beff7c83c2df24bf"
+    url "https://files.pythonhosted.org/packages/9d/be/10918a2eac4ae9f02f6cfe6414b7a155ccd8f7f9d4380d62fd5b955065c3/requests-2.31.0.tar.gz"
+    sha256 "942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/c5/52/fe421fb7364aa738b3506a2d99e4f3a56e079c0a798e9f4fa5e14c60922f/urllib3-1.26.14.tar.gz"
-    sha256 "076907bf8fd355cde77728471316625a4d2f7e713c125f51953bb5b3eecf4f72"
+    url "https://files.pythonhosted.org/packages/fb/c0/1abba1a1233b81cf2e36f56e05194f5e8a0cec8c03c244cab56cc9dfb5bd/urllib3-2.0.2.tar.gz"
+    sha256 "61717a1095d7e155cdb737ac7bb2f4324a858a1e2e6466f6d03ff630ca68d3cc"
   end
 
   resource "websocket-client" do
-    url "https://files.pythonhosted.org/packages/8b/94/696484b0c13234c91b316bc3d82d432f9b589a9ef09d016875a31c670b76/websocket-client-1.5.1.tar.gz"
-    sha256 "3f09e6d8230892547132177f575a4e3e73cfdf06526e20cc02aa1c3b47184d40"
+    url "https://files.pythonhosted.org/packages/3f/f2/2624e12ef854ee667d92ac5dc7815932095e0852e5ff2b2bf57feda8a11b/websocket-client-1.5.2.tar.gz"
+    sha256 "c7d67c13b928645f259d9b847ab5b57fd2d127213ca41ebd880de1f553b7c23b"
   end
 
   def install

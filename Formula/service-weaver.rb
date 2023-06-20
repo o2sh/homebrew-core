@@ -4,23 +4,23 @@ class ServiceWeaver < Formula
   license "Apache-2.0"
 
   stable do
-    url "https://github.com/ServiceWeaver/weaver/archive/refs/tags/v0.7.0.tar.gz"
-    sha256 "fd1472dd9059da73c6eff229c9359677ef270dbdbe2f63ce228687fb87a6338b"
+    url "https://github.com/ServiceWeaver/weaver/archive/refs/tags/v0.15.0.tar.gz"
+    sha256 "f35bbda3bfa184c395d8218ddcbf2975fd68a6fd654c448c2f131316892757c7"
 
     resource "weaver-gke" do
-      url "https://github.com/ServiceWeaver/weaver-gke/archive/refs/tags/v0.5.3.tar.gz"
-      sha256 "497ead64073fdbffaab15a77e71d55942b5bbd3f221eb9bc7595da57060e1b65"
+      url "https://github.com/ServiceWeaver/weaver-gke/archive/refs/tags/v0.13.0.tar.gz"
+      sha256 "bb34cdad729d842b398ab04363f8f5907c68a68e2cccba63538adf9ef29c139b"
     end
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ebfeecd8db384375242264971fad1b8537d5ba506a70f2e37e3d4c8eefe60c0f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4980dfab823c47b81cc7cc042055613f2dafa33fb5238f7b833a6dd20c02b3cf"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ea33476a68754f79b16997c32e7fa8bb244c9395283c2188ce0d4ccd1413870b"
-    sha256 cellar: :any_skip_relocation, ventura:        "60b7f4afcdefc29598ac8023ea488add393c16986c2cdeb3cf4ec586165f7231"
-    sha256 cellar: :any_skip_relocation, monterey:       "a610eb13be17a7a065f02cd79ac0e1adc5f407de30cea6000f190e44fb892ac8"
-    sha256 cellar: :any_skip_relocation, big_sur:        "7ae953eb4f3eaaae78c8d978961963f3a4e39dbc71e8c1ed297d75b5e732e2fe"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ca0c0d74d30eaf288ceea3648066211d72708316f25d5e5b33da9e5f8633b506"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "380801a0b4fedf00f4f5c4ca027f543afcfb06ae40dc6f00257bb470d79513b1"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "0b61d4185235be654d736b5be974054a09c39cc75897191628e278aafca4aeae"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ebbd97edbe1b8c47d169a468d02fea522a33b561aa2c2727e6791712f9a8784d"
+    sha256 cellar: :any_skip_relocation, ventura:        "3dc723851f0e73126303789ac3e6066a107af6d6716a9b8afbc8ff0eace4abd3"
+    sha256 cellar: :any_skip_relocation, monterey:       "a8a662a6e7c2231f2f0dd3414e798be0c853ddc3bf3d1df5b98091c3c7baa9bb"
+    sha256 cellar: :any_skip_relocation, big_sur:        "b769b3db2101d1f666a52d9ad2fdd1eeb0be84863e2ef50a406cb6ebd3c9986e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e2c2f5e65522a32982cfb64e9f6ddb3de1abdd9790e195cc229ef0cae11ff261"
   end
 
   head do

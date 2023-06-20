@@ -2,20 +2,18 @@ class SqliteUtils < Formula
   include Language::Python::Virtualenv
   desc "CLI utility for manipulating SQLite databases"
   homepage "https://sqlite-utils.datasette.io/"
-  url "https://files.pythonhosted.org/packages/ba/8d/9660dc531135779a1980e670d78d1402506e02fc1aaa10556da6ecf9960c/sqlite-utils-3.30.tar.gz"
-  sha256 "30005c12d5f13445659f791766beb6a9900c25f442bea1f980f21d38b75f6e33"
+  url "https://files.pythonhosted.org/packages/1a/95/b6fe852980c9494bf8a5e99d017cc6b864f9807a3e082c7837c267302217/sqlite-utils-3.32.1.tar.gz"
+  sha256 "6c28fe32fcebd658a1691dedfa4d111499ad302cc0139c5a5893a590d461848a"
   license "Apache-2.0"
-  revision 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "55850547f3febd675a4e44a91af5727c940c88f47e4fb67067328ed7e6627437"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "64d444fd747d0040308c1e104a80776e95b1021701f64c02eae476218ff1d522"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "fa24e30b8347de7847c9781280854d22dd158e4085a7af140b0a8836e714e916"
-    sha256 cellar: :any_skip_relocation, ventura:        "2c75997b14d75724dfea196e5753ce4189e3385dbc8165debd9f982c8603940c"
-    sha256 cellar: :any_skip_relocation, monterey:       "0b38cb7ec0e555c0f98e8d54cfb9a8976dc54b262af356cbfad8035798bf1de3"
-    sha256 cellar: :any_skip_relocation, big_sur:        "df113a755159beb5af5c77baefd06f8753c3c92a5d909bd77dcfc7d8f7fe6acf"
-    sha256 cellar: :any_skip_relocation, catalina:       "0e5134f6bc6e4a6ebb273ec8185061091ea77bdec7e259c93c1f09ede4a81681"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7bb704e7f9a703bd9d8b2eb00d095d063ff9be13c5af7a15cb90cc1e0fcc73db"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f405006eb021d8903c9a654accaef05494dc83a9610c7f0354a9e8aa01fa2b30"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8e8a8796dadb0b11020fa5c905944af70e6d1eadd794f043d3019e585910488f"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "41aaf30e5c0598f526add6cf897bfa829d57d90233e82645ad614dbba0ca16de"
+    sha256 cellar: :any_skip_relocation, ventura:        "f5dd279f6a6066ff1048d0d35e14e20b9866315c5b5ea532dba5029d13344904"
+    sha256 cellar: :any_skip_relocation, monterey:       "208ae33f4a96bee6f41bb0205150c69f6226b33d007b665815a9deb77a7325f1"
+    sha256 cellar: :any_skip_relocation, big_sur:        "df0a6295a2592ef67619e4f7328d2957ea4e44175181c7ea7adb6795cf177637"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "31fe70e61cf0532acf34ab704e07cbe334eeca3d9dfc7f784d8704ca1e88b889"
   end
 
   depends_on "python-tabulate"

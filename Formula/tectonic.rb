@@ -1,8 +1,8 @@
 class Tectonic < Formula
   desc "Modernized, complete, self-contained TeX/LaTeX engine"
   homepage "https://tectonic-typesetting.github.io/"
-  url "https://github.com/tectonic-typesetting/tectonic/archive/tectonic@0.12.0.tar.gz"
-  sha256 "96a53ab5ba29d2bf263f19b6f07450471118bf2067c610b362a1492d0b9b989f"
+  url "https://github.com/tectonic-typesetting/tectonic/archive/tectonic@0.14.1.tar.gz"
+  sha256 "3703a4fc768b3c7be6a4560857b17b2671f19023faee414aa7b6befd24ec9d25"
   license "MIT"
   revision 1
   head "https://github.com/tectonic-typesetting/tectonic.git", branch: "master"
@@ -16,13 +16,13 @@ class Tectonic < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "decb0609b7fcb74eb2a31ae866ffa6c5a029fb952f0e7b6340ec2a62389d3082"
-    sha256 cellar: :any,                 arm64_monterey: "95d88b3e9f86985ef1ebf8f8312c54e74d990ca27ca067e5da680b5d4018b838"
-    sha256 cellar: :any,                 arm64_big_sur:  "c334df1e51fe1d910f9a2918f97f0a0307254de9cc0005cdb03b9c92640b42bf"
-    sha256 cellar: :any,                 ventura:        "8169a82836c8b7e569f152b9ff7eb1780b3c49eeaa55f9ae2c650e7c23f6d60a"
-    sha256 cellar: :any,                 monterey:       "427b5701bb6a6548d97ee8bf8b2bac83d99e901bd661e8140bb84d4e465f6b6e"
-    sha256 cellar: :any,                 big_sur:        "19c2550f5990ca570c579fc31b9329e17975de795ada0839eb9ddada3d30de85"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a3cecf70dfe2804bc491cb7954d09bfd5c6948ccc8cb0249ca2ae5d96795d3eb"
+    sha256 cellar: :any,                 arm64_ventura:  "2f3f2d11a4ce369f5c6b501b3504edcddc0f821c44bc52e2bb829ff2238d6be3"
+    sha256 cellar: :any,                 arm64_monterey: "8363c83668e45340ebaa2924a08c5cddda6dc7578b1f699c1194176bead1bf99"
+    sha256 cellar: :any,                 arm64_big_sur:  "95220f51c7530b2bf11a79c156a5aa5e0ba16e8b832d7e1cffff8de84d15d841"
+    sha256 cellar: :any,                 ventura:        "861d45e1adf751c77a6d3e5a85e5d86d4286d4cac099edf82c40188bc8a9cced"
+    sha256 cellar: :any,                 monterey:       "f8352b2bd8cc27ebeece409a3b9ca8fddd5cccf58ff4b70f5cc1756140c868c0"
+    sha256 cellar: :any,                 big_sur:        "942034cafee1729c67a38e9c94b6b2cff546c4c59fa305d2d255c809f9986d4e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "efa398c246fba43bab1b9fcf46a975e43149b9c84674d9049a765b33c3257823"
   end
 
   depends_on "pkg-config" => :build
@@ -36,7 +36,7 @@ class Tectonic < Formula
 
   def install
     ENV.cxx11
-    ENV["MACOSX_DEPLOYMENT_TARGET"] = MacOS.version # needed for CLT-only builds
+    ENV["MACOSX_DEPLOYMENT_TARGET"] = MacOS.version.to_s # needed for CLT-only builds
     ENV.delete("HOMEBREW_SDKROOT") if MacOS.version == :high_sierra
 
     # Ensure that the `openssl` crate picks up the intended library.

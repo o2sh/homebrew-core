@@ -1,19 +1,26 @@
 class VulkanValidationlayers < Formula
   desc "Vulkan layers that enable developers to verify correct use of the Vulkan API"
   homepage "https://github.com/KhronosGroup/Vulkan-ValidationLayers"
-  url "https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/refs/tags/v1.3.248.tar.gz"
-  sha256 "2b4d62fe0a4392b1a322e3d2c8a3541ee19074363c7464aef029890143ecf521"
   license "Apache-2.0"
   head "https://github.com/KhronosGroup/Vulkan-ValidationLayers.git", branch: "main"
 
+  stable do
+    url "https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/refs/tags/v1.3.250.tar.gz"
+    sha256 "1c3609321c1167f9af5d3687a443885e2cb1e8e5150df16356200e84bef685f3"
+
+    # upstream commit ref, https://github.com/KhronosGroup/SPIRV-Tools/commit/d4c0abdcad60325a2ab3c00a81847e2dbdc927a2
+    # remove in next release
+    patch :DATA
+  end
+
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "17e804049455e310d29aef71542376e425fe26cc421ef47c33b97248c3958d04"
-    sha256 cellar: :any,                 arm64_monterey: "1dc80cc863e06698e4cdf60b20cc7bdf1e5e951774b0cd1a9bbd6fdd4c25e520"
-    sha256 cellar: :any,                 arm64_big_sur:  "0523325168764a438553037cca0791f7a307add39d8040b5c9f31740028d1bce"
-    sha256 cellar: :any,                 ventura:        "5bbd8fa8d568c0f07d6651c10e56ba571d09941a491773dbd4f92aa4da1833d2"
-    sha256 cellar: :any,                 monterey:       "811fb5a1b0f1e7859d089a1dcef3721d6415012c6fdf534d96e7285f331d4f96"
-    sha256 cellar: :any,                 big_sur:        "fce58f2a19936a0c5b08bd493ce727157d264140bac7a7c41d293da6c7bff83b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b0773cb997c323e0e6d1791e2bc32091aad043e37b346206d53f9380933a8669"
+    sha256 cellar: :any,                 arm64_ventura:  "a344fc4bccbf4505caa2a700a21f46e147a9e79f6876809b40967fb169d8fd37"
+    sha256 cellar: :any,                 arm64_monterey: "a2744ddfcec7ddc534e933aec54a3a361bd7c78a5943db20ff5c566400341bb1"
+    sha256 cellar: :any,                 arm64_big_sur:  "9931def5297dce6d87327d64093555a060132ba7d98d54da3e8afba43c250fb0"
+    sha256 cellar: :any,                 ventura:        "3f6dc678afd4b1355875746df32e6bcc7eda0c83e7d8a3b92e573564f18af2b5"
+    sha256 cellar: :any,                 monterey:       "65c790510017b6ae55e0666a26b00bcbc52b75c9ecc1ed2d420bc3abe7d5d64b"
+    sha256 cellar: :any,                 big_sur:        "6b3a8ab678a607bd891ab85acece74fd8f91139de5812ebf70fe49b19eee4067"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e834d1d737fbc101412b4c784435bc3ae1611deee28a3c7299559453efee41f5"
   end
 
   depends_on "cmake" => :build
@@ -77,3 +84,17 @@ class VulkanValidationlayers < Formula
     assert_match Regexp.new(expected), actual
   end
 end
+
+__END__
+diff --git a/layers/gpu_validation/gpu_validation.h b/layers/gpu_validation/gpu_validation.h
+index 8183fdf..0f2ea6b 100644
+--- a/layers/gpu_validation/gpu_validation.h
++++ b/layers/gpu_validation/gpu_validation.h
+@@ -330,3 +330,7 @@ class GpuAssisted : public GpuAssistedBase {
+     bool descriptor_indexing = false;
+     bool buffer_device_address;
+ };
++
++namespace spvtools {
++    static const int kDebugInputBindlessMaxDescSets = 32;
++}

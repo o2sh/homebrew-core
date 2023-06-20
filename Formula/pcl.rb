@@ -1,20 +1,20 @@
 class Pcl < Formula
   desc "Library for 2D/3D image and point cloud processing"
   homepage "https://pointclouds.org/"
-  url "https://github.com/PointCloudLibrary/pcl/archive/pcl-1.13.0.tar.gz"
-  sha256 "b6f6769b84d3d8313e48278388b923e32cf519e6a27a4876c2170d587b33721d"
+  url "https://github.com/PointCloudLibrary/pcl/archive/pcl-1.13.1.tar.gz"
+  sha256 "8ab98a9db371d822de0859084a375a74bdc7f31c96d674147710cf4101b79621"
   license "BSD-3-Clause"
-  revision 2
+  revision 1
   head "https://github.com/PointCloudLibrary/pcl.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "a6f1cf06d839ebf014c2595423e76b11df7b5432cad49d56ecfe352a5d27db9d"
-    sha256 cellar: :any,                 arm64_monterey: "04a04a07f89b13e0a7ed50dd17b163ecffee6c3ecd487753acd5396f43bf2acb"
-    sha256 cellar: :any,                 arm64_big_sur:  "8dc05550e4b08debdbf1ad135013e7cb860abd43f32bd4262e5ecc5fe65f8cea"
-    sha256 cellar: :any,                 ventura:        "1896b72ac0e30f8418d61e4c9f4c858ed1040fff4cb9f481d129ebf9df3d35ab"
-    sha256 cellar: :any,                 monterey:       "91493152414e609f705f1d1c98329c57a069e7856bb425ab7620a36291ef6129"
-    sha256 cellar: :any,                 big_sur:        "88b4a5e40bcaab179befab7781794bad2248e1b7ab7d35a4e4241e459493dcb6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1f8846c606117b712f2878f16d5f171f673b3746cd9984db2c1a4be65294262c"
+    sha256 cellar: :any,                 arm64_ventura:  "71a62c5aa5e77cd4062236dc35f76564d0d35146f497399d4eae193b15bf8242"
+    sha256 cellar: :any,                 arm64_monterey: "35811a631c26581fe21c90008a1900acb18d15c38b7ae51654c3cfec8fa68814"
+    sha256 cellar: :any,                 arm64_big_sur:  "35c965b47d1300821e8c03a6415bb6b22dd6e74fa9e2cff5a115c88a47d7a9bc"
+    sha256 cellar: :any,                 ventura:        "ba92059c02bac98cbe70b456e4c5c42aecd76d7f4c81b22fe0c7cec06ac46fdf"
+    sha256 cellar: :any,                 monterey:       "7a43badf45d2c42917d39229cb0c97514896d35c2d7a69f7bf6cef57aaa36dd6"
+    sha256 cellar: :any,                 big_sur:        "6e2ed8d191b3b809bfd87f69f37eea5661d69f441675926e4f3d0d608bc5fc7d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f80803970008cc951b3d50c013b6cd600becc304fca13532a603dae4cef22976"
   end
 
   depends_on "cmake" => [:build, :test]

@@ -2,7 +2,7 @@ class Subversion < Formula
   desc "Version control system designed to be a better CVS"
   homepage "https://subversion.apache.org/"
   license "Apache-2.0"
-  revision 1
+  revision 2
 
   stable do
     url "https://www.apache.org/dyn/closer.lua?path=subversion/subversion-1.14.2.tar.bz2"
@@ -17,14 +17,14 @@ class Subversion < Formula
   end
 
   bottle do
-    rebuild 2
-    sha256 arm64_ventura:  "2a9a5e70f1fbaa17eeef6bb50376371c3a851b7a9a4b4603221c1fd14c54fc7f"
-    sha256 arm64_monterey: "da10671ff8bd10ab4032572c40963d60ddaa57feae1b6f09df6d9626bfd8496d"
-    sha256 arm64_big_sur:  "8944bdee4668b9750e8a1aa250eab73033ecbd1870d12e492637de25dd6251cc"
-    sha256 ventura:        "de4cc446ee4d782f3a1c44e078fd8644bbe321e6cbf275b7db78eed22a122448"
-    sha256 monterey:       "a29ab2cecb13316b6dc44e3ce0f9f3dc9bcc9484abaca2aac2984d1d89e2fc17"
-    sha256 big_sur:        "d24d68286d208a2294bf6e4e722aae60bed9574d827ca25354b12dccd8ef8ed7"
-    sha256 x86_64_linux:   "f3b735902067cdd7733ceac8310689236b4fe403205787bcbbc9ee7bced85968"
+    rebuild 1
+    sha256 arm64_ventura:  "7205394ef4f7ab0bd925f8976f2ca099211505c1d1480973374aca9aae089be5"
+    sha256 arm64_monterey: "795da21bb95f6737f89c33de2cad4c4a1ca6bf74707b38e7956c27c6723f53a6"
+    sha256 arm64_big_sur:  "75a3712a82a7f4283045710d9f9142bda611e65f0671fefd3be1d780792b2c64"
+    sha256 ventura:        "b83a333d9bd503f20ced6ba2d40677c57fa5a4193f785dfe6dfb982eed9479f6"
+    sha256 monterey:       "8772dba3615530d6e9e9302320c9481469ae7984eb224fbffc23071a5ecd06f5"
+    sha256 big_sur:        "af2a3daad4f43f5728a5e8330f9db7e7e1802735c477d91d6cae71b9a58cfe24"
+    sha256 x86_64_linux:   "c30a3ca4396953256f5a60e60943d671657526dbc61298330c7e3b93400ff302"
   end
 
   head do
@@ -71,9 +71,9 @@ class Subversion < Formula
   end
 
   resource "serf" do
-    url "https://www.apache.org/dyn/closer.lua?path=serf/serf-1.3.9.tar.bz2"
-    mirror "https://archive.apache.org/dist/serf/serf-1.3.9.tar.bz2"
-    sha256 "549c2d21c577a8a9c0450facb5cca809f26591f048e466552240947bdf7a87cc"
+    url "https://www.apache.org/dyn/closer.lua?path=serf/serf-1.3.10.tar.bz2"
+    mirror "https://archive.apache.org/dist/serf/serf-1.3.10.tar.bz2"
+    sha256 "be81ef08baa2516ecda76a77adf7def7bc3227eeb578b9a33b45f7b41dc064e6"
   end
 
   def python3
@@ -94,14 +94,6 @@ class Subversion < Formula
       end
 
       inreplace "SConstruct" do |s|
-        s.gsub! "print 'Warning: Used unknown variables:', ', '.join(unknown.keys())",
-        "print('Warning: Used unknown variables:', ', '.join(unknown.keys()))"
-        s.gsub! "match = re.search('SERF_MAJOR_VERSION ([0-9]+).*'",
-        "match = re.search(b'SERF_MAJOR_VERSION ([0-9]+).*'"
-        s.gsub! "'SERF_MINOR_VERSION ([0-9]+).*'",
-        "b'SERF_MINOR_VERSION ([0-9]+).*'"
-        s.gsub! "'SERF_PATCH_VERSION ([0-9]+)'",
-        "b'SERF_PATCH_VERSION ([0-9]+)'"
         s.gsub! "variables=opts,",
         "variables=opts, RPATHPREFIX = '-Wl,-rpath,',"
       end

@@ -1,8 +1,8 @@
 class PythonAT39 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.9.16/Python-3.9.16.tar.xz"
-  sha256 "22dddc099246dd2760665561e8adb7394ea0cc43a72684c6480f9380f7786439"
+  url "https://www.python.org/ftp/python/3.9.17/Python-3.9.17.tar.xz"
+  sha256 "30ce057c44f283f8ed93606ccbdb8d51dd526bdc4c62cce5e0dc217bfa3e8cee"
   license "Python-2.0"
 
   livecheck do
@@ -11,13 +11,14 @@ class PythonAT39 < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "10c001463bfb8480b07a06d42151a199d0c8b2205f59946a2d77e96191ee7d1b"
-    sha256 arm64_monterey: "cba18cf1ef0bf77404e5532048bc3d86c7136a5b067c22742114b68bdc777bd2"
-    sha256 arm64_big_sur:  "275d925e9375c487df055a3ffce108735781821a9f37fd810cbdd3c09a49fc3e"
-    sha256 ventura:        "06e42063af5803d934d891dbd15748ab156c54a567411822ab7e5d727a0a7a2a"
-    sha256 monterey:       "f048ad5c291c14a3864312ca807024b95a02909a782dc5e3f2e05c28a7487294"
-    sha256 big_sur:        "3e8b53506dc283aa31a22e5a5a206c3a559f3fcea4d1b0dbebaf7da21b28a4fc"
-    sha256 x86_64_linux:   "a18df25578c0a8b11d25d73cc29ecf9c569d0045197d63522c1da812e430eb77"
+    rebuild 1
+    sha256 arm64_ventura:  "645d2905c90bbada6850ce532018688e5cefea0c804e31ab4c80776508254af0"
+    sha256 arm64_monterey: "847fed352ee4d7ad1bc9f9e84b2815c6c49e4687cf9c5b8d6f33f594125d64ba"
+    sha256 arm64_big_sur:  "d3fe82f3a9d2ff59bd583d6299596cbf12d7ab68f63944ab95e624745cc9ea9f"
+    sha256 ventura:        "12df0c5e9d5f4ef6b588c14a89294b7dbfa2dfd967c43b7ab651ea34929e8625"
+    sha256 monterey:       "b4f1e41330af6829f6e57d4a4204734bb57fd27c6b6c5002b11160259a2a770a"
+    sha256 big_sur:        "1481e5824a1bd54e49fe631a7f8a9648d477fd4f869b13f286c97904694bb6ac"
+    sha256 x86_64_linux:   "7b1e03112406ec76753d4f899c3796c07478a3553faa0944f0fb87ff6020f973"
   end
 
   # setuptools remembers the build flags python is built with and uses them to
@@ -441,7 +442,7 @@ class PythonAT39 < Formula
           if os.path.realpath(sys.base_exec_prefix).startswith('#{rack}'):
               new_exec_prefix = cellar_prefix.sub('#{opt_prefix}/', sys.base_exec_prefix)
               if sys.exec_prefix == sys.base_exec_prefix:
-                  site.PREFIXES[:] = [new_prefix if x == sys.exec_prefix else x for x in site.PREFIXES]
+                  site.PREFIXES[:] = [new_exec_prefix if x == sys.exec_prefix else x for x in site.PREFIXES]
                   sys.exec_prefix = new_exec_prefix
               sys.base_exec_prefix = new_exec_prefix
       # Check for and add the python-tk prefix.

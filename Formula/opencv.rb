@@ -4,7 +4,7 @@ class Opencv < Formula
   url "https://github.com/opencv/opencv/archive/refs/tags/4.7.0.tar.gz"
   sha256 "8df0079cdbe179748a18d44731af62a245a45ebf5085223dc03133954c662973"
   license "Apache-2.0"
-  revision 4
+  revision 7
 
   livecheck do
     url :stable
@@ -12,11 +12,13 @@ class Opencv < Formula
   end
 
   bottle do
-    sha256 arm64_monterey: "cdb96aec242b81bf2e30ab2c8617d5257b6cac6e9f14b7062d8987753e96e1c3"
-    sha256 arm64_big_sur:  "7997f935e9bb9c4da396da9525b4a49064ee61fc5bed4047e02a861cd1c86448"
-    sha256 monterey:       "760d86445e552c1cfc71e5a8aa9bcb9ff7a57da0e1e3506db10012d0542e5485"
-    sha256 big_sur:        "007ec12d18aa36dcae633756a51f3c6b2572404c89d4478e3352bf315ec2ffff"
-    sha256 x86_64_linux:   "4fd2242c95c330f71b4d1eea91ebe1057dc54149dd90b00319b73321c9b7e25b"
+    sha256 arm64_ventura:  "b3b4d11d4ab5e0b0f89ff0c57495b51abedb55093d1c3c34f913497215e774ad"
+    sha256 arm64_monterey: "3839f868463b61341bcd9cced7714900cc380772125b89f240bfff640bdd17cb"
+    sha256 arm64_big_sur:  "35bef4faf436bf4fb3a3d552055f5866b3152478b0713acb9fce31cf9df881f3"
+    sha256 ventura:        "0d72cd077048df1c6efd6ec13932a631eb80ec5f523e747edd72dbeae4a1711b"
+    sha256 monterey:       "a01ceebe326fde272eeb2cf6662eefc2c69fea03b7864d9ffdb2d69284379157"
+    sha256 big_sur:        "f18d2bcaf0c5700a63dd4eaaf5f0d2df1d3a409e877fb32e15e0aaf383de4ea4"
+    sha256 x86_64_linux:   "c532964da8bf92574e3dc81ce860c6a93b9e717f92d4790074c3ed5c83c1375f"
   end
 
   depends_on "cmake" => :build
@@ -65,7 +67,7 @@ class Opencv < Formula
     libdirs = %w[ffmpeg libjasper libjpeg libjpeg-turbo libpng libtiff libwebp openexr openjpeg protobuf tbb zlib]
     libdirs.each { |l| (buildpath/"3rdparty"/l).rmtree }
 
-    args = std_cmake_args + %W[
+    args = %W[
       -DCMAKE_CXX_STANDARD=11
       -DCMAKE_OSX_DEPLOYMENT_TARGET=
       -DBUILD_JASPER=OFF
@@ -104,6 +106,11 @@ class Opencv < Formula
       -DPYTHON3_EXECUTABLE=#{which(python3)}
     ]
 
+    args += [
+      "-DCMAKE_FIND_PACKAGE_PREFER_CONFIG=ON", # https://github.com/protocolbuffers/protobuf/issues/12292
+      "-Dprotobuf_MODULE_COMPATIBLE=ON", # https://github.com/protocolbuffers/protobuf/issues/1931
+    ]
+
     # Disable precompiled headers and force opencv to use brewed libraries on Linux
     if OS.linux?
       args += %W[
@@ -127,12 +134,12 @@ class Opencv < Formula
       args += %W[-DCPU_BASELINE=#{cpu_baseline} -DCPU_BASELINE_REQUIRE=#{cpu_baseline}]
     end
 
-    system "cmake", "-S", ".", "-B", "build_shared", *args
+    system "cmake", "-S", ".", "-B", "build_shared", *args, *std_cmake_args
     inreplace "build_shared/modules/core/version_string.inc", "#{Superenv.shims_path}/", ""
     system "cmake", "--build", "build_shared"
     system "cmake", "--install", "build_shared"
 
-    system "cmake", "-S", ".", "-B", "build_static", *args, "-DBUILD_SHARED_LIBS=OFF"
+    system "cmake", "-S", ".", "-B", "build_static", *args, *std_cmake_args, "-DBUILD_SHARED_LIBS=OFF"
     inreplace "build_static/modules/core/version_string.inc", "#{Superenv.shims_path}/", ""
     system "cmake", "--build", "build_static"
     lib.install buildpath.glob("build_static/{lib,3rdparty/**}/*.a")

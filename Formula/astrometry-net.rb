@@ -3,9 +3,10 @@ class AstrometryNet < Formula
 
   desc "Automatic identification of astronomical images"
   homepage "https://github.com/dstndstn/astrometry.net"
-  url "https://github.com/dstndstn/astrometry.net/releases/download/0.93/astrometry.net-0.93.tar.gz"
-  sha256 "9a4854c87210422e113b8f6855912a38f0b187526171364ee2a889d36c674d70"
+  url "https://github.com/dstndstn/astrometry.net/releases/download/0.94/astrometry.net-0.94.tar.gz"
+  sha256 "38c0d04171ecae42033ce5c9cd0757d8c5fc1418f2004d85e858f29aee383c5f"
   license "BSD-3-Clause"
+  revision 1
 
   livecheck do
     url :stable
@@ -13,13 +14,13 @@ class AstrometryNet < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "fcb9b79443432232792b10a4c5a47bdb50d1475fd1f1ec29f35428ae1f3ddf9b"
-    sha256 cellar: :any,                 arm64_monterey: "e100c8672e261886fa944a5e07ae664c6cc125b88abc0e408b314135cd0a0644"
-    sha256 cellar: :any,                 arm64_big_sur:  "1bc3fe27cbe434b0e36940984df1cc57ef664fc5b7a50932e974a19d18ac11be"
-    sha256 cellar: :any,                 ventura:        "3250164d38bdca155ab140cbed0d3e1c3af9adb01d92e4c0df132c74a22ba14f"
-    sha256 cellar: :any,                 monterey:       "0251706bcea94e97119486b8249b34e8ff3ec27992732919208b67730955f395"
-    sha256 cellar: :any,                 big_sur:        "75654199ace88853110e1d06daa41c46f933c4798c7d8c4275fdbff9a60cb81a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "80d70c566fcc127038285f15d9ae1602fd1321aa39e4c169a433628c1b96ab4a"
+    sha256 cellar: :any,                 arm64_ventura:  "1e1dd4ca98634847a4cca6c0898e1e0785be7a460b8a91a1ba923eb8e4f54193"
+    sha256 cellar: :any,                 arm64_monterey: "f1fe0247102eca1ceee3d7a6ea1ac3c54e500946ebfe52254f7e1a51477002f3"
+    sha256 cellar: :any,                 arm64_big_sur:  "74130a63e3eb338b5b77ef505b216f4bcd7a7d421cf3e40c96b038e3c7ffcd65"
+    sha256 cellar: :any,                 ventura:        "42b242fc7dc1c5c9a60b4ca1ce5368db5b92700f8d233cf848a2aa34d09098f6"
+    sha256 cellar: :any,                 monterey:       "eafeaf9929cbce8b0a6fb8cd3efe312e3c203285466ed747dd669c3fd7d8c2e1"
+    sha256 cellar: :any,                 big_sur:        "14847578626078f3c588cf231977d34f4ccebd195e4424a8c5516d374b2b4de0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cd984b5e0e8aaa946a22648142f75f8b61c1c511d044946c00bd8867d8178e7f"
   end
 
   depends_on "pkg-config" => :build
@@ -37,6 +38,13 @@ class AstrometryNet < Formula
   resource "fitsio" do
     url "https://files.pythonhosted.org/packages/1f/0e/b312ff3f6b588c13fc2256a5df4c4d63c527a07e176012d0593136af53ee/fitsio-1.1.8.tar.gz"
     sha256 "61f569b2682a0cadce52c9653f0c9b81f951d000522cef645ce1cb49f78300f9"
+  end
+
+  # https://github.com/Homebrew/homebrew-core/issues/130484
+  # Review for removal on next release
+  patch do
+    url "https://github.com/dstndstn/astrometry.net/commit/f85136190b6e39393049e9be1cf14ac32b89b538.patch?full_index=1"
+    sha256 "82f8968805dacfd66961ea7cfea7e190be6faaaaa5367f2b86b0b5a62f160706"
   end
 
   def install
@@ -78,8 +86,12 @@ class AstrometryNet < Formula
       index index-9918.fits
     EOS
     system bin/"solve-field", "--config", "99.cfg", prefix/"examples/apod4.jpg",
-                              "--continue", "--dir", "."
-    assert_predicate testpath/"apod4.solved", :exist?
-    assert_predicate testpath/"apod4.wcs", :exist?
+                              "--continue", "--dir", "jpg"
+    assert_predicate testpath/"jpg/apod4.solved", :exist?
+    assert_predicate testpath/"jpg/apod4.wcs", :exist?
+    system bin/"solve-field", "--config", "99.cfg", prefix/"examples/apod4.xyls",
+                              "--continue", "--dir", "xyls"
+    assert_predicate testpath/"xyls/apod4.solved", :exist?
+    assert_predicate testpath/"xyls/apod4.wcs", :exist?
   end
 end

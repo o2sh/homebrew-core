@@ -1,8 +1,8 @@
 class Netdata < Formula
   desc "Diagnose infrastructure problems with metrics, visualizations & alarms"
   homepage "https://netdata.cloud/"
-  url "https://github.com/netdata/netdata/releases/download/v1.38.1/netdata-v1.38.1.tar.gz"
-  sha256 "e32a5427f0c00550210dbbf0046c2621313955256edf836db686e2bc270b8d10"
+  url "https://github.com/netdata/netdata/releases/download/v1.40.0/netdata-v1.40.0.tar.gz"
+  sha256 "73b43bada63a793bc27c940af7ef28637d76aba1c014bea01eae8cb77c168175"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -11,20 +11,22 @@ class Netdata < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "6c4471013a25cf3b17b96359a0e44f51cadc9ae2159a58b155b51ae423279d76"
-    sha256 arm64_monterey: "98a7ae423f287a8dd518a1c2f28f6fa297748ecfc5183728771eb12d997f31b9"
-    sha256 arm64_big_sur:  "232e854704a19b540ecb042202c6ff809835e5b50da52eb92bc93bf03c799ba1"
-    sha256 ventura:        "4bbdf98716571dff3f3a1c63c3deba38c4337c7b9106c155a6ac58d1a4b91d25"
-    sha256 monterey:       "fed0e06f3fbcae40148c2eca52ad227e0d74fec75ed3b565dee2d4c669b99517"
-    sha256 big_sur:        "6a68b1b73614760ca24472199ccf79bc1b355c68d2b45c3ed8087f2a5676cc8f"
-    sha256 x86_64_linux:   "70d09aa0d1c9c88612f8d8d8962e3afe0856f042bb81719a5ba0c0533caff01e"
+    sha256 arm64_ventura:  "2c0d84de57d2132951d72b129cf47ed9b9597d974e00d4635e68785ee122db90"
+    sha256 arm64_monterey: "337b79d895787f0c2fa985b23ff477ff7ee5771cb9ea97bdd70bb2de622a4faf"
+    sha256 arm64_big_sur:  "a37969d992ee1fa2633c2384153b61cc216d368b7f9a8de346a981c868d7c0a7"
+    sha256 ventura:        "0ec29100f5703f2902a1c890ffbea439e127ba549e2e45b1a7b9944a360dcb0c"
+    sha256 monterey:       "0b9b14761e94c9d7cb2362e80a833074da629778391060abaa9ef72ce454e1f9"
+    sha256 big_sur:        "f0c5be93bfbc14d7ec871b9a58859f75df323d071109c39781d49c85daf4dc21"
+    sha256 x86_64_linux:   "c923d1ce61f3340e4ffac02b49c0d4a7469b906c3d583db73d2424291a3a2142"
   end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
+  depends_on "m4" => :build
   depends_on "pkg-config" => :build
   depends_on "json-c"
   depends_on "libuv"
+  depends_on "libyaml"
   depends_on "lz4"
   depends_on "openssl@3"
   depends_on "protobuf-c"
@@ -38,6 +40,13 @@ class Netdata < Formula
   resource "judy" do
     url "https://downloads.sourceforge.net/project/judy/judy/Judy-1.0.5/Judy-1.0.5.tar.gz"
     sha256 "d2704089f85fdb6f2cd7e77be21170ced4b4375c03ef1ad4cf1075bd414a63eb"
+  end
+
+  # Remove when https://github.com/netdata/netdata/pull/15195 is merged and
+  # included in a release.
+  patch do
+    url "https://github.com/netdata/netdata/commit/1189341615b642c27faee459b015059778247a8f.patch?full_index=true"
+    sha256 "61befe96c549f1428eeb8773864c36bcb825b21854f36a6433112ea9f80dc91d"
   end
 
   def install

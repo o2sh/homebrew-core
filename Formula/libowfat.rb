@@ -7,11 +7,6 @@ class Libowfat < Formula
   revision 1
   head ":pserver:cvs:@cvs.fefe.de:/cvs", using: :cvs
 
-  livecheck do
-    url :homepage
-    regex(/href=.*?libowfat[._-]v?(\d+(?:\.\d+)+)\.t/i)
-  end
-
   bottle do
     sha256 cellar: :any_skip_relocation, arm64_monterey: "65db99117a336254a90e1da30635af40c430bbedb569ff6bc1d4f0fb85714d4f"
     sha256 cellar: :any_skip_relocation, arm64_big_sur:  "1f136abc75d88d46768041ce1e32344905a3cc66179734785011ed001acda8db"
@@ -21,6 +16,9 @@ class Libowfat < Formula
     sha256 cellar: :any_skip_relocation, mojave:         "2b1cffc2e679e98801f576358d42fb3b7217187f2551f5fe4460f5b29ffd485c"
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "ed6b06c82988da9cee1f3d4fc9f9e7b180fcf656cb1e508237b3cfe225257770"
   end
+
+  # https://github.com/Homebrew/homebrew-core/pull/125418
+  deprecate! date: "2023-05-31", because: :does_not_build
 
   patch do
     url "https://github.com/mistydemeo/libowfat/commit/278a675a6984e5c202eee9f7e36cda2ae5da658d.patch?full_index=1"

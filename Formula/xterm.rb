@@ -1,9 +1,9 @@
 class Xterm < Formula
   desc "Terminal emulator for the X Window System"
   homepage "https://invisible-island.net/xterm/"
-  url "https://invisible-mirror.net/archives/xterm/xterm-379.tgz"
-  mirror "https://deb.debian.org/debian/pool/main/x/xterm/xterm_379.orig.tar.gz"
-  sha256 "a7ddf274ee84b97fb1283675009d53ca2d02a0ffd5ce5a5118dafc3623ebb310"
+  url "https://invisible-mirror.net/archives/xterm/xterm-382.tgz"
+  mirror "https://deb.debian.org/debian/pool/main/x/xterm/xterm_382.orig.tar.gz"
+  sha256 "0cd0bcf3d0aa746a840ea3f1366ea29a74263694d535b5c777f27eb65d7fceed"
   license "X11"
 
   livecheck do
@@ -12,13 +12,13 @@ class Xterm < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "34c8c4422635d55289d117ced43e6fdf88f6ff485331f580d2700a710e5f1869"
-    sha256 arm64_monterey: "7bc7f8c3b8b6afca991c153d274fb7adfe286ae8948118a3774ecb9782cbc6ca"
-    sha256 arm64_big_sur:  "39ca9f3e5e97570339e83ead95b2a64e060e6eb33e857c75394573dfdbc5c6c7"
-    sha256 ventura:        "29288a517ffec0ff1a0d4939ccb0294603e8cabc0cb0f4c2aae1fbc6fc4f45bb"
-    sha256 monterey:       "121dc96617a3281bb299e5a6db57bccb54cc7db839fd9da0bfad2c5dab5b93c8"
-    sha256 big_sur:        "8527b1baf75d4abf42635a5361ea0704888c7360e1a6f2aa76e84aa82013c1d8"
-    sha256 x86_64_linux:   "362ebd15081ad6c51aa8118b02ce8087923ca4dd152adcba86e0d7f11c6bc994"
+    sha256 arm64_ventura:  "9ad8dbe624d7a5c268e15b3495756c94dfb199630c03b3151f6daab58b64ee29"
+    sha256 arm64_monterey: "b562a82571840afdc2b6d48d9dbb42712a029de65db21ffc90736f2a65d15a5f"
+    sha256 arm64_big_sur:  "096177158c561c636f372f1f6a4baf52cf72649b011043a8f4aa504e7f3259d6"
+    sha256 ventura:        "7469c05bf64dc226b9ac7667e092e6b844266b11b3d04a631b12c77087a075e2"
+    sha256 monterey:       "b0f37785fc8956f2b9ff6d654ccab364466726849844723f3b99fab0c9c128c5"
+    sha256 big_sur:        "cc5750dfaeb2c659538a7f74185310566b8e8d477c51a2c55731a9561a077436"
+    sha256 x86_64_linux:   "e52fb3791a42da6f8dcc8e4ed54712ddbbdd502d0cd46e2f9c0dca6e488e2f64"
   end
 
   depends_on "fontconfig"

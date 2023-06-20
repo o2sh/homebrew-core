@@ -1,8 +1,8 @@
 class JenkinsLts < Formula
   desc "Extendable open source continuous integration server"
   homepage "https://www.jenkins.io/"
-  url "https://get.jenkins.io/war-stable/2.387.2/jenkins.war"
-  sha256 "5e39cb06d9b9eb18a3218b45a07c6bbb801fb353b774eb5bf7749f891b500ca9"
+  url "https://get.jenkins.io/war-stable/2.401.1/jenkins.war"
+  sha256 "600b73eabf797852e39919541b84f7686ff601b97c77b44eb00843eb91c7dd6c"
   license "MIT"
 
   livecheck do
@@ -11,13 +11,13 @@ class JenkinsLts < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ccd7c25adb50d5ace7cab397883c53193cbef897c24e0f4b394939385f7baa4f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ccd7c25adb50d5ace7cab397883c53193cbef897c24e0f4b394939385f7baa4f"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ccd7c25adb50d5ace7cab397883c53193cbef897c24e0f4b394939385f7baa4f"
-    sha256 cellar: :any_skip_relocation, ventura:        "ccd7c25adb50d5ace7cab397883c53193cbef897c24e0f4b394939385f7baa4f"
-    sha256 cellar: :any_skip_relocation, monterey:       "ccd7c25adb50d5ace7cab397883c53193cbef897c24e0f4b394939385f7baa4f"
-    sha256 cellar: :any_skip_relocation, big_sur:        "ccd7c25adb50d5ace7cab397883c53193cbef897c24e0f4b394939385f7baa4f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "14985d90c61b4772d2730c7bc4ec7564537da2288e0a24e5b281cf62fccd0681"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c3cad12ffc74ce016c5eb89799681c9baa8e12bfbb47a0de76a646c8f557c0b1"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c3cad12ffc74ce016c5eb89799681c9baa8e12bfbb47a0de76a646c8f557c0b1"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c3cad12ffc74ce016c5eb89799681c9baa8e12bfbb47a0de76a646c8f557c0b1"
+    sha256 cellar: :any_skip_relocation, ventura:        "c3cad12ffc74ce016c5eb89799681c9baa8e12bfbb47a0de76a646c8f557c0b1"
+    sha256 cellar: :any_skip_relocation, monterey:       "c3cad12ffc74ce016c5eb89799681c9baa8e12bfbb47a0de76a646c8f557c0b1"
+    sha256 cellar: :any_skip_relocation, big_sur:        "c3cad12ffc74ce016c5eb89799681c9baa8e12bfbb47a0de76a646c8f557c0b1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b34fe71cab1119e8787018d46aacb2928eeb124554b2f4c5fabd6905274f9d7d"
   end
 
   depends_on "openjdk@17"

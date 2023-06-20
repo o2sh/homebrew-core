@@ -1,10 +1,9 @@
 class Cgns < Formula
   desc "CFD General Notation System"
   homepage "http://cgns.org/"
-  url "https://github.com/CGNS/CGNS/archive/v4.3.0.tar.gz"
-  sha256 "7709eb7d99731dea0dd1eff183f109eaef8d9556624e3fbc34dc5177afc0a032"
+  url "https://github.com/CGNS/CGNS/archive/v4.4.0.tar.gz"
+  sha256 "3b0615d1e6b566aa8772616ba5fd9ca4eca1a600720e36eadd914be348925fe2"
   license "BSD-3-Clause"
-  revision 2
   head "https://github.com/CGNS/CGNS.git", branch: "develop"
 
   livecheck do
@@ -13,14 +12,13 @@ class Cgns < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "03b714ec53de2f79deb450ea1609f8fa13454ceba9602d756096d0e1e70ca373"
-    sha256 cellar: :any,                 arm64_monterey: "31c4c8fb55e1b0445f2a0bffd5891e88f76d103c91ce718ba7b13a5506ebc7ee"
-    sha256 cellar: :any,                 arm64_big_sur:  "b40fb01503689516098100b3c493dee84cf3a182c6751d35778fd7e7f6067705"
-    sha256 cellar: :any,                 ventura:        "9d9933171d051d02fedb804e2f4137a5525f62b86d9ae6ffd5c17a9b668e378e"
-    sha256 cellar: :any,                 monterey:       "ef0306b868e4bdbe5884234dcadf93da65d0178d1b2cf9ecf5b85a3087efeb1d"
-    sha256 cellar: :any,                 big_sur:        "c59cacfb19bd04311ea1296643e53badb53a6e8c4b355703743dd0cecfca9dc0"
-    sha256 cellar: :any,                 catalina:       "32711a2b525fac2a509440ec5837ff0b4c68ca9d5e37400afd8bc628fe53f08b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fb248e590f24966f13030464c284d71884c519ebb5da5cdd6f85a3658547e959"
+    sha256 cellar: :any,                 arm64_ventura:  "ce99c50f036019874327c95a79a224a87360b6ed94253cff8efc405fd7bff096"
+    sha256 cellar: :any,                 arm64_monterey: "d4cac694928a1107b7f78561babe8ad5997914f19663dff150e6c827c602d831"
+    sha256 cellar: :any,                 arm64_big_sur:  "226385007cf78e02dbe88e56718c1662f0c26692a1a15eb502721427c82b9944"
+    sha256 cellar: :any,                 ventura:        "b8d92b3b67c9b85f9baf1779a70bc738d42f7cbb4586e6fc341689b1d61ee0ec"
+    sha256 cellar: :any,                 monterey:       "8979f06f47c90538924a233349020b1358f6fab95d8cc2097aa56b2fc3ca1799"
+    sha256 cellar: :any,                 big_sur:        "7bf1c37a0e5bbe6f9f3418b6eaaacb4ddb13e4c278438a9ca97c5bee428782a2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2d41b94fa8b9aa29224d83663f9a237ee18e793e8969c4b6193d2d03a200ed9e"
   end
 
   depends_on "cmake" => :build

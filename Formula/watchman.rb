@@ -1,19 +1,19 @@
 class Watchman < Formula
   desc "Watch files and take action when they change"
   homepage "https://github.com/facebook/watchman"
-  url "https://github.com/facebook/watchman/archive/refs/tags/v2023.04.24.00.tar.gz"
-  sha256 "46633adc0eec8870e0cde420cc5b17834e196bdd760c1c977efc6d1eeb104b13"
+  url "https://github.com/facebook/watchman/archive/refs/tags/v2023.06.12.00.tar.gz"
+  sha256 "a57e8f0b4bbeac51e151e23911916d1eb1f47cef91bff578df66fc5484411613"
   license "MIT"
   head "https://github.com/facebook/watchman.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "6e3608f34b852b7387eba9a18419ae2a52110d7b8d9e4822f36d7ed04814ddad"
-    sha256 cellar: :any,                 arm64_monterey: "316a2d7226b28f2aba059fc8c6c57e4e37bbb90a234163b2ba328be7e5a296a2"
-    sha256 cellar: :any,                 arm64_big_sur:  "a65cb5d08b7b7bfa5ea73ba3c95f1495c64d72d62b7f32cd656c98272b967e5b"
-    sha256 cellar: :any,                 ventura:        "be5fba63ad720d3ce9ce2152688dfdf17ddeb5f65ec59c8e21e6171386805926"
-    sha256 cellar: :any,                 monterey:       "455129cffcc6bf496d506144248c0048e27791142e8066486e58d22b4794daee"
-    sha256 cellar: :any,                 big_sur:        "deb6a4c66dfee9cfa5bbffdcc28ab4bdcecd977aca7fa4bbacdae4f327e7064d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e64b606d8c39bdb0d56233e5a48ce2f8f5e133d1a6d27a7dd96ca6ae516d0f3d"
+    sha256 cellar: :any,                 arm64_ventura:  "ddff3e299add4e0a011fbca070eeea062dba7511e3b37a0d26b39615e48df76b"
+    sha256 cellar: :any,                 arm64_monterey: "fb9616c25558e0bd0e18f33bb26d57ac68d8318cfde06b24887b7f0bedd1c7cc"
+    sha256 cellar: :any,                 arm64_big_sur:  "badb6ad1223e3544335cbbadb75304368666de0f09c0e85ac016581fac5a71f9"
+    sha256 cellar: :any,                 ventura:        "3d13dee59c109a0b8336b5f071f140534c902c74482281bdd7121c7fc4c70b7c"
+    sha256 cellar: :any,                 monterey:       "23d1c4c1d18626bd9c0bad8e4fe99cadd7b4c42b2c8aa8e89a8c8e00f24afe56"
+    sha256 cellar: :any,                 big_sur:        "303cd1553787a25eac5b856a41525d509e0ba0314ef28a37e888bce89e469f83"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4862365ef0cc8a045fa4cf56b08d3a78448885cd59baef3b1748401a85c0ac8b"
   end
 
   # https://github.com/facebook/watchman/issues/963
@@ -37,6 +37,13 @@ class Watchman < Formula
   depends_on "python@3.11"
 
   fails_with gcc: "5"
+
+  # Add support for fmt 10
+  # See https://github.com/facebook/watchman/pull/1141
+  patch do
+    url "https://github.com/facebook/watchman/commit/e9be5564fbff3b9efd21caed524cd72e33584773.patch?full_index=1"
+    sha256 "dc3ef949b0a4be7dd67267eb057fb855926b3708e0ce1df310f431fd157721ca"
+  end
 
   def install
     # Fix "Process terminated due to timeout" by allowing a longer timeout.

@@ -1,9 +1,10 @@
 class Node < Formula
   desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v20.0.0/node-v20.0.0.tar.xz"
-  sha256 "7450e7579568f7d1cb398185cfce472da2837b2aa36c59620b22ce4b977b5cb5"
+  url "https://nodejs.org/dist/v20.3.0/node-v20.3.0.tar.xz"
+  sha256 "1ba8d49423ed3a75729066bb3ea26493ee9cb7d6568ef948597fc9ef454f7435"
   license "MIT"
+  revision 1
   head "https://github.com/nodejs/node.git", branch: "main"
 
   livecheck do
@@ -12,13 +13,13 @@ class Node < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "79e977abb4b1d9336b1107cad304aea5e817f416619f5e35d54f627e41595f34"
-    sha256 arm64_monterey: "fdebb7a3aa26633497510d38d15e5b724c4086d60c802d0195e823b386235d87"
-    sha256 arm64_big_sur:  "738539cb990a546f23865134094a84b86c08b0cb7bcb94b7a49509f3b67382ca"
-    sha256 ventura:        "70773a58c083f5de2467c395a652b183f0611a41f0240e57e812eaf406caf44a"
-    sha256 monterey:       "3aa274482cb785dd8f7fd8d773bcb265795ea3e40d10a8f908884177bff1f0c8"
-    sha256 big_sur:        "4c7b56fbccd2511388bf127403da422bbc68fd366ca6700805d0c78967e04ac2"
-    sha256 x86_64_linux:   "9518c193871e333e4ae9e199cc322d3cf5b4d6f9218f61548b32d054c477c1c9"
+    sha256 arm64_ventura:  "b7c59f8ef4b9243bf9fdd801a0d179ada9a13715d7f3ae9065d4681d02cee44b"
+    sha256 arm64_monterey: "046b5b454620aab6b8efeaf2bbfa735767ba6fd20e95a6446d3a2d9db16a17bf"
+    sha256 arm64_big_sur:  "2eb100e0a49ff25bf26dfcd42b6e63aa7c1de07d9c42d43f462d360023426b91"
+    sha256 ventura:        "c58642bef2622182a04ca06b78c47b2a5caa2ad7971d10d088311cb121653869"
+    sha256 monterey:       "98f309f77770ad1be310f38a677cabfa52d294e1e5cbcd0a3432f96d8c1bfb42"
+    sha256 big_sur:        "8356a484aeabfbdfabcc8ea9a9ec7d93447b6bc5257ec763e8da29c5b59af36e"
+    sha256 x86_64_linux:   "b2b051f5382bf61d88a0e19ff9796edffa21be0e78f5f2c36f7a02d43aee2637"
   end
 
   depends_on "pkg-config" => :build
@@ -49,8 +50,8 @@ class Node < Formula
   # We track major/minor from upstream Node releases.
   # We will accept *important* npm patch releases when necessary.
   resource "npm" do
-    url "https://registry.npmjs.org/npm/-/npm-9.6.4.tgz"
-    sha256 "dbabf6c6e6bdbc571f502ce7d38c3a5cc380c5249e43d3c1b4ae912421197018"
+    url "https://registry.npmjs.org/npm/-/npm-9.6.7.tgz"
+    sha256 "31ac7ecb6c01a6997f52930df2d4100b2a609c918c1454a09129601ef1390cbf"
   end
 
   def install

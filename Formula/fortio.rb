@@ -2,8 +2,8 @@ class Fortio < Formula
   desc "HTTP and gRPC load testing and visualization tool and server"
   homepage "https://fortio.org/"
   url "https://github.com/fortio/fortio.git",
-      tag:      "v1.54.2",
-      revision: "42273f0ee8694a35a90f6e192f61e0c17da9b874"
+      tag:      "v1.55.0",
+      revision: "7d76c8ef1ea2b66f736b3d54d093ed0d2ce2a768"
   license "Apache-2.0"
 
   livecheck do
@@ -12,13 +12,13 @@ class Fortio < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "02192cc771ac13665bd26666e5d77ee7d03d874eb4ba35cd957112fe2855be64"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "5c0a0c528e5d8ec3e2dd3a3e4ef327e40b06676ee62fafa78a9103674b79b459"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "35e9383e31bb49429f0fe572f40813e0966389f15f9e22c7ccacf407a224da3d"
-    sha256 cellar: :any_skip_relocation, ventura:        "b55f2d8e6e973fa8c8b476447284b63b41e6e718fa18e3d6c2d1bc34b496c34f"
-    sha256 cellar: :any_skip_relocation, monterey:       "c7d3cc14a82770880b4f705537cf544bed9732d3ef7fab88d08e6d9998c407ce"
-    sha256 cellar: :any_skip_relocation, big_sur:        "dbc30ee34ca06969ad954e021abb0c3385f0f67f6d1681400da64c64bdb4f24b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "505d76d9bdb697e2282a147152df5eee53bcf92b2d8f95d2ff70740d797e9259"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b4384729ce03c2c9c0e897800a7e00ed8188519ee0184de090f11d8ae5ef4930"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "19f2e7d2cc112abc77c5f70acdc9a809d9cbc6e4e7790768b6ae5d317ecfa478"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "24b56349114c1ff03ce9c5733c27361894b70a4445d6b284f1122b9ab3b2a8f5"
+    sha256 cellar: :any_skip_relocation, ventura:        "e6b721cbf9328d7d4b7b1109b09aaf0a9705dd9ce0c793d251d167057185d697"
+    sha256 cellar: :any_skip_relocation, monterey:       "15c917c9c3d1c21d2b5d4411828e5aa02de26604c6b3d49edf6e1859fda49759"
+    sha256 cellar: :any_skip_relocation, big_sur:        "19d3d7d7a22421725244c75139a3af82dfd6ec15c27dae0e793d5fb72d1aad82"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f7e20f1e94b6a5b125ab5f9ee4e0c559473233760e7a1141895867645550566a"
   end
 
   depends_on "go" => :build

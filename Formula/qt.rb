@@ -3,10 +3,10 @@ class Qt < Formula
 
   desc "Cross-platform application and UI framework"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.4/6.4.3/single/qt-everywhere-src-6.4.3.tar.xz"
-  mirror "https://qt.mirror.constant.com/archive/qt/6.4/6.4.3/single/qt-everywhere-src-6.4.3.tar.xz"
-  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.4/6.4.3/single/qt-everywhere-src-6.4.3.tar.xz"
-  sha256 "29a7eebdbba0ea57978dea6083709c93593a60f0f3133a3de08b9571ee8eaab4"
+  url "https://download.qt.io/official_releases/qt/6.5/6.5.1/single/qt-everywhere-src-6.5.1.tar.xz"
+  mirror "https://qt.mirror.constant.com/archive/qt/6.5/6.5.1/single/qt-everywhere-src-6.5.1.tar.xz"
+  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.5/6.5.1/single/qt-everywhere-src-6.5.1.tar.xz"
+  sha256 "a2d88a6f8c3835dca52f3b7433149c3de606a96bbf024640c27657276cc7350a"
   license all_of: [
     "BSD-3-Clause",
     "GFDL-1.3-no-invariants-only",
@@ -14,7 +14,7 @@ class Qt < Formula
     { "GPL-3.0-only" => { with: "Qt-GPL-exception-1.0" } },
     "LGPL-3.0-only",
   ]
-  revision 3
+  revision 1
   head "https://code.qt.io/qt/qt5.git", branch: "dev"
 
   # The first-party website doesn't make version information readily available,
@@ -25,13 +25,13 @@ class Qt < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "95a371fe5bec88d39320069e26dcfe5bc3f6a48d3d50318cb0c9da3ee1ddaf06"
-    sha256 cellar: :any,                 arm64_monterey: "0da62163a4ea8f6f28bd4e728ce6b95ca6e7f998845f72735b0c3f99c5c8561b"
-    sha256 cellar: :any,                 arm64_big_sur:  "8d79014d8a90ad652488074609a824c0f8b9e2af85f6ad42d29d2479ac71f019"
-    sha256 cellar: :any,                 ventura:        "f4657edf719af98577659196e104e28efe5fdfb0635950a094da1af70116276b"
-    sha256 cellar: :any,                 monterey:       "11e2f77297f3007ad34f4c2ebc47fa695a1dabab0a32f41e66f14e7158f02c24"
-    sha256 cellar: :any,                 big_sur:        "b00ddf29bf3c32d79bc05705971806cacfbd4599d3d2b7fcf4912a3e8f39aac4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1552d48a9309aa0dd720adc843480d68142bf9e09b034e3da5c26ea3f1e1a651"
+    sha256 cellar: :any,                 arm64_ventura:  "def04d5e0b64e32494c29cbe5223b5b845c9dfa187191353fabe8dd8b30220c9"
+    sha256 cellar: :any,                 arm64_monterey: "f357970c0f5a787456bf841723621a80d8d21e894ec723a3a24748e929a70171"
+    sha256 cellar: :any,                 arm64_big_sur:  "5fa6f52f58127a3ec5aee2a4d204c93ee816615dca0f5607798df156a300c5b9"
+    sha256 cellar: :any,                 ventura:        "55807dcb8a0b164ead70699d5261aa79174a1f9ceadbeb9789221e2a4e43eb84"
+    sha256 cellar: :any,                 monterey:       "a47df959f7adef2d0cd4affc247674155c7f7fffca84e801d3bf2a2db9086571"
+    sha256 cellar: :any,                 big_sur:        "1f7106d1d994129ab62b594c1d32792a3c767a16a16d9788815ae317348d6979"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c7be81c1d158cbfdf090343fb1696ca0ce57b69a1af870f3915fd346e948981f"
   end
 
   depends_on "cmake"      => [:build, :test]
@@ -41,9 +41,8 @@ class Qt < Formula
   depends_on "python@3.11" => :build
   depends_on "six" => :build
   depends_on "vulkan-headers" => [:build, :test]
+  depends_on "vulkan-loader" => [:build, :test]
   depends_on xcode: :build
-
-  depends_on "vulkan-loader" => :test
 
   depends_on "assimp"
   depends_on "brotli"
@@ -70,7 +69,6 @@ class Qt < Formula
   uses_from_macos "bison" => :build
   uses_from_macos "flex"  => :build
   uses_from_macos "gperf" => :build
-  uses_from_macos "perl"  => :build
   uses_from_macos "llvm" => :test # Our test relies on `clang++` in `PATH`.
 
   uses_from_macos "cups"
@@ -132,13 +130,28 @@ class Qt < Formula
 
   # Remove symlink check causing build to bail out and fail.
   # https://gitlab.kitware.com/cmake/cmake/-/issues/23251
+  # Can be removed soon and replaced with QT_ALLOW_SYMLINK_IN_PATHS
+  # https://codereview.qt-project.org/c/qt/qtbase/+/475484
   patch do
     url "https://raw.githubusercontent.com/Homebrew/formula-patches/c363f0edf9e90598d54bc3f4f1bacf95abbda282/qt/qt_internal_check_if_path_has_symlinks.patch"
     sha256 "1afd8bf3299949b2717265228ca953d8d9e4201ddb547f43ed84ac0d7da7a135"
     directory "qtbase"
   end
 
+  # Fix a Qt 6.5.1 QTabBar regression, certain tabbars are unusable because all tab items above the last selected tab
+  # is missing.
+  patch do
+    url "https://code.qt.io/cgit/qt/qtbase.git/patch/?id=9177dbd87991ff277fd77a25c3464e259d11b998"
+    sha256 "1730b675ede24d80c2e73a2f662cc73718f3060c0b8a707784d188bb11297c4e"
+    directory "qtbase"
+  end
+
   def install
+    # Allow -march options to be passed through, as Qt builds
+    # arch-specific code with runtime detection of capabilities:
+    # https://bugreports.qt.io/browse/QTBUG-113391
+    ENV.runtime_cpu_detection
+
     python = "python3.11"
     # Install python dependencies for QtWebEngine
     venv_root = buildpath/"venv"
@@ -187,12 +200,8 @@ class Qt < Formula
     ]
 
     cmake_args = std_cmake_args(install_prefix: HOMEBREW_PREFIX, find_framework: "FIRST") + %w[
-      -DINSTALL_MKSPECSDIR=share/qt/mkspecs
-
       -DFEATURE_pkg_config=ON
-
-      -DQT_FEATURE_avx2=OFF
-
+      -DINSTALL_MKSPECSDIR=share/qt/mkspecs
       -DQT_FEATURE_webengine_proprietary_codecs=ON
       -DQT_FEATURE_webengine_kerberos=ON
     ]
@@ -231,8 +240,6 @@ class Qt < Formula
     system "./configure", *config_args, "--", *cmake_args
     system "cmake", "--build", "."
     system "cmake", "--install", "."
-
-    rm bin/"qt-cmake-private-install.cmake"
 
     inreplace lib/"cmake/Qt6/qt.toolchain.cmake", "#{Superenv.shims_path}/", ""
 

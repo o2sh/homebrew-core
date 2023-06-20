@@ -3,9 +3,10 @@ class GraphTool < Formula
 
   desc "Efficient network analysis for Python 3"
   homepage "https://graph-tool.skewed.de/"
-  url "https://downloads.skewed.de/graph-tool/graph-tool-2.54.tar.bz2"
-  sha256 "3481ce1ac06b1e770bf7c869819e1470924d49b99ee7a1d3ecdf26503c81f5a7"
+  url "https://downloads.skewed.de/graph-tool/graph-tool-2.56.tar.bz2"
+  sha256 "a4979e4b84ca84d2c41adb8b03aad6730ee2739e228d55e32321d9c6b4d7b7e4"
   license "LGPL-3.0-or-later"
+  revision 1
 
   livecheck do
     url "https://downloads.skewed.de/graph-tool/"
@@ -13,13 +14,13 @@ class GraphTool < Formula
   end
 
   bottle do
-    sha256                               arm64_ventura:  "6cd262a983e609c37416f094fe09b88e20a5f9a0036eb6bb1caf4a77eeb60d65"
-    sha256                               arm64_monterey: "4866941350d613c58f8bc890cfb92030f207e58caf16899bac182c7b830232f9"
-    sha256                               arm64_big_sur:  "c596b713e36735a8e2cdcd82c70bb803fe01cc0c5262a0d386168d5024d1510a"
-    sha256                               ventura:        "e7ebecf57590440e62ccf3bbe88b50cc6d90cfd63aa054721a5be177ae9c47b5"
-    sha256                               monterey:       "1d958a8b37d14a1f2b0ccfeadaf753cba67dd5e3eddb13448564915410e3b6ce"
-    sha256                               big_sur:        "b1668eee4be69d4290c13d8d0da5c2b38a00ccfe5bea2dc7553b4acda7aaf823"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "706cbc581fadd978980bb1faedd5d481537bd15c01087ce882fbd2c53496714f"
+    sha256                               arm64_ventura:  "40dbb88303636a91d11cc7104c67c47a4eb37922722f8f8db502a9ed819162c7"
+    sha256                               arm64_monterey: "00032b2ea3d7dbc41da4077fb09f2ddfeec0330beb962ad54900bbe29b038db3"
+    sha256                               arm64_big_sur:  "2a8412f9205fe340e07178292c622a2a5562d3b1ef2b491aa1a9142982364628"
+    sha256                               ventura:        "68fb2f670c9588918e08ff69ebf7e16241ec3b1f8e192b7b7b703b98118cd17a"
+    sha256                               monterey:       "f2303dfa6b5315a210835918ce97362f633fbae470ec2c674d7234b690f5ff81"
+    sha256                               big_sur:        "0ef41e999249969465b15184a5b8c774b37e8bf5801952ee2f86b861affa9fa0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3515b8d591a8a3cee28b87c561bcbbc7a3e651e8851180602b0c8a581188700e"
   end
 
   depends_on "autoconf" => :build
@@ -89,8 +90,8 @@ class GraphTool < Formula
   end
 
   resource "zstandard" do
-    url "https://files.pythonhosted.org/packages/02/f8/9ee010452d7be18c699ddc598237b52215966220401289c66b7897c7ecfb/zstandard-0.20.0.tar.gz"
-    sha256 "613daadd72c71b1488742cafb2c3b381c39d0c9bb8c6cc157aa2d5ea45cc2efc"
+    url "https://files.pythonhosted.org/packages/4d/70/1f883646641d7ad3944181549949d146fa19e286e892bc013f7ce1579e8f/zstandard-0.21.0.tar.gz"
+    sha256 "f08e3a10d01a247877e4cb61a82a319ea746c356a3786558bed2481e6c405546"
   end
 
   def python3

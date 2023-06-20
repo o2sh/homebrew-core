@@ -3,12 +3,18 @@ require "language/node"
 class MarkdownlintCli < Formula
   desc "CLI for Node.js style checker and lint tool for Markdown files"
   homepage "https://github.com/igorshubovych/markdownlint-cli"
-  url "https://registry.npmjs.org/markdownlint-cli/-/markdownlint-cli-0.33.0.tgz"
-  sha256 "db3da4195fe53de3a696e728ffbb927c89b5997093aa1eb3ff711255ea86a42b"
+  url "https://registry.npmjs.org/markdownlint-cli/-/markdownlint-cli-0.35.0.tgz"
+  sha256 "ab5c263cf3f82b6eec0449ad5f5bd6701940502bdbc99f78d42f0f6e726be2dc"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "075904ea0fceec4f953df170e952f7cbd48a67ea6661a621ecaf645ed3b38a11"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4f1f6f9fe527180d38e1125fd74fa92a84e6c9f560e99328b611dd838f7ccc63"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4f1f6f9fe527180d38e1125fd74fa92a84e6c9f560e99328b611dd838f7ccc63"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "4f1f6f9fe527180d38e1125fd74fa92a84e6c9f560e99328b611dd838f7ccc63"
+    sha256 cellar: :any_skip_relocation, ventura:        "78205ffb0175e0a541d348b30553ff8bc6d423e3161fffb40b39605ce3b55e76"
+    sha256 cellar: :any_skip_relocation, monterey:       "78205ffb0175e0a541d348b30553ff8bc6d423e3161fffb40b39605ce3b55e76"
+    sha256 cellar: :any_skip_relocation, big_sur:        "78205ffb0175e0a541d348b30553ff8bc6d423e3161fffb40b39605ce3b55e76"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4f1f6f9fe527180d38e1125fd74fa92a84e6c9f560e99328b611dd838f7ccc63"
   end
 
   depends_on "node"

@@ -1,8 +1,8 @@
 class Rebar3 < Formula
   desc "Erlang build tool"
   homepage "https://github.com/erlang/rebar3"
-  url "https://github.com/erlang/rebar3/archive/3.20.0.tar.gz"
-  sha256 "53ed7f294a8b8fb4d7d75988c69194943831c104d39832a1fa30307b1a8593de"
+  url "https://github.com/erlang/rebar3/archive/3.22.0.tar.gz"
+  sha256 "28b256038b445ec818d2cc33000b3217f42a946219ede55ab5970503bfcf6647"
   license "Apache-2.0"
 
   livecheck do
@@ -11,14 +11,13 @@ class Rebar3 < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "428fe27effe929170a25f8a264b23aed6b2df8d4492f48d1bf6c8e52bd4dee63"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9be10eb4b18e099da77c5eee41aa24107876186dbdb6958673c35c1ebbedd118"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "17151aa510303762cff34780c34464745f1551c7d04dfd2bc568d54939af733d"
-    sha256 cellar: :any_skip_relocation, ventura:        "b06a667d2fa16df3c23b78bc38209623480730e14724b19f29472ffac0172926"
-    sha256 cellar: :any_skip_relocation, monterey:       "3c92b9865dbe05302dba84137f77911d4fd70935aa08a73fa3dd562290c56057"
-    sha256 cellar: :any_skip_relocation, big_sur:        "b0f516ac6da5a6268209828217a732bbacfa40d72c6eb789deccbc3d50a8339a"
-    sha256 cellar: :any_skip_relocation, catalina:       "62220af0fc653d4fa07ba816ca9c7d6d34414335a77e93c30249b6720d9896f9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "104183846eb43eabb519e987a303b9ba08983faa70ba0c3bce519079e9632caa"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "eab1d6a772d460fc9d97933b173123ebb0c9cecf15de1daa3024af8d983b2150"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ed52ccd16079c79ac55885a1e9f88e6b01fccb1b64941e57326d4861bc650e65"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f3b77b3ad4bb436efe07ebeef78cacd7e9b851eddb81d73f05aae3a7573e256d"
+    sha256 cellar: :any_skip_relocation, ventura:        "c52c7648d0e04fcbd911a58bcf2b8ed28cf2c0ff7048d9e1527871dfce7bbcc5"
+    sha256 cellar: :any_skip_relocation, monterey:       "51ed0f2f1cfe8ec49e0d72afcfe3c5930ccc48d29d38b6a996a7a76e37f7d0bb"
+    sha256 cellar: :any_skip_relocation, big_sur:        "cc4903f96c219d7abd4a374f01aee030e0a2601dc640abe0855e690254e8af98"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6545152988f17d28c9c0c424910086a60f752226c8f55596e0ec06ee56e3aadc"
   end
 
   depends_on "erlang"

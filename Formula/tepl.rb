@@ -5,16 +5,25 @@ class Tepl < Formula
       tag:      "6.4.0",
       revision: "d1e9cc2e4a0738f68d9002f13724b7239f075844"
   license "LGPL-2.1-or-later"
-  revision 1
+  revision 3
+  version_scheme 1
+
+  # https://gitlab.gnome.org/swilmet/tepl/-/blob/main/docs/more-information.md
+  # Tepl follows the even/odd minor version scheme. Odd minor versions are
+  # development snapshots; even minor versions are stable.
+  livecheck do
+    url :stable
+    regex(/^v?(\d+\.\d*[02468](?:\.\d+)*)$/i)
+  end
 
   bottle do
-    sha256 arm64_ventura:  "c1f4deb31e9f3b9e268809b60fe33ffe84f1e07aa13a4be2e52e0c63bab43ecf"
-    sha256 arm64_monterey: "48465cb9e278da6d098bef4f140fb4bfae6c4b07cfe4a49ae6f6658d9793288b"
-    sha256 arm64_big_sur:  "2e6e64936fb82c70aa0facdff1e2775659acc0f3ee8aa96062d8c41f6cdc6213"
-    sha256 ventura:        "e2878978ee1f7caeb5eaedb453f761c29a9a3d51de92d589cefb780cb715339b"
-    sha256 monterey:       "0b9626e24201eb636eda4178b0ec21ac4b15c83b7f45f5fdbe77146b0dad8f94"
-    sha256 big_sur:        "d7639d7f7ad349c7dcf8534f2a5fb9a81f9554a60d876d1185c52ff378a27023"
-    sha256 x86_64_linux:   "c790748f0d700a100da671e93a64e46204b8604a560a05ebb7516f0a8846bf12"
+    sha256 arm64_ventura:  "f34fe9bb3104dd6174d04959e9c6557e06e31eb6d49f8ebd85c928ce73014e06"
+    sha256 arm64_monterey: "2a6cf9070e9f20ead88e43261a745fdcba173e0d9277a08a28287e4a0e2b2a8f"
+    sha256 arm64_big_sur:  "b99423b21f447d4595406cb47f7c5a6e3675862b556a4a2f2673a12744fe82cb"
+    sha256 ventura:        "ca62e367d2175fb781e8a0ec27c2744c00dd049c8d87e97369d29ef61f01a434"
+    sha256 monterey:       "0f6852adf2b0e4f4b5ca8c7ade18789b988669bf67fd805bf1a4f4b0da0df41b"
+    sha256 big_sur:        "4f00c7d3d8500bd210d2774e9a02482ce5d258f3d3719c2f9f5fd79c8c614303"
+    sha256 x86_64_linux:   "14a657251b081186256dda69c13f690ee5b718fc4dc3cd820c5891b9a6c04eba"
   end
 
   depends_on "gobject-introspection" => :build
@@ -27,8 +36,8 @@ class Tepl < Formula
   depends_on "uchardet"
 
   def install
-    system "meson", *std_meson_args, "build", "-Dgtk_doc=false"
-    system "meson", "compile", "-C", "build", "-v"
+    system "meson", "setup", "build", "-Dgtk_doc=false", *std_meson_args
+    system "meson", "compile", "-C", "build", "--verbose"
     system "meson", "install", "-C", "build"
   end
 

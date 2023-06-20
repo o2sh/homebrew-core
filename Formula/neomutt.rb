@@ -1,19 +1,19 @@
 class Neomutt < Formula
   desc "E-mail reader with support for Notmuch, NNTP and much more"
   homepage "https://neomutt.org/"
-  url "https://github.com/neomutt/neomutt/archive/20230407.tar.gz"
-  sha256 "9c1167984337d136368fbca56be8c04a550060a2fdd33c96538910ea13ba6d4f"
+  url "https://github.com/neomutt/neomutt/archive/20230517.tar.gz"
+  sha256 "4ac277b40e7ed5d67ba516338e2b26cc6810aa37564f6e9a2d45eb15b3a9213e"
   license "GPL-2.0-or-later"
   head "https://github.com/neomutt/neomutt.git", branch: "main"
 
   bottle do
-    sha256 arm64_ventura:  "5d1d75187c259fe4736cae143fa000716260e5a371f8cf768631157883d977aa"
-    sha256 arm64_monterey: "86c587c0dec446c9d808087c90d017f19ab0b0880e040707969aefeae55d0637"
-    sha256 arm64_big_sur:  "28c466ffe01de9f7f56a8b5308282e8a29fbe68f2fa767c8fabcf3eb99f464e4"
-    sha256 ventura:        "ae7c3cb919267cdeec06fc0343a239b6ba315e9ff8db949ddbd4c1a076518dbe"
-    sha256 monterey:       "f190f82b685d2b957825c0de0a11e8fe9aec81437664fa5008763e28949d358e"
-    sha256 big_sur:        "e65b85fb0d87bd7ccd2c2225d8f0aad786b92b62943e3f3c9c83067e8041edfd"
-    sha256 x86_64_linux:   "fdc45ba2883a200404e01e73150b7441a2de7333ef90e7bf2e97d2b54b26e9a0"
+    sha256 arm64_ventura:  "de341a848e5151fe0df5b4c7e88f352f59b06f934c69d7bf7bd049c23abb328a"
+    sha256 arm64_monterey: "8ad66487b3378cd4b8f2302e5c9f2f55d417c233313d1272d74abd30fa5486e4"
+    sha256 arm64_big_sur:  "ed9a1f768babc7fd1ddfad6667915bb61aee559ca3cb36258171bbfb2f911b54"
+    sha256 ventura:        "aeaa3f3f981d8530b9190471514430c26b020225115cbf84f650c94d4a3277e0"
+    sha256 monterey:       "0fad102c41c1011aa73701c163110dfe1490bb0a4b0e7ecd9e57f2e89bbded55"
+    sha256 big_sur:        "474c54792e57c0137e7c922eec46290e01fc3fa2aa5cc119b4460486b033f6fb"
+    sha256 x86_64_linux:   "9927025da8176230448dc3f97f0909b6b5b2bd0b268533ade8b639c179c3b836"
   end
 
   depends_on "docbook-xsl" => :build

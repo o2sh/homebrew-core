@@ -3,8 +3,8 @@ require "language/node"
 class Artillery < Formula
   desc "Cloud-native performance & reliability testing for developers and SREs"
   homepage "https://artillery.io/"
-  url "https://registry.npmjs.org/artillery/-/artillery-2.0.0-31.tgz"
-  sha256 "c5c1a6b870dffb8a3f4c33b109c71f5029989fb747f4ad7825039c90dc2ae964"
+  url "https://registry.npmjs.org/artillery/-/artillery-2.0.0-33.tgz"
+  sha256 "012f860ceba39449d72acdda8260ae7e9ef4a4709381dac23a7984bffc321731"
   license "MPL-2.0"
 
   livecheck do
@@ -13,20 +13,34 @@ class Artillery < Formula
   end
 
   bottle do
-    sha256                               arm64_ventura:  "05693e7de600ec902ee9ae26b7a4ea847e6359eebf468d90bcb0fb280909439e"
-    sha256                               arm64_monterey: "07eb21343cc3416bdf9ccfd8d999a7a529dfeddc725289a5cff00f2de4f3e609"
-    sha256                               arm64_big_sur:  "96108077493be546650732f264e870f9d200aebd5813b2d16c45d79a520b39b6"
-    sha256                               ventura:        "45fd5e929c79f9abd2cc26e948b9078d7800c8f1c964527f5768a6a95e7b2ca3"
-    sha256                               monterey:       "62d4726bd184b1c85ef46ccf8457fb9eaca61b9900d90eb6d0b797247cb3b502"
-    sha256                               big_sur:        "80e65bd1bf81eb502f8d8201b55f2149f6eb39eb6d10e7b2067a309cfe80f4aa"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "aca58924856241bf03fbe9f97a1cb1e984ce9cba0030629fa0a88781171b00dd"
+    sha256                               arm64_ventura:  "a9e63dd27bd38eb9cbf629fe03d3f6b71152e7a2efb8a413f9c15581df685338"
+    sha256                               arm64_monterey: "befeba6fb58b550966fc0f42ed2769b7f27ebdbc72ea25a44cd7c65c5a3dc882"
+    sha256                               arm64_big_sur:  "f7efaa67ab5e293e0bd347382fd6338a0817c4d9a8da0ded50eac475b19d3115"
+    sha256                               ventura:        "ee0ecea0fc464ce8798edd390fe6712db28702f777023752bde1149a68774f7c"
+    sha256                               monterey:       "d89ff677d1b88385313a7a32fff4849222325ff3ecb50a82f3b804bd6b0ae79f"
+    sha256                               big_sur:        "c1aa9a8f75ca554fb45d945f3036b5be0ffb7e295d0a57ab6a7af33eb4f639b7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ff2b516666e7e5d5ca42a71c556fc64ca1e12353b5be59a64fc60d454b4886cd"
   end
 
   depends_on "node"
 
+  on_macos do
+    depends_on "macos-term-size"
+  end
+
   def install
     system "npm", "install", *Language::Node.std_npm_install_args(libexec)
     bin.install_symlink Dir["#{libexec}/bin/*"]
+
+    term_size_vendor_dir = libexec/"lib/node_modules/artillery/node_modules/term-size/vendor"
+    term_size_vendor_dir.rmtree # remove pre-built binaries
+
+    if OS.mac?
+      macos_dir = term_size_vendor_dir/"macos"
+      macos_dir.mkpath
+      # Replace the vendored pre-built term-size with one we build ourselves
+      ln_sf (Formula["macos-term-size"].opt_bin/"term-size").relative_path_from(macos_dir), macos_dir
+    end
 
     # Replace universal binaries with native slices.
     deuniversalize_machos

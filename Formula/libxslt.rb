@@ -1,19 +1,10 @@
 class Libxslt < Formula
   desc "C XSLT library for GNOME"
   homepage "http://xmlsoft.org/XSLT/"
+  url "https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.38.tar.xz"
+  sha256 "1f32450425819a09acaff2ab7a5a7f8a2ec7956e505d7beeb45e843d0e1ecab1"
   license "X11"
   revision 1
-
-  stable do
-    url "https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.37.tar.xz"
-    sha256 "3a4b27dc8027ccd6146725950336f1ec520928f320f144eb5fa7990ae6123ab4"
-
-    # Fix -flat_namespace being used on Big Sur and later.
-    patch do
-      url "https://raw.githubusercontent.com/Homebrew/formula-patches/03cf8088210822aa2c1ab544ed58ea04c897d9c4/libtool/configure-big_sur.diff"
-      sha256 "35acd6aebc19843f1a2b3a63e880baceb0f5278ab1ace661e57a502d9d78c93c"
-    end
-  end
 
   # We use a common regex because libxslt doesn't use GNOME's "even-numbered
   # minor is stable" version scheme.
@@ -23,14 +14,13 @@ class Libxslt < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "84d157e4ce52a4d6ce6bbb956b52fc12828751cd18f90a78e8e42cfbfe7cfcb0"
-    sha256 cellar: :any,                 arm64_monterey: "3bdcf15cac29f738ea1d07b8e9c290a3a4eaf6c16ce3fefd13808be4556b9951"
-    sha256 cellar: :any,                 arm64_big_sur:  "3ee16dc014079c7a03d5bb3ad4b10fff9942847d518b742f843c0fe0129de631"
-    sha256 cellar: :any,                 ventura:        "018b6ed4a1eeea41daac97b7b732f4bf7b122ef070684a758025e316e753f00b"
-    sha256 cellar: :any,                 monterey:       "c34db451bd574830c369e5dcab31e54e3474e5a31f83cb10b3650d85f149794a"
-    sha256 cellar: :any,                 big_sur:        "378e59a2c69b0e06da3acd27bffc44b3906eb60d7ce3f4dd88287257a0ca0ef7"
-    sha256 cellar: :any,                 catalina:       "3da3f7f87b9ff6bb7ce4eb67e810504dfbba998d3d537e11830047f248d8f69e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "65cb6fdd515408f8b95f3cc751a629add6c2410aa89e394b356a4e3bea26fa0c"
+    sha256 cellar: :any,                 arm64_ventura:  "35d88548858fbda1b24792cd42c06393cac959deead4dc75dce6da512b1148a1"
+    sha256 cellar: :any,                 arm64_monterey: "c0d279287ad596dc0f645c26a2395122dcc11d2ade608b6f5550ab8cbac5fafd"
+    sha256 cellar: :any,                 arm64_big_sur:  "0e787304a2bbc5159bdd73eee1a10eb5f72bad6ffb7adc2d3a13548e680c0107"
+    sha256 cellar: :any,                 ventura:        "607d4cb7bbbad12f0b2008ee1f696881335ea1560f02b559b2dae8ad3a895437"
+    sha256 cellar: :any,                 monterey:       "5b000778f50c467c9f28e882ef5b3e0c9711d8c4e42083f59d0e5bd716127c44"
+    sha256 cellar: :any,                 big_sur:        "bd8e4f4cb5883bee9cdc2aeab754a679b9166a2f80f2ec013b7f3bcd9b395387"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "32f5991ea5c42e4f76e859e4ba4406da9183e621dd09bc0c955be5fe865b7df9"
   end
 
   head do

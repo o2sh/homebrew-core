@@ -3,19 +3,19 @@ class PreCommit < Formula
 
   desc "Framework for managing multi-language pre-commit hooks"
   homepage "https://pre-commit.com/"
-  url "https://files.pythonhosted.org/packages/89/40/0f5b8d53178545f736172c8c2fc4f5eb68fffa828dba5ddad3cc43af878e/pre_commit-3.2.2.tar.gz"
-  sha256 "5b808fcbda4afbccf6d6633a56663fed35b6c2bc08096fd3d47ce197ac351d9d"
+  url "https://files.pythonhosted.org/packages/35/0e/564c71fe3cdf59a4acaaccaea354d066e5d9044eba564dac070bb2075432/pre_commit-3.3.3.tar.gz"
+  sha256 "a2256f489cd913d575c145132ae196fe335da32d91a8294b7afe6622335dd023"
   license "MIT"
   head "https://github.com/pre-commit/pre-commit.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "90c79ea1e7bd4fb55397c8adcc9ad286450979741e09b7f24de282e4534fbe57"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "90c79ea1e7bd4fb55397c8adcc9ad286450979741e09b7f24de282e4534fbe57"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "90c79ea1e7bd4fb55397c8adcc9ad286450979741e09b7f24de282e4534fbe57"
-    sha256 cellar: :any_skip_relocation, ventura:        "a1fc70dbe722cb6f87906b5aba130fc6216aecdacf9ceec6e29cf0a5b331a286"
-    sha256 cellar: :any_skip_relocation, monterey:       "a1fc70dbe722cb6f87906b5aba130fc6216aecdacf9ceec6e29cf0a5b331a286"
-    sha256 cellar: :any_skip_relocation, big_sur:        "a1fc70dbe722cb6f87906b5aba130fc6216aecdacf9ceec6e29cf0a5b331a286"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ce69251f16c2ec65391afdfb8a5862c691c2b142331cf1a874038da29a0a5242"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1cf1efa72e160a23d5e0592db41eadb32fa6db7b2bfc5b95271f8fa4b1431fa2"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f43e7263f19791f71836d93273e1051b4b86c15936bf163767ddfb2c3eaf79b1"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "25ba1d395b41675712ba78e8ebeea20a0b091cb25d1f9890a932f881c7b6350f"
+    sha256 cellar: :any_skip_relocation, ventura:        "071184e02050a11f95a4b934ec186dbb76a2c90d2aaa84e4d9cf727af8141680"
+    sha256 cellar: :any_skip_relocation, monterey:       "df34077a7281f0b72c4de10ab6a6a809ac2c101cfb2609bc341014a5bf77ea2e"
+    sha256 cellar: :any_skip_relocation, big_sur:        "7ed806733865fa97054063e374eda498c8136a73de28d9f80c739de55eeae816"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "369a9f80e192432c8f15351c59b0b0a47816f3a1ad45e06b81e9999ad68f4119"
   end
 
   depends_on "python@3.11"
@@ -28,14 +28,29 @@ class PreCommit < Formula
     sha256 "f5a830efb9ce7a445376bb66ec94c638a9787422f96264c98edc6bdeed8ab736"
   end
 
+  resource "distlib" do
+    url "https://files.pythonhosted.org/packages/58/07/815476ae605bcc5f95c87a62b95e74a1bce0878bc7a3119bc2bf4178f175/distlib-0.3.6.tar.gz"
+    sha256 "14bad2d9b04d3a36127ac97f30b12a19268f211063d8f8ee4f47108896e11b46"
+  end
+
+  resource "filelock" do
+    url "https://files.pythonhosted.org/packages/00/0b/c506e9e44e4c4b6c89fcecda23dc115bf8e7ff7eb127e0cb9c114cbc9a15/filelock-3.12.2.tar.gz"
+    sha256 "002740518d8aa59a26b0c76e10fb8c6e15eae825d34b6fdf670333fd7b938d81"
+  end
+
   resource "identify" do
-    url "https://files.pythonhosted.org/packages/9c/85/2dad5866648c6b1772d5cb9b0ca1810f214e5d5e72f231dfb6891300358a/identify-2.5.22.tar.gz"
-    sha256 "f7a93d6cf98e29bd07663c60728e7a4057615068d7a639d132dc883b2d54d31e"
+    url "https://files.pythonhosted.org/packages/c4/f8/498e13e408d25ee6ff04aa0acbf91ad8e9caae74be91720fc0e811e649b7/identify-2.5.24.tar.gz"
+    sha256 "0aac67d5b4812498056d28a9a512a483f5085cc28640b02b258a59dac34301d4"
   end
 
   resource "nodeenv" do
-    url "https://files.pythonhosted.org/packages/f3/9d/a28ecbd1721cd6c0ea65da6bfb2771d31c5d7e32d916a8f643b062530af3/nodeenv-1.7.0.tar.gz"
-    sha256 "e0e7f7dfb85fc5394c6fe1e8fa98131a2473e04311a45afb6508f7cf1836fa2b"
+    url "https://files.pythonhosted.org/packages/48/92/8e83a37d3f4e73c157f9fcf9fb98ca39bd94701a469dc093b34dca31df65/nodeenv-1.8.0.tar.gz"
+    sha256 "d51e0c37e64fbf47d017feac3145cdbb58836d7eee8c6f6d3b6880c5456227d2"
+  end
+
+  resource "platformdirs" do
+    url "https://files.pythonhosted.org/packages/d2/5d/29eed8861e07378ef46e956650615a9677f8f48df7911674f923236ced2b/platformdirs-3.5.3.tar.gz"
+    sha256 "e48fabd87db8f3a7df7150a4a5ea22c546ee8bc39bc2473244730d4b56d2cc4e"
   end
 
   def python3

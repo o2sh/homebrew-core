@@ -2,10 +2,11 @@ class Php < Formula
   desc "General-purpose scripting language"
   homepage "https://www.php.net/"
   # Should only be updated if the new version is announced on the homepage, https://www.php.net/
-  url "https://www.php.net/distributions/php-8.2.5.tar.xz"
-  mirror "https://fossies.org/linux/www/php-8.2.5.tar.xz"
-  sha256 "800738c359b7f1e67e40c22713d2d90276bc85ba1c21b43d99edd43c254c5f76"
+  url "https://www.php.net/distributions/php-8.2.7.tar.xz"
+  mirror "https://fossies.org/linux/www/php-8.2.7.tar.xz"
+  sha256 "4b9fb3dcd7184fe7582d7e44544ec7c5153852a2528de3b6754791258ffbdfa0"
   license "PHP-3.01"
+  revision 1
 
   livecheck do
     url "https://www.php.net/downloads"
@@ -13,13 +14,13 @@ class Php < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "5b2c7080edae36ab713edeab3cc73ba9d9119303f7931f238ab1b5e70c17406b"
-    sha256 arm64_monterey: "7be2bd1996264229a051a250f64814d6645b4d16bbef6d342af54699e918cb09"
-    sha256 arm64_big_sur:  "aa4b9f7028919a9b9c890de5758409208242521fe2cde57d9ac070656cfa6c38"
-    sha256 ventura:        "1f9f40495f3589d64ac64d0431d4e09fdbe0fc60f9039d458eeca12fd0568ffd"
-    sha256 monterey:       "84ebbcec5c19baa72b549f48c082002c322fee656a9b806c86d593f2a71a9387"
-    sha256 big_sur:        "9f998c5396b2078685724eedfb2b64673d903fa90522cc176524dedc8e23bc33"
-    sha256 x86_64_linux:   "5ac59438244e514ea4876e3af00ef8777ec6edbfcde0431f1a0c1436655fd38c"
+    sha256 arm64_ventura:  "d973f5aa1b7c5d9dfa4bc005b0adc347fe19f1a9035ddcc25af9e2de04193ea0"
+    sha256 arm64_monterey: "17bfe6485dc72d993362c20d0c83ed24ba28551342c43aaf983b06aecad31f3b"
+    sha256 arm64_big_sur:  "2174481d946fd8d92617ceb2966a622efe35b9155c7a5cf04ab5d96b5a9bb2df"
+    sha256 ventura:        "35092c32af2d06b58350fc3038e7b0c0c95199f8075ad97ed4550064e7ba81ea"
+    sha256 monterey:       "0f4f7f4444597eedfb05c6f92ba0213524ee6c41f9fba42c937ee2a20d271801"
+    sha256 big_sur:        "6feafb4d107d081b7faddaeaec6893bf92510247901e13ebcdb4d49d513ea660"
+    sha256 x86_64_linux:   "a8483b99cfc2353a8aed09e786440042d3edaf11b58ba5cc4bf8723212c25604"
   end
 
   head do

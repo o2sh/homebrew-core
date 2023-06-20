@@ -1,10 +1,10 @@
 class Hdf5 < Formula
   desc "File format designed to store large amounts of data"
   homepage "https://www.hdfgroup.org/HDF5"
-  url "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-1.12.2/src/hdf5-1.12.2.tar.bz2"
-  sha256 "1a88bbe36213a2cea0c8397201a459643e7155c9dc91e062675b3fb07ee38afe"
+  url "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.14/hdf5-1.14.1/src/hdf5-1.14.1-2.tar.bz2"
+  version "1.14.1"
+  sha256 "06ca141d1a3c312b5d7cc4826a12737293ae131031748861689f6a2ec8219dbd"
   license "BSD-3-Clause"
-  revision 2
   version_scheme 1
 
   # This regex isn't matching filenames within href attributes (as we normally
@@ -12,19 +12,17 @@ class Hdf5 < Formula
   # buttons and the HTML doesn't contain the related URLs.
   livecheck do
     url "https://www.hdfgroup.org/downloads/hdf5/source-code/"
-    regex(/>\s*hdf5[._-]v?(\d+(?:\.\d+)+)\.t/i)
+    regex(/>\s*hdf5[._-]v?(\d+(?:\.\d+)+)(?:-\d+)?\.t/i)
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_ventura:  "eeb6d86fe48f393589e1e8fbedd26f17c41fea525be02a539cbd4d2e46ee3d89"
-    sha256 cellar: :any,                 arm64_monterey: "0988092d7820628de58e2b7317e54187fb15501a5acc6fd9f81fc7123d18a1d3"
-    sha256 cellar: :any,                 arm64_big_sur:  "64c557b69dad39bc1bbb6a19694ddb5e0651dca961d98fba71a7e7c25d35129b"
-    sha256 cellar: :any,                 ventura:        "f5c508938bb6a0801afe86a3ba7f2bb0095ad91f907dc422c4fd94d0aa93f160"
-    sha256 cellar: :any,                 monterey:       "e89540a3626665e98679fdd64f9b2d007bd12d489e1a67b4f5a48b09021a686c"
-    sha256 cellar: :any,                 big_sur:        "61cb53a7c7915fcc8e0a8f623a382c4e73d7047c6723ede57c070918678743f8"
-    sha256 cellar: :any,                 catalina:       "b3be3911f2100587685f7c4d089001becb7a3405f3fd2e7dfbcacceb672894b0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "507a340a5132018ee60fab34e90effc08fa06c6401bbf3e920b012a90a0525a9"
+    sha256 cellar: :any,                 arm64_ventura:  "7c35ff76ffa9e03f4d15d425b36dedcbc170bed76ca0c952c0c7417905e74d3e"
+    sha256 cellar: :any,                 arm64_monterey: "0837642c582c884d599e431a54753a30a3677b8593db7ef3839c17c9aa81a7d3"
+    sha256 cellar: :any,                 arm64_big_sur:  "b73d496f32da12d8f040ba9f411e87a0199bd84fa9a7330a803fba8bdf6beda9"
+    sha256 cellar: :any,                 ventura:        "2b9e98f21f33db5b7faa4fdf0697d1a1346c63bbcb60f4f73fc1788be2b16408"
+    sha256 cellar: :any,                 monterey:       "cf923612b266c346a32d4034cbebaed3de947fa8aae9519754dd0e9e4e3e9c7a"
+    sha256 cellar: :any,                 big_sur:        "936cfbf0a008863e9fc75381954bdc15e6fb64bca06d6456344716125d5f2c34"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ef4c0eb89d59d77e5d9aae54c6e583c1466f7da8fc0e39987f454dd0190f0b73"
   end
 
   depends_on "autoconf" => :build

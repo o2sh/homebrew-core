@@ -1,18 +1,19 @@
 class Vte3 < Formula
   desc "Terminal emulator widget used by GNOME terminal"
   homepage "https://wiki.gnome.org/Apps/Terminal/VTE"
-  url "https://download.gnome.org/sources/vte/0.72/vte-0.72.1.tar.xz"
-  sha256 "0554f9f88d56ce2d78398fcc7f69bc00e53bbbc5f694e0ae1dcaf5286f89d7e4"
+  url "https://download.gnome.org/sources/vte/0.72/vte-0.72.2.tar.xz"
+  sha256 "f7966fd185a6981f53964162b71cfef7e606495155d6f5827b72aa0dd6741c9e"
   license "LGPL-2.0-or-later"
+  revision 1
 
   bottle do
-    sha256 arm64_ventura:  "cbc5af915e92f1ea27c85bc1bbb48a4fec968c468d8c727c3c445595b6467ce6"
-    sha256 arm64_monterey: "f6ce8e11b1cacfe526a938cd7e525cf4d88212634048441ef8df998fa0d37dd2"
-    sha256 arm64_big_sur:  "09b455070c4d9c3c9f882fa701fe09fe088177bbb80418dbf1bba91e67081195"
-    sha256 ventura:        "6a638f9fc62067125e6b4589d84970f0eb5550ca8cdf271ec5a0eb34e9418889"
-    sha256 monterey:       "aff3a822ac6e160490a641d1056e949d943474419041a92aff574dcf9a3e1939"
-    sha256 big_sur:        "f8b0914a499c7f995f4cc8c9c6dbd2928a925c4e5fd033498810f409db2e81c2"
-    sha256 x86_64_linux:   "f3e14e19c37f1bb74ce6e4834f5a11acfa5cbb774249cf07f9d44fc1a36a9261"
+    sha256 arm64_ventura:  "8ac37e59af06d50f530848e554a278cfb2af1a04823f3bb8630f6b61db183e81"
+    sha256 arm64_monterey: "25d1323a48a52738ae37258600e4b0a3c6a511eac5efd154838966737b24fcbc"
+    sha256 arm64_big_sur:  "ea57a67d22d29bc7e17de3c6f7f9f2a2e3b8bca7bc9d3a58064885dfdabddcc7"
+    sha256 ventura:        "a388dcaafcaca40a829db250af0cf8bf5fe09a2e1a38d5127b18b1fc6a0e9b3f"
+    sha256 monterey:       "b583d22e70408a36ea745b2f0d53bc99b318b93ff833c129623c159655950072"
+    sha256 big_sur:        "f78cc65316c1b53a5029ad836092bb702dddff1e9d9ce01f99df34aee773bd05"
+    sha256 x86_64_linux:   "cfa286e9d1b16a34b7199cb532d7a4d668e6ef6310b1f593c4d1d63348df375a"
   end
 
   depends_on "gettext" => :build

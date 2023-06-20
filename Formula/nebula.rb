@@ -1,19 +1,19 @@
 class Nebula < Formula
   desc "Scalable overlay networking tool for connecting computers anywhere"
   homepage "https://github.com/slackhq/nebula"
-  url "https://github.com/slackhq/nebula/archive/v1.6.1.tar.gz"
-  sha256 "9c343d998d2eab9473c3bf73d434b8a382d90b1f73095dd1114ecaf2e1c0970f"
+  url "https://github.com/slackhq/nebula/archive/v1.7.2.tar.gz"
+  sha256 "c4771ce6eb3e142f88f5f4c12443cfca140bf96b2746c74f9536bd1a362f3f88"
   license "MIT"
+  head "https://github.com/slackhq/nebula.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6ec2ba6c97c77457798bd69f5f4d9b178f8b33195b0060d15e84141150d01f8c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9221b0958b043ad31d19d62582bfa5e87c2c929cd93afc88dfbbb5ea152e2383"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9221b0958b043ad31d19d62582bfa5e87c2c929cd93afc88dfbbb5ea152e2383"
-    sha256 cellar: :any_skip_relocation, ventura:        "2ee9ac75f040e8915dc66fb1f9e529faed4202e15fea1c388e7f8443d8f64079"
-    sha256 cellar: :any_skip_relocation, monterey:       "4fe9ad97db34803d1f950d3b5a574139b3978e9fca493e305d3852752d38dcfc"
-    sha256 cellar: :any_skip_relocation, big_sur:        "4fe9ad97db34803d1f950d3b5a574139b3978e9fca493e305d3852752d38dcfc"
-    sha256 cellar: :any_skip_relocation, catalina:       "4fe9ad97db34803d1f950d3b5a574139b3978e9fca493e305d3852752d38dcfc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "df756d919c35f94f9fc8ed6080e908466b55dcb0b246478b329f613994867aa1"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e30c0cf05dbcb16a4a5820126dd105067974e3a82d786a07fd0e5b2f36fb8085"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e30c0cf05dbcb16a4a5820126dd105067974e3a82d786a07fd0e5b2f36fb8085"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "e30c0cf05dbcb16a4a5820126dd105067974e3a82d786a07fd0e5b2f36fb8085"
+    sha256 cellar: :any_skip_relocation, ventura:        "14919101e5f7d51d091463a83ab2adad69e808991fc6e957ff5c6b7e46f9d85c"
+    sha256 cellar: :any_skip_relocation, monterey:       "14919101e5f7d51d091463a83ab2adad69e808991fc6e957ff5c6b7e46f9d85c"
+    sha256 cellar: :any_skip_relocation, big_sur:        "14919101e5f7d51d091463a83ab2adad69e808991fc6e957ff5c6b7e46f9d85c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d0c8001ffac28e44610535a60fd5a3bca5b649850f2360a2fec2676f7b2255a0"
   end
 
   depends_on "go" => :build

@@ -1,19 +1,20 @@
 class OpencvAT3 < Formula
   desc "Open source computer vision library"
   homepage "https://opencv.org/"
+  # TODO: Check if we can use unversioned `protobuf` at version bump
   url "https://github.com/opencv/opencv/archive/3.4.16.tar.gz"
   sha256 "5e37b791b2fe42ed39b52d9955920b951ee42d5da95f79fbc9765a08ef733399"
   license "BSD-3-Clause"
-  revision 7
+  revision 9
 
   bottle do
-    sha256 arm64_ventura:  "db7ecf45b5f00ecd3bb10e83f952776462ef52085378084b4bd0bb66406bad15"
-    sha256 arm64_monterey: "e7a3c56cb0ead7a4bfade94cfd211fcb25a47f451f3ba2b9ee5468560e80ccfe"
-    sha256 arm64_big_sur:  "93b5bb59ffb01e5932736a52fbb64622a795eac8ea5f9adcfa3baa361b266873"
-    sha256 ventura:        "fd48a658c028cb8ab3d7ad6178f232761094364928e0b5617e3eb26dd2bc4302"
-    sha256 monterey:       "8fef23dbc414d781ecfb5b32b4d1bd02688b36f396504473d7e73510b8cd61f6"
-    sha256 big_sur:        "fe56d006dee8c246f739e8e041191c58d6172bd5f7b0d720df2ebeb3940b54f2"
-    sha256 x86_64_linux:   "2441d8be14fa5f6a079d0a5b2b13ed3625c9b7da48e8da9564e7a4b41d34f774"
+    sha256 arm64_ventura:  "66039b1f0417cd33e4454023c673dd34bc60ea561664e1064983896185803673"
+    sha256 arm64_monterey: "bb099e6318234898044e0167180122b45da8d7744b22b4e158b4f6625ca927c2"
+    sha256 arm64_big_sur:  "b00291e687ebc77e12ecf6be8d915bbca80823e542df86edb1a85a07a49664c2"
+    sha256 ventura:        "3f52139b650549527b3b933fb6d4d0d3d565b7d64eb30b7cfc9f91ffdea42394"
+    sha256 monterey:       "08dc1307c885cfe9b584c03d4a887f68cb169ee4ea0783c1f62297ed65291fc0"
+    sha256 big_sur:        "9172dcf1cbbd7a83055059373397598390e22c5e2259ded4a0a716e9b5212ade"
+    sha256 x86_64_linux:   "8354d88b4dce1d76b5786786368a6aa51e6319743f00d49379b328c9ca2086c6"
   end
 
   keg_only :versioned_formula
@@ -30,7 +31,7 @@ class OpencvAT3 < Formula
   depends_on "libtiff"
   depends_on "numpy"
   depends_on "openexr"
-  depends_on "protobuf"
+  depends_on "protobuf@21"
   depends_on "python@3.10"
   depends_on "tbb"
   depends_on "webp"
@@ -66,8 +67,6 @@ class OpencvAT3 < Formula
   end
 
   def install
-    ENV.cxx11
-
     resource("contrib").stage buildpath/"opencv_contrib"
 
     # Reset PYTHONPATH, workaround for https://github.com/Homebrew/homebrew-science/pull/4885
@@ -78,6 +77,7 @@ class OpencvAT3 < Formula
     libdirs.each { |l| (buildpath/"3rdparty"/l).rmtree }
 
     args = std_cmake_args + %W[
+      -DCMAKE_CXX_STANDARD=11
       -DCMAKE_OSX_DEPLOYMENT_TARGET=
       -DBUILD_JASPER=OFF
       -DBUILD_JPEG=OFF

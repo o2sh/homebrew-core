@@ -3,18 +3,19 @@ class Urlwatch < Formula
 
   desc "Get notified when a webpage changes"
   homepage "https://thp.io/2008/urlwatch/"
-  url "https://files.pythonhosted.org/packages/05/40/ce24dc7f98a3b4b9d0cc001e116eb12e647eddff58b1896c02e65595faab/urlwatch-2.26.tar.gz"
-  sha256 "b14bbe23d87b7d4ac8b4e71a51fd2066908a947ccf7b557c3e4f87b09f455e8f"
+  url "https://files.pythonhosted.org/packages/ef/6d/28df22a0912d40e294cfde709ead82e36441018ff9c0137c9e768ce9084e/urlwatch-2.28.tar.gz"
+  sha256 "911df3abbd8923e46ec167a9657a812436caf93f7f9917cb7c95ebd73d28cce5"
   license "BSD-3-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "632ba91ab606b564d66ccfc5156f0862c2f1cfb49669ab088dd593fc515b086f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "85455e98f5a7633d1874ea0067c43f75a5e4c93a360d97061b565b2703af23d6"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "50ceab57f3fc33fba33689844c1f125489d821e18eb89003170a67533190b80c"
-    sha256 cellar: :any_skip_relocation, ventura:        "20a67d1c7c918f7ea873ca5362d9b9fa35a6ff374fd9dca0c8fd3125045fddb0"
-    sha256 cellar: :any_skip_relocation, monterey:       "2426e6ca5c8dd47cefbd9313038bfe0ab769e8b4b183d63fe622952542205d0a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "792ba1f673aeeec0e0cce4c35a2201b4e7517011bdcd41bd3c43729945685316"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "27e715e6306f507f6b6e7a87d7984f102e9428a0298359dcd14bcda47add2f9d"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2f9fab61b7d67e4a706478c96e7ca1d5ec5f15cc9d1736afb50b0c428fa27a16"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4021af7d4b5f22f15cd8a02a27af4413cd5b3b309981577907730499b6d71bea"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "fa3b4f3c4dc3a26c1f85581acb6361a55e00f7687ca0a7c0ff31c196ae0a1c2d"
+    sha256 cellar: :any_skip_relocation, ventura:        "97c0e63626e0f4fdd99587587c50ef5047ba2be29920d228c3d13d299a7c5e35"
+    sha256 cellar: :any_skip_relocation, monterey:       "25342b1bf481da0a44bfad38209b6cd400ffe3596dea88c64987efdf50256888"
+    sha256 cellar: :any_skip_relocation, big_sur:        "92b2bac4d1a1835022af88819927d4e8f318e3d73ff9a0a523106bce8d5a1cf7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1690daba3be0770bdc70d97ef22b999e755639355afa51737c55673d2a90d8eb"
   end
 
   depends_on "python@3.11"
@@ -29,8 +30,8 @@ class Urlwatch < Formula
   end
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/37/f7/2b1b0ec44fdc30a3d31dfebe52226be9ddc40cd6c0f34ffc8923ba423b69/certifi-2022.12.7.tar.gz"
-    sha256 "35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3"
+    url "https://files.pythonhosted.org/packages/93/71/752f7a4dd4c20d6b12341ed1732368546bc0ca9866139fe812f6009d9ac7/certifi-2023.5.7.tar.gz"
+    sha256 "0f0d56dc5a6ad56fd4ba36484d6cc34451e1c6548c61daad8c320169f91eddc7"
   end
 
   resource "charset-normalizer" do
@@ -49,11 +50,11 @@ class Urlwatch < Formula
   end
 
   resource "importlib-metadata" do
-    url "https://files.pythonhosted.org/packages/c2/84/ab374b7e05fbdeecf867294660ac0fdb23aa286aca68a31d587f67d181ad/importlib_metadata-6.3.0.tar.gz"
-    sha256 "23c2bcae4762dfb0bbe072d358faec24957901d75b6c4ab11172c0c982532402"
+    url "https://files.pythonhosted.org/packages/0b/1f/9de392c2b939384e08812ef93adf37684ec170b5b6e7ea302d9f163c2ea0/importlib_metadata-6.6.0.tar.gz"
+    sha256 "92501cdf9cc66ebd3e612f1b4f0c0765dfa42f0fa38ffb319b6bd84dd675d705"
   end
 
-  resource "jaraco.classes" do
+  resource "jaraco-classes" do
     url "https://files.pythonhosted.org/packages/bf/02/a956c9bfd2dfe60b30c065ed8e28df7fcf72b292b861dca97e951c145ef6/jaraco.classes-3.2.3.tar.gz"
     sha256 "89559fa5c1d3c34eff6f631ad80bb21f378dbcbb35dd161fd2c6b93f5be2f98a"
   end
@@ -79,13 +80,13 @@ class Urlwatch < Formula
   end
 
   resource "requests" do
-    url "https://files.pythonhosted.org/packages/9d/ee/391076f5937f0a8cdf5e53b701ffc91753e87b07d66bae4a09aa671897bf/requests-2.28.2.tar.gz"
-    sha256 "98b1b2782e3c6c4904938b84c0eb932721069dfdb9134313beff7c83c2df24bf"
+    url "https://files.pythonhosted.org/packages/9d/be/10918a2eac4ae9f02f6cfe6414b7a155ccd8f7f9d4380d62fd5b955065c3/requests-2.31.0.tar.gz"
+    sha256 "942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/21/79/6372d8c0d0641b4072889f3ff84f279b738cd8595b64c8e0496d4e848122/urllib3-1.26.15.tar.gz"
-    sha256 "8a388717b9476f934a21484e8c8e61875ab60644d29b9b39e11e4b9dc1c6b305"
+    url "https://files.pythonhosted.org/packages/fb/c0/1abba1a1233b81cf2e36f56e05194f5e8a0cec8c03c244cab56cc9dfb5bd/urllib3-2.0.2.tar.gz"
+    sha256 "61717a1095d7e155cdb737ac7bb2f4324a858a1e2e6466f6d03ff630ca68d3cc"
   end
 
   resource "zipp" do

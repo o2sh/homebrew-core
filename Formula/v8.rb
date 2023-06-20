@@ -1,24 +1,35 @@
 class V8 < Formula
   desc "Google's JavaScript engine"
   homepage "https://github.com/v8/v8/wiki"
-  # Track V8 version from Chrome stable: https://omahaproxy.appspot.com
-  url "https://github.com/v8/v8/archive/11.2.214.14.tar.gz"
-  sha256 "1774792074228ba61af841009eb3158fbbd5fb5f830d64b9fe0f41694cfdd7ef"
+  # Track V8 version from Chrome stable: https://chromiumdash.appspot.com/releases?platform=Mac
+  url "https://github.com/v8/v8/archive/11.4.183.23.tar.gz"
+  sha256 "d9db2ef6016f5c7b0888a76509d1010c02c8c9a91aaafa7bb12e96012d8b9682"
   license "BSD-3-Clause"
 
   livecheck do
-    url "https://omahaproxy.appspot.com/all.json?os=mac&channel=stable"
-    regex(/"v8_version": "v?(\d+(?:\.\d+)+)"/i)
+    url "https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Mac"
+    regex(/(\d+\.\d+\.\d+\.\d+)/i)
+    strategy :json do |json, regex|
+      # Find the v8 commit hash for the newest Chromium release version
+      v8_hash = json.max_by { |item| Version.new(item["version"]) }.dig("hashes", "v8")
+      next if v8_hash.blank?
+
+      # Check the v8 commit page for version text
+      v8_page = Homebrew::Livecheck::Strategy.page_content(
+        "https://chromium.googlesource.com/v8/v8.git/+/#{v8_hash}",
+      )
+      v8_page[:content]&.scan(regex)&.map { |match| match[0] }
+    end
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "d5b6160bfc0d4cb2916631c28f70debf2d15026f24245213998691671a8166d2"
-    sha256 cellar: :any,                 arm64_monterey: "396c28cf160cad3913cc3ac0089581f720a775a8b949095b43e55d56c9d0dab7"
-    sha256 cellar: :any,                 arm64_big_sur:  "4a1493d6a2a7c6160f66a8588e70f8a29440c242d7e720282b530f6aa41d5670"
-    sha256 cellar: :any,                 ventura:        "2a9327dabd957d13f74965aefed252852902aa9ada4fd5a246efed8b024b4997"
-    sha256 cellar: :any,                 monterey:       "00805a4c3bed9666b84384fb1f82a9f310b393a73e4fb90cc79f3ddb57442b30"
-    sha256 cellar: :any,                 big_sur:        "4d5bb202137ef0edfc373bcb3b39dcb4aa0fa7ea105a2c9b85f029209fa24ac5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "986b0d75b06ffbf3c498ae1372133761d30f52c65e1c0f614bdfab7296f59ac4"
+    sha256 cellar: :any,                 arm64_ventura:  "a063b20822858cb2f6a7bca15a1729a64464c6adba9d01727c88efc593670d4d"
+    sha256 cellar: :any,                 arm64_monterey: "4343755efabe1d775be8c165d6e8bf64b5fdc38200db9639e9cdcae99fa38432"
+    sha256 cellar: :any,                 arm64_big_sur:  "2060a22f51b6e8200fc70b612130896185a40175bc59c31c1d67f7cb59f5f7fe"
+    sha256 cellar: :any,                 ventura:        "64e43d45545dd90a676ef66422219ba184ae330ffbbf1efb734c17af0b710159"
+    sha256 cellar: :any,                 monterey:       "c00e3b648ddb61fc8eef99539dc6176b711deeaf08afaaa554210b2e0e9853f9"
+    sha256 cellar: :any,                 big_sur:        "4ea1b304c7f25bfe00a74959f0e2e24e92931079baef62211d3f5eb763b2e332"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d199297c96df60a8905af1a85550d8f35b3031d89f575b0bea90f693d17d5c54"
   end
 
   depends_on "ninja" => :build
@@ -37,10 +48,10 @@ class V8 < Formula
   fails_with gcc: "5"
 
   # Look up the correct resource revisions in the DEP file of the specific releases tag
-  # e.g. for CIPD dependency gn: https://chromium.googlesource.com/v8/v8.git/+/refs/tags/11.2.214.14/DEPS#59
+  # e.g. for CIPD dependency gn: https://chromium.googlesource.com/v8/v8.git/+/refs/tags/11.4.183.17/DEPS#59
   resource "gn" do
     url "https://gn.googlesource.com/gn.git",
-        revision: "b25a2f8c2d33f02082f0f258350f5e22c0973108"
+        revision: "5a004f9427a050c6c393c07ddb85cba8ff3849fa"
   end
 
   resource "v8/base/trace_event/common" do
@@ -50,7 +61,7 @@ class V8 < Formula
 
   resource "v8/build" do
     url "https://chromium.googlesource.com/chromium/src/build.git",
-        revision: "4d96c496d92cb76c10b201cf9affb2d2027e3a86"
+        revision: "61c4b1021222ae2951ebc26b6d6e27a240f38174"
   end
 
   resource "v8/third_party/googletest/src" do
@@ -60,7 +71,7 @@ class V8 < Formula
 
   resource "v8/third_party/icu" do
     url "https://chromium.googlesource.com/chromium/deps/icu.git",
-        revision: "c6b68522318204f795a8f04caebf6c0beb679cc4"
+        revision: "d8daa943f64cd5dd2a55e9baf2e655ab4bfa5ae9"
   end
 
   resource "v8/third_party/jinja2" do
@@ -75,7 +86,7 @@ class V8 < Formula
 
   resource "v8/third_party/zlib" do
     url "https://chromium.googlesource.com/chromium/src/third_party/zlib.git",
-        revision: "ab0d470309eab637f990878965d0f10ca34f60fc"
+        revision: "14dd4c4455602c9b71a1a89b5cafd1f4030d2e3f"
   end
 
   def install

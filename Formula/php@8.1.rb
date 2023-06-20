@@ -2,10 +2,11 @@ class PhpAT81 < Formula
   desc "General-purpose scripting language"
   homepage "https://www.php.net/"
   # Should only be updated if the new version is announced on the homepage, https://www.php.net/
-  url "https://www.php.net/distributions/php-8.1.18.tar.xz"
-  mirror "https://fossies.org/linux/www/php-8.1.18.tar.xz"
-  sha256 "f3553370f8ba42729a9ce75eed17a2111d32433a43b615694f6a571b8bad0e39"
+  url "https://www.php.net/distributions/php-8.1.20.tar.xz"
+  mirror "https://fossies.org/linux/www/php-8.1.20.tar.xz"
+  sha256 "4c9973f599e93ed5e8ce2b45ce1d41bb8fb54ce642824fd23e56b52fd75029a6"
   license "PHP-3.01"
+  revision 1
 
   livecheck do
     url "https://www.php.net/downloads"
@@ -13,13 +14,13 @@ class PhpAT81 < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "0d815a21ce1bee95dfdc2e218c4c4dd465987a200e34ea339fcad0c62af70779"
-    sha256 arm64_monterey: "229c06530d46f5f4dfea92acc8094a25cbe280c31775452fb3bfa3471e57047e"
-    sha256 arm64_big_sur:  "249da52b2ea814936f6d73f1ee94d3a9c27c7e68c817fe1c7854f4ae09c344d8"
-    sha256 ventura:        "dab6d1e8b19068f0957edd93174442e6432294dde27984d3b130920eabe1b8b5"
-    sha256 monterey:       "f63ca0cd0e33a8f7801eb25246168457b8202f0f79e84f007112624ca692d70d"
-    sha256 big_sur:        "36def106fcc81dc696a19a6b3cd6bbf3286d11670e240a2755dfb40082379333"
-    sha256 x86_64_linux:   "5139f4cde68c9e648d44e6f26d2f0780fa42f8697e216d836592069502400afb"
+    sha256 arm64_ventura:  "1479e0fd4151215aab1dbac68546de4ef79ade173ab52afa16144b61da9df836"
+    sha256 arm64_monterey: "889ab93fb0aa8272656623e220e0b95bb3c1455e22972c7c2e6e41994ca383a9"
+    sha256 arm64_big_sur:  "93372f93ec15208267dec6fd6f8c1cc35788df09d35c52c77dfcf5afb87b44f5"
+    sha256 ventura:        "54ac81600527bbf78b5ab997c6e12f77443fe9ec65709ae0167313d02ae62b8b"
+    sha256 monterey:       "a033d3d10927297846704d29adde258131d3660400415a7188fb1827fb9c8acf"
+    sha256 big_sur:        "491d61f1f362444e46f871bfe311dc47dbd6858e1a360ea3999866cc536f48af"
+    sha256 x86_64_linux:   "261010d1b81c093ec8ea623060f4ac65a190cd1b746189eae0106076e93f37b0"
   end
 
   keg_only :versioned_formula

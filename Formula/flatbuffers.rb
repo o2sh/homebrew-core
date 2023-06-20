@@ -1,8 +1,8 @@
 class Flatbuffers < Formula
   desc "Serialization library for C++, supporting Java, C#, and Go"
   homepage "https://google.github.io/flatbuffers"
-  url "https://github.com/google/flatbuffers/archive/v23.3.3.tar.gz"
-  sha256 "8aff985da30aaab37edf8e5b02fda33ed4cbdd962699a8e2af98fdef306f4e4d"
+  url "https://github.com/google/flatbuffers/archive/v23.5.26.tar.gz"
+  sha256 "1cce06b17cddd896b6d73cc047e36a254fb8df4d7ea18a46acf16c4c0cd3f3f3"
   license "Apache-2.0"
   head "https://github.com/google/flatbuffers.git", branch: "master"
 
@@ -12,13 +12,13 @@ class Flatbuffers < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "41bed661b4685bb18ee01f2b961809edd87f905dfe88ad617abc8cfd0710e56d"
-    sha256 cellar: :any,                 arm64_monterey: "dc323c25fb592db857668f9a3bfb912cf7a2fbb3db042f430dd0cb4b1d60430b"
-    sha256 cellar: :any,                 arm64_big_sur:  "4e37d3f03d1ae3948b6952d6f518b3f8f0bfed61f4d542f3f0fae3bb4b5c2508"
-    sha256 cellar: :any,                 ventura:        "37cc5b96af418233914174d4d7d31dc0b87a18a9499eab96e68a690a418939eb"
-    sha256 cellar: :any,                 monterey:       "d7a1eed20df9c5ae981fb7f98fa517113aa2bc79b88b1899002aa73e4fddf355"
-    sha256 cellar: :any,                 big_sur:        "965086222342bf387d8cdb68b38df5ff32d2160fb43f35ae0a0fcfd963ecafe1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5c8c0495e43dc190f185dd7161ce05d48034a4acf6c8b7a3ed0ab2b1cdd26686"
+    sha256 cellar: :any,                 arm64_ventura:  "6adbf0e725adbd63a44ac1450e994fb3b6689a500bcc3903e41232c8725dcf81"
+    sha256 cellar: :any,                 arm64_monterey: "e27839664b582a68dca68091e19a6e915ea34b17d4ff843927044cd2c52c1346"
+    sha256 cellar: :any,                 arm64_big_sur:  "8356a0b003118a682c7a9ae3d3d9d03290b95733374bf68ac91d262c53c3f1fb"
+    sha256 cellar: :any,                 ventura:        "7f06b89cf995641c2907c69884f9f3d163eced0d1f495af6712115c9ec5d1e4e"
+    sha256 cellar: :any,                 monterey:       "003177dc250139c22c1c23244ff7fee6b2d07210b6432c3f2b5a735b100d35da"
+    sha256 cellar: :any,                 big_sur:        "aebfee6ed53f48a341e4be1d06f45f8dffdd4dbe359fe02770b34da4f84f7aec"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "faa33843a2d4802ba3b57b72c9ca35cd0b5ff9ed7eaaace8fa8f1798db785339"
   end
 
   depends_on "cmake" => :build

@@ -1,19 +1,19 @@
 class Act < Formula
   desc "Run your GitHub Actions locally 🚀"
   homepage "https://github.com/nektos/act"
-  url "https://github.com/nektos/act/archive/v0.2.44.tar.gz"
-  sha256 "8b7afdc62dc5b1ab1f63fe6560fe6f0aad6e92beae78af82b8f417691c21ecd3"
+  url "https://github.com/nektos/act/archive/v0.2.46.tar.gz"
+  sha256 "ca3f27316b0a0cf0f86203124d685dc13da090577ad459f3cd61840a66f2bcde"
   license "MIT"
   head "https://github.com/nektos/act.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5ebb701bfc3e583930f0b7ce2b1be3d5ec7447fc5371f72b7f0d4681451532ee"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "cbf64bd7d5080b9806a6eff1cbd4f99844861898c8ddba83f3ceeae3a7938593"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9c701199e9a4cad7385728922a471b52a90967008deb5cc85d1474c42241db14"
-    sha256 cellar: :any_skip_relocation, ventura:        "0d05fe4cdffd9630e19e318f59ec8a87f10729eebd8c1e733fda44f15cf9a87b"
-    sha256 cellar: :any_skip_relocation, monterey:       "cc2b0b1bde4d6308a3ed2cb61e5b3e1d8a81df9a7b6ab1944892d8a8d832e70a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "a59e1a20879cfb4c2531ead35f6f95a345b1e672a4ffe40167de60276d981e44"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b93b902f223f97581e8935486830b0eb045cbcf11c4bc23989f2ac70ab68508d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "db164cbf3a9702fb44f2a6cc3261a630005e5e87948f9fc1df4ce2a664424a3d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f90b929437ae72844fa6f959d0e30b5c0d2c98d42c6b85829d887412ce3f9116"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "717a941d7dd659075b1e5d8d313dc26a3bc421513d118b741afa398c121250c8"
+    sha256 cellar: :any_skip_relocation, ventura:        "ac536548a1b89b080311a508584d07e02adbe2a3d0319d72733fe8ae8fc67e8c"
+    sha256 cellar: :any_skip_relocation, monterey:       "4afaec5a032c77436e5efc2abf8161b8a5d309c995ba9de99a7193e675a88837"
+    sha256 cellar: :any_skip_relocation, big_sur:        "3ad6a00f608a954d2681050d79c51a9d662952d55fcf59687bbcc8fdca24e08b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "89427da311bb9243782977a709481da24b86d22e2a90a83ca57682b35d98a347"
   end
 
   depends_on "go" => :build

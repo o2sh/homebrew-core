@@ -1,20 +1,19 @@
 class Gspell < Formula
   desc "Flexible API to implement spellchecking in GTK+ applications"
   homepage "https://gitlab.gnome.org/GNOME/gspell"
-  url "https://download.gnome.org/sources/gspell/1.12/gspell-1.12.0.tar.xz"
-  sha256 "40d2850f1bb6e8775246fa1e39438b36caafbdbada1d28a19fa1ca07e1ff82ad"
+  url "https://download.gnome.org/sources/gspell/1.12/gspell-1.12.1.tar.xz"
+  sha256 "8ec44f32052e896fcdd4926eb814a326e39a5047e251eec7b9056fbd9444b0f1"
   license "LGPL-2.1-or-later"
-  revision 2
+  revision 1
 
   bottle do
-    rebuild 1
-    sha256 arm64_ventura:  "65c906574ff5e87056ca93c2f85d6c3b23eaa4650a1f24b5dee72da575101c9f"
-    sha256 arm64_monterey: "d7c62a15ae3002daa6e3b8a34db896890eb7e540d308b1af38fae9e934eb968b"
-    sha256 arm64_big_sur:  "afdc49aec4ce907138b80adfb2b85c9166850f3d405f646c919927d4d0bfc61a"
-    sha256 ventura:        "962ac8b16ebac953aa098fe234d6603e2bc7a388791dc40b5f23ba6f1f7775cf"
-    sha256 monterey:       "98e5a2909232aa846d11fa5b08ae36194953a29595e50a8abd2092d8ab145ba4"
-    sha256 big_sur:        "d8f6031f9bfa590015cd06a9390dab16ec90e0507d97b7f4b16ba683c9115791"
-    sha256 x86_64_linux:   "1dad36d3cd68e3c2b15b8ab4a0d82eb145276bdc58f017319512aafc9a25bd04"
+    sha256 arm64_ventura:  "613457070f16302750abb018bf2a5d76c4d284dd1d1cdcb58d080e1ff6f99b1a"
+    sha256 arm64_monterey: "3b0fa712f20b04133470e7b432df1a2118285afc9e76f52ff936092f2a963047"
+    sha256 arm64_big_sur:  "3723d3e9c9561ff49e0e47f330e4477723449a59df76d7c71056a3f270f1952c"
+    sha256 ventura:        "331130b78ba758cdd10a43d77516e524ce7d8d84f2bb0a8522860ba39db3256f"
+    sha256 monterey:       "fba198d568698e094caf88b351a817e331ab5b2eba1fc34d55f1c4434d260b63"
+    sha256 big_sur:        "4bb40dc090298d0bafd1a24be66a36acbdb82f27d5a8606c6878c69219764e8e"
+    sha256 x86_64_linux:   "c48d0a10dd6627c219b6ba5d51a26cc883cd3cb1cbeae5d59bf0afa0c33c6257"
   end
 
   depends_on "gobject-introspection" => :build

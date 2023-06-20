@@ -1,8 +1,8 @@
 class Envoy < Formula
   desc "Cloud-native high-performance edge/middle/service proxy"
   homepage "https://www.envoyproxy.io/index.html"
-  url "https://github.com/envoyproxy/envoy/archive/refs/tags/v1.26.0.tar.gz"
-  sha256 "cc799f6646824b7f93622085506d8b8dff91f0de768b0346a9a6b68f408f8038"
+  url "https://github.com/envoyproxy/envoy/archive/refs/tags/v1.26.2.tar.gz"
+  sha256 "7bd7a084f310a4a6a081d0814f75b3ac55897e89aafdddcceeea881db68984e6"
   license "Apache-2.0"
   head "https://github.com/envoyproxy/envoy.git", branch: "main"
 
@@ -12,13 +12,13 @@ class Envoy < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4e5b627248166dd85081d5fe8bb4eb698f6617b90b263851ef75c2f6e3055f01"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d329db302f27076379a56d8c42e6360e14c636ebd1dbe921bf699e203f792762"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c86646dd91af357c2c6a196e3c18d56ef78f9b8383fabc1768d3de65841019c8"
-    sha256 cellar: :any_skip_relocation, ventura:        "5314bead9e565d7643b6db03c02c67c73f9b0f347669ab6aa8681763590e3505"
-    sha256 cellar: :any_skip_relocation, monterey:       "a0296957b35a8111d52a611a00accf2af59bd7b17e9f3aeec7409e3054671fef"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e14e6eb37d74c5b7e84d1d0b77b2c2e39f901d1e052cec9f19ab778138cab23a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "746a7a5d8a1c5db2ffea243a81afa837d3e0755a11e8f20bf054d247894343c4"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f83280d093e8e482d03cba1303916e9690326308f51d6c358f37de710ffe4b4f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "aa6807a969ca127f9e10bcd918e880900602a0e1f0513cfb632f0c443a603d7c"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "24af018838cc526b2394bab5d84ca60c7a0c48d0de14792cc29dc7ebb47fa32d"
+    sha256 cellar: :any_skip_relocation, ventura:        "bf759dac988f202ef019e289a17093ae49d2dcaea08925040799ebeed5aaf3a3"
+    sha256 cellar: :any_skip_relocation, monterey:       "08738ce44e8d12cb63e025f85a13539ba192c675bfb38e797af17bedbad450af"
+    sha256 cellar: :any_skip_relocation, big_sur:        "40cc8a560634dba7887747e51617f9cdc9e4c9e66e6843afc84051d50b9d0927"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5d28a03a9d97d98b2ebce5f1ee6d52392ca7e6864aa81b9d346e38b250770ca0"
   end
 
   depends_on "automake" => :build
@@ -46,7 +46,7 @@ class Envoy < Formula
   def install
     # Per https://luajit.org/install.html: If MACOSX_DEPLOYMENT_TARGET
     # is not set then it's forced to 10.4, which breaks compile on Mojave.
-    ENV["MACOSX_DEPLOYMENT_TARGET"] = MacOS.version
+    ENV["MACOSX_DEPLOYMENT_TARGET"] = MacOS.version.to_s
 
     env_path = "#{HOMEBREW_PREFIX}/bin:/usr/bin:/bin"
     args = %W[

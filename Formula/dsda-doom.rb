@@ -1,8 +1,8 @@
 class DsdaDoom < Formula
   desc "Fork of prboom+ with a focus on speedrunning"
   homepage "https://github.com/kraflab/dsda-doom"
-  url "https://github.com/kraflab/dsda-doom/archive/refs/tags/v0.25.6.tar.gz"
-  sha256 "9855cdb2f403058cd81947486e86fa9c965f352360b0743af62c26a09174825c"
+  url "https://github.com/kraflab/dsda-doom/archive/refs/tags/v0.26.2.tar.gz"
+  sha256 "f9f76125b9ffb5be98de175f1e9839b4f563d0113edbe21c4ebb048da714b1d2"
   license "GPL-2.0-only"
   head "https://github.com/kraflab/dsda-doom.git", branch: "master"
 
@@ -12,19 +12,20 @@ class DsdaDoom < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "297ca44a9b5c0f2fa14f97f0ef06dfe93af4da395fec0616b242098c88fdf1d4"
-    sha256 arm64_monterey: "c546fd0070d101815a82c6779733b7ce465058f7a1c0f89c0752b891b1d0018a"
-    sha256 arm64_big_sur:  "10ebbdba6bf641051c2672dd2c5118a91a86265dcbe7820ef4b37ca90510dd6a"
-    sha256 ventura:        "05129b2e3ae15c41810b20cdd8a9e83142bbbb52420b8ab31ad7baf32ad07731"
-    sha256 monterey:       "64c083d351a30165e80aaf94118486c29e9aeb1ce6ac10ed2ac37668f029a34b"
-    sha256 big_sur:        "812646d858dc450ac156304efb85d4b04ea0641868034bfaad5d1744f9d4017c"
-    sha256 x86_64_linux:   "ed5a85c2b7c429885171838505b8fe8aecc13c73ebc6711b87c80aabefaafebf"
+    sha256 arm64_ventura:  "47cdcea400de632ebc88a53880224a864db327ab864bd7f673a933f6c1ceb6e8"
+    sha256 arm64_monterey: "535ddd3f5044a12b80d735faf70b151ecf8be6d413d168f8ee4640a123607190"
+    sha256 arm64_big_sur:  "052c0f60ac8267c96fac699d5bfd4e21a4af612d07772657c3216f1181869906"
+    sha256 ventura:        "263027ee9bb442769114d46e901bbd0aa262d172325169fe41e9c7b0eb055b05"
+    sha256 monterey:       "b0ebf39325d85826550d5eb01b23a1ef4c707cb57d839487e82094ddde4d4fec"
+    sha256 big_sur:        "7be3e2016e550349fb5b9c23e6ffa3eb878d92e3495e31aed7153b59825ac899"
+    sha256 x86_64_linux:   "957c2940e37fda0555184f780f5df4ed62e3e33f06dedf84128799cd82bca432"
   end
 
   depends_on "cmake" => :build
   depends_on "dumb"
   depends_on "fluid-synth"
   depends_on "libvorbis"
+  depends_on "libzip"
   depends_on "mad"
   depends_on "portmidi"
   depends_on "sdl2"
@@ -50,7 +51,6 @@ class DsdaDoom < Formula
                     "-DWITH_MAD=ON",
                     "-DWITH_PORTMIDI=ON",
                     "-DWITH_VORBISFILE=ON",
-                    "-DWITH_ZLIB=ON",
                     *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"

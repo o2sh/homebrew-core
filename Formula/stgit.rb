@@ -1,32 +1,27 @@
 class Stgit < Formula
-  include Language::Python::Shebang
-
   desc "Manage Git commits as a stack of patches"
   homepage "https://stacked-git.github.io"
-  url "https://github.com/stacked-git/stgit/releases/download/v2.2.3/stgit-2.2.3.tar.gz"
-  sha256 "4f182007e658258e2dffffe0d01582f3c7e21e524eee04fb29153cdf38b0f6af"
+  url "https://github.com/stacked-git/stgit/releases/download/v2.3.0/stgit-2.3.0.tar.gz"
+  sha256 "365aee4f6b301568e991901022fe0d908768840e7070efbb04512bd6fd9d5523"
   license "GPL-2.0-only"
   head "https://github.com/stacked-git/stgit.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c65aa9fb7bad5b0bc56641c43cac65af5d1c16c94ceb5922aa0bb72fb23c1e8d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1bc2326a25ec083c35cdd1963d86b691e126894db2b4ab4702e6211122743eaf"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "264d83c21c10068e3ef1408cd53eda6db70b1d2b27913a4b420d64a73044d624"
-    sha256 cellar: :any_skip_relocation, ventura:        "1eb6ab42f7b11866598a1bf0a3829f7c82763b9e64c242d7a8f5ae318a5688f2"
-    sha256 cellar: :any_skip_relocation, monterey:       "875e772f351f0020fa915b54a9b5008332b89b69e723b7afe360a24311e76165"
-    sha256 cellar: :any_skip_relocation, big_sur:        "43247b80c16d4b493728a8f949e37f24535c34a70f8b05ddcfd188522958232f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1e6554884a5f8c21bb49444f04bd95a8b341c73d495be23fff995c20b9fe1a9d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d277f6bb134111bc6e77c32d19e1dda61399c4416735a20159348c05b792febf"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "722d809ab81b5f2b29255ef8df3b1319f9f6adaf59334139e4971a849b60b2e9"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "1559460b7eca04d4af3b69d0f4cb23975777ca294b63c6f93386c5f038fa6cfa"
+    sha256 cellar: :any_skip_relocation, ventura:        "5a2a4a18ac7064b8c63b54f4765225f4e9f393d1cf08821f023e711328a7ab9b"
+    sha256 cellar: :any_skip_relocation, monterey:       "3caf1a213a5badf2fb544853c6d39708885808588aa24f405120ff014f629134"
+    sha256 cellar: :any_skip_relocation, big_sur:        "0142ec92b2ea1d49351f40d6b48a5d18caba69222c627aa66d068fe2a0b849ce"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cbda2af6b1e779b90537e47667b4fa13110fe113b70a9b715551e0ea7da41be6"
   end
 
+  depends_on "pkg-config" => :build
   depends_on "rust" => :build
   depends_on "git"
 
   uses_from_macos "curl"
   uses_from_macos "zlib"
-
-  on_linux do
-    depends_on "pkg-config" => :build
-  end
 
   def install
     system "cargo", "install", *std_cargo_args

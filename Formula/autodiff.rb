@@ -1,19 +1,19 @@
 class Autodiff < Formula
   desc "Automatic differentiation made easier for C++"
   homepage "https://autodiff.github.io"
-  url "https://github.com/autodiff/autodiff/archive/v1.0.1.tar.gz"
-  sha256 "63f2c8aaf940fbb1d1e7098b1d6c08794da0194eec3faf773f3123dc7233838c"
+  url "https://github.com/autodiff/autodiff/archive/v1.0.3.tar.gz"
+  sha256 "21b57ce60864857913cacb856c3973ae10f7539b6bb00bcc04f85b2f00db0ce2"
   license "MIT"
   head "https://github.com/autodiff/autodiff.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d1152952a96a07c31ea880f2e8fc3f874b44a5235f98ab268efae86beeb35722"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c1fec5054d836642476231566e59ae43bf121e1a9620b4152b638c21578ab489"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a13d01c5b8f834804d9525d04d52ca42158a89a6ddd31282ce14591d144d5432"
-    sha256 cellar: :any_skip_relocation, ventura:        "60e873a61aff0c54b79f3b309477e0691087e3d40372218c3133c6fe70fdeb21"
-    sha256 cellar: :any_skip_relocation, monterey:       "621b8f93af3389890e3499c544cc233175de49fbad5a3931ad8bb73b1078f968"
-    sha256 cellar: :any_skip_relocation, big_sur:        "a03382f7b4de3f8f9a6ff1a21f040c3dd14e825dbfed9ef1e2a5399150f74be3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1a858fa06c093ffb988ed650fc9758d389e1c0df2fde4d607bcbe401d29c8938"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a90a50e5c2c406a5d6f7902680d6b7f06a29ad34445670b9a1b35b6dd9e95bd8"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d09f93e264066002a82052ef4350682622740ceddf8757363426ccfe03572155"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "192d6b6b9e7b9b0a20038cf30b782b6ec2fc9f49c78e4be7e482b4d3c6e04efc"
+    sha256 cellar: :any_skip_relocation, ventura:        "9ff50c5fd82428db110802b085fee58aa541be9061a564b7e39f98c0dcf53970"
+    sha256 cellar: :any_skip_relocation, monterey:       "d6224d50b997a6be02918a8b2086d7a87c0afc21344fc615928bfcdf5c36b1d2"
+    sha256 cellar: :any_skip_relocation, big_sur:        "ab6fc6f7b6ec4f60cd99893e964b73a1ccf5fa09b55637f78c9cfe45124a1185"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3a8250ac032d969a17876b1789d3825ead8df47954e015b7c6c6535d9de1847a"
   end
 
   depends_on "cmake" => :build

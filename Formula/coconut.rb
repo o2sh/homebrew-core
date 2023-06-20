@@ -3,36 +3,43 @@ class Coconut < Formula
 
   desc "Simple, elegant, Pythonic functional programming"
   homepage "http://coconut-lang.org/"
-  url "https://files.pythonhosted.org/packages/cc/a7/49b6d5a7b67ec52cd9932c36bc064988673c913a94e88304e533cf2c1396/coconut-2.2.0.tar.gz"
-  sha256 "1651c15945e21cf9b4e0e2712e9effdca54fdc5945f62f99712db16f04391891"
+  url "https://files.pythonhosted.org/packages/8d/e5/4097e94b7c45536499e03f319a30fd88173e9ec9da79fee2234559d29be8/coconut-3.0.2.tar.gz"
+  sha256 "51934e6f6a70a0346827075c914a2904ef1e2f07f6d9d48f22132319fec442bc"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b5ccdba9ce83f347a3ae8a6d0e1e837f1525c1bd035e6e35cf31cd59fa54f9ab"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b5094974db4f73a4c2f9e68b6fa8f4768a84b90967e7137d80ff226ad04ff65a"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "38d9677981288784d7d8b9d78d78100263a359602c3ccf435406b6926faece3a"
-    sha256 cellar: :any_skip_relocation, ventura:        "104919aa3b1e68cb13242001a67792046349e4121aaf9cd6175a629ff0373726"
-    sha256 cellar: :any_skip_relocation, monterey:       "93cc736e5b7a77166f862c9cea8895ed002707be19150511423d70f772e781c3"
-    sha256 cellar: :any_skip_relocation, big_sur:        "6e94622a988049042dd04719ae4ca0bc51789c904d9926ef854fd3b223735105"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bde3be5ad7d86ea8157246363f4e55c79b5bd3e58b2afa54023cebd02293740f"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2cbb339f1cd255c07e2e00d733fad4e2adb00ed03244a61fa4237d7ba87b76fe"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c129ebf05f86e51801982175a408529e235f5776cf15f3c06eb7950c0b28ebca"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "3201b59fc44926b19b45c46cdf237cb80a82d1310fb725671a8dcc7b78246efc"
+    sha256 cellar: :any_skip_relocation, ventura:        "33d0d66bfc029d3af39ab5472395e1a464d1ee77543d65636a54361cdccc7e49"
+    sha256 cellar: :any_skip_relocation, monterey:       "aba64e7f94ece622904975176a9b449b91974551470ba2046ae36a6be5648df9"
+    sha256 cellar: :any_skip_relocation, big_sur:        "61aefb420fac64ce25905f3787726470ca432ae859e227a3187316660ffb7c5e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "65f7819219649f35f0843a5d7d27cfef15d3e687f2170fad777313d36979c969"
   end
 
   depends_on "pygments"
+  depends_on "python-typing-extensions"
   depends_on "python@3.11"
 
-  resource "cPyparsing" do
-    url "https://files.pythonhosted.org/packages/c6/6a/b37f4aff8f53083fe71e9b5088dd3a413c231ece8dcb0809a8f2c2b5083e/cPyparsing-2.4.7.1.2.0.tar.gz"
-    sha256 "c0dc51c5dbb6d5c1e672a60eb040b81dbebbab22b8560d026d9caebeb4dd8a56"
+  resource "cpyparsing" do
+    url "https://files.pythonhosted.org/packages/d0/44/49b91c35e074634560c0b70adc7fa3792976d6a51485422e3a3272bfd7c3/cPyparsing-2.4.7.1.2.1.tar.gz"
+    sha256 "6a13dbfed649bf07d59fd1b8d99b5d3351a8622ded959118fc19eb8b88399bcd"
   end
 
   resource "prompt-toolkit" do
-    url "https://files.pythonhosted.org/packages/fb/93/180be2342f89f16543ec4eb3f25083b5b84eba5378f68efff05409fb39a9/prompt_toolkit-3.0.36.tar.gz"
-    sha256 "3e163f254bef5a03b146397d7c1963bd3e2812f0964bb9a24e6ec761fd28db63"
+    url "https://files.pythonhosted.org/packages/4b/bb/75cdcd356f57d17b295aba121494c2333d26bfff1a837e6199b8b83c415a/prompt_toolkit-3.0.38.tar.gz"
+    sha256 "23ac5d50538a9a38c8bde05fecb47d0b403ecd0662857a86f886f798563d5b9b"
+  end
+
+  resource "psutil" do
+    url "https://files.pythonhosted.org/packages/d6/0f/96b7309212a926c1448366e9ce69b081ea79d63265bde33f11cc9cfc2c07/psutil-5.9.5.tar.gz"
+    sha256 "5410638e4df39c54d957fc51ce03048acd8e6d60abc0f5107af51e5fb566eb3c"
   end
 
   resource "wcwidth" do
-    url "https://files.pythonhosted.org/packages/89/38/459b727c381504f361832b9e5ace19966de1a235d73cdbdea91c771a1155/wcwidth-0.2.5.tar.gz"
-    sha256 "c4d647b99872929fdb7bdcaa4fbe7f01413ed3d98077df798530e5b04f116c83"
+    url "https://files.pythonhosted.org/packages/5e/5f/1e4bd82a9cc1f17b2c2361a2d876d4c38973a997003ba5eb400e8a932b6c/wcwidth-0.2.6.tar.gz"
+    sha256 "a5220780a404dbe3353789870978e472cfe477761f06ee55077256e509b156d0"
   end
 
   def install

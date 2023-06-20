@@ -1,8 +1,8 @@
 class SpirvCross < Formula
   desc "Performing reflection and disassembling SPIR-V"
   homepage "https://github.com/KhronosGroup/SPIRV-Cross"
-  url "https://github.com/KhronosGroup/SPIRV-Cross/archive/refs/tags/sdk-1.3.243.0.tar.gz"
-  sha256 "549fff809de2b3484bcc5d710ccd76ca29cbd764dd304c3687252e2f3d034e06"
+  url "https://github.com/KhronosGroup/SPIRV-Cross/archive/refs/tags/sdk-1.3.250.0.tar.gz"
+  sha256 "dac4b3dabd3f166f0c2941cf72045331e2672591a06cdeaa72e550d403f3150c"
   license all_of: [
     "Apache-2.0",
     "MIT",
@@ -17,13 +17,13 @@ class SpirvCross < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4ad959b1a5112c9142a09492d88dd2d7cfc810dea3685053f5fb3fce97e2b687"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "fef027c5a5855599de4145c8a640f69bae7ba0e20a0e987b3b6cf3b4a29a5ced"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "bd28d93435ef2f3c9b8b340176243bf9c8a29ce5c9f2a24acc6f8b032802a07c"
-    sha256 cellar: :any_skip_relocation, ventura:        "cb44b859d371478729d6ccf7e12020af1b5294660712a5dbb5f065aa432e5f04"
-    sha256 cellar: :any_skip_relocation, monterey:       "97838df21c545cdc33916f6ff59beea3c2b25dba92c33d31540b31fb6b0debc6"
-    sha256 cellar: :any_skip_relocation, big_sur:        "2bf91e3290cc4cdd7dc5ce296d91ca05981c1299b90fbef4b6b5e3403bb178b5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "befc9aee537f27295f7de8d2f03d4c0df3f7cbfb5530f562e481412afadce796"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "efab4f856ff256cfed3b78a31cc6bca1fdc7e1e5a43e4ecf3917f45303ecdd0c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "aecb2d362137229e8a17250d425a7b0a558ad6013b57837de87508213016b5e4"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "92a072e86125773d91a254ee328819732fe1eca83417f3e2efb1bdec9906b521"
+    sha256 cellar: :any_skip_relocation, ventura:        "df60834cbe46c2453a1fc45729133e33cb04a167d5661b4c9cbc02efd638855b"
+    sha256 cellar: :any_skip_relocation, monterey:       "109d35612c303c6ac2ea4f711ff7239ef120081cfa279e3747a0e334454581f7"
+    sha256 cellar: :any_skip_relocation, big_sur:        "38b15cb2fb760782b03e20bb4a1ad06e7ad10dde85aca62acb96fe6c471b3c14"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c98c3af7827e6143a5b4985a9589ceef269edd172a98946f294290b39bda61a3"
   end
 
   depends_on "cmake" => :build

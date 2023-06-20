@@ -1,8 +1,8 @@
 class Prometheus < Formula
   desc "Service monitoring system and time series database"
   homepage "https://prometheus.io/"
-  url "https://github.com/prometheus/prometheus/archive/v2.43.0.tar.gz"
-  sha256 "0cd8860e5f10d0ecb35d20d23252ddc459e8319882dc163bf71b723e3bcafd71"
+  url "https://github.com/prometheus/prometheus/archive/v2.44.0.tar.gz"
+  sha256 "cbaaa0e17a355abc4a90d4ead952620aa1bca8fad4a95fd81ac68c0d963add26"
   license "Apache-2.0"
 
   livecheck do
@@ -11,13 +11,13 @@ class Prometheus < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "af971614a062fdd6e5a9f3b72477d199522bb1c7531921a018acd504ab18c4f2"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0649127cf1ca0038ae83049bc2d63f155c1713feacde4a6f48188e0c9f99b42b"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f11d353ab23c7f033846fc7e58437fed3f6993e2fe737e5a635e1d9d0d1f033d"
-    sha256 cellar: :any_skip_relocation, ventura:        "2f38d9ac1df8770c2911a41221767c756454e4c3d8fb175b7279782a0f497d1e"
-    sha256 cellar: :any_skip_relocation, monterey:       "5eab0076f21fde8827786d83c689070cb2a062d894a05b116a039765ff2d184b"
-    sha256 cellar: :any_skip_relocation, big_sur:        "26c4a6415936c73fd01bf501f07f1cee85ca307b2c4e3ff3df4a7cc0f70f88e2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a1050da51cd06c701f626cfc665dcfa008517124a2a54321d978a1e7640c6ff2"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c834396b0ba0b8c1584c54478225952eb3ca65b38cac415b3f681da5e7469cc6"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2e6fdeb30bd88406d6ad964eaa29407ca4c8377a2d09735b6a79669590f10fad"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "d8402885394a1037d3982214dd482cb243889ce3cdb813c155b8835adbd90f74"
+    sha256 cellar: :any_skip_relocation, ventura:        "c96d32be7696c2ccdc47c01b399a9fca7842dc57decfd9dfabe2d34e9937e1bd"
+    sha256 cellar: :any_skip_relocation, monterey:       "bcd8b41e6e1c3c03f68932b857f414d5eea6787aedb955e9c7c32366e744de1f"
+    sha256 cellar: :any_skip_relocation, big_sur:        "45fcb95227c9dc82bffaf586529867cf625174f5a66a73039a42a17acde1275c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "64b3c32017a9a46c1d2d1c584404851ad6281d2b82a9ead200f9268b5dcc7436"
   end
 
   depends_on "gnu-tar" => :build

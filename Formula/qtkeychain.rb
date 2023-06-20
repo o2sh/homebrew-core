@@ -1,20 +1,18 @@
 class Qtkeychain < Formula
   desc "Platform-independent Qt API for storing passwords securely"
   homepage "https://github.com/frankosterfeld/qtkeychain"
-  url "https://github.com/frankosterfeld/qtkeychain/archive/v0.13.2.tar.gz"
-  sha256 "20beeb32de7c4eb0af9039b21e18370faf847ac8697ab3045906076afbc4caa5"
+  url "https://github.com/frankosterfeld/qtkeychain/archive/0.14.1.tar.gz"
+  sha256 "afb2d120722141aca85f8144c4ef017bd74977ed45b80e5d9e9614015dadd60c"
   license "BSD-2-Clause"
-  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "5d3145d8d3731343964b40bdb1c13c4e53e9be8322d32dadafe8c7d7875c4888"
-    sha256 cellar: :any,                 arm64_monterey: "f40b525d2f5a5e6fc334593e7da4151872bc49d5dce33dd2a9964ece65691734"
-    sha256 cellar: :any,                 arm64_big_sur:  "aa11a27547e6206efae29567019190a1ca94d50d3d241689a1f157fd70e2f962"
-    sha256 cellar: :any,                 ventura:        "a10b143a072879a840b24ead5b3a04bd38cbe361b8f0290747c6f9407b611d30"
-    sha256 cellar: :any,                 monterey:       "29f4b26ba055523d59cdf5e800a4402de27870cd2cbf938b8190a8ad3b7bb4f7"
-    sha256 cellar: :any,                 big_sur:        "b27da2f84bb0b2357dc6c7274d63b00eb833aea7cc6dfe9126697993291193a8"
-    sha256 cellar: :any,                 catalina:       "2ec32ec391cfdf76856c5b60e9b7d3d4e157e04c1925cd617d465ca8e916b349"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7d5e030c29fef9faef28773bd69d1334596a524679c65b8166ae5b1f2b96ce78"
+    sha256 cellar: :any,                 arm64_ventura:  "97ee9063f01dfa304494526e1065a5501bd9ee752219c8bf0c1dd9625c44d15f"
+    sha256 cellar: :any,                 arm64_monterey: "db22830bcfb4f23985c5d2a2910a134fcf4f903a179a8df7f834f5c56577724e"
+    sha256 cellar: :any,                 arm64_big_sur:  "7b50ac138ac55465f204a745f98e53af68f0bf78fe3bb368901284ec7dbc5e33"
+    sha256 cellar: :any,                 ventura:        "a4a3d37279e7c59f591e40b3022d622c18398b744e1dc3937d6a80a74ba085cd"
+    sha256 cellar: :any,                 monterey:       "7f33800981881204de55f9d401896f9dea8be17466ea39e9940d18591d02c80b"
+    sha256 cellar: :any,                 big_sur:        "a797110599496bc347e32294d2cddab2dd2e6d916233b445ef508377d613eaa9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8554a2961feee2132fe2393c8142a13562930ab7a2e51dd331c0ac78f6eb9f39"
   end
 
   depends_on "cmake" => :build

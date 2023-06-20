@@ -1,8 +1,8 @@
 class Qscintilla2 < Formula
   desc "Port to Qt of the Scintilla editing component"
   homepage "https://www.riverbankcomputing.com/software/qscintilla/intro"
-  url "https://www.riverbankcomputing.com/static/Downloads/QScintilla/2.13.4/QScintilla_src-2.13.4.tar.gz"
-  sha256 "890c261f31e116f426b0ea03a136d44fc89551ebfd126d7b0bdf8a7197879986"
+  url "https://www.riverbankcomputing.com/static/Downloads/QScintilla/2.14.1/QScintilla_src-2.14.1.tar.gz"
+  sha256 "dfe13c6acc9d85dfcba76ccc8061e71a223957a6c02f3c343b30a9d43a4cdd4d"
   license "GPL-3.0-only"
 
   # The downloads page also lists pre-release versions, which use the same file
@@ -16,13 +16,13 @@ class Qscintilla2 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "044898d03d179ff9afd40ce662f2b0b7a6258409f293fcd70a0161ca0596d9a6"
-    sha256 cellar: :any,                 arm64_monterey: "044898d03d179ff9afd40ce662f2b0b7a6258409f293fcd70a0161ca0596d9a6"
-    sha256 cellar: :any,                 arm64_big_sur:  "3ee5e34dff911cfc98231b34e436608c4ddd522defb82e777d855385bfeba980"
-    sha256 cellar: :any,                 ventura:        "881349023c5bb39444db825c4762471f6b309fa2c3274d888be85abd6c5183a2"
-    sha256 cellar: :any,                 monterey:       "881349023c5bb39444db825c4762471f6b309fa2c3274d888be85abd6c5183a2"
-    sha256 cellar: :any,                 big_sur:        "f0c9c0a0368ec16b09241d779bf7df5313e0128532a616686af7fb01200c3cef"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0a7b44012be2fa4cc48bb687e0d258c8439d489e72d92ca86a6d733ebf9af2d4"
+    sha256 cellar: :any,                 arm64_ventura:  "0413baf5747d3d1c3b16d15e730e515e6b3fe4137726eb8710bd5992e0422f08"
+    sha256 cellar: :any,                 arm64_monterey: "76aac1bcb5f404dda840e2cfb9b9a77e55821083c0062b9766ea20e20978d9be"
+    sha256 cellar: :any,                 arm64_big_sur:  "1139791ad28dee396eae147cb90396092decdebd9b624988d321e0d9ccf2c7a3"
+    sha256 cellar: :any,                 ventura:        "32299405bd319742047b9957082a0bb1f67cfbe903edb98b10d90b99afeccae5"
+    sha256 cellar: :any,                 monterey:       "30900898a5082197283975f908fd1617f7c4fb3340157f4a90d415d160f4b313"
+    sha256 cellar: :any,                 big_sur:        "fbd417c843ccb49fa45de44831f4662a6f1275b751a93b65927932e3ba850be5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d78d9650bbb0f6b7313898a0a0544efc8efe2f7e2db0a2c13b0c5968d040c1cd"
   end
 
   depends_on "pyqt-builder" => :build

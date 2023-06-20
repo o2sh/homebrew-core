@@ -1,20 +1,22 @@
 class Libheif < Formula
   desc "ISO/IEC 23008-12:2017 HEIF file format decoder and encoder"
   homepage "https://www.libde265.org/"
-  url "https://github.com/strukturag/libheif/releases/download/v1.15.2/libheif-1.15.2.tar.gz"
-  sha256 "7a4c6077f45180926583e2087571371bdd9cb21b6e6fada85a6fbd544f26a0e2"
+  url "https://github.com/strukturag/libheif/releases/download/v1.16.2/libheif-1.16.2.tar.gz"
+  sha256 "7f97e4205c0bd9f9b8560536c8bd2e841d1c9a6d610401eb3eb87ed9cdfe78ea"
   license "LGPL-3.0-only"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "820ec916a81cf91d385596cb2297d892d576e9791adb689f79d2d6e6642b79e8"
-    sha256 cellar: :any,                 arm64_monterey: "7b59662e0359fced6a059a03aa923c2f497d3d1d926775bc6405ab479cf6b447"
-    sha256 cellar: :any,                 arm64_big_sur:  "4ad052a3cb99944e8d1deba4ed1646f445cb614400a86dc2a806a616b84d46b5"
-    sha256 cellar: :any,                 ventura:        "eec3c8c7ac9c1ec1a7a1a14b7257cb3c98da9d09900914f5d65a92a07290ae5d"
-    sha256 cellar: :any,                 monterey:       "05f4a370d81bf44021672c0e7a9eeaa68e9683ad8dc0dfaf1bb4b2c3c935b427"
-    sha256 cellar: :any,                 big_sur:        "b8cbb5c9724515ec8a4c1adab9e322cbdf08845d2671eb41f08c41dd35f0bdb1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9d4e7ec91a69c67812ce959e25871af7412966f82e15cbcb9a873cce3389df1c"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "d6a9f8735ff0ae320c38d8882700cc31c68fbda4a9d54f769e0ae8bff0600f7e"
+    sha256 cellar: :any,                 arm64_monterey: "8a77980947f74d9abdbe2f78a41d078e6a46009646c820c7cf74472fcaed0d27"
+    sha256 cellar: :any,                 arm64_big_sur:  "1206b2a41a5fce3f9f2732f459dace3dc0d36fd4a637b3a83652944ba1c16d4e"
+    sha256 cellar: :any,                 ventura:        "faa82db305858a35f05f8a49b13d57139fe816712639d3934f0ebee63552ae11"
+    sha256 cellar: :any,                 monterey:       "35e069651a989c37686dd7bc3f907d2bfb580e68407b0736068e577fd91dabf1"
+    sha256 cellar: :any,                 big_sur:        "29c122901654eb74af43a8e349a0b544c35ab0b1a4b732666fbe3c51bd5627a0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a778a51a1112c3c8d82622f7d4079a500308b2df3119d81e4a4b60f13d2105e1"
   end
 
+  depends_on "cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "aom"
   depends_on "jpeg-turbo"
@@ -24,8 +26,15 @@ class Libheif < Formula
   depends_on "x265"
 
   def install
-    system "./configure", *std_configure_args, "--disable-silent-rules"
-    system "make", "install"
+    args = %W[
+      -DWITH_RAV1E=OFF
+      -DWITH_DAV1D=OFF
+      -DWITH_SvtEnc=OFF
+      -DCMAKE_INSTALL_RPATH=#{rpath}
+    ]
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
     pkgshare.install "examples/example.heic"
     pkgshare.install "examples/example.avif"
   end

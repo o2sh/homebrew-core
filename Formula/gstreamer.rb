@@ -2,15 +2,16 @@ class Gstreamer < Formula
   desc "Development framework for multimedia applications"
   homepage "https://gstreamer.freedesktop.org/"
   license all_of: ["LGPL-2.0-or-later", "LGPL-2.1-or-later", "MIT"]
+  revision 2
 
   stable do
-    url "https://gitlab.freedesktop.org/gstreamer/gstreamer/-/archive/1.22.2/gstreamer-1.22.2.tar.gz"
-    sha256 "04e799a42a01dde86ee95d13deaea4739bca182a63223c0f64c9b645ff449018"
+    url "https://gitlab.freedesktop.org/gstreamer/gstreamer/-/archive/1.22.3/gstreamer-1.22.3.tar.gz"
+    sha256 "8f0db72a22a11527c01895b0aec50174f094c7c772369522350e03f24e87455a"
 
     # When updating this resource, use the tag that matches the GStreamer version.
     resource "rs" do
-      url "https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/archive/gstreamer-1.22.2/gst-plugins-rs-gstreamer-1.22.2.tar.gz"
-      sha256 "b3591b1ffdc7f1f201043ba6e8995c0df217ce5a598a262187963407eb0cf15e"
+      url "https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/archive/gstreamer-1.22.3/gst-plugins-rs-gstreamer-1.22.3.tar.gz"
+      sha256 "208f0350471b5e73f1054012732d3609f680ab9d9173dc15b6277560cb224acc"
     end
   end
 
@@ -20,13 +21,13 @@ class Gstreamer < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "1c092db80d65a41d53629362285002aa5acdecb677bb2592e0d2e4a4d8120847"
-    sha256 arm64_monterey: "f3d95fead78da3aa7ae7c8d4bf54667d3dda72afb94c8c58904de5e485f767f4"
-    sha256 arm64_big_sur:  "49646b35befbceaa57f825faf5398198874b3730d92f2719a2025cf9166ce156"
-    sha256 ventura:        "779a482eb82312bc5654d5bb8997c75911402aff3757081aef0dc0d8b424dd1d"
-    sha256 monterey:       "44595512b4d02281cfe11e2d6709e4fdf3cfdc9de2f02f6a7d5beede0bd01898"
-    sha256 big_sur:        "53286726947d0ce5bafc74a1b91f477309b154e667fb72b1acbe9102c48d9939"
-    sha256 x86_64_linux:   "90c0c051155175d7a5a9a81861738aa0f60ad44a2f71cd9681a33fbf24f3b73b"
+    sha256 arm64_ventura:  "3e1ded97dc89aa58b7f921943cc25c37cebe2ba9f78176c5145d827a67fe39df"
+    sha256 arm64_monterey: "b049fb70f13d4a446d18d426c62c828765b8c81bb6f0c4b1672412e9e2d6b83e"
+    sha256 arm64_big_sur:  "a0a4ae4d61793778588325ba58e5708993e5324b447bf5cb88bfdf5e74e3e6d5"
+    sha256 ventura:        "2f1385d36a5025f80fdcc9486ced51f2acce94f67fa9c771a60c735f670b078e"
+    sha256 monterey:       "42c5e867ec230331eb334c90772e5999ed5bc8bedcb0f60ef931300c8bf9179a"
+    sha256 big_sur:        "dd5cd6b7fdb3686b79f273bcaada728a4ed7da6fc293c3fc5e5b549df1518c2c"
+    sha256 x86_64_linux:   "943e39b5334020293b8a30e2c273decb32357e1a679328c239e8e29822ccee66"
   end
 
   head do
@@ -70,6 +71,7 @@ class Gstreamer < Formula
   depends_on "libusrsctp"
   depends_on "libvorbis"
   depends_on "libvpx"
+  depends_on "openexr"
   depends_on "openssl@1.1"
   depends_on "opus"
   depends_on "orc"
@@ -149,6 +151,7 @@ class Gstreamer < Formula
       -Dgst-editing-services:pygi-overrides-dir=#{site_packages}/gi/overrides
       -Dgst-python:pygi-overrides-dir=#{site_packages}/gi/overrides
       -Dgst-python:python=#{python3}
+      -Dgst-plugins-bad:opencv=disabled
       -Dgst-plugins-bad:sctp=enabled
       -Dgst-plugins-bad:sctp-internal-usrsctp=disabled
       -Dgst-plugins-good:soup=enabled
@@ -168,13 +171,17 @@ class Gstreamer < Formula
     args << "-Dgstreamer:ptp-helper-permissions=none"
 
     # Prevent the build from downloading an x86-64 version of bison.
+    args << "-Dbuild-tools-source=system" if build.head? # make unconditional in 1.24+
     inreplace "meson.build", "subproject('macos-bison-binary')", ""
+    odie "`macos-bison-binary` workaround should be removed!" if build.stable? && version >= "1.24"
 
     # Set `RPATH` since `cargo-c` doesn't seem to.
     # https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/issues/279
     plugin_dir = lib/"gstreamer-1.0"
     rpath_args = [loader_path, rpath(source: plugin_dir)].map { |path| "-rpath,#{path}" }
-    ENV["RUSTFLAGS"] = "--codegen link-args=-Wl,#{rpath_args.join(",")}"
+    inreplace "subprojects/gst-plugins-rs/meson.build",
+              "rust_flags = []",
+              "rust_flags = ['--codegen', 'link-args=-Wl,#{rpath_args.join(",")}']"
 
     # Make sure the `openssl-sys` crate uses our OpenSSL.
     ENV["OPENSSL_NO_VENDOR"] = "1"

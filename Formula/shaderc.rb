@@ -4,36 +4,37 @@ class Shaderc < Formula
   license "Apache-2.0"
 
   stable do
-    url "https://github.com/google/shaderc/archive/refs/tags/v2023.3.tar.gz"
-    sha256 "7f66435c59797cdc6370dc97aa5cab21651385ac6c5159975566d51cc3e6650f"
+    url "https://github.com/google/shaderc/archive/refs/tags/v2023.4.tar.gz"
+    sha256 "671c5750638ff5e42e0e0e5325b758a1ab85e6fd0fe934d369a8631c4292f12f"
 
     resource "glslang" do
       # https://github.com/google/shaderc/blob/known-good/known_good.json
       url "https://github.com/KhronosGroup/glslang.git",
-          revision: "ef77cf3a92490f7c37f36f20263cd3cd8c94f009"
+          revision: "9fbc561947f6b5275289a1985676fb7267273e09"
     end
 
     resource "spirv-headers" do
       # https://github.com/google/shaderc/blob/known-good/known_good.json
       url "https://github.com/KhronosGroup/SPIRV-Headers.git",
-          revision: "1feaf4414eb2b353764d01d88f8aa4bcc67b60db"
+          revision: "bdbfd019be6952fd8fa9bd5606a8798a7530c853"
     end
 
     resource "spirv-tools" do
       # https://github.com/google/shaderc/blob/known-good/known_good.json
       url "https://github.com/KhronosGroup/SPIRV-Tools.git",
-          revision: "44d72a9b36702f093dd20815561a56778b2d181e"
+          revision: "e7c6084fd1d6d6f5ac393e842728d8be309688ca"
     end
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "6b07e4752ecff2c1f3fb8f4ef92aaabb256f8a2629f4d9df6762125b275d7eee"
-    sha256 cellar: :any,                 arm64_monterey: "a9fb7900064768b74595b7f6b0d379638c46d4b383cbd594fc3c59c8ed7d7fd6"
-    sha256 cellar: :any,                 arm64_big_sur:  "ce0b990d8da45738d67fe0e602ed316323f4985586c5e0b7ec5f4ef93a4d16ec"
-    sha256 cellar: :any,                 ventura:        "ca5fe4eb1799ec598d40c99e10cfacb8fa791d3665899ed0cebcee96b343d4cc"
-    sha256 cellar: :any,                 monterey:       "b6e9c5be72c5251d6fe499191ed50353cd4ae7f813bf1989532de56d2de40e37"
-    sha256 cellar: :any,                 big_sur:        "b4109db413fc33139f7e68cff51c738f35fea7b689424a254d2128303ac0dd90"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "94355b357e3ecd3aae2abd3dc7fa1f3daa6b09ad171050bb175dc7d447fb7076"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "dd038613145773ff320ebe3a79cf61272376281bbe06f5d7b422397fa8e649e7"
+    sha256 cellar: :any,                 arm64_monterey: "a73b22ed66db948c0c4f1ba3f9e04135aa3b87e5dbe3a569fb279ed9a468c229"
+    sha256 cellar: :any,                 arm64_big_sur:  "cfe7d7622353d8b805a07ca1c34e9aa7a7e5a0397d9773f8aa39f1db011cc736"
+    sha256 cellar: :any,                 ventura:        "2ac1180ed8fc32957e854ab7948af61e174f5f0ad7e5075f14906458c5fff3c3"
+    sha256 cellar: :any,                 monterey:       "8f03525f71176ba744eb98931831e01a7c8f53a1e78d4ea594b258df677c2ff3"
+    sha256 cellar: :any,                 big_sur:        "1196194aff020b3a96f1d379c1c225efe35ec7c027be4ec53aa9bcfd48d7328d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0c62c00f66b1e611964b4ca495bbe623d701c7f9845b65763f9a76536c1ab032"
   end
 
   head do
@@ -58,19 +59,19 @@ class Shaderc < Formula
   depends_on "cmake" => :build
   depends_on "python@3.11" => :build
 
-  conflicts_with "spirv-tools", because: "both install `spirv-*` binaries"
-
   def install
     resources.each do |res|
       res.stage(buildpath/"third_party"/res.name)
     end
 
+    # Avoid installing packages that conflict with other formulae.
+    inreplace "third_party/CMakeLists.txt", "${SHADERC_SKIP_INSTALL}", "ON"
     system "cmake", "-S", ".", "-B", "build",
-           "-DSHADERC_SKIP_TESTS=ON",
-           "-DSKIP_GLSLANG_INSTALL=ON",
-           "-DSKIP_SPIRV_TOOLS_INSTALL=OFF",
-           "-DSKIP_GOOGLETEST_INSTALL=ON",
-           *std_cmake_args
+                    "-DSHADERC_SKIP_TESTS=ON",
+                    "-DSKIP_GLSLANG_INSTALL=ON",
+                    "-DSKIP_SPIRV_TOOLS_INSTALL=ON",
+                    "-DSKIP_GOOGLETEST_INSTALL=ON",
+                    *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end

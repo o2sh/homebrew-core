@@ -1,8 +1,8 @@
 class Pgbouncer < Formula
   desc "Lightweight connection pooler for PostgreSQL"
   homepage "https://www.pgbouncer.org/"
-  url "https://www.pgbouncer.org/downloads/files/1.18.0/pgbouncer-1.18.0.tar.gz"
-  sha256 "9349c9e59f6f88156354f4f6af27cdb014a235b00ae184cbaa37688bd0df544c"
+  url "https://www.pgbouncer.org/downloads/files/1.19.1/pgbouncer-1.19.1.tar.gz"
+  sha256 "58c3eff9bb72c18133b28e1f034fd59356ea76281c65e127432ca101c208a394"
   license "ISC"
 
   livecheck do
@@ -11,13 +11,13 @@ class Pgbouncer < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "3fe9d8e3e59e1117eeab41e90b04e5e39e0e6115192abf1f526b91da8df028d4"
-    sha256 cellar: :any,                 arm64_monterey: "74f34bbf272664b4084317b8dc465c89ebd5586c8b18cb32b36124303e01bab5"
-    sha256 cellar: :any,                 arm64_big_sur:  "615addb44732127a561afaacf3f182d538c909eec359e8246e0c77ab4f9a84af"
-    sha256 cellar: :any,                 ventura:        "c2f1d02f00d9db6c3223c962812e508893bb91a817205f86e6907c4488ee29f8"
-    sha256 cellar: :any,                 monterey:       "4569805015dce13a90bda65225a1def60e430822d94e813176df6e00d9ae6ef8"
-    sha256 cellar: :any,                 big_sur:        "3a358136afda3ec3fbb98fdc6dcd36f94b12de4dde564cf41b6350c19da21558"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d0efe7f41310bb853ef0ceafbcfd74d3109076812b2843cf4d388b1ab366b379"
+    sha256 cellar: :any,                 arm64_ventura:  "393523f1924078f921d3f7a29066c3befdc27ed26ed7627302549fcf2ba2ea33"
+    sha256 cellar: :any,                 arm64_monterey: "4b816cd82cedf64c2ed6945bcb49536ac9dae107b90fa56d076b7a282ac5ebe5"
+    sha256 cellar: :any,                 arm64_big_sur:  "2605e300ce077a27a10ada91b860be3e48c2a107509f82683dab264e0190f917"
+    sha256 cellar: :any,                 ventura:        "d2b6e4f6fe104b37e3f21104479849b24937e8a25f88ff27d46aca65f1cb2535"
+    sha256 cellar: :any,                 monterey:       "47f61475dc86a232d2e3625774ea36e1e8f6d4cd040ce65ee3d7435eea4cb93d"
+    sha256 cellar: :any,                 big_sur:        "6045d6c8033af6892a212e91048c9ffc246130efec6e6fd5e89663fc65f98df5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "82dea8700a650af2016ab7cc5213fef97419936b257542b5a219ed59d16c4608"
   end
 
   head do

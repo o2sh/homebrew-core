@@ -3,19 +3,19 @@ class Commitizen < Formula
 
   desc "Defines a standard way of committing rules and communicating it"
   homepage "https://commitizen-tools.github.io/commitizen/"
-  url "https://files.pythonhosted.org/packages/14/2a/abe8f3e779220f115c8b94100167ab2c3b8e4f6d4a557a61a6e9296f298e/commitizen-3.1.1.tar.gz"
-  sha256 "337d721555b66f803d60a0b0bafe0d3cf68a584b1f85ef0c43c45d279dc6737b"
+  url "https://files.pythonhosted.org/packages/bb/27/55b27df533170f2f9bc677ff2ab801730df87e282bd10b60953a0595706f/commitizen-3.4.0.tar.gz"
+  sha256 "ab17db8c4f7258d9cdcc620046aa63d2139756ef78b2174cfa9f9c5e383eaf27"
   license "MIT"
   head "https://github.com/commitizen-tools/commitizen.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a39a319b115a57ee3fa0d5da0cac75dc1cff37e480688475880cf46582c14f63"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b82739ffe7cb77351d69b7c0da6c912774faf6fa907273708b6937948bdad269"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a7d9652f87141690ec2ee505ba5419cab5fa31bd5342f2fbf7d6e91c6f314bc6"
-    sha256 cellar: :any_skip_relocation, ventura:        "024f6a23502ba25b4182050514a4a43444c0957872b660a034d7a5df090fca62"
-    sha256 cellar: :any_skip_relocation, monterey:       "d12a0f1e9a45478cc4e5572476885fad31481ec33902f0b8475a308a959bba93"
-    sha256 cellar: :any_skip_relocation, big_sur:        "3246b83208f9c18a8c9bcebefcd37de11836ae9251796b2cec3fe5729db529d4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "81d63b0b3bb1acf12740e83eaec3878a793c8527c79f3aa5ae515b7cfc236d35"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c57fe878d64e10e18775a3f4c21e74b63b57fcdac95e5e29d0926263f5e683c2"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "494ae4039ca86e8c5381362055136ea1a58081c355bd8a3bc738edc13eff1980"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "336bc492b13fd3a2efdba147e3c6e466d72faf81b913aeabfba5aad54bdbf50d"
+    sha256 cellar: :any_skip_relocation, ventura:        "e0f17f13ead7376e2876feba1ddd1e61156e84e884c6fbc7be12cffaee2bdd8a"
+    sha256 cellar: :any_skip_relocation, monterey:       "918e889e5ab7311e836494d773db946cdc9397e4986e2947df570311e27cd1d2"
+    sha256 cellar: :any_skip_relocation, big_sur:        "5f5ecf031db5acf289cc94f5d8e90df15a7a8fd8c9fe13fd367a1b8c2ba175d5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ec17685d188f00ca21a8e43c24643615500ca07de7d0cfb48d97df476f726f56"
   end
 
   depends_on "python-typing-extensions"
@@ -38,13 +38,13 @@ class Commitizen < Formula
   end
 
   resource "decli" do
-    url "https://files.pythonhosted.org/packages/9f/30/064f53ca7b75c33a892dcc4230f78a1e01bee4b5b9b49c0be1a61601c9bd/decli-0.5.2.tar.gz"
-    sha256 "f2cde55034a75c819c630c7655a844c612f2598c42c21299160465df6ad463ad"
+    url "https://files.pythonhosted.org/packages/2e/9c/b76485e6120795c8b632707bafb4a9a4a2b75584ca5277e3e175c5d02225/decli-0.6.1.tar.gz"
+    sha256 "ed88ccb947701e8e5509b7945fda56e150e2ac74a69f25d47ac85ef30ab0c0f0"
   end
 
   resource "importlib-metadata" do
-    url "https://files.pythonhosted.org/packages/55/12/ab288357b884ebc807e3f4eff63ce5ba6b941ba61499071bf19f1bbc7f7f/importlib_metadata-4.13.0.tar.gz"
-    sha256 "dd0173e8f150d6815e098fd354f6414b0f079af4644ddfe90c71e2fc6174346d"
+    url "https://files.pythonhosted.org/packages/a3/82/f6e29c8d5c098b6be61460371c2c5591f4a335923639edec43b3830650a4/importlib_metadata-6.7.0.tar.gz"
+    sha256 "1aaf550d4f73e5d6783e7acb77aec43d49da8017410afae93822cc9cca98c4d4"
   end
 
   resource "jinja2" do
@@ -53,8 +53,8 @@ class Commitizen < Formula
   end
 
   resource "markupsafe" do
-    url "https://files.pythonhosted.org/packages/95/7e/68018b70268fb4a2a605e2be44ab7b4dd7ce7808adae6c5ef32e34f4b55a/MarkupSafe-2.1.2.tar.gz"
-    sha256 "abcabc8c2b26036d62d4c746381a6f7cf60aafcc653198ad678306986b09450d"
+    url "https://files.pythonhosted.org/packages/6d/7c/59a3248f411813f8ccba92a55feaac4bf360d29e2ff05ee7d8e1ef2d7dbf/MarkupSafe-2.1.3.tar.gz"
+    sha256 "af598ed32d6ae86f1b747b82783958b1a4ab8f617b06fe68795c7f026abbdcad"
   end
 
   resource "packaging" do

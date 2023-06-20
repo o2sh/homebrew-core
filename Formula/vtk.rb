@@ -4,15 +4,18 @@ class Vtk < Formula
   url "https://www.vtk.org/files/release/9.2/VTK-9.2.6.tar.gz"
   sha256 "06fc8d49c4e56f498c40fcb38a563ed8d4ec31358d0101e8988f0bb4d539dd12"
   license "BSD-3-Clause"
-  revision 1
+  revision 3
   head "https://gitlab.kitware.com/vtk/vtk.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_monterey: "7edec9fc746270d704a469c718118f23e908f718eb36d4c17c7ace33260e123b"
-    sha256 cellar: :any,                 arm64_big_sur:  "96cc496d0d4c5756bff67234ddb46e3b79a77dfa3d6b261d9ae93346016e94b0"
-    sha256 cellar: :any,                 monterey:       "3a603a3b57bc2aa8c3bfb45b3fdd25cfddae6b07922a6c0bfba2e378322135b4"
-    sha256 cellar: :any,                 big_sur:        "095761dcd96c4fdec79c9e7361a8293ff378e8cd0147b1a81ba6de5336518017"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "df089aa9d7c671df3c3a90db23f8f942415143cba7b5674d01a814314819e30a"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "471c1632d34c8d2f8996ebc3ab3c6326f7c554960f726412a106960ef5238641"
+    sha256 cellar: :any,                 arm64_monterey: "be8f9e4a12de83939006fb757244dc26e670853ed7f4ae01e0f007a46df02393"
+    sha256 cellar: :any,                 arm64_big_sur:  "2815dba205701a45ebaabd8dc25a8b1095344e5887069537f2db7cd848625071"
+    sha256 cellar: :any,                 ventura:        "fbbf12912cbc6b3767d01553c95326f36b4188a3debd33e154a23658d8a00f88"
+    sha256 cellar: :any,                 monterey:       "7eb35ac835615152bea266e14c1f93933981c2332e0ae00d6a5bef60e18c868b"
+    sha256 cellar: :any,                 big_sur:        "9d8c221a8225e431c885191b66ce1ffe1e03eed4b44f9c3f82028c4f19f2f9fb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "27bb6c9173637924f692e37746920f159703f6e87b94a315734ef9643f690dfb"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -67,10 +70,14 @@ class Vtk < Formula
   def install
     ENV.llvm_clang if DevelopmentTools.clang_build_version == 1316 && Hardware::CPU.arm?
 
+    python = "python3.11"
+    qml_plugin_dir = lib/"qml/VTK.#{version.major_minor}"
+    vtkmodules_dir = prefix/Language::Python.site_packages(python)/"vtkmodules"
+    rpaths = [rpath, rpath(source: qml_plugin_dir), rpath(source: vtkmodules_dir)]
+
     args = %W[
       -DBUILD_SHARED_LIBS:BOOL=ON
-      -DCMAKE_INSTALL_NAME_DIR:STRING=#{opt_lib}
-      -DCMAKE_INSTALL_RPATH:STRING=#{rpath}
+      -DCMAKE_INSTALL_RPATH:STRING=#{rpaths.join(";")}
       -DCMAKE_DISABLE_FIND_PACKAGE_ICU:BOOL=ON
       -DVTK_WRAP_PYTHON:BOOL=ON
       -DVTK_PYTHON_VERSION:STRING=3
@@ -98,7 +105,7 @@ class Vtk < Formula
       -DVTK_MODULE_USE_EXTERNAL_VTK_tiff:BOOL=ON
       -DVTK_MODULE_USE_EXTERNAL_VTK_utf8:BOOL=ON
       -DVTK_MODULE_USE_EXTERNAL_VTK_zlib:BOOL=ON
-      -DPython3_EXECUTABLE:FILEPATH=#{which("python3.11")}
+      -DPython3_EXECUTABLE:FILEPATH=#{which(python)}
       -DVTK_GROUP_ENABLE_Qt:STRING=YES
       -DVTK_QT_VERSION:STRING=5
     ]
@@ -108,7 +115,7 @@ class Vtk < Formula
 
     args << "-DVTK_USE_COCOA:BOOL=ON" if OS.mac?
 
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, *args
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end

@@ -1,8 +1,8 @@
 class Mupdf < Formula
   desc "Lightweight PDF and XPS viewer"
   homepage "https://mupdf.com/"
-  url "https://mupdf.com/downloads/archive/mupdf-1.22.0-source.tar.lz"
-  sha256 "bed78a0abf8496b30c523497292de979db633eca57e02f6cd0f3c7c042551c3e"
+  url "https://mupdf.com/downloads/archive/mupdf-1.22.2-source.tar.gz"
+  sha256 "54c66af4e6ef8cea9867cc0320ef925d561b42919ea0d4f89db5c9ef485bbeb7"
   license "AGPL-3.0-or-later"
   head "https://git.ghostscript.com/mupdf.git", branch: "master"
 
@@ -12,13 +12,13 @@ class Mupdf < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "e962dfedc1700d4015d7ffcbc2eb6a6a99a30da03fd4eab9bc7935f4b07b8a95"
-    sha256 cellar: :any,                 arm64_monterey: "484523189d84c53a8c7e87126f83e1afb26158e321c7dbe920e6095ba64f569f"
-    sha256 cellar: :any,                 arm64_big_sur:  "cb3f0e143d1473876d05f86066012f5fa51ae12a1ffe175f9732d2ece7ba09b5"
-    sha256 cellar: :any,                 ventura:        "26b4791b0e248cd4a1e0e78480e5c05a493e964835be5b8ae76ed55847d1611c"
-    sha256 cellar: :any,                 monterey:       "cbdd7c3235ef04264268686756c33319a9ea4c21dd7ff06d340d9c3862a269d9"
-    sha256 cellar: :any,                 big_sur:        "0a8e608554a200c05408056a842d420305a2f4bcc6954a8f6db9041c94f8b547"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3575e86e6db2e3ac4424e25ecde86961df0305bd19c10d7dcc01f6b0ea02ba52"
+    sha256 cellar: :any,                 arm64_ventura:  "2c8967042d7b53493a94e853cd2bf1bc0732415e7455efffe3b4cda06e27dcf0"
+    sha256 cellar: :any,                 arm64_monterey: "8fb9229fa0b34bd527a8606fe30e5c9e04a45da46f40a0a55e1871607325f2e9"
+    sha256 cellar: :any,                 arm64_big_sur:  "0834491258f233866421246146127b5e5dc72d23b67527c96452eef9b09b88bd"
+    sha256 cellar: :any,                 ventura:        "f0c0f8697bd61c86f3a6626096c7ecd7342277a5d37e004d57f4859a073222ca"
+    sha256 cellar: :any,                 monterey:       "5adaa74b2dbf3a03cbeab3b868fc7b8d5eeb81fef7d7f7b821a8120577d94f40"
+    sha256 cellar: :any,                 big_sur:        "1feaf69bc227f87f692a916ced5c19a19203fd8b49a6f43c968b9c92d421b603"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5e94e0fc357a64e0b7eb299f0922896234db92ee6f4902a1076026247fcb2d18"
   end
 
   depends_on "pkg-config" => :build
@@ -44,19 +44,6 @@ class Mupdf < Formula
     because: "mupdf and mupdf-tools install the same binaries"
 
   def install
-    # Temp patch suggested by Robin Watts in bug report [1].  The same patch
-    # in both mupdf.rb and mupdf-tools.rb should be removed once mupdf releases
-    # a version containing the proposed changes in PR [2].
-    #
-    # [1] https://bugs.ghostscript.com/show_bug.cgi?id=706112#c1
-    # [2] https://github.com/ArtifexSoftware/mupdf/pull/32
-    if OS.mac?
-      inreplace "source/fitz/encode-basic.c", '#include "z-imp.h"',
-                "#include \"z-imp.h\"\n#include <limits.h>"
-      inreplace "source/fitz/output-ps.c", '#include "z-imp.h"',
-                "#include \"z-imp.h\"\n#include <limits.h>"
-    end
-
     # Remove bundled libraries excluding `extract` and "strongly preferred" `lcms2mt` (lcms2 fork)
     keep = %w[extract lcms2]
     (buildpath/"thirdparty").each_child { |path| path.rmtree if keep.exclude? path.basename.to_s }

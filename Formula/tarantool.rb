@@ -1,9 +1,10 @@
 class Tarantool < Formula
   desc "In-memory database and Lua application server"
   homepage "https://tarantool.org/"
-  url "https://download.tarantool.org/tarantool/src/tarantool-2.10.6.tar.gz"
-  sha256 "461381d85ba0e6064605d40874d0e9ab8a4d5d153005906f72ff1d6d4a1dd071"
+  url "https://download.tarantool.org/tarantool/src/tarantool-2.11.0.tar.gz"
+  sha256 "4506e7208cd20f3c1858d14b9b40fe388083592faac5c79ec30aa751e095f1f2"
   license "BSD-2-Clause"
+  revision 1
   version_scheme 1
   head "https://github.com/tarantool/tarantool.git", branch: "master"
 
@@ -13,13 +14,13 @@ class Tarantool < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "8fd7306f6fc1c9607f569baf39bd18e3141501f5107a1475eee6ccfce0f1e6b4"
-    sha256 cellar: :any,                 arm64_monterey: "a87864bcd862585353a831e2e2357507def361dd5f1ad4cfc88fffde878c061d"
-    sha256 cellar: :any,                 arm64_big_sur:  "47e8d4733700e36612fabdbacf2289fcaed1e0b98230e75afbc9be84bf1cd9f3"
-    sha256 cellar: :any,                 ventura:        "187d0e460484b0303d400e14317b6058d9209d3337f79d753bbf27dd34e708ff"
-    sha256 cellar: :any,                 monterey:       "96aefb2530927a9df4eca916702f1c007f1758d6dcc1c17180deb2f52c77016c"
-    sha256 cellar: :any,                 big_sur:        "fbb211ceb5be0958ec76f9f1a3ea6e758b2bf1b91f7cd938cdc16e5898f0417e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5e8c093a7bb37a8bb4e72325c03067bbe4ee89ddde4276b7e1a73f38e3041420"
+    sha256 cellar: :any,                 arm64_ventura:  "9573662f5901674abfee4a9e6a55c814f87f81977d48d99834e8b904e177f94e"
+    sha256 cellar: :any,                 arm64_monterey: "39b89da13f08b294352a0bd0a54a8de1d6991ab7c53931b372d6ebc0eeb9847e"
+    sha256 cellar: :any,                 arm64_big_sur:  "e6609006b16d4846f5d050a892c4cfad6f774c6991ce11c90823ccc4f553ed83"
+    sha256 cellar: :any,                 ventura:        "5891fb6baa4c38b332e754a675246b31cbf5462b33b748e5e597834cbf821fe1"
+    sha256 cellar: :any,                 monterey:       "cf076349a68ac9f4281d6c3a1aae4778304e88750081fab85c61000912185f90"
+    sha256 cellar: :any,                 big_sur:        "f942215edd1bd3290894d2d193adbdc7ac76c391440c1c78b2ae6f130012ef2e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "137380a34ba96428d88498ba7b66adcffd92de550ef3854c2154e6b2c618b50f"
   end
 
   depends_on "cmake" => :build
@@ -31,6 +32,10 @@ class Tarantool < Formula
 
   uses_from_macos "curl"
   uses_from_macos "ncurses"
+
+  on_linux do
+    depends_on "libunwind"
+  end
 
   def install
     # Avoid keeping references to Homebrew's clang/clang++ shims
@@ -65,6 +70,7 @@ class Tarantool < Formula
       args << "-DCURSES_NCURSES_LIBRARY=#{sdk}/usr/lib/libncurses.#{lib_suffix}"
       args << "-DICONV_INCLUDE_DIR=#{sdk}/usr/include"
     else
+      args << "-DENABLE_BUNDLED_LIBUNWIND=OFF"
       args << "-DCURL_ROOT=#{Formula["curl"].opt_prefix}"
     end
 

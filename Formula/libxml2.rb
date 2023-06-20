@@ -1,9 +1,10 @@
 class Libxml2 < Formula
   desc "GNOME XML library"
   homepage "http://xmlsoft.org/"
-  url "https://download.gnome.org/sources/libxml2/2.10/libxml2-2.10.4.tar.xz"
-  sha256 "ed0c91c5845008f1936739e4eee2035531c1c94742c6541f44ee66d885948d45"
+  url "https://download.gnome.org/sources/libxml2/2.11/libxml2-2.11.4.tar.xz"
+  sha256 "737e1d7f8ab3f139729ca13a2494fd17bf30ddb4b7a427cf336252cab57f57f7"
   license "MIT"
+  revision 1
 
   # We use a common regex because libxml2 doesn't use GNOME's "even-numbered
   # minor is stable" version scheme.
@@ -13,13 +14,13 @@ class Libxml2 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "c79b4f9a5d8aa393bb014b414bfe9d2c79c6b9bcaca42f0f5a4c9f3fe94632eb"
-    sha256 cellar: :any,                 arm64_monterey: "77e3bf0eec2d768725d11ff3de807a893a2b4ead89867c32843ef7eb1cc62d7a"
-    sha256 cellar: :any,                 arm64_big_sur:  "3358c63a9c016a5c2ee54277f0f0d831af03506b12096f3bb754a7c7cffb752c"
-    sha256 cellar: :any,                 ventura:        "da97adcce8698f3e98df2347579780410e62f4f1883e12b2d6cb92a56fe766b2"
-    sha256 cellar: :any,                 monterey:       "c96215e78e29ff4cf9cfed1d29af5d33fb968aadd7599b7fecb4cc703acec759"
-    sha256 cellar: :any,                 big_sur:        "746cdc180b9f410a4398d0b78500add398a6fa5c5b20c728e6cbd59d83985e7d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cf7ed708360a7997fab69cd4b156fd24a8c9f87dbe7b24047adbcfe06e89c511"
+    sha256 cellar: :any,                 arm64_ventura:  "989e1fdfc8a8610fba0cfed05d1f6af6398f0f337f203ed427e1dea0420ac1a3"
+    sha256 cellar: :any,                 arm64_monterey: "034cab4a31f19419724c5520c3126f3d78d997a6a64f0447073c0911d94202d1"
+    sha256 cellar: :any,                 arm64_big_sur:  "8595d27ac318f1b227a9ba2257981ec1ccb15fe3263d1f1adad1c0f7ab92f544"
+    sha256 cellar: :any,                 ventura:        "0e70a0748836ad0b07d30477fc4a7af2839e05e14b9e63970421f228e6450b15"
+    sha256 cellar: :any,                 monterey:       "8c0c2fcba423bf2d6aa1623d215362d0a087f890582aaf3b7bbf40e8041db28c"
+    sha256 cellar: :any,                 big_sur:        "6385114c4274e21d20db146f9960641a68a1230a74b55fcec7fc2a9b53cca8dd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2aa298913e7820e17efe017196ab9f079e3d8f34d1999564be77b05d7247235f"
   end
 
   head do
@@ -41,15 +42,6 @@ class Libxml2 < Formula
   depends_on "readline"
 
   uses_from_macos "zlib"
-
-  # Fix crash when using Python 3 using Fedora's patch.
-  # Reported upstream:
-  # https://bugzilla.gnome.org/show_bug.cgi?id=789714
-  # https://gitlab.gnome.org/GNOME/libxml2/issues/12
-  patch do
-    url "https://bugzilla.opensuse.org/attachment.cgi?id=746044"
-    sha256 "37eb81a8ec6929eed1514e891bff2dd05b450bcf0c712153880c485b7366c17c"
-  end
 
   def pythons
     deps.map(&:to_formula)

@@ -4,17 +4,17 @@ class Spdlog < Formula
   url "https://github.com/gabime/spdlog/archive/v1.11.0.tar.gz"
   sha256 "ca5cae8d6cac15dae0ec63b21d6ad3530070650f68076f3a4a862ca293a858bb"
   license "MIT"
+  revision 1
   head "https://github.com/gabime/spdlog.git", branch: "v1.x"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "99f6597478677431b87f16344e2797a5bd544ea47c7ca69cef6ddac79953550f"
-    sha256 cellar: :any,                 arm64_monterey: "63af198f33b09b066fff8439967858c2d2598d7a7af55c90bb44479439de8e4d"
-    sha256 cellar: :any,                 arm64_big_sur:  "849241d6a48c7c57f519011e816e0c910b9183dcedcb5b8a8d00aa17e12e32d6"
-    sha256 cellar: :any,                 ventura:        "bda7921ac0e39a711900fc289205dee7a55596811e365f186cd1fa2c2ee30967"
-    sha256 cellar: :any,                 monterey:       "fddfdf57dbd012a95cd5c7d23a130f68066a1f41419f6af42221d983b60c413f"
-    sha256 cellar: :any,                 big_sur:        "638f2bde2ad93fadb73c367d0508643773c04f76514b139aa87b07d47ad53222"
-    sha256 cellar: :any,                 catalina:       "6c3c582b7873203303b2295678256e560b58be94f02e6654c9289801b25bd7d5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "90bdf0ffb1445c3feb3e7541fa6d87bda07353cd938571d96c68aba274862a80"
+    sha256 cellar: :any,                 arm64_ventura:  "a0c30483a7ad84c88b8923895eb8ea0b947a4f881f1832cee19ac40178efa256"
+    sha256 cellar: :any,                 arm64_monterey: "4e6a3c5bd5ee30ee8675229ab4cb5a6259b9a6af9d4acc3f150b704924f95a20"
+    sha256 cellar: :any,                 arm64_big_sur:  "33eb5e16ef220226228bcce2f3acaa1afe6004daa1a8853ad07a5096baf07e45"
+    sha256 cellar: :any,                 ventura:        "016ebd2d21eff64a974f77db37486a78b57a2beed40c0cf7e5dee99e3afe74e8"
+    sha256 cellar: :any,                 monterey:       "ca2f31535ea857bb4bdc3cbe8419c7b04d3f8798ce5041fee8fe20d05eb50d2a"
+    sha256 cellar: :any,                 big_sur:        "72d83c7b857e96ad42ab8d233ef1f13c2a5f3317fa1db8eb95bd3e9cb72c5d43"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6c8cd3a6cff86119e2a9ded0c739c76bcccc731de9cc990320d43423c4116f02"
   end
 
   depends_on "cmake" => :build
@@ -22,6 +22,12 @@ class Spdlog < Formula
 
   # error: specialization of 'template<class T, ...> struct fmt::v8::formatter' in different namespace
   fails_with gcc: "5"
+
+  # Add support for fmt 10.0.0
+  patch do
+    url "https://github.com/gabime/spdlog/commit/0ca574ae168820da0268b3ec7607ca7b33024d05.patch?full_index=1"
+    sha256 "31b22a9bfa6790fdabff186c0a9b0fd588439485f05cbef5e661231d15fec49b"
+  end
 
   def install
     ENV.cxx11
@@ -32,20 +38,18 @@ class Spdlog < Formula
       #endif
     EOS
 
-    mkdir "spdlog-build" do
-      args = std_cmake_args + %W[
-        -Dpkg_config_libdir=#{lib}
-        -DSPDLOG_BUILD_BENCH=OFF
-        -DSPDLOG_BUILD_TESTS=OFF
-        -DSPDLOG_FMT_EXTERNAL=ON
-      ]
-      system "cmake", "..", "-DSPDLOG_BUILD_SHARED=ON", *args
-      system "make", "install"
-      system "make", "clean"
-      system "cmake", "..", "-DSPDLOG_BUILD_SHARED=OFF", *args
-      system "make"
-      lib.install "libspdlog.a"
-    end
+    args = std_cmake_args + %W[
+      -Dpkg_config_libdir=#{lib}
+      -DSPDLOG_BUILD_BENCH=OFF
+      -DSPDLOG_BUILD_TESTS=OFF
+      -DSPDLOG_FMT_EXTERNAL=ON
+    ]
+    system "cmake", "-S", ".", "-B", "build", "-DSPDLOG_BUILD_SHARED=ON", *args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
+    system "cmake", "-S", ".", "-B", "build", "-DSPDLOG_BUILD_SHARED=OFF", *args
+    system "cmake", "--build", "build"
+    lib.install "build/libspdlog.a"
   end
 
   test do

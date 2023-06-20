@@ -1,8 +1,8 @@
 class Rdkit < Formula
   desc "Open-source chemoinformatics library"
   homepage "https://rdkit.org/"
-  url "https://github.com/rdkit/rdkit/archive/Release_2022_09_5.tar.gz"
-  sha256 "2efe7ce3b527df529ed3e355e2aaaf14623e51876be460fa4ad2b7f7ad54c9b1"
+  url "https://github.com/rdkit/rdkit/archive/Release_2023_03_2.tar.gz"
+  sha256 "bb43216b075b93b767e6cbaecd5e95d087da887bcdc51afd36d940d8bd9f9819"
   license "BSD-3-Clause"
   head "https://github.com/rdkit/rdkit.git", branch: "master"
 
@@ -15,13 +15,13 @@ class Rdkit < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "f750836a68116ff4659653197c08f8ce6835e58150c8b1a8edf113ff4b0d0df6"
-    sha256 cellar: :any,                 arm64_monterey: "900a39ace739f2d1b73554fba90d778e08488ea6eeec9d6ceccdcafba660a08e"
-    sha256 cellar: :any,                 arm64_big_sur:  "8a7ec32c15f2e1cb6e5bfb69234e3c296042e60a2765184b56e9e028e6f6227f"
-    sha256 cellar: :any,                 ventura:        "9b9fccc44b80b88718522172dc13c32df925fdf3736eacd2f13cdd0ecd288e1a"
-    sha256 cellar: :any,                 monterey:       "70db267fe12bb0823ef14635d8547b056f94a1a75cf97ae5fff0df40377c2a9d"
-    sha256 cellar: :any,                 big_sur:        "48a73b6097eb21261daee03cca7c7918bfd798a8b6d857465c633bcdb375d55d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bd845d7e7e2a794fa45ed306175f72f18ab92ba1de8d52836b34e5fe31f058b1"
+    sha256 cellar: :any,                 arm64_ventura:  "fce3ba4d7f821e83ae0aeea1f0e26c0d7a84ac36f8e96d3aa7529a7c5166417c"
+    sha256 cellar: :any,                 arm64_monterey: "fa969c1995ddb271cd9bf4f6669e10ce0e522cd4ca6309c174154d9d6a67673e"
+    sha256 cellar: :any,                 arm64_big_sur:  "8666b34ce2e94f8d05c898ff1749c61cf99905eb5571836a566f5086a5e1d13c"
+    sha256 cellar: :any,                 ventura:        "f30d84f01122b7e1a905ba9f25f4b823231bb31ef8c236aa636c3643ece3c420"
+    sha256 cellar: :any,                 monterey:       "7fcaed8304df200aa430f7372d93ee19421f6882fcfb9ffe607c7cecc0e7a85a"
+    sha256 cellar: :any,                 big_sur:        "d6dfe801541283b501e5090e0a45541940d18ed12aeb8b56e29837024efa832d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1f16b153f190444990eb02370f45a0dcbf6589f485ec784e29f11111411dde2c"
   end
 
   depends_on "cmake" => :build
@@ -31,7 +31,7 @@ class Rdkit < Formula
   depends_on "eigen"
   depends_on "freetype"
   depends_on "numpy"
-  depends_on "postgresql@14"
+  depends_on "postgresql@15"
   depends_on "py3cairo"
   depends_on "python@3.11"
 
@@ -46,11 +46,10 @@ class Rdkit < Formula
   end
 
   def postgresql
-    Formula["postgresql@14"]
+    Formula["postgresql@15"]
   end
 
   def install
-    ENV.cxx11
     ENV.libcxx
     ENV.append "CFLAGS", "-Wno-parentheses -Wno-logical-op-parentheses -Wno-format"
     ENV.append "CXXFLAGS", "-Wno-parentheses -Wno-logical-op-parentheses -Wno-format"

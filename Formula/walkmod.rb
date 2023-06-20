@@ -10,7 +10,8 @@ class Walkmod < Formula
     sha256 cellar: :any_skip_relocation, all: "532f649c7bad73761473554fca6bd1bb4ede5105775beda4e199e5cdeddfdd58"
   end
 
-  deprecate! date: "2022-12-23", because: :unmaintained
+  # DTD files no longer exist, upstream issue report, https://github.com/walkmod/walkmod-core/issues/108
+  deprecate! date: "2023-05-24", because: :unmaintained
 
   depends_on "openjdk"
 

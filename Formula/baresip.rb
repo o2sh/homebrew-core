@@ -1,33 +1,29 @@
 class Baresip < Formula
   desc "Modular SIP useragent"
   homepage "https://github.com/baresip/baresip"
-  url "https://github.com/baresip/baresip/archive/refs/tags/v2.12.0.tar.gz"
-  sha256 "784dceac625094367a8d4983ca1e432e51742d614e1be8e75ab3d1804bdaa80d"
+  url "https://github.com/baresip/baresip/archive/refs/tags/v3.2.0.tar.gz"
+  sha256 "be712ffe225fd06dfaa4c756b58daaa7616581b629a23114b43c0423171f92d8"
   license "BSD-3-Clause"
 
   bottle do
-    sha256 arm64_ventura:  "143a4140cefd1ae972cd4613b67842c304b1d0824bdb1eb514bb55b293369c6c"
-    sha256 arm64_monterey: "0e5ba17ba6284d947b3889c832141c9d3e1012320def7f8baa88ff87b401a0ab"
-    sha256 arm64_big_sur:  "e4f2f639e7200954de9f3363d861d4c4795b2042175e4d240311fa69eb454233"
-    sha256 ventura:        "42f62b96b58e5bc0c4124abeab97b8ab5e3f9582f3ebb60cc31fffb6706b3a25"
-    sha256 monterey:       "14e80778bd6089f718d6ff248782153a3241b04e2c8dcf371bc6b3f678b9758f"
-    sha256 big_sur:        "4b3801176016f45dc1c46fd571fc81ef6ef531f2365db2c85394b0150eda7bb8"
-    sha256 x86_64_linux:   "1d1ae88fca25da68ccb3437cb285c5950ecef050a5402fb0d47c6b6da2be7402"
+    sha256 arm64_ventura:  "c1dc8afb0e448aa81623b77196162c5516cfa9a0c42721522ee5c7f5f860a906"
+    sha256 arm64_monterey: "f9bb55ffb5df8212ea5173693933c8182d61aee045b6981851e8d8ece6dfb493"
+    sha256 arm64_big_sur:  "620b54af5797414e37af5f6d5285c9ed3166fbc26b0eed6c2538f335081e8685"
+    sha256 ventura:        "4d48d43d04756bde82963d2762c4c43c3fb9a2c7e2e3ac30f922e0cd0575f347"
+    sha256 monterey:       "74ffe8503f53098459ca2d6607013e6351cca00dcc2db11f38c28ae1c2844110"
+    sha256 big_sur:        "c649f74acce77ca1f18f74b408258bed96ba0eb718f2c1a568d639126b229910"
+    sha256 x86_64_linux:   "3ae5a383af074fc01a6cd0f1bdc0205df1dba226c078771873f199cfa0b9ca88"
   end
 
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "libre"
-  depends_on "librem"
 
   def install
     libre = Formula["libre"]
-    librem = Formula["librem"]
     args = %W[
-      -DCMAKE_BUILD_TYPE=Release
       -DCMAKE_INSTALL_RPATH=#{rpath}
       -DRE_INCLUDE_DIR=#{libre.opt_include}/re
-      -DREM_INCLUDE_DIR=#{librem.opt_include}/rem
     ]
     system "cmake", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build", "-j"

@@ -1,19 +1,19 @@
 class Kind < Formula
   desc "Run local Kubernetes cluster in Docker"
   homepage "https://kind.sigs.k8s.io/"
-  url "https://github.com/kubernetes-sigs/kind/archive/v0.18.0.tar.gz"
-  sha256 "91c89607688d36218a10233eecd769d6dc81ee36ee97b305d7f91c9109af5a4a"
+  url "https://github.com/kubernetes-sigs/kind/archive/v0.20.0.tar.gz"
+  sha256 "6795c3478a298973e010349b87740fa1732e18989856db0deed54b153330365c"
   license "Apache-2.0"
   head "https://github.com/kubernetes-sigs/kind.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6e69152a1b3d0334ef2c7db7edb9372666aa1c654696c0bb12af3b998b9e7bbc"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "6e69152a1b3d0334ef2c7db7edb9372666aa1c654696c0bb12af3b998b9e7bbc"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "6e69152a1b3d0334ef2c7db7edb9372666aa1c654696c0bb12af3b998b9e7bbc"
-    sha256 cellar: :any_skip_relocation, ventura:        "9dcea9b6e7a434bec192cd288ef757183f5433f4a8328154c5b3b33f04e11f5f"
-    sha256 cellar: :any_skip_relocation, monterey:       "9dcea9b6e7a434bec192cd288ef757183f5433f4a8328154c5b3b33f04e11f5f"
-    sha256 cellar: :any_skip_relocation, big_sur:        "9dcea9b6e7a434bec192cd288ef757183f5433f4a8328154c5b3b33f04e11f5f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1f031cff7b35fef93215d95b977f48e33ba6ab2694c6ff5820c1227661a0ed37"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2f2e8574b476dd2d7390de002bf8ff24c2135f83dd273cebd4e8a52c93d212db"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2f2e8574b476dd2d7390de002bf8ff24c2135f83dd273cebd4e8a52c93d212db"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "2f2e8574b476dd2d7390de002bf8ff24c2135f83dd273cebd4e8a52c93d212db"
+    sha256 cellar: :any_skip_relocation, ventura:        "c008b4119ddbf085efee3a446f9a882b5612bf833f8970ac7a91820c51737a82"
+    sha256 cellar: :any_skip_relocation, monterey:       "c008b4119ddbf085efee3a446f9a882b5612bf833f8970ac7a91820c51737a82"
+    sha256 cellar: :any_skip_relocation, big_sur:        "c008b4119ddbf085efee3a446f9a882b5612bf833f8970ac7a91820c51737a82"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "50ca9034652e3b16335dc18f5262d9e6e2ecc29fa27207d12ec005a0b5b894b2"
   end
 
   depends_on "go" => :build

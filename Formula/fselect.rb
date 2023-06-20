@@ -1,18 +1,18 @@
 class Fselect < Formula
   desc "Find files with SQL-like queries"
   homepage "https://github.com/jhspetersson/fselect"
-  url "https://github.com/jhspetersson/fselect/archive/0.8.2.tar.gz"
-  sha256 "db55c067630074724fbd3fbf85ebf3de1cf5b47166f80866b58c72f2ef2ffd48"
+  url "https://github.com/jhspetersson/fselect/archive/0.8.4.tar.gz"
+  sha256 "db720310ff265012f283f9fdfb4ac99188bb4a3cbfe5550171c7e2ab55a36420"
   license any_of: ["Apache-2.0", "MIT"]
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6e605e4a33b7eee14531ef38afdb9305646bb42a22b4bdda7188a21bb23264cf"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "715bf4cde3524653f06802cd0bcc5debd0eb99b9648703afb26b926edc1cba35"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ca0d7ed5b4de3fa3dbe101f2ba58e56c93a26cf9f5c9e73a9a01d332fb7ca848"
-    sha256 cellar: :any_skip_relocation, ventura:        "a9371a596dfb676e86081b468c4a359b864343db6e7592e1d10826a46018e669"
-    sha256 cellar: :any_skip_relocation, monterey:       "e5d603e9fb1afb42f3fc722bb602214c6c374145a643cba4ec85e4f954729197"
-    sha256 cellar: :any_skip_relocation, big_sur:        "6364134fc66b29d0bbeb7be1955c19ec8fc3fab4dfe23f3fd11b2786f88ea8f7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0d5a1fa2d57be20ecc6873c2ec19a0f76dc9dfc7dbfaea05fb9eced2fa3d2504"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "de733f375d9bc4102ae9cc5df84b687a71f0bb1906ab7509ac0f0c94fcabe719"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ce1fccb27a86677f00d118ca3f3a571495c57613aa35992576336f2dbbbc6a50"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "bd1061f80d85c8e083b77b290fcde9b7b5cfc94a8b38ffd8a657cdb3f3c35c38"
+    sha256 cellar: :any_skip_relocation, ventura:        "e1585c19d310ec08fa643b2e18d674044cb64968affd22b0fc1fd1f0467408a3"
+    sha256 cellar: :any_skip_relocation, monterey:       "061426ee1e45f67667c47d3ae29ecbb5c132babec1e7588f8e8c0eaa8bcaf879"
+    sha256 cellar: :any_skip_relocation, big_sur:        "d45dc50de51c3da6a21eeba921290cfdba1771dc6e4d54e8b618cb952a1494e4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "55c906233ccf466b84826bb6d0f83dd08d5d721e305ddb9980c3648a0487d381"
   end
 
   depends_on "rust" => :build

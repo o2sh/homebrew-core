@@ -2,11 +2,13 @@ class Neovim < Formula
   desc "Ambitious Vim-fork focused on extensibility and agility"
   homepage "https://neovim.io/"
   license "Apache-2.0"
-  head "https://github.com/neovim/neovim.git", branch: "master"
 
   stable do
-    url "https://github.com/neovim/neovim/archive/v0.9.0.tar.gz"
-    sha256 "39d79107c54d2f3babcad2cd157c399241c04f6e75e98c18e8afaf2bb5e82937"
+    url "https://github.com/neovim/neovim/archive/v0.9.1.tar.gz"
+    sha256 "8db17c2a1f4776dcda00e59489ea0d98ba82f7d1a8ea03281d640e58d8a3a00e"
+
+    # Remove when `mpack` resource is removed.
+    depends_on "luarocks" => :build
 
     # Remove in 0.10.
     resource "mpack" do
@@ -25,8 +27,8 @@ class Neovim < Formula
     end
 
     resource "tree-sitter-lua" do
-      url "https://github.com/MunifTanjim/tree-sitter-lua/archive/v0.0.14.tar.gz"
-      sha256 "930d0370dc15b66389869355c8e14305b9ba7aafd36edbfdb468c8023395016d"
+      url "https://github.com/MunifTanjim/tree-sitter-lua/archive/v0.0.17.tar.gz"
+      sha256 "8963fd0a185d786c164dfca3824941c7eaec497ce49a3a0bc24bf753f5e0e59c"
     end
 
     resource "tree-sitter-vim" do
@@ -51,17 +53,24 @@ class Neovim < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "ff3d6f3ff38e711f6b008e588fd98a10c30d0e4ccc89c6707ca2f037dbee9377"
-    sha256 arm64_monterey: "3d7cdb361401f9a6a8fb05cd432362db2eb3e7493267dc1ab6bfa2fe2e73ecbb"
-    sha256 arm64_big_sur:  "a4eb3318a46725d5ab69cc735c7ec88bbe6d41fa888f023f5f21c52985d4dbbc"
-    sha256 ventura:        "48266f0c7be9338047bb36e7b27674735e68feb7334902d5631f973ea49909eb"
-    sha256 monterey:       "7d39f239db202219465165d2a569911fec080e8db0f72d5fca1586231e87a6ee"
-    sha256 big_sur:        "d6e83332af39562ce86df8473e586d9e541490df8217e84c5040b787c4d0f1ce"
-    sha256 x86_64_linux:   "37bf617a5181b052e12224f8c3dd9ffbc2001acabfdc838ffaf9cbcf334d22b7"
+    sha256 arm64_ventura:  "ca207194a6ed07851c3a36293e32c37e879365f2ad2731f450455da1bec9d7a4"
+    sha256 arm64_monterey: "85795a3a28506df3c7d281d9f9fe1d1f2d50c3834e7287bb17d86d80cbe67f3d"
+    sha256 arm64_big_sur:  "ec4415c980e03abb98631cf6d701bf02eb31430b696de11915900ab2daebb9e0"
+    sha256 ventura:        "70888c68b7413575337a00a044b17a1a06e8948b6b3fa3317a99f66ea6f03f58"
+    sha256 monterey:       "3993bd104e748db9b4f1b2994082d570ebb84ff4facaaeb66ce9d20647613a09"
+    sha256 big_sur:        "fe91386e1a0e9cddb90b13b3998f8f1e293d74f1a4a411b7b6e122771ae3ade7"
+    sha256 x86_64_linux:   "17a892c8ecfd1206aa894663b6d68a7dea4767b4b323afd76263e9aafe3fa673"
+  end
+
+  # TODO: Replace with single-line `head` when `lpeg`
+  #       is no longer a head-only dependency in 0.10.0.
+  head do
+    url "https://github.com/neovim/neovim.git", branch: "master"
+    depends_on "lpeg"
   end
 
   depends_on "cmake" => :build
-  depends_on "luarocks" => :build
+  depends_on "lpeg" => :build # needed at runtime in 0.10.0
   depends_on "pkg-config" => :build
   depends_on "gettext"
   depends_on "libtermkey"
@@ -79,55 +88,32 @@ class Neovim < Formula
     depends_on "libnsl"
   end
 
-  # TODO: Switch this to a tarball and drop `luarocks` for 0.10. Consider shipping as a formula.
-  resource "lpeg" do
-    url "https://luarocks.org/manifests/gvvaughan/lpeg-1.0.2-1.src.rock"
-    sha256 "e0d0d687897f06588558168eeb1902ac41a11edd1b58f1aa61b99d0ea0abbfbc"
-  end
-
   def install
     resources.each do |r|
       r.stage(buildpath/"deps-build/build/src"/r.name)
     end
 
-    deps_build = buildpath/"deps-build"
-    luajit = Formula["luajit"]
-    ENV.append_path "CMAKE_PREFIX_PATH", deps_build
-    ENV.append_to_cflags "-I#{luajit.opt_include}/luajit-2.1"
+    if build.stable?
+      cd "deps-build/build/src" do
+        # TODO: Remove `mpack` build block in 0.10.0.
+        cd "mpack" do
+          luajit = Formula["luajit"]
+          lua_path = "--lua-dir=#{luajit.opt_prefix}"
+          deps_build = buildpath/"deps-build"
 
-    # The path separator for `LUA_PATH` and `LUA_CPATH` is `;`.
-    ENV.prepend "LUA_PATH", deps_build/"share/lua/5.1/?.lua", ";"
-    ENV.prepend "LUA_CPATH", deps_build/"lib/lua/5.1/?.so", ";"
-    # Don't clobber the default search path
-    ENV.append "LUA_PATH", ";", ";"
-    ENV.append "LUA_CPATH", ";", ";"
-    lua_path = "--lua-dir=#{luajit.opt_prefix}"
+          # The path separator for `LUA_PATH` and `LUA_CPATH` is `;`.
+          ENV.prepend "LUA_PATH", deps_build/"share/lua/5.1/?.lua", ";"
+          ENV.prepend "LUA_CPATH", deps_build/"lib/lua/5.1/?.so", ";"
 
-    cd "deps-build/build/src" do
-      %w[
-        mpack/mpack-1.0.10-0.rockspec
-        lpeg/lpeg-1.0.2-1.src.rock
-      ].each do |rock|
-        dir, rock = rock.split("/")
-        next if build.head? && dir == "mpack"
-
-        cd dir do
-          output = Utils.safe_popen_read("luarocks", "unpack", lua_path, rock, "--tree=#{buildpath}/deps-build")
+          rock = "mpack-1.0.10-0.rockspec"
+          output = Utils.safe_popen_read("luarocks", "unpack", lua_path, rock, "--tree=#{deps_build}")
           unpack_dir = output.split("\n")[-2]
+
           cd unpack_dir do
-            if build.stable?
-              system "luarocks", "make", lua_path, "--tree=#{buildpath}/deps-build"
-            else
-              cp buildpath/"cmake.deps/cmake/LpegCMakeLists.txt", "CMakeLists.txt"
-              system "cmake", "-S", ".", "-B", "build", *std_cmake_args(install_prefix: deps_build)
-              system "cmake", "--build", "build"
-              system "cmake", "--install", "build"
-            end
+            system "luarocks", "make", lua_path, "--tree=#{deps_build}"
           end
         end
-      end
 
-      if build.stable?
         Dir["tree-sitter-*"].each do |ts_dir|
           cd ts_dir do
             cp buildpath/"cmake.deps/cmake/TreesitterParserCMakeLists.txt", "CMakeLists.txt"
@@ -154,8 +140,14 @@ class Neovim < Formula
     # Replace `-dirty` suffix in `--version` output with `-Homebrew`.
     inreplace "cmake/GenerateVersion.cmake", "--dirty", "--dirty=-Homebrew"
 
+    # Needed to find `lpeg` in non-default prefixes.
+    ENV.prepend "LUA_CPATH", Formula["lpeg"].opt_lib/"lua/5.1/?.so", ";"
+    # Don't clobber the default search path
+    ENV.append "LUA_PATH", ";", ";"
+    ENV.append "LUA_CPATH", ";", ";"
+
     system "cmake", "-S", ".", "-B", "build",
-                    "-DLIBLUV_LIBRARY=#{Formula["luv"].opt_lib/shared_library("libluv")}",
+                    "-DLUV_LIBRARY=#{Formula["luv"].opt_lib/shared_library("libluv")}",
                     "-DLIBUV_LIBRARY=#{Formula["libuv"].opt_lib/shared_library("libuv")}",
                     *std_cmake_args
 

@@ -1,41 +1,56 @@
 class Abseil < Formula
   desc "C++ Common Libraries"
   homepage "https://abseil.io"
-  url "https://github.com/abseil/abseil-cpp/archive/refs/tags/20230125.2.tar.gz"
-  sha256 "9a2b5752d7bfade0bdeee2701de17c9480620f8b237e1964c1b9967c75374906"
+  url "https://github.com/abseil/abseil-cpp/archive/refs/tags/20230125.3.tar.gz"
+  sha256 "5366d7e7fa7ba0d915014d387b66d0d002c03236448e1ba9ef98122c13b35c36"
   license "Apache-2.0"
   head "https://github.com/abseil/abseil-cpp.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "8a90edaad067da0ef555dff0383f69a6fab7f9bcaeeaf5daa93d33a7af3dba4a"
-    sha256 cellar: :any,                 arm64_monterey: "3a9b491c52bb3492f35b6470af5e95869ebb3b46a2f66054022da8995582970e"
-    sha256 cellar: :any,                 arm64_big_sur:  "3c2001f52fe980e16f2ec4b57f7ffcd9ce66a73c53c33ed0374b88833aeecc91"
-    sha256 cellar: :any,                 ventura:        "aa30d047ccacc77014e26865db978e157513acb200a8be24bdd14cf86f4de268"
-    sha256 cellar: :any,                 monterey:       "dc920a2b452d6482f715fa6172e0fd83a129f40f127076bf8f936e408e20711e"
-    sha256 cellar: :any,                 big_sur:        "53e93bef633d2bd4fc93dcc8acc82bd3adf34769755694efd52025b939a1e65b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0ecb338097ce064c52f373081c590396cdc0f5acb5206b86655ea2e4e146ac10"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "c789ff211d0d81fba211ffa4abc0a0e5ce430698ae0e590057cbeeb73d620d15"
+    sha256 cellar: :any,                 arm64_monterey: "69def86118e5c3fad60816d0747ddb7909f7da1cfe7f4ed4f2373d2e4ac27fb2"
+    sha256 cellar: :any,                 arm64_big_sur:  "6f935264ca89f8cd343e01c38cf3806ec98e8e7c616bcbcfc921082af7320f03"
+    sha256 cellar: :any,                 ventura:        "365fd4fef0e37db61c1ae3c83e21c0a6d178a180a8ff94eaa61cce25c6ef84c4"
+    sha256 cellar: :any,                 monterey:       "42d1faa5ff28d113705a651d57edcdc29580c8b7c941a9db5f3f06c97306966f"
+    sha256 cellar: :any,                 big_sur:        "a621f54dec9a4f409592536179c78e62ca67add70b6a06956a3b2802240a7f98"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "447174d63faf184ec9f0c0b5dcf6cc926a619f74b3a130809383f6ee8b4bb316"
   end
 
   depends_on "cmake" => :build
 
+  on_macos do
+    depends_on "googletest" => :build # For test helpers
+  end
+
   fails_with gcc: "5" # C++17
 
   def install
+    ENV.runtime_cpu_detection
+
+    # Install test helpers. Doing this on Linux requires rebuilding `googltest` with `-fPIC`.
+    extra_cmake_args = if OS.mac?
+      %w[ABSL_BUILD_TEST_HELPERS ABSL_USE_EXTERNAL_GOOGLETEST ABSL_FIND_GOOGLETEST].map do |arg|
+        "-D#{arg}=ON"
+      end
+    end.to_a
+
     system "cmake", "-S", ".", "-B", "build",
                     "-DCMAKE_INSTALL_RPATH=#{rpath}",
                     "-DCMAKE_CXX_STANDARD=17",
                     "-DBUILD_SHARED_LIBS=ON",
                     "-DABSL_PROPAGATE_CXX_STD=ON",
-                    *std_cmake_args
+                    "-DABSL_ENABLE_INSTALL=ON",
+                    *extra_cmake_args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
+    return unless OS.mac?
+
     # Remove bad flags in .pc files.
     # https://github.com/abseil/abseil-cpp/issues/1408
-    if OS.mac?
-      inreplace lib.glob("pkgconfig/absl_random_internal_randen_hwaes{,_impl}.pc"),
-                "-Xarch_x86_64 -Xarch_x86_64 -Xarch_arm64 ", ""
-    end
+    inreplace lib.glob("pkgconfig/absl_random_internal_randen_hwaes{,_impl}.pc"),
+              "-Xarch_x86_64 -Xarch_x86_64 -Xarch_arm64 ", ""
   end
 
   test do

@@ -1,18 +1,18 @@
 class Tagref < Formula
   desc "Refer to other locations in your codebase"
   homepage "https://github.com/stepchowfun/tagref"
-  url "https://github.com/stepchowfun/tagref/archive/v1.7.0.tar.gz"
-  sha256 "fdeb078f07bfb90b978297a38d1bfdae83d482e9490df025565145cb6d417c62"
+  url "https://github.com/stepchowfun/tagref/archive/v1.8.4.tar.gz"
+  sha256 "dfa5e59312c06a3bf5dceee12045e193b6ae3d4eeb7fab42f1c1edb3f9fe838e"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6ec2d58fd92ec80ee65a222c73cfde7affb90aa5b85415eff9e42aea8fbb91c0"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0a605661e7b11231cf840daddad904ff745dcb39c070894e9c86b502e3c65712"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a5698331a2d34f3491d535d53bc096a5eb63923d8dff832a25cf1107ff57f8c5"
-    sha256 cellar: :any_skip_relocation, ventura:        "8d0dcbc9d88f10af07190a23f324722efecd8876e8b647fe624a3689217e592b"
-    sha256 cellar: :any_skip_relocation, monterey:       "e65e1ba32b1870718bc6cdecf31c4c441d77f0888e225ada1d8d52064bd31ee5"
-    sha256 cellar: :any_skip_relocation, big_sur:        "ef1af8531f32c68e1fb59bce8fbff25632fbcc90ccda083756e3e939368958e8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "11181eede1b8d063ecc5c298a33ad0dc33463e8b196d6e5263507920314248ee"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "70c1adcf722b7d54cea4361e0282d67f432154f7c13f7a79f29439427d173b34"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "1638f0e7c3f0e448a3bce949fb7624335a6fc4a492b4aa9111ef15ad72462220"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "70558da90d6dc09e838cee7f2e4df5c3720416650ff10b5ec9adbea4b457db82"
+    sha256 cellar: :any_skip_relocation, ventura:        "3afd1c563d3dbc8dc539f534d30c5c2fe183318db294b34a1293ca2be87e28c5"
+    sha256 cellar: :any_skip_relocation, monterey:       "d81c5188dd14f91040a01427e3df8a9291b48eccc3ec74122ae79541c7edcc79"
+    sha256 cellar: :any_skip_relocation, big_sur:        "151a4439dab0defdb5fa0afb9291b297cd606aa6f7359a0248c9d56f86694ce0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b00e8b3f2574d8bbc289853bf76d2aa1fe63151ea34192855f469a60000c0e66"
   end
 
   depends_on "rust" => :build

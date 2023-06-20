@@ -1,18 +1,18 @@
 class AngleGrinder < Formula
   desc "Slice and dice log files on the command-line"
   homepage "https://github.com/rcoh/angle-grinder"
-  url "https://github.com/rcoh/angle-grinder/archive/v0.19.0.tar.gz"
-  sha256 "4051ad846ef7abacd41927d5e29ac4eb8ab29567a78e28727e1e8236cbaefeff"
+  url "https://github.com/rcoh/angle-grinder/archive/v0.19.2.tar.gz"
+  sha256 "3a5637bbd3ef3fc2f8164a1af90b8894f79c1b2adb89a874f1f3c5a56006e18b"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f6264f0f4f0dcccb5f42f62af4cd5271e09a053c6fde1826bd33c9f7b97ddbbe"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9d478dd178d547ee9789c71f7daf46aaf6a0281cfa9785ab147bf5d71135e428"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7c6b329cd5e26371da8a62c907de6cb3dca050dee56fd4c1c789681020352bec"
-    sha256 cellar: :any_skip_relocation, ventura:        "b499cd1fbcf280ae36584d45c167909a540a553bd694f3c77c7f15670ec64ff1"
-    sha256 cellar: :any_skip_relocation, monterey:       "48563eeec2620a2593c3e243435f2ab9090430c91852900c184626beffcab409"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d8e8adc6aedd87cb432574f39b51aceb1341d0cab9cf3e519238f18f4b289769"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "825c14fc9a6e5f01761e5e7e1677245c325fb2a6fcd0323543f4866675ba084d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0898c435c13589304eb210f15f6ab3ca649f2f6487a9380dcc0f61f7117d5179"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "448311b0df68d2960d91bae38fe6a70ae43bdaee5b5f282a18793c1eaa2915e5"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "6197b3cb300eb4f0ee9f3c7d87cf89ea5f0812ab94297169980a2cc0a589c5d0"
+    sha256 cellar: :any_skip_relocation, ventura:        "13d49ccb3ec793eb72148bf9b9ef165c65198cfe912f5bfade27657e19c30e9c"
+    sha256 cellar: :any_skip_relocation, monterey:       "4e53031630575ee7cd4b17d4f9916c055c6f006c7da8965e7c53e0ec324e6c4d"
+    sha256 cellar: :any_skip_relocation, big_sur:        "c800568a011cd5eb5717df3640524b4248656adf4d9a7cc2575ce40ad744b940"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6b8c8908f8402680262893d66c663a9c4d98b572e71f5df6a44fdec3ccd04be3"
   end
 
   depends_on "rust" => :build
