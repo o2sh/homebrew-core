@@ -1,13 +1,13 @@
 class Distrobox < Formula
   desc "Use any Linux distribution inside your terminal"
   homepage "https://distrobox.privatedns.org/"
-  url "https://github.com/89luca89/distrobox/archive/refs/tags/1.5.0.tar.gz"
-  sha256 "a33c54270898118fc8f31bd954637814160c399f656d836d36d6e4e8c1b620a0"
+  url "https://github.com/89luca89/distrobox/archive/refs/tags/1.5.0.2.tar.gz"
+  sha256 "84262770026af306d1e263258445d91790bdedecf30c813316a45adeb2a67de6"
   license "GPL-3.0-only"
   head "https://github.com/89luca89/distrobox.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "b8a13b6f0b7738ff33a722792eee0277ef41c223d369a84a86a5bce19e969efc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "88e261a2655a4235474dc4ddbc85c35f4f5da96e3a0633ebf5294e1b22c85d26"
   end
 
   depends_on :linux
