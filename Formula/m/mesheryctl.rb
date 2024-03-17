@@ -2,19 +2,19 @@ class Mesheryctl < Formula
   desc "Command-line utility for Meshery, the cloud native management plane"
   homepage "https://meshery.io"
   url "https://github.com/meshery/meshery.git",
-      tag:      "v0.6.184",
-      revision: "0c7c8c1ac56b506819b5bd5a1814f30214e98307"
+      tag:      "v0.7.32",
+      revision: "3ae378acd44826ec24a5104f23e2f7bd090a6fef"
   license "Apache-2.0"
   head "https://github.com/meshery/meshery.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1d0b8fbdda072acc78054206e681e89f9a7e4adb47211d131ee60ac1446b0f97"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1d0b8fbdda072acc78054206e681e89f9a7e4adb47211d131ee60ac1446b0f97"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1d0b8fbdda072acc78054206e681e89f9a7e4adb47211d131ee60ac1446b0f97"
-    sha256 cellar: :any_skip_relocation, sonoma:         "cacdc9991602d964be6955c36bbd6b7c48d44ab9ff858ca4c378fe7e588f8792"
-    sha256 cellar: :any_skip_relocation, ventura:        "cacdc9991602d964be6955c36bbd6b7c48d44ab9ff858ca4c378fe7e588f8792"
-    sha256 cellar: :any_skip_relocation, monterey:       "cacdc9991602d964be6955c36bbd6b7c48d44ab9ff858ca4c378fe7e588f8792"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1a6e2cabcb4d9525e8e1b4a1627899e0d506260281e18e6c2ec3707449d192d2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2c830ab2e41cdcafc284059253b071adbe121dd00584c4e9e8772cfb93f9dc6c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2c830ab2e41cdcafc284059253b071adbe121dd00584c4e9e8772cfb93f9dc6c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2c830ab2e41cdcafc284059253b071adbe121dd00584c4e9e8772cfb93f9dc6c"
+    sha256 cellar: :any_skip_relocation, sonoma:         "082434f66e5a22c462d0247ed46698102c98ca2c648c30c545d19dc5abe41d06"
+    sha256 cellar: :any_skip_relocation, ventura:        "082434f66e5a22c462d0247ed46698102c98ca2c648c30c545d19dc5abe41d06"
+    sha256 cellar: :any_skip_relocation, monterey:       "082434f66e5a22c462d0247ed46698102c98ca2c648c30c545d19dc5abe41d06"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ac3aa5d5adb1eda6915a31c3ffced8ec727dd44a5c4c2a023615bb7f81348bd9"
   end
 
   depends_on "go" => :build
@@ -29,7 +29,7 @@ class Mesheryctl < Formula
       -X github.com/layer5io/meshery/mesheryctl/internal/cli/root/constants.releasechannel=stable
     ]
 
-    system "go", "build", *std_go_args(ldflags: ldflags), "./mesheryctl/cmd/mesheryctl"
+    system "go", "build", *std_go_args(ldflags:), "./mesheryctl/cmd/mesheryctl"
 
     generate_completions_from_executable(bin/"mesheryctl", "completion")
   end

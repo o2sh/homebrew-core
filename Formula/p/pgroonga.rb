@@ -1,8 +1,8 @@
 class Pgroonga < Formula
   desc "PostgreSQL plugin to use Groonga as index"
   homepage "https://pgroonga.github.io/"
-  url "https://packages.groonga.org/source/pgroonga/pgroonga-3.1.3.tar.gz"
-  sha256 "449820eb0c9097d5f5605a7c7f529bc25a27673a0bb51e757db6effa6563713f"
+  url "https://packages.groonga.org/source/pgroonga/pgroonga-3.1.8.tar.gz"
+  sha256 "5a38743492ba21f708df447b1ca0ac07ceff9715d9604aa2303f6dda795d096e"
   license "PostgreSQL"
 
   livecheck do
@@ -11,15 +11,13 @@ class Pgroonga < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "3f3d35606bd2c91bc89a9fa3258f82d77bb508137a24fb2fc3c34ecc95696375"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7a07afa71a1239256927917fb40ea6d6a525e8fd22208f5a74c860d22adab7d0"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "18224ee138215113a86920ecfa677013b3bd8ed676efc6daed52118c97ab6942"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "639ee17de0aae6f655e8efde15f9a7be3ce7534c8982d703d8904d4d0c8e1b59"
-    sha256 cellar: :any,                 sonoma:         "437e5e37d19d2377e6b3b915a3260e461d0c44227febc21ff6cd5cef4ba87921"
-    sha256 cellar: :any_skip_relocation, ventura:        "fdcf21b9f7460db11ef68e49bd0a4558d86c78a8821cba7cdacd5ea02335109c"
-    sha256 cellar: :any_skip_relocation, monterey:       "bc030f8692da75ce32638541c8b65e13a6424bdb39784760ac7cc12084f407c0"
-    sha256 cellar: :any_skip_relocation, big_sur:        "75a5d8ed229baf824fc31f902bd244bcc56b9b0b23aec17ff282354df41c5576"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "47153df323d5cfcdf1350e9c09d716adb94a864fc650c147a08d3fee19a1fe6e"
+    sha256 cellar: :any,                 arm64_sonoma:   "d5c242d5f5d71f4753c9439f04f40ae83cd472f85c22edffa119dd28d0119541"
+    sha256 cellar: :any,                 arm64_ventura:  "b8f84320e9d0f5df47e944f6af8c750dc98ecbb5853c04e7bd88927cb1982601"
+    sha256 cellar: :any,                 arm64_monterey: "47acb9e359d94bc1501c317a09d4d0d64a25b96f4fddaac5dbb49a44485a138b"
+    sha256 cellar: :any,                 sonoma:         "6b001fe5bcc71a9b4fe94ede1c41afea0b1c4d1e6297859f4782f189463423f5"
+    sha256 cellar: :any,                 ventura:        "f6e5ad70f205ffbdae792252d5c8db5fe491a1b25f77d4ae23e6a284710abf00"
+    sha256 cellar: :any,                 monterey:       "90a3ee3f43b2bae13e1f9acedbab5a3df29b21087ca6ecf3394d7ce00fe0d7c2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "31365547bc1813c084ebc42f10a020dacc9b88de2220d6d94ab84c1b31c4e4ca"
   end
 
   depends_on "pkg-config" => :build
@@ -31,19 +29,14 @@ class Pgroonga < Formula
   end
 
   def install
-    ENV["PG_CONFIG"] = postgresql.opt_bin/"pg_config"
-
     system "make"
-    mkdir "stage"
-    system "make", "install", "DESTDIR=#{buildpath}/stage"
-
-    stage_path = File.join("stage", HOMEBREW_PREFIX)
-    lib.install (buildpath/stage_path/"lib").children
-    share.install (buildpath/stage_path/"share").children
-    include.install (buildpath/stage_path/"include").children
+    system "make", "install", "datadir=#{share/postgresql.name}",
+                              "pkglibdir=#{lib/postgresql.name}",
+                              "pkgincludedir=#{include/postgresql.name}"
   end
 
   test do
+    ENV["LC_ALL"] = "C"
     pg_ctl = postgresql.opt_bin/"pg_ctl"
     psql = postgresql.opt_bin/"psql"
     port = free_port

@@ -1,21 +1,19 @@
 class Wgcf < Formula
   desc "Generate WireGuard profile from Cloudflare Warp account"
   homepage "https://github.com/ViRb3/wgcf"
-  url "https://github.com/ViRb3/wgcf/archive/refs/tags/v2.2.19.tar.gz"
-  sha256 "276bd779224ec67c2710c4717a74c67a5c7a9455805457b385d9b8d52af1cff7"
+  url "https://github.com/ViRb3/wgcf/archive/refs/tags/v2.2.22.tar.gz"
+  sha256 "949cfc61681683ef44af9561bf8080ea87f04d4da00f97d0512143956b6e27b9"
   license "MIT"
   head "https://github.com/ViRb3/wgcf.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "91d21abe19e367bdce0506bef7e0377ddbac97e45dd5d4f52e5fe6979de2436a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9afcf3cf0ae873a9e90d2a9acaa81111e2063126e27daa33f152d8bf25041f75"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "61e37a09b0e10193f7aa9517512b1f3a667e0d17f99bcd176b6012fb76655345"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f6c83b999555495f04ef958acde349c7a55ab85246d7c223015afce0df9cc22c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3363c815b947c4a814b5caa4acb4c3ab57d87c9af29b5fcf7eec98434b813cce"
-    sha256 cellar: :any_skip_relocation, ventura:        "57af29af6c967821e84ea90c3cdfbc35d432893460b41791aa40e21bf89fcbff"
-    sha256 cellar: :any_skip_relocation, monterey:       "aae0bffdb05bfd4da111262ff06a18ff6daea7b881251629f907355061a2ed68"
-    sha256 cellar: :any_skip_relocation, big_sur:        "a3adfd03320dbb26eaa5fc1d63ecb7c4064dc6c962e908903731c00923816b01"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f1677aebb8be3ef34c820d1a07fe1a5027206df64f353dee2c5c18308eb52392"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "30b08ba9ea9bba13576d308b590e83a24c8d726ad26bf789e5649561d9f8588c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9d1f5e645fac335f5e7d296c25f1cd8f0216f28f5bd2a089c64448bab2b36f64"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "898ab52bb5a76c7e87f065025424a1451fd22e858d2a1c37613d3d5f5495af2f"
+    sha256 cellar: :any_skip_relocation, sonoma:         "f955d1961203097c9710145dbe6ee3ff49125a6c607c3b47a1ce9c46cb8e6253"
+    sha256 cellar: :any_skip_relocation, ventura:        "3fa3f9a7a07c9dd655d7d417e7a9698048d59bc151209fc4e017ebc72ffa9fa1"
+    sha256 cellar: :any_skip_relocation, monterey:       "67fd9c76a1804cdf0e82dd78a93ae8f97ab2571953fa733f4f8c0e88265ae755"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1764cb6e43ab8a54f06bb33f0bfd1a24d9c91bd46e27678edb622a180fef3bc8"
   end
 
   depends_on "go" => :build

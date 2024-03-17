@@ -3,8 +3,8 @@ class Torchvision < Formula
 
   desc "Datasets, transforms, and models for computer vision"
   homepage "https://github.com/pytorch/vision"
-  url "https://github.com/pytorch/vision/archive/refs/tags/v0.16.0.tar.gz"
-  sha256 "79b30b082237e3ead21e74587cedf4a4d832f977cf7dfeccfb65f67988b12ceb"
+  url "https://github.com/pytorch/vision/archive/refs/tags/v0.17.0.tar.gz"
+  sha256 "55e395d5c7d9bf7658c82ac633cac2224aa168e1bfe8bb5b2b2a296c792a3500"
   license "BSD-3-Clause"
   revision 1
 
@@ -14,24 +14,23 @@ class Torchvision < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "580e45e7db2767939add1ab63e9c11eae8bebe25c6cbd7be80ffb89f189f2ea0"
-    sha256 cellar: :any,                 arm64_ventura:  "9dd4898e77a2840016c29813a36ac706331bcb8101d23d5075f11d2c4b3802ca"
-    sha256 cellar: :any,                 arm64_monterey: "6aecaf41d391502eabcd5e7fa1d8cd9e553d7683b9442d8ad4d27df00e33a747"
-    sha256 cellar: :any,                 sonoma:         "ab5fa399c82f24a98fc0f422557fb73dc73327a379c35542c50d3fde89619f95"
-    sha256 cellar: :any,                 ventura:        "6fc769801465390a70ab540aa5f43e01467c5e4ec16e004eae5cfa5b1e770b08"
-    sha256 cellar: :any,                 monterey:       "3b649ca648bb8e94ef2f17398e54a91ea324909c537cf6e74d8d986009cb60e9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "056a74c8bdd35b92ff4d1ed95e29a0b1bdda016693e896cf9a86fff5a40afb14"
+    sha256 cellar: :any,                 arm64_sonoma:   "8fb02c3d64d93b9f55fd4a9a06411f696b2aabc12417beac9cb2029d6435c7a3"
+    sha256 cellar: :any,                 arm64_ventura:  "86e6bf47201989b8baa70fcd3db8a00a3be0d0df6aa18755ed7cbb8b5741e249"
+    sha256 cellar: :any,                 arm64_monterey: "6e9d5cc6aba32741065c954e7d4e7badd6dff1c8457e13c5b26a7ce2f5db557e"
+    sha256 cellar: :any,                 sonoma:         "8ef94fcc3ffee44990c535d6b18eae4c79152f677b1585581b4349929a4a67bd"
+    sha256 cellar: :any,                 ventura:        "6953236d7b64b6935c45aa8ac8e14167ec29a510612d11adf9319934d6d0e8d3"
+    sha256 cellar: :any,                 monterey:       "3bac530261b1fc5231905446a8fc8d648739a4417c5a97c9ba67f1a80eeff73b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d012e6ad16873525090e2aaa79a2777c34b2e9c80796ace7a3b8ea729aeb3fdd"
   end
 
   depends_on "cmake" => :build
   depends_on "ninja" => :build
-  depends_on "python@3.11" => [:build, :test]
+  depends_on "python@3.12" => [:build, :test]
+  depends_on "certifi"
   depends_on "jpeg-turbo"
   depends_on "libpng"
   depends_on "numpy"
   depends_on "pillow"
-  depends_on "python-certifi"
-  depends_on "python-typing-extensions"
   depends_on "pytorch"
 
   on_macos do
@@ -39,13 +38,13 @@ class Torchvision < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/cf/ac/e89b2f2f75f51e9859979b56d2ec162f7f893221975d244d8d5277aa9489/charset-normalizer-3.3.0.tar.gz"
-    sha256 "63563193aec44bce707e0c5ca64ff69fa72ed7cf34ce6e11d5127555756fd2f6"
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz"
-    sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
+    url "https://files.pythonhosted.org/packages/bf/3f/ea4b9117521a1e9c50344b909be7886dd00a519552724809bb1f486986c2/idna-3.6.tar.gz"
+    sha256 "9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"
   end
 
   resource "requests" do
@@ -54,8 +53,8 @@ class Torchvision < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/8b/00/db794bb94bf09cadb4ecd031c4295dd4e3536db4da958e20331d95f1edb7/urllib3-2.0.6.tar.gz"
-    sha256 "b19e1a85d206b56d7df1d5e683df4a7725252a964e3993648dd0fb5a1c157564"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   def install
@@ -68,7 +67,7 @@ class Torchvision < Formula
       "(jpeg_found, jpeg_conda, jpeg_include, jpeg_lib) = find_library(\"jpeglib\", vision_include)",
       "(jpeg_found, jpeg_conda, jpeg_include, jpeg_lib) = (True, False, \"#{jpeg.include}\", \"#{jpeg.lib}\")"
 
-    python3 = "python3.11"
+    python3 = "python3.12"
     venv = virtualenv_create(libexec, python3)
     venv.pip_install resources
 

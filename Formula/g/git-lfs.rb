@@ -1,20 +1,25 @@
 class GitLfs < Formula
   desc "Git extension for versioning large files"
   homepage "https://git-lfs.github.com/"
-  url "https://github.com/git-lfs/git-lfs/releases/download/v3.4.0/git-lfs-v3.4.0.tar.gz"
-  sha256 "d65795242550a9ed823979282cc3572a7b221f9be3440b9bf3a1d6d81c51a416"
+  url "https://github.com/git-lfs/git-lfs/releases/download/v3.5.1/git-lfs-v3.5.1.tar.gz"
+  sha256 "fc19c7316e80a6ef674aa4e1863561c1263cd4ce0588b9989e4be9461664d752"
   license "MIT"
 
+  # Upstream creates releases that are sometimes not the latest stable version,
+  # so we use the `github_latest` strategy to fetch the release tagged as "latest".
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "edfabd4cb7b327ace7e9fce0cc011e1cf3ea759d4b2c731a99618c809d99d2d4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4fb45479f699c517bcc3dc2cc4f983edf6f29fdb4c2919774620033f9261d18f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4fb45479f699c517bcc3dc2cc4f983edf6f29fdb4c2919774620033f9261d18f"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "4fb45479f699c517bcc3dc2cc4f983edf6f29fdb4c2919774620033f9261d18f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "02e9090a355f72e466114221b0cd55d8c3a475a146d1d935145179d6a28de3c7"
-    sha256 cellar: :any_skip_relocation, ventura:        "c1a2458c826860845f30ab65505d679f8752fad0c920f3ae7401af5bfa8f5491"
-    sha256 cellar: :any_skip_relocation, monterey:       "c1a2458c826860845f30ab65505d679f8752fad0c920f3ae7401af5bfa8f5491"
-    sha256 cellar: :any_skip_relocation, big_sur:        "c1a2458c826860845f30ab65505d679f8752fad0c920f3ae7401af5bfa8f5491"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4128774cc6771a7a768902f7520fc9e95445b1cf646f4236bd7affb1ecda98c9"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6079593e9b2008a74a71a109518d49f522939c98770fe233fcc4147d9e10439d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "241e895f27aa45b46f459bf78ac8b031748c329e3d4b5c24b5343d61dbbb1472"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5ac1391a61a43b8b4c28efc591a96683443e1c66f17e4fdd503b27c60be88400"
+    sha256 cellar: :any_skip_relocation, sonoma:         "62c2e70ba22ed9c265c8a994c2d54021588d6b581d599be627a802e21f5cb2a7"
+    sha256 cellar: :any_skip_relocation, ventura:        "bbe0d1cdec9bc6838bcb3cbc18782e7a131d7e4d2623acd30f6b809e800283c1"
+    sha256 cellar: :any_skip_relocation, monterey:       "702a41d4bb7fb85b3232ceb3a6d590b5777e09d147a531f9c65ee4838101f7d7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "80391a7442b2c4a592f8c66ab24e07537559b3a4f420a85c60661c1182ddf197"
   end
 
   depends_on "asciidoctor" => :build

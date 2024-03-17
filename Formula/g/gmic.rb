@@ -1,24 +1,25 @@
 class Gmic < Formula
   desc "Full-Featured Open-Source Framework for Image Processing"
   homepage "https://gmic.eu/"
-  url "https://gmic.eu/files/source/gmic_3.3.2.tar.gz"
-  sha256 "d95ead2339c552378cef2947e844d5ec247f3a8485471786395aee10f566f868"
+  url "https://gmic.eu/files/source/gmic_3.3.4.tar.gz"
+  sha256 "f52c5c8b44afe830e0d7e177a1477621821f8aa2e5183f8a432970a17acfa0bb"
   license "CECILL-2.1"
   head "https://github.com/GreycLab/gmic.git", branch: "master"
 
   livecheck do
-    url "https://gmic.eu/files/source/"
-    regex(/href=.*?gmic[._-]v?(\d+(?:\.\d+)+)\.t/i)
+    url "https://gmic.eu/download.html"
+    regex(/Latest\s+stable:.*?href=.*?gmic[._-]v?(\d+(?:\.\d+)+)\.t/im)
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "39a4b2ccbb2e3689f322907e298d8390571b8e89243c7fd19d367d043728c97a"
-    sha256 cellar: :any,                 arm64_ventura:  "69bc50715e25757418299d5093f8b254cb14cc401d0b4054b72a5282b281811b"
-    sha256 cellar: :any,                 arm64_monterey: "1912c7b84eea4cb446b6824bad4d6cd65c97032b744a26b2b1fbe23048c64022"
-    sha256 cellar: :any,                 sonoma:         "21e392f64194d8ca1b9fa247f6f0e78513d40dfbdfe4782c46cb5e1f42e58a04"
-    sha256 cellar: :any,                 ventura:        "3d5d3fba99a3c8f34086e72eb84e496d49ed58d37c61868f6eb0e1da1844036b"
-    sha256 cellar: :any,                 monterey:       "ddea5f9ac6cb962adb6452fc16de8be0b185628724a009ee20853c0d7ca903e8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9edc05ea79a6f3de3a35514d70acefd427262d2fbbe76849cb3633cde3e96702"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sonoma:   "423f97ef38164621dc904d4783dc327f65d5d3428ba4c911a928de54c77c7a42"
+    sha256 cellar: :any,                 arm64_ventura:  "bd1fd2a455bb56b62e2bab5ac8380826e6f0b6dd2dc710bb546aac6bc5d6c0e4"
+    sha256 cellar: :any,                 arm64_monterey: "77035a3113827bcb85d23fc417ce0da4180475545fa7baab9aa5c4fab5b3c2fc"
+    sha256 cellar: :any,                 sonoma:         "684226bd9b88de8dfb371bb1692f8091833ada283adae2357b722520a309bb15"
+    sha256 cellar: :any,                 ventura:        "f5352ddb96b2c1a6997c70f8637cd3180153db1e676768e78572d4fd4c2b59ed"
+    sha256 cellar: :any,                 monterey:       "048c584f771f173a29bdb41a0da31f1915d520769456fed9e2bb3d27ff93a649"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1a65fcd384a17292da8fe3f60078b5ad037325a8661010a9fded0ad94d024327"
   end
 
   depends_on "pkg-config" => :build
@@ -61,6 +62,15 @@ class Gmic < Formula
     system "make", "lib", "cli_shared", *args
     system "make", "install", *args, "PREFIX=#{prefix}"
     lib.install "src/libgmic.a"
+
+    if OS.mac?
+      # The Makefile does not install the dylib and gmic.h, so we need to
+      # install them manually.
+      ln_s "libgmic.#{version}.dylib", "src/libgmic.dylib"
+      lib.install "src/libgmic.#{version}.dylib"
+      lib.install "src/libgmic.dylib"
+      include.install "src/gmic.h"
+    end
 
     # Need gmic binary to build completions
     ENV.prepend_path "PATH", bin

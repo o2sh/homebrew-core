@@ -1,19 +1,19 @@
 class Orbiton < Formula
   desc "Fast and config-free text editor and IDE limited by VT100"
   homepage "https://orbiton.zip/"
-  url "https://github.com/xyproto/orbiton/archive/refs/tags/v2.65.6.tar.gz"
-  sha256 "1f1fde7e141102f70b67c397d3ec3dd24fd0ed66b000484191f29bd6abce0411"
+  url "https://github.com/xyproto/orbiton/archive/refs/tags/v2.65.11.tar.gz"
+  sha256 "ed0b663a91c084a05e138a1d011931a896e6a312700b984d76385e675646ddbd"
   license "BSD-3-Clause"
   head "https://github.com/xyproto/orbiton.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b8d3d8cb7aa2b8a4e22b02f46ef759a00c9eb2d28ea9751072b3c04c870f58f6"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0ab136d666407054324749ce41b4cfd1c13cb8b9de540538f87202d08c21baeb"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4d09527029fb6b362126d53ccb96323a391ad4ac5988223794dbe6572b526939"
-    sha256 cellar: :any_skip_relocation, sonoma:         "7ae7ea8aff8097a2272aec5e71f43d3799fdf875b20792473caaa9e7caaf9cd2"
-    sha256 cellar: :any_skip_relocation, ventura:        "cf9dab85889accc4772171f5379f619bb3927b89e5dc9d19a3ee043e242c9181"
-    sha256 cellar: :any_skip_relocation, monterey:       "f210a05a58c17acbb29f78def4cab5887cdd3a751644a2b693036fc046a2a67b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b91eb49c10d1c9eb8d6aa81823e74e91d9c9a69bd52f177183910a81f1814fa9"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f893387a1c8c9a29c48fec9c26676e6ad18fa76f1e1bcd54913cdd1a0709e011"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1d99a635dc52c81db6ecaf8d01a89fe72c3f5c9f2beccb326767aa4a9f2f19ba"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d91043e5fbf42c42aa6f2ff221344e68b2de54a87fe142ea9ea1e86245483f26"
+    sha256 cellar: :any_skip_relocation, sonoma:         "8b76ecc0033828f70dce75f73df46a84beb7842fdc7389cef082d42650ec35b3"
+    sha256 cellar: :any_skip_relocation, ventura:        "839d79aa4891ef66b84d40b272e1dd327654c532f2c02372dbfbc766dc52041f"
+    sha256 cellar: :any_skip_relocation, monterey:       "6423e71542fffd45998f6c754321c8ca65cb387e7b39177c0b67aa07734ef628"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9a85f84d5c07ba9688c73f955d18b0bfe6ae963a2e76b2cec3ccf6b18b31e036"
   end
 
   depends_on "go" => :build

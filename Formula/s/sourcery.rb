@@ -1,18 +1,18 @@
 class Sourcery < Formula
   desc "Meta-programming for Swift, stop writing boilerplate code"
   homepage "https://github.com/krzysztofzablocki/Sourcery"
-  url "https://github.com/krzysztofzablocki/Sourcery/archive/refs/tags/2.1.2.tar.gz"
-  sha256 "e5716851ce7ba0b5e9b187947c725b2d810f7c88ea3f2429d0a5b5d0dabf8787"
+  url "https://github.com/krzysztofzablocki/Sourcery/archive/refs/tags/2.1.7.tar.gz"
+  sha256 "8a7aecbad4b3c2f8d0716642749b896dc6815f964303eceb3a8f2b50c81cb1c1"
   license "MIT"
   version_scheme 1
   head "https://github.com/krzysztofzablocki/Sourcery.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a2a3b55283d36aa0f5012056d6e204d09ce10bea5982c38a7ed816ea7ef8e44f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "609d3141a2113278b3f7aa1cdec23417374d661bfcde35f050b86728b34f9ed3"
-    sha256 cellar: :any_skip_relocation, sonoma:        "a604d694265ee7a2dbb1abe8b4810326d1f4e82ae7b8fc4031cf38eb4cae4ec1"
-    sha256 cellar: :any_skip_relocation, ventura:       "0dc0877c735779d7c7a858851b9c07881351e54b724ac65dfb6cd212713dae0d"
-    sha256                               x86_64_linux:  "23b0f296eec79c307ff5befeeea192af4ec9b17fd2d78725caaba20b6dfaeb8e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d525cdab1a1362667227c07487d3ea7a827d8c05fda39ca4ad3d3b210ffc5a71"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "73f808b92afe2c650c11677f865f4fd44493862d746d4e441b1c765570344a33"
+    sha256 cellar: :any_skip_relocation, sonoma:        "efbcf76a3c2f242f5753cc6ff281cd4ef0057aff05b2af43ad84b1c8f8ad447b"
+    sha256 cellar: :any_skip_relocation, ventura:       "ff6d4475a20edc3371d2f179a333e16e8e6117cedcf8a299c9dcbb9a0e544c3b"
+    sha256                               x86_64_linux:  "73c6813e50fb65ac806f6703a89b66026213b26b2b991d10383d4ecb551b047e"
   end
 
   depends_on xcode: "14.3"

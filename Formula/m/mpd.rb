@@ -1,19 +1,20 @@
 class Mpd < Formula
   desc "Music Player Daemon"
-  homepage "https://web.archive.org/web/20230506090801/https://www.musicpd.org/"
-  url "https://github.com/MusicPlayerDaemon/MPD/archive/refs/tags/v0.23.14.tar.gz"
-  sha256 "3547237437368962c8a8bdec088a369a94ef66f7afc22f6fc0d643c1406bd533"
+  homepage "https://github.com/MusicPlayerDaemon/MPD"
+  url "https://github.com/MusicPlayerDaemon/MPD/archive/refs/tags/v0.23.15.tar.gz"
+  sha256 "d2865d8f8ea79aa509b1465b99a2b8f3f449fe894521c97feadc2dca85a6ecd2"
   license "GPL-2.0-or-later"
+  revision 1
   head "https://github.com/MusicPlayerDaemon/MPD.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "367b98185a3776ebba3dc4940be453761ad8833420a9eeac58bb7628dec44551"
-    sha256 cellar: :any, arm64_ventura:  "c899b3d2b1b813a7d9bec3d3722272a852f68d22f0467608b351d64ac8d23a94"
-    sha256 cellar: :any, arm64_monterey: "26a65973bf58b0302d4a62cdc0f287e92ed3fde3f76ee0a6ec2cc908738463dc"
-    sha256 cellar: :any, sonoma:         "4634cbe7c2aa2776dd7685f5428cd0be4d8eb71596ed56cf0e36681bc608d9e2"
-    sha256 cellar: :any, ventura:        "30f5fff398061e4799a46ef0c34f780621671cad90262b38ee86932bbfd26c21"
-    sha256 cellar: :any, monterey:       "ce48447f1ae44e638efbe8d3752788a90d517f8a5e5cdd4b83514404c5e19d94"
-    sha256               x86_64_linux:   "7affc1bf59ff418623d336b07aaa29ed02a5d5f980004f7033bb7200a4ddbdd7"
+    sha256 cellar: :any, arm64_sonoma:   "b649546463292d458993740543885c92e45b0dd464dc875a824d54863a633f9d"
+    sha256 cellar: :any, arm64_ventura:  "4626d9887b40acd2fe4d7d95f772c18b39847f02b645cf36a62c2a87862c4bfa"
+    sha256 cellar: :any, arm64_monterey: "2bfbfb85b51d001980de8acebee8474e3ebc9c642178ce455306ce20d9860343"
+    sha256 cellar: :any, sonoma:         "2f9f22878f2b13f55e6e71903b7af4296a255dce392ae962c121bf583e63d825"
+    sha256 cellar: :any, ventura:        "e422b688212ed863d6b6d46d4bfcb5288b3ffc5deac349c2f295e1b17e1aa3dd"
+    sha256 cellar: :any, monterey:       "f0e220960e24c90bbed09158d5a0c83a6617d08d244578372284feedb46fdd16"
+    sha256               x86_64_linux:   "d63ad43240eb10cb399f7dcaf61a9e0712e1b08ad7720f9b7cbc5bd656bdbed7"
   end
 
   depends_on "boost" => :build

@@ -1,10 +1,9 @@
 class Dnsdist < Formula
   desc "Highly DNS-, DoS- and abuse-aware loadbalancer"
   homepage "https://www.dnsdist.org/"
-  url "https://downloads.powerdns.com/releases/dnsdist-1.8.2.tar.bz2"
-  sha256 "6688f09b2c52f9bf935f0769f4ee28dd0760e5622dade7b3f4e6fa3776f07ab8"
+  url "https://downloads.powerdns.com/releases/dnsdist-1.9.1.tar.bz2"
+  sha256 "4b1db4fae2917e54a804440580a602db3300aed7801f6c986bf03ba7768bc01a"
   license "GPL-2.0-only"
-  revision 1
 
   livecheck do
     url "https://downloads.powerdns.com/releases/"
@@ -12,18 +11,22 @@ class Dnsdist < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "8b39d54cc8879b6feab5254d55b7dbb3d56d7d1ab60ca48229bdf2f6504075f2"
-    sha256 cellar: :any,                 arm64_monterey: "cf91fd0c9e8d5e21f9e15cf4c5219a6e9c8cd2b066baa7cb355428ee9c6ba26f"
-    sha256 cellar: :any,                 ventura:        "acb7efa3d1f9cd9f3cc0fb137d23446fa252d111f2b404118ef1c59922a5933a"
-    sha256 cellar: :any,                 monterey:       "a7c2db4f4fadd3e21a26307230f17f67887b7fc6414b2788fefcf1775d0f6ad9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9d891fba445586bbaf6e65967e6bd0bd92607e3f94883957923417eb8e68d534"
+    sha256 cellar: :any,                 arm64_sonoma:   "23fbc0644271120a1586abc35dd527006ef0a58b39e0ebfc0f583395a54fb8e2"
+    sha256 cellar: :any,                 arm64_ventura:  "8ae6f97a60710d478b3409b39d1e3764cf8b2fb7e61b97cdf2cbd36a2fffdd78"
+    sha256 cellar: :any,                 arm64_monterey: "4a6bae822ce498ec699aa29b5c191cb7c6c2cd02ce164999be32695a9ea7e126"
+    sha256 cellar: :any,                 sonoma:         "71eab7f58ad71aecb9363033489c0608cc05961f7dfe06cc9c61901deecf0338"
+    sha256 cellar: :any,                 ventura:        "c34ea7402f1d244df1c0fa70804919054753a584150d86520a30692f29046b46"
+    sha256 cellar: :any,                 monterey:       "4bab48704b9600f642e76062f120042308d9cc24b4eb8ffc7bb6de630e9e5da0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fde8b647887a2f4b8c606445852469c63fce7b828d1c11bdab87d78824588299"
   end
 
   depends_on "boost" => :build
   depends_on "pkg-config" => :build
+  depends_on "abseil"
   depends_on "cdb"
   depends_on "fstrm"
   depends_on "h2o"
+  depends_on "libnghttp2"
   depends_on "libsodium"
   depends_on "luajit"
   depends_on "openssl@3"
@@ -35,15 +38,14 @@ class Dnsdist < Formula
   fails_with gcc: "5"
 
   def install
-    system "./configure", "--disable-dependency-tracking",
-                          "--disable-silent-rules",
-                          "--prefix=#{prefix}",
+    system "./configure", "--disable-silent-rules",
                           "--without-net-snmp",
                           "--enable-dns-over-tls",
                           "--enable-dns-over-https",
                           "--enable-dnscrypt",
                           "--with-re2",
-                          "--sysconfdir=#{etc}/dnsdist"
+                          "--sysconfdir=#{etc}/dnsdist",
+                          *std_configure_args
     system "make", "install"
   end
 

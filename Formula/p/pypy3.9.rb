@@ -1,10 +1,10 @@
 class Pypy39 < Formula
   desc "Implementation of Python 3 in Python"
   homepage "https://pypy.org/"
-  url "https://downloads.python.org/pypy/pypy3.9-v7.3.13-src.tar.bz2"
-  sha256 "bc6147268105e7cb3bd57b401e6d97f66aa4ede269104b2712a7cdd9f02f68cd"
+  url "https://downloads.python.org/pypy/pypy3.9-v7.3.15-src.tar.bz2"
+  sha256 "e42c16593dd2d8e30ffa6287660c6984562bf4e9f95e660706e16764dfec85a8"
   license "MIT"
-  head "https://foss.heptapod.net/pypy/pypy", using: :hg, branch: "py3.9"
+  head "https://github.com/pypy/pypy.git", branch: "main"
 
   livecheck do
     url "https://downloads.python.org/pypy/"
@@ -12,13 +12,13 @@ class Pypy39 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "86e42aa52ee6c734577ce2ae2b2cce97710b0b9b3583cd95dbe1b35ee65741c5"
-    sha256 cellar: :any,                 arm64_ventura:  "57d5dde2da036b7c837883b64ea855352588f6c97a03690b3c3d688836dcf879"
-    sha256 cellar: :any,                 arm64_monterey: "4e9192e575e82587bdc0c21a1c33c563c9e3f73a12704974c2fef3e72225f427"
-    sha256 cellar: :any,                 sonoma:         "2ca57f280e3d14097af6752ab8a7a9f25ac9560e6c0f6c86ec1295bc80c56847"
-    sha256 cellar: :any,                 ventura:        "22a926e652c34beee6ba3c037f8ccd0ae037d1a3d198bf4832a657665325d0f7"
-    sha256 cellar: :any,                 monterey:       "df5e03f02dd99b43d69bcc4828c5f4d68ae0dab7b90db3c4c064f61c23ecc0bf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2c6f5688746dfa9f23f2ac347e56690da02a5818fe713b7295c0c70d79f36f97"
+    sha256 cellar: :any,                 arm64_sonoma:   "6e4036bc99784d5e9a4181ae57b693f06e33d5283725657bdf002544e53b5cf8"
+    sha256 cellar: :any,                 arm64_ventura:  "8aa75035593e5a2c27882765190de2f54d4523c7daaadc125bf08b55e7c9ff01"
+    sha256 cellar: :any,                 arm64_monterey: "9b2e50fcb4fd4d0a8491b5feddf7bba7d33106c177a346844481d1051c6e9cd9"
+    sha256 cellar: :any,                 sonoma:         "a398082a9b2e660e5f3dd56b1fb03b71a029d9ca98e1e73becac711e0b7ec797"
+    sha256 cellar: :any,                 ventura:        "0683d35b591f98d6f0a20c3a2cd9e4f6ff1a2ab784fef94fe0c14ce20a99644d"
+    sha256 cellar: :any,                 monterey:       "1bd9370f7cb0ecfa8166fac07630edae728592174722fc8c50e008e03c173a42"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1f5def43f60dfdb8281ee17e15b45c8ad483f4d10d061ab8ed82784dcb056a71"
   end
 
   depends_on "pkg-config" => :build
@@ -43,15 +43,16 @@ class Pypy39 < Formula
     sha256 "09980778aa734c3037a47997f28d6db5ab18bdf2af0e49f719bfc53967fd2e82"
   end
 
+  # always pull the latest pip, https://pypi.org/project/pip/#files
   resource "pip" do
-    url "https://files.pythonhosted.org/packages/ba/19/e63fb4e0d20e48bd2167bb7e857abc0e21679e24805ba921a224df8977c0/pip-23.2.1.tar.gz"
-    sha256 "fb0bd5435b3200c602b5bf61d2d43c2f13c02e29c1707567ae7fbc514eb9faf2"
+    url "https://files.pythonhosted.org/packages/b7/06/6b1ad0ae8f97d7a0d6f6ad640db10780578999e647a9593512ceb6f06469/pip-23.3.2.tar.gz"
+    sha256 "7fd9972f96db22c8077a1ee2691b172c8089b17a5652a44494a9ecb0d78f9149"
   end
 
   # Build fixes:
   # - Disable Linux tcl-tk detection since the build script only searches system paths.
   #   When tcl-tk is not found, it uses unversioned `-ltcl -ltk`, which breaks build.
-  # Upstream issue ref: https://foss.heptapod.net/pypy/pypy/-/issues/3538
+  # Upstream issue ref: https://github.com/pypy/pypy/issues/3538
   patch :DATA
 
   def abi_version

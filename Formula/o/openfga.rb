@@ -1,19 +1,19 @@
 class Openfga < Formula
   desc "High performance and flexible authorization/permission engine"
   homepage "https://openfga.dev/"
-  url "https://github.com/openfga/openfga/archive/refs/tags/v1.3.7.tar.gz"
-  sha256 "5f74a30b5d63aee670cae94e7b6e4b9a009e425887c48eca2ae73ef4dac86222"
+  url "https://github.com/openfga/openfga/archive/refs/tags/v1.5.0.tar.gz"
+  sha256 "6ee1f20a9b08c72dd5879544ff8e0e81634697b65c66a432468a1b62330c888d"
   license "Apache-2.0"
   head "https://github.com/openfga/openfga.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0c673b08044f985aebacfccac7e4dc6b570cfd2075f490045a550723a4222c76"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a165b0415a8a61f3e1a0d36ec32ef258ed36bc68a7b8b3f776dba932d3d7f9af"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e1dbb7c705ac93f3858bbd41eb276d6709f420f513b3ccdded07d3b76cf128be"
-    sha256 cellar: :any_skip_relocation, sonoma:         "5c9a9e4dff93a2534e1fa35833c20006cca4b24d06b3671a0ea9e1c588f60952"
-    sha256 cellar: :any_skip_relocation, ventura:        "78fe3655b6b60298ee27117d52d684e971ae68f9a0e0db08b0840e65a3782efe"
-    sha256 cellar: :any_skip_relocation, monterey:       "ebea43472fd0898a5a5a9fadc2a0bf88dbc0d1fe29e22914cbf1fb89d0267086"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e35cad05496c73d11bfb03d6df81499ba2337c3985ebd6dc3567a45969707b86"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4ded6f50c42f73a351cf0c3d54f71d738bec4b7bca43340022bb042f395b0290"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c10629b6765fd9a404a2ca93dbd8911b473685aef0946670d63e37bdc6d6dd45"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c0b54eae9f46ccd03cc951aa5fc0c4e4cd6592c317b7c2f92a0c24b1174a0236"
+    sha256 cellar: :any_skip_relocation, sonoma:         "ffc0a6f937ea5086637eaee107dcf07fa782adace39599c8a43600fe86061f9d"
+    sha256 cellar: :any_skip_relocation, ventura:        "72c6667cfae3e9b4fbe535dc941a99e10049ff2f29d61097a62cf97a337c1332"
+    sha256 cellar: :any_skip_relocation, monterey:       "3f0e212dfc4b5d536ef854d3b9ea03acdd5c668789371814ddd63c9643aef4e7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "93028930f12c36c081a0b8b692addfd6bf7b76103a673b4755a872cc49cb0b63"
   end
 
   depends_on "go" => :build
@@ -25,7 +25,7 @@ class Openfga < Formula
       -X github.com/openfga/openfga/internal/build.Commit=brew
       -X github.com/openfga/openfga/internal/build.Date=#{time.iso8601}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/openfga"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/openfga"
 
     generate_completions_from_executable(bin/"openfga", "completion")
   end

@@ -1,32 +1,26 @@
 class Poac < Formula
-  desc "Package Manager for C++"
+  desc "Package manager and build system for C++"
   homepage "https://github.com/poac-dev/poac"
-  url "https://github.com/poac-dev/poac/archive/refs/tags/0.6.0.tar.gz"
-  sha256 "40f55553f7cca3bdad39599ce8c9049aeecf8f6140cfebac28c51d7d9abbbb78"
+  url "https://github.com/poac-dev/poac/archive/refs/tags/0.9.3.tar.gz"
+  sha256 "122aa46923e3e93235305b726617df7df747ed7a26072ccd6b87ffaf84a33aed"
   license "Apache-2.0"
-  revision 4
   head "https://github.com/poac-dev/poac.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "9ffe2bbbec16b994b36efb4d5ae00f402ac995bffccd584d80f976fe94d72c4c"
-    sha256 cellar: :any,                 arm64_ventura:  "f7264c6ec7cde08cab75221bda05747b0158e8bd84194dd99bc8002ae0e22a7f"
-    sha256 cellar: :any,                 arm64_monterey: "7a4308dae0c519cca092333b242a284c3e0f12f50957f999ccb2f0064996aae9"
-    sha256 cellar: :any,                 arm64_big_sur:  "f18740594d83e20f9738846fcaf2f9681f6ac33ff559e95aa8c4cb3f7e70047a"
-    sha256 cellar: :any,                 sonoma:         "7ae7681aa2d500429c3a0983fbdd8d5c35b85cf4329a62329ee751cff8e44d22"
-    sha256 cellar: :any,                 ventura:        "b1cda02d8561d37821cb1a78c9e69d17e9efa283e046f4f713a8be1baf01bf77"
-    sha256 cellar: :any,                 monterey:       "036be47724682d90f5d7baf82fdb2e5e6c637128c2995d7584d2c0b5bc7f683c"
-    sha256 cellar: :any,                 big_sur:        "aad661ddcf4a5754a5c93ca6d2daf2e794a715a09a2f7cfa107d3ddefd79f4d7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5861b764ec78792acd2aa3853b275b1eec71279d09cd659fa9432e9271d69d2a"
+    sha256 cellar: :any,                 arm64_sonoma:   "1785225d608e672cb6c2e87c61ed4f279c88ab3df2a3af072c513b924e91208b"
+    sha256 cellar: :any,                 arm64_ventura:  "0493ca090b07e2a3c1aab065c1d7bba768876d8eae2245fd8aeb46f46827784e"
+    sha256 cellar: :any,                 arm64_monterey: "7d60d81ab7426b5783d90efba9bfdee5edead6b13ac53693e9dd6fef35464231"
+    sha256 cellar: :any,                 sonoma:         "c9b3b40dfa40db845a9fe4ad8637d46417f73715379e2657e4b500d3ab44d83b"
+    sha256 cellar: :any,                 ventura:        "716d4f1244d5878eadcfe7a7a15cfa26c0463fb55839756cfe4c89cecf0ec964"
+    sha256 cellar: :any,                 monterey:       "93e919bed7d7631188508a6f3998351693ad4e8d7d39073ea8a6aa368402584f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0f9ea4574bde6aea0779dc880e2b301e809af8ae69746620e97cf7b7a99fa1c6"
   end
 
-  depends_on "cmake" => :build
-  depends_on "boost"
-  depends_on "fmt"
+  depends_on "curl"
   depends_on "libgit2"
-  depends_on "openssl@3"
-  depends_on "spdlog"
-
-  uses_from_macos "libarchive"
+  depends_on "nlohmann-json"
+  depends_on "pkg-config"
+  depends_on "tbb"
 
   on_macos do
     depends_on "llvm" => [:build, :test] if DevelopmentTools.clang_build_version <= 1200
@@ -41,25 +35,14 @@ class Poac < Formula
 
   def install
     ENV.llvm_clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1200)
-
-    # Help to find OpenSSL.
-    inreplace "cmake/AddOpenSSL.cmake", "${POAC_HOMEBREW_ROOT_PATH}/openssl",
-                                        Formula["openssl@3"].opt_prefix
-
-    system "cmake", "-S", ".", "-B", "build", "-DPOAC_BUILD_TESTING=OFF", *std_cmake_args
-    system "cmake", "--build", "build"
-    system "cmake", "--install", "build"
-
-    man.install "src/etc/man/man1"
-    bash_completion.install "src/etc/poac.bash" => "poac"
-    zsh_completion.install_symlink bash_completion/"poac" => "_poac"
+    system "make", "RELEASE=1", "PREFIX=#{prefix}", "install"
   end
 
   test do
     ENV.clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1200)
-    system bin/"poac", "create", "hello_world"
+    system bin/"poac", "new", "hello_world"
     cd "hello_world" do
-      assert_match "Hello, world!", shell_output("#{bin}/poac run")
+      assert_equal "Hello, world!", shell_output("#{bin}/poac run").split("\n").last
     end
   end
 end

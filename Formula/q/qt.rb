@@ -3,10 +3,10 @@ class Qt < Formula
 
   desc "Cross-platform application and UI framework"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.6/6.6.0/single/qt-everywhere-src-6.6.0.tar.xz"
-  mirror "https://qt.mirror.constant.com/archive/qt/6.6/6.6.0/single/qt-everywhere-src-6.6.0.tar.xz"
-  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.6/6.6.0/single/qt-everywhere-src-6.6.0.tar.xz"
-  sha256 "652538fcb5d175d8f8176c84c847b79177c87847b7273dccaec1897d80b50002"
+  url "https://download.qt.io/official_releases/qt/6.6/6.6.2/single/qt-everywhere-src-6.6.2.tar.xz"
+  mirror "https://qt.mirror.constant.com/archive/qt/6.6/6.6.2/single/qt-everywhere-src-6.6.2.tar.xz"
+  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.6/6.6.2/single/qt-everywhere-src-6.6.2.tar.xz"
+  sha256 "3c1e42b3073ade1f7adbf06863c01e2c59521b7cc2349df2f74ecd7ebfcb922d"
   license all_of: [
     "BSD-3-Clause",
     "GFDL-1.3-no-invariants-only",
@@ -14,6 +14,7 @@ class Qt < Formula
     { "GPL-3.0-only" => { with: "Qt-GPL-exception-1.0" } },
     "LGPL-3.0-only",
   ]
+  revision 1
   head "https://code.qt.io/qt/qt5.git", branch: "dev"
 
   # The first-party website doesn't make version information readily available,
@@ -24,21 +25,20 @@ class Qt < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "36abdf7a31580688b39447d9baffc76a45b76a01af6e6911e7ceef8722516c9b"
-    sha256 cellar: :any,                 arm64_ventura:  "da6b8e4dfcb405b4c4d3b1846b42b4fa0e77c27df4cefc122aaa296e0c56b073"
-    sha256 cellar: :any,                 arm64_monterey: "0cc9140f18437b7d1f4e110854e1a72b44497a891ac5a19594ad5d5bedf41af7"
-    sha256 cellar: :any,                 sonoma:         "be8f2b26cff18e744ffcd7f9832c6c60600ed297e2c7146cf98efa4035d64df2"
-    sha256 cellar: :any,                 ventura:        "8fa8d83184e2f27cc81fbe5419c2ad60ffc1a01d25dd0090c5108afbf9ae4c48"
-    sha256 cellar: :any,                 monterey:       "7fca175e333869e9da846caad9afb329320e7f26a029f0e8e711988b9b2bbe83"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "35b32e2ed05837fce951d095f11e2da309acb04dbb50774ef079c9a2a6b46868"
+    sha256 cellar: :any,                 arm64_sonoma:   "573c3038cd5c74881cf748eb63c803efa35b4b75d19693b7f20cd8897548959a"
+    sha256 cellar: :any,                 arm64_ventura:  "43125cfe40819ece94a418267bebf6bd6a253ae8288e20374202d4598efd9310"
+    sha256 cellar: :any,                 arm64_monterey: "c6b39b8885d61e7bb49639b4f347554bf1672532660966a86fa766eace2ff542"
+    sha256 cellar: :any,                 sonoma:         "ddf48735f5c3c4317d5e46c922614bc168a1b480b488ae228313dcf09fb3338b"
+    sha256 cellar: :any,                 ventura:        "f1bda669aa2d6ea2024fbdde4a6a191b468854ef0bd27d81877f5025518f32fd"
+    sha256 cellar: :any,                 monterey:       "14a64c6df1e1c31008a921458a9374764c42a5ca637e2a2487d07808c8f25893"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a11925797528c635afeae37662fda71003d071347b5f1570ad1a1aa4ac163648"
   end
 
-  depends_on "cmake"      => [:build, :test]
-  depends_on "ninja"      => :build
-  depends_on "node"       => :build
+  depends_on "cmake" => [:build, :test]
+  depends_on "ninja" => :build
+  depends_on "node" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.11" => :build
-  depends_on "six" => :build
+  depends_on "python@3.11" => :build # Python 3.12 needs newer Chromium without imp usage (maybe 118 or 120)
   depends_on "vulkan-headers" => [:build, :test]
   depends_on "vulkan-loader" => [:build, :test]
   depends_on xcode: :build
@@ -66,7 +66,7 @@ class Qt < Formula
   depends_on "zstd"
 
   uses_from_macos "bison" => :build
-  uses_from_macos "flex"  => :build
+  uses_from_macos "flex" => :build
   uses_from_macos "gperf" => :build
   uses_from_macos "llvm" => :test # Our test relies on `clang++` in `PATH`.
 
@@ -121,6 +121,11 @@ class Qt < Formula
     sha256 "b2e5b40261e20f354d198eae92afc10d750afb487ed5e50f9c4eaf07c184146f"
   end
 
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
+  end
+
   resource "webencodings" do
     url "https://files.pythonhosted.org/packages/0b/02/ae6ceac1baeda530866a85075641cec12989bd8d31af6d5ab4a3e8c92f47/webencodings-0.5.1.tar.gz"
     sha256 "b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923"
@@ -149,15 +154,15 @@ class Qt < Formula
     # because on macOS `/tmp` -> `/private/tmp`
     inreplace "qtwebengine/src/3rdparty/gn/src/base/files/file_util_posix.cc",
               "FilePath(full_path)", "FilePath(input)"
-    realpath_files = %w[
-      qtwebengine/cmake/Gn.cmake
-      qtwebengine/cmake/Functions.cmake
-      qtwebengine/src/core/api/CMakeLists.txt
-      qtwebengine/src/CMakeLists.txt
-      qtwebengine/src/gn/CMakeLists.txt
-      qtwebengine/src/process/CMakeLists.txt
+
+    # Modify Assistant path as we manually move `*.app` bundles from `bin` to `libexec`.
+    # This fixes invocation of Assistant via the Help menu of apps like Designer and
+    # Linguist as they originally relied on Assistant.app being in `bin`.
+    assistant_files = %w[
+      qttools/src/designer/src/designer/assistantclient.cpp
+      qttools/src/linguist/linguist/mainwindow.cpp
     ]
-    inreplace realpath_files, "REALPATH", "ABSOLUTE"
+    inreplace assistant_files, '"Assistant.app/Contents/MacOS/Assistant"', '"Assistant"'
 
     config_args = %W[
       -release
@@ -231,18 +236,6 @@ class Qt < Formula
 
     inreplace lib/"cmake/Qt6/qt.toolchain.cmake", "#{Superenv.shims_path}/", ""
 
-    # The pkg-config files installed suggest that headers can be found in the
-    # `include` directory. Make this so by creating symlinks from `include` to
-    # the Frameworks' Headers folders.
-    # Tracking issues:
-    # https://bugreports.qt.io/browse/QTBUG-86080
-    # https://gitlab.kitware.com/cmake/cmake/-/merge_requests/6363
-    lib.glob("*.framework") do |f|
-      # Some config scripts will only find Qt in a "Frameworks" folder
-      frameworks.install_symlink f
-      include.install_symlink f/"Headers" => f.stem
-    end
-
     # Install a qtversion.xml to ease integration with QtCreator
     # As far as we can tell, there is no ability to make the Qt buildsystem
     # generate this and it's in the Qt source tarball at all.
@@ -277,6 +270,18 @@ class Qt < Formula
     XML
 
     return unless OS.mac?
+
+    # The pkg-config files installed suggest that headers can be found in the
+    # `include` directory. Make this so by creating symlinks from `include` to
+    # the Frameworks' Headers folders.
+    # Tracking issues:
+    # https://bugreports.qt.io/browse/QTBUG-86080
+    # https://gitlab.kitware.com/cmake/cmake/-/merge_requests/6363
+    lib.glob("*.framework") do |f|
+      # Some config scripts will only find Qt in a "Frameworks" folder
+      frameworks.install_symlink f
+      include.install_symlink f/"Headers" => f.stem
+    end
 
     bin.glob("*.app") do |app|
       libexec.install app
@@ -378,7 +383,7 @@ class Qt < Formula
     system "make"
     system "./test"
 
-    ENV.delete "CPATH" if MacOS.version > :mojave
+    ENV.delete "CPATH" if OS.mac? && MacOS.version > :mojave
     system bin/"qmake", testpath/"test.pro"
     system "make"
     system "./test"

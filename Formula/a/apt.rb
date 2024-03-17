@@ -1,8 +1,8 @@
 class Apt < Formula
   desc "Advanced Package Tool"
   homepage "https://wiki.debian.org/Apt"
-  url "https://deb.debian.org/debian/pool/main/a/apt/apt_2.7.7.tar.xz"
-  sha256 "d3b3f3b7014f6e561b86c059b89040d0c742cbabc576593c6efaa0dd7b24de77"
+  url "https://deb.debian.org/debian/pool/main/a/apt/apt_2.7.13.tar.xz"
+  sha256 "c42ab55e91d7bee5fcbf7ff8c3584714cbacaa0365f091e7e604f7f8493c7e35"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -11,8 +11,10 @@ class Apt < Formula
   end
 
   bottle do
-    sha256 x86_64_linux: "39d0e98d2bb8b59bda5ba6220f42f250898c321025e3b435ce3bb4ea14ea4549"
+    sha256 x86_64_linux: "b8d3b5f6db4cb581b6c83e1c058f150817ebe093e44e66e1a48f6674f241c886"
   end
+
+  keg_only "not linked to prevent conflicts with system apt"
 
   depends_on "cmake" => :build
   depends_on "docbook" => :build
@@ -23,7 +25,7 @@ class Apt < Formula
   depends_on "po4a" => :build
   depends_on "w3m" => :build
 
-  depends_on "berkeley-db"
+  depends_on "berkeley-db@5" # keep berkeley-db < 6 to avoid AGPL-3.0 restrictions
   depends_on "bzip2"
   depends_on "dpkg"
   depends_on "gettext"
@@ -34,10 +36,6 @@ class Apt < Formula
   depends_on "perl"
   depends_on "xxhash"
   depends_on "zlib"
-
-  on_linux do
-    keg_only "not linked to prevent conflicts with system apt"
-  end
 
   fails_with gcc: "5"
 
@@ -83,8 +81,8 @@ class Apt < Formula
   end
 
   resource "Pod::Parser" do
-    url "https://cpan.metacpan.org/authors/id/M/MA/MAREKR/Pod-Parser-1.66.tar.gz"
-    sha256 "22928a7bffe61b452c05bbbb8f5216d4b9cf9fe2a849b776c25500d24d20df7c"
+    url "https://cpan.metacpan.org/authors/id/M/MA/MAREKR/Pod-Parser-1.67.tar.gz"
+    sha256 "5deccbf55d750ce65588cd211c1a03fa1ef3aaa15d1ac2b8d85383a42c1427ea"
   end
 
   resource "ExtUtils::CChecker" do
@@ -93,13 +91,19 @@ class Apt < Formula
   end
 
   resource "XS::Parse::Keyword::Builder" do
-    url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/XS-Parse-Keyword-0.38.tar.gz"
-    sha256 "2500c47869cf5ca8c61dd23c67badabf66b8f1efb5e279207657c1ce693e211e"
+    url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/XS-Parse-Keyword-0.39.tar.gz"
+    sha256 "b4e775becc8a5d9b52cb5d569b9d3230eea451c134735845e77f89fa6a6c23d8"
   end
 
   resource "Syntax::Keyword::Try" do
     url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Syntax-Keyword-Try-0.29.tar.gz"
     sha256 "cc320719d3608daa9514743a43dac2be99cb8ccd989b1fefa285290cb1d59d8f"
+  end
+
+  # upstream bug report, https://github.com/mquinson/po4a/issues/475
+  patch do
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/07275a9af84b536ac737c364d66fc2eb4daf729a/apt/po4a-0.70.patch"
+    sha256 "35f0ac1416af3116e17275a4b233a7abc34767655734bf07dda83ff307266e15"
   end
 
   def install
@@ -133,7 +137,7 @@ class Apt < Formula
     system "cmake", "-S", ".", "-B", "build",
                     "-DDPKG_DATADIR=#{Formula["dpkg"].opt_libexec}/share/dpkg",
                     "-DDOCBOOK_XSL=#{Formula["docbook-xsl"].opt_prefix}/docbook-xsl",
-                    "-DBERKELEY_INCLUDE_DIRS=#{Formula["berkeley-db"].opt_include}",
+                    "-DBERKELEY_INCLUDE_DIRS=#{Formula["berkeley-db@5"].opt_include}",
                     *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"

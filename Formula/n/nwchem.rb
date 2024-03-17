@@ -7,28 +7,52 @@ class Nwchem < Formula
   license "ECL-2.0"
 
   livecheck do
-    url "https://github.com/nwchemgit/nwchem.git"
+    url :stable
     regex(/^v?(\d+(?:\.\d+)+)-release$/i)
+    strategy :github_latest
   end
 
   bottle do
-    sha256                               arm64_sonoma:   "59513c595c4891cd95f6fc111c2c72bfe305df49a38d4bcb148b051d67928478"
-    sha256                               arm64_ventura:  "0c81255a436816eb8606af03c76d0a304c67facb33a37f0527a71297b6ed12c8"
-    sha256                               arm64_monterey: "3009e76fe7d952d088587827cfa4b16a3c3078db4b49b694f9e446e44d5df5cf"
-    sha256 cellar: :any,                 sonoma:         "162106bc0c8bb2834b67020c9aef14684e1e43f8c14e9fd3227663548ce39205"
-    sha256 cellar: :any,                 ventura:        "a3be3c6add57666927098bc588f1cd2f220683aac7c072d68f52ab4da2c12d39"
-    sha256 cellar: :any,                 monterey:       "01b272dc13e01b818b6efa15bd3fe880812d7d4020e280fd1be992ec3860184b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a347320207365efa65024cbf31e7da21c4fedefeda38627814f9d0dfc17c878c"
+    rebuild 2
+    sha256                               arm64_sonoma:   "3abde846447d77e53b52cc25c22a526f6aeaa05ba6ea50aea0071076b2c0c9e2"
+    sha256                               arm64_ventura:  "13b783dbbe729ec08f3c86d70cbc313c6e3fd48b92427ed11a6723b952620be0"
+    sha256                               arm64_monterey: "1f24264743a058117b4f66b4bf4c4ce3ed4cca904c12d21f0a6596a508bec7ee"
+    sha256 cellar: :any,                 sonoma:         "5f08344628651f052a4eeb75629efd8563c3c80e1cc7b064284ff35200b4ab4b"
+    sha256 cellar: :any,                 ventura:        "a5642c7083957b97c70b2d224e77c6688c4a5924c65879ace1ed04fd83976ceb"
+    sha256 cellar: :any,                 monterey:       "59ebcfc7e40cff5ce8add809d4e3f20bfcd3f9be8e3d4041c5e7944d499aae5a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b928b2fffea97b3246c994e1fb21d72bed9240eef621231decfcf8c7711dee88"
   end
 
   depends_on "gcc" # for gfortran
   depends_on "libxc"
   depends_on "open-mpi"
   depends_on "openblas"
+  depends_on "pkg-config"
   depends_on "python@3.12"
   depends_on "scalapack"
 
   uses_from_macos "libxcrypt"
+
+  # fixes a performance issue due to the fact that homembrew uses OpenMP for OpenBLAS threading
+  # Remove in next release.
+  patch do
+    url "https://github.com/nwchemgit/nwchem/commit/7ffbf689ceba4258cfe656cf979e783ee8debcdd.patch?full_index=1"
+    sha256 "fcfc2b505a3afb0cc234cd0ac587c09c4d74e295f24496c899db7dc09dc7029b"
+  end
+
+  # fix for Py_SetProgramName deprecated by python 3.11
+  # Remove in next release.
+  patch do
+    url "https://github.com/nwchemgit/nwchem/commit/c6851de6a771a31d387e06819fce26b49391b20b.patch?full_index=1"
+    sha256 "558b4f25013b91f29b2740e4d26fa6ebae861260d8ddd169c89aea255b49b7ea"
+  end
+
+  # fix for python 3.13
+  # Remove in next release.
+  patch do
+    url "https://github.com/nwchemgit/nwchem/commit/bc18d20d90ba1fd6efc894558bef2fdacaac28a8.patch?full_index=1"
+    sha256 "5432e8b0af47e80efb22f11774738e578919f5f857a7a3e46138a173910269d7"
+  end
 
   def install
     pkgshare.install "QA"
@@ -59,14 +83,20 @@ class Nwchem < Formula
       ENV["SCALAPACK_SIZE"] = "4"
       ENV["USE_64TO32"] = "y"
       ENV["USE_HWOPT"] = "n"
+      ENV["OPENBLAS_USES_OPENMP"] = "y"
       ENV["LIBXC_LIB"] = Formula["libxc"].opt_lib.to_s
       ENV["LIBXC_INCLUDE"] = Formula["libxc"].opt_include.to_s
-      ENV.append "OMPI_FCFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
-      ENV.append "OMPI_CFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
       os = OS.mac? ? "MACX64" : "LINUX64"
       system "make", "nwchem_config", "NWCHEM_MODULES=all python gwmol", "USE_MPI=Y"
+      cd "tools" do
+        system "make", "NWCHEM_TARGET=#{os}", "USE_MPI=Y"
+      end
+      mkdir_p "../bin/#{os}"
+      system ENV.cc, "config/depend.c", "-o", "../bin/#{os}/depend.x"
+      system "make", "USE_INTERNALBLAS=1", "deps_stamp", "NWCHEM_TARGET=#{os}", "USE_MPI=Y"
+      ENV["QUICK_BUILD"] = "1"
       system "make", "NWCHEM_TARGET=#{os}", "USE_MPI=Y"
-
+      ENV.delete("QUICK_BUILD")
       bin.install "../bin/#{os}/nwchem"
       pkgshare.install "basis/libraries"
       pkgshare.install "basis/libraries.bse"
@@ -78,6 +108,7 @@ class Nwchem < Formula
   test do
     cp_r pkgshare/"QA", testpath
     cd "QA" do
+      ENV["OMP_NUM_THREADS"] = "1"
       ENV["NWCHEM_TOP"] = testpath
       ENV["NWCHEM_TARGET"] = OS.mac? ? "MACX64" : "LINUX64"
       ENV["NWCHEM_EXECUTABLE"] = "#{bin}/nwchem"

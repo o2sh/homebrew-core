@@ -1,8 +1,8 @@
 class Gromacs < Formula
   desc "Versatile package for molecular dynamics calculations"
   homepage "https://www.gromacs.org/"
-  url "https://ftp.gromacs.org/pub/gromacs/gromacs-2023.3.tar.gz"
-  sha256 "4ec8f8d0c7af76b13f8fd16db8e2c120e749de439ae9554d9f653f812d78d1cb"
+  url "https://ftp.gromacs.org/pub/gromacs/gromacs-2024.1.tar.gz"
+  sha256 "937d8f12a36fffbf2af7add71adbb5aa5c5537892d46c9a76afbecab1aa0aac7"
   license "LGPL-2.1-or-later"
 
   livecheck do
@@ -11,13 +11,13 @@ class Gromacs < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "70c402f4df69d503efbd369134774e9cf55ee10520b6beb87e0d0ddca83c8c8c"
-    sha256 arm64_ventura:  "12c4770d997a644e7d36488731541356c80456178e7e7f34f44f3d56dfb271fd"
-    sha256 arm64_monterey: "20a5dbdd1476e9aa4cc186725833f29d31def6994582dfec2427b734720043d7"
-    sha256 sonoma:         "952f8875e051420121575166557cd543e68d30fd9dc97ad4a8e957b6f0ff4187"
-    sha256 ventura:        "5fbc71c2b9510a2a5d6bfc55800cb53e71b916124b7c01fb326e7c72fe0a7b91"
-    sha256 monterey:       "98fbf9fe389ff03910a8f14bb59a5166674373dabd558b7513b6cd47ee0ec60a"
-    sha256 x86_64_linux:   "e4a5b4ec53f8cb7d421ed65efa7c56289db0a7e5139058ae5216f650e721a027"
+    sha256 arm64_sonoma:   "15a2b50d7f51a6ba3d9ffe9fe5a3e461e4f1b5180333917c91837899b3f78b43"
+    sha256 arm64_ventura:  "028cc96dab2cd643a0a026c0f4220e61951ef73930fa04602f227ae8eeba0563"
+    sha256 arm64_monterey: "a3d5f3b5a002a1b1af4f5bbe89243c12ee62d2a81d8eb6fb997eaa6e717f0644"
+    sha256 sonoma:         "bce1f692285674cbd52c0561e752eea2ddbcc54f302569ad914fd8f3b388c884"
+    sha256 ventura:        "9149b55e12bc13ec30515abef9e04f17d78df1d6c0c2b16a11b4c77bd6cf9702"
+    sha256 monterey:       "46d72eed54b781426a83898f8c11b0ff0d959bcded8661fd7c9d51a7f2cd1a6d"
+    sha256 x86_64_linux:   "43ee015d261736087b1155907f9d0a5794ede7492c0e8d7bb3c18fd0353b0d04"
   end
 
   depends_on "cmake" => :build
@@ -56,8 +56,17 @@ class Gromacs < Formula
       -DGMX_VERSION_STRING_OF_FORK=#{tap.user}
       -DGMX_INSTALL_LEGACY_API=ON
     ]
+
     # Force SSE2/SSE4.1 for compatibility when building Intel bottles
-    args << "-DGMX_SIMD=#{MacOS.version.requires_sse41? ? "SSE4.1" : "SSE2"}" if Hardware::CPU.intel? && build.bottle?
+    if Hardware::CPU.intel?
+      gmx_simd = if OS.mac? && MacOS.version.requires_sse4?
+        "SSE4.1"
+      else
+        "SSE2"
+      end
+      args << "-DGMX_SIMD=#{gmx_simd}"
+    end
+
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args, *args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"

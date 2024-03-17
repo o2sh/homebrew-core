@@ -1,25 +1,18 @@
 class Mtoc < Formula
   desc "Mach-O to PE/COFF binary converter"
   homepage "https://opensource.apple.com/"
-  url "https://github.com/apple-oss-distributions/cctools/archive/refs/tags/cctools-949.0.1.tar.gz"
-  sha256 "8b2d8dc371a57e42852fa6102efaf324ef004adf86072bf9957e2ac9005326c1"
+  url "https://github.com/apple-oss-distributions/cctools/archive/refs/tags/cctools-1009.3.tar.gz"
+  sha256 "4b92468ca792244131c821b25cb7e8d133e7508178de1b3f4992ba8f08f19dca"
   license "APSL-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1fbf003deb50e3d981f6185f47e9d26cf03ecab59bcec5e6976dd0d9a5e1f75e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "04d75f24e8a8dbf876aa37fddd44139c5177b08348210ef3acacedb5ba8e1dc7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ebb0ffb0ba60ca6d02f0df9919427bf8a2579632e585a2a6ae851c5fbe858cc5"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "935bfd119379ec4d223830db858a2b2279152709a6e78eba895af5859110d22f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "cec74d24e4f0e02404ba18a486fa61a9c5cfd060e07ec131c241681ce9e25f32"
-    sha256 cellar: :any_skip_relocation, ventura:        "bd70c47294b5c9bee72d0e7d0c2d1b8779eefd367a01ce13409cbb1191919798"
-    sha256 cellar: :any_skip_relocation, monterey:       "fd72c247a0ea992a4ab1a645e3a51007331a1bd15fc693e93fc1bd0267f38273"
-    sha256 cellar: :any_skip_relocation, big_sur:        "605abc57733add4e0643d6ffa0186df37e1b4adb5461b9fcdd92d1bfb688f649"
-    sha256 cellar: :any_skip_relocation, catalina:       "2f60b3731066cf662f3d8e9451ce0f94954980100780c9e79b6e8ea066ad8def"
-    sha256 cellar: :any_skip_relocation, mojave:         "c9cba74c5669816e90ae2fa9110be8c9b6b9d1a90ec7d1f246687a3f512e08ab"
-    sha256 cellar: :any_skip_relocation, high_sierra:    "62587e723f38c2a51d3a951dca42df10b9aa1ac67c88d8e286b27e6957edd985"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "64ca5eeec93a13384e7a694319f7efd66031cc3e9a516b2f824dea49cc597f93"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0954ac3e537307cee45ea244b7dcaf768f418e50c3f4dc9c95fa4ad7d59899ae"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "82477e19e4a32c11f53643cb98592079b9b249c55154aab62bc44ebf23353c16"
+    sha256 cellar: :any_skip_relocation, sonoma:         "c24baecad18e92b737f47d25211434e984d0a4eb01d4ffcd7da81c5c70c1a5ae"
+    sha256 cellar: :any_skip_relocation, ventura:        "57dde70448e8595e9940d961fd78fdf7c0902d3cb0e88cfe39e5c60d431b90c1"
+    sha256 cellar: :any_skip_relocation, monterey:       "d4dc48d23f9c700cbe7b56a5b7569c73b80085f817f9fa891fcb5cc7598f43bb"
   end
-
-  deprecate! date: "2022-12-30", because: :unmaintained
 
   depends_on "llvm" => :build
   depends_on :macos
@@ -30,12 +23,24 @@ class Mtoc < Formula
     sha256 "0d20ee119368e30913936dfee51055a1055b96dde835f277099cb7bcd4a34daf"
   end
 
-  def install
-    system "make", "LTO=", "EFITOOLS=efitools", "-C", "libstuff"
-    system "make", "-C", "efitools"
-    system "strip", "-x", "efitools/mtoc.NEW"
+  # Rearrange #include's to avoid macros defining function argument names in
+  # LLVM's headers.
+  patch :DATA
 
-    bin.install "efitools/mtoc.NEW" => "mtoc"
+  def install
+    # error: DT_TOOLCHAIN_DIR cannot be used to evaluate HEADER_SEARCH_PATHS, use TOOLCHAIN_DIR instead
+    inreplace "xcode/libstuff.xcconfig", "${DT_TOOLCHAIN_DIR}/usr/local/include",
+                                         Formula["llvm"].opt_include
+
+    xcodebuild "-arch", Hardware::CPU.arch,
+               "-project", "cctools.xcodeproj",
+               "-scheme", "mtoc",
+               "-configuration", "Release",
+               "-IDEBuildLocationStyle=Custom",
+               "-IDECustomDerivedDataLocation=#{buildpath}",
+               "CONFIGURATION_BUILD_DIR=build/Release",
+               "HEADER_SEARCH_PATHS=#{Formula["llvm"].opt_include} $(HEADER_SEARCH_PATHS)"
+    bin.install "build/Release/mtoc"
     man1.install "man/mtoc.1"
   end
 
@@ -56,3 +61,19 @@ class Mtoc < Formula
     system "#{bin}/mtoc", "#{testpath}/test", "#{testpath}/test.pe"
   end
 end
+
+__END__
+diff --git a/libstuff/lto.c b/libstuff/lto.c
+index ee9fc32..29b986c 100644
+--- a/libstuff/lto.c
++++ b/libstuff/lto.c
+@@ -6,8 +6,8 @@
+ #include <sys/file.h>
+ #include <dlfcn.h>
+ #include <llvm-c/lto.h>
+-#include "stuff/ofile.h"
+ #include "stuff/llvm.h"
++#include "stuff/ofile.h"
+ #include "stuff/lto.h"
+ #include "stuff/allocate.h"
+ #include "stuff/errors.h"

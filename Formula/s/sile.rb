@@ -1,26 +1,44 @@
 class Sile < Formula
   desc "Modern typesetting system inspired by TeX"
   homepage "https://sile-typesetter.org"
-  url "https://github.com/sile-typesetter/sile/releases/download/v0.14.13/sile-0.14.13.tar.xz"
-  sha256 "3d4f587da9e6cabe27010310bbfba70504900af576872a348bc951d0c9ee15c0"
   license "MIT"
+  revision 1
+
+  # TODO: With 0.15 release:
+  # - Remove `cosmo` resource and corresponding references in install
+  # - Switch `lua` dependency to `luajit` and clean up `lua` references
+  stable do
+    url "https://github.com/sile-typesetter/sile/releases/download/v0.14.17/sile-0.14.17.tar.xz"
+    sha256 "7f89bedecedabb5168250ad9dd80c09ed289c8e88c3d0d756d2d1d92ee065e04"
+
+    depends_on "lua"
+  end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "eeb15cdf10649d97cd9f70bc1ee902dd1ed54d043e4d803ccb0f8deea0195c9d"
-    sha256 cellar: :any,                 arm64_ventura:  "3233d650d06781436020ab6af7248bf076585ccd491870a3ce6277a28961eccc"
-    sha256 cellar: :any,                 arm64_monterey: "30e9b001eb8d260cf989b6d7e9ccc27536f090ec54bc7bd429e7042f8172db2b"
-    sha256 cellar: :any,                 sonoma:         "454d3b234f83f49934c8fdb27d15d7669191fdd4217c0f672a79cbebee7da9ae"
-    sha256 cellar: :any,                 ventura:        "757c4e6c4edf3e1ecedaf8a3243af245c8f299daaa21ceeacddba060bc24974c"
-    sha256 cellar: :any,                 monterey:       "112023c0f6de2450a3c3871d376f896dba00aa60411b89020dd8cdceb4513b80"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "99f08b565174d5283378d0d7203d2319d1e5a1242cf524f4ef3070d56e4be5ac"
+    sha256 cellar: :any,                 arm64_sonoma:   "74bee659db3d23a9b2ab54e30d0fad09f19d02fc035987db06219c9c363a4d1f"
+    sha256 cellar: :any,                 arm64_ventura:  "68e0846baebd4fa1d78da92c25f9924a805fde515c844cd1f77db75710568151"
+    sha256 cellar: :any,                 arm64_monterey: "156067d6a65fed6a0543026b924998f3d73ec95cb72388b83e925286206c6785"
+    sha256 cellar: :any,                 sonoma:         "909940767d0810a28b3ea1d705a6bb120d04dd544a10e0e86f97809009ccfa0b"
+    sha256 cellar: :any,                 ventura:        "8ef384866a339dcf0c9c362bca28808e7852b45fca87a3d85e86ad26769526e9"
+    sha256 cellar: :any,                 monterey:       "877ee8ebca792e0b199d05c85bc901515bec45aff0d02a05aa8f4fd37e9d7ad4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "46bcd748249ed2c5a45159c55d2f5133ce630a57f7fc080c9f729f4ead3d13e2"
   end
 
   head do
-    url "https://github.com/sile-typesetter/sile.git", branch: "master"
+    url "https://github.com/sile-typesetter/sile.git", branch: "develop"
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build
+    depends_on "jq" => :build
     depends_on "libtool" => :build
+    depends_on "poppler" => :build
+    depends_on "rust" => :build
+    depends_on "luajit"
+
+    resource "compat53" do
+      url "https://luarocks.org/manifests/lunarmodules/compat53-0.12-1.rockspec"
+      sha256 "880cdad8d1789a0756f2023d2c98f36d94e6d2c1cc507190b4f9883420435746"
+    end
   end
 
   depends_on "pkg-config" => :build
@@ -28,7 +46,6 @@ class Sile < Formula
   depends_on "harfbuzz"
   depends_on "icu4c"
   depends_on "libpng"
-  depends_on "lua"
   depends_on "luarocks"
   depends_on "openssl@3"
 
@@ -58,8 +75,8 @@ class Sile < Formula
   end
 
   resource "lua_cliargs" do
-    url "https://luarocks.org/manifests/amireh/lua_cliargs-3.0-2.src.rock"
-    sha256 "3c79981292aab72dbfba9eb5c006bb37c5f42ee73d7062b15fdd840c00b70d63"
+    url "https://luarocks.org/manifests/lunarmodules/lua_cliargs-3.0.2-1.src.rock"
+    sha256 "a2dfbd3f0236eaf4b0421dbd06a631d92b550335eb263b7283e1161a6e90d92e"
   end
 
   resource "lua-zlib" do
@@ -136,8 +153,15 @@ class Sile < Formula
   end
 
   def install
-    lua = Formula["lua"]
-    luaversion = lua.version.major_minor
+    if build.head?
+      lua = Formula["luajit"]
+      luaversion = "5.1"
+      luainclude = lua.opt_include/"luajit-2.1"
+    else
+      lua = Formula["lua"]
+      luaversion = lua.version.major_minor
+      luainclude = lua.opt_include/"lua"
+    end
     luapath = libexec/"vendor"
 
     paths = %W[
@@ -149,11 +173,12 @@ class Sile < Formula
     ENV["LUA_PATH"] = paths.join(";")
     ENV["LUA_CPATH"] = "#{luapath}/lib/lua/#{luaversion}/?.so"
 
-    ENV.prepend "CPPFLAGS", "-I#{lua.opt_include}/lua"
+    ENV.prepend "CPPFLAGS", "-I#{luainclude}"
     ENV.prepend "LDFLAGS", "-L#{lua.opt_lib}"
 
-    zlib_dir = expat_dir = "#{MacOS.sdk_path_if_needed}/usr"
-    if OS.linux?
+    if OS.mac?
+      zlib_dir = expat_dir = "#{MacOS.sdk_path_if_needed}/usr"
+    else
       zlib_dir = Formula["zlib"].opt_prefix
       expat_dir = Formula["expat"].opt_prefix
     end
@@ -167,6 +192,9 @@ class Sile < Formula
     ]
 
     resources.each do |r|
+      # TODO: Remove this line when `cosmo` resource is removed
+      next if r.name == "cosmo" && build.head?
+
       r.stage do
         rock = Pathname.pwd.children(false).first
         unpack_dir = Utils.safe_popen_read("luarocks", "unpack", rock).split("\n")[-2]
@@ -176,14 +204,16 @@ class Sile < Formula
       end
     end
 
-    system "./bootstrap.sh" if build.head?
-    system "./configure", "FCMATCH=true",
-                          "--disable-debug",
-                          "--disable-dependency-tracking",
-                          "--disable-silent-rules",
-                          "--with-system-luarocks",
-                          "--with-lua=#{prefix}",
-                          "--prefix=#{prefix}"
+    args = %w[
+      FCMATCH=true
+      --disable-silent-rules
+      --with-system-luarocks
+    ]
+    if build.head?
+      args += %w[--with-system-lua-sources --disable-embeded-resources]
+      system "./bootstrap.sh"
+    end
+    system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
 

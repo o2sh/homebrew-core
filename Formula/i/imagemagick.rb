@@ -1,9 +1,10 @@
 class Imagemagick < Formula
   desc "Tools and libraries to manipulate images in many formats"
   homepage "https://imagemagick.org/index.php"
-  url "https://imagemagick.org/archive/releases/ImageMagick-7.1.1-21.tar.xz"
-  sha256 "1e44faec8bf603e8c894a7c039fb1b4bb83dc0c429c79c74577e73ceefe4a238"
+  url "https://imagemagick.org/archive/releases/ImageMagick-7.1.1-29.tar.xz"
+  sha256 "f140465fbeb0b4724cba4394bc6f6fb32715731c1c62572d586f4f1c8b9b0685"
   license "ImageMagick"
+  revision 1
   head "https://github.com/ImageMagick/ImageMagick.git", branch: "main"
 
   livecheck do
@@ -12,13 +13,13 @@ class Imagemagick < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "f826eae9a99fb99ba4b6e7eb5eabb50251c4f227fb67f982ce8f4a65cf2343f2"
-    sha256 arm64_ventura:  "0b9925085168f578f1d18281edd31c17ec73a7918fb43a844b6d42c1827d365c"
-    sha256 arm64_monterey: "60b7f438a4acb070f9a7438aac6605ae42e37d629ce19e0cf5bde0aac91997e2"
-    sha256 sonoma:         "ed0e700ef9438e068e95aebdbd97a6b36558efb65e70590bc19e7e3fa502b646"
-    sha256 ventura:        "49beafb261f113ffffd6471df867a90a33fcf3d381bedda9cce5d898cbc9a4d8"
-    sha256 monterey:       "6e11ef31b72cda5dc198ca4a29299d0adea93b4cddfa3ce9b56e7874cf26b4f8"
-    sha256 x86_64_linux:   "884e7692f21cfe424572f3258b7690d9a87e1422f08a800ad0ae62e406a8aa6b"
+    sha256 arm64_sonoma:   "5270689f4064554efaaf086141377d2085f1ce9be42817a2b6d22a71d0626357"
+    sha256 arm64_ventura:  "7f580faf153ef92c97c9101d81011bf5770cd2e1cf0a380855a5b4cf3a8d3125"
+    sha256 arm64_monterey: "0f177fed856edfc94a75e56e9deff5f1e7a60d83509b33b8fc85171157e1a1d5"
+    sha256 sonoma:         "9d1c37b141e9fb6d60d1c03ab1a3f5375a60df70407080de9ce69b1b7807c799"
+    sha256 ventura:        "431ccc675051214ce827662f441f246a40443b678cb85db1f7e32e5c84176aca"
+    sha256 monterey:       "1e14bc802787ad3ece4f72e4f40a3e7417bffc90fba05cf124af4207cc14494a"
+    sha256 x86_64_linux:   "c072baff3e81f6eb9b7892049ad084feb5526a009ea109b52ee9ef334b2832ef"
   end
 
   depends_on "pkg-config" => :build

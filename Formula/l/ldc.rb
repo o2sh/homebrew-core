@@ -1,8 +1,8 @@
 class Ldc < Formula
   desc "Portable D programming language compiler"
   homepage "https://wiki.dlang.org/LDC"
-  url "https://github.com/ldc-developers/ldc/releases/download/v1.35.0/ldc-1.35.0-src.tar.gz"
-  sha256 "6e296993706c76c093e609139aa0b3f8704355fa0f3756f6758d78d44226dfa0"
+  url "https://github.com/ldc-developers/ldc/releases/download/v1.37.0/ldc-1.37.0-src.tar.gz"
+  sha256 "50e80ae3c436c90637c2c3d40f392dc28b721f7aab3a1e3ca3bf4f9c28dba064"
   license "BSD-3-Clause"
   head "https://github.com/ldc-developers/ldc.git", branch: "master"
 
@@ -12,40 +12,41 @@ class Ldc < Formula
   end
 
   bottle do
-    sha256                               arm64_ventura:  "61a80e7ce250c8fd2753f99a0ae8dc6f08e37e1ba7370acd4529e545ad5bd6a7"
-    sha256                               arm64_monterey: "d8050f0b00b323157701942def9367ddf959993807a019fd1dfb294c0e823cbc"
-    sha256                               ventura:        "2475db77771ad577dba5009020d923eb847a0646c54b94b1386f0816c849b61e"
-    sha256                               monterey:       "d4f10edfad963f9f2faed2d34b366ae19691b702bbced262194e3fe4bac09536"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e5b5aa12699b0c8e640f73c1175924a60cd55b4bf4faa4e60480791e0a59d787"
+    sha256                               arm64_sonoma:   "a6608742b2a6463f7e3679d007c6767178ae37545a5c6b45808afaf168bacaad"
+    sha256                               arm64_ventura:  "a45760c5605c942fa57c120a5e4872340768dbf03231e8ab60e0aff048de199e"
+    sha256                               arm64_monterey: "b4211bd6f90b1e79e56b0c079dcd6df4c9fee40f855893d58135159624ef2749"
+    sha256                               sonoma:         "0c32c34dd6547a57cc9b7e5314a7dd67329a2acce72efcbe11a0a408026a217e"
+    sha256                               ventura:        "1b349064dc40cd433413262044ffd1b6d037a4c790bdf6dad294dc13d041bd7c"
+    sha256                               monterey:       "ae0dd916281e3ce60fa7b4d11f77b38290afb4a8609bb427adac5fc81c3c86a7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c001131cb1b1b7bfc8fe09d00d20e384ab9e636828aa75caaf053b10e59d4c82"
   end
 
   depends_on "cmake" => :build
   depends_on "libconfig" => :build
   depends_on "pkg-config" => :build
-  # llvm@16 build failure report, https://github.com/ldc-developers/ldc/issues/4478
-  depends_on "llvm@15"
+  depends_on "llvm"
 
   uses_from_macos "libxml2" => :build
 
   resource "ldc-bootstrap" do
     on_macos do
       on_arm do
-        url "https://github.com/ldc-developers/ldc/releases/download/v1.28.1/ldc2-1.28.1-osx-arm64.tar.xz"
-        sha256 "9bddeb1b2c277019cf116b2572b5ee1819d9f99fe63602c869ebe42ffb813aed"
+        url "https://github.com/ldc-developers/ldc/releases/download/v1.37.0/ldc2-1.37.0-osx-arm64.tar.xz"
+        sha256 "e8e715e185a4086c0771299b418956a5cfb5759679514eaee55a0c59a84571c7"
       end
       on_intel do
-        url "https://github.com/ldc-developers/ldc/releases/download/v1.28.1/ldc2-1.28.1-osx-x86_64.tar.xz"
-        sha256 "9aa43e84d94378f3865f69b08041331c688e031dd2c5f340eb1f3e30bdea626c"
+        url "https://github.com/ldc-developers/ldc/releases/download/v1.37.0/ldc2-1.37.0-osx-x86_64.tar.xz"
+        sha256 "6cc65f7edc8e753b059062d1652d7eb299a122235bde1cce4878ae1cfae09ae2"
       end
     end
     on_linux do
       on_arm do
-        url "https://github.com/ldc-developers/ldc/releases/download/v1.28.1/ldc2-1.28.1-linux-aarch64.tar.xz"
-        sha256 "158cf484456445d4f59364b6e74881d90ec5fe78956fc62f7f7a4db205670110"
+        url "https://github.com/ldc-developers/ldc/releases/download/v1.37.0/ldc2-1.37.0-linux-aarch64.tar.xz"
+        sha256 "6b1b740002bea1be67f758f9e40c1c629d08903062c6bf83b93af3b13b962c9f"
       end
       on_intel do
-        url "https://github.com/ldc-developers/ldc/releases/download/v1.28.1/ldc2-1.28.1-linux-x86_64.tar.xz"
-        sha256 "0195172c3a18d4eaa15a06193fea295a22e21adbfbcb7037691c630f191bceb2"
+        url "https://github.com/ldc-developers/ldc/releases/download/v1.37.0/ldc2-1.37.0-linux-x86_64.tar.xz"
+        sha256 "55524bf320fcc7ed453c29a07e9a98a1716f278dbab7ba4c156dc2719b4671df"
       end
     end
   end
@@ -60,6 +61,9 @@ class Ldc < Formula
     ENV.cxx11
     # Fix ldc-bootstrap/bin/ldmd2: error while loading shared libraries: libxml2.so.2
     ENV.prepend_path "LD_LIBRARY_PATH", Formula["libxml2"].opt_lib if OS.linux?
+    # Work around LLVM 16+ build failure due to missing -lzstd when linking lldELF
+    # Issue ref: https://github.com/ldc-developers/ldc/issues/4478
+    inreplace "CMakeLists.txt", " -llldELF ", " -llldELF -lzstd "
 
     (buildpath/"ldc-bootstrap").install resource("ldc-bootstrap")
 

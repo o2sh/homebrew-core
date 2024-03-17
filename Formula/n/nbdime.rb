@@ -6,22 +6,22 @@ class Nbdime < Formula
   url "https://files.pythonhosted.org/packages/97/3f/8f926f0eba7b31a3c67a224e747b0e084c643180c7a7500f879f8bf7a09e/nbdime-4.0.1.tar.gz"
   sha256 "f1a760c0b00c1ba9b4945c16ce92577f393fb51d184f351b7685ba6e8502098e"
   license "BSD-3-Clause"
+  revision 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "74306467ff5e6f94c21b708d9bb013eb18d1bde2312240dcd2d993ec3b10751c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6b261b74c40dcd77207b98b6538a302ec68fb2e308f9911c842628f2cdd24a12"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "04cd1d5b2b66a02ebaec901fca8d27b9adcf4b9fa60f91c335faaa9af43032a1"
-    sha256 cellar: :any_skip_relocation, sonoma:         "128ae01e650289c24844f53838849cbf9914fc26cb6567acc18cc39a721c2228"
-    sha256 cellar: :any_skip_relocation, ventura:        "004072f7a3ce7168b8bb62e46d051b6f9b4ca1be77e05af6a4d047adc194c031"
-    sha256 cellar: :any_skip_relocation, monterey:       "80629a210f677425dbfd4ac1563671ae18bc37a6a3d4b5a65445145250a51835"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "07ec505a09e8fd1af0edc3f6bb45df3270c8dc87e5d4e87c2d4e201d90c6a37f"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "75c78618ae9fbd4733fe5eafaede1130230e3b92d845c4213253f0fd4541b011"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8207c7c6d0008537de3d82d823f43526bccac369c269476ddfed07b781ac68ec"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ca1915ae7380c63d040c8aa8e2ce8b01969d1e4ffb8264cf21341ffb4a0d48cf"
+    sha256 cellar: :any_skip_relocation, sonoma:         "84a966b6898254932967b484841b9b8366758c8224a4e9f0151aad105d2292ae"
+    sha256 cellar: :any_skip_relocation, ventura:        "9cef9cc2726e3c82cb6a0f834a0f9b1ddf82ae703219f17a9d0ff0d99001432f"
+    sha256 cellar: :any_skip_relocation, monterey:       "99d1e8223ea9bda35742b472f4d562ff2082878dca5b762c234b50d013422a95"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bac2ef155fe7b1027046870a4743ad12e9ad78f48454fb8e959d5c421e2d1bea"
   end
 
+  depends_on "certifi"
   depends_on "jupyterlab" # only to provide jupyter-server and nbconvert
-  depends_on "python-certifi"
   depends_on "python@3.12"
-  depends_on "pyyaml"
-  depends_on "six"
 
   resource "charset-normalizer" do
     url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
@@ -39,8 +39,8 @@ class Nbdime < Formula
   end
 
   resource "gitpython" do
-    url "https://files.pythonhosted.org/packages/0d/b2/37265877ae607a2cbf9a471f4581dbf5ed13a501b90cb4c773f9ccfff3ea/GitPython-3.1.40.tar.gz"
-    sha256 "22b126e9ffb671fdd0c129796343a02bf67bf2994b35449ffc9321aa755e18a4"
+    url "https://files.pythonhosted.org/packages/8f/12/71a40ffce4aae431c69c45a191e5f03aca2304639264faf5666c2767acc4/GitPython-3.1.42.tar.gz"
+    sha256 "2d99869e0fef71a73cbd242528105af1d6c1b108c60dfabd994bf292f76c3ceb"
   end
 
   resource "jupyter-server-mathjax" do
@@ -59,8 +59,8 @@ class Nbdime < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/36/dd/a6b232f449e1bc71802a5b7950dc3675d32c6dbc2a1bd6d71f065551adb6/urllib3-2.1.0.tar.gz"
-    sha256 "df7aa8afb0148fa78488e7899b2c59b5f4ffcfa82e6c54ccb9dd37c1d7b52d54"
+    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
+    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
   end
 
   def python3

@@ -3,20 +3,22 @@ require "language/node"
 class CubejsCli < Formula
   desc "Cube.js command-line interface"
   homepage "https://cube.dev/"
-  url "https://registry.npmjs.org/cubejs-cli/-/cubejs-cli-0.34.26.tgz"
-  sha256 "6081db6141c6f7602e28ec06d3caca893be52afd855dc268370778a4c61ffa12"
+  url "https://registry.npmjs.org/cubejs-cli/-/cubejs-cli-0.35.0.tgz"
+  sha256 "d778c058410518c6b581ea3d798ce85c42467e70bf3ec5e018696a94ee76b90d"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "d60e887cd1c5f0b241c9365172e77bd847d1ef40007093b1424b7ea3b7a01270"
-    sha256 cellar: :any, arm64_ventura:  "d60e887cd1c5f0b241c9365172e77bd847d1ef40007093b1424b7ea3b7a01270"
-    sha256 cellar: :any, arm64_monterey: "d60e887cd1c5f0b241c9365172e77bd847d1ef40007093b1424b7ea3b7a01270"
-    sha256 cellar: :any, sonoma:         "f0ba6063e42c8f28b1b28d1b542d69a583ef4fdab5d2d08f9400e5907b93350e"
-    sha256 cellar: :any, ventura:        "f0ba6063e42c8f28b1b28d1b542d69a583ef4fdab5d2d08f9400e5907b93350e"
-    sha256 cellar: :any, monterey:       "f0ba6063e42c8f28b1b28d1b542d69a583ef4fdab5d2d08f9400e5907b93350e"
+    sha256 cellar: :any,                 arm64_sonoma:   "6815a0799daf2d1197d556e57ea00537f210b67e1e8d2c7890a728e689458174"
+    sha256 cellar: :any,                 arm64_ventura:  "6815a0799daf2d1197d556e57ea00537f210b67e1e8d2c7890a728e689458174"
+    sha256 cellar: :any,                 arm64_monterey: "6815a0799daf2d1197d556e57ea00537f210b67e1e8d2c7890a728e689458174"
+    sha256 cellar: :any,                 sonoma:         "3daffe790b423e58ca38a697a518479d8c37acffbb865a7f1def9157850d03f6"
+    sha256 cellar: :any,                 ventura:        "3daffe790b423e58ca38a697a518479d8c37acffbb865a7f1def9157850d03f6"
+    sha256 cellar: :any,                 monterey:       "3daffe790b423e58ca38a697a518479d8c37acffbb865a7f1def9157850d03f6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "af35d3c3b10c228e8117dc4a4808055a8af20fe7fcc652e02f1cf27676fe09aa"
   end
 
   depends_on "node"
+  uses_from_macos "zlib"
 
   def install
     system "npm", "install", *Language::Node.std_npm_install_args(libexec)

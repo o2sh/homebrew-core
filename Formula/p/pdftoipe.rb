@@ -4,16 +4,16 @@ class Pdftoipe < Formula
   url "https://github.com/otfried/ipe-tools/archive/refs/tags/v7.2.24.1.tar.gz"
   sha256 "561b18fc2a7ae45c37c5d0390443b37f4585549f09cd7765d856456be24e5dbc"
   license "GPL-2.0-or-later"
-  revision 16
+  revision 19
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "227d9c3807dd77e231d61636683f51b656b04966b5e36bc137c58df35d52230e"
-    sha256 cellar: :any,                 arm64_ventura:  "c1aeadaa563133053a09851b9423dd09a4d79eaa1e28f65ebdff21847f1d7f0e"
-    sha256 cellar: :any,                 arm64_monterey: "e63785c74d313bc1c4c8c92eb01bb9ec64f12914849d53b94f12f18a8b2e1c47"
-    sha256 cellar: :any,                 sonoma:         "cc075bf773ee919b496a3b6884c85c9ee21bb156ee5aae49ccdec2926884b531"
-    sha256 cellar: :any,                 ventura:        "e37f57b03832b091538d658e5e87bc2274f12bb80c4e834a7b108171372e34ca"
-    sha256 cellar: :any,                 monterey:       "8545109b7ddb2a27847df476137b24c66830d869fc869811b6b0934edd5dd2bc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5b66d17be67cc0dd12fd6f412664f4db59d891f4460890ba6fc7e8d08e36a6a0"
+    sha256 cellar: :any,                 arm64_sonoma:   "b88ac0a1188d2370b2207d515836d79aae19dd7694edd9f5ab5b5cb82433f926"
+    sha256 cellar: :any,                 arm64_ventura:  "dfecfa55237fb05bfaec55c8927513bac89c974bf0686a09823055b2a9d50035"
+    sha256 cellar: :any,                 arm64_monterey: "9f23632de98c265639a7be060d846f5d9d3e58db43b6ad880041ece4bfcc916b"
+    sha256 cellar: :any,                 sonoma:         "f7b33e16b80840ae730a4e03a9a9ee4ae6a714a6ecc7db78896488530da27035"
+    sha256 cellar: :any,                 ventura:        "be84c146ae7093b96a8c34587c9d8e7a0b15dadda6be2253256788dab3e379ed"
+    sha256 cellar: :any,                 monterey:       "285180cb8c024bbb56187e932928667b1aa55e364cb5cd5f775a4b43ea5f3550"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "142e1254b96d49d21bfab29d06b9b83b5543e71e3b9aad78111f4fb196fe381d"
   end
 
   depends_on "pkg-config" => :build

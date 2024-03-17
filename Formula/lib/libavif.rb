@@ -1,18 +1,18 @@
 class Libavif < Formula
   desc "Library for encoding and decoding .avif files"
   homepage "https://github.com/AOMediaCodec/libavif"
-  url "https://github.com/AOMediaCodec/libavif/archive/refs/tags/v1.0.2.tar.gz"
-  sha256 "de8bf79488c5b523b77358df8b85ae69c3078e6b3f1636fc1f313f952269ad20"
+  url "https://github.com/AOMediaCodec/libavif/archive/refs/tags/v1.0.4.tar.gz"
+  sha256 "dc56708c83a4b934a8af2b78f67f866ba2fb568605c7cf94312acf51ee57d146"
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "9498e1c4b5fd9bb02da2b90f466feb5d78b45a569c6e553b1b12daba8571d79d"
-    sha256 cellar: :any,                 arm64_ventura:  "abab3d91c1501bab1da3555e53276b5abb860680899919347321b2a2af4eb452"
-    sha256 cellar: :any,                 arm64_monterey: "6e06e710e9d263412d3582616ab40bc8154fc8daec77ca5984d192ce890021b5"
-    sha256 cellar: :any,                 sonoma:         "5d5c5d23f5e474ef2a02c11e9906cf93f6b88207b5ec6e72432267d265098af8"
-    sha256 cellar: :any,                 ventura:        "c3cb1feee44f42cad08ae274782eb47ca171a4121e94dbc6310e00043eb44145"
-    sha256 cellar: :any,                 monterey:       "5a73d0d5e70fd0ffcc0ac84b35fe9e1054550bbb584eb890c4b62996eb195352"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "644870d2e4af9fff6408f8ef23cb58573aa377bb8ef2e6d4b2381cb9d42e9096"
+    sha256 cellar: :any,                 arm64_sonoma:   "9008bf76467537b799707b9f01c1129e64619787f8c198b0ce530f3656479b4b"
+    sha256 cellar: :any,                 arm64_ventura:  "977e29672df4024348ace66dd3edde30e9dae814e853495ab71952f7235709b5"
+    sha256 cellar: :any,                 arm64_monterey: "318bc676dd0a6ce9909989d6de3bbe4384fa896be79836fd4732dfb6751b30d9"
+    sha256 cellar: :any,                 sonoma:         "793d7b8f74e2da2cfd2cb8d962f19ef9f86166b0d94725a229306ce5c1f53bb4"
+    sha256 cellar: :any,                 ventura:        "ea4a0c3cd59b1464c0386028044e4b8e14f222a0a26b8507bf462819a9f05eeb"
+    sha256 cellar: :any,                 monterey:       "79bd420212737f7dcd74fbb75ed52e3ceed73dafad61b2fc1201e5ff2630c706"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "88c480ade965017a0f73774b2517df7579fd06dc9495db9d08f0d2b4faf2272c"
   end
 
   depends_on "cmake" => :build

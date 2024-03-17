@@ -1,20 +1,23 @@
 class OktaAwsCli < Formula
   desc "Okta federated identity for AWS CLI"
   homepage "https://github.com/okta/okta-aws-cli"
-  url "https://github.com/okta/okta-aws-cli/archive/refs/tags/v1.2.2.tar.gz"
-  sha256 "f617b105e885fc8dc53accd7f3f8a2c3165b28b52abfbe7151e8353ad7eb427b"
+  url "https://github.com/okta/okta-aws-cli/archive/refs/tags/v2.1.2.tar.gz"
+  sha256 "e1d35e3007bac39fbedc436475712fca03706429bd34a1cfad4bdbd004bab81a"
   license "Apache-2.0"
 
+  livecheck do
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
+
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e4756617d93cac3f9184481c596ad50287bdfa6592c1c501b3e9744c5c7438bc"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "09e8f3a5844c9ed873d26882f252ecb0aecdd9a26e1db5808016561de842314b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e8e9895b27c279036cdd3dd86e0575dca69383dc4989b0d65b74ea7f074f7877"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "595bd50888896385ef6bef657ae3d34fa01fc677d6b4c03180d20d70b1215cfa"
-    sha256 cellar: :any_skip_relocation, sonoma:         "88c4cef1906820b02cd2d0981c3e96f329d58c9f29bc859a8b3568dd944f55fa"
-    sha256 cellar: :any_skip_relocation, ventura:        "49f51303fb12d58e7e3e43819c06a433686cfa65a7a6a223c1f76bf1ca48f9bc"
-    sha256 cellar: :any_skip_relocation, monterey:       "0b6af37bc468cca4781846501d4eff8b23fdaab56e0be4acc9281218c0e627fb"
-    sha256 cellar: :any_skip_relocation, big_sur:        "a8da19e76a30cf113bc1002a21f58a86e83e593a7bd2f127d6ddce4f306a6343"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bba97643b58fc351e51b8ca759e6b5fd76a12d9c2c2f5fba2b3b5e83e0ade055"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "591a478cbd614c61a339df5d2c878bbbc0fcbfa9741e504af62e8bd25fe66b4f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d15afe899fd53be246196256e2bb0e82b1e26a59fc302e9c947b31f1c1da1f99"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "864fa9aa2638ba1f9eb1b691468b83e944ed9f5d26bd9443c253c8da744576e0"
+    sha256 cellar: :any_skip_relocation, sonoma:         "ba16d61a221c06c264f70ecd99e5117d5a9caf0912efe5ce0b5cf594d9dd1951"
+    sha256 cellar: :any_skip_relocation, ventura:        "62ee7c6980c206a4484814495c892542f2dbdbcedb5041a31d5482655e6d303d"
+    sha256 cellar: :any_skip_relocation, monterey:       "40d2da6341ccb68ea1c6d6f8da088e8766022cad2c893ce156cb671b5e08d1ef"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2bf5b2a0e519e879ef90a5f9131717a3dbec4d5bd94af23accf26f920831c102"
   end
 
   depends_on "go" => :build

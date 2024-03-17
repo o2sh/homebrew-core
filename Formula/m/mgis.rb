@@ -1,18 +1,20 @@
 class Mgis < Formula
   desc "Provide tools to handle MFront generic interface behaviours"
   homepage "https://thelfer.github.io/mgis/web/index.html"
-  url "https://github.com/thelfer/MFrontGenericInterfaceSupport/archive/refs/tags/MFrontGenericInterfaceSupport-2.1.tar.gz"
-  sha256 "f5b556aab130da0c423f395fe4c35d6bf509dd8fc958242f2e37ea788464aea9"
+  url "https://github.com/thelfer/MFrontGenericInterfaceSupport/archive/refs/tags/MFrontGenericInterfaceSupport-2.2.tar.gz"
+  sha256 "b3776d7b3a534ca626525a42b97665f7660ae2b28ea57b3f53fd7e8538da1ceb"
   license any_of: ["LGPL-3.0-only", "CECILL-1.0"]
-  revision 2
+  revision 1
   head "https://github.com/thelfer/MFrontGenericInterfaceSupport.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "71742b6725218f4d2f6ff0aebdbfc040f3edc83d61112dd66fd67fe8a0db437a"
-    sha256 cellar: :any,                 arm64_monterey: "703fa4d895ac3c7acca1d11625be5a0aa26da3053933f19963a0fcb40ed29fb2"
-    sha256 cellar: :any,                 ventura:        "4da2f6342a60e9c71353875acffd6a21bb92720d7a6402b1fc283163129f3936"
-    sha256 cellar: :any,                 monterey:       "7b9f309d493cfbd7fdf1218b5de31a2f9fc341335ca79b1e46c8ec8e8ed17ba3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6556e3e21bb4de6a483824c9baa874ec80511d0e95058a4312adb15238d38c2f"
+    sha256 cellar: :any,                 arm64_sonoma:   "2bd24d25f6466447e6bde81d60d882ffe2c628afe20dba8e79bdd7cb97ec61bf"
+    sha256 cellar: :any,                 arm64_ventura:  "3e5fa82b99d16d95cc4cb14bb3693a98d8062fa40b1d5304c14c2244dd94b55a"
+    sha256 cellar: :any,                 arm64_monterey: "09af9fd2b65e9b0a7973675a5dd19432e3e06a383a7982cd20a61e08816f77b1"
+    sha256 cellar: :any,                 sonoma:         "d3cd13a7f563f1f03d93df3ba8dc5f35b07cdade9a27db2f577d28faa0577ca4"
+    sha256 cellar: :any,                 ventura:        "a824eef673ef10b82c7da248878d986f947b6fc46951a9ac3e17d5d8caf414c4"
+    sha256 cellar: :any,                 monterey:       "5a80fcac0d29d5080dd5ae89c7d5d9bef4757bf817dee35f2f1c4cd319137b95"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f54728d7b513b611cbe8e023fc9de26193c7f2bf09f818e0aef03f63afbeb966"
   end
 
   depends_on "cmake" => :build
@@ -26,6 +28,10 @@ class Mgis < Formula
   end
 
   def install
+    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
+    # libunwind due to it being present in a library search path.
+    ENV.remove "HOMEBREW_LIBRARY_PATHS", Formula["llvm"].opt_lib if DevelopmentTools.clang_build_version >= 1500
+
     args = [
       "-Denable-portable-build=ON",
       "-Denable-website=OFF",

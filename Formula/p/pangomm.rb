@@ -1,26 +1,23 @@
 class Pangomm < Formula
   desc "C++ interface to Pango"
   homepage "https://www.pango.org/"
-  url "https://download.gnome.org/sources/pangomm/2.50/pangomm-2.50.1.tar.xz"
-  sha256 "ccc9923413e408c2bff637df663248327d72822f11e394b423e1c5652b7d9214"
+  url "https://download.gnome.org/sources/pangomm/2.52/pangomm-2.52.0.tar.xz"
+  sha256 "34a134126a6484ff12f774358c36ecc44d0e9df094e1b83796d9774bb7d24947"
   license "LGPL-2.1-only"
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "9c50c1b4379363deed56bf0926af5238935a9aa9e015a829dc74156afe63cc43"
-    sha256 cellar: :any, arm64_ventura:  "240d818a0f389065c06f1b6cb55a7a65b28181717dd4ee5017d93bf7e8575608"
-    sha256 cellar: :any, arm64_monterey: "cd508f02963834ff60dc5b02ccd2f6516373c6f63698b153bae6f5521b6fbe56"
-    sha256 cellar: :any, arm64_big_sur:  "8133d833f805dcf72e25e766fe02feecd52ba937bc5ea6fd9a49cedad914fc41"
-    sha256 cellar: :any, sonoma:         "4c143bd61e4c1246e6a711579e4947e67609c42518d700018ed745425ec87b60"
-    sha256 cellar: :any, ventura:        "3243026755b4a058991bb6bcdbbe8a2504255e3c324eafc2c55a538c2ac6e7d8"
-    sha256 cellar: :any, monterey:       "e460a123e6a56d4ceea894435fa9ac65acc3f9875708f9d24b0f5a75e11d43b2"
-    sha256 cellar: :any, big_sur:        "9044bfea7d53b7916e7e5ba23da64b71b4a3b01e505553af8b07760a889b4f47"
-    sha256 cellar: :any, catalina:       "72142eb96fbd86564dabeab768e93a0e7b271c328a25ed9288eb129779e983d1"
-    sha256               x86_64_linux:   "50fbc4de8c8a95af450e0ee638e02e8a20ac5ace7cb15a2d334143b1bade658d"
+    sha256 cellar: :any, arm64_sonoma:   "c190b7406547e70fc3f79e34f9e66c677b8be641ec52a76139755ec45d2399bf"
+    sha256 cellar: :any, arm64_ventura:  "1cba18840fc171623c4ee6aaf42f15d8276b99a6c82616091f6a4061ad05a337"
+    sha256 cellar: :any, arm64_monterey: "23f8b644129de1ce573ad7bddec586a5e4103aedcc1ecad375318ff5215b5ae6"
+    sha256 cellar: :any, sonoma:         "393e4b9ed7dfdfd4276478bbad7aaac533857277ef3e2f48b5bf5f500a0b095f"
+    sha256 cellar: :any, ventura:        "a9947704abbdd99b3a528f03a4f5c7c1e89081c6f0c50e470c437d38e2fbc0d0"
+    sha256 cellar: :any, monterey:       "736bd3839ce9b1d7e3206acdbb89f7fa2cbc63efda141026518017303b2af91e"
+    sha256               x86_64_linux:   "54f2c185939b1aebe91b3f0f598076435db1bf863ed6b093736746412fdce4d9"
   end
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkg-config" => [:build, :test]
   depends_on "cairomm"
   depends_on "glibmm"
   depends_on "pango"
@@ -28,13 +25,9 @@ class Pangomm < Formula
   fails_with gcc: "5"
 
   def install
-    ENV.cxx11
-
-    mkdir "build" do
-      system "meson", *std_meson_args, ".."
-      system "ninja"
-      system "ninja", "install"
-    end
+    system "meson", "setup", "build", *std_meson_args
+    system "meson", "compile", "-C", "build", "--verbose"
+    system "meson", "install", "-C", "build"
   end
 
   test do
@@ -46,59 +39,9 @@ class Pangomm < Formula
         return 0;
       }
     EOS
-    cairo = Formula["cairo"]
-    cairomm = Formula["cairomm"]
-    fontconfig = Formula["fontconfig"]
-    freetype = Formula["freetype"]
-    gettext = Formula["gettext"]
-    glib = Formula["glib"]
-    glibmm = Formula["glibmm"]
-    harfbuzz = Formula["harfbuzz"]
-    libpng = Formula["libpng"]
-    libsigcxx = Formula["libsigc++"]
-    pango = Formula["pango"]
-    pixman = Formula["pixman"]
-    flags = %W[
-      -I#{cairo.opt_include}/cairo
-      -I#{cairomm.opt_include}/cairomm-1.16
-      -I#{cairomm.opt_lib}/cairomm-1.16/include
-      -I#{fontconfig.opt_include}
-      -I#{freetype.opt_include}/freetype2
-      -I#{gettext.opt_include}
-      -I#{glib.opt_include}/glib-2.0
-      -I#{glib.opt_lib}/glib-2.0/include
-      -I#{glibmm.opt_include}/giomm-2.68
-      -I#{glibmm.opt_include}/glibmm-2.68
-      -I#{glibmm.opt_lib}/giomm-2.68/include
-      -I#{glibmm.opt_lib}/glibmm-2.68/include
-      -I#{harfbuzz.opt_include}/harfbuzz
-      -I#{include}/pangomm-2.48
-      -I#{libpng.opt_include}/libpng16
-      -I#{libsigcxx.opt_include}/sigc++-3.0
-      -I#{libsigcxx.opt_lib}/sigc++-3.0/include
-      -I#{lib}/pangomm-2.48/include
-      -I#{pango.opt_include}/pango-1.0
-      -I#{pixman.opt_include}/pixman-1
-      -L#{cairo.opt_lib}
-      -L#{cairomm.opt_lib}
-      -L#{gettext.opt_lib}
-      -L#{glib.opt_lib}
-      -L#{glibmm.opt_lib}
-      -L#{libsigcxx.opt_lib}
-      -L#{lib}
-      -L#{pango.opt_lib}
-      -lcairo
-      -lcairomm-1.16
-      -lglib-2.0
-      -lglibmm-2.68
-      -lgobject-2.0
-      -lpango-1.0
-      -lpangocairo-1.0
-      -lpangomm-2.48
-      -lsigc-3.0
-    ]
-    flags << "-lintl" if OS.mac?
-    system ENV.cxx, "-std=c++17", "test.cpp", "-o", "test", *flags
+
+    pkg_config_cflags = shell_output("pkg-config --cflags --libs pangomm-2.48").chomp.split
+    system ENV.cxx, "-std=c++17", "test.cpp", *pkg_config_cflags, "-o", "test"
     system "./test"
   end
 end

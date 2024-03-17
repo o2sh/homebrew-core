@@ -4,6 +4,7 @@ class Graphicsmagick < Formula
   url "https://downloads.sourceforge.net/project/graphicsmagick/graphicsmagick/1.3.42/GraphicsMagick-1.3.42.tar.xz"
   sha256 "484fccfd2b2faf6c2ba9151469ece5072bcb91ba4ed73e75ed3d8e46c759d557"
   license "MIT"
+  revision 2
   head "http://hg.code.sf.net/p/graphicsmagick/code", using: :hg
 
   livecheck do
@@ -11,15 +12,13 @@ class Graphicsmagick < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "20cfcce4373d2e2bfc32537b8bd347f323321df60dbf647c86903de5ffcf52f6"
-    sha256 arm64_ventura:  "1ec94cdffcbfd37a3a3eeb6866923057cc84bcec3bd58f941c113bdabb233e5b"
-    sha256 arm64_monterey: "b6b182bb4d7325d802322eeca0f42352b194c9edb23e295827957d67119460d1"
-    sha256 arm64_big_sur:  "6e7c652dad9bc24967f041d6437990a56b4e7b9741c9f11702fb4d67c22d6103"
-    sha256 sonoma:         "63e670f5859d21cef1e61e5118f94d31e8fdcb3e7beb9ff83f9e3eaf32c6b4c4"
-    sha256 ventura:        "d54d90d88dc4a69dd55c5e5ead34ec679cf5802fcb9346519c46142d36908169"
-    sha256 monterey:       "e4c6162c23798a781099a760f8feea4ca1cc94335caaaffce5bdf6171a317910"
-    sha256 big_sur:        "0d9a8cab31c155b1b5525508f610a3ccd5881ebd75a740ac7ba80ae84dfec7b6"
-    sha256 x86_64_linux:   "6a0e18561264f883a58f8ed373d979900a6d2c348436b1c8d112f2aa4eda405c"
+    sha256 arm64_sonoma:   "0e381f4e58aa3b359e8e67b1c498074c1e99f414f16b3d72b3e5c0a8e8768790"
+    sha256 arm64_ventura:  "25962c0477d4d5a586677f071f025ec784bbd97f04d7cfb6d47af9d2d8b66c33"
+    sha256 arm64_monterey: "ff7defdce2e26469cdd7fe3eb2a9e1adb6aa7727fbc0f123aef0ef00590e2758"
+    sha256 sonoma:         "96a3ec593c14be38d54c6112fd2eb61494a67895cc1ede13643b954851de2817"
+    sha256 ventura:        "48c7e7f1f67f2dba081e48ad378e84e2a0b92ca720750965a3b81fb64596d580"
+    sha256 monterey:       "39c7e04ca7fd33dc55d7de30efd082090262f149a496a4e34efdab12281d56ef"
+    sha256 x86_64_linux:   "e26fa2ea455f009f9c5e886f04036b6098811c3a023936fc23f60d86f713d1fe"
   end
 
   depends_on "pkg-config" => :build

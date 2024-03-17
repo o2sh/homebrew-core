@@ -3,19 +3,21 @@ require "language/node"
 class Cdktf < Formula
   desc "Cloud Development Kit for Terraform"
   homepage "https://github.com/hashicorp/terraform-cdk"
-  url "https://registry.npmjs.org/cdktf-cli/-/cdktf-cli-0.19.1.tgz"
-  sha256 "8a386e5b79c506e5db82ef7609072cfca1743c60be5300370bb0e7e5d0d04a36"
+  url "https://registry.npmjs.org/cdktf-cli/-/cdktf-cli-0.20.4.tgz"
+  sha256 "a2e5c935958828154ce736888a4259a5e782130a6cc628baab91050686c2fe42"
   license "MPL-2.0"
 
   bottle do
-    sha256                               arm64_sonoma:   "22c055bd09170fadcab28dc955d00c2c5907fbf5d8a2c2065c2d1642a3293e82"
-    sha256                               arm64_ventura:  "01aec9f54111211b0b6a0184df572c72e5dfc3564dacdc25e9129b6aaeb77cb9"
-    sha256                               arm64_monterey: "6745be585003d8dd9f6c066bbde182db57c1d16c7a7866eeb7b4e72f9bc1bf83"
-    sha256                               sonoma:         "cd6f3046ed8c8466158ebab52e0089bd702ac6ca819f611634f8be1facdde208"
-    sha256                               ventura:        "2c809780d629fb81ebc688b2e0e139d0aec63819941460bd26c43e0e777001d9"
-    sha256                               monterey:       "d5216d1f0031277df70ca8aa61c617220d4cc578a25642e4b00eb6177aea8b24"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e22fcaefd4f00aab5ab40e1734bd88fcfdcd1df712ce2a5151b54ade1754b816"
+    sha256                               arm64_sonoma:   "c6c3fd92fa6fb45295ee9753873e04d226ddd633dcb639eb89d18ebd4a375caf"
+    sha256                               arm64_ventura:  "a8292a25b7d45df4ba791f40872165dee2785efe0d753a1d9888e742fab9250c"
+    sha256                               arm64_monterey: "0e511a319c8ee3169b04f1305945c5307aee19bbad9f2890cc33fa35de9cfd5c"
+    sha256                               sonoma:         "ab6caaa54e6917839f4ae365d69981097f2e2037d2e8169538a4220d9aefb29d"
+    sha256                               ventura:        "a492ddf71a3f462cc5ad66e991c28b0135073b37c144cd679ae4e1f45cc3f87a"
+    sha256                               monterey:       "d303976fa24b5cd3ff52542fd6e94ff11c0515398c2e9b285c9b67f754883848"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3672caff49c3eedaa4014e4da69d7bc198d68344000473d45305716352e4fc00"
   end
+
+  deprecate! date: "2024-03-13", because: "uses soon-to-be deprecated terraform"
 
   depends_on "node"
   depends_on "terraform"

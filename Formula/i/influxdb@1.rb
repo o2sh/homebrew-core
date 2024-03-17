@@ -1,8 +1,9 @@
 class InfluxdbAT1 < Formula
   desc "Time series, events, and metrics database"
   homepage "https://influxdata.com/time-series-platform/influxdb/"
-  url "https://github.com/influxdata/influxdb/archive/refs/tags/v1.11.1.tar.gz"
-  sha256 "a2da74178246350d6155704e72ae6b22cbbc735c361e40715bd2eda88caf0e82"
+  url "https://github.com/influxdata/influxdb/archive/refs/tags/v1.11.5.tar.gz"
+  sha256 "11942f7f4637f80565832c41455dfae29ed78f283bffc0ca48bd7843535e8bd5"
+  # 1.x is using MIT license while 1.x and 3.x is using dual license (Apache-2.0/MIT)
   license "MIT"
 
   livecheck do
@@ -11,13 +12,13 @@ class InfluxdbAT1 < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "50e049b32884696b9fb9132b48768c898bc6408acd46bb3ed5a512a1de269237"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7b9f8dc68c1bb3764a4312978b0b5e844694b79fddb16e0a90455b36a0a3a285"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a03db3bc1a314b6fad002e754bffdd6c9c82341d419e072c32b6462b8bda6454"
-    sha256 cellar: :any_skip_relocation, ventura:        "53598b6b5b89528e82dec5301b4c0cadcb3c3377f652faaa97da0377aac9e851"
-    sha256 cellar: :any_skip_relocation, monterey:       "f0d3a114acc66421bef6ee1e76ca8c3a51985a4a679b6f8b458a63428224de02"
-    sha256 cellar: :any_skip_relocation, big_sur:        "1a86835719b344cce7dd2ba54adfd3963c199a71109d5301531fd9621d13bf8b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cfe3cd9385316a6fb83d135cb3123d42f377d9bdb96348dc12a7e01ada90aff7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "75be190d61c02849845df24418dc2a48bc595cabc45be5925ca5ea48147f0761"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8fe4ae9072404bab4a67d7e9f2574ee32c71eab5f7d0b709f07261859c0d55bb"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "66ef665e64323d706fd7c65d7fbc7e55a418e9434577f2ead8b36353d45a790d"
+    sha256 cellar: :any_skip_relocation, sonoma:         "7ac23ac260f7b87440c27ffea82063d3eb4a768c7a6c9e8e87a78d8d864e118c"
+    sha256 cellar: :any_skip_relocation, ventura:        "88ba046b54e3bd0d304cbd886f357c47b0ada9b4b0529d63705358b99cfe4881"
+    sha256 cellar: :any_skip_relocation, monterey:       "b8146e1164a56daf0f31e97c49fb08df7d162c6e350b20aae2ffbae04c4fdfbf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "94f3c5e28cb587a1ae4c5e0cae2634f2fe7546d5c3ba4075fd8e0a39cf09755e"
   end
 
   keg_only :versioned_formula
@@ -44,7 +45,7 @@ class InfluxdbAT1 < Formula
     ldflags = "-s -w -X main.version=#{version}"
 
     %w[influxd influx influx_tools influx_inspect].each do |f|
-      system "go", "build", *std_go_args(output: bin/f, ldflags: ldflags), "./cmd/#{f}"
+      system "go", "build", *std_go_args(output: bin/f, ldflags:), "./cmd/#{f}"
     end
 
     etc.install "etc/config.sample.toml" => "influxdb.conf"

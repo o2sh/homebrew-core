@@ -1,18 +1,19 @@
 class SbomTool < Formula
   desc "Scalable and enterprise ready tool to create SBOMs for any variety of artifacts"
   homepage "https://github.com/microsoft/sbom-tool"
-  url "https://github.com/microsoft/sbom-tool/archive/refs/tags/v2.0.0.tar.gz"
-  sha256 "2ee856c667d14f2b6a7f4081b330a8d9e9b0af18923aebacc88ed092736d7bd6"
+  url "https://github.com/microsoft/sbom-tool/archive/refs/tags/v2.2.4.tar.gz"
+  sha256 "7f05d7d456c9c6cf5bea442c4a2b73d8c956d6f8e0c0d949fb7fa2230007532b"
   license "MIT"
   head "https://github.com/microsoft/sbom-tool.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "417e819cd53ff31758904737aa81b97d0f7cb878ec2e80b252565bfe957753a0"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8daa09c8de09315e51aaa0f5a0f12e79ea8aa9dc9e8f40ede2c1bde23b0b7023"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c2d20c1d826d5defeabc4bd50fbe283f955273a71d513c60e1ef60199de64215"
-    sha256 cellar: :any_skip_relocation, ventura:        "89bfb2c1c1dab4ae1415044ba517a14f332d972b3757e5acb553f96d44699548"
-    sha256 cellar: :any_skip_relocation, monterey:       "feeddfa1702f211d8032be29b88cb967f4e591353ab3e6532aece9e718d0b2d4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "75e6de33fc2565f445539b9023f1c427770802835db1d4c8ead23d6023478157"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "26f8938e5458ff6eea4a9ece59faa15ddad3d90a95b2558f29a4665865c680c4"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8f828629e383fb4df9e0d62f36a577ce08d9253560d253c260d67a82435de2c1"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a14e772173a9e9de39d7ff993111a02d6d081556fc12fc43f7310ce1ce8a2b62"
+    sha256 cellar: :any_skip_relocation, sonoma:         "8e76331fe972b37484507ffbb7e574bcfc7999534cf75d6264ef91590520becd"
+    sha256 cellar: :any_skip_relocation, ventura:        "7e9d584fd6cf49f536e47d8335fdc4040aa360aea40643120bd0463363eb360a"
+    sha256 cellar: :any_skip_relocation, monterey:       "f5fcbf030c10ba6c446d042758309e466e8f71d9039b8fc3e3fb5872b5ced75b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "59bf7165dafd2f9f3b5114c590ec5672708b2173563216015f41d1c076fe5c8c"
   end
 
   depends_on "dotnet"

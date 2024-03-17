@@ -3,18 +3,18 @@ require "language/node"
 class BitwardenCli < Formula
   desc "Secure and free password manager for all of your devices"
   homepage "https://bitwarden.com/"
-  url "https://registry.npmjs.org/@bitwarden/cli/-/cli-2023.10.0.tgz"
-  sha256 "def0cfbff9ef4ed86d45b403b7522287de02494d8358677166876a80e81d9453"
+  url "https://registry.npmjs.org/@bitwarden/cli/-/cli-2024.2.1.tgz"
+  sha256 "cdcf04bfb3273d6a0b70e88ace52d4f1ed42cc70a464f11838b8ea7b5a8e3d7f"
   license "GPL-3.0-only"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d02842def5976ed62999f57ca52a1d565f5a806d2a51fa942ce48b5523b42e93"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "864f97bb84184c94f91628792468aa78e777781ff7c0cf7d106c3c392211ee2b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8a76a847a0219c379774fd44652737c983be5d900243d3056027f33cb42422fb"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c83e5807ca68ecd4305535673074a27a5c260018c0ac30f660868dc3cbab767e"
-    sha256 cellar: :any_skip_relocation, ventura:        "c7a632839afd68c63701478a3d4340f92a46d22ad76707a179d156f8c05a9532"
-    sha256 cellar: :any_skip_relocation, monterey:       "70a557cfe6c133c09fc2d7de0532c4f9b16597ca28f4bb238c5295738cb2df70"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "80802470068d84f167ea087c81e564c3fdac958fb22d4dcc946880a856c55a15"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ebe7b536c3d150b2a7ea2bec82e4810bccfec95674789f4c7e4d7ccca8e8d7b2"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1dd58f0ce41c8007c0dd62cd04dc8b7bc25ec6bfb7b644adab2ae44dad5d82f3"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c152c5ede553be38ddc5119da4afd36f40ec83bc1d35c9150060161e2fe516a6"
+    sha256 cellar: :any_skip_relocation, sonoma:         "f13820a2054d3ae3322dcfcc1776f91d9ecd1676d225867fd9924219bb3efb61"
+    sha256 cellar: :any_skip_relocation, ventura:        "57d4db95635fc9c41bf0d26e0909a9b13e5251b2426b03f394bc841709d1cbb9"
+    sha256 cellar: :any_skip_relocation, monterey:       "45f2d7f684099ea4c36c9c465be4e624c46f4e85f3de4f0fd259bdf2fcb69f10"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4c11f7fe11fd61c149cf0ff00c65df561dbb3e6a63815a6d010261381b56e793"
   end
 
   depends_on "node"
@@ -23,7 +23,10 @@ class BitwardenCli < Formula
     system "npm", "install", *Language::Node.std_npm_install_args(libexec)
     bin.install_symlink Dir[libexec/"bin/*"]
 
-    generate_completions_from_executable(bin/"bw", "completion", shell_parameter_format: :arg, shells: [:zsh])
+    generate_completions_from_executable(
+      bin/"bw", "completion",
+      base_name: "bw", shell_parameter_format: :arg, shells: [:zsh]
+    )
   end
 
   test do

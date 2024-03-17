@@ -2,11 +2,11 @@ class Couchdb < Formula
   desc "Apache CouchDB database server"
   homepage "https://couchdb.apache.org/"
   # TODO: Check if we can use unversioned `erlang` at version bump.
-  url "https://www.apache.org/dyn/closer.lua?path=couchdb/source/3.3.2/apache-couchdb-3.3.2.tar.gz"
-  mirror "https://archive.apache.org/dist/couchdb/source/3.3.2/apache-couchdb-3.3.2.tar.gz"
-  sha256 "3d6823d42d10cf0d4f86c9c4fe59c9932c89d68578fcb6c4b4278dc769308daa"
+  url "https://www.apache.org/dyn/closer.lua?path=couchdb/source/3.3.3/apache-couchdb-3.3.3.tar.gz"
+  mirror "https://archive.apache.org/dist/couchdb/source/3.3.3/apache-couchdb-3.3.3.tar.gz"
+  sha256 "7a2007b5f673d4be22a25c9a111d9066919d872ddb9135a7dcec0122299bd39e"
   license "Apache-2.0"
-  revision 3
+  revision 1
 
   livecheck do
     url :homepage
@@ -14,14 +14,21 @@ class Couchdb < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "b90a5873d9b75314e113d434723fc78db182888fe7242026ac9d9a376e47e02c"
-    sha256 cellar: :any,                 arm64_ventura:  "abeaffd7a14c30a3f006a08b8948cf24b33a017037b1d331fb5d8375aadb518c"
-    sha256 cellar: :any,                 arm64_monterey: "14312031254ffe2b155c2b062d473dee60a25aae0d10886b70d36d7d5df88d1c"
-    sha256 cellar: :any,                 sonoma:         "66f99c4c62f269589ee9fc59c7cc7ea410051af18730a078449f20c556bef1dd"
-    sha256 cellar: :any,                 ventura:        "1ddd27752cd1a79e08383e9fe080d0e4da38b63d5a23aba6af426afb02e37b71"
-    sha256 cellar: :any,                 monterey:       "d12f6761c30f1b5a0ca8c750cd7fc4f4220a5758a89f79534db5559c73334040"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8353237aacf263acce6dc2044e6e652edbc03461c957d214aa258059cc2b89b1"
+    sha256 cellar: :any,                 arm64_sonoma:   "d58fc777fa9ff9f6de43919dfa9c024d5ce850b71f2ca085b6168375ffbfdd80"
+    sha256 cellar: :any,                 arm64_ventura:  "82fd98b83ab7a1e703036c448d49b79b0d39e52656905b909e4ba75f043cb452"
+    sha256 cellar: :any,                 arm64_monterey: "efcb725d281accb0b97617543a9a0deade589ad9fa9e44b00a7a718f732f96ee"
+    sha256 cellar: :any,                 sonoma:         "be25994ef1cdc49419c6d00876e60aa1c8ae0b4fa457081d399511b2d8d66d46"
+    sha256 cellar: :any,                 ventura:        "cc8e6a16e23b87de62056a8a2bb1a789c9dbc188afb41f9c2040b1799afca213"
+    sha256 cellar: :any,                 monterey:       "ce55bb241a7956e8fd171eb3300bbb5e30a2e9041bc04fab07ceffaab73c3a03"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b4a5418e235e9d12abab2ddba6059466bb49bdcaed44cc30ef0c68a5f8322496"
   end
+
+  # Can undeprecate if:
+  # * QuickJS support is added: https://github.com/apache/couchdb/issues/4448
+  # * Spidermonkey 115 support is added
+  #
+  # Issue ref: https://github.com/apache/couchdb/issues/4825
+  deprecate! date: "2024-02-22", because: "uses deprecated `spidermonkey@91`"
 
   depends_on "autoconf" => :build
   depends_on "autoconf-archive" => :build

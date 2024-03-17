@@ -1,27 +1,19 @@
 class Opentofu < Formula
   desc "Drop-in replacement for Terraform. Infrastructure as Code Tool"
   homepage "https://opentofu.org/"
-  url "https://github.com/opentofu/opentofu/archive/refs/tags/v1.6.0-alpha5.tar.gz"
-  sha256 "76a378c56c4fbc4bc83663211625d4dafd0b6342b93a164eb8d8bec99b08dea3"
+  url "https://github.com/opentofu/opentofu/archive/refs/tags/v1.6.2.tar.gz"
+  sha256 "3bf0fc807004ba26305331ecf1334ff2160f8c131ee53c107292d60069400da6"
   license "MPL-2.0"
   head "https://github.com/opentofu/opentofu.git", branch: "main"
 
-  # This uses a loose regex, so it will match unstable versions for now. Once a
-  # stable version becomes available, we should update or remove this to ensure
-  # we only match stable versions going forward.
-  livecheck do
-    url :stable
-    regex(/^v?(\d+(?:\.\d+)+.*)$/i)
-  end
-
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5429296a79e0c924705287d2e6db1f537f57adaf06d9936a0cc80f6a1a725fc1"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4259aee1f20265ac56372b0160dd506f966a6df94d906d25872ed46c551b1cc7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9086f2be8116eb65eebcb7e627b1cc8b232509d22f29b5eaecaa61ed3e6621cf"
-    sha256 cellar: :any_skip_relocation, sonoma:         "841125d488d24b494dc5443c7f37d1e6cc7893b2f8d4edc844d994881916e1ac"
-    sha256 cellar: :any_skip_relocation, ventura:        "52305d5def74fb925731bc81bbe8d1103f426a22514670704cf8b8705760736e"
-    sha256 cellar: :any_skip_relocation, monterey:       "5432921777329e3dd106d10093d13c2894a9b7b28d74a14ba01eafbce2fe88c8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ec2da3a2add12194650c53d906a44e0c4636fa76c0de920384a2c8cfbfee1a1b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "883170dcdc5df4bf8d895dbabc8c6b06941c4c819266ba58bd3664674f1022ae"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "564ce4b3c92a68e84ab2ea7cf6fa73c093e4a6b0f012ece99373996d7491691c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ae7b28ae61d35203ba1a39868c9b5c1a2cbd656cb55c2b2887d57f68a05436af"
+    sha256 cellar: :any_skip_relocation, sonoma:         "9a4ccbceb83e60fcb7474478a877fcb282b41050bfe7b872ba72ab1ff456f84b"
+    sha256 cellar: :any_skip_relocation, ventura:        "97d3590c34489e3516bc77988582c003e1de067ff18ae0d1b52cce7a9e78b093"
+    sha256 cellar: :any_skip_relocation, monterey:       "557d894c0e9451d07110425595d49d7f671f393d2437a035f24e5c5f8edae5ce"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0a6fe96e4a92938356ce567dcf4fb7cddbae5b82f5098eb169f495d17aa1275c"
   end
 
   depends_on "go" => :build
@@ -31,7 +23,8 @@ class Opentofu < Formula
   fails_with gcc: "5"
 
   def install
-    system "go", "build", *std_go_args(output: bin/"tofu", ldflags: "-s -w"), "./cmd/tofu"
+    ldflags = "-s -w -X github.com/opentofu/opentofu/version.dev=no"
+    system "go", "build", *std_go_args(output: bin/"tofu", ldflags:), "./cmd/tofu"
   end
 
   test do

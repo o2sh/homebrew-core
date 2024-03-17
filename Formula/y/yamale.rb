@@ -1,32 +1,33 @@
 class Yamale < Formula
+  include Language::Python::Virtualenv
+
   desc "Schema and validator for YAML"
   homepage "https://github.com/23andMe/Yamale"
-  url "https://files.pythonhosted.org/packages/0c/93/3002a45542579cdd626a011f39bbe19ddcc1fbe0541081824c39ef216147/yamale-4.0.4.tar.gz"
-  sha256 "e524caf71cbbbd15aa295e8bdda01688ac4b5edaf38dd60851ddff6baef383ba"
+  url "https://files.pythonhosted.org/packages/1b/87/0f4437f8fce534a599e14fc64dc6eacf219e55f9e6cfe10238b4e314e408/yamale-5.0.0.tar.gz"
+  sha256 "d5b335e6ca1d3772e4951f63bb18ff6d5b18c1949f854dc37bf15840373c8b60"
   license "MIT"
   head "https://github.com/23andMe/Yamale.git", branch: "master"
 
   bottle do
-    rebuild 4
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "404d1bf074ae3876f307c15f20fdcf76fc8da4870c8f8209f5efee926dfce31f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "665950773a91872245f05e1c3aea132a00756b3abf99bdba5ace95a98ad2bdfd"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e8f7032ff030e55537375e0116353b2c4acecb6aec99fbfb62e73cd54578cfd4"
-    sha256 cellar: :any_skip_relocation, sonoma:         "7d2645261ce728d79e8fc0b79015e18ebf63e056002b5018549d73969248989b"
-    sha256 cellar: :any_skip_relocation, ventura:        "d45347a4781a8ce0227a902cec6358806d419bf095a29823ab8cca99d22275df"
-    sha256 cellar: :any_skip_relocation, monterey:       "6a6c1f346429835f3cd56e57f5de5ab996d838c237669d4a247f48e4a393a1ca"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9bb2e3390440074a4388aa4c6cab0c97a593e6826917826cd0bb05f3e3623e71"
+    sha256 cellar: :any,                 arm64_sonoma:   "93aac388fcd9e9eac86664fbf861f47e176f63de8c5825f15aac6f3979042b07"
+    sha256 cellar: :any,                 arm64_ventura:  "0fcc69f665110653a1d77729388932ba1f5ed20e789b711a561e10cc182ed72f"
+    sha256 cellar: :any,                 arm64_monterey: "2a78731e2b57463d5e9c16e6c1779c8cd977169251c6d08587760c8705e4664f"
+    sha256 cellar: :any,                 sonoma:         "d6dd1f0c441dffc38a8d14c73a633f98e47bb8d1356ffe5d16cbb55b0cf9073a"
+    sha256 cellar: :any,                 ventura:        "255b612151df695aa6ba0f3f661c30effb131b36c0b8f76998fc85eb3c650574"
+    sha256 cellar: :any,                 monterey:       "d20eeeefa31a4695208616418ac2914cee98a91e4469925ae510e91228c67dfc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0b9de997a035362a7317e54a4f70ae489e2e651c7553951f6b54a86aa071f02d"
   end
 
-  depends_on "python-setuptools" => :build
+  depends_on "libyaml"
   depends_on "python@3.12"
-  depends_on "pyyaml"
 
-  def python3
-    "python3.12"
+  resource "pyyaml" do
+    url "https://files.pythonhosted.org/packages/cd/e5/af35f7ea75cf72f2cd079c95ee16797de7cd71f29ea7c68ae5ce7be1eda0/PyYAML-6.0.1.tar.gz"
+    sha256 "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
   end
 
   def install
-    system python3, "-m", "pip", "install", *std_pip_args, "."
+    virtualenv_install_with_resources
   end
 
   test do

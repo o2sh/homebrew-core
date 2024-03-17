@@ -3,8 +3,8 @@ class Pyside < Formula
 
   desc "Official Python bindings for Qt"
   homepage "https://wiki.qt.io/Qt_for_Python"
-  url "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.6.0-src/pyside-setup-everywhere-src-6.6.0.tar.xz"
-  sha256 "2dd002db8851a87173354f38aa8c6ec42d0ff1fac99ea422b29e2dfce52d1638"
+  url "https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.6.2-src/pyside-setup-everywhere-src-6.6.2.tar.xz"
+  sha256 "14620b694d7af4c978443016292d3d2108ba5dc105f4170e3b71eadcaf04c9f0"
   license all_of: ["GFDL-1.3-only", "GPL-2.0-only", "GPL-3.0-only", "LGPL-3.0-only"]
 
   livecheck do
@@ -13,12 +13,12 @@ class Pyside < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "94be62cc50bf972364f1143880ee124d6366b95d2aad8dbb23cf079cd5db3471"
-    sha256 cellar: :any, arm64_ventura:  "1fe673f798329681901e462c6eef0e51df5f7158cc86e24be3f0a10085fd41d9"
-    sha256 cellar: :any, arm64_monterey: "2c4c5dfce903d49bbb8c2b73ca2c205bb441c5be8a46c33457a5e288fef134f3"
-    sha256 cellar: :any, sonoma:         "9da672433c96dc84668836db8e14baccb0319779456fa5ac0988c587a67f5cbf"
-    sha256 cellar: :any, ventura:        "59e9b0a27de79ebdfc2eae88d187d93ca29eb8748407bfdafa5e3bfc9d7766d7"
-    sha256 cellar: :any, monterey:       "1b144607a6c0f30a08b9c277a49d83d34eb661983fce8f028cec0fb3c5b8cfae"
+    sha256 cellar: :any, arm64_sonoma:   "427d2415d1ce09ca51e1a2889922108d143b65bc934b0f7cf9c13b5e302b8392"
+    sha256 cellar: :any, arm64_ventura:  "b834222862b3227a1b07a706b7b7872eda1dac8b1ce125c594d5fa0e1c320c20"
+    sha256 cellar: :any, arm64_monterey: "3ffdf551d339c74d5cdb465afe3f44cb85cfd3246dd5ddecc71740bcb4024726"
+    sha256 cellar: :any, sonoma:         "a13e12b6a87c72607c8b5ceb0803c48d78015b2ce21ffd6ad1e1f4d8e0bf1d9c"
+    sha256 cellar: :any, ventura:        "1fcd4ac2b40a9c7c935436a992530c93ad0b952992968ae7cbc4cae00386fd4d"
+    sha256 cellar: :any, monterey:       "8a27acebae04fbd89a92f94b20c94c6dc08f8b50b451a29d3700f8e8e24ff534"
   end
 
   depends_on "cmake" => :build

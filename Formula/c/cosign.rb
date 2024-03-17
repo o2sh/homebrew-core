@@ -2,19 +2,19 @@ class Cosign < Formula
   desc "Container Signing"
   homepage "https://github.com/sigstore/cosign"
   url "https://github.com/sigstore/cosign.git",
-      tag:      "v2.2.1",
-      revision: "12cbf9ea177d22bbf5cf028bcb4712b5f174ebc6"
+      tag:      "v2.2.3",
+      revision: "493e6e29e2ac830aaf05ec210b36d0a5a60c3b32"
   license "Apache-2.0"
   head "https://github.com/sigstore/cosign.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0cb4c26782bb2461ae1c5663e0039570341e02597fa323584f2ea69e19578bd7"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a4269e3c4429ce1700057a9dfd10a61d4558c30f25d668b1740efda22bad786a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1547269d20758ac24bc03f6e899326a97b7b26f0757f88f9a01a08f4cc2f47a9"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8cd63572bdb9b39260ed783b6ea0d13674d9e923ebbe4376f00fe6b1e263984b"
-    sha256 cellar: :any_skip_relocation, ventura:        "7a6da3b1a9f28d3bbf560b9c148a6a7386bfcdd0aee998cede6451ae2c6249cd"
-    sha256 cellar: :any_skip_relocation, monterey:       "eed5d0a6be5f2f227df044fc85618ab01a78f62ffea35e88dfd4db5562aa161e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b8ef6c8273fb0667fa31332c1520e92a2a05db190548e1b829d6cc590912007f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "639b5a375f7ae1b12e7a7a89b18a77648ef9517ad42d16bdde762b9f8b9ef4fa"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "643bdc585e3a550878616b588f3bf3e28f1085d73084a3d40401d0b2de0d33bb"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5c6873d280b4794e41e25a428a6ef7f97724e70c89e0ee60fa0a3f8be5385103"
+    sha256 cellar: :any_skip_relocation, sonoma:         "6b67e1bdb06c8a821aefcd323ccfe5baebe54d54791d20fb888c643d8a873487"
+    sha256 cellar: :any_skip_relocation, ventura:        "502b6431886d4c79c549b8ea11cec219b32ff46637a8d77b1374294f4e1dce76"
+    sha256 cellar: :any_skip_relocation, monterey:       "cee392242fe68f01a609d8f3512a58b6a4305e00eae17dfea1f2e231918db007"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "49a13d30b0a153b37a49f3e7bda862b995c4b1080bc73c922256d3e1f7b5b2ee"
   end
 
   depends_on "go" => :build
@@ -29,7 +29,7 @@ class Cosign < Formula
       -X #{pkg}.buildDate=#{time.iso8601}
     ]
 
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/cosign"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/cosign"
 
     generate_completions_from_executable(bin/"cosign", "completion")
   end

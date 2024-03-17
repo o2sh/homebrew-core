@@ -3,20 +3,18 @@ require "language/node"
 class MarkdownlintCli < Formula
   desc "CLI for Node.js style checker and lint tool for Markdown files"
   homepage "https://github.com/igorshubovych/markdownlint-cli"
-  url "https://registry.npmjs.org/markdownlint-cli/-/markdownlint-cli-0.37.0.tgz"
-  sha256 "5c6ed9557e18e09ae7f014f619072bd413f0c87c6d20c8adc2cf7ff3f383c4d6"
+  url "https://registry.npmjs.org/markdownlint-cli/-/markdownlint-cli-0.39.0.tgz"
+  sha256 "3ac4533a0f5ea881fb0580818c0decb0b5c15627fa99aa005617866f6599e511"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4f44ee2d353ff2ce3ced373a1749aec8564e31f686df68a5fd0703a8ce056c46"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2c3844abd058474c9f9e8e2e3c252fdc591afd0ed80a3bf530a774ad2db4f8bf"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2c3844abd058474c9f9e8e2e3c252fdc591afd0ed80a3bf530a774ad2db4f8bf"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "2c3844abd058474c9f9e8e2e3c252fdc591afd0ed80a3bf530a774ad2db4f8bf"
-    sha256 cellar: :any_skip_relocation, sonoma:         "75c6997fbd749681b44a9bf337cbf2a6b174d2bb24a76456aafed62eb8008a71"
-    sha256 cellar: :any_skip_relocation, ventura:        "ac7d8b351ea6a5772fe111190439803a3f2ddf2715ac4b9b00483987764e098a"
-    sha256 cellar: :any_skip_relocation, monterey:       "ac7d8b351ea6a5772fe111190439803a3f2ddf2715ac4b9b00483987764e098a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "ac7d8b351ea6a5772fe111190439803a3f2ddf2715ac4b9b00483987764e098a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2c3844abd058474c9f9e8e2e3c252fdc591afd0ed80a3bf530a774ad2db4f8bf"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7bc1310bfbeff34386c2b309988569bc6494b333edf9bf26d027fbecc1342c2f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7bc1310bfbeff34386c2b309988569bc6494b333edf9bf26d027fbecc1342c2f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "7bc1310bfbeff34386c2b309988569bc6494b333edf9bf26d027fbecc1342c2f"
+    sha256 cellar: :any_skip_relocation, sonoma:         "0af1b50fb5bef4a0c47e1bd233e39262586885b48bc4c5a60592c5f42c2edf9f"
+    sha256 cellar: :any_skip_relocation, ventura:        "0af1b50fb5bef4a0c47e1bd233e39262586885b48bc4c5a60592c5f42c2edf9f"
+    sha256 cellar: :any_skip_relocation, monterey:       "0af1b50fb5bef4a0c47e1bd233e39262586885b48bc4c5a60592c5f42c2edf9f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7bc1310bfbeff34386c2b309988569bc6494b333edf9bf26d027fbecc1342c2f"
   end
 
   depends_on "node"
@@ -36,7 +34,7 @@ class MarkdownlintCli < Formula
 
       body
     EOS
-    assert_match "MD022/blanks-around-headings/blanks-around-headers",
+    assert_match "MD022/blanks-around-headings Headings should be surrounded by blank lines",
                  shell_output("#{bin}/markdownlint #{testpath}/test-bad.md  2>&1", 1)
     assert_empty shell_output("#{bin}/markdownlint #{testpath}/test-good.md")
   end

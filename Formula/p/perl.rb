@@ -1,13 +1,11 @@
 class Perl < Formula
   desc "Highly capable, feature-rich programming language"
   homepage "https://www.perl.org/"
+  url "https://www.cpan.org/src/5.0/perl-5.38.2.tar.xz"
+  sha256 "d91115e90b896520e83d4de6b52f8254ef2b70a8d545ffab33200ea9f1cf29e8"
   license any_of: ["Artistic-1.0-Perl", "GPL-1.0-or-later"]
+  revision 1
   head "https://github.com/perl/perl5.git", branch: "blead"
-
-  stable do
-    url "https://www.cpan.org/src/5.0/perl-5.38.1.tar.xz"
-    sha256 "6a82c7930563086e78cb84d9c265e6b212ee65d509d19eedcd23ab8c1ba3f046"
-  end
 
   livecheck do
     url "https://www.cpan.org/src/"
@@ -15,16 +13,16 @@ class Perl < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "74e4760c88f4f778ddde918305693dbf24099a62040059b54884fac0a3f109de"
-    sha256 arm64_ventura:  "1566235a50fdfe52135e647ea86882a22daa6859e4c25d017169a37460e2b332"
-    sha256 arm64_monterey: "5fd1a6dc847c4e1bdfb7fd4b3e8d10e621b521c274e821905ce1d6412bbe571c"
-    sha256 sonoma:         "1954957c2694cf873351542cf4561defdd1bdc6619a956ae7bad0122f27f62b1"
-    sha256 ventura:        "8d328d5b4d7d99ce07cf68f9b440a2dc0f1d42eb07f0aeb95bdfc8fb03d88016"
-    sha256 monterey:       "61d11cd89993498ef8683c48bbe602ad1f90c741e25432f7a6791fba30d04be6"
-    sha256 x86_64_linux:   "29c4d7f3e9f0a0002ab187b030d4b9897f7a8ae61f4901653bfba7a97bb398bf"
+    sha256 arm64_sonoma:   "222658f33257e002c74b8720fba0b90d12eba566837014df20494a8721cb1642"
+    sha256 arm64_ventura:  "dcbb3ecc956e00d07f6c17a242975fba48af6147ac732ed5ec78ffef006be7c7"
+    sha256 arm64_monterey: "ac667b52851c7f6052ec88a7f7a922f8d85a25b96ba8d7e756d728338ddc5203"
+    sha256 sonoma:         "4da05eef811a965977571311b16877bfd281c01494e315125143ba8e7150183e"
+    sha256 ventura:        "b7705031b119b02bbedeff51af5bdd869043af576b7656915c1558ccf91232d4"
+    sha256 monterey:       "37618ba7d8642b1456c3dc915eaa8c8e22f3ac3d25df5fc3c89c10412a372192"
+    sha256 x86_64_linux:   "8c6038740fee1c2084880a53765c23c2d972447e2f960e75bdcb071b0a434c2f"
   end
 
-  depends_on "berkeley-db"
+  depends_on "berkeley-db@5" # keep berkeley-db < 6 to avoid AGPL-3.0 restrictions
   depends_on "gdbm"
 
   uses_from_macos "expat"

@@ -3,6 +3,7 @@ class Autopsy < Formula
   homepage "https://www.sleuthkit.org/autopsy/index.php"
   url "https://downloads.sourceforge.net/project/autopsy/autopsy/2.24/autopsy-2.24.tar.gz"
   sha256 "ab787f519942783d43a561d12be0554587f11f22bc55ab79d34d8da703edc09e"
+  license "GPL-2.0-or-later"
 
   livecheck do
     url "https://github.com/sleuthkit/autopsy.git"
@@ -12,6 +13,7 @@ class Autopsy < Formula
 
   bottle do
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0b7daff147ae1d82a0dee7c5f3d853b0b6015af1bf2fde65f23676feae1b7895"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0b7daff147ae1d82a0dee7c5f3d853b0b6015af1bf2fde65f23676feae1b7895"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "778ab6721c38acce97a7e7bbe7e4c941ecb9c8f6a684581e26d2b24684308046"
     sha256 cellar: :any_skip_relocation, arm64_big_sur:  "778ab6721c38acce97a7e7bbe7e4c941ecb9c8f6a684581e26d2b24684308046"
     sha256 cellar: :any_skip_relocation, sonoma:         "cd85ba9a96870da9470b8119649d1da48daa5bae273b0ef726535dac9dd4f5f0"

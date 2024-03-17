@@ -1,8 +1,8 @@
 class Logcli < Formula
   desc "Run LogQL queries against a Loki server"
   homepage "https://grafana.com/loki"
-  url "https://github.com/grafana/loki/archive/refs/tags/v2.9.2.tar.gz"
-  sha256 "9c1a153ab4d57d5c109dbf55d4ea5aeab2159ccf51d3b8cc8fea19970f0a88d8"
+  url "https://github.com/grafana/loki/archive/refs/tags/v2.9.5.tar.gz"
+  sha256 "811ac5ba12f33fad942a6e16352c12159031310fd8a5904b422e90e09ac2e94a"
   license "AGPL-3.0-only"
   head "https://github.com/grafana/loki.git", branch: "main"
 
@@ -11,13 +11,13 @@ class Logcli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "99537f4a139d04734f6abb4bfe7150a41207538175c1650b845ec20d8700f8dd"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c3f8ad302f76f242beb6e38183e35f63ce5b5f2510a6735434f5772d4fcb64e3"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ca69384d652c15c22b744338a1508b8f87a1900379af962e626df1c139ad93a6"
-    sha256 cellar: :any_skip_relocation, sonoma:         "4d8bbba82c3288cb38a8dc0ee2882ef09b4fb98768b52b53c772c8941835f30e"
-    sha256 cellar: :any_skip_relocation, ventura:        "05dbb9cad4eb050a19d6a2fdf76ed9f31e0611d18865109b4d1133f3804f4574"
-    sha256 cellar: :any_skip_relocation, monterey:       "d169a2ea5fa418a0851da84f7a72a2e0cbf7508b63d7c9741f3058bf50bfb7f3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a1a0b40a1329b33d171b65a5e7b9ef40a8b9f9f9f21ee1dde16cab72d8ab2e33"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b6b263def59de49b458227c11e4f94131c2d0128b08ac895af4e15938c6df936"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9c1a341eccb6d6cc56fae216c0eedbc8b2fe66711e70f2bed0612618d5d84fea"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "cf96f98ba3ef58ea5dae2796b48c65904b0d7095951cd63e622cb9ffb36e6c0a"
+    sha256 cellar: :any_skip_relocation, sonoma:         "720fb924a07d22418a71878652bed1a10cc538ea6ceae1a6feedc7a1db19b93c"
+    sha256 cellar: :any_skip_relocation, ventura:        "512df8660ababcadebeda89f2f8c96bdcce5df7e11dfd7c4c88b4e4c4b525dd9"
+    sha256 cellar: :any_skip_relocation, monterey:       "9f0f38a740ee46cfa7921a5923bcb5346a523426b8bdc05beee2a40284fae061"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fcbed2454dcb028e44729832ea96efee84e3e47f3cc904fec26b21ee5d450d35"
   end
 
   depends_on "go" => :build
@@ -37,7 +37,7 @@ class Logcli < Formula
       -X github.com/grafana/loki/pkg/util/build.BuildDate=#{time.iso8601}
     ]
 
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/logcli"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/logcli"
   end
 
   test do

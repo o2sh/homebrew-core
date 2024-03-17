@@ -1,9 +1,9 @@
 class Go < Formula
   desc "Open source programming language to build simple/reliable/efficient software"
   homepage "https://go.dev/"
-  url "https://go.dev/dl/go1.21.4.src.tar.gz"
-  mirror "https://fossies.org/linux/misc/go1.21.4.src.tar.gz"
-  sha256 "47b26a83d2b65a3c1c1bcace273b69bee49a7a7b5168a7604ded3d26a37bd787"
+  url "https://go.dev/dl/go1.22.1.src.tar.gz"
+  mirror "https://fossies.org/linux/misc/go1.22.1.src.tar.gz"
+  sha256 "79c9b91d7f109515a25fc3ecdaad125d67e6bdb54f6d4d98580f46799caea321"
   license "BSD-3-Clause"
   head "https://go.googlesource.com/go.git", branch: "master"
 
@@ -21,25 +21,25 @@ class Go < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "e3b1b54314a26125d0dc830958acd92f496b0dbbbc2715432625c3654ae755fc"
-    sha256 arm64_ventura:  "4ebad2bef4071b548abd25159e6348955bdd0663b1fe4bcfa73dddc6dc81ae70"
-    sha256 arm64_monterey: "31cd113ca708acbf5511ccf7e8601a71fe93d8dc5eebe33efeff2a208dc6202b"
-    sha256 sonoma:         "3a1f3f415368cf9889ae5aaa86d27db81085e1ef34b1a4be962d5d2898e63322"
-    sha256 ventura:        "edb5918b8620b11184629c6a4b538d883406fe371a92a41c5005a305ea284b9c"
-    sha256 monterey:       "7b649da4603c099cb2e09b37e25f0fcf57c7fe6979dcd5788d9a53bd7aca419a"
-    sha256 x86_64_linux:   "b097f702561988ac5f8f9529dc206e50c8c916823b548ebbc979cc89a50365a9"
+    sha256 arm64_sonoma:   "357ac66ade847efda1d5bf04249a2f913c7eb50f2dc9b3c4849825d62b5758f7"
+    sha256 arm64_ventura:  "83454361a3c913a424058659babc5867a0210850d7c8cbc925bd7b426e6e6ead"
+    sha256 arm64_monterey: "3be1788218ac2c51b27321ed215ed8c462f6089f4e3c3a3fb98841083ab74dd4"
+    sha256 sonoma:         "d677915bd8463a26331473b72f287c8d78651efcd08b497fe50753177bfbb6d9"
+    sha256 ventura:        "69e0d8c40f097d313a702b48d8a59a1d1bbef16c358fea0031fbaead9166b5d7"
+    sha256 monterey:       "3ded8ed8d83478d452807c9afa82bf85f6e958929cdb8a64fc01c79e02e7f218"
+    sha256 x86_64_linux:   "80f41e86463fb661b1f22b79338d41e0d0b68248245829ee63b1976d75cd161c"
   end
 
   # Don't update this unless this version cannot bootstrap the new version.
   resource "gobootstrap" do
     checksums = {
-      "darwin-arm64" => "e4ccc9c082d91eaa0b866078b591fc97d24b91495f12deb3dd2d8eda4e55a6ea",
-      "darwin-amd64" => "c101beaa232e0f448fab692dc036cd6b4677091ff89c4889cc8754b1b29c6608",
-      "linux-arm64"  => "914daad3f011cc2014dea799bb7490442677e4ad6de0b2ac3ded6cee7e3f493d",
-      "linux-amd64"  => "4cdd2bc664724dc7db94ad51b503512c5ae7220951cac568120f64f8e94399fc",
+      "darwin-arm64" => "6da3f76164b215053daf730a9b8f1d673dbbaa4c61031374a6744b75cb728641",
+      "darwin-amd64" => "754363489e2244e72cb49b4ec6ddfd6a2c60b0700f8c4876e11befb1913b11c5",
+      "linux-arm64"  => "2096507509a98782850d1f0669786c09727053e9fe3c92b03c0d96f48700282b",
+      "linux-amd64"  => "ff445e48af27f93f66bd949ae060d97991c83e11289009d311f25426258f9c44",
     }
 
-    version "1.17.13"
+    version "1.20.14"
 
     on_arm do
       on_macos do

@@ -2,27 +2,30 @@ class Zbctl < Formula
   desc "Zeebe CLI client"
   homepage "https://docs.camunda.io/docs/apis-clients/cli-client/index/"
   url "https://github.com/camunda/zeebe.git",
-      tag:      "8.3.3",
-      revision: "c5abe400e2cd4711a1e3e05c94a43f7fd7ed1827"
+      tag:      "8.4.5",
+      revision: "d59142bd6505c132540c14798cde09f96d0444a6"
   license "Apache-2.0"
   head "https://github.com/camunda/zeebe.git", branch: "develop"
 
   # Upstream creates stable version tags (e.g., `v1.2.3`) before a release but
   # the version isn't considered to be released until a corresponding release
-  # is created on GitHub, so it's necessary to use the `GithubLatest` strategy.
+  # is created on GitHub. Upstream may not mark all unstable releases as
+  # "pre-release", so we have to use the `GithubReleases` strategy until the
+  # "latest" release is always a stable version.
   livecheck do
     url :stable
-    strategy :github_latest
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+    strategy :github_releases
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0189c694353625583be64c611012997387c12ada3940d2908d46a17a683cdb69"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0189c694353625583be64c611012997387c12ada3940d2908d46a17a683cdb69"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0189c694353625583be64c611012997387c12ada3940d2908d46a17a683cdb69"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f42ae76c0fb11f0c7ca489a7e63241ea8c79cf70c84f4d950c912350bbff7c4d"
-    sha256 cellar: :any_skip_relocation, ventura:        "f42ae76c0fb11f0c7ca489a7e63241ea8c79cf70c84f4d950c912350bbff7c4d"
-    sha256 cellar: :any_skip_relocation, monterey:       "f42ae76c0fb11f0c7ca489a7e63241ea8c79cf70c84f4d950c912350bbff7c4d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5bebec10091f7bc51b3b16613229d6fa8eb9567025e113e2a1fa23846d222628"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "68636b0f0ebf4bbb0d0a5c163be3f5f6f3ca44d7ce8153dd901217243833f6fd"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "68636b0f0ebf4bbb0d0a5c163be3f5f6f3ca44d7ce8153dd901217243833f6fd"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "68636b0f0ebf4bbb0d0a5c163be3f5f6f3ca44d7ce8153dd901217243833f6fd"
+    sha256 cellar: :any_skip_relocation, sonoma:         "f89087f711dd6047dd3c41d06872c84f3470d036d60034a73caad60be0de0135"
+    sha256 cellar: :any_skip_relocation, ventura:        "f89087f711dd6047dd3c41d06872c84f3470d036d60034a73caad60be0de0135"
+    sha256 cellar: :any_skip_relocation, monterey:       "f89087f711dd6047dd3c41d06872c84f3470d036d60034a73caad60be0de0135"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a49443f3a39e4df8e8c2c2da876ad5c6b0b4780da182f5b1108105087c2869ea"
   end
 
   depends_on "go" => :build
@@ -36,7 +39,7 @@ class Zbctl < Formula
         -X #{project}.Version=#{version}
         -X #{project}.Commit=#{commit}
       ]
-      system "go", "build", "-tags", "netgo", *std_go_args(ldflags: ldflags)
+      system "go", "build", "-tags", "netgo", *std_go_args(ldflags:)
 
       generate_completions_from_executable(bin/"zbctl", "completion")
     end

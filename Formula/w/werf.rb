@@ -1,8 +1,8 @@
 class Werf < Formula
   desc "Consistent delivery tool for Kubernetes"
   homepage "https://werf.io/"
-  url "https://github.com/werf/werf/archive/refs/tags/v1.2.269.tar.gz"
-  sha256 "c354a0bdfacca3d387b39750751ea6bbbb45650a80540cc9676e50337575a9b0"
+  url "https://github.com/werf/werf/archive/refs/tags/v1.2.296.tar.gz"
+  sha256 "263aa6e69e5eb46525874b9a60e1ec6e3986440e6d32ea2075cb3b0438c8e2b5"
   license "Apache-2.0"
   head "https://github.com/werf/werf.git", branch: "main"
 
@@ -15,13 +15,13 @@ class Werf < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "69c461780912a05025f3795ba6e81983ebb960a7118210af4cea90abab9efc2a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1ecbccbd79ba5f4718bd15c3de20563c4628fba97e818e8fbe783e94d8fac063"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2223f1854efad01a35be2039274f5fb2220ed6e19fedf2a4956f9b40e476da39"
-    sha256 cellar: :any_skip_relocation, sonoma:         "cff4e2f7576f63f6bf446bd83108a7774ffd892887ec3f5e6a7b118506e64e1a"
-    sha256 cellar: :any_skip_relocation, ventura:        "35e8ef3b2dbd66d48dd2bf2ee7b4941ec75f7989f26ce74b7343aebd54939198"
-    sha256 cellar: :any_skip_relocation, monterey:       "ccc099941fd3a02b11f2c4417396125529477bc3088d583cf5cea1d2151ae776"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d1e74d359b4524d15f04624bbe087556af4448f67b3aeb183a6ef4d5c3fa923e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "fd68d8d633e6862dc5b8832cdb008d428502a8fa31e099f443095aad59e0f80d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "37f96455e37147135e86fd9ac860796943a62a7235b0a4c1146acde586c2e3e4"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "70b5f9b736bef09602f00647cca2c3b29469094636a9f3b0c24907024cb901dd"
+    sha256 cellar: :any_skip_relocation, sonoma:         "25176da12b8a3c0a76faf4665c85211fde3e66498c895304566bb348e5b9a996"
+    sha256 cellar: :any_skip_relocation, ventura:        "4ac94cdddc2ca0767914357c23920680b259f4a42ffdf4fcfcb76103e78c842c"
+    sha256 cellar: :any_skip_relocation, monterey:       "0948ab10b5faba3e457df18440718572cadd3688646dbe45113fc717848b5cf2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "41e3aa2c7db9eafb4345fd5f1cdd20f75d63b465dff53423aa1bbed0da5db285"
   end
 
   depends_on "go" => :build
@@ -49,7 +49,7 @@ class Werf < Formula
       tags = "dfrunsecurity dfrunnetwork dfrunmount dfssh containers_image_openpgp"
     end
 
-    system "go", "build", *std_go_args(ldflags: ldflags), "-tags", tags, "./cmd/werf"
+    system "go", "build", *std_go_args(ldflags:), "-tags", tags, "./cmd/werf"
 
     generate_completions_from_executable(bin/"werf", "completion")
   end

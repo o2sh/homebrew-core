@@ -1,8 +1,8 @@
 class Libsecret < Formula
   desc "Library for storing/retrieving passwords and other secrets"
   homepage "https://wiki.gnome.org/Projects/Libsecret"
-  url "https://download.gnome.org/sources/libsecret/0.21/libsecret-0.21.1.tar.xz"
-  sha256 "674f51323a5f74e4cb7e3277da68b5afddd333eca25bc9fd2d820a92972f90b1"
+  url "https://download.gnome.org/sources/libsecret/0.21/libsecret-0.21.4.tar.xz"
+  sha256 "163d08d783be6d4ab9a979ceb5a4fecbc1d9660d3c34168c581301cd53912b20"
   license "LGPL-2.1-or-later"
 
   # libsecret doesn't use GNOME's "even-numbered minor is stable" version
@@ -14,13 +14,13 @@ class Libsecret < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "70d4d466195191082789cc96112920a47a56a79b0a175013a87557ec60a6e1d5"
-    sha256 cellar: :any, arm64_ventura:  "496d8de1efe50f28f377a359d168ce7631794a6bab1024cfbdcae7e288edbf24"
-    sha256 cellar: :any, arm64_monterey: "7e6ea2e39e78188839b1d85db2353beced5fe6391ed204c02c1a6ec5425df844"
-    sha256 cellar: :any, sonoma:         "84b34d1a376097cec9cf5b8d510a965e3399ff3c896912818eca59755980c91d"
-    sha256 cellar: :any, ventura:        "25fbd2dee1126fbe13244c1526a9816d7a3c4d852fd285454a20919f0b8ed371"
-    sha256 cellar: :any, monterey:       "cc8b384e45108a69d44c215020c2dd15dfd03a363a428a579c32a8b14b118809"
-    sha256               x86_64_linux:   "5b6b90253e75ca3a2d975baabd671d70880042fabaed291f202be79ebc7eff31"
+    sha256 cellar: :any, arm64_sonoma:   "844f8b10821660e2cf4ee2a41870ef5157475e7bd983ad4902364bee227b7d9e"
+    sha256 cellar: :any, arm64_ventura:  "366983f28d6e6d1902f3db15dd6820b1d98f3a5d428fcbcff96b5acbae5f8f33"
+    sha256 cellar: :any, arm64_monterey: "ba020d35c50475b48171733da01a4e64d9c9eddb44cb2628e16aa9aa8d90aa75"
+    sha256 cellar: :any, sonoma:         "ce2e4f76aff32ff460e9e2d7e0b33b793b21198ff129263284e261ce787fd744"
+    sha256 cellar: :any, ventura:        "597ef705442807a894e8da264b91fd9c3a459b86d2cbc603a9d20009a1cc4a8f"
+    sha256 cellar: :any, monterey:       "852e9303bb505b035ac0be971ebc5cc1575cb04478cbf38bdbe3488ec61e1070"
+    sha256               x86_64_linux:   "54a706903821db3696f0ace2272830f2f04b524edd6f01d4aa4dad0ba2d2287f"
   end
 
   depends_on "docbook-xsl" => :build
@@ -28,7 +28,7 @@ class Libsecret < Formula
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkg-config" => [:build, :test]
   depends_on "vala" => :build
   depends_on "glib"
   depends_on "libgcrypt"
@@ -37,13 +37,11 @@ class Libsecret < Formula
   def install
     ENV["XML_CATALOG_FILES"] = "#{etc}/xml/catalog"
 
-    mkdir "build" do
-      system "meson", "..", "-Dbashcompdir=#{bash_completion}",
-                            "-Dgtk_doc=false",
-                            *std_meson_args
-      system "ninja", "--verbose"
-      system "ninja", "install", "--verbose"
-    end
+    system "meson", "setup", "build", "-Dbashcompdir=#{bash_completion}",
+                                      "-Dgtk_doc=false",
+                                      *std_meson_args
+    system "meson", "compile", "-C", "build", "--verbose"
+    system "meson", "install", "-C", "build"
   end
 
   test do
@@ -74,13 +72,8 @@ class Libsecret < Formula
       }
     EOS
 
-    flags = [
-      "-I#{include}/libsecret-1",
-      "-I#{HOMEBREW_PREFIX}/include/glib-2.0",
-      "-I#{HOMEBREW_PREFIX}/lib/glib-2.0/include",
-    ]
-
-    system ENV.cc, "test.c", "-o", "test", *flags
+    pkg_config_cflags = shell_output("pkg-config --cflags --libs libsecret-1").chomp.split
+    system ENV.cc, "test.c", *pkg_config_cflags, "-o", "test"
     system "./test"
   end
 end

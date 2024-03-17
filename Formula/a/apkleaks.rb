@@ -8,33 +8,51 @@ class Apkleaks < Formula
   license "Apache-2.0"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8c43bdd892cd83f9c27958b30655f419d2b8af1f9fcaf4ce529471b19e5f0980"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "df4aee641334907e439140a7640c8aee046bc4f15a23d206625d2afa0dba954f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "efb05e2117c82deddabaa566c4b05cfd0fd6fda68b7b62109737524cf6664a7d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a8153cb2b92fbfafe4c332a0bdebd102aac565f481d0c24816b68b39d9a95bf7"
-    sha256 cellar: :any_skip_relocation, ventura:        "4db43c5527230b6b7602b4e488ac99a42d1785fbe0e06e7818445e651e2232b8"
-    sha256 cellar: :any_skip_relocation, monterey:       "3ea73b3e545b925eff2a45766a5d3fae48905ecf0418aa456a7ec3a2ad25442c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2e452964c171dd29cdb50651872aef32cf2981a110149b34b795022991c98fa4"
+    rebuild 3
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6d8df4ef44a466a0e00e9abbe8a375322148f34fc39621c88d22a1fc37ea34c5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1ecd4655efb2c5e266812c035008f0c0b03dcb3e6310d2e4dbf8ed85796991d8"
+    sha256 cellar: :any,                 arm64_monterey: "cb27c0247f7325fad32bef4085ce3369f6745181fffcb5de9b9b9d131373f7bf"
+    sha256 cellar: :any_skip_relocation, sonoma:         "4f3dbb82d41744318d240dda745c47735f1be1d428d9ef9775e6b72d793a052f"
+    sha256 cellar: :any_skip_relocation, ventura:        "d23a7d5319c5adcbb6a43a4e7d1f8f9b9edae999b3c78fb5efbf175ca2d7d200"
+    sha256 cellar: :any,                 monterey:       "a1163739b862fcb3d329c98df1e402b90a1ee20156f0c42bf25a933002e99c06"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7f79de53f7223113dcefdb5cfc78efcb17e6d17a7bf40987f186db5e6dc955ad"
   end
 
   depends_on "jadx"
-  depends_on "python-click"
-  depends_on "python-lxml"
-  depends_on "python-setuptools"
   depends_on "python@3.12"
+
+  uses_from_macos "libxml2", since: :ventura
+  uses_from_macos "libxslt"
 
   resource "asn1crypto" do
     url "https://files.pythonhosted.org/packages/de/cf/d547feed25b5244fcb9392e288ff9fdc3280b10260362fc45d37a798a6ee/asn1crypto-1.5.1.tar.gz"
     sha256 "13ae38502be632115abf8a24cbe5f4da52e3b5231990aff31123c805306ccb9c"
   end
 
+  resource "click" do
+    url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"
+    sha256 "ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"
+  end
+
+  resource "lxml" do
+    url "https://files.pythonhosted.org/packages/2b/b4/bbccb250adbee490553b6a52712c46c20ea1ba533a643f1424b27ffc6845/lxml-5.1.0.tar.gz"
+    sha256 "3eea6ed6e6c918e468e693c41ef07f3c3acc310b70ddd9cc72d9ef84bc9564ca"
+  end
+
   resource "pyaxmlparser" do
-    url "https://files.pythonhosted.org/packages/58/7f/327c19329f535c332451b5f1f906bff5f952fe3070d00376b75e67052f35/pyaxmlparser-0.3.28.tar.gz"
-    sha256 "c482826380fd84ce1a6386183861f2a6728017241a230c13d521e3e7737e803e"
+    url "https://files.pythonhosted.org/packages/e3/7c/fae519a8eb4e91587b2b4bf9b1ff738451984687a2cfff778df71b74727d/pyaxmlparser-0.3.30.tar.gz"
+    sha256 "ce301723fa7f05b3c2869f18f7af9e75abfbda362dc77789f668bb80287c9b3b"
+  end
+
+  # Drop distutils/setuptools
+  # https://github.com/dwisiswant0/apkleaks/pull/81
+  patch do
+    url "https://github.com/dwisiswant0/apkleaks/commit/fc8871ac605447db1456cb1189fa79e673f71e1b.patch?full_index=1"
+    sha256 "5c0eda68fbba60b9ecb8471f7a3ec92c2cb34988ca98188daad3af572bb09b83"
   end
 
   def install
+    ENV["PIP_USE_PEP517"] = "1"
     virtualenv_install_with_resources
   end
 

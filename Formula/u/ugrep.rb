@@ -1,22 +1,25 @@
 class Ugrep < Formula
   desc "Ultra fast grep with query UI, fuzzy search, archive search, and more"
-  homepage "https://github.com/Genivia/ugrep"
-  url "https://github.com/Genivia/ugrep/archive/refs/tags/v4.3.4.tar.gz"
-  sha256 "d206a76b3bc103a0c5187f973943cbd8339995a289f62a237a0e658ecb2d0743"
+  homepage "https://ugrep.com/"
+  url "https://github.com/Genivia/ugrep/archive/refs/tags/v5.1.1.tar.gz"
+  sha256 "687fc43a02287bac18f973822036bb3c470a81825b8eb3d98a335603b249b13b"
   license "BSD-3-Clause"
 
   bottle do
-    sha256                               arm64_sonoma:   "e3254490bbec52ab096af6c6cd05960228eb152f3a2b9f9a7e0cfe08ed2b6d71"
-    sha256                               arm64_ventura:  "054d114837ff141197db25115bce61fb0de831eb160e3e8ac1dc90461fc69cdb"
-    sha256                               arm64_monterey: "e9f0f7b6afd8a5ae45125bc799f5d8ba008b278094fa76aef4ccba7ffc121b4f"
-    sha256                               sonoma:         "0601d8429830b760677682130610276fa02b05f7bd7cd9db9d26eec85869f74b"
-    sha256                               ventura:        "777ef87a39b6bc2bf86eed6f9539382611532ef7be73b5c939579e02f0ee8117"
-    sha256                               monterey:       "68305b82850f9b723b81175755840edc4bbf9ac97ecca978cf9c4fdaedc84d97"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8357c347efb2707daa3a12aa0730eb4dfee8e5d26bf771e4696ad7064563eada"
+    sha256                               arm64_sonoma:   "aa36c884f8ad1e80e367de87cdf3fe26f736d89b98d3e8d90ce6ee05f3cb5d51"
+    sha256                               arm64_ventura:  "a02eac473534f8ee1278dcbf728ac3511a084c07773102496540b1c4e64a6a03"
+    sha256                               arm64_monterey: "7c52824ce422c0844522fc398e77ebe704fd31474e3759e9457b05a5f9acb226"
+    sha256                               sonoma:         "9dbb1b2709681fe2392c92d4bc27dc0183e76cab720aba1e9d877a54fe6393f5"
+    sha256                               ventura:        "d72accbd93df1febf3388ef632daa6c42763fcf45846523cf2873ff9f3ca4f12"
+    sha256                               monterey:       "5b16d6a03c058430db85bfcb8b15f2842cf3b28c9987a8511235fbae6174933c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "67e438e1832c5af6a4bba00a9ae66b7d346f247a89339daf9c4205a8ad751d4a"
   end
 
+  depends_on "brotli"
+  depends_on "lz4"
   depends_on "pcre2"
   depends_on "xz"
+  depends_on "zstd"
 
   def install
     system "./configure", "--enable-color",

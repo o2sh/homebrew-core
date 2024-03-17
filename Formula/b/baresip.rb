@@ -1,23 +1,27 @@
 class Baresip < Formula
   desc "Modular SIP useragent"
   homepage "https://github.com/baresip/baresip"
-  url "https://github.com/baresip/baresip/archive/refs/tags/v3.7.0.tar.gz"
-  sha256 "6d213abe7e285356df91e020f1ace154366ca72d2ea767a324abd87f5a920bcb"
+  url "https://github.com/baresip/baresip/archive/refs/tags/v3.10.1.tar.gz"
+  sha256 "892f8c9918f887c8923c9bb939d251766f9e30cb436ff10db338871a66d81d10"
   license "BSD-3-Clause"
 
   bottle do
-    sha256 arm64_sonoma:   "3bc39cac8473f99f7cb3a6dc579dfc5c068d0c456121d5efa68399cbe3e14070"
-    sha256 arm64_ventura:  "4bf919159d0de253d4831e469bc3c805df624c67f48d7d5e9dc4b26daa33bbaf"
-    sha256 arm64_monterey: "4572684d34b7a5fc7798777816e7e7b55f43ef8b2fa19a34d9c23a9a89493103"
-    sha256 sonoma:         "01448a36a8c26277cc4aaeae1950833d0835ad8ed76d651777a8e53ea3103629"
-    sha256 ventura:        "c326ee84b51cc2fe510f7405df2bcc5eb8c2af2473fa1c4e9854bb2805a0240e"
-    sha256 monterey:       "62c817417257264db0fcbf742b78966357269ff5efda97c91ca7bcc7da4f70ed"
-    sha256 x86_64_linux:   "d7f12be2a2e269431786271b670960f1b814ec21d425bf79985b722fbc498873"
+    sha256 arm64_sonoma:   "7381b2ba1b0da43f90ec149fdf3bdb8d2d926999814abc5093d9673e67ee811c"
+    sha256 arm64_ventura:  "487806f3b492544d592bb34ba2e0d464c1a02f1e825d84105ae69e8afa273f79"
+    sha256 arm64_monterey: "bd6f2583f03c74f5520c5db7c4c6f4d19b0f9c7f6e2ff81232db7f78040ec110"
+    sha256 sonoma:         "21d000dc9cb588226bde3a624721e33f2c7b5948e34acb8dba58258cc8dd5c39"
+    sha256 ventura:        "6ce4c0087815a8557364637de7b6c7dad33970e89c66aa8f21ee4988468f8f6d"
+    sha256 monterey:       "bc03881ead1c8516e73da0f6c262fb589d454567bd6919f4ca08e06ea0c8856f"
+    sha256 x86_64_linux:   "1af44c6cd15affa6293d0cc63b722b3c70079687b9e1e0713761fb975523de66"
   end
 
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "libre"
+
+  on_macos do
+    depends_on "openssl@3"
+  end
 
   def install
     libre = Formula["libre"]

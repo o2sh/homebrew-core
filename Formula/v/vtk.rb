@@ -1,21 +1,19 @@
 class Vtk < Formula
   desc "Toolkit for 3D computer graphics, image processing, and visualization"
   homepage "https://www.vtk.org/"
-  url "https://www.vtk.org/files/release/9.2/VTK-9.2.6.tar.gz"
-  sha256 "06fc8d49c4e56f498c40fcb38a563ed8d4ec31358d0101e8988f0bb4d539dd12"
+  url "https://www.vtk.org/files/release/9.3/VTK-9.3.0.tar.gz"
+  sha256 "fdc7b9295225b34e4fdddc49cd06e66e94260cb00efee456e0f66568c9681be9"
   license "BSD-3-Clause"
-  revision 5
   head "https://gitlab.kitware.com/vtk/vtk.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "17bffd382c3651317a5efc157c3236ad397f910f853bfac71ce7004590e4cc6f"
-    sha256 cellar: :any,                 arm64_ventura:  "ad94384d242a530ba1df182ef3e35be670266ca6ba7afa92f005dc4c8279fedd"
-    sha256 cellar: :any,                 arm64_monterey: "e8d6bed3e05c6a3cbd10cb0e26cc9f9e80511670ea1c05a4f266781f49427c25"
-    sha256 cellar: :any,                 sonoma:         "5d667d78e212d9cd2568d68ed46bcfbf3670b5badddb6433d08f49a680e287b8"
-    sha256 cellar: :any,                 ventura:        "dc36b0a197207a2044f9b4995c630b5bf9c461e7ec918317cf8cdc4ea67be660"
-    sha256 cellar: :any,                 monterey:       "bc62daee9c68d7c8c093f25ceca8ad2c1ab3f815e7bda25f44c8041856a819af"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "772bb7928864c336996e6c9c3404c6e9a81e0be3f5655f3e8147ba96502b652a"
+    sha256 cellar: :any,                 arm64_sonoma:   "57dd84ad334b5f14597f2f13ffc029a47170a26683ff41c8c74e5c17aa058bbe"
+    sha256 cellar: :any,                 arm64_ventura:  "a1832130e10e675dd57674beb822437fa1d999ff617f4af671f550a377b0827b"
+    sha256 cellar: :any,                 arm64_monterey: "d8a2aa630b9ca7e0dcc620b9838387c7a8648e0d001b5b1be0fb2c85754db847"
+    sha256 cellar: :any,                 sonoma:         "2a337b8498153d3ec70bef5dab1f42bf0966de248feaacb2e2cbee93f6554ea5"
+    sha256 cellar: :any,                 ventura:        "d174163d7c6a6eb4187d93d01bf9953d0f5ba7ab3ae594951411fbe46284ef08"
+    sha256 cellar: :any,                 monterey:       "5700425cc384b511a36aa68ad4a55094a60fdc9277b7520362d3d6e029aaae3c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "72cfac817837822c9946e00bf5d3d91ef2e1061409d7c402cda2ad532412a732"
   end
 
   depends_on "cmake" => [:build, :test]

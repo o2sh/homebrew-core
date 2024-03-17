@@ -1,20 +1,20 @@
 class Pcl < Formula
   desc "Library for 2D/3D image and point cloud processing"
   homepage "https://pointclouds.org/"
-  url "https://github.com/PointCloudLibrary/pcl/archive/refs/tags/pcl-1.13.1.tar.gz"
-  sha256 "8ab98a9db371d822de0859084a375a74bdc7f31c96d674147710cf4101b79621"
+  url "https://github.com/PointCloudLibrary/pcl/archive/refs/tags/pcl-1.14.0.tar.gz"
+  sha256 "de297b929eafcb93747f12f98a196efddf3d55e4edf1b6729018b436d5be594d"
   license "BSD-3-Clause"
-  revision 3
+  revision 2
   head "https://github.com/PointCloudLibrary/pcl.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "edbace24153cdcd9382c0fd1fa856e1d21bdc5aa99d7b5a66a614b9968f2f010"
-    sha256 cellar: :any,                 arm64_ventura:  "9f8570ed4ffe6693b7ac06e2f1702221798a3336556dcb3faaa82f2d82ddaddf"
-    sha256 cellar: :any,                 arm64_monterey: "4fa617ebe0f8ee949887f4ae74ce1fd016da1c03a0642a263aeca504e7074644"
-    sha256 cellar: :any,                 sonoma:         "196f36808b240b699a3cd6f73a9e605f61628a4b28af86ce98914df946c8f53d"
-    sha256 cellar: :any,                 ventura:        "ea7675b1b52d6d41e16f9d8741df4b074f09542db3096ee4f17eab369d999e7d"
-    sha256 cellar: :any,                 monterey:       "371b5d9112adfbd620bb32d235d27d93b616a72e66666ab45002f294b9c82f46"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "eb19d5724ccd53ff209a86dfc2c8aaca1332cd4de9216c567b304be8f97beedb"
+    sha256 cellar: :any,                 arm64_sonoma:   "9d6a2445628d80caef165a1725ec4fe482c56a842507dc38dace4f42f5643c20"
+    sha256 cellar: :any,                 arm64_ventura:  "5ea57ad75157527441b0c268f5e86df0292cb9efc26ea679ba4eb39750a85742"
+    sha256 cellar: :any,                 arm64_monterey: "9ef5c624f47b90e0f630269363dfa6393844214d0ca9b4bf7da2a285a2092be4"
+    sha256 cellar: :any,                 sonoma:         "3d670c49251a6a98cc1395113b999ca0c329d01f143b6a44ff53ab19e9356f18"
+    sha256 cellar: :any,                 ventura:        "f9e6cc80ebc3cbf47976e256d5b2814c4cb8d9e93604541d036a81af999be34a"
+    sha256 cellar: :any,                 monterey:       "99a66f4f0a511272a762976c3c1de4192a3fea0cdf86ccac169bc5960628e30a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "88ba89986eca360c9790e771996e2435e30b4ad39a6e19f29d9d949a5f652a0d"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -33,10 +33,6 @@ class Pcl < Formula
   on_macos do
     depends_on "libomp"
   end
-
-  # Fix build with Qt 6
-  # https://github.com/PointCloudLibrary/pcl/issues/5776
-  patch :DATA
 
   def install
     args = std_cmake_args + %w[
@@ -131,16 +127,3 @@ class Pcl < Formula
     end
   end
 end
-__END__
-diff -pur a/apps/cloud_composer/include/pcl/apps/cloud_composer/signal_multiplexer.h b/apps/cloud_composer/include/pcl/apps/cloud_composer/signal_multiplexer.h
---- a/apps/cloud_composer/include/pcl/apps/cloud_composer/signal_multiplexer.h	2023-05-10 08:44:47
-+++ b/apps/cloud_composer/include/pcl/apps/cloud_composer/signal_multiplexer.h	2023-07-31 18:04:25
-@@ -42,6 +42,8 @@
- 
- #pragma once
- 
-+#include <QList>
-+#include <QObject>
- #include <QPointer>
- 
- namespace pcl

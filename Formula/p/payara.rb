@@ -1,8 +1,8 @@
 class Payara < Formula
   desc "Java EE application server forked from GlassFish"
   homepage "https://www.payara.fish"
-  url "https://search.maven.org/remotecontent?filepath=fish/payara/distributions/payara/6.2023.11/payara-6.2023.11.zip"
-  sha256 "791943fe359b9f790a58ca3e74b9d1d6ad4ae87192dc118599c48b790d8de906"
+  url "https://search.maven.org/remotecontent?filepath=fish/payara/distributions/payara/6.2024.3/payara-6.2024.3.zip"
+  sha256 "66f5cede0826e80e599d88a3ab135d8113f37dfc73665a1a08772f6365d3ec61"
   license any_of: [
     "CDDL-1.1",
     { "GPL-2.0-only" => { with: "Classpath-exception-2.0" } },
@@ -14,11 +14,11 @@ class Payara < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "62f66e1b0070d56b25d7917bae9109296be0ed78731974f85f9a0a6e4514a209"
+    sha256 cellar: :any_skip_relocation, all: "2bbf8054d3b6d7ac987e2f6392e0ea83f9e3bc2b1c8e3b4d6b009120fa6b86c4"
   end
 
   depends_on :macos # The test fails on Linux.
-  depends_on "openjdk@11"
+  depends_on "openjdk"
 
   conflicts_with "glassfish", because: "both install the same scripts"
 
@@ -31,7 +31,7 @@ class Payara < Formula
 
     libexec.install Dir["*"]
     bin.install Dir["#{libexec}/bin/*"]
-    bin.env_script_all_files(libexec/"bin", Language::Java.java_home_env("11"))
+    bin.env_script_all_files(libexec/"bin", Language::Java.java_home_env)
   end
 
   def caveats

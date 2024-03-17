@@ -1,8 +1,8 @@
 class PythonGdbmAT312 < Formula
   desc "Python interface to gdbm"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.12.0/Python-3.12.0.tgz"
-  sha256 "51412956d24a1ef7c97f1cb5f70e185c13e3de1f50d131c0aac6338080687afb"
+  url "https://www.python.org/ftp/python/3.12.2/Python-3.12.2.tgz"
+  sha256 "a7c4f6a9dc423d8c328003254ab0c9338b83037bd787d680826a5bf84308116e"
   license "Python-2.0"
 
   livecheck do
@@ -10,21 +10,21 @@ class PythonGdbmAT312 < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "9a1f0b964794486c299c9d64f69e76e08d826009d451e1651e2a74a68f46ed78"
-    sha256 cellar: :any, arm64_ventura:  "eeb870ac691c7bed08fd192fb232d2394b5530d112c90a03be77986c20d04339"
-    sha256 cellar: :any, arm64_monterey: "534e52055ee5abf1359d3bd3466558913ca5d72c8e4739396f1d897464168113"
-    sha256 cellar: :any, sonoma:         "58460f812979ac5b3dabf25c85ad4b5df00b95e7e9b6871b03143e5732ba473c"
-    sha256 cellar: :any, ventura:        "044939b1213c668bd3e50e641b03366d57923b36cb00b351190c447f5ba1ea71"
-    sha256 cellar: :any, monterey:       "eee819c21f41327961f46398895835691fb7c3cf4c156518ae935029cbaca079"
-    sha256               x86_64_linux:   "5faea4deef4ca2df7e4514d5c6b5b4104b29ca7989681a1cbde5062d42324ab6"
+    sha256 cellar: :any, arm64_sonoma:   "b57278030c6bc53d605282f55ac8b3c405f26b66ed9594858b0b2f64243a5211"
+    sha256 cellar: :any, arm64_ventura:  "67b46fd4027e3332d0a8db95ff5f1af4bde1a1fb14f460996738ed36efedb99e"
+    sha256 cellar: :any, arm64_monterey: "9e4843211c412e29c6fc8b2ead2edd0c999c67c5b0ae058c0277ab51d9127a83"
+    sha256 cellar: :any, sonoma:         "b5d32a47d26373140044e9dd7d466a282970722b023d0386321dfb2e8bfbf105"
+    sha256 cellar: :any, ventura:        "934d91775a816281b5c2f45917995ecd759d7391a742848dcd0cdd52b4194b07"
+    sha256 cellar: :any, monterey:       "1b638694f6b24c25c01f2f93040853aa4ec28845fadb2960fbd4857f42e08ecb"
+    sha256               x86_64_linux:   "0aa6c6997e05ec40bdb2b313a0f01971360a331dcce67ecdbfe6083f1a57598f"
   end
 
   depends_on "gdbm"
   depends_on "python@3.12"
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/ef/cc/93f7213b2ab5ed383f98ce8020e632ef256b406b8569606c3f160ed8e1c9/setuptools-68.2.2.tar.gz"
-    sha256 "4ac1475276d2f1c48684874089fefcd83bd7162ddaafb81fac866ba0db282a87"
+    url "https://files.pythonhosted.org/packages/4b/d9/d0cf66484b7e28a9c42db7e3929caed46f8b80478cd8c9bd38b7be059150/setuptools-69.0.2.tar.gz"
+    sha256 "735896e78a4742605974de002ac60562d286fa8051a7e2299445e8e8fbb01aa6"
   end
 
   def python3

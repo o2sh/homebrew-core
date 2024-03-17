@@ -1,9 +1,9 @@
 class Singular < Formula
   desc "Computer algebra system for polynomial computations"
   homepage "https://www.singular.uni-kl.de/"
-  url "https://www.singular.uni-kl.de/ftp/pub/Math/Singular/SOURCES/4-3-2/singular-4.3.2p10.tar.gz"
-  version "4.3.2p10"
-  sha256 "28c2c9fcfee954e00dfa56eb1a7d418d5b1de67c4398d25a0f2b8f73e71552a8"
+  url "https://www.singular.uni-kl.de/ftp/pub/Math/Singular/SOURCES/4-3-2/singular-4.3.2p16.tar.gz"
+  version "4.3.2p16"
+  sha256 "675733ba13a6ec67c564e753139f7c0c4b0d3e29bdb995de5341b616f1472a16"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -36,13 +36,13 @@ class Singular < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "5dcd2bcf2277672f6dfe5f3995bb555cba8bc37540c491a705735a369b431d80"
-    sha256 arm64_ventura:  "469a76bf8f01ff690fc4290c4b456f407ace84c968a252627edf77c66522c877"
-    sha256 arm64_monterey: "ae5e4ecd9378024c216c69e7d3bfbf028ceef4fc8d409bc643db922a448e0e0b"
-    sha256 sonoma:         "eb040af9b5e694cf452f0aee16220aff53c1bfa08b5fcc1d37ec1e764b3d49e2"
-    sha256 ventura:        "98ee73ec75ae51ca5ce7fad3f0543f76d888fe813a6482405398836257ecd15f"
-    sha256 monterey:       "acd3dba476eb547106f2c669c8e9026481669ddc7c62e1f16b79472cdee7c57c"
-    sha256 x86_64_linux:   "79590d0fa4ede6f7e78ff879c6a09f26216815c1d5e38f3fe5ed93a352ff2d0f"
+    sha256 arm64_sonoma:   "101500912b78329b856a9faf1b3267466fc82e7bdb59d10d1849a90d8bd53269"
+    sha256 arm64_ventura:  "f81833d0f7a0f63447d99974989e6ee6faed19b9952ac49e7d4e226a5360c869"
+    sha256 arm64_monterey: "82f3007f90f677e434132809493852e3b9fb662fc9ca16b07b6002a45e1e84e3"
+    sha256 sonoma:         "ddba9784c1d2a8be82ce87c00f16ff863572f60df6e3696e5a0f59238c9b079b"
+    sha256 ventura:        "3e46f2cb8e5792c64b8243b2da1487e69246dfb6ca59448938d612d2228428cc"
+    sha256 monterey:       "7d73bd60a946e44ab0be78fa148c9d1ed4684e7d184a1bbf9a65148e3898867c"
+    sha256 x86_64_linux:   "aaa222a5f55aa0c399564f75fe8e91f2853085c86b45993a16100b9a5c0dd514"
   end
 
   head do
@@ -56,22 +56,13 @@ class Singular < Formula
   depends_on "gmp"
   depends_on "mpfr"
   depends_on "ntl"
-  depends_on "python@3.11"
-
-  on_macos do
-    depends_on "autoconf" => :build
-    depends_on "automake" => :build
-    depends_on "libtool" => :build
-  end
+  depends_on "python@3.12"
 
   def install
-    # Run autogen on macOS so that -flat_namespace flag is not used.
-    system "./autogen.sh" if build.head? || OS.mac?
-    system "./configure", "--disable-debug",
-                          "--disable-dependency-tracking",
+    system "./autogen.sh" if build.head?
+    system "./configure", *std_configure_args,
                           "--disable-silent-rules",
-                          "--prefix=#{prefix}",
-                          "--with-python=#{which("python3.11")}",
+                          "--with-python=#{which("python3.12")}",
                           "CXXFLAGS=-std=c++11"
     system "make", "install"
   end

@@ -1,8 +1,8 @@
 class Pdnsrec < Formula
   desc "Non-authoritative/recursing DNS server"
-  homepage "https://www.powerdns.com/recursor.html"
-  url "https://downloads.powerdns.com/releases/pdns-recursor-4.9.2.tar.bz2"
-  sha256 "4cb8180458ecfb528a3d9a34ba2844b6cd2ed69ca1c461dde24a0ebd66829144"
+  homepage "https://www.powerdns.com/powerdns-recursor"
+  url "https://downloads.powerdns.com/releases/pdns-recursor-5.0.3.tar.bz2"
+  sha256 "01d170a2850eb2aca501d6838a3444136589980d5cb2c2b53392b76459e38c07"
   license "GPL-2.0-only" => { with: "openvpn-openssl-exception" }
 
   livecheck do
@@ -11,19 +11,22 @@ class Pdnsrec < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "78329c3e2d520b19f4e7fc2dd26b4213642c38dac10183a75784ce0fd7c571f5"
-    sha256 arm64_ventura:  "d9dbb7648a26d2c702d0828f228d60279eb5542a563774462ea9e065b833c9f2"
-    sha256 arm64_monterey: "bccbfe0862ae00ea431e1531d337188fc854ad3b61135841ebe8d99dd1623160"
-    sha256 sonoma:         "a41780de95da61600d41eb4cb528fb09d67480ce29f24eb9041692ec7707e005"
-    sha256 ventura:        "d3aa9cbf485a80a23c8ab77f0fe96935a7035f02e78e284c0146ffb9e80f1a30"
-    sha256 monterey:       "887efacd2ac572679a406b3f1a49e0c180ed6ab65198a129e6d72a9a8f8e38fa"
-    sha256 x86_64_linux:   "17c4e1b983b2db7a96ab41143b2567837de6b50be06b3745961559290f295d21"
+    sha256 arm64_sonoma:   "36834fe910fd8c845e4819cd35fd3b04f6359b5165264afc20abedf8387d4081"
+    sha256 arm64_ventura:  "48f83494d7eebc73af931c095dab17227610d3c5e6e23f079860429648302346"
+    sha256 arm64_monterey: "103c2f1a7afe19ad90f41e72a6b0e8550754c66a72fa3404f5bd33df4e77c6a2"
+    sha256 sonoma:         "475624d8e181eb910db8387923d82724acde79704a51906520c673f065ead0e6"
+    sha256 ventura:        "b38fb2035f8a7d872ce6d0f3337941841f72c6c760c76c1081fa3f6ab671c984"
+    sha256 monterey:       "2eb50158597c8108bb84355b31f6e11dd590685f07507d8eca1edc140d10896b"
+    sha256 x86_64_linux:   "d5bbfc45dea4c07a62517043a6386f129f72a1906b3e67e16913e0772c343079"
   end
 
   depends_on "pkg-config" => :build
+  depends_on "rust" => :build
   depends_on "boost"
   depends_on "lua"
   depends_on "openssl@3"
+
+  uses_from_macos "curl"
 
   on_macos do
     depends_on "llvm" => :build if DevelopmentTools.clang_build_version <= 1100

@@ -1,8 +1,8 @@
 class Libomp < Formula
   desc "LLVM's OpenMP runtime library"
   homepage "https://openmp.llvm.org/"
-  url "https://github.com/llvm/llvm-project/releases/download/llvmorg-17.0.6/openmp-17.0.6.src.tar.xz"
-  sha256 "74334cbb4dc8b73a768448a7561d5a3540404940b2267b1fb9813a6464b320de"
+  url "https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.1/openmp-18.1.1.src.tar.xz"
+  sha256 "8a2ca2d7bcc42165f6dd6029ea3632ccc5637fc5a5fe6707a0ca2293655f90ed"
   license "MIT"
 
   livecheck do
@@ -11,13 +11,13 @@ class Libomp < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "f31b264e11426d16cbe38f4410f6be5405dfae9eb53a8ff99a8fb2c73b5b3f71"
-    sha256 cellar: :any,                 arm64_ventura:  "5b78eb7312107eba8d91912444d4617dfb76cb95ee68ce837f7c22e51ce5e2a9"
-    sha256 cellar: :any,                 arm64_monterey: "1a771c79450cb6d47803e9149b91a6f4aa2dce3dd8929831116cdc06d3a2eb02"
-    sha256 cellar: :any,                 sonoma:         "1c8c2254625ca8e941eb2a0cec32e2488bbe16fdd5bd11a025db562496522db4"
-    sha256 cellar: :any,                 ventura:        "e2c4a8ad78a67079e7d2bc0b65897ab6404ba1101aed849ac51d7551c33ebf0f"
-    sha256 cellar: :any,                 monterey:       "924729203a2dfe1e4ced503e2d266d7780df1d3dd394b2b924746968a5cb211e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d2bbf30d064f8024c5018a9c3126092c67c1361cab3b51c9cefc9c9c688a9a44"
+    sha256 cellar: :any,                 arm64_sonoma:   "88779ca947ef1e5831f4c3ad727c6d7aafaa7836ef56c2aa1ca4d90acdd953ae"
+    sha256 cellar: :any,                 arm64_ventura:  "50b9818a66bee963ed2f31ac3890b845c16432c4f6c145503e2317c70f31fedb"
+    sha256 cellar: :any,                 arm64_monterey: "204dc957e9cb07ddea9847f363502b068337fb7dbae51a06d56f0eda390007b8"
+    sha256 cellar: :any,                 sonoma:         "bc165d29fa345c06317746f672054f3c0ffa2bc399b4415036cdc2320a88339f"
+    sha256 cellar: :any,                 ventura:        "e12a6db86b95e962aa10e3b153464900d4e857c6350b6ad94c9c7739b4019556"
+    sha256 cellar: :any,                 monterey:       "5b63f5fc85a38487ad943dcd9807a1c7b2d4abfb9cf35478b0f5d3231aa292ac"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6b6f5ee7ae0112fa5827de6f1ba7f0151fb638d13fd6017fa66dc013cc6cd4a4"
   end
 
   # Ref: https://github.com/Homebrew/homebrew-core/issues/112107
@@ -32,11 +32,13 @@ class Libomp < Formula
   end
 
   resource "cmake" do
-    url "https://github.com/llvm/llvm-project/releases/download/llvmorg-17.0.6/cmake-17.0.6.src.tar.xz"
-    sha256 "807f069c54dc20cb47b21c1f6acafdd9c649f3ae015609040d6182cab01140f4"
+    url "https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.1/cmake-18.1.1.src.tar.xz"
+    sha256 "5308023d1c1e9feb264c14f58db35c53061123300a7eb940364f46d574c8b2d6"
   end
 
   def install
+    odie "cmake resource needs to be updated" if version != resource("cmake").version
+
     (buildpath/"src").install buildpath.children
     (buildpath/"cmake").install resource("cmake")
 
@@ -57,7 +59,6 @@ class Libomp < Formula
   end
 
   test do
-    assert_equal version, resource("cmake").version, "`cmake` resource needs updating!"
     (testpath/"test.cpp").write <<~EOS
       #include <omp.h>
       #include <array>

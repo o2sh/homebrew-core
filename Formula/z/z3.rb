@@ -1,19 +1,10 @@
 class Z3 < Formula
   desc "High-performance theorem prover"
   homepage "https://github.com/Z3Prover/z3"
+  url "https://github.com/Z3Prover/z3/archive/refs/tags/z3-4.12.6.tar.gz"
+  sha256 "9e46a1260ea26c441a1ad6faf378bf911ee9ffd110868867b4b2f2e3c7d2200e"
   license "MIT"
   head "https://github.com/Z3Prover/z3.git", branch: "master"
-
-  stable do
-    url "https://github.com/Z3Prover/z3/archive/refs/tags/z3-4.12.2.tar.gz"
-    sha256 "9f58f3710bd2094085951a75791550f547903d75fe7e2fcb373c5f03fc761b8f"
-
-    # Fix source build for users with GCC 13. Remove in the next release.
-    patch do
-      url "https://github.com/Z3Prover/z3/commit/520e692a43c41e8981eb091494bef0297ecbe3c6.patch?full_index=1"
-      sha256 "3e57b6ba3f8f271c3a8e46f1172b3384296c9570165680eb2bcf57d84e28298a"
-    end
-  end
 
   livecheck do
     url :stable
@@ -22,14 +13,13 @@ class Z3 < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "3cefdb9b53c5f6b9bbac30630f7e2498a50d3081fd5c332b3ee48d984960129b"
-    sha256 cellar: :any,                 arm64_ventura:  "f22e57323803087dbd3d716c3d637af5b3e606906027899e7428b412b2776c33"
-    sha256 cellar: :any,                 arm64_monterey: "70cbff047978886125f28a24926398d2f84310039a39ba8e1d898099396606a6"
-    sha256 cellar: :any,                 sonoma:         "6ab4f5b41405b259bba990f259a97f34f371a9051c9cc621a71ed97084dd87c3"
-    sha256 cellar: :any,                 ventura:        "57f7090b42df9bce9b095b922ffbd4e6f2ec22f6ddb68651c16a95dc75bce6d1"
-    sha256 cellar: :any,                 monterey:       "3c9f8a788f325077119a4be747f7462c2804fed4143a82e8cf35847ba7803d03"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "03e5e838aceb33a27d58731b22a71d4c6063c0c1c2ce26babe696925b4d2512c"
+    sha256 cellar: :any,                 arm64_sonoma:   "4278e29cc8b0fe218593ecc2f704ec5b2770b0fa01dfdd6b4ba374b02c2f8b1a"
+    sha256 cellar: :any,                 arm64_ventura:  "f424edf3d0d1119260edd64a35ae684146e3e3078e5a043674956e5ab6a83dc5"
+    sha256 cellar: :any,                 arm64_monterey: "c2f60aed2d189398660d6c50dad323dd8b7bb293a5d0fb73c69c890a63c141de"
+    sha256 cellar: :any,                 sonoma:         "634ae5a5014e139d68bc21c8a4b0c13778c959746080140c94a6d90632252389"
+    sha256 cellar: :any,                 ventura:        "ce5b9801ddaaf010a6b7f775f5887761c7fa74df6f2eaefad091d0198900b4d4"
+    sha256 cellar: :any,                 monterey:       "7cabdf66088d2dbfb487d6f324891f71f724637d0868dc5c7b6472f1530480cf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0bb0403161bbb9ea37b6bb397bc26c523b8b2c77ed1add94d536a321fded39eb"
   end
 
   depends_on "cmake" => :build
@@ -43,9 +33,8 @@ class Z3 < Formula
   fails_with :clang do
     build 1000
     cause <<-EOS
-      z3-z3-4.12.2/src/ast/ast.h:183:53: error: call to unavailable function 'get': introduced in macOS 10.14
-          int get_int() const { SASSERT(is_int()); return std::get<int>(m_val); }
-                                                          ^~~~~~~~~~~~~
+      Z3 uses modern C++17 features, which is not supported by Apple's clang until
+      later macOS (10.14).
     EOS
   end
 

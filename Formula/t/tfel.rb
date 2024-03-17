@@ -1,19 +1,20 @@
 class Tfel < Formula
   desc "Code generation tool dedicated to material knowledge for numerical mechanics"
   homepage "https://thelfer.github.io/tfel/web/index.html"
-  url "https://github.com/thelfer/tfel/archive/refs/tags/TFEL-4.1.1.tar.gz"
-  sha256 "e0f229094e88a2d6c6a78ae60fa77d2f4b8294e9d810c21fd7df61004bf29a33"
+  url "https://github.com/thelfer/tfel/archive/refs/tags/TFEL-4.2.0.tar.gz"
+  sha256 "cf8a309c4d19a8e36232f8540ff28aa0d6285645f8dfb1ac57dd481ba3453e02"
   license "GPL-1.0-or-later"
+  revision 1
   head "https://github.com/thelfer/tfel.git", using: :git, branch: "master"
 
   bottle do
-    sha256 arm64_sonoma:   "10722376b4cbe9b0ab7b9030823d4931c65c9b769513305d2a5b4bc12a5f5d42"
-    sha256 arm64_ventura:  "919da43d6e792be25d0f1f5bc2c841ee1217faa47f09bcc98dee2a75ce6111c0"
-    sha256 arm64_monterey: "007ddd0f47c41766f491403073f20abb1a8e3dba03240a3cfdb11b74482f6b17"
-    sha256 sonoma:         "ff36a7315f89c580016d8da3e610c249144d83d100072ef48adf3ab1c1e5ca96"
-    sha256 ventura:        "dd241f73800b74b20e5e1426b8c75b48fe45509cfb7234fd1a1bcce829c7d1de"
-    sha256 monterey:       "2e0f309b16ce65373b647eb9767634e13b8b91855939066b43f4f36f9aecc274"
-    sha256 x86_64_linux:   "7b51d327a3d6c2c14a2fc2d82fae30d237918edfc6c3867af2930f95ff355132"
+    sha256 arm64_sonoma:   "b02a5aeb285a83a9ab5a9a6e71d35150ad9b8fabcf580277705e9621f43a0528"
+    sha256 arm64_ventura:  "d4fe36a11d065b61b3abba0407b1e0581bbcd662ec5dd45ec7cdd65939202753"
+    sha256 arm64_monterey: "17e3bd76b2adc4fa6cb052404571da9e05a81ed3c4b62f0400838e5b1c817824"
+    sha256 sonoma:         "cc9749378a2e74e66505fe5218ad752abd445efbfd6ad664eede65529fde96a1"
+    sha256 ventura:        "f98c07cafabd508ade1421df78ca33f956ca9a3d3d55f5c77c64f1aae3edea1d"
+    sha256 monterey:       "4b5c82e9280af6faa77a534467dcab7bae14ca833721e24772e9fd4818176f1f"
+    sha256 x86_64_linux:   "6247ccab9ce4bbb59e433b0170fc8679be7f2b21b6b5fb6552e916386de128e3"
   end
 
   depends_on "cmake" => :build
@@ -29,7 +30,7 @@ class Tfel < Formula
       "-Denable-website=OFF",
       "-Dlocal-castem-header=ON",
       "-Denable-python=ON",
-      "-Denable-python-bindings=ON",  # requires boost-python
+      "-Denable-python-bindings=ON", # requires boost-python
       "-Denable-numpy-support=OFF",
       "-Denable-fortran=ON",
       "-Denable-cyrano=ON",

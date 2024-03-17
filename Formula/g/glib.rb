@@ -1,32 +1,31 @@
 class Glib < Formula
   include Language::Python::Shebang
+  include Language::Python::Virtualenv
 
   desc "Core application library for C"
   homepage "https://developer.gnome.org/glib/"
-  url "https://download.gnome.org/sources/glib/2.78/glib-2.78.1.tar.xz"
-  sha256 "915bc3d0f8507d650ead3832e2f8fb670fce59aac4d7754a7dab6f1e6fed78b2"
+  url "https://download.gnome.org/sources/glib/2.80/glib-2.80.0.tar.xz"
+  sha256 "8228a92f92a412160b139ae68b6345bd28f24434a7b5af150ebe21ff587a561d"
   license "LGPL-2.1-or-later"
 
   bottle do
-    rebuild 1
-    sha256 arm64_sonoma:   "b48fbc4e70e328762e187e2fb0ca2071f5d9d381849ef8d1d468c3f415539a4c"
-    sha256 arm64_ventura:  "7fa9d409588453eee205a2a42da01ef8ed4fc51ecadbe42f195848c14c5cf7d7"
-    sha256 arm64_monterey: "e95b5946f2165e6889f39a656b72cc6c11f2f0e30b01a1fe061fb7d7d38b958c"
-    sha256 sonoma:         "705507d1521a8c3e3b99d0187377fe4d84fd9c4610131fa787bf47341234654d"
-    sha256 ventura:        "c97eb37fbd9bb7c98e507444c11e3b690427015496eed511f7e0bfab1c5fd793"
-    sha256 monterey:       "b4315a16b9f0c2f752cd0f22508a3e89303425d95340165bcf29734ffa7cbcf4"
-    sha256 x86_64_linux:   "d63653a4fe0abbc95c808131dd0de762713936e645386035d3a556c57dbc8eaf"
+    sha256 arm64_sonoma:   "96ae5913930d7f02927c9e40a2211c1145633b73d8dceb80b1903fcc8e17a244"
+    sha256 arm64_ventura:  "7b5278d6d8d3859c0d52f04873d32c2242be9c966005fa60d01956ece6b243a4"
+    sha256 arm64_monterey: "3bb647ad2614972eb32b89ee0dafc102b511255fd2499324d62c6a8e2ac07935"
+    sha256 sonoma:         "94a7e4e630e3c7b61c434aae977497a99220b84b684102c3854673808463aa8d"
+    sha256 ventura:        "061aeb61fc3be7e6573dbcc84e86ac1ef3f2f5f236b5a392db35ff58ef29f3ca"
+    sha256 monterey:       "92fe6c979d0c262ed0bcf78388ce50d250aa8b975a1b24b7455e8146b3c87b3d"
+    sha256 x86_64_linux:   "6f517d69baa1faf82126a9a4e04f3bd3dda138a24d5ed3042a94fb24e3f43a66"
   end
 
   depends_on "gettext" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
-  depends_on "python-setuptools" => :build
   depends_on "pcre2"
+  depends_on "python@3.12"
 
   uses_from_macos "libffi", since: :catalina
-  uses_from_macos "python", since: :catalina
 
   on_macos do
     depends_on "gettext"
@@ -41,6 +40,11 @@ class Glib < Formula
   link_overwrite "bin/gdbus-codegen", "bin/glib-genmarshal", "bin/glib-mkenums", "bin/gtester-report"
   link_overwrite "share/glib-2.0/codegen", "share/glib-2.0/gdb"
 
+  resource "packaging" do
+    url "https://files.pythonhosted.org/packages/fb/2b/9b9c33ffed44ee921d0967086d653047286054117d584f1b1a7c22ceaf7b/packaging-23.2.tar.gz"
+    sha256 "048fb0e9405036518eaaf48a55953c750c11e1a1b68e0dd1a9d62ed0c092cfc5"
+  end
+
   # replace several hardcoded paths with homebrew counterparts
   patch do
     url "https://raw.githubusercontent.com/Homebrew/formula-patches/43467fd8dfc0e8954892ecc08fab131242dca025/glib/hardcoded-paths.diff"
@@ -51,6 +55,10 @@ class Glib < Formula
     inreplace %w[gio/xdgmime/xdgmime.c glib/gutils.c], "@@HOMEBREW_PREFIX@@", HOMEBREW_PREFIX
     # Avoid the sandbox violation when an empty directory is created outside of the formula prefix.
     inreplace "gio/meson.build", "install_emptydir(glib_giomodulesdir)", ""
+
+    venv = virtualenv_create(libexec, "python3.12")
+    venv.pip_install resources
+    ENV.prepend_path "PYTHONPATH", venv.site_packages
 
     # Disable dtrace; see https://trac.macports.org/ticket/30413
     # and https://gitlab.gnome.org/GNOME/glib/-/issues/653
@@ -84,22 +92,23 @@ class Glib < Formula
         s.gsub! "Cflags: -I${includedir}/glib-2.0 -I${libdir}/glib-2.0/include",
                 "Cflags: -I${includedir}/glib-2.0 -I${libdir}/glib-2.0/include -I#{gettext}/include"
       end
-    end
 
-    if MacOS.version < :catalina
-      # `pkg-config --print-requires-private gobject-2.0` includes libffi,
-      # but that package is keg-only so it needs to look for the pkgconfig file
-      # in libffi's opt path.
-      libffi = Formula["libffi"].opt_prefix
-      inreplace lib/"pkgconfig/gobject-2.0.pc" do |s|
-        s.gsub! "Requires.private: libffi",
-                "Requires.private: #{libffi}/lib/pkgconfig/libffi.pc"
+      if MacOS.version < :catalina
+        # `pkg-config --print-requires-private gobject-2.0` includes libffi,
+        # but that package is keg-only so it needs to look for the pkgconfig file
+        # in libffi's opt path.
+        libffi = Formula["libffi"].opt_prefix
+        inreplace lib/"pkgconfig/gobject-2.0.pc" do |s|
+          s.gsub! "Requires.private: libffi",
+                  "Requires.private: #{libffi}/lib/pkgconfig/libffi.pc"
+        end
       end
     end
 
     rm "gio/completion/.gitignore"
     bash_completion.install (buildpath/"gio/completion").children
-    rewrite_shebang detected_python_shebang(use_python_from_path: true), *bin.children
+    rw_info = python_shebang_rewrite_info(venv.root/"bin/python")
+    rewrite_shebang rw_info, *bin.children
   end
 
   def post_install
@@ -127,5 +136,31 @@ class Glib < Formula
     system "./test"
 
     assert_match "This file is generated by glib-mkenum", shell_output("#{bin}/glib-mkenums")
+
+    (testpath/"net.Corp.MyApp.Frobber.xml").write <<~EOS
+      <node>
+        <interface name="net.Corp.MyApp.Frobber">
+          <method name="HelloWorld">
+            <arg name="greeting" direction="in" type="s"/>
+            <arg name="response" direction="out" type="s"/>
+          </method>
+
+          <signal name="Notification">
+            <arg name="icon_blob" type="ay"/>
+            <arg name="height" type="i"/>
+            <arg name="messages" type="as"/>
+          </signal>
+
+          <property name="Verbose" type="b" access="readwrite"/>
+        </interface>
+      </node>
+    EOS
+
+    system bin/"gdbus-codegen", "--generate-c-code", "myapp-generated",
+                                "--c-namespace", "MyApp",
+                                "--interface-prefix", "net.corp.MyApp.",
+                                "net.Corp.MyApp.Frobber.xml"
+    assert_predicate testpath/"myapp-generated.c", :exist?
+    assert_match "my_app_net_corp_my_app_frobber_call_hello_world", (testpath/"myapp-generated.h").read
   end
 end

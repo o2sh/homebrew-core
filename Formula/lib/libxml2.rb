@@ -1,8 +1,8 @@
 class Libxml2 < Formula
   desc "GNOME XML library"
   homepage "http://xmlsoft.org/"
-  url "https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.1.tar.xz"
-  sha256 "8982b9ccdf7f456e30d8f7012d50858c6623e495333b6191def455c7e95427eb"
+  url "https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.6.tar.xz"
+  sha256 "889c593a881a3db5fdd96cc9318c87df34eb648edfc458272ad46fd607353fbb"
   license "MIT"
 
   # We use a common regex because libxml2 doesn't use GNOME's "even-numbered
@@ -13,13 +13,13 @@ class Libxml2 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "5868e9edbe38920af5767b3a59dc6b50f73face47957edb40ac1afc180e6447a"
-    sha256 cellar: :any,                 arm64_ventura:  "04ed08e7f55d209c35b05b2c8a794b431f388849ef7f7be18db6b6cd7081b5a4"
-    sha256 cellar: :any,                 arm64_monterey: "55a971a11552e0f90f7a0d9c916c271d011187544f64a0c30e8550fb425698d0"
-    sha256 cellar: :any,                 sonoma:         "9d9b80a724657fbe6b0fca50b5578e137e0986b95450659128ecf379bfe10b1d"
-    sha256 cellar: :any,                 ventura:        "b93d0dca54152c5e0b7bbb7a8828706c74e552c327602708ae785f3557900879"
-    sha256 cellar: :any,                 monterey:       "bc0860a06ffae56eb11cefaef165bd8401a248f523b28f8bafc1ac37e4edf3c8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4c58d7f6df429b4f5d4f587bde5a2fcace1ee1dc5830595aa8ea17bc5240d03a"
+    sha256 cellar: :any,                 arm64_sonoma:   "9c37ec3428a8874a2c06cb6b7c06e6fa245f6c901d11e98cd1fb1a026c19b107"
+    sha256 cellar: :any,                 arm64_ventura:  "42f2f051d27bffbc179a9ffd4a3004c7422c776233267b1b471e10c1e413744d"
+    sha256 cellar: :any,                 arm64_monterey: "2891384cf532ff7e81ed87248ba71c50039dbb21b03890ade4ba4e03f30af9de"
+    sha256 cellar: :any,                 sonoma:         "67634d87d45a885b274d3282e36d795251d4db9f00996b0e7d815f0e5c6c8a22"
+    sha256 cellar: :any,                 ventura:        "7ade43ba71ec4b40b8d287063d86b671644b18760eba47a04de37ac4a76efad8"
+    sha256 cellar: :any,                 monterey:       "a6d3512246ccd15f742332c17fa77c635c194b917da0c5ff0ed2a580dfcb5271"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e71c388c95d8b83c907784a9fcc57bf2462e33ee97ea4406d214e177e67c095d"
   end
 
   head do
@@ -34,7 +34,6 @@ class Libxml2 < Formula
   keg_only :provided_by_macos
 
   depends_on "python-setuptools" => :build
-  depends_on "python@3.10" => [:build, :test]
   depends_on "python@3.11" => [:build, :test]
   depends_on "python@3.12" => [:build, :test]
   depends_on "pkg-config" => :test

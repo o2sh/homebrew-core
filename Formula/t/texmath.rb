@@ -1,23 +1,23 @@
 class Texmath < Formula
   desc "Haskell library for converting LaTeX math to MathML"
   homepage "https://johnmacfarlane.net/texmath.html"
-  url "https://hackage.haskell.org/package/texmath-0.12.8.4/texmath-0.12.8.4.tar.gz"
-  sha256 "fb53e9dcc559ff045ebf2e83a1fc6fc599fae59b9c43dda78145872dd8a671de"
+  url "https://hackage.haskell.org/package/texmath-0.12.8.7/texmath-0.12.8.7.tar.gz"
+  sha256 "d33c332e21c8b4737fafd2a7753d38b67c6c94ffc44fd3dcdbd4f883f07c7644"
   license "GPL-2.0-or-later"
   head "https://github.com/jgm/texmath.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d2fb02a70c7cd43d2a019688eab17a191f5582aa561a2ce4c9b07421cc08a8aa"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "da1ebe49b69604038945f234f74c5b7b426d3338f6dbfbc10cd9312650a64313"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "273f8e820054e39be8e79fc8a6db2b371461a2e8c7a6b5381ccaf37148a9bd69"
-    sha256 cellar: :any_skip_relocation, sonoma:         "1a620ce0315807914ddc32083f208eca93dac5ea9d5bec0dc3cf54ea3c79e8a2"
-    sha256 cellar: :any_skip_relocation, ventura:        "0f4161456b5be936834daaaeecf7796a5f1dcc15df30a8aa0386e2d6b5791898"
-    sha256 cellar: :any_skip_relocation, monterey:       "f861aa05cce7bf97c7018ba5481f0bd5003e137401f75198ab9725ce33076224"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0a3f5b699942c6c209ef08cd705bb1e648d4cc8f4cba3ed7787486fe7b74296d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e68c5a5fe8a38b73a3c3506594a28547b0837bc61e2db003fb714f8a55ba6c9b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "11787cd07ccf85727fc6e94e56ddd145e7820aaaf9862854a0023c04b587d242"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "b4143abd1dfdb94b8070f2192dcdd8b2b727fd1bd1f8c7f5d6fb717ec26b30d8"
+    sha256 cellar: :any_skip_relocation, sonoma:         "15618a48af09636976ac937b8ed46f26ed18de79abb4a03b115f566fcfffff0b"
+    sha256 cellar: :any_skip_relocation, ventura:        "984cec9d5c4f28c1567c9e4fb53f8307b5c1162600dbc2b971c6ca88903521a6"
+    sha256 cellar: :any_skip_relocation, monterey:       "9944f4742741b29f49020517c2d3eae948c3541848d70c2d6c6915c50216e27f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d310a0366dbd51af6efc6fba5a35b350e3fe926e4f0400334d49ac5964c8b945"
   end
 
   depends_on "cabal-install" => :build
-  depends_on "ghc@9.6" => :build
+  depends_on "ghc" => :build
 
   def install
     system "cabal", "v2-update"

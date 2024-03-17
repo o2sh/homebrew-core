@@ -1,9 +1,10 @@
 class TemporalTables < Formula
   desc "Temporal Tables PostgreSQL Extension"
   homepage "https://pgxn.org/dist/temporal_tables/"
-  url "https://github.com/arkhipov/temporal_tables/archive/refs/tags/v1.2.1.tar.gz"
-  sha256 "e3711797aa5def8f4974215bb5557204b2bc8e5e94201167eb95246a112b8138"
+  url "https://github.com/arkhipov/temporal_tables/archive/refs/tags/v1.2.2.tar.gz"
+  sha256 "85517266748a438ab140147cb70d238ca19ad14c5d7acd6007c520d378db662e"
   license "BSD-2-Clause"
+  revision 1
 
   livecheck do
     url :stable
@@ -11,37 +12,31 @@ class TemporalTables < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "10791d24df71b6dd0247d07de374036eb28415a949647f3d1a95a755c377b190"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "25de5d67758c7f706666c46b444f41d90750c34154f37818996e7a8e587fed24"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0c598c7ce24e74d75192a0f288e6999f9469a39cdbd527200cd49f148ac6212c"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "bde5bd8f74dcb385b456d8b3b41cd091ec2c3c8b14bd547673e15b88fbc98d8e"
-    sha256 cellar: :any_skip_relocation, sonoma:         "618c2558d74c2823588059829ed47cb7ffb78609d835c0749c7ae6307a96e87f"
-    sha256 cellar: :any_skip_relocation, ventura:        "0f95f0a9ac21073ff6b19cb755107230557c219049d616fe06bcce3bbcdc661b"
-    sha256 cellar: :any_skip_relocation, monterey:       "b927ea034755f45d616ede60bee3143b2f99eb73aed0a59b56bd678f2604e372"
-    sha256 cellar: :any_skip_relocation, big_sur:        "59a11c3b8ab038ce163126367041ff0e36ccfa34feb0c2069b4ac2518fac45cc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ebd8118d7b3a00ead2834ac1dde9550553606e004b2fb02fc53e61438260da6b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4c329e88b8fa82e9360be732ae2054d0d77b41b29e302636c31f1da2b47203e0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5222d996fc391c50b0b70a096e931c886620e6f538c34d3955bea1fd86f46508"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e458a800f09bb073d81b032e56e6ba124f86a46e8adf7fec9afd5dbfcaee8617"
+    sha256 cellar: :any_skip_relocation, sonoma:         "91a343a4100f09bf265f0bb826ecdd610189a5e55fa7349911512a3f5a45c0ab"
+    sha256 cellar: :any_skip_relocation, ventura:        "1292cf245c40f3c833b3c05dc4f17d960550107aa4a5df06c8cd8ea77612060b"
+    sha256 cellar: :any_skip_relocation, monterey:       "94cfaaa4269a1d3bb894d6eb63c3efb337fd05854a048e47f5d6952a3240d6a4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "96fd42f1d03e29962b80bca8ddeb2f25091c810760ee8cbc3163c1b3852e41f9"
   end
 
   depends_on "postgresql@14"
 
   def postgresql
-    Formula["postgresql@14"]
+    deps.map(&:to_formula)
+        .find { |f| f.name.start_with?("postgresql@") }
   end
 
   def install
-    ENV["PG_CONFIG"] = postgresql.opt_bin/"pg_config"
-
-    # Use stage directory to prevent installing to pg_config-defined dirs,
-    # which would not be within this package's Cellar.
-    mkdir "stage"
-    system "make", "install", "DESTDIR=#{buildpath}/stage"
-
-    stage_path = File.join("stage", HOMEBREW_PREFIX)
-    lib.install (buildpath/stage_path/"lib").children
-    share.install (buildpath/stage_path/"share").children
+    system "make", "install", "PG_CONFIG=#{postgresql.opt_bin}/pg_config",
+                              "pkglibdir=#{lib/postgresql.name}",
+                              "datadir=#{share/postgresql.name}",
+                              "docdir=#{doc}"
   end
 
   test do
+    ENV["LC_ALL"] = "C"
     pg_ctl = postgresql.opt_bin/"pg_ctl"
     psql = postgresql.opt_bin/"psql"
     port = free_port

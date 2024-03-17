@@ -1,19 +1,18 @@
 class Nvc < Formula
   desc "VHDL compiler and simulator"
   homepage "https://github.com/nickg/nvc"
-  # TODO: Check if we can use unversioned `llvm` at version bump.
-  url "https://github.com/nickg/nvc/releases/download/r1.10.4/nvc-1.10.4.tar.gz"
-  sha256 "d4e2baf58b80a45cdfa5ca07b4c9648e438bdbc2b3f3ebeedb65426045fd27db"
+  url "https://github.com/nickg/nvc/releases/download/r1.11.3/nvc-1.11.3.tar.gz"
+  sha256 "0004d29681063720b356318c586d5ec85f9c807b7d012c5e32c202b0b682f3ec"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 arm64_sonoma:   "09e5514068ac04ca1e66fcbd17d77cf998adc66ab812e9486f10dd1063f38d8d"
-    sha256 arm64_ventura:  "16137d3e239ddaef7cdd31ee2a58e5c3f1fed5d4b7fb2efead23655e6b31cad1"
-    sha256 arm64_monterey: "52e4c56436c8d73280ab5ecb4b54136f94d21142d58b37e5f319a15ce7555637"
-    sha256 sonoma:         "f78a91c365b78a9cd574f2c0bde86e8fa07635b69a759a4db82e4ae442157d59"
-    sha256 ventura:        "48634cb30a0c554fd5709e185d96cbc53a3c53516c9e5112d1f023ac30d2d6f6"
-    sha256 monterey:       "5c1ec8d5fab5f06d20bc4f9a9435210ad59d234462cd7c811b464b38b5bacb8c"
-    sha256 x86_64_linux:   "ee20d3c7b6a3384e2173f2ec21d6cf6c09bb88c1f4c76e3c5e924237b813f124"
+    sha256 arm64_sonoma:   "e78f2e2fb1e1771743f76e3097f7dbd654839200b4ae1f34096e501df9b6b9e7"
+    sha256 arm64_ventura:  "d3ca94c31f7adb6377741854041a50f1ab00a635353af915363460036d538894"
+    sha256 arm64_monterey: "6bc769647ab32cbc6b47286f77f29801ade071bd7b0d870135803df3a6ae6071"
+    sha256 sonoma:         "85b5dbd1f313583c8569c3697fbc539da8cdd0b16fef9dfb97b93faeb7ff4051"
+    sha256 ventura:        "c648f49712ba3edde537f248538943c0fa091a0046bab34a309e2e9cc10d2753"
+    sha256 monterey:       "41f7ac69b72fea0d3e1739c74f4c31dd39768e037b54a31628b23002c4cb1f5a"
+    sha256 x86_64_linux:   "36ddfc72cc7a2c8bbc4cd599ec3cbabaf5b8774461eb6953c8540114de8a346a"
   end
 
   head do
@@ -25,7 +24,7 @@ class Nvc < Formula
 
   depends_on "check" => :build
   depends_on "pkg-config" => :build
-  depends_on "llvm@16"
+  depends_on "llvm"
 
   uses_from_macos "flex" => :build
 
@@ -44,7 +43,7 @@ class Nvc < Formula
 
     # In-tree builds are not supported.
     mkdir "build" do
-      system "../configure", "--with-llvm=#{Formula["llvm@16"].opt_bin}/llvm-config",
+      system "../configure", "--with-llvm=#{Formula["llvm"].opt_bin}/llvm-config",
                              "--prefix=#{prefix}",
                              "--with-system-cc=#{ENV.cc}",
                              "--disable-silent-rules"

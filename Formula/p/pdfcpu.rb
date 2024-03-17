@@ -1,36 +1,39 @@
 class Pdfcpu < Formula
   desc "PDF processor written in Go"
   homepage "https://pdfcpu.io"
-  url "https://github.com/pdfcpu/pdfcpu/archive/refs/tags/v0.5.0.tar.gz"
-  sha256 "d67529db954b4b8fd708ac984cf79a53baf57ab2d50ef9ee0f9188f7e4a83127"
+  url "https://github.com/pdfcpu/pdfcpu/archive/refs/tags/v0.7.0.tar.gz"
+  sha256 "e36b1b03ff77fc2b9aa7ab4becfd2e0db271da0d5c56f6eb9b9ac844a04a00c1"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9c7d0dbdbd3883b9381f008da00167579a524cbdb33f8341ec4b305bb48ab3af"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c5c4dba29b404cfc873a667bcc5693fef156d9e712a03203939142ba4afc2909"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a3a700dbcc9b8f179f0eddec942c02a4d17851700abd2f5cce7d69ab7a83e6d7"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "3ab382dbe13c65804f22ca8ccda84c3c58b76fece858273c35114822dd42f5ff"
-    sha256 cellar: :any_skip_relocation, sonoma:         "bf4bc33c88d07f5724254e3c31e5cdb11003f14a7cc932e39839638d99f7ce53"
-    sha256 cellar: :any_skip_relocation, ventura:        "764606b36814edaf4c5c4d56b5d2bbac5b64d7a0eb35b98ef66b225c580be7ff"
-    sha256 cellar: :any_skip_relocation, monterey:       "121b4c05f3310693a9094258c888d081911cc3123b6febdcbf9ec558bcdbe3e6"
-    sha256 cellar: :any_skip_relocation, big_sur:        "434ea9d7e2ab797beebd7c59e43d6b40f8c8e22da2501e44b2772725304c87cd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ffc2c40994468ce444bc83edea61b02a3fa12478667f75af9e4d96e6172ed65c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e9dcb589aa980c796aac1bb901add81fd6d657a2a6cf68468e7c3f68f33a17bd"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4a7198c11f36f618d4c11848d3eb0c0550fcbfae30593098470ec333af08bf2f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "df7498c8ab8dfe2a26581cdb7bf04945099f999a2e3225425cdb4dababf4f88e"
+    sha256 cellar: :any_skip_relocation, sonoma:         "98c4ddb5df60aa361fd0080c84c5fdcc9e96f9081b804cce3b954b4267c45fd3"
+    sha256 cellar: :any_skip_relocation, ventura:        "8884d478d03cb47554b9d81b13966867e8d79986d7c7d1056a07abbbaffd7c48"
+    sha256 cellar: :any_skip_relocation, monterey:       "c15344ce623ed9b9ed496ff844550dfe9eca3fe9cc1ba307c42b0b2e4865189e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "04d95ac9d4ea71d40bf33c7f2c4ba7e2e821cca8b9f07a505efcd3008800bf1b"
   end
 
   depends_on "go" => :build
 
   def install
     ldflags = "-X github.com/pdfcpu/pdfcpu/pkg/pdfcpu.VersionStr=#{version}"
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/pdfcpu"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/pdfcpu"
   end
 
   test do
     info_output = shell_output("#{bin}/pdfcpu info #{test_fixtures("test.pdf")}")
-    assert_match "PDF version: 1.6", info_output
-    assert_match "Page count: 1", info_output
-    assert_match "Page size: 500.00 x 800.00 points", info_output
-    assert_match "Encrypted: No", info_output
-    assert_match "Permissions: Full access", info_output
+    assert_match <<~EOS, info_output
+      installing user font:
+      Roboto-Regular
+      #{test_fixtures("test.pdf")}:
+                    Source: #{test_fixtures("test.pdf")}
+               PDF version: 1.6
+                Page count: 1
+                Page sizes: 500.00 x 800.00 points
+    EOS
+
     assert_match "validation ok", shell_output("#{bin}/pdfcpu validate #{test_fixtures("test.pdf")}")
   end
 end

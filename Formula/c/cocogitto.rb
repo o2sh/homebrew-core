@@ -1,44 +1,37 @@
 class Cocogitto < Formula
   desc "Conventional Commits toolbox"
-  homepage "https://github.com/cocogitto/cocogitto"
-  # TODO: check if we can use unversioned `libgit2` at version bump.
-  # See comments below for details.
-  url "https://github.com/cocogitto/cocogitto/archive/refs/tags/5.6.0.tar.gz"
-  sha256 "eea9655f4750cb2567eaca9ca4968a3a639f9003242ef733b205bf5410d90c86"
+  homepage "https://docs.cocogitto.io/"
+  url "https://github.com/cocogitto/cocogitto/archive/refs/tags/6.1.0.tar.gz"
+  sha256 "756bc574f311311639723297f3dc793f7494d9b3ae375d6bc3e6e714432d08f0"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "0a18e6f99bc8980508958e84de42620b43f29356033cdca605edbc9a4609aac7"
-    sha256 cellar: :any,                 arm64_ventura:  "525d3455c07596e577a49e32b758faf76745e8da4b9d87989843ba195952471d"
-    sha256 cellar: :any,                 arm64_monterey: "d03f406d6da7c32a17d60c5328010e8b0c8e2a4ff4c7aa93ec6540aa798bbdd4"
-    sha256 cellar: :any,                 sonoma:         "e219670240bbd846d552a073c6bfc863246c8e8f53e11b38b25e211ca76f635c"
-    sha256 cellar: :any,                 ventura:        "e8ad261793d24dfa5dc1b1843865dddbd4ef132545554a65a150cbaa769ae59f"
-    sha256 cellar: :any,                 monterey:       "462d651dc15e2ea09de66be8fa9cfd39f77e2232dc8e32d70d6fac2fcd164274"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3e2db3d7839f814f183e7c2273c54672a1eeef2ab0ae22d49ad0d6c159413fef"
+    sha256 cellar: :any,                 arm64_sonoma:   "2fb27f968de5a96b8e5b4de66278bdb28175e3a11c9c7ffefb310eb5f754dd42"
+    sha256 cellar: :any,                 arm64_ventura:  "52c7d9885bb7821020bbfb9ffc5c83785d22557976b097f9b8bfd0a0d91f5a91"
+    sha256 cellar: :any,                 arm64_monterey: "e35e23608097b2c0b19ddd80d92d822d0946fdd57e3efd4d92c68061b4ddfc82"
+    sha256 cellar: :any,                 sonoma:         "bf59ed82a50b8736688c08920e62995a64fcd9458618ac99a744000e0db2c5d7"
+    sha256 cellar: :any,                 ventura:        "82b883bded084a14fde4f9c43cbe6899fda964dd0cb93ff6d3796128fef6607d"
+    sha256 cellar: :any,                 monterey:       "7d9b6127b3be372be6997f7f73f05f3397c534c268963ec60807c5c463c646d6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e85e005c9916cb296e24e246c4531ebf22b0a865f4349c904338bf39ae8bad14"
   end
-
-  disable! date: "2024-04-01", because: "requires libgit2 v1.5, which is unmaintained"
 
   depends_on "pkg-config" => :build
   depends_on "rust" => :build
-  # To check for `libgit2` version:
-  # 1. Search for `libgit2-sys` version at https://github.com/cocogitto/cocogitto/blob/#{version}/Cargo.lock
-  # 2. If the version suffix of `libgit2-sys` is newer than +1.5.*, then:
-  #    - Use the corresponding `libgit2` formula.
-  #    - Change the `LIBGIT2_SYS_USE_PKG_CONFIG` env var below to `LIBGIT2_NO_VENDOR`.
-  #      See: https://github.com/rust-lang/git2-rs/commit/59a81cac9ada22b5ea6ca2841f5bd1229f1dd659.
-  depends_on "libgit2@1.5"
+  depends_on "libgit2"
 
   def install
-    ENV["LIBGIT2_SYS_USE_PKG_CONFIG"] = "1"
+    ENV["LIBGIT2_NO_VENDOR"] = "1"
 
     system "cargo", "install", *std_cargo_args
     generate_completions_from_executable(bin/"cog", "generate-completions", base_name: "cog")
+
+    system bin/"cog", "generate-manpages", buildpath
+    man1.install Dir["*.1"]
   end
 
   test do
     # Check that a typical Conventional Commit is considered correct.
-    system "git", "init"
+    system "git", "init", "--initial-branch=main"
     (testpath/"some-file").write("")
     system "git", "add", "some-file"
     system "git", "config", "user.name", "'A U Thor'"
@@ -49,7 +42,7 @@ class Cocogitto < Formula
     linkage_with_libgit2 = (bin/"cog").dynamically_linked_libraries.any? do |dll|
       next false unless dll.start_with?(HOMEBREW_PREFIX.to_s)
 
-      File.realpath(dll) == (Formula["libgit2@1.5"].opt_lib/shared_library("libgit2")).realpath.to_s
+      File.realpath(dll) == (Formula["libgit2"].opt_lib/shared_library("libgit2")).realpath.to_s
     end
 
     assert linkage_with_libgit2, "No linkage with libgit2! Cargo is likely using a vendored version."

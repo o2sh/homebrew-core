@@ -1,20 +1,18 @@
 class Leptonica < Formula
   desc "Image processing and image analysis library"
   homepage "http://www.leptonica.org/"
-  url "https://github.com/DanBloomberg/leptonica/releases/download/1.83.1/leptonica-1.83.1.tar.gz"
-  sha256 "8f18615e0743af7df7f50985c730dfcf0c93548073d1f56621e4156a8b54d3dd"
+  url "https://github.com/DanBloomberg/leptonica/releases/download/1.84.1/leptonica-1.84.1.tar.gz"
+  sha256 "2b3e1254b1cca381e77c819b59ca99774ff43530209b9aeb511e1d46588a64f6"
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "457cedb4639b87cff6b170181e565c1f135977978bc1ea64733d56b549039ffd"
-    sha256 cellar: :any,                 arm64_ventura:  "296fb19d6f6a934416ecc0f65789a0016ae1a500ac38bd67de50664d32da62e3"
-    sha256 cellar: :any,                 arm64_monterey: "b644e4e2378628b56a2a73b321c5b24296d6fc405caa611f473faa3df7de7e15"
-    sha256 cellar: :any,                 arm64_big_sur:  "8595af74ef54be9ac4ceeac23ccc90d924611fe95704e2beb159e17b317bb0ec"
-    sha256 cellar: :any,                 sonoma:         "043c3d7b9eaead2deb28afe59c26b030b4680c718c208da319cbdab80d8f2dc8"
-    sha256 cellar: :any,                 ventura:        "88df9cb03f737d381155e43acb70057b9542f6d77163288e11fb0fab8c8ed897"
-    sha256 cellar: :any,                 monterey:       "68605d71c607a9fb5167f7a3d1e5701478f133162cfaed8b4fd6efb0e0116f23"
-    sha256 cellar: :any,                 big_sur:        "e3c2af5c8374bf1f24e8c1ad2e96656a4b0476e405325855554e5e35d1c7651d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bf01d5a6a61839ed96055e37d76f53a1068f94b30953c9f31c1ddaaf4bcc38a6"
+    sha256 cellar: :any,                 arm64_sonoma:   "67fe34fb9fbd1191142dc8415dc1c3bacc7a8cb427dc3d769f6c5d8b1351cbe7"
+    sha256 cellar: :any,                 arm64_ventura:  "a508e5748000d9138113716f804876ea02a0ff09edb1b3f440805318abb3892f"
+    sha256 cellar: :any,                 arm64_monterey: "1b2eeef988742aeb3b35faba109d737a8358000d16c0127ade00a72f74bdf708"
+    sha256 cellar: :any,                 sonoma:         "532d63772dc6bf06389ba4eb7f970741144edc9f2933294c7aaa6a371c8ced3e"
+    sha256 cellar: :any,                 ventura:        "de79973f211c5c6734ccb43e9d9f1e83bdf6040d3d9311a6483e8668b76e2314"
+    sha256 cellar: :any,                 monterey:       "367222ae46ffb4758c4561d59c73ccf8f6f50fdfaf8ceb57fc44d7f9d80ce18c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2d192aba393509e4fad013b13143cd5fc426256ca72636fe69940aa2efa290f8"
   end
 
   depends_on "pkg-config" => :build

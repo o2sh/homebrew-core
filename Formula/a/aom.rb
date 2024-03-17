@@ -2,18 +2,18 @@ class Aom < Formula
   desc "Codec library for encoding and decoding AV1 video streams"
   homepage "https://aomedia.googlesource.com/aom"
   url "https://aomedia.googlesource.com/aom.git",
-      tag:      "v3.7.1",
-      revision: "aca387522ccc0a1775716923d5489dd2d4b1e628"
+      tag:      "v3.8.2",
+      revision: "615b5f541e4434aebd993036bc97ebc1a77ebc25"
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "946483b81ee33bc693032645a9a2154e3fcdbbec24de90013412ac830572a5ec"
-    sha256 cellar: :any,                 arm64_ventura:  "bf89d707f510cebaa7c1870b428e27133b22625d7439f370c549114754335283"
-    sha256 cellar: :any,                 arm64_monterey: "914c864fc1447186de3a91927b8b377d085978f12dd64cc854ae13baafd61ec5"
-    sha256 cellar: :any,                 sonoma:         "6608175780bcc0054d2e21a806b87dccb5a82d16758f579a0952ae8cf382093a"
-    sha256 cellar: :any,                 ventura:        "64f087cda597045332186b63709ccbb5493410ece64a394a1f7c280bdd52960d"
-    sha256 cellar: :any,                 monterey:       "6d1f884b00adc0f0211389cbd833646f7f63aa601cf3bc08b2897ba646ce8dcf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1a3902c4050abd55fbe5a296724577a41a50b0684e41fdd6e30a7fdfbe4749dd"
+    sha256 cellar: :any,                 arm64_sonoma:   "aa1bb7f2f079cb576a9122dec942b45b535236318bc659380f54c5f01597d3a3"
+    sha256 cellar: :any,                 arm64_ventura:  "57814016640f00145c2e39602719c69a85f66aca58cf19339281f816cc163ebc"
+    sha256 cellar: :any,                 arm64_monterey: "4ab13d7d5ce273332f7158c709e34cf5ca5bfad08e1a92ebf5a6e8ef963c85f0"
+    sha256 cellar: :any,                 sonoma:         "7176e4e1e257d584ab751aa3d96f1001deeb0998705b8101940a899f0b3e6284"
+    sha256 cellar: :any,                 ventura:        "cfc7a2d3dbfb9e379a0aeacf96112bba69bfffbfcc550a3c8a0bea9806995648"
+    sha256 cellar: :any,                 monterey:       "85b93ca7e668c4edcee3b290e8db15ae5d3008c3bdba2c4427e235ba21d6d036"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "781498473798d6432b1d529760151d5d3df135f73d4211798da716edf36ad5be"
   end
 
   depends_on "cmake" => :build
@@ -24,15 +24,6 @@ class Aom < Formula
   on_intel do
     depends_on "yasm" => :build
   end
-
-  resource "homebrew-bus_qcif_15fps.y4m" do
-    url "https://media.xiph.org/video/derf/y4m/bus_qcif_15fps.y4m"
-    sha256 "868fc3446d37d0c6959a48b68906486bd64788b2e795f0e29613cbb1fa73480e"
-  end
-
-  # Fix build on arm64 macOS.
-  # https://aomedia-review.googlesource.com/c/aom/+/180942
-  patch :DATA
 
   def install
     ENV.runtime_cpu_detection
@@ -45,7 +36,6 @@ class Aom < Formula
       "-DENABLE_TESTS=off",
       "-DENABLE_TOOLS=off",
       "-DBUILD_SHARED_LIBS=on",
-      "-DCONFIG_TUNE_BUTTERAUGLI=1",
       "-DCONFIG_TUNE_VMAF=1",
     ]
 
@@ -55,33 +45,21 @@ class Aom < Formula
   end
 
   test do
-    resource("homebrew-bus_qcif_15fps.y4m").stage do
-      system "#{bin}/aomenc", "--webm",
-                              "--tile-columns=2",
-                              "--tile-rows=2",
-                              "--cpu-used=8",
-                              "--output=bus_qcif_15fps.webm",
-                              "bus_qcif_15fps.y4m"
-
-      system "#{bin}/aomdec", "--output=bus_qcif_15fps_decode.y4m",
-                              "bus_qcif_15fps.webm"
+    resource "homebrew-bus_qcif_15fps.y4m" do
+      url "https://media.xiph.org/video/derf/y4m/bus_qcif_15fps.y4m"
+      sha256 "868fc3446d37d0c6959a48b68906486bd64788b2e795f0e29613cbb1fa73480e"
     end
+
+    testpath.install resource("homebrew-bus_qcif_15fps.y4m")
+
+    system bin/"aomenc", "--webm",
+                            "--tile-columns=2",
+                            "--tile-rows=2",
+                            "--cpu-used=8",
+                            "--output=bus_qcif_15fps.webm",
+                            "bus_qcif_15fps.y4m"
+
+    system bin/"aomdec", "--output=bus_qcif_15fps_decode.y4m",
+                            "bus_qcif_15fps.webm"
   end
 end
-
-__END__
-diff --git a/build/cmake/aom_configure.cmake b/build/cmake/aom_configure.cmake
-index 6c932e86c8..917e7cac5d 100644
---- a/build/cmake/aom_configure.cmake
-+++ b/build/cmake/aom_configure.cmake
-@@ -184,7 +184,9 @@ if(AOM_TARGET_CPU STREQUAL "x86" OR AOM_TARGET_CPU STREQUAL "x86_64")
-   string(STRIP "${AOM_AS_FLAGS}" AOM_AS_FLAGS)
- elseif(AOM_TARGET_CPU MATCHES "arm")
-   if(AOM_TARGET_SYSTEM STREQUAL "Darwin")
--    set(CMAKE_ASM_COMPILER as)
-+    if(NOT CMAKE_ASM_COMPILER)
-+      set(CMAKE_ASM_COMPILER ${CMAKE_C_COMPILER})
-+    endif()
-     set(AOM_AS_FLAGS -arch ${AOM_TARGET_CPU} -isysroot ${CMAKE_OSX_SYSROOT})
-   elseif(AOM_TARGET_SYSTEM STREQUAL "Windows")
-     if(NOT CMAKE_ASM_COMPILER)

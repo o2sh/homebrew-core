@@ -1,11 +1,14 @@
 class Influxdb < Formula
   desc "Time series, events, and metrics database"
   homepage "https://influxdata.com/time-series-platform/influxdb/"
+  # When bumping to 3.x, remove from `permitted_formula_license_mismatches.json`
+  # and update license stanza to `license any_of: ["Apache-2.0", "MIT"]`
+  # Ref: https://github.com/influxdata/influxdb/blob/main/Cargo.toml#L124
   url "https://github.com/influxdata/influxdb.git",
-      tag:      "v2.7.1",
-      revision: "407fa622e9a0a48516dacc7564f7ba59c8307da9"
+      tag:      "v2.7.5",
+      revision: "09a9607fd9fe017cae589610364017b1939ae9a2"
   license "MIT"
-  head "https://github.com/influxdata/influxdb.git", branch: "master"
+  head "https://github.com/influxdata/influxdb.git", branch: "main-2.x"
 
   # There can be a notable gap between when a version is tagged and a
   # corresponding release is created, so we check releases instead of the Git
@@ -19,14 +22,13 @@ class Influxdb < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "670862068c34ac14ec02285f5a595368cfd220b40a1b751048f8c7e841c43b13"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "dfdf6a86156a846eec66077e5e106841db510b1dbb156344a4ce211b0d6ff245"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "dd78caabdcf598ab0928142a4c96695e4db7ac2af95002a8fbfb9b5f5fb199d6"
-    sha256 cellar: :any_skip_relocation, ventura:        "47c76305bcaf77dc4b5f1d714a02e28a53dbc7cfd12bb46c662a60e3c08322fa"
-    sha256 cellar: :any_skip_relocation, monterey:       "283ab05e2a2908868cccd57412178ac5d3b38c727e08b9e322fd40db6e45e202"
-    sha256 cellar: :any_skip_relocation, big_sur:        "f42f0c68eddfce6c3bb724b49da6b9922301510627d3ac19462daa44ee4c4b43"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3182bc34bd3089c1a37b2c18301d2d1e9d17901d9360f3a95d804529b969f88f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7eae8cd3dafe84030fc1dfaf80be4f59c972cc95a33d68ca5ef240cabb89ca25"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "32dbe5820ba211824fd983369ffa8ada9c1c3d303e4d27adc761e5285a588dbb"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9b4f12bb0cc25db487d9c030ee1d5999c7c722d721a657e7a4341bde1e2c2827"
+    sha256 cellar: :any_skip_relocation, sonoma:         "ebe4eb5829e0cba735b48abbdb31c7219e00862d4a5d230965a0d4e5a17284c2"
+    sha256 cellar: :any_skip_relocation, ventura:        "f4609244f0c6eb64f8fa46008851b4a7357fa5c6233d9b2ea837e37de2620f13"
+    sha256 cellar: :any_skip_relocation, monterey:       "43bded82166c0f9933ee1072e2f045e6738d5c019e29ca5277e8450e11c88de3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2519102334106f129672b7b0dd27c49124232f98b1a54ab5a0942574fcdb4ccf"
   end
 
   depends_on "breezy" => :build
@@ -81,7 +83,7 @@ class Influxdb < Formula
       -X main.date=#{time.iso8601}
     ]
 
-    system "go", "build", *std_go_args(output: bin/"influxd", ldflags: ldflags),
+    system "go", "build", *std_go_args(output: bin/"influxd", ldflags:),
            "-tags", "assets,sqlite_foreign_keys,sqlite_json", "./cmd/influxd"
 
     data = var/"lib/influxdb2"

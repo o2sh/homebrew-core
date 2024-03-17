@@ -1,19 +1,24 @@
 class VulkanExtensionlayer < Formula
   desc "Layer providing Vulkan features when native support is unavailable"
   homepage "https://github.com/KhronosGroup/Vulkan-ExtensionLayer"
-  url "https://github.com/KhronosGroup/Vulkan-ExtensionLayer/archive/refs/tags/v1.3.268.tar.gz"
-  sha256 "038fe8be301a7169b57c5fef7fbcdfa61a52f2b0fb3dabcf61218dfa417ba7dc"
+  url "https://github.com/KhronosGroup/Vulkan-ExtensionLayer/archive/refs/tags/v1.3.280.tar.gz"
+  sha256 "e61122beaea6d74185702c11119d7d300d9759c8082d1cabc1ecf00db8f72cbc"
   license "Apache-2.0"
   head "https://github.com/KhronosGroup/Vulkan-ExtensionLayer.git", branch: "main"
 
+  livecheck do
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
+
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4863eafe85a71d3f47029d5d3b1098a3a36b9ee200fc7481e8d335980fdc8841"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1d44f601b9f0931f0e808e2d4e241f0da6e6cfde8e503cdad8cbdc9a9a53ef55"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "37a2a6da2a019b87acfa9548e34e58b0191397cbeb5e1525df1c5e4f8f4d3b20"
-    sha256 cellar: :any_skip_relocation, sonoma:         "6712427862da96e9a6c8e9c91c183e39c2704c38f032d55eb99a0a20dd671562"
-    sha256 cellar: :any_skip_relocation, ventura:        "141799afecfc728676905d61e2beaf143ce46b5c83975b9e57a81d30b0c139bb"
-    sha256 cellar: :any_skip_relocation, monterey:       "6af951d041a7c7816e9180594d82363b6dd77394da15acd34a1564e2d79f48e4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8b2b88f11c14db216711f4f5305d8aae413cce3482aee144c1f182933f9449cc"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0ecd487d4706e9b030f56029f1c709b0e3e6b924dfd081849c27480f68ef213a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "65303104fa92fc15aa73772707808709b656a179b5f92302eab373fc395402ec"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ec38723c3659a4a58fe3ba0c3d68055f2be93c915fe1e65ec5583e0c60ee375e"
+    sha256 cellar: :any_skip_relocation, sonoma:         "1ea9222b4475eabb4234416664142cff41e554d5889b89a1cb85784bcc029baf"
+    sha256 cellar: :any_skip_relocation, ventura:        "0667a20575980db276dc2b36745a4a0cdd670784328238f51f28c39c7ebde501"
+    sha256 cellar: :any_skip_relocation, monterey:       "140d7ee97bd1ef613294f90e6e0f27894c90a066776ded0218f808831f2884c8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1d007de0ec1e5c279d3039c58302d8cf279d03473eb999c338a14aef5975bdca"
   end
 
   depends_on "cmake" => :build
@@ -41,6 +46,7 @@ class VulkanExtensionlayer < Formula
                     "-DSPIRV_HEADERS_INSTALL_DIR=#{Formula["spirv-headers"].prefix}",
                     "-DSPIRV_TOOLS_INSTALL_DIR=#{Formula["spirv-tools"].prefix}",
                     "-DVULKAN_HEADERS_INSTALL_DIR=#{Formula["vulkan-headers"].prefix}",
+                    "-DCMAKE_INSTALL_RPATH=#{rpath(target: Formula["vulkan-loader"].opt_lib)}",
                     *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
@@ -56,15 +62,14 @@ class VulkanExtensionlayer < Formula
   test do
     ENV.prepend_path "VK_LAYER_PATH", share/"vulkan/explicit_layer.d"
     ENV["VK_ICD_FILENAMES"] = Formula["vulkan-tools"].lib/"mock_icd/VkICD_mock_icd.json"
+    ENV["VK_MEMORY_DECOMPRESSION_FORCE_ENABLE"]="true"
+    ENV["VK_SHADER_OBJECT_FORCE_ENABLE"]="true"
+    ENV["VK_VK_SYNCHRONIZATION2_FORCE_ENABLE"]="true"
 
-    expected = <<~EOS
-      Instance Layers: count = 3
-      --------------------------
-      VK_LAYER_KHRONOS_shader_object      Khronos Shader object layer      \\d\\.\\d\\.\\d+  version 1
-      VK_LAYER_KHRONOS_synchronization2   Khronos Synchronization2 layer   \\d\\.\\d\\.\\d+  version 1
-      VK_LAYER_KHRONOS_timeline_semaphore Khronos timeline Semaphore layer \\d\\.\\d\\.\\d+  version 1
-    EOS
-    actual = shell_output("vulkaninfo --summary")
-    assert_match Regexp.new(expected), actual
+    actual = shell_output("vulkaninfo")
+    %w[VK_EXT_shader_object VK_KHR_synchronization2 VK_KHR_timeline_semaphore
+       VK_NV_memory_decompression].each do |expected|
+      assert_match expected, actual
+    end
   end
 end

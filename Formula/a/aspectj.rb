@@ -1,25 +1,29 @@
 class Aspectj < Formula
   desc "Aspect-oriented programming for Java"
   homepage "https://www.eclipse.org/aspectj/"
-  url "https://github.com/eclipse-aspectj/aspectj/releases/download/V1_9_20_1/aspectj-1.9.20.1.jar"
-  sha256 "9f37838b559d9c86790c5c69645481ff873a16057bc114323b5bb14656936416"
+  url "https://github.com/eclipse-aspectj/aspectj/releases/download/V1_9_21_2/aspectj-1.9.21.2.jar"
+  sha256 "c2a42dca8a52d37cd7f862667b9619c168800aa3b8180605af75c08f3a921674"
   license "EPL-2.0"
 
   livecheck do
     url :stable
-    regex(/^v?(\d+(?:_\d+)+)$/i)
+    regex(/^v?(\d+(?:[._]\d+)+)$/i)
+    strategy :github_latest do |json, regex|
+      match = json["tag_name"]&.match(regex)
+      next if match.blank?
+
+      match[1].tr("_", ".")
+    end
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bbfa6cab56a66e5ac4d895a89153e8fba00be7ecf65128c88e072868aca2326c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b1265454259b88ce08c2bd0a5923b6e0740c578300a2749144ccb513360744c5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "075b826056529da2c82c8a51f9f0dfe5696b5a1eb5ec5b56bacc39276d13aca7"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b47d0da2aad2b92fdfbb58e9563e1629888e5e6e3d4a95f4d028edf4441697ca"
-    sha256 cellar: :any_skip_relocation, sonoma:         "e29f3b6b7a09fe41c8571ae626ba868533b8739ed53bb8905ea38551a8e63f73"
-    sha256 cellar: :any_skip_relocation, ventura:        "7122a63ee0a47f9fa04443f4b83ce2128afa1ebf879650b153840743d1b02498"
-    sha256 cellar: :any_skip_relocation, monterey:       "4bcb50e4ccfc1ab291d4960c501f012f4d03c0c615732035e3751d72d561d3bc"
-    sha256 cellar: :any_skip_relocation, big_sur:        "9c70934a17e83ff66a81a23281052f97082b4e2fc4fcd25af08eb934a953e886"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "05a12fe5b79a589997a056513812a89277f9ff446cc5f51de1056e331f62be3e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "98f8a3135ab21245baec62b2413552ae05d4deb813c5914fd335cc34934cb8c6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ed2ca9d085a904e0705c56ed00c70ebbc5828c63207ea141f17339c1d80803bc"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d7111ceec36dff2c878b978d5c936d1150d111ea27c2287863676ece36b16800"
+    sha256 cellar: :any_skip_relocation, sonoma:         "9c5058efbcf9e9a1f3dcd182d935c55d7e33af622cdb61aca64334ab160816cc"
+    sha256 cellar: :any_skip_relocation, ventura:        "b51ff0df41636e9816921f3a9f5fb7f1489aaaa311e545b57c738a4dfc875582"
+    sha256 cellar: :any_skip_relocation, monterey:       "7280d34aa3f4011b9e8c808f97fc818a405a0c01c19296e5f64da17a4f3bd973"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f1b4471f72f918a307db2b2eedca6c5cd85c5a257d6ad893c0c9d7b768471f67"
   end
 
   depends_on "openjdk"

@@ -1,8 +1,8 @@
 class Root < Formula
   desc "Object oriented framework for large scale data analysis"
   homepage "https://root.cern.ch/"
-  url "https://root.cern.ch/download/root_v6.30.00.source.tar.gz"
-  sha256 "0592c066954cfed42312957c9cb251654456064fe2d8dabdcb8826f1c0099d71"
+  url "https://root.cern.ch/download/root_v6.30.04.source.tar.gz"
+  sha256 "2b4180b698f39cc65d91084d833a884515b325bc5f673c8e39abe818b025d8cc"
   license "LGPL-2.1-or-later"
   head "https://github.com/root-project/root.git", branch: "master"
 
@@ -15,12 +15,14 @@ class Root < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "5526713e8d0ae8d9642cefc85e84b40427b3447800ea70eebac65085f5b15735"
-    sha256 arm64_ventura:  "d194f2cb4d3758ffcce8472c0aa2857d19fa0cd4177f633f149834767ed5a52a"
-    sha256 arm64_monterey: "d6cb437036ebc4a6115b1cc8f4ef2efb2cfcf814306b42b6bf22f3d14385ee64"
-    sha256 sonoma:         "9a329626208dbdb3a600a1bc402b5976bd92df74f34bda406c01b1936f8ee9e0"
-    sha256 ventura:        "55d3e575c66dff67b15c0504768c1a36b7daa407867d9b166fe42af2632419b8"
-    sha256 monterey:       "7345abf866fef64b9a16febcefcf49bd637df252c1e775ced23faf26c3fec441"
+    rebuild 2
+    sha256 arm64_sonoma:   "b2c664232a77fb4bd0c72652ee940be4d1b98f2521cc3f8bc8ba63849a3872cb"
+    sha256 arm64_ventura:  "ab1fa0afde5ab57bfac330a3e56443a5cae76f6986d1066611f5ee7a3322f6a7"
+    sha256 arm64_monterey: "0d8f67393774ce0f1df21b1875671d10545604d56f148d1cbc974598e9e0ba40"
+    sha256 sonoma:         "86c5602967c3e9042fea1658a6118855d08b25e1391a9b44235538ad8e15e7ce"
+    sha256 ventura:        "b02a025adb7a3736bb7d05e971400d19133b993bbb82660a4dc7a56aa140be1b"
+    sha256 monterey:       "238d3562f55b9d4e07b99261ce1261d8156c83d7d517cd99a7057d6da1b95a90"
+    sha256 x86_64_linux:   "8bb1b867bc40c1174a105b5828b0c6ead3adf16ea9a237cb05fa440ee93239bb"
   end
 
   depends_on "cmake" => :build
@@ -43,7 +45,7 @@ class Root < Formula
   depends_on "openblas"
   depends_on "openssl@3"
   depends_on "pcre"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
   depends_on "sqlite"
   depends_on "tbb"
   depends_on :xcode
@@ -65,8 +67,15 @@ class Root < Formula
 
   fails_with gcc: "5"
 
+  # Upstream fix for Xcode 15.3 build failure
+  # https://github.com/root-project/root/issues/14902
+  patch do
+    url "https://github.com/root-project/root/commit/440c7303a95ad53ecd0e5ae7d6ebd0f29a733fa6.patch?full_index=1"
+    sha256 "6cd88fecaf104591a9f43ada36a2daa13d5c8c0aa48b97d1bd5ed1b090fe80e9"
+  end
+
   def python3
-    "python3.11"
+    "python3.12"
   end
 
   def install
@@ -85,7 +94,7 @@ class Root < Formula
       -DCLING_CXX_PATH=clang++
       -DCMAKE_CXX_STANDARD=17
       -DCMAKE_INSTALL_ELISPDIR=#{elisp}
-      -DPYTHON_EXECUTABLE=#{python3}
+      -DPYTHON_EXECUTABLE=#{which(python3)}
       -DXROOTD_ROOT_DIR=#{Formula["xrootd"].opt_prefix}
       -Dbuiltin_afterimage=ON
       -Dbuiltin_cfitsio=OFF

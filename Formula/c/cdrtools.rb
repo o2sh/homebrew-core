@@ -4,6 +4,7 @@ class Cdrtools < Formula
   url "https://downloads.sourceforge.net/project/cdrtools/alpha/cdrtools-3.02a09.tar.gz"
   mirror "https://fossies.org/linux/misc/cdrtools-3.02a09.tar.gz"
   sha256 "c7e4f732fb299e9b5d836629dadf5512aa5e6a5624ff438ceb1d056f4dcb07c2"
+  license "CDDL-1.0"
 
   livecheck do
     # For 3.0.2a we are temporarily using the "alpha" due to a long wait for release.
@@ -13,6 +14,7 @@ class Cdrtools < Formula
   end
 
   bottle do
+    sha256 arm64_sonoma:   "ed19c02f2ca445c89d139595e826a29bcfd41dba4c8e67c461b86deaa277af14"
     sha256 arm64_ventura:  "5bce367688103071cb34a38002f0c2dc767b3e55912c2605e27c705013ed3285"
     sha256 arm64_monterey: "954f46597d28f0a8ca1eca8de6ca79182a3904472944e484c7406663f7b6a95c"
     sha256 arm64_big_sur:  "06bd97603df2dba522d6cb18b50815b3cb4f6b619b3244e6d870009831129a37"

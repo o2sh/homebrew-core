@@ -23,7 +23,7 @@ class Octant < Formula
 
   # "VMware has ended active development of this project, this repository
   # will no longer be updated."
-  deprecate! date: "2023-02-07", because: :repo_archived
+  disable! date: "2024-02-01", because: :repo_archived
 
   depends_on "go" => :build
   depends_on "node@14" => :build
@@ -60,7 +60,7 @@ class Octant < Formula
 
     tags = "embedded exclude_graphdriver_devicemapper exclude_graphdriver_btrfs containers_image_openpgp"
 
-    system "go", "build", *std_go_args(ldflags: ldflags),
+    system "go", "build", *std_go_args(ldflags:),
            "-tags", tags, "-v", "./cmd/octant"
 
     generate_completions_from_executable(bin/"octant", "completion")

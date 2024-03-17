@@ -1,10 +1,11 @@
 class Redex < Formula
   include Language::Python::Shebang
+  include Language::Python::Virtualenv
 
   desc "Bytecode optimizer for Android apps"
   homepage "https://github.com/facebook/redex"
   license "MIT"
-  revision 13
+  revision 14
   head "https://github.com/facebook/redex.git", branch: "main"
 
   stable do
@@ -38,13 +39,14 @@ class Redex < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "5432d337825371686b4021b8898003c75505c4a09b0b5afe37ad9104843d7ba4"
-    sha256 cellar: :any,                 arm64_ventura:  "6bdf687aef61253b280936c81bf9c8b8fcc0ec830087885973ac836c29e1fe8f"
-    sha256 cellar: :any,                 arm64_monterey: "bc02b64093d49159e8a92bd83df951b7e099563c43dafba3765db81c5e4722d4"
-    sha256 cellar: :any,                 sonoma:         "95af337e88269e9dc187bab2bb8b3cd3588e36fdb6591fca58e6a6b364ca4f91"
-    sha256 cellar: :any,                 ventura:        "8fee121096aea10a76db45b4db03fb91426623e5460c5889c8d3d05dc285d5e7"
-    sha256 cellar: :any,                 monterey:       "f2e979f03d9e3882bfcc3fd46b2ba9e327ad0e118609f813a1959338e96c448d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "37698a87c862ca311ed5b2fc5c182e225891ddc67f3cd089d349ae6675bbf9a2"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sonoma:   "9dd91483a25caf92fc2e36d32eca8cd1483c01aa9ff876f11917a6dfbfbec962"
+    sha256 cellar: :any,                 arm64_ventura:  "a588f1507bdb4b595d3cdb0d7509c56079b149105e7ec0c0da0e1d713c1535b9"
+    sha256 cellar: :any,                 arm64_monterey: "8cc00660697e9e8855f0ca87364cdcb00920a082c75c97c94e9f617f0bc31453"
+    sha256 cellar: :any,                 sonoma:         "ae4dae76eed4eccb10f534fe53c9822fc3ecba34aae9264e78f2b71f934002aa"
+    sha256 cellar: :any,                 ventura:        "093e12fbe2247a53c56c7b59614b189e410feffaebd3d7b45d6ae0d745588d99"
+    sha256 cellar: :any,                 monterey:       "c1bf58356b2c5bd99af681490b1256b7c37c2fd4f0fc26c1eb8a969412000934"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b49bbf4cf180a734e8c55bcf0a8d5baf990f7b760dfb27a49e34e223b223057c"
   end
 
   depends_on "autoconf" => :build
@@ -53,8 +55,12 @@ class Redex < Formula
   depends_on "libtool" => :build
   depends_on "boost"
   depends_on "jsoncpp"
-  depends_on "python-setuptools"
   depends_on "python@3.12"
+
+  resource "setuptools" do
+    url "https://files.pythonhosted.org/packages/4d/5b/dc575711b6b8f2f866131a40d053e30e962e633b332acf7cd2c24843d83d/setuptools-69.2.0.tar.gz"
+    sha256 "0ff4183f8f42cd8fa3acea16c45205521a4ef28f73c6391d8a25e92893134f2e"
+  end
 
   def install
     if build.stable?
@@ -64,6 +70,9 @@ class Redex < Formula
       # Ref: https://github.com/facebook/redex/commit/3f4cde379da4657068a0dbe85c03df558854c31c
       ENV.append "CXXFLAGS", "-include set"
     end
+
+    venv = virtualenv_create(libexec, "python3.12")
+    venv.pip_install resources
 
     python_scripts = %w[
       apkutil
@@ -75,12 +84,12 @@ class Redex < Formula
       tools/redex-tool/DexSqlQuery.py
       tools/redexdump-apk
     ]
-    rewrite_shebang detected_python_shebang, *python_scripts
+    rewrite_shebang python_shebang_rewrite_info(venv.root/"bin/python"), *python_scripts
 
     system "autoreconf", "--force", "--install", "--verbose"
-    system "./configure", *std_configure_args,
-                          "--disable-silent-rules",
-                          "--with-boost=#{Formula["boost"].opt_prefix}"
+    system "./configure", "--disable-silent-rules",
+                          "--with-boost=#{Formula["boost"].opt_prefix}",
+                          *std_configure_args
     system "make"
     system "make", "install"
   end

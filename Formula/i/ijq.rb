@@ -2,22 +2,19 @@ class Ijq < Formula
   desc "Interactive jq"
   homepage "https://sr.ht/~gpanders/ijq/"
   url "https://git.sr.ht/~gpanders/ijq",
-      tag:      "v0.4.1",
-      revision: "22034bea72c80db75cb8aa9fdd5808940bd45fd4"
+      tag:      "v1.0.1",
+      revision: "699fd6acaecaa99179bb02bb13161fc8f1f05cfa"
   license "GPL-3.0-or-later"
   head "https://git.sr.ht/~gpanders/ijq", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6ca1f0ee5bb2cc9c4cc06b26944fc3678035a67620ef4c284272b35188e3f008"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "564d6d6f157700d1d0869d3340186bbf6bf8325314954804d8d9dbea45d9fe63"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9a7ea5d89f9eb6e575d2b4f3a5667364d03fccb1373207e6f6f226544f23a3d0"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f215c334ffea9e2ddf51319ac5b80a9b0ecab7e1d652ac8b72eb22534a8dae05"
-    sha256 cellar: :any_skip_relocation, sonoma:         "e987b411771836c35c0843de0d87878e8cc4068487c21ff55cf220e115696997"
-    sha256 cellar: :any_skip_relocation, ventura:        "db72d1ed855f451cfb0e8e4f5ef6565e89b273e26d22635186aeb7a764eca033"
-    sha256 cellar: :any_skip_relocation, monterey:       "47a030fd33f08d4888a73b3ac03135fb8493bfabeaeea13231143393cfb42be3"
-    sha256 cellar: :any_skip_relocation, big_sur:        "16b7b6a8c95d9a8ba5b2f5610438c70b0b139e279910f88e823bb1239e53ed7d"
-    sha256 cellar: :any_skip_relocation, catalina:       "022500c720f8926ae3e758f20c3290d60e0bdd4393ed118dc0c38c140d59cedf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d748a577f085a1c6a7a1ee841c95b4805604f8e42b6531ada40ee82907e89cd0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1625e3f6125797bca38d90f568fd856b5987dde12bf6e84b8a60e33e8491266f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bc3afbc24b1f00c34c0fc104cb3bf267aeea50f73146e4d37d9d5f51a1c43a59"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "b037461f849694ff907a549d93d3528e3388955cfae09c487ac722ed8083519c"
+    sha256 cellar: :any_skip_relocation, sonoma:         "05b45e9f7025afba9845fea5478bd40b0dbdf42f5ded74dc80c9d22b4a81cfb9"
+    sha256 cellar: :any_skip_relocation, ventura:        "9fc36c4cdd0e610abd90aa184a407be54dd53d8cd4b37ad53fe6bd5140f3800b"
+    sha256 cellar: :any_skip_relocation, monterey:       "dab34d0139427833790d9b2cb04f42ee5ede191368d9d694a2d2b8f683d47ae4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5cd3701402c5aef3da2be69b1de975ac2619a199697fa63c9a346f06f270803a"
   end
 
   depends_on "go" => :build

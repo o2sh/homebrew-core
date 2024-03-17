@@ -1,20 +1,28 @@
 class Cppcheck < Formula
   desc "Static analysis of C and C++ code"
   homepage "https://sourceforge.net/projects/cppcheck/"
-  url "https://github.com/danmar/cppcheck/archive/refs/tags/2.12.1.tar.gz"
-  sha256 "2a3d4ba1179419612183ab3d6aed6d3b18be75e98cd6f138ea8e2020905dced2"
+  url "https://github.com/danmar/cppcheck/archive/refs/tags/2.13.0.tar.gz"
+  sha256 "8229afe1dddc3ed893248b8a723b428dc221ea014fbc76e6289840857c03d450"
   license "GPL-3.0-or-later"
+  revision 1
   head "https://github.com/danmar/cppcheck.git", branch: "main"
 
+  # There can be a notable gap between when a version is tagged and a
+  # corresponding release is created, so we check the "latest" release instead
+  # of the Git tags.
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   bottle do
-    rebuild 1
-    sha256 arm64_sonoma:   "4f8972865b9f6e566a63c6ba59e6fb09f1aa7c8d57fea2985d1ea165d3ff5ca6"
-    sha256 arm64_ventura:  "998efc003731e5f835246be86c5e857f77e3602eb68c68f8379cf12110830aad"
-    sha256 arm64_monterey: "3ee5bff50a866b39d92a42e35521c59bd7cedc9c82aa4b516b6b8b9ecf424eaf"
-    sha256 sonoma:         "e9175d09e701197968728723dc8583c0904b8d21d726f923f7f3db3245ea1a94"
-    sha256 ventura:        "8f3c3b7b4206d6f43d0c7eb573a8ba1ca5275b4294185c5801d435055e0d2d66"
-    sha256 monterey:       "bdfe0d0ec85532ab8ef808dc70decf33c34b86e509b98deeac30ca8ce9278628"
-    sha256 x86_64_linux:   "507a848d3b983a5263257b63b0467f1ab2650b4e74d42029d4eba09dce375a22"
+    sha256 arm64_sonoma:   "546af1811773a8fff9d2c6924a13dd5f811c9fc29a59600cb4f9a37868e34f02"
+    sha256 arm64_ventura:  "c2ed4f3da4ddaec157ffe10e7977617907d4eb6f3ee7586a942bfbe1f75b7967"
+    sha256 arm64_monterey: "41fbdd46ab3c1daf79bdf8e55c313627eebed6ff95f3df49885f4228cb78f66d"
+    sha256 sonoma:         "e252a363c340c134f77e2046feb9f9cc732bc2823197cec6df63b0dc65e04c32"
+    sha256 ventura:        "883ef86745ce6b79b4b7348f93b515514d203048793847bcfe616f1035ff4b60"
+    sha256 monterey:       "07987e0d730c2648a17bbd3b78fa2837e062f1c446e85c4365f22f4aaa61f4c0"
+    sha256 x86_64_linux:   "a4bfe8614b12b02158264b4550f8a644473637075a31bb1ab1e89573e1eb428b"
   end
 
   depends_on "cmake" => :build

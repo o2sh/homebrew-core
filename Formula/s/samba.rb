@@ -4,9 +4,10 @@ class Samba < Formula
   # option. The shared folder appears in the guest as "\\10.0.2.4\qemu".
   desc "SMB/CIFS file, print, and login server for UNIX"
   homepage "https://www.samba.org/"
-  url "https://download.samba.org/pub/samba/stable/samba-4.19.3.tar.gz"
-  sha256 "280553b90f131b1940580df293653c9e9bd8906201f5def6e5e8c160f0bfac96"
+  url "https://download.samba.org/pub/samba/stable/samba-4.19.5.tar.gz"
+  sha256 "0e2405b4cec29d0459621f4340a1a74af771ec7cffedff43250cad7f1f87605e"
   license "GPL-3.0-or-later"
+  revision 1
 
   livecheck do
     url "https://www.samba.org/samba/download/"
@@ -14,19 +15,17 @@ class Samba < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "74f7a29a74216b102b8ebd3c22f854264bcad06d623f90919c8ea755742b0e60"
-    sha256 arm64_ventura:  "447a73f88395b5d8d48d8569dc8596be70e60049c24e841d2f121c32904d3d9d"
-    sha256 arm64_monterey: "4c15ae367ce54a1baebfd651d7e667b7f2264407f8ef063375ffc3ae17fab5a5"
-    sha256 sonoma:         "d1242810013ac349dabadb01d7ecf900ac821ff5b5e57e58303859bfcbb8752d"
-    sha256 ventura:        "f6b3e5a82b9502246178a20aa6806dd563ef18d9a63a20cf13bb9858fddfdf7a"
-    sha256 monterey:       "391299afcb073eb66407c23be52ee14441b75e8ae2d23e99af343fb0e229a079"
-    sha256 x86_64_linux:   "e405bc4bb23a161544d214cb13a26a0d032e444b0d4adf84dc789a797086ab06"
+    sha256 arm64_sonoma:   "21f41972a750d87b66cea6e46accd29f96d9149365707a80063f7de7cdb37431"
+    sha256 arm64_ventura:  "ad00adbd52bc052e9ca0a9e3ef6de476ad50311899f30747b083e843e9492a6e"
+    sha256 arm64_monterey: "4657e914d78764c69ea75bcca9c0356d876e8b22eb108f3fc846321109d50279"
+    sha256 sonoma:         "a91d08c0b82653d3bc111f359e877aec954ab84f5717f2a9cd7090f359e15116"
+    sha256 ventura:        "6a54d6c10a3df771c24c578fb0dc1cdc3cb6bea7e7bd902b5e8c4416bcc0ee69"
+    sha256 monterey:       "5dd5b3574a0eb4cd5bbcf3aac502fbb47ebd60b0b567dd4446a21681e85200df"
+    sha256 x86_64_linux:   "46392ec306d82242ae202cf9eb1df626b79bb8a8e7059ed9de83de36919d5d55"
   end
 
   depends_on "cmocka" => :build
   depends_on "pkg-config" => :build
-  # configure requires python3 binary to be present, even when --disable-python is set.
-  depends_on "python@3.11" => :build
   depends_on "gnutls"
   # icu4c can get linked if detected by pkg-config and there isn't a way to force disable
   # without disabling spotlight support. So we just enable the feature for all systems.
@@ -40,6 +39,7 @@ class Samba < Formula
   uses_from_macos "bison" => :build
   uses_from_macos "flex" => :build
   uses_from_macos "perl" => :build
+  uses_from_macos "python" => :build # configure requires python3 binary
   uses_from_macos "libxcrypt"
   uses_from_macos "zlib"
 
@@ -61,7 +61,7 @@ class Samba < Formula
 
   def install
     # avoid `perl module "Parse::Yapp::Driver" not found` error on macOS 10.xx (not required on 11)
-    if MacOS.version < :big_sur
+    if !OS.mac? || MacOS.version < :big_sur
       ENV.prepend_create_path "PERL5LIB", buildpath/"lib/perl5"
       ENV.prepend_path "PATH", buildpath/"bin"
       resource("Parse::Yapp").stage do

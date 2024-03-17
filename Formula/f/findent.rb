@@ -1,8 +1,8 @@
 class Findent < Formula
   desc "Indent and beautify Fortran sources and generate dependency information"
   homepage "https://www.ratrabbit.nl/ratrabbit/findent/index.html"
-  url "https://downloads.sourceforge.net/project/findent/findent-4.3.0.tar.gz"
-  sha256 "bbff2a754c26f525596c0926eb2198992e1e2eac5b9bc9cbe31e302875de6278"
+  url "https://downloads.sourceforge.net/project/findent/findent-4.3.2.tar.gz"
+  sha256 "62144eb84bda93d21241a6963ef973f92778bca7c915bfea9b38973774e85c7e"
   license "BSD-3-Clause"
 
   livecheck do
@@ -11,13 +11,13 @@ class Findent < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b43a95dc2dd1987cb2ef75a1633565cf637ca674efa69c09a2c4b9efe6d94bb9"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "23602fc20ca32334c64448fbbdb9bedebb8e3fb1bb8a37e00bba030e5346289c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e0d2b97f492325454c3ae44f0ea65c3fbd16f9cc88b8a8085af786c990eb8a3e"
-    sha256 cellar: :any_skip_relocation, sonoma:         "00902c54178fea26994c694cb15007575ead744940e24402960448efbdd2c52d"
-    sha256 cellar: :any_skip_relocation, ventura:        "8f944e4c52824ad72b2ff77134264b8e652e275f9b624f2029403e545650cf44"
-    sha256 cellar: :any_skip_relocation, monterey:       "8b418bb68d9fd4e67e6b4ba6429e0a31ee248ce70644526e56b21a761d6bf7ed"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a138389f107fb5523e226407f48921b61285dd480c8c0dc3dd2e4bca8cfb2120"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "51d3f04516a5dca7b02ea5ef859098b4639dd7a1df2875f3a0da7f3887cc94fd"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "16e0b56062b32d468ba4c30afa5b0b26d2501e089c2ec763fc5482b905458d94"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "edf41342fafcd0e95abcbbbf2a26118bf2f3fbca7d359afd64daa3d4a762d32e"
+    sha256 cellar: :any_skip_relocation, sonoma:         "fd9ce5c7feac6ace54ea379732628ecb5c1f6065340d7fe7e73d37bfa1524e8d"
+    sha256 cellar: :any_skip_relocation, ventura:        "546082a8be71fe836482bff9e4ff70089c57c08943c9322ecd2953baae861a87"
+    sha256 cellar: :any_skip_relocation, monterey:       "2404f50565658c7011a3cbb80b35333765760842f59f8be624dc57a88fc571b4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "15ba3564c4148a083e83724d77f81bc62c19fa4554602e3d2c31dd47a95ef6a3"
   end
 
   def install

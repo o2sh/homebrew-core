@@ -1,19 +1,19 @@
 class Intercept < Formula
   desc "Static Application Security Testing (SAST) tool"
   homepage "https://intercept.cc"
-  url "https://github.com/xfhg/intercept/archive/refs/tags/v1.5.5.tar.gz"
-  sha256 "3ca092dd54452fc2166b398410fd238f50e02e3313346bf820edc51132ee1324"
+  url "https://github.com/xfhg/intercept/archive/refs/tags/v1.6.1.tar.gz"
+  sha256 "76bfd38b940702a3937712a8b66623c7b36f7e681e4f73f7c9778b9083621b99"
   license "AGPL-3.0-only"
   head "https://github.com/xfhg/intercept.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "78b77aa50f17f1ddc911b094e861b00acf3a1f90b5e44d39c9f79e6eaf629464"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bec865964936d68afdb3e098db6e9dd037b9d0579b9947227109e0a6e62ad792"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "08db43be777467587e537a3eeffebfd06bf8ac0f6d0ae9b13ed51a2cdee63c69"
-    sha256 cellar: :any_skip_relocation, sonoma:         "2df85d16c23b7dfaf7cb3b070743bb3bc50720214684fdf61703d1c4dc41b261"
-    sha256 cellar: :any_skip_relocation, ventura:        "1c029f7c22d64c8d08a819452e46da98662c045c4d3bef6df8afc3e9893db190"
-    sha256 cellar: :any_skip_relocation, monterey:       "0e639c44513629aa47f69aef2f53405b27d3fe236878a0c8bc16a6c47935d5cd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d3b149515f12b358df6ab91a69e41bab27133b4981023f0bcd2bd18fe5ab4d23"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "462d8ea33b9bc231246f675b27aae0410bc3533f7936ddb325825676b7dc6e4b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7b9f713421eb60a9f282382c984910102b4ee038a9696646692a58f95b60deb0"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4ffd7963af43fd4e77eac4bedc85b02a8464eb2ba5d68794e9fe2efea1639d2d"
+    sha256 cellar: :any_skip_relocation, sonoma:         "0a11dd7aa846ced12af4e9f7e86ff34a64af742687df91e37b6147d310db1b95"
+    sha256 cellar: :any_skip_relocation, ventura:        "8a75a820f8305407af68d2fd1af865e785281de68a88a36e9a19e76638206844"
+    sha256 cellar: :any_skip_relocation, monterey:       "2c9cb3a1eb2649a7d6a94cadc651f260b0778f784d9f25117cf2c9f4ee42f4ed"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b5f0ae352d17745513393daf0a38051c8b7aa753fc9154af446470d474585731"
   end
 
   depends_on "go" => :build

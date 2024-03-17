@@ -6,23 +6,26 @@ class Gssh < Formula
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f088b4f210dd46ae1dbcef3c418c0f0b5bf5932c2ce0c4e22e0b4216d4f37657"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2e5c10ea739e816aecf3c7db36673c3b28d016a9c8cd24d102223f0044170474"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f63dfca6ad3c9db36050d581582b87357b9483e7117e5dc851fd7a641ce8e454"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ca925dbbc301b24f163061017b455e5a076ba20a3a0e7dc90cfe1b04c488a4f9"
-    sha256 cellar: :any_skip_relocation, sonoma:         "00205bbe2a8d8b9717af8aa4b7926d978f0814ada10b0d05be7ab3884fe41713"
-    sha256 cellar: :any_skip_relocation, ventura:        "7435236d8601e27ec7a71843a972ac31acc61be595e94235dd12a8229c89b4f9"
-    sha256 cellar: :any_skip_relocation, monterey:       "7bc677e68b78169c7f0cb92305fbb176250c97a68bbb1606d77c365aa1384c68"
-    sha256 cellar: :any_skip_relocation, big_sur:        "a8b2cdae040ff2a37ba7df91b5ba9b292633df0656791fc7617585300b8bdb26"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a4d4ded31d059a3d36f783aad5ed1fd48a2b7638b93b7d987f51bbbbb3daf8d3"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c2b5e7f40c765e5d93606a361389c7d3b0a527472dbb4c8e048ee681365c69fa"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "95769cbff07c37a67f0639fc6aa9bb07b975c6190ee522be0ac9357285023112"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d71fbca8a5b1a0b7e1dc1fb0247104e7a7420d90bdf5a151eb61159354e02f5b"
+    sha256 cellar: :any_skip_relocation, sonoma:         "e7e35e73999181f89bb33090ac3bb978f7e928950bf8262d2b3a02c51e0aaeed"
+    sha256 cellar: :any_skip_relocation, ventura:        "98620344224df5447fb46d0bddf1aaa0bfbbc721eebd5e4b80293af1d7f40d99"
+    sha256 cellar: :any_skip_relocation, monterey:       "97b3509b2a1ece5cbea662087610a552592535f5a690599ce24f1058562b2070"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "498b341805351d474054b683fdeec977694b1ecc5f715b304376a94a19af23c2"
   end
 
-  depends_on "openjdk@11"
+  depends_on "gradle" => :build
+  depends_on "openjdk"
+
+  # gradle 8 build patch, remove in next release
+  patch :DATA
 
   def install
     ENV["CIRCLE_TAG"] = version
     ENV["GROOVY_SSH_VERSION"] = version
-    system "./gradlew", "shadowJar"
+    system "gradle", "shadowJar", "--no-daemon"
     libexec.install "cli/build/libs/gssh.jar"
     bin.write_jar_script libexec/"gssh.jar", "gssh"
   end
@@ -31,3 +34,20 @@ class Gssh < Formula
     assert_match "groovy-ssh-#{version}", shell_output("#{bin}/gssh --version")
   end
 end
+
+__END__
+diff --git a/cli/build.gradle b/cli/build.gradle
+index 8044c6e..e6c2815 100644
+--- a/cli/build.gradle
++++ b/cli/build.gradle
+@@ -32,7 +32,7 @@ jar {
+ }
+
+ shadowJar {
+-    baseName = 'gssh'
+-    classifier = ''
+-    version = ''
++    archiveBaseName = 'gssh'
++    archiveVersion = ''
++    archiveClassifier = ''
+ }

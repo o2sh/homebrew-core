@@ -1,9 +1,9 @@
 class Mkvtoolnix < Formula
   desc "Matroska media files manipulation tools"
   homepage "https://mkvtoolnix.download/"
-  url "https://mkvtoolnix.download/sources/mkvtoolnix-80.0.tar.xz"
-  mirror "https://fossies.org/linux/misc/mkvtoolnix-80.0.tar.xz"
-  sha256 "bb08cdaf9afd472738b9655ae5704c3749da0a51a188baab12f5d7c3eb4d33f5"
+  url "https://mkvtoolnix.download/sources/mkvtoolnix-83.0.tar.xz"
+  mirror "https://fossies.org/linux/misc/mkvtoolnix-83.0.tar.xz"
+  sha256 "6a8615436406c7fa45bfb2b6270da1bf06ea54cfcd13c3699643833e1d73ecbc"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -12,13 +12,13 @@ class Mkvtoolnix < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "1a0b0a257ac5dcef8b2746931559ffc41b87cd744fc3f6bc915f3778c0637da9"
-    sha256 cellar: :any, arm64_ventura:  "5b5abeceb7b95c2ea9203ffa4d634a4d9520ffed9a807cb370be9b2613c0a106"
-    sha256 cellar: :any, arm64_monterey: "e147d59f0438071cc72f661a6c4a80ded65c1ed8565c77fca1f5062a35185fd1"
-    sha256 cellar: :any, sonoma:         "7746f43ccc45c5a7ead37dcbcfd428e931f1ca7d1e604fa720f342759e920249"
-    sha256 cellar: :any, ventura:        "bdbad5693420983ab7becc342bcfe0b5eea55ecc670c8e176b0e1eb2c388fcf0"
-    sha256 cellar: :any, monterey:       "c5823ab54513231bc94238585a23d12f664187d447b299bc90c34dfe9bdfb556"
-    sha256               x86_64_linux:   "0fc28cb740e548a0d9e3ec71c8070e8d3ea603be0c11827906ba18f492f76c3e"
+    sha256 cellar: :any, arm64_sonoma:   "e77925b5298f916e2ea0aa4a8b133233ed6d7094d88f20d5282759cbe15acbd7"
+    sha256 cellar: :any, arm64_ventura:  "6701ebaca829a89a8fb9aa652210873e6d168404a4668d6e2616ac36157b2f74"
+    sha256 cellar: :any, arm64_monterey: "b3c73321cdab15c62f692e1b2394966a8a5f75184183d8806c104d1270388998"
+    sha256 cellar: :any, sonoma:         "20d93f1c048539632c015143339a3187972e547a2072d0c9e92bbf55028b3b52"
+    sha256 cellar: :any, ventura:        "1dc3a280e16427c6671840867edcfc8989dcdac863c18693e499b36f4a4bc40c"
+    sha256 cellar: :any, monterey:       "3fb0548fa901f7d96f08b8ec75f424c119be9ca63705056618dd783cf5079cb0"
+    sha256               x86_64_linux:   "213de3d2bc0cdab190616f4b4941446de426f9a0b4569b26d2becb54c48ba8b3"
   end
 
   head do

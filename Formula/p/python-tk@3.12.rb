@@ -1,8 +1,8 @@
 class PythonTkAT312 < Formula
   desc "Python interface to Tcl/Tk"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.12.0/Python-3.12.0.tgz"
-  sha256 "51412956d24a1ef7c97f1cb5f70e185c13e3de1f50d131c0aac6338080687afb"
+  url "https://www.python.org/ftp/python/3.12.2/Python-3.12.2.tgz"
+  sha256 "a7c4f6a9dc423d8c328003254ab0c9338b83037bd787d680826a5bf84308116e"
   license "Python-2.0"
 
   livecheck do
@@ -10,21 +10,21 @@ class PythonTkAT312 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "c1e3f95ef0bbb7f7b985300063497c6daa4abf5131f93b711663565c4d240af9"
-    sha256 cellar: :any,                 arm64_ventura:  "d73fd18d8772759c5db612d25de99c6a9c5bb8d876b967267c72e493cff1c06d"
-    sha256 cellar: :any,                 arm64_monterey: "adb4224b81a9e32c9c66f1b055dae2325e8416768d4e96f36a883ba2a3ab16f9"
-    sha256 cellar: :any,                 sonoma:         "b3163730c16bf5ede90c961cdb3800a05180f37149c6d9a5d1ce011356bb94be"
-    sha256 cellar: :any,                 ventura:        "7da79232776f6e13ec59e23ac61ed74d1115697af7dcd7f6f71e7c2de8b44afb"
-    sha256 cellar: :any,                 monterey:       "b6ec1890f7aba762eeb685b1e7cde18ac054b60d96e58aee9e130883238c3b5b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "20baa46e683be2d9dda96a3b38550eee7290a0514e1bcf97ce9d7b529ee1c70a"
+    sha256 cellar: :any,                 arm64_sonoma:   "3f8cdfdeca32f72686019986c09f521cd428ebe01c75ae4fbe839ddc681f3654"
+    sha256 cellar: :any,                 arm64_ventura:  "488d7b0dec20900fa6aec0446e22c5dc1601a335c8f0f3463a197570f1e54590"
+    sha256 cellar: :any,                 arm64_monterey: "4a33a5fd920fa919c2581263585af27dd042f9df54426d7b71683723f074e29e"
+    sha256 cellar: :any,                 sonoma:         "ed364494042a81636397d0c625471d42e2611892fe38df152f4e67898ef5b169"
+    sha256 cellar: :any,                 ventura:        "df78a1afae464265bcdd1bc11435cf822a5f52812490e8390481f56cc9fd3878"
+    sha256 cellar: :any,                 monterey:       "bdb69741aa19e6d62f3bab9ce62e7ebaded9d458df33b84564004b60ff2f70c2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ab97031948f1e9fdc8f04f0d2d794cb67615303631e40c79a34ae04740732b01"
   end
 
   depends_on "python@3.12"
   depends_on "tcl-tk"
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/ef/cc/93f7213b2ab5ed383f98ce8020e632ef256b406b8569606c3f160ed8e1c9/setuptools-68.2.2.tar.gz"
-    sha256 "4ac1475276d2f1c48684874089fefcd83bd7162ddaafb81fac866ba0db282a87"
+    url "https://files.pythonhosted.org/packages/4b/d9/d0cf66484b7e28a9c42db7e3929caed46f8b80478cd8c9bd38b7be059150/setuptools-69.0.2.tar.gz"
+    sha256 "735896e78a4742605974de002ac60562d286fa8051a7e2299445e8e8fbb01aa6"
   end
 
   def python3

@@ -1,8 +1,8 @@
 class Typst < Formula
   desc "Markup-based typesetting system"
-  homepage "https://github.com/typst/typst"
-  url "https://github.com/typst/typst/archive/refs/tags/v0.9.0.tar.gz"
-  sha256 "741256f4f45c8979c9279fa5064a539bc31d6c65b7fb41823d5fa9bac4821c01"
+  homepage "https://typst.app/"
+  url "https://github.com/typst/typst/archive/refs/tags/v0.11.0.tar.gz"
+  sha256 "fd8debe21d5d22d4cd6c823494537f1356c9954cc2fe6c5db8c76c1b126112dd"
   license "Apache-2.0"
   version_scheme 1
   head "https://github.com/typst/typst.git", branch: "main"
@@ -13,22 +13,28 @@ class Typst < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f93127694ce17a62ce774396147e2e9291c5b18f58444841d54329e122aee843"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1ccc09f1dfe0d390ca9eaf828b0fc646aa8786c3e760852dfb0c6ad089c5159b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "cfe6f8479a8c0d805eb17fd0241ec18a3bb0d9af7144e5b0f3371d3a1091dd8e"
-    sha256 cellar: :any_skip_relocation, sonoma:         "34a5123cab4c88ae36adb3c4398312a6e24794968796378741ffca70834f7d64"
-    sha256 cellar: :any_skip_relocation, ventura:        "3f04fceb272bf64d2a0c15b5361958e8dfa01eb73a0f1f3ea463e11c747d5d73"
-    sha256 cellar: :any_skip_relocation, monterey:       "c0586e2944cf447a1b03fc8b50c3e497b5931cbe6aaedb3f35c66cbd3a9bd6f1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8ae77996084d5770fa69bf4a78d44691901c49bb92d1d6c1d8e3f1d6dd2ccfe5"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b965b3c0023803f4c26398b49f6652faa0de4055f139876e18a7c123c98ced96"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "999773962cc045c87fc9090bff3e408dbd1497e0ebbd601852578bc0ebb0ebc7"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ef24a1d8b32b076a98fafe4f44b19956e0a4426accdb87f5758324ad8a1658f3"
+    sha256 cellar: :any_skip_relocation, sonoma:         "e7984ce9fa4c59d9431ad84accc6c1a6adb9df2643f1d8af4d4dc6b823f067df"
+    sha256 cellar: :any_skip_relocation, ventura:        "e7d8ae5446419c5c05b76b4e7a9c10e2d902d6018f688cfe921ba7dc45e4377a"
+    sha256 cellar: :any_skip_relocation, monterey:       "680f33ef030929311c874d6c73f68983df3f452efb31f531147d3e337bd91d28"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "613aa323a4c8dedb7abf788abf3d021f162f3a14bdef507265cc08697005b5bf"
   end
 
+  depends_on "pkg-config" => :build
   depends_on "rust" => :build
+
+  on_linux do
+    depends_on "openssl@3"
+  end
 
   def install
     ENV["TYPST_VERSION"] = version.to_s
     ENV["GEN_ARTIFACTS"] = "artifacts"
     system "cargo", "install", *std_cargo_args(path: "crates/typst-cli")
+
+    man1.install Dir["crates/typst-cli/artifacts/*.1"]
     bash_completion.install "crates/typst-cli/artifacts/typst.bash" => "typst"
     fish_completion.install "crates/typst-cli/artifacts/typst.fish"
     zsh_completion.install "crates/typst-cli/artifacts/_typst"

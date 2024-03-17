@@ -1,21 +1,23 @@
 class Mdless < Formula
   desc "Provides a formatted and highlighted view of Markdown files in Terminal"
   homepage "https://github.com/ttscoff/mdless"
-  url "https://github.com/ttscoff/mdless/archive/refs/tags/2.1.3.tar.gz"
-  sha256 "4daabd9e1c91013d5b7617b5374a1dbc05b13e12c2f4efb896f500ef06437f6f"
+  url "https://github.com/ttscoff/mdless/archive/refs/tags/2.1.42.tar.gz"
+  sha256 "c9f9a846eea7a6fdbbd82549197de1faee5ca84929a7d117202c2c774f6c262f"
   license "MIT"
+  revision 1
 
   bottle do
-    sha256                               arm64_sonoma:   "019c4a8a91655936b4ccaece5da2c9486bfe3d35e70d9a696cf3b02ee9c54306"
-    sha256                               arm64_ventura:  "39da7681c2a4c3ec6c514aec44f7240fef16954ae0640d3d453b06d8ac172401"
-    sha256                               arm64_monterey: "0c87037b79553dcaf3a64d11fe161960cb9f887845d0dca53ce8c3022a032422"
-    sha256                               sonoma:         "fc5194dcd655455e9ef33874b818f2dd3243565ee85f5f3b0f11010b08167476"
-    sha256                               ventura:        "37784a4fe8d61b5c1eae4d52b16e230d2263249fa8650c1e2353eacff0d75a99"
-    sha256                               monterey:       "806a82fe69b99b38bfb1c6aa1d334fe9b0a214053460eaf703feca4b9d2146a4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6843dc7da126214f72cfc181f911482295fc83259bd20f882a8a21a0150eb166"
+    sha256 cellar: :any,                 arm64_sonoma:   "d14c17776340e20d3330fce4796de5e6b6384b22cc8ad28356415963dcd51fbc"
+    sha256 cellar: :any,                 arm64_ventura:  "f5e252648296e3fddfefbcf5f96429cbe432fdcafc359180892214018a199599"
+    sha256 cellar: :any,                 arm64_monterey: "d887fc81b7698332aa0961c95f581d85af459710f73492f8413e2eed4965bff2"
+    sha256 cellar: :any,                 sonoma:         "1d676b07d0e2b4bc1411afd96b55951f7d7e2025711cf5b7acc165bb7dab37ef"
+    sha256 cellar: :any,                 ventura:        "2785dbbb55f4e8457626d036eadb751e991a7212c8653a8350ac5604782f373d"
+    sha256 cellar: :any,                 monterey:       "9a9e54d2d9778078b3a972589a52e7fa0ea20639a7e7a3261f8b5ef20d774afd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3fb577102a312827d1615615255a0c55b9c86a5a3b1cd5dc646de396f496f09f"
   end
 
-  uses_from_macos "ruby"
+  # Requires Ruby >= 2.7
+  depends_on "ruby"
 
   def install
     ENV["GEM_HOME"] = libexec

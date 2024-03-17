@@ -1,19 +1,19 @@
 class Nickel < Formula
   desc "Better configuration for less"
   homepage "https://github.com/tweag/nickel"
-  url "https://github.com/tweag/nickel/archive/refs/tags/1.3.0.tar.gz"
-  sha256 "cd6919eb945992721bd164291ebee11dbb62f06004061c0cfc5fa73e98197224"
+  url "https://github.com/tweag/nickel/archive/refs/tags/1.5.0.tar.gz"
+  sha256 "9b82fdeb066f88fc818dd27e8a8faa85f83bcefaab5c52272b17fc8adaa1b8ed"
   license "MIT"
   head "https://github.com/tweag/nickel.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8f1c678b1835a86dc1d2d741fa7e44eecdb913e3ac7efb0b3425c7fd3ae3d788"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5fcd36f5919d5a0089d0add8decfc8871653ea967027dbf80a2690a8d780cd5b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "5a68ecd226cbbae9fa3a07087a94130b77fcf41fd462bb69e3cb7974e675faba"
-    sha256 cellar: :any_skip_relocation, sonoma:         "2a25033dc8797538cccf23dfad96f539b339cc563c85b5b19f1384fe29cee726"
-    sha256 cellar: :any_skip_relocation, ventura:        "76abdc406612ac2b6240dbde4c0f7e5bdfec74566aac9dba167f9014094c5070"
-    sha256 cellar: :any_skip_relocation, monterey:       "2d05f6d869fc3f0b32176d4ab5866dd79e03cca309a6df6b196b775679230688"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "da068d306c394bab58c3488bfeb1d25129d53bcf23dd7beba6e919c66aa5fe1a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "adfbdbc42f9fb5aefd181ea0a798e224a64bb71a46cba200a07a9ae87a744cba"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "64322b9a5298b72c37e6e02a628cb3a0436af0e1c75c0a110776076e549f32c7"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c2ada1409259402345e65638b74d257eeb29a328a854a2b46977c9cfd842415d"
+    sha256 cellar: :any_skip_relocation, sonoma:         "d59d317f7d3602c9350d48ee825119e68faeaeb534a7fdc3063c187d3355a5d0"
+    sha256 cellar: :any_skip_relocation, ventura:        "0e403eb058cac3f6b40ed45c1c6a7512c1c6a507a231fcfce63e591e225cac02"
+    sha256 cellar: :any_skip_relocation, monterey:       "1e9460319891960b3eaf1e6647ab091ebda7af67ca642b7de46c72ac200f0749"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5ff7a7f4adbbb072d382de788b365d1c902b5eef093a7222ff386c89cc6bb296"
   end
 
   depends_on "rust" => :build

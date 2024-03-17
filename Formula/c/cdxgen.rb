@@ -3,18 +3,18 @@ require "language/node"
 class Cdxgen < Formula
   desc "Creates CycloneDX Software Bill-of-Materials (SBOM) for projects"
   homepage "https://github.com/CycloneDX/cdxgen"
-  url "https://registry.npmjs.org/@cyclonedx/cdxgen/-/cdxgen-9.9.5.tgz"
-  sha256 "cc11c7039c89dbe462fb0d5e817a909c2c9bfda44bb0e22f86e30cbf731b9e11"
+  url "https://registry.npmjs.org/@cyclonedx/cdxgen/-/cdxgen-10.2.3.tgz"
+  sha256 "07e0c52e4406aa845eb204a9385c0848249d3f6d2495d91ace2c7f4c001a7d3b"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9962380d143e88ab92cdbcd904ec404af7ab814f0044729bb0e56b8375b8d238"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b2b6bdb79d7f0f75d0b06d599a9edaafa26452f5c6e3cd3d0af0e1bd6b8d0d24"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0b7e874dbae53ff59b0ad01e26398605e0569a48a9c4b999de1c679eeb1d475f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c2dc711ab8a3383399d21a3448fe8640012e1b6aa41f8f9ddf64f89fc004e3a9"
-    sha256 cellar: :any_skip_relocation, ventura:        "253df6ee21df969779698ed31a193a41cdced27bb4f97cfcd105b53847730e81"
-    sha256 cellar: :any_skip_relocation, monterey:       "684453d80554a8352c0c8e6793e245ee4f840b00e5317d66fa0d8e73f13b275e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b610f8c0f3d5745f41bd1e9fc22c2fd11852caa73e440a6f31cca277088b4162"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "256870629a4b280564eb7af3e399450c68a97a3fe70d78b57c024e7015f6deb1"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2a39279a170b79e95ef719997b3ed76bd8f6ed34adee7837400fbdb0c6d11c60"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "dad78ba9364ac4773d37da40be3b708174fb7f3a13a6eb5a9875f12f14954afa"
+    sha256 cellar: :any_skip_relocation, sonoma:         "dfeedadc054ce9ad2f76874b422f31e0e0d3f4fa7561a470420a42c13031ea77"
+    sha256 cellar: :any_skip_relocation, ventura:        "9f83ae5cd99d4e6361ca91285f14152abf1971c0f0dbd268510e3ee54ee3f9f8"
+    sha256 cellar: :any_skip_relocation, monterey:       "ceb6ebc8028fe52839e708a30625263f9023016588ce48f0b87dca0a25911c5e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c0b43c80ebf3e127106fe4ea19e001aa983560aaec7aeca31f0e9e695d753f37"
   end
 
   depends_on "node"
@@ -33,6 +33,10 @@ class Cdxgen < Formula
 
       rm f
     end
+
+    # remove pre-built osquery plugin for macos intel builds
+    osquery_plugin = node_modules/"@cyclonedx/cdxgen-plugins-bin-darwin-amd64/plugins/osquery"
+    osquery_plugin.rmtree if OS.mac? && Hardware::CPU.intel?
   end
 
   test do
@@ -49,7 +53,7 @@ class Cdxgen < Formula
         2.4.12
     EOS
 
-    assert_match "BOM includes 1 components and 0 dependencies", shell_output("#{bin}/cdxgen -p")
+    assert_match "BOM includes 1 components and 2 dependencies", shell_output("#{bin}/cdxgen -p")
 
     assert_match version.to_s, shell_output("#{bin}/cdxgen --version")
   end

@@ -1,10 +1,9 @@
 class Geeqie < Formula
   desc "Lightweight Gtk+ based image viewer"
   homepage "https://www.geeqie.org/"
-  url "https://github.com/BestImageViewer/geeqie/releases/download/v2.1/geeqie-2.1.tar.xz"
-  sha256 "d0511b7840169d37e457880d1ab2a787c52b609a0ab8fa1a8a391e841fdd2dde"
+  url "https://github.com/BestImageViewer/geeqie/releases/download/v2.3/geeqie-2.3.tar.xz"
+  sha256 "cd5cad97f8d0e8c62025334d62688fcf6f82be73a7716c5ca16b205d59b8519b"
   license "GPL-2.0-or-later"
-  revision 2
 
   livecheck do
     url :stable
@@ -12,13 +11,13 @@ class Geeqie < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "3d7ae1d94cef077ebe54e7fa3d6f167a90f6e6b535e7f9ac6242c0ad32e16de4"
-    sha256 cellar: :any, arm64_ventura:  "f93422f6e30ee5841aa7c1b2d1a812e2a8d62196c2cbaaf8ad8c27f7ad5ec53c"
-    sha256 cellar: :any, arm64_monterey: "f942a659c5c97508bb87f3e5dc6ec3ede4412799063314e0b8ca76d18c667bf2"
-    sha256 cellar: :any, sonoma:         "b6ca6e29b80b895f0dcf3b9a2e7dd737190ca0a9bf506c43818391be06a03e4f"
-    sha256 cellar: :any, ventura:        "69d4a5a09166f1fcc40aa8a6b7b73166723614a5c5d5d7a82aaeb6f30efdf2fb"
-    sha256 cellar: :any, monterey:       "e2334655057bbd7bdd512cc3f391ae7263b109b3d1d10b7b304f3fc89b0530ba"
-    sha256               x86_64_linux:   "ff872a4a1ede2ca7d15b0e09d521255a48ded1b536ab71e90de2c96df93f01b2"
+    sha256 cellar: :any, arm64_sonoma:   "00e12bb86816fbb76c4ae7291f2721467765834a688feabdf4c3981e26e49f46"
+    sha256 cellar: :any, arm64_ventura:  "0edc216cedcd6d1a28490e1959ae27e06ae72ee9375230d3c4c7c79b675c6f0e"
+    sha256 cellar: :any, arm64_monterey: "a223a3d09e500e22b43ab19f4666cd5dc1679b8c92be94d81b3d02c864762a28"
+    sha256 cellar: :any, sonoma:         "99ef67d5e6e67203005f3fd87f5f43f464c0a1aacb55d4e27b3d94c756a0dd33"
+    sha256 cellar: :any, ventura:        "c0975ef8d5efeb67dba0a8dc446add42b41e57e94a8cbe7b48c205b8cd9d15b9"
+    sha256 cellar: :any, monterey:       "fe514a965f56343e745d6e64ebc5be8b77d83bbd21fc439a4842d23f95f823e3"
+    sha256               x86_64_linux:   "ab15173508e65f6d607f5b106446a292967bef34c5d0401c38feeb6a7ce52d50"
   end
 
   depends_on "meson" => :build
@@ -50,6 +49,12 @@ class Geeqie < Formula
 
   uses_from_macos "python" => :build
   uses_from_macos "vim" => :build # for xxd
+
+  # macos build patch
+  patch do
+    url "https://github.com/BestImageViewer/geeqie/commit/4a9376a78d258ff11e9db33985abbfb9a7be614c.patch?full_index=1"
+    sha256 "f9c49cec18cbeb9e764e7ed51cdbeec005f5dbcf99efc26f7e254bb32be1acc9"
+  end
 
   def install
     system "meson", "setup", "build", "-Dlua=disabled", *std_meson_args

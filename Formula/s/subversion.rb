@@ -2,12 +2,11 @@ class Subversion < Formula
   desc "Version control system designed to be a better CVS"
   homepage "https://subversion.apache.org/"
   license "Apache-2.0"
-  revision 5
 
   stable do
-    url "https://www.apache.org/dyn/closer.lua?path=subversion/subversion-1.14.2.tar.bz2"
-    mirror "https://archive.apache.org/dist/subversion/subversion-1.14.2.tar.bz2"
-    sha256 "c9130e8d0b75728a66f0e7038fc77052e671830d785b5616aad53b4810d3cc28"
+    url "https://www.apache.org/dyn/closer.lua?path=subversion/subversion-1.14.3.tar.bz2"
+    mirror "https://archive.apache.org/dist/subversion/subversion-1.14.3.tar.bz2"
+    sha256 "949efd451a09435f7e8573574c71c7b71b194d844890fa49cd61d2262ea1a440"
 
     # Fix -flat_namespace being used on Big Sur and later.
     patch do
@@ -17,13 +16,13 @@ class Subversion < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "7fec272a5bd52cf615c2f677474c5253cde681ae8a37203f9805b864d8ca564a"
-    sha256 arm64_ventura:  "3acbcc1b087704edd156124c3203818362f3a5fa66dcc7449de68675859ab3ec"
-    sha256 arm64_monterey: "7bac12378357c18570b95c5631bba7b7429630bee2f49ab8f5ed9e33d31e4c8d"
-    sha256 sonoma:         "55af7895f1d25174246755bf94965782e572bcdbb2388443b74b8b2c8b743d2a"
-    sha256 ventura:        "1266263406a9fb42a8ddd39c2af59afa60ce5aaf94d2f473aba7d4d9fb302bb7"
-    sha256 monterey:       "0c8e9bf878e20c72acd7ed8a331644d237254c4c89e8526ebb970bcfaf1b4c8d"
-    sha256 x86_64_linux:   "1c95e4f7d676d1b97313b7840627a8dac56791e0904accb18316944511114e71"
+    sha256 arm64_sonoma:   "b51808010d560f470bf6f4c14df7965d7f0840fa36ea5d84f38a83697b710ba3"
+    sha256 arm64_ventura:  "ad02a2f65ee3ac5e6023e64427ebfff10fde2f298ba7d6e4b298fb55c3898388"
+    sha256 arm64_monterey: "97b753bf79a9f4a041d12052ec229bceb34bc420af98f9990b510c4848ccc990"
+    sha256 sonoma:         "024a680f2f7b4fbd9916cb5d02f5923866ba9f67b5bcfa0f3b502076a9721ea3"
+    sha256 ventura:        "e3372419e8caa3545b4567d4146a6769a3a440d53eca0ea38617c4024bf70d95"
+    sha256 monterey:       "c811f533a2e0cf5805808cbfdca17043b3f2c5c7364bd460b35f324aa42078af"
+    sha256 x86_64_linux:   "e3aaf417aed39c962a61c2c1d11292992abd183c8d32ec57cd760188c054beea"
   end
 
   head do
@@ -66,8 +65,8 @@ class Subversion < Formula
   end
 
   resource "py3c" do
-    url "https://github.com/encukou/py3c/archive/refs/tags/v1.1.tar.gz"
-    sha256 "c7ffc22bc92dded0ca859db53ef3a0b466f89a9f8aad29359c9fe4ff18ebdd20"
+    url "https://github.com/encukou/py3c/archive/refs/tags/v1.4.tar.gz"
+    sha256 "abc745079ef906148817f4472c3fb4bc41d62a9ea51a746b53e09819494ac006"
   end
 
   resource "serf" do
@@ -138,6 +137,10 @@ class Subversion < Formula
     if OS.linux?
       # svn can't find libserf-1.so.1 at runtime without this
       ENV.append "LDFLAGS", "-Wl,-rpath=#{serf_prefix}/lib"
+      # Fix linkage when build-from-source as brew disables superenv when
+      # `scons` is a dependency. Can remove if serf is moved to a separate
+      # formula or when serf's cmake support is stable.
+      ENV.append "LDFLAGS", "-Wl,-rpath=#{HOMEBREW_PREFIX}/lib" unless build.bottle?
     end
 
     perl = DevelopmentTools.locate("perl")
@@ -168,7 +171,7 @@ class Subversion < Formula
     ]
 
     # preserve compatibility with macOS 12.0–12.2
-    args.unshift "--enable-sqlite-compatibility-version=3.36.0" if MacOS.version == :monterey
+    args.unshift "--enable-sqlite-compatibility-version=3.36.0" if OS.mac? && MacOS.version == :monterey
 
     inreplace "Makefile.in",
               "toolsdir = @bindir@/svn-tools",
@@ -192,7 +195,7 @@ class Subversion < Formula
     perl_core = Pathname.new(perl_archlib)/"CORE"
     perl_extern_h = perl_core/"EXTERN.h"
 
-    unless perl_extern_h.exist?
+    if OS.mac? && !perl_extern_h.exist?
       # No EXTERN.h, maybe it's system perl
       perl_version = Utils.safe_popen_read(perl.to_s, "--version")[/v(\d+\.\d+)(?:\.\d+)?/, 1]
       perl_core = MacOS.sdk_path/"System/Library/Perl"/perl_version/"darwin-thread-multi-2level/CORE"

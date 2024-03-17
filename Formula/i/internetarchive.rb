@@ -3,28 +3,27 @@ class Internetarchive < Formula
 
   desc "Python wrapper for the various Internet Archive APIs"
   homepage "https://github.com/jjjake/internetarchive"
-  url "https://files.pythonhosted.org/packages/7a/6a/ce5deecc9a65709e48367bf949874551fee5f4f595141b7fd0d4426b0d95/internetarchive-3.5.0.tar.gz"
-  sha256 "2a9625e1dcbe431e5b898402273a4345bf5cb46012599cbe92e664ffdc36e881"
+  url "https://files.pythonhosted.org/packages/c0/e2/9d665fe3a65119894f4f1eb64404b0f53d4542ea841af271a834b444b1a4/internetarchive-3.6.0.tar.gz"
+  sha256 "86c011e23751f5dff1d5cc6e3bc610b2eca3331d5e502c1cd34c2021068b6bbd"
   license "AGPL-3.0-or-later"
-  revision 3
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b63ea2dc2e3833bcbc2cdff29707455af4a10d0a97ce20a099d161a587d32a0a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a96eed814b3ac1b04f2af5bdfc1bee92317ed3b849482ff2197102777b23da07"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "50c37b13dbacb7d499299f983ddff6e54eb8339d5a2ee528ddf4880dd61aeb50"
-    sha256 cellar: :any_skip_relocation, sonoma:         "58029b191bb4b4260680d624d52dba6eae9ae9afa7e925e437ba41189e0babbf"
-    sha256 cellar: :any_skip_relocation, ventura:        "30bdb5f7cdb6fa269923fb4df46eb61c2b8efa49ee4a4d606bbef67a00175c94"
-    sha256 cellar: :any_skip_relocation, monterey:       "acadb0ed0d4dbaa4914d66fd3f4b84bddf75b022bf8aaa5f70be70835edf20a9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "23a5d702aab58e696f355d143d1df051cc43dd20b95d257ede56c0776036d87f"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "71932d49487fc1d8ecb14a97092836555d56fe6b53b77e9f07a06cdf80bc62dd"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "820d5b917f3a2baea05efdb587bbb61be4a8213042bb74cfd1a9bd3875cc93f2"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "cd6f0ff1271f8cd6f9ce45d825306f38d0edadc36b0fab0dbc23e19128550d81"
+    sha256 cellar: :any_skip_relocation, sonoma:         "04c0973ff86daf03e138f5b81751a2c254f23f00d655f26bf31868daab36db9b"
+    sha256 cellar: :any_skip_relocation, ventura:        "ddb30e6972c247fc70c794bdf82bc2d525efbbf0942d9553febf5bd19d2c1440"
+    sha256 cellar: :any_skip_relocation, monterey:       "ec32f72b766036e97db97bf051b53fc7ae51299956337cdc1372376a6df8e27e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6a9c400b1ae92f77ceb65e3bdb1b5e6e07b1870d6890f166e2a331137a2587c1"
   end
 
-  depends_on "python-certifi"
-  depends_on "python-setuptools"
+  depends_on "certifi"
   depends_on "python@3.12"
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/cf/ac/e89b2f2f75f51e9859979b56d2ec162f7f893221975d244d8d5277aa9489/charset-normalizer-3.3.0.tar.gz"
-    sha256 "63563193aec44bce707e0c5ca64ff69fa72ed7cf34ce6e11d5127555756fd2f6"
+    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
+    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
   end
 
   resource "contextlib2" do
@@ -38,8 +37,8 @@ class Internetarchive < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz"
-    sha256 "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
+    url "https://files.pythonhosted.org/packages/bf/3f/ea4b9117521a1e9c50344b909be7886dd00a519552724809bb1f486986c2/idna-3.6.tar.gz"
+    sha256 "9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"
   end
 
   resource "jsonpatch" do
@@ -68,13 +67,17 @@ class Internetarchive < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/af/47/b215df9f71b4fdba1025fc05a77db2ad243fa0926755a52c5e71659f4e3c/urllib3-2.0.7.tar.gz"
-    sha256 "c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84"
+    url "https://files.pythonhosted.org/packages/e2/cc/abf6746cc90bc52df4ba730f301b89b3b844d6dc133cb89a01cfe2511eb9/urllib3-2.2.0.tar.gz"
+    sha256 "051d961ad0c62a94e50ecf1af379c3aba230c66c710493493560c0c223c49f20"
   end
 
+  # Drop setuptools dep
+  # https://github.com/jjjake/internetarchive/pull/621
+  patch :DATA
+
   def install
+    ENV["PIP_USE_PEP517"] = "1"
     virtualenv_install_with_resources
-    bin.install_symlink libexec/"bin/ia"
   end
 
   test do
@@ -82,3 +85,49 @@ class Internetarchive < Formula
     assert_equal metadata["metadata"]["uploader"], "mistydemeo@gmail.com"
   end
 end
+
+__END__
+From 7f882e7d25c7baaadca1f9abf014f8c16f7e76d0 Mon Sep 17 00:00:00 2001
+From: Letu Ren <fantasquex@gmail.com>
+Date: Tue, 9 Jan 2024 18:28:50 +0800
+Subject: [PATCH] Switch to importlib-metadata to drop deprecated pkg_resources
+
+According to https://setuptools.pypa.io/en/latest/pkg_resources.html,
+pkg_resources has been deprecated and importlib-metadata is recommended.
+`DistributionNotFound` only can be thrown from `find_plugins()` which is
+not used by ia. Tested with plugin
+https://github.com/JesseWeinstein/ia_recent.
+
+Closes: https://github.com/jjjake/internetarchive/issues/613
+---
+ internetarchive/cli/ia.py | 6 +++---
+ setup.cfg                 | 1 +
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/internetarchive/cli/ia.py b/internetarchive/cli/ia.py
+index 8e044c36..9a5b2c70 100755
+--- a/internetarchive/cli/ia.py
++++ b/internetarchive/cli/ia.py
+@@ -64,7 +64,7 @@
+ import sys
+
+ from docopt import docopt, printable_usage
+-from pkg_resources import DistributionNotFound, iter_entry_points
++from importlib.metadata import entry_points
+ from schema import Or, Schema, SchemaError  # type: ignore[import]
+
+ from internetarchive import __version__
+@@ -97,11 +97,11 @@ def load_ia_module(cmd: str):
+             return __import__(_module, fromlist=['internetarchive.cli'])
+         else:
+             _module = f'ia_{cmd}'
+-            for ep in iter_entry_points('internetarchive.cli.plugins'):
++            for ep in entry_points(group='internetarchive.cli.plugins'):
+                 if ep.name == _module:
+                     return ep.load()
+             raise ImportError
+-    except (ImportError, DistributionNotFound):
++    except (ImportError):
+         print(f"error: '{cmd}' is not an ia command! See 'ia help'",
+               file=sys.stderr)
+         matches = '\t'.join(difflib.get_close_matches(cmd, cmd_aliases.values()))

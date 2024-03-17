@@ -1,8 +1,8 @@
 class Xray < Formula
   desc "Platform for building proxies to bypass network restrictions"
   homepage "https://xtls.github.io/"
-  url "https://github.com/XTLS/Xray-core/archive/refs/tags/v1.8.4.tar.gz"
-  sha256 "89f73107abba9bd438111edfe921603ddb3c2b631b2716fbdc6be78552f0d322"
+  url "https://github.com/XTLS/Xray-core/archive/refs/tags/v1.8.9.tar.gz"
+  sha256 "708cf7754c733c8eb98939495c0c2e698ca5712383b87dc25eea974a0d332721"
   license all_of: ["MPL-2.0", "CC-BY-SA-4.0"]
   head "https://github.com/XTLS/Xray-core.git", branch: "main"
 
@@ -12,39 +12,37 @@ class Xray < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c45b0f75590bbf231508f07dd6e21c603206ea595589c41bf70b841232e3d2e6"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "88c6074eeafa8f89e58c51bbd7325faaab9bce2003e6856958bb33f0ed570fc3"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4b6a3e15ea99c4ac4701d3ea08c3681325c11572f3dd7f8039ea8c0b9ddf7d27"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "4d7d5700cd773731f28f11ed293ee53e1cfa694f72290ae1dad86508f01af94d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "1f23bfab85e5ba639a2cd2f949b8ff9b4141cc0a800c32c0f3004d80db932c79"
-    sha256 cellar: :any_skip_relocation, ventura:        "ff889d4a2cdc1b94111ce29437236ee1b3621897ee963922b34d5fb19c5bfe95"
-    sha256 cellar: :any_skip_relocation, monterey:       "188d740801ee78460ddc0f6fe17f067b8c9c5b15bd03866a757bb160907ea6ed"
-    sha256 cellar: :any_skip_relocation, big_sur:        "0237fb0565cb82e311288d24f149731ffb9e8e2fd9fbdb238ea05e7c967eccb9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "48e5ec5166a75795baa3ae51bcf6d94eec65f3585cd2214b2c0b7c79b28e477c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c4d1774a15c73ef43a048b3140bd13de772c113d7779d8afd1dffdf54054393a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1272dcc8684383182fb458ade5355d793acf7eadaa4b1a779ea8fa03c18a3e06"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2ff7ac062293fbdddcae1c079040d3797e72b9db9e484c928a623240570269a6"
+    sha256 cellar: :any_skip_relocation, sonoma:         "8f5e3f22ed5590503011832cda0c9e8766b468fd3e5f071a0eaedf4ced4cfeba"
+    sha256 cellar: :any_skip_relocation, ventura:        "4af211f2b3117abb2dcc7bcdbd86c4c0d07eeda6fb3523fe3de8bc00adeda17e"
+    sha256 cellar: :any_skip_relocation, monterey:       "fd1905a9a53832eac4c6ce5cc74fb56851aefe2c2a61cd9c0dad1694d70d8282"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8e0c95912afd666b6adeae1b27e53c9464997f307ee2bf90a9ad6aaf02ddfc39"
   end
 
   depends_on "go" => :build
 
   resource "geoip" do
-    url "https://github.com/v2fly/geoip/releases/download/202308310037/geoip.dat"
-    sha256 "536d7aa9f54af747153d4f982adaa3181025dd72faaba8f532b3f514b467eff8"
+    url "https://github.com/v2fly/geoip/releases/download/202401110041/geoip.dat"
+    sha256 "37ec29d3aec3d22a575da7d6e858e22a492eafb8abc34a0b288d353acf6ee1a2"
   end
 
   resource "geosite" do
-    url "https://github.com/v2fly/domain-list-community/releases/download/20230825070717/dlc.dat"
-    sha256 "231a6fb4915f7652ad9b2027965fbbb27435ffa9b3a0734ad2b69693e95d6604"
+    url "https://github.com/v2fly/domain-list-community/releases/download/20240105034708/dlc.dat"
+    sha256 "9f833c47b103fb475a68d3b0f5db99d7b7c31dd9deab9171781420db10751641"
   end
 
   resource "example_config" do
     # borrow v2ray example config
-    url "https://raw.githubusercontent.com/v2fly/v2ray-core/v4.45.2/release/config/config.json"
+    url "https://raw.githubusercontent.com/v2fly/v2ray-core/v5.13.0/release/config/config.json"
     sha256 "1bbadc5e1dfaa49935005e8b478b3ca49c519b66d3a3aee0b099730d05589978"
   end
 
   def install
     ldflags = "-s -w -buildid="
     execpath = libexec/name
-    system "go", "build", *std_go_args(output: execpath, ldflags: ldflags), "./main"
+    system "go", "build", *std_go_args(output: execpath, ldflags:), "./main"
     (bin/"xray").write_env_script execpath,
       XRAY_LOCATION_ASSET: "${XRAY_LOCATION_ASSET:-#{pkgshare}}"
 

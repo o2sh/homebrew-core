@@ -1,8 +1,9 @@
 class OsspUuid < Formula
   desc "ISO-C API and CLI for generating UUIDs"
-  homepage "https://web.archive.org/web/www.ossp.org/pkg/lib/uuid/"
+  homepage "http://www.ossp.org/pkg/lib/uuid/"
   url "https://deb.debian.org/debian/pool/main/o/ossp-uuid/ossp-uuid_1.6.2.orig.tar.gz"
   sha256 "11a615225baa5f8bb686824423f50e4427acd3f70d394765bdff32801f0fd5b0"
+  license "BSD-1-Clause"
   revision 2
 
   livecheck do
@@ -25,6 +26,10 @@ class OsspUuid < Formula
     sha256 cellar: :any,                 sierra:         "3c15cd0e25e3039e0d05b94d14b714745cec3033863d5dc7a6d9ddd7cacc1c71"
     sha256 cellar: :any,                 el_capitan:     "ac4456fc1c29db7e0d565ebdd392cf827be315b52c9eb3abcd113c4c7b981f25"
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "ec70863fae3001fc9281f76cef9ac231bd6dbb957c6382457a5848312ee1f1b0"
+  end
+
+  on_linux do
+    conflicts_with "util-linux", because: "both install `uuid.3` file"
   end
 
   # Fix -flat_namespace being used on Big Sur and later.

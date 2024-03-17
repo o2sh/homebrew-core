@@ -1,19 +1,19 @@
 class Traefik < Formula
   desc "Modern reverse proxy"
   homepage "https://traefik.io/"
-  url "https://github.com/traefik/traefik/releases/download/v2.10.6/traefik-v2.10.6.src.tar.gz"
-  sha256 "1e2a8d03c99cfcfa47cc9759a99d6557f859d180fac40af64da7c09c9193f904"
+  url "https://github.com/traefik/traefik/releases/download/v2.11.0/traefik-v2.11.0.src.tar.gz"
+  sha256 "b431d4a802d7c06912427b3e876c44fc4cc0284bb05268c466dd6a0fbb59e9c2"
   license "MIT"
   head "https://github.com/traefik/traefik.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ef1f3eac2703ef761242ef64fdc2d0f28e1cb019aa98240617e69f274001c10e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "77844a282bfe6f4e20fa1db026da91ce96ec0fef05ac12e7f0d964017a932c90"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "025cf22cd6c3b325ddd4ebbeb390f838ac2b16a79367712d7094b57613d6d821"
-    sha256 cellar: :any_skip_relocation, sonoma:         "634a6c8b1cac4ebcb18892daff63a9fab70ed2f7f4a2b676f92f184fab62193b"
-    sha256 cellar: :any_skip_relocation, ventura:        "56ca13db4b31058e51f2a411d68da5cdd8bf083174789b0d3e2426ba2d6ddab7"
-    sha256 cellar: :any_skip_relocation, monterey:       "93c5ce9332b48ec9fbfe288e593759e7674ec4cb7da4a108b9402651f24ccb14"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dd53130eb10d15ed7a4a8e0cefc0abaefe495aea92471350b32a984938630e24"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f13a7056c124067ee8398d57f56deeddd80aa7cc93a8dd56a57cee2a24fd7225"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2ac06b17e97456139c67a30fa4a271d3f9bdc6cb2ab791ca80d05b18fcc695dc"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "78a29a68187cbefd490e39807c08ba0c14d100009ea9411d2abdc61db89d820e"
+    sha256 cellar: :any_skip_relocation, sonoma:         "a59a19424956ea1f34f05ffb3f89d52931316cae1e74f16248a5f522fd0fc380"
+    sha256 cellar: :any_skip_relocation, ventura:        "1048213e0b0f0a3622139bb4180db1075a10cb459f18bfb77bdb3da2d7957379"
+    sha256 cellar: :any_skip_relocation, monterey:       "2c1b0683ce6be34707e9b664311c178e3796130e5b9e8d018b283372cb7d5f31"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bc7ff659896f721ab95083bf8cbea277347cb9ddcdd09adb1468789f739005d6"
   end
 
   depends_on "go" => :build
@@ -24,7 +24,7 @@ class Traefik < Formula
       -X github.com/traefik/traefik/v#{version.major}/pkg/version.Version=#{version}
     ].join(" ")
     system "go", "generate"
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/traefik"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/traefik"
   end
 
   service do

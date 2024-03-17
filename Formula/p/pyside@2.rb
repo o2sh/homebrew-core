@@ -2,8 +2,8 @@ class PysideAT2 < Formula
   desc "Official Python bindings for Qt"
   homepage "https://wiki.qt.io/Qt_for_Python"
   # TODO: Check if we can use unversioned `llvm` at version bump.
-  url "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.11-src/pyside-setup-opensource-src-5.15.11.tar.xz"
-  sha256 "da567cd3b7854d27a0b4afe3e89de8b2f98b7a6d57393be56f1fc13f770faf29"
+  url "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.13-src/pyside-setup-opensource-src-5.15.13.tar.xz"
+  sha256 "7a57797b20268d6ebcb39deba48c754a69abf9221aee03e1f3dca6f6565b7da9"
   license all_of: ["GFDL-1.3-only", "GPL-2.0-only", "GPL-3.0-only", "LGPL-3.0-only"]
 
   livecheck do
@@ -12,12 +12,12 @@ class PysideAT2 < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "dd514e82cb63aeb3e3a216c8584b78a05f38ba3584e393fdef4b783250fb1943"
-    sha256 cellar: :any, arm64_ventura:  "77d006531a3523ba86df98452a3cd0af74f8a831c9a13fa3254308a6ab1c427a"
-    sha256 cellar: :any, arm64_monterey: "fdfb66e97b5cf36437fce26f0883ed01abbaec9e816c5c24cafad0491e0951f6"
-    sha256 cellar: :any, sonoma:         "505cfcd99e7e41dc65e4ef16acd94f99254bab7e8934d07ade703cf463ba5465"
-    sha256 cellar: :any, ventura:        "7e748558af29e2771b2f2a646b2970c562deae124bf312416d4d259ddd81d996"
-    sha256 cellar: :any, monterey:       "fd3599409c6247c6c7b44257afa241eb0832dc57f929684de3dc7e93d63111f6"
+    sha256 cellar: :any, arm64_sonoma:   "6cd8403de2af27d30999b99640ddba22a9ed0083d58f7df82fda1ca9e606b295"
+    sha256 cellar: :any, arm64_ventura:  "5411503db00e5b2bf0d47a4f9c3cf286c52e96e3a065602e5da079ac1d503e2e"
+    sha256 cellar: :any, arm64_monterey: "8383e625a3ca94bab45c4983cd0db63b01f07b21c6f162410b7542d3cae8d15b"
+    sha256 cellar: :any, sonoma:         "1ccfa050c8024de9fa0d06cc544725b3b13d76f18479d1f8f1e659b56074ec55"
+    sha256 cellar: :any, ventura:        "1bf7502b0fdb78704904b1854c9e5d4b478d305f1ab6e5ec102df921d9c46bb7"
+    sha256 cellar: :any, monterey:       "931425ca15fcc9414a141478e15e8fbd8baf9e497d140647196dde01c7ee5e7c"
   end
 
   keg_only :versioned_formula

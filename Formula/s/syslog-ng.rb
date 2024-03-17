@@ -3,20 +3,18 @@ class SyslogNg < Formula
 
   desc "Log daemon with advanced processing pipeline and a wide range of I/O methods"
   homepage "https://www.syslog-ng.com"
-  url "https://github.com/syslog-ng/syslog-ng/releases/download/syslog-ng-4.2.0/syslog-ng-4.2.0.tar.gz"
-  sha256 "092bd17fd47002c988aebdf81d0ed3f3cfd0e82b388d2453bcaa5e67934f4dda"
+  url "https://github.com/syslog-ng/syslog-ng/releases/download/syslog-ng-4.6.0/syslog-ng-4.6.0.tar.gz"
+  sha256 "b69e3360dfb96a754a4e1cbead4daef37128b1152a23572356db4ab64a475d4f"
   license all_of: ["LGPL-2.1-or-later", "GPL-2.0-or-later"]
-  revision 1
 
   bottle do
-    rebuild 1
-    sha256 arm64_sonoma:   "823add8e8248ea4c2206a311797c0c887508828c2968b0b59e6b3ea1a3b49261"
-    sha256 arm64_ventura:  "910f192f0e9e821da9502926c3a5af3982cad275dae6e90f20797768d064d383"
-    sha256 arm64_monterey: "62a6a218f17b6195b839a080ed857fec3c6157e6ba823b7cf27facb7076327e5"
-    sha256 sonoma:         "8d9464b1449917ae78b0c143a487519d9972a606d1093b79183fcdd6c323d466"
-    sha256 ventura:        "06ff04bde3b5ef7cd30b484a2f1bde3d095919b9fe7e0ba6c10a25ff3db75844"
-    sha256 monterey:       "5e458ac603e8caa85267e1e3bf520e4279e0f29dab83d5dedb3582361a3bb921"
-    sha256 x86_64_linux:   "09513aa00e81b44f43418c5c411b775aea1dab17367042f92b84cef2e637f8f3"
+    sha256 arm64_sonoma:   "19578e6b6f382c326b6fb8c4d3cd09ec7f55a78e90ae4776fbbfdec81833c8ca"
+    sha256 arm64_ventura:  "a0c705a7b53386f97cf4e71c7fd392f5875c9363a9d0e58621e24c36f1191106"
+    sha256 arm64_monterey: "c366d1c99deddbe312e6ca672744a2382e894c72c7c6ca0fd0ede33579486b7c"
+    sha256 sonoma:         "f616a82c15c8a71cb7c6d1201a5e25c84c3971f7637560768656b6129b4871d9"
+    sha256 ventura:        "e3d562b92be1e943d4ac7d6c8560db27fba6e14e2393475a8de5815de99eaa2b"
+    sha256 monterey:       "6412eb3a4676aa8160be43e759fbfafb7097d3429ec33aea4de1884e4d09fb97"
+    sha256 x86_64_linux:   "c88bbb6dfd93353e59b09b286082c6af3b56527d80da7adab87c487c4d6ced89"
   end
 
   depends_on "autoconf" => :build
@@ -35,20 +33,18 @@ class SyslogNg < Formula
   depends_on "librdkafka"
   depends_on "mongo-c-driver"
   depends_on "openssl@3"
-  depends_on "pcre"
+  depends_on "pcre2"
   depends_on "python@3.12"
   depends_on "riemann-client"
 
   uses_from_macos "curl"
 
-  # patch pyyaml build, remove in next release
-  # relates to https://github.com/yaml/pyyaml/pull/702
-  patch do
-    url "https://github.com/syslog-ng/syslog-ng/commit/246dc5c8425b15a0a1ab0229e44e52f5c0aebe2c.patch?full_index=1"
-    sha256 "7e75103fdeb54c185342d1dce2dc7a215c2d6812be15c5199ce480a62e2a05bf"
-  end
-
   def install
+    # In file included from /Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk/usr/include/c++/v1/compare:157:
+    # ./version:1:1: error: expected unqualified-id
+    rm "VERSION"
+    ENV["VERSION"] = version
+
     python3 = "python3.12"
     sng_python_ver = Language::Python.major_minor_version python3
 
@@ -61,18 +57,20 @@ class SyslogNg < Formula
                           "--with-python=#{sng_python_ver}",
                           "--with-python-venv-dir=#{venv_path}",
                           "--disable-afsnmp",
+                          "--disable-example-modules",
                           "--disable-java",
                           "--disable-java-modules"
     system "make", "install"
 
     requirements = lib/"syslog-ng/python/requirements.txt"
     venv = virtualenv_create(venv_path, python3)
-    venv.pip_install requirements.read
+    venv.pip_install requirements.read.gsub(/#.*$/, "")
     cp requirements, venv_path
   end
 
   test do
-    system "#{sbin}/syslog-ng", "--version"
+    assert_equal "syslog-ng #{version.major} (#{version})",
+                 shell_output("#{sbin}/syslog-ng --version").lines.first.chomp
     system "#{sbin}/syslog-ng", "--cfgfile=#{pkgetc}/syslog-ng.conf", "--syntax-only"
   end
 end

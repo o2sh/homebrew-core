@@ -1,32 +1,36 @@
 class Berglas < Formula
   desc "Tool for managing secrets on Google Cloud"
   homepage "https://github.com/GoogleCloudPlatform/berglas"
-  url "https://github.com/GoogleCloudPlatform/berglas/archive/refs/tags/v1.0.3.tar.gz"
-  sha256 "0dfa186a8fe2812b644fe5d681abec5c3a0fb60256336df28421776bf742f128"
+  url "https://github.com/GoogleCloudPlatform/berglas/archive/refs/tags/v2.0.1.tar.gz"
+  sha256 "98e17818381e23f7ff3f8cdb61cd47a37e11efd55b5b4c476f958d6485a45ce2"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a7ad1eafd4f37e6505382bc42be379c9d423591f28924aab05a1f24943aac735"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5e2db1fd8a69de0c4fa61c62c0e95648fde57bc9caa77f0591e8444466d73d54"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "5e2db1fd8a69de0c4fa61c62c0e95648fde57bc9caa77f0591e8444466d73d54"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "5e2db1fd8a69de0c4fa61c62c0e95648fde57bc9caa77f0591e8444466d73d54"
-    sha256 cellar: :any_skip_relocation, sonoma:         "96a93d8e1ff7436356842c416e1eae4410f6b3e47a36afcf9c353fc210a7fac4"
-    sha256 cellar: :any_skip_relocation, ventura:        "26d30506404f40acf01adbd18ed3ce6e0499ada8719ef4dcb149c59d3a18bf66"
-    sha256 cellar: :any_skip_relocation, monterey:       "26d30506404f40acf01adbd18ed3ce6e0499ada8719ef4dcb149c59d3a18bf66"
-    sha256 cellar: :any_skip_relocation, big_sur:        "26d30506404f40acf01adbd18ed3ce6e0499ada8719ef4dcb149c59d3a18bf66"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b87e8e539c6d170fb7ae568cf86d45c6f52725bc92c864620709f629ee747650"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "98fc4b5a4d6338ed8f324c3c8af8e0c2908dbc85bdfc7216955bafea4b99110b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "210e91db27dce657d744dabdeeda9b341503a28e4a8f44be5f89198e73e0dcbd"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "b09fdb132995979c521ce96adc4a6ad51895bc63e1effbffe5eac82c8c81817d"
+    sha256 cellar: :any_skip_relocation, sonoma:         "188dc20a2aa97e0a48cab0b3edfce81dccac303351d0b55716c6035e6d4606fc"
+    sha256 cellar: :any_skip_relocation, ventura:        "b942a606d0a784013b2516ce357a76fc7fc298f6d5c4b4fbb4c0fd5437813795"
+    sha256 cellar: :any_skip_relocation, monterey:       "1aaef701eb89bceb4ab1db4373ca9b7091109bc92b635c39dab0c27ff80cb9dc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4449dc88432171bea8e292f1dd472d7d0ce42848e57f27a9a9f8376a910b14cf"
   end
 
   depends_on "go" => :build
 
   def install
-    system "go", "build", *std_go_args
+    ldflags = %W[
+      -s -w
+      -X github.com/GoogleCloudPlatform/berglas/internal/version.Version=#{version}
+    ]
+    system "go", "build", *std_go_args(ldflags:)
 
     generate_completions_from_executable(bin/"berglas", "completion", shells: [:bash, :zsh])
   end
 
   test do
-    out = shell_output("#{bin}/berglas list homebrewtest 2>&1", 61)
+    assert_match version.to_s, shell_output("#{bin}/berglas -v")
+
+    out = shell_output("#{bin}/berglas list -l info homebrewtest 2>&1", 61)
     assert_match "could not find default credentials.", out
   end
 end

@@ -1,19 +1,19 @@
 class LdFindCodeRefs < Formula
   desc "Build tool for sending feature flag code references to LaunchDarkly"
   homepage "https://github.com/launchdarkly/ld-find-code-refs"
-  url "https://github.com/launchdarkly/ld-find-code-refs/archive/refs/tags/v2.11.4.tar.gz"
-  sha256 "832b3e1253b08030423dd1851a5e77d2fff0c611b5b20cd5917b888cc7a33cae"
+  url "https://github.com/launchdarkly/ld-find-code-refs/archive/refs/tags/v2.11.10.tar.gz"
+  sha256 "66bc925d05b6d7bbd9a5ddd3bc4b62f26d7797ef39d205be63906014bd7aab2d"
   license "Apache-2.0"
   head "https://github.com/launchdarkly/ld-find-code-refs.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "20a614982e5bbd384384384b8e2239dd15d5e94ff7c8a3b49b3c062939b9061c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ca17c5b93e2052da75fef62e4dee470d4b9240d1493a861e03e3385e0bc116b6"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "25b864e3a2217c292ecda82b2d737e21f3a671702d24fddaf86ef4ae1d3e97a9"
-    sha256 cellar: :any_skip_relocation, sonoma:         "68718ca5f9b25daf93f1748e2bda86c144239bce32253fba34c8d5a233f97fee"
-    sha256 cellar: :any_skip_relocation, ventura:        "e8b2fef68c2958eaa640c6e07a48c372ede1edac4d8979e9448d8ec71c537520"
-    sha256 cellar: :any_skip_relocation, monterey:       "fe2eb29970eef6468eedcf1208cb85acc89742248d8acca5fe924ceedf1e33ec"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a483753984e1ab00b89e20362b140d2614142bfb89dfe6aab294b89304941ded"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d285ffb8abe85b9057db1c04448c43014eeee7a3457288c1e7fdbe1cfa1a54c3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6cc1e755714e9a61d81c0f520d93aa0597f3434cf75203b330e7e067682d288e"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c260beb34bbf255e5c74129e5938a3b69fd48e1bab667b0a935b764f9bd01cb8"
+    sha256 cellar: :any_skip_relocation, sonoma:         "c55721450cada89f33ca78aee162c9145e0b1663e5459c6aefdc42a70665db5d"
+    sha256 cellar: :any_skip_relocation, ventura:        "8f8471fff4d8fe569b580197b2c2feb0f830ca5a9854851337a215dc92be87e3"
+    sha256 cellar: :any_skip_relocation, monterey:       "34c09f6e585eb011bf7b8abe28de1dd63557b335f9bcead9ad1153c2cce5a6e9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7890a5a9e2c6b86e12b887e662e8767bfb469e00310b14e96a9597d0d856ead1"
   end
 
   depends_on "go" => :build

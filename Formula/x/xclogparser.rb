@@ -1,20 +1,18 @@
 class Xclogparser < Formula
   desc "Tool to parse the SLF serialization format used by Xcode"
   homepage "https://github.com/MobileNativeFoundation/XCLogParser"
-  url "https://github.com/MobileNativeFoundation/XCLogParser/archive/refs/tags/v0.2.36.tar.gz"
-  sha256 "d3b2e0d75b3c6920535398c882d75c92f901262a302a344a75fe23adfe01e10c"
+  url "https://github.com/MobileNativeFoundation/XCLogParser/archive/refs/tags/v0.2.38.tar.gz"
+  sha256 "45ddbfa9937965b97837fdccfc3a2c45ce77076f77adb9a973821159d75b5e80"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "686aafb3fa3c08a69239fa6bda9110f195d0b3f31cc925b8b28395448bda22ba"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4563ff5ac2c03cb10b0bc33b41b3d97a56c99bf0a3c0511924d5ef18374602c3"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "cb83245ca0057d737291cc85e863341cfe4fdfcadbb5863bd9d462e748b38599"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b422ad12e5b7a6113460778c5e1f78bd728d926b8e0a3bd37697d82f15a34e51"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3bcd38a9ec68e071e668784f404502a221d6053c2243e5a7e3b5bbd1b81db755"
-    sha256 cellar: :any_skip_relocation, ventura:        "668b6a84f964e11a7f51a136e4343de59c2636a8d5d1e78fffc43ea522984ba7"
-    sha256 cellar: :any_skip_relocation, monterey:       "e9fffc983c4c0b6657e064e512b18bafb20a56c98a2d3305ad8fff34e7120c97"
-    sha256 cellar: :any_skip_relocation, big_sur:        "de504bfd1d8d5ec7b84f7755461187d9718fe9b814fc6d781f566fa7c6968496"
-    sha256                               x86_64_linux:   "ca6680fd588fa15a2227693d76ec24f87b46185e9cf4366e9476e9b77c31b0a5"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8ab32872672c6705883ac8c6400cf60558ec19991eb3065ec7e82d07fe11f2bf"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a4e343aba5648be78fe8d52ca599abeec04820a65eb4ac076eebc6d406093cf4"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "372dd9a9fa66f147059cc1f9b1e187f75ad66954748fe6d20337e5d9ab52ede2"
+    sha256 cellar: :any_skip_relocation, sonoma:         "e07d816503e7e1b660071827c5ef849d882361931fe7d628513cd9f8f2429882"
+    sha256 cellar: :any_skip_relocation, ventura:        "3dbd1bcf38b5f9df2205268a43943db9789b2b05c3c694239262746f41267a94"
+    sha256 cellar: :any_skip_relocation, monterey:       "aeae76833647007726d4996f84ecef4a5c6ba9c74b117d0e1eb7472729e7e597"
+    sha256                               x86_64_linux:   "255accd2af680d533284f44af16d56abb70ab9eabd360bd3dbe84c056c2b4a49"
   end
 
   depends_on xcode: "13.0"

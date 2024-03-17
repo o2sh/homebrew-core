@@ -1,8 +1,8 @@
 class PopplerQt5 < Formula
   desc "PDF rendering library (based on the xpdf-3.0 code base)"
   homepage "https://poppler.freedesktop.org/"
-  url "https://poppler.freedesktop.org/poppler-23.10.0.tar.xz"
-  sha256 "31a3dfdea79f4922402d313737415a44d44dc14d6b317f959a77c5bba0647dd9"
+  url "https://poppler.freedesktop.org/poppler-24.03.0.tar.xz"
+  sha256 "bafbf0db5713dec25b5d16eb2cd87e4a62351cdc40f050c3937cd8dd6882d446"
   license "GPL-2.0-only"
   head "https://gitlab.freedesktop.org/poppler/poppler.git", branch: "master"
 
@@ -11,13 +11,13 @@ class PopplerQt5 < Formula
   end
 
   bottle do
-    sha256                               arm64_sonoma:   "d956b60eba746fab66c0f971aef85929357d6771bb71b482ea4ed35f9c2a13b6"
-    sha256                               arm64_ventura:  "ca3f3423ca69471c6fcbe374cc991743a34d1fad314df30d70701df7069da631"
-    sha256                               arm64_monterey: "a9c538cbf287297bdb8fd2d486eba8e789e0bffed8d6ac2f759db6d0a0fc7c1a"
-    sha256                               sonoma:         "4803105d5604cadbdda67a92b8b38f80cf3703c016349b401f4e5303655a58a7"
-    sha256                               ventura:        "ec44476be668fed187c844193e92e0ce76b5b9ebb29392b7cb84ace6981178eb"
-    sha256                               monterey:       "0295d91f895a5e24f1137606b6c5642ec458fa771a70782a321542a4ed8d52bb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0b357301337f4afac37fbf58ea7de0bea3d123c82048ac9d68dd3d76595768b6"
+    sha256 arm64_sonoma:   "126947b9eb8971fdc3fafe0987b96cb9ada09c37cf2639764416c6ea66b8f29e"
+    sha256 arm64_ventura:  "bd8d09ac6fd894e8bbf9de205359c0b3684bb78d94930fe84c6c36de4a4fc3e6"
+    sha256 arm64_monterey: "76da5cd3e22c17df1fb0b786bad3b0f01405b6dae405ebbd3fb63edde409b52b"
+    sha256 sonoma:         "3386d25e18efac4687e9922f233c2a877be1ba2f29c2f678e34b115476316a34"
+    sha256 ventura:        "f7e51e2e3f1c01c01b970a74bc5b94604f91600b999bb4aead4431f36246696d"
+    sha256 monterey:       "3301e80c647bc2d8127a4f6a5e76a844bd95f11d693ba51df534e8dcbfca82d9"
+    sha256 x86_64_linux:   "dd1d966d6c488179133aaaed6b1e3f06abaed1f261f2688c7a4d0d890b499dba"
   end
 
   keg_only "it conflicts with poppler"

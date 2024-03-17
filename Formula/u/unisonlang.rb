@@ -3,12 +3,20 @@ require "language/node"
 class Unisonlang < Formula
   desc "Friendly programming language from the future"
   homepage "https://unison-lang.org/"
-  url "https://github.com/unisonweb/unison.git",
-      tag:      "release/M5h",
-      revision: "68d6f93d3bdd3663aee6ec7e16fee4eedc6df26b"
-  version "M5h"
   license "MIT"
-  head "https://github.com/unisonweb/unison.git", branch: "trunk"
+
+  stable do
+    url "https://github.com/unisonweb/unison.git",
+        tag:      "release/M5j",
+        revision: "7778bdc1a1e97e82a6ae3910a7ed10074297ff27"
+    version "M5j"
+
+    resource "local-ui" do
+      url "https://github.com/unisonweb/unison-local-ui/archive/refs/tags/release/M5j.tar.gz"
+      version "M5j"
+      sha256 "99f8dd4c86b1cae263f16b2e04ace88764a8a1b138cead4756ceaadb7899c338"
+    end
+  end
 
   livecheck do
     url :stable
@@ -16,11 +24,21 @@ class Unisonlang < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1ddc487c9b10c453378dcb06d07affedd8624ce5e0b26033895ffe90f7aadec7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c2a9878e90be193ffb87c9a75c9bbe0fa32b64cd147afc3fc96e8ffd4482f0c9"
-    sha256 cellar: :any_skip_relocation, ventura:        "effae902fd1f2fd96ae76ddcba33e17254f0b57aa0ebb18bf04074a09a61d2d5"
-    sha256 cellar: :any_skip_relocation, monterey:       "7d347157b46e3cbb6fc2edcac6517b87b276fc3f3f479f77e51c790b29f03c39"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "39ef06872b4adfcb6d330b308beac6acac160fd1899abcb04348ea1b242986dd"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "27ab477693638d1b62c7b679ad24dddf5ea6bd0745d8ff03c0da85d8c4560d5e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8ca8bfe440d39d66d88e2d436d8ad374393963737fd8a7d0a4e53a37758d8aa7"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d772b22156d824974696caf89ea263f125a62cd8eb0d8a4cab2c07f710efe14f"
+    sha256 cellar: :any_skip_relocation, sonoma:         "77d8a6b34336d5c63564877a8a6dd97a855a3edef5a3926adbaba5d5fbdb5aa1"
+    sha256 cellar: :any_skip_relocation, ventura:        "24d03a539050feb1aefe0ebbecef1c4f06f2379d91a063ea144af02dc3f94f45"
+    sha256 cellar: :any_skip_relocation, monterey:       "2de0f07799a44b4d53619f62b20741dfa12040fb90fcab8421a8564c5006d5ca"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d594aae90116a8136956555221276bd192bccd2155c64b71cface577c8f5d981"
+  end
+
+  head do
+    url "https://github.com/unisonweb/unison.git", branch: "trunk"
+
+    resource "local-ui" do
+      url "https://github.com/unisonweb/unison-local-ui.git", branch: "main"
+    end
   end
 
   depends_on "ghc@9.2" => :build # GHC 9.4 PR: https://github.com/unisonweb/unison/pull/4009
@@ -39,13 +57,9 @@ class Unisonlang < Formula
     depends_on "elm" => :build
   end
 
-  resource "local-ui" do
-    url "https://github.com/unisonweb/unison-local-ui/archive/refs/tags/release/M5h.tar.gz"
-    version "M5h"
-    sha256 "febd72be5f546962c8bf44bde1332d88a32a3a8c457a560f885ca95a3a856f4d"
-  end
-
   def install
+    odie "local-ui resource needs to be updated" if build.stable? && version != resource("local-ui").version
+
     jobs = ENV.make_jobs
     ENV.deparallelize
 
@@ -85,9 +99,6 @@ class Unisonlang < Formula
   end
 
   test do
-    # Ensure the local-ui version matches the ucm version
-    assert_equal version, resource("local-ui").version
-
     (testpath/"hello.u").write <<~EOS
       helloTo : Text ->{IO, Exception} ()
       helloTo name =

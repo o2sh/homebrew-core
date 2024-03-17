@@ -1,8 +1,8 @@
 class Knot < Formula
   desc "High-performance authoritative-only DNS server"
   homepage "https://www.knot-dns.cz/"
-  url "https://secure.nic.cz/files/knot-dns/knot-3.3.2.tar.xz"
-  sha256 "0d65d4b59f5df69b78c6295ade0a2ea7931831de7ef5eeee3e00f8a20af679e4"
+  url "https://secure.nic.cz/files/knot-dns/knot-3.3.5.tar.xz"
+  sha256 "0e0bf04319581280660e8e62ab04be64a7d632331e40fc9c87e76861305db3ad"
   license all_of: ["GPL-3.0-or-later", "0BSD", "BSD-3-Clause", "LGPL-2.0-or-later", "MIT"]
 
   livecheck do
@@ -11,17 +11,17 @@ class Knot < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "3d50a75207a416ba6af0fc428be958c6e5c5e389dfa7b6363235e78e2ad0d6b5"
-    sha256 arm64_ventura:  "95b5469826dbccc6db3acbfca9810b1bf064d5b401ec4df76e9e3ce6c4fe291d"
-    sha256 arm64_monterey: "3456046f61f1de341f3e843a84aac03af8941e5531b9582a16ad0e853bfcea84"
-    sha256 sonoma:         "25c1b33cf59e1e4ede5dda52f275a678f6bf1f564b2ec2578cc7f22536ef190b"
-    sha256 ventura:        "e9e1092cfdf3fced88eabed8c2d957ded42ca9d65101908532139457b31ae6b0"
-    sha256 monterey:       "df61cd8351c3751b65002a656f7b9ba911eed64a419de9ceccb0678b01548e31"
-    sha256 x86_64_linux:   "d4b0205a35f1a49a253436d77f82f96b4608b77be0078d01874f3e96c3abde4b"
+    sha256 arm64_sonoma:   "2148a67f4d0d5850dfb378eee3cfef707e171d271aedcc947cc718e0651a510d"
+    sha256 arm64_ventura:  "d466d35d23bd703df8aeb1ae379514e7b6029e5d53c6938065b13da200163864"
+    sha256 arm64_monterey: "eb0706762a26ef42b8ba55b0c21f75df0ea281f57a815ef0a647deb575edc38e"
+    sha256 sonoma:         "0f343cc7ec35c9d7fba8312f4639dfe885d5100b2289e552a8ffca58be7d2714"
+    sha256 ventura:        "41e416ccbae58455706d3a64d4d6d609c72837489db01fc48863b0d8f78b911c"
+    sha256 monterey:       "d40072d0b1dcd545093c55df82d158121aadeaf0dae9f34104017df59d6d0d68"
+    sha256 x86_64_linux:   "f01880c64e2c97ed61af264ea297fc5099f11851f5668d4e9c1bf33f6eb7a654"
   end
 
   head do
-    url "https://gitlab.labs.nic.cz/knot/knot-dns.git"
+    url "https://gitlab.nic.cz/knot/knot-dns.git", branch: "master"
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build

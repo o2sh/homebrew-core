@@ -3,27 +3,25 @@ class Tox < Formula
 
   desc "Generic Python virtualenv management and test command-line tool"
   homepage "https://tox.wiki/en/latest/"
-  url "https://files.pythonhosted.org/packages/1a/78/e9672163a341a557b6fb9f6723c771835c763c0de2bccc9f4abc29e0a4a2/tox-4.11.4.tar.gz"
-  sha256 "73a7240778fabf305aeb05ab8ea26e575e042ab5a18d71d0ed13e343a51d6ce1"
+  url "https://files.pythonhosted.org/packages/d4/30/bfba7e577ee7054b1d6112803db1435127c6a682f403ef693c1a49f9b8e1/tox-4.14.1.tar.gz"
+  sha256 "f0ad758c3bbf7e237059c929d3595479363c3cdd5a06ac3e49d1dd020ffbee45"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6fea36d5a677bb7e4b050497a3a42eea3bc0d2fddc201cd9e6b059ab2a42c174"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "20ca2ab4be288070f183d67c47c1f58bd090dab7fe56077510cf05eed75358e0"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "586d3f704218ace8496a3746e305136fb438eaa6160bb776597ee38c4c167af6"
-    sha256 cellar: :any_skip_relocation, sonoma:         "553e20153b435ad357488edc3024a9d18a906e7d692bd0016c523187deabbb93"
-    sha256 cellar: :any_skip_relocation, ventura:        "26417b21750f7fc4b4761813d197bad1029647bd4c75b8e42287f31ef2f624b8"
-    sha256 cellar: :any_skip_relocation, monterey:       "daed1ed6e7a0ce8fd957c810440543c1205994b01f1a9f3ecf65a520e6d647b2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "81ce3f5f7f4460a70a14d4cc988423d17281a8e304ea714c597e78ca4e8179d4"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "34cd91a8e2b4239984323b88c8ec075ce64aef18e840d91bd0cffc5b83a6a8ed"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a2d7b505c4d12feb71ede26cf9c80a0d3d2cecca6fba288d5e3c656fa507785c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4588c6643962ce317f80509dc7aedb50cb5e752b610250439e52f0cafc4ecec2"
+    sha256 cellar: :any_skip_relocation, sonoma:         "b6a5addb42d8e8725dad1b0af5d426c18b7bb9e6d7225b3cd3ae17e3ef11e2eb"
+    sha256 cellar: :any_skip_relocation, ventura:        "4f89f7becc3a8c73735fd58632b086b715fd77dcdbecfee29044ad6975aec200"
+    sha256 cellar: :any_skip_relocation, monterey:       "e61e55803b47cf545b7e3d399e0a0bef36b6981f072e1faedda3d49e888c9974"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9d09c1a8252356b6862e11c6a6eb5a6026c736c371fe73f303b3d512aaceec07"
   end
 
-  depends_on "python-packaging"
   depends_on "python@3.12"
-  depends_on "virtualenv"
 
   resource "cachetools" do
-    url "https://files.pythonhosted.org/packages/10/21/1b6880557742c49d5b0c4dcf0cf544b441509246cdd71182e0847ac859d5/cachetools-5.3.2.tar.gz"
-    sha256 "086ee420196f7b2ab9ca2db2520aca326318b68fe5ba8bc4d49cca91add450f2"
+    url "https://files.pythonhosted.org/packages/b3/4d/27a3e6dd09011649ad5210bdf963765bc8fa81a0827a4fc01bafd2705c5b/cachetools-5.3.3.tar.gz"
+    sha256 "ba29e2dfa0b8b556606f097407ed1aa62080ee108ab0dc5ec9d6a723a007d105"
   end
 
   resource "chardet" do
@@ -37,8 +35,8 @@ class Tox < Formula
   end
 
   resource "distlib" do
-    url "https://files.pythonhosted.org/packages/29/34/63be59bdf57b3a8a8dcc252ef45c40f3c018777dc8843d45dd9b869868f0/distlib-0.3.7.tar.gz"
-    sha256 "9dafe54b34a028eafd95039d5e5d4851a13734540f1331060d31c9916e7147a8"
+    url "https://files.pythonhosted.org/packages/c4/91/e2df406fb4efacdf46871c25cde65d3c6ee5e173b7e5a4547a47bae91920/distlib-0.3.8.tar.gz"
+    sha256 "1530ea13e350031b6312d8580ddb6b27a104275a31106523b8f123787f494f64"
   end
 
   resource "filelock" do
@@ -46,14 +44,19 @@ class Tox < Formula
     sha256 "521f5f56c50f8426f5e03ad3b281b490a87ef15bc6c526f168290f0c7148d44e"
   end
 
+  resource "packaging" do
+    url "https://files.pythonhosted.org/packages/fb/2b/9b9c33ffed44ee921d0967086d653047286054117d584f1b1a7c22ceaf7b/packaging-23.2.tar.gz"
+    sha256 "048fb0e9405036518eaaf48a55953c750c11e1a1b68e0dd1a9d62ed0c092cfc5"
+  end
+
   resource "platformdirs" do
-    url "https://files.pythonhosted.org/packages/31/28/e40d24d2e2eb23135f8533ad33d582359c7825623b1e022f9d460def7c05/platformdirs-4.0.0.tar.gz"
-    sha256 "cb633b2bcf10c51af60beb0ab06d2f1d69064b43abf4c185ca6b28865f3f9731"
+    url "https://files.pythonhosted.org/packages/96/dc/c1d911bf5bb0fdc58cc05010e9f3efe3b67970cef779ba7fbc3183b987a8/platformdirs-4.2.0.tar.gz"
+    sha256 "ef0cc731df711022c174543cb70a9b5bd22e5a9337c8624ef2c2ceb8ddad8768"
   end
 
   resource "pluggy" do
-    url "https://files.pythonhosted.org/packages/36/51/04defc761583568cae5fd533abda3d40164cbdcf22dee5b7126ffef68a40/pluggy-1.3.0.tar.gz"
-    sha256 "cf61ae8f126ac6f7c451172cf30e3e43d3ca77615509771b3a984a0730651e12"
+    url "https://files.pythonhosted.org/packages/54/c6/43f9d44d92aed815e781ca25ba8c174257e27253a94630d21be8725a2b59/pluggy-1.4.0.tar.gz"
+    sha256 "8c85c2876142a764e5b7548e7d9a0e0ddb46f5185161049a79b7e974454223be"
   end
 
   resource "pyproject-api" do
@@ -62,16 +65,12 @@ class Tox < Formula
   end
 
   resource "virtualenv" do
-    url "https://files.pythonhosted.org/packages/ac/fe/028d5b32d0a54fe3ecac1c170966757f185f84b81e06af98c820a546c691/virtualenv-20.24.7.tar.gz"
-    sha256 "69050ffb42419c91f6c1284a7b24e0475d793447e35929b488bf6a0aade39353"
+    url "https://files.pythonhosted.org/packages/93/4f/a7737e177ab67c454d7e60d48a5927f16cd05623e9dd888f78183545d250/virtualenv-20.25.1.tar.gz"
+    sha256 "e08e13ecdca7a0bd53798f356d5831434afa5b07b93f0abdf0797b7a06ffe197"
   end
 
   def install
     virtualenv_install_with_resources
-
-    site_packages = Language::Python.site_packages("python3.12")
-    paths = %w[virtualenv].map { |p| Formula[p].opt_libexec/site_packages }
-    (libexec/site_packages/"homebrew-deps.pth").write paths.join("\n")
   end
 
   # Avoid relative paths

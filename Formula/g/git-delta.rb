@@ -1,21 +1,19 @@
 class GitDelta < Formula
   desc "Syntax-highlighting pager for git and diff output"
   homepage "https://github.com/dandavison/delta"
-  url "https://github.com/dandavison/delta/archive/refs/tags/0.16.5.tar.gz"
-  sha256 "00d4740e9da4f543f34a2a0503615f8190d307d1180dfb753b6911aa6940197f"
+  url "https://github.com/dandavison/delta/archive/refs/tags/0.17.0.tar.gz"
+  sha256 "1abd21587bcc1f2ef0cd342784ce990da9978bc345578e45506419e0952de714"
   license "MIT"
-  head "https://github.com/dandavison/delta.git", branch: "master"
+  head "https://github.com/dandavison/delta.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bea4e9b357ea0dbd9fb45bf30896fc23ee5e95a189ef3568779dc4f0eca30afa"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "072bdd8b2424a4e874c5240c9eabc1ac2051a0b10ccc9158abc3a576b2d0b8e9"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f5bcdb9902178b0edfe9120cb7eeb07f9a2db90922a785d22a2433dd08756832"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b1393d58cedbee7e4586e293fbce648739dc29e4d13e0f331fd306fb40138463"
-    sha256 cellar: :any_skip_relocation, sonoma:         "9416d48440ea5f69578420efe2c263ef2a87f263551c885a11a4e07cd86b3f0f"
-    sha256 cellar: :any_skip_relocation, ventura:        "6128b49003bcd7e1c5ddd051ccd71a49782d7790bd6e07382553a4a2dbcc0d38"
-    sha256 cellar: :any_skip_relocation, monterey:       "16b904194ec5122d690ebc81f12f1fcfc1a61594ac7b2af2364501b40ac7ad9c"
-    sha256 cellar: :any_skip_relocation, big_sur:        "abdc4f4b8c20f16126052c6c11f36355aa897758ad30b14b538dbf1de447ecb9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "19bca273b8a26624a43782b6c6f16dca6eaf661480325f5f65902a7097f12813"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0857ee2533e5731a3ff70fbba14bedf6ee066de4b3954fcac2a5291e781a5776"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1fd816757a69671cda27b70e981d137465988d6abf672fad9d643ff175448589"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ddd619480dbd050fee0293cdfa73d8bace0d1b7d851c34ed7d390c57bf8110d3"
+    sha256 cellar: :any_skip_relocation, sonoma:         "d4562d1713f211739bad31fa4f8560d5b3c3d7bd8f7a61a4743552b0c6e3f81b"
+    sha256 cellar: :any_skip_relocation, ventura:        "3ae765b906ec45cef98611ebfb0421d0d64206d6dd7065c86bb14d16eb529b6a"
+    sha256 cellar: :any_skip_relocation, monterey:       "3d9797138ddc479b9ed8a180c30bf350b88c08a551ea6a43d34870fe448c8978"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f55330791412a4933e7efa64dcfaaac315830d7e90f27c79e92f3c266c77688a"
   end
 
   depends_on "rust" => :build

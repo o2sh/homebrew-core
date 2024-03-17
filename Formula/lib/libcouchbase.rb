@@ -1,19 +1,27 @@
 class Libcouchbase < Formula
   desc "C library for Couchbase"
   homepage "https://docs.couchbase.com/c-sdk/current/hello-world/start-using-sdk.html"
-  url "https://packages.couchbase.com/clients/c/libcouchbase-3.3.10.tar.gz"
-  sha256 "2c92b8dee1d8d02bab756023ff396cf93bf822400ee68f3a8128912a08348063"
+  url "https://packages.couchbase.com/clients/c/libcouchbase-3.3.12.tar.gz"
+  sha256 "a5db78dc3e51842a85233f66422b3bffe6bd78a6d6ea223c43ef0240d49962cf"
   license "Apache-2.0"
   head "https://github.com/couchbase/libcouchbase.git", branch: "master"
 
+  # github_releases is used here as there have been tags pushed for new
+  # releases but without a corresponding GitHub release
+  livecheck do
+    url :head
+    regex(/^?(\d+(?:\.\d+)+)$/i)
+    strategy :github_releases
+  end
+
   bottle do
-    sha256 arm64_sonoma:   "c27418629da8698371efa91c0cc51879d1073b347e75d56ebed0c29a0a3d5259"
-    sha256 arm64_ventura:  "60c9b6f0bc4f8e30f1646574972f32c7251bf81f5ea6fddf31fd0fe75b2c7ff1"
-    sha256 arm64_monterey: "c39ce6f6bbb8c9bdb1d8147a3e89b3a3014e6ad82e8b3b4286ce48afe25f056e"
-    sha256 sonoma:         "3a51d6ef2b9ab85cf4e59d80ebddf50c94af0b45fa42f2a5a5c8cf4d050631e7"
-    sha256 ventura:        "706a021f290769fb56226b1dfb1a1041b125f721d334308e68beaab0b4a756e0"
-    sha256 monterey:       "0e2e83f8af7be66683127974c3b5c7c2e28596d6bf69da5b416dd2fa9eb13dc2"
-    sha256 x86_64_linux:   "d8423d03c8d6274de2890d17562f472cdd054a62557eb96fe392527f05a6d431"
+    sha256 arm64_sonoma:   "0ffde6d5799d351b615e209633510b278fb118778de121d6a5087950a557039c"
+    sha256 arm64_ventura:  "4da283f5643ee2514c6aceeedff4831db3396482cf882a04cde7cffe23ec55f0"
+    sha256 arm64_monterey: "a3eaa5aac0eb967ec979f6541a94ee06d90bd2c5c31cd2f6e431c3e9be4777c2"
+    sha256 sonoma:         "d0598fabec118ef1fe9130c658842e30aa1d5fed27b17c8cdd1df6c3625659e8"
+    sha256 ventura:        "fb91b909b6257f711aa1f84f3ebe5b1f6a0e15c7723a0868788a52336af13473"
+    sha256 monterey:       "0271f1056669dacfc8f9d14bd66607c09d22791ae2e3aa0c0e6b455d99cfbc2b"
+    sha256 x86_64_linux:   "c8054fd22f7c61a0b5cd07cf86e0f0f4bbde0da15820b108840bdf4afdaea578"
   end
 
   depends_on "cmake" => :build

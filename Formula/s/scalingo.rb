@@ -1,20 +1,19 @@
 class Scalingo < Formula
   desc "CLI for working with Scalingo's PaaS"
   homepage "https://doc.scalingo.com/cli"
-  url "https://github.com/Scalingo/cli/archive/refs/tags/1.29.1.tar.gz"
-  sha256 "70cf9399434c9f8a46bd0fd46fee345e1bb83b8f7691d4288e0e29ccf9422ec3"
+  url "https://github.com/Scalingo/cli/archive/refs/tags/1.31.0.tar.gz"
+  sha256 "9f6c8b1304a338062e7254e85855d84a94f09c353e9d6b2ebb38dc147ee44a11"
   license "BSD-4-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "333be2ea55baebafa24b7daf0550536ed4f721f8144aa77d87591a4083c0e765"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f703bd10dc1738365538b17c124903dbb603f87ca1da92bae5bbc85858b4d043"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f703bd10dc1738365538b17c124903dbb603f87ca1da92bae5bbc85858b4d043"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f703bd10dc1738365538b17c124903dbb603f87ca1da92bae5bbc85858b4d043"
-    sha256 cellar: :any_skip_relocation, sonoma:         "99624caf66da5cc1a5bd3dc5fade2b44380a8e080b6335d50127235b988c69c9"
-    sha256 cellar: :any_skip_relocation, ventura:        "fff22d294129fcb0070e0445948d11f1c5f02eb90317b5f3bbbd51d88bccec92"
-    sha256 cellar: :any_skip_relocation, monterey:       "fff22d294129fcb0070e0445948d11f1c5f02eb90317b5f3bbbd51d88bccec92"
-    sha256 cellar: :any_skip_relocation, big_sur:        "fff22d294129fcb0070e0445948d11f1c5f02eb90317b5f3bbbd51d88bccec92"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "26f488d2e378d02a685efbf6402e83997e127f784eae4facdfa224ea64f56a00"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2d904b1938ab315ceeb52989d03f52302727959eaf38cf079a516ba64ab63076"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1e444e7642de574079344f2c3df5cf2d82ecc32b1f387bd3fe0749b9ffcafbdb"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2cea9c2b4870cb71c2628c0bcf44602789ce64ebfb439e8d26fa7a3de24eab99"
+    sha256 cellar: :any_skip_relocation, sonoma:         "248ed9ff3b31511772c74d13a6132c0f8e5b22df86cc9bcbf1a3b442f2cfaee9"
+    sha256 cellar: :any_skip_relocation, ventura:        "eecd5bab58c9b16baf8e1c044d6c02874dd53fda8150853ac43b9ddec594407b"
+    sha256 cellar: :any_skip_relocation, monterey:       "1bcf522cee5755598c9b3aa41a654b85a1479b352f910591004522df2cf1d624"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "62cf45b08a3c9f1198ef7d386edef0bbada116824fd8c4aa97bc8bac4f1cfef1"
   end
 
   depends_on "go" => :build

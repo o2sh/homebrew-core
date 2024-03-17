@@ -1,31 +1,28 @@
 class SshAudit < Formula
+  include Language::Python::Virtualenv
+
   desc "SSH server & client auditing"
   homepage "https://github.com/jtesta/ssh-audit"
-  url "https://files.pythonhosted.org/packages/f2/b9/88c7f0ecba0a8fbf07e0d7674b7eac3dbf5270ac39a3b48bc34bb7c5a22c/ssh-audit-3.0.0.tar.gz"
-  sha256 "a6a9f94f6f718b56961b70dbf1efcc0e42b3441822e1ea7b0c043fce1f749072"
+  url "https://files.pythonhosted.org/packages/c8/b9/974b5dff0b2ae42fde4773f3115e02aa58efed93b70a4888888c056238f8/ssh-audit-3.1.0.tar.gz"
+  sha256 "c1c0e9e7352140e4d36aea6b447210e9e0fc00314b823d3ff96352d558bef677"
   license "MIT"
   head "https://github.com/jtesta/ssh-audit.git", branch: "master"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5229302356d2e1839acdd9174bffbad77271c646048022051f1ea00cdfd1d0e9"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "60f0fc9f4e0fe22be6fe39d74f5e3a2a38babefc61f0724ddfd479ef34946388"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "82575a183e2c6067111ae777d39e9c43ab5b6891ac3f173cab0ad5742e4e3f6c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "31ce6a625bc07187447328e5cbd24ad9dd81bd017ed96ac724ef2d854911194f"
-    sha256 cellar: :any_skip_relocation, ventura:        "95f583606745e4404dfcf4bafff08705cde48f19ec56bea2c22eba9d6dd06555"
-    sha256 cellar: :any_skip_relocation, monterey:       "0408b1b95477a41cb770d221acaa2cbd84e03a1dfb4258d0ccbf01e31dfd8fbf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1bc257c84d6d246e6e3c9302dfeaa23561867f9dc9a439378858fd400f3174f2"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4a619cb1938808b9f8287a0c6a06bb034731e636d4202840327ab21e891ce13f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a2a0584a0b1ed329429ded79816b8b6492eb11fd38881d7636f9f4b13a7b6346"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "26d24f6071a846e1da5add64d256d4aa5b89c11b929a39cbf9435dee271dc425"
+    sha256 cellar: :any_skip_relocation, sonoma:         "758b38d1c6c3d27bb11495b9d056d6054637ae2cceb7e1fbcc941e1fd238e1a9"
+    sha256 cellar: :any_skip_relocation, ventura:        "3b90b39d7d581ef474943fe79f902228f2b2af567e65fb7938a57afd85163d9a"
+    sha256 cellar: :any_skip_relocation, monterey:       "97a49136ac35cd9f2dc88354223437bf22e3ffe35a4366f226a6585b82c91a63"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2986f208ca79dad832abdfdc430e808c23e0507ea443c18711f2bfd3be148bbb"
   end
 
-  depends_on "python-setuptools" => :build
   depends_on "python@3.12"
 
-  def python3
-    "python3.12"
-  end
-
   def install
-    system python3, "-m", "pip", "install", *std_pip_args, "."
+    virtualenv_install_with_resources
   end
 
   test do

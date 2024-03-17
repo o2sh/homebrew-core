@@ -1,19 +1,19 @@
 class Millet < Formula
   desc "Language server for Standard ML (SML)"
   homepage "https://github.com/azdavis/millet"
-  url "https://github.com/azdavis/millet/archive/refs/tags/v0.13.5.tar.gz"
-  sha256 "7ea921decaa4a08a47ab5ec12960ecefdc9349d6f1168885bfb7b241f658e398"
+  url "https://github.com/azdavis/millet/archive/refs/tags/v0.14.3.tar.gz"
+  sha256 "072568064cd45e40820071f804effd3499704535e93581c5125cded329cba307"
   license any_of: ["Apache-2.0", "MIT"]
   head "https://github.com/azdavis/millet.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "856de65034282520fe69bef37febdcce741c9cde94fa602c6b0674f65058c442"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8210f135f9fb9f998546ef1b88e8db7cd4ec160a5875d8a14e93e21a8d876dd7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f16546a4f64571da55d717787402098209be02a8539b909e31cc436221c4ed6e"
-    sha256 cellar: :any_skip_relocation, sonoma:         "7492d3747e3228ffff9a3b13abc5b8bf45fd1237eae683fdd2e0d9b6671a57a4"
-    sha256 cellar: :any_skip_relocation, ventura:        "66e74b2f8caa0411109dfe64cffb0705075f9efa059a1b31bbb38b71429a06c5"
-    sha256 cellar: :any_skip_relocation, monterey:       "c8dfc6b8822a24b739dceecec81c50fd6614fc16f5b5f2767117ab11130c9d18"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ac6d47a4345d743bff322ddaa0dd4c9aaa7c40a8a61e3d6a2486afce16227e3c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "801863f0b88a656c7a35c22a0f8cd39871b96fe1006677cd3bdb82a2f4dfd3b4"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2748d87aaecd66e5c166d654e70eb2dab1c2307287e3e97b584dec115f2e814a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f84c0e76515019fb81520901d1ca462ac56d5f360537a8b41c257492906b4ea1"
+    sha256 cellar: :any_skip_relocation, sonoma:         "4edf330cf968827d88859ece30639958373dc06d92c6a4ca2a4012d5cf77cc48"
+    sha256 cellar: :any_skip_relocation, ventura:        "70c7babc7fd3f98bfaebcb15261b72eef6294283fa7356bf717ab226511d365e"
+    sha256 cellar: :any_skip_relocation, monterey:       "b2fecd02fad27d7aba9c0bd602fea6615c621419ff02122fd1167284250e1d6a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1a36a0683046334958d49b6b2b876c362adb2d638e5b3e537f4a70260863cb89"
   end
 
   depends_on "rust" => :build
@@ -46,22 +46,22 @@ class Millet < Formula
     parse_content_length = lambda { |header_part|
       content_length_header = header_part.split("\r\n")[0]
       content_length = content_length_header.split(":")[1].to_i
-      return content_length
+      content_length
     }
 
     read_header_part = lambda { |pipe|
-      return pipe.readline("\r\n\r\n")
+      pipe.readline("\r\n\r\n")
     }
 
     read_response = lambda { |pipe|
       header_part = read_header_part.call(pipe)
       content_length = parse_content_length.call(header_part)
-      return JSON.parse(pipe.readpartial(content_length))
+      JSON.parse(pipe.readpartial(content_length))
     }
 
     json_rpc_message = lambda { |msg|
       msg_string = msg.to_json
-      return "Content-Length: #{msg_string.length}\r\n\r\n" + msg_string
+      "Content-Length: #{msg_string.length}\r\n\r\n" + msg_string
     }
 
     send_message = lambda { |pipe, msg|

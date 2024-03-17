@@ -2,16 +2,15 @@ class Gstreamer < Formula
   desc "Development framework for multimedia applications"
   homepage "https://gstreamer.freedesktop.org/"
   license all_of: ["LGPL-2.0-or-later", "LGPL-2.1-or-later", "MIT"]
-  revision 1
 
   stable do
-    url "https://gitlab.freedesktop.org/gstreamer/gstreamer/-/archive/1.22.7/gstreamer-1.22.7.tar.gz"
-    sha256 "b51ba0520a5cdb13d096da002eaf546172d1d77a71876ea48fb086580f13a355"
+    url "https://gitlab.freedesktop.org/gstreamer/gstreamer/-/archive/1.22.10/gstreamer-1.22.10.tar.gz"
+    sha256 "bba3a87f82d509802d96a5caf2c47982234063928870623b222f60702f1f50eb"
 
     # When updating this resource, use the tag that matches the GStreamer version.
     resource "rs" do
-      url "https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/archive/gstreamer-1.22.7/gst-plugins-rs-gstreamer-1.22.7.tar.gz"
-      sha256 "a5014fdf6c360f79ea32c2bbc7ecee64cca3ab3d6c1fdca7a5fac20a2ae4bd1e"
+      url "https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/archive/gstreamer-1.22.10/gst-plugins-rs-gstreamer-1.22.10.tar.gz"
+      sha256 "ea866cdac87a57e08cf4529be5ba2870054e764b83dbfca733cd6fea1b9a3e11"
     end
   end
 
@@ -21,13 +20,13 @@ class Gstreamer < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "4188e01b47669439be58fec3e7caa9e51472ea5d522214486547c9b26b5f1042"
-    sha256 arm64_ventura:  "35b332564965356c4b441ddae70662b6ff448b06cd6c3f53add0641ade5d09c9"
-    sha256 arm64_monterey: "95cf139e01374431a8b1d4165e994253ba7ae7c878dd52ce203bda48ba499e40"
-    sha256 sonoma:         "1d8c3da5501daa36cd4ff3cb8a7491b3bc74efd34aee50c2780eb5d268f64bc3"
-    sha256 ventura:        "cc0f2646e9d220278eff0b7446aa5d3176cfaa325c8a7b2bcecca50b8aeb1f97"
-    sha256 monterey:       "643d1def0d4355316dfd88e8372243286570c2c6162fcd78b96dbaf3b8efd9b6"
-    sha256 x86_64_linux:   "48e28c7a7b4cc8a9add4143175da327cc2ef0b30e1618977b96502f031fabfab"
+    sha256 arm64_sonoma:   "6cfb3e0483210434b70d6c4b2172ef14b82f40394ff677b4eef38f6424133da4"
+    sha256 arm64_ventura:  "8eb910caf6c77ffd10791638cb4d3418896de843c9d9780288225d614d824124"
+    sha256 arm64_monterey: "0ce824e9228434616a66246b04df01368dbccdc783a9b97ee379c0650af58248"
+    sha256 sonoma:         "337edca6ea2af6095de30fd4d383ee5ae10d308efe6069c10b18c84e5a27334d"
+    sha256 ventura:        "df774bf74c8c6cb2bca77f306bf82828b5a1eb2f042a011dbf020c19a8dc8904"
+    sha256 monterey:       "40cdcc128eabaf28a417adecd17c6578f702c6347323538497603597f419bbe7"
+    sha256 x86_64_linux:   "dd294b52fec65d387f0ad695ddc59d3d9047ad3d9c5dff5f82b2a42cc055c4ed"
   end
 
   head do
@@ -119,6 +118,12 @@ class Gstreamer < Formula
 
   def install
     (buildpath/"subprojects/gst-plugins-rs").install resource("rs")
+
+    # Add support for newer `dav1d`.
+    # TODO: Remove once support for 1.3 API is available in release.
+    # Ref: https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/merge_requests/1393
+    inreplace "subprojects/gst-plugins-rs/video/dav1d/Cargo.toml", /^dav1d = "0\.9"$/, 'dav1d = "0.10"'
+
     site_packages = Language::Python.site_packages(python3)
     # To pass arguments to subprojects (e.g. `gst-editing-services`), use
     #   -Dsubproject:option=value
@@ -165,7 +170,7 @@ class Gstreamer < Formula
     ]
 
     # The apple media plug-in uses API that was added in Mojave
-    args << "-Dgst-plugins-bad:applemedia=disabled" if MacOS.version <= :high_sierra
+    args << "-Dgst-plugins-bad:applemedia=disabled" if OS.mac? && MacOS.version <= :high_sierra
 
     # Ban trying to chown to root.
     # https://bugzilla.gnome.org/show_bug.cgi?id=750367

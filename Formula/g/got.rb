@@ -1,8 +1,8 @@
 class Got < Formula
   desc "Version control system"
   homepage "https://gameoftrees.org/"
-  url "https://gameoftrees.org/releases/portable/got-portable-0.93.tar.gz"
-  sha256 "c2572726bedfdc177d48482b2a23e5afba534a36918f8eeac24b48da37a920d1"
+  url "https://gameoftrees.org/releases/portable/got-portable-0.97.tar.gz"
+  sha256 "e07a4894a458503a32982047f064bc0c35da6349d8895be8b69064c2094e3b72"
   license "ISC"
 
   livecheck do
@@ -11,15 +11,13 @@ class Got < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "6a8a72c1351e0232f01a1a9b4609f08845b6d0847c67e4e312d4af695e72af10"
-    sha256 arm64_ventura:  "6364a2546393d267fae2455d6ef0acc584e61e452705039fa0d8f8885feb0756"
-    sha256 arm64_monterey: "883659434899e025022f1808b13b140045c459917e527bfd4b199997979428ca"
-    sha256 arm64_big_sur:  "901b926d51e26ed588a4ec82abbc78f4cb6089530c2cafe3d46e7edbbee28a91"
-    sha256 sonoma:         "0f27d4e71301ede9ff0e37eaca9932e4569383e11828499fa13fb757ab355a21"
-    sha256 ventura:        "fba576d1e2c318c1f8a7e36c9fdddc4d221d96da3c84d3f3d147f67f1c04818f"
-    sha256 monterey:       "7470bb0a19daf31160f9da99d0c93dfff27c16851ae85b9c775d3a219144e251"
-    sha256 big_sur:        "bccb073d4ca56489d9d2075b0fead4b71c38e95f8b214a4f717d25783d78e9e8"
-    sha256 x86_64_linux:   "9b4612dd7fe2d537e3653193af5de029c001ae04a08ec43ab65053f4a5248c54"
+    sha256 arm64_sonoma:   "f3a1376bea4c5c1241b459071b4d1252430de662a77d4d370994abcf69a470d7"
+    sha256 arm64_ventura:  "7a73ad9745c37023250d6923a75d42e8fe8c34d2096e5c49ed6c2ec45e276627"
+    sha256 arm64_monterey: "9131771ac9e8fd69ad11d397c07bc4d5c59e0944704e11b62074eab1202d195d"
+    sha256 sonoma:         "a03d518b9da4c23d703a05d9850045b1be7f682087e0e90bd3e438c594f0ac7a"
+    sha256 ventura:        "52365b1257ca463932c604f27aa4cb883643cbd0edb50fca8ed54384f85c00d5"
+    sha256 monterey:       "0e5fc3bec6c8e0a5a2d9e37074b3ca5ffe48ffeecac684f4a14b68ddc32546cb"
+    sha256 x86_64_linux:   "6d2c715f1ac2cd933a77b208d50b27ebb60ca466729c681990817a78f757ed6d"
   end
 
   depends_on "bison" => :build

@@ -1,8 +1,8 @@
 class Libunwind < Formula
   desc "C API for determining the call-chain of a program"
   homepage "https://www.nongnu.org/libunwind/"
-  url "https://github.com/libunwind/libunwind/releases/download/v1.7.2/libunwind-1.7.2.tar.gz"
-  sha256 "a18a6a24307443a8ace7a8acc2ce79fbbe6826cd0edf98d6326d0225d6a5d6e6"
+  url "https://github.com/libunwind/libunwind/releases/download/v1.8.1/libunwind-1.8.1.tar.gz"
+  sha256 "ddf0e32dd5fafe5283198d37e4bf9decf7ba1770b6e7e006c33e6df79e6a6157"
   license "MIT"
 
   livecheck do
@@ -11,15 +11,14 @@ class Libunwind < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "2a0c1911181ba2f5161c33524b64bc60d1bcaa02b9e83070f806b0d3652b5d69"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "81f89b76defac2b351bfb10864fcb7a9169b126f6e62a0c37c235873034fea7d"
   end
 
   keg_only "libunwind conflicts with LLVM"
 
   depends_on :linux
-
-  uses_from_macos "xz"
-  uses_from_macos "zlib"
+  depends_on "xz"
+  depends_on "zlib"
 
   def install
     system "./configure", *std_configure_args, "--disable-silent-rules"

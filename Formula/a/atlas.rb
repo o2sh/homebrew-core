@@ -3,19 +3,19 @@ class Atlas < Formula
   homepage "https://atlasgo.io/"
   # Upstream may not mark patch releases as latest on GitHub; it is fine to ship them.
   # See https://github.com/ariga/atlas/issues/1090#issuecomment-1225258408
-  url "https://github.com/ariga/atlas/archive/refs/tags/v0.15.0.tar.gz"
-  sha256 "ee8ed6f61abd0e4ba0ea2e0db72f90b6eabc0bdcb318d589d17c7c2c80412d67"
+  url "https://github.com/ariga/atlas/archive/refs/tags/v0.19.2.tar.gz"
+  sha256 "54b1e793278b451ae7302fc01bbdcd2d3bb122b2824d84631507ad86822ba9b9"
   license "Apache-2.0"
   head "https://github.com/ariga/atlas.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8a8707fc24d3da7b787e21fac6e937ac941d789d66cf6c477bd43b1ef15b9789"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "fea287a299544ab84f5ac7eda7567a8eb661f0c2d2c91766b6ca1eb44c29c972"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d6bf942af6800181224f3fe7a0c7a49c2b94d8ff53a088206ea68974076e8c23"
-    sha256 cellar: :any_skip_relocation, sonoma:         "67067e0db606b944e5b1c4c480ec8edef6b1501128aa77452db3433b9be9c5ea"
-    sha256 cellar: :any_skip_relocation, ventura:        "b68d9ff8ac231d03217dd6385df54d5c304da643d9ff43dfb280817e4024eb20"
-    sha256 cellar: :any_skip_relocation, monterey:       "bd0cbf6fbfe78c9cf39b0735ca3034f5b324c917da35817b1fbf48be7611c1d0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3917a9ed043e7d5b48daf7ef8a706cec5c9298831eb3573a5961dac173d3ab0c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e30dcdef0a5b65587a75a813a90d28a044ba5ca09a5036423929ac18c5e68509"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b83a9927b27994095f39f61ca761db82bb33b1cbf48e5b1e3a534b38fd6e229f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "7fc46c7a5905b9806a6ab0d3263747f9ad118e3c738fea50530616291b1d2b47"
+    sha256 cellar: :any_skip_relocation, sonoma:         "b990e11771b704688dfaa64f5cd93079beed792d71c512cacdcd5d96a691b9b5"
+    sha256 cellar: :any_skip_relocation, ventura:        "c2cbf5dac2c509849d881f173b915bfbd6bbd00b86a1e0b63658aef04286050f"
+    sha256 cellar: :any_skip_relocation, monterey:       "f382ea5592b4f0f309a3155ced9be26231a52aa00f6d7a92d591179523b5e36b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ac0a4d02acbf1745ea8e4c94a1f6abc5a8f2d0a4022f5bc7a91c40b6aa9d5145"
   end
 
   depends_on "go" => :build
@@ -26,7 +26,7 @@ class Atlas < Formula
       -X ariga.io/atlas/cmd/atlas/internal/cmdapi.version=v#{version}
     ]
     cd "./cmd/atlas" do
-      system "go", "build", *std_go_args(ldflags: ldflags)
+      system "go", "build", *std_go_args(ldflags:)
     end
 
     generate_completions_from_executable(bin/"atlas", "completion")

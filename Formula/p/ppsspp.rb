@@ -2,33 +2,31 @@ class Ppsspp < Formula
   desc "PlayStation Portable emulator"
   homepage "https://ppsspp.org/"
   url "https://github.com/hrydgard/ppsspp.git",
-      tag:      "v1.15.4",
-      revision: "9a80120dc09997e40c0a73fda05c3e07a347259f"
+      tag:      "v1.17.1",
+      revision: "d479b74ed9c3e321bc3735da29bc125a2ac3b9b2"
   license all_of: ["GPL-2.0-or-later", "BSD-3-Clause"]
   head "https://github.com/hrydgard/ppsspp.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "b7b7e1640343a34f3b98a9215e8b26709f5d3539dbfc841e002d3866dd098ae2"
-    sha256 cellar: :any,                 arm64_ventura:  "c3037b0cdec874f62f9035e6606a2891d0c3aa21722e2c91e43d94951d04360c"
-    sha256 cellar: :any,                 arm64_monterey: "b78305fdbc3f1b59e46fe9465c3b2744cca8498d963761a85da8cedfd3488388"
-    sha256 cellar: :any,                 arm64_big_sur:  "be8822b3d4e89aa7837e7832284045a591da27694c713ed0e69debe0ee217f3c"
-    sha256 cellar: :any,                 sonoma:         "b59c52218d5725e8c2395f1511e28053d4848f7e3efcdaa09daa9c9377478f6c"
-    sha256 cellar: :any,                 ventura:        "e488ae0f8b2fcce83e24dcfdd08655edc896ce67a0cf66096ed8d7afc7ef7790"
-    sha256 cellar: :any,                 monterey:       "ae96bf1d88b8c65df7383fe2019e063bb2dc8e2faf102f3fa343d84b0880f5fb"
-    sha256 cellar: :any,                 big_sur:        "1f356b1c681265c7e438e331378f08ac482534a47a6ed634b3c280be8ca68c9e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ff145a38da235b4ad92553594e935da3a8b019abeb1cfa069a638a67a7c8be46"
+    sha256 cellar: :any, arm64_sonoma:   "062a4f921535fbb44e2f38f57a96ecced1f42cd1c0b3c7309721a4d5e19e8039"
+    sha256 cellar: :any, arm64_ventura:  "5ca4de449d528d90795e4d17d3c8a27b0369165664948235f181c4231e77fd03"
+    sha256 cellar: :any, arm64_monterey: "a86c440e92b345d74d740001a984d5954a0bc64dc2b1decf32af219768baf89b"
+    sha256 cellar: :any, sonoma:         "eae8f22c02be3698babe7b0098b99ae6bee58222e8e881b8a2cceb7244fc1f3d"
+    sha256 cellar: :any, ventura:        "24fe084b1ce2616993f264f6d857769e709d723ff8acd60eb35855250554649c"
+    sha256 cellar: :any, monterey:       "f87bd3c881a1b0fd622af3b8c8baeaced548ddf987a5b3b5ca151145e29ee42f"
+    sha256               x86_64_linux:   "5d0962963a44830280bced31d5edb87bd9451bb98cdfc6ddab25e4942f7520ac"
   end
 
   depends_on "cmake" => :build
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.11" => :build
   depends_on "libzip"
   depends_on "miniupnpc"
   depends_on "sdl2"
   depends_on "snappy"
   depends_on "zstd"
 
+  uses_from_macos "python" => :build, since: :catalina
   uses_from_macos "zlib"
 
   on_macos do
@@ -65,31 +63,31 @@ class Ppsspp < Formula
     (vulkan_frameworks/"libMoltenVK.dylib").unlink
     vulkan_frameworks.install_symlink Formula["molten-vk"].opt_lib/"libMoltenVK.dylib"
 
-    mkdir "build" do
-      args = std_cmake_args + %w[
-        -DUSE_SYSTEM_LIBZIP=ON
-        -DUSE_SYSTEM_SNAPPY=ON
-        -DUSE_SYSTEM_LIBSDL2=ON
-        -DUSE_SYSTEM_LIBPNG=ON
-        -DUSE_SYSTEM_ZSTD=ON
-        -DUSE_SYSTEM_MINIUPNPC=ON
-      ]
+    args = %w[
+      -DUSE_SYSTEM_LIBZIP=ON
+      -DUSE_SYSTEM_SNAPPY=ON
+      -DUSE_SYSTEM_LIBSDL2=ON
+      -DUSE_SYSTEM_LIBPNG=ON
+      -DUSE_SYSTEM_ZSTD=ON
+      -DUSE_SYSTEM_MINIUPNPC=ON
+      -DUSE_WAYLAND_WSI=OFF
+    ]
 
-      system "cmake", "..", *args
-      system "make"
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
+    system "cmake", "--build", "build"
 
-      if OS.mac?
-        prefix.install "PPSSPPSDL.app"
-        bin.write_exec_script "#{prefix}/PPSSPPSDL.app/Contents/MacOS/PPSSPPSDL"
-        mv "#{bin}/PPSSPPSDL", "#{bin}/ppsspp"
+    if OS.mac?
+      prefix.install "build/PPSSPPSDL.app"
+      bin.write_exec_script prefix/"PPSSPPSDL.app/Contents/MacOS/PPSSPPSDL"
 
-        # Replace app bundles with symlinks to allow dependencies to be updated
-        app_frameworks = prefix/"PPSSPPSDL.app/Contents/Frameworks"
-        ln_sf (Formula["molten-vk"].opt_lib/"libMoltenVK.dylib").relative_path_from(app_frameworks), app_frameworks
-      else
-        bin.install "PPSSPPSDL" => "ppsspp"
-      end
+      # Replace app bundles with symlinks to allow dependencies to be updated
+      app_frameworks = prefix/"PPSSPPSDL.app/Contents/Frameworks"
+      ln_sf (Formula["molten-vk"].opt_lib/"libMoltenVK.dylib").relative_path_from(app_frameworks), app_frameworks
+    else
+      system "cmake", "--install", "build"
     end
+
+    bin.install_symlink "PPSSPPSDL" => "ppsspp"
   end
 
   test do

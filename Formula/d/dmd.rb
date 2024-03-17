@@ -5,19 +5,20 @@ class Dmd < Formula
 
   stable do
     # make sure resources also use the same version
-    url "https://github.com/dlang/dmd/archive/refs/tags/v2.105.3.tar.gz"
-    sha256 "6798ad0cbcadf4aa7c13338061dc64e6213dd34d6ad84d05d43ee77a7380dad5"
+    url "https://github.com/dlang/dmd/archive/refs/tags/v2.107.1.tar.gz"
+    sha256 "3552e871d77bea9123ccba7208219f230ea3bdf60b220e2f6ce8ab9ce535a9f1"
 
     resource "phobos" do
-      url "https://github.com/dlang/phobos/archive/refs/tags/v2.105.3.tar.gz"
-      sha256 "9ea51cd0d4908a5826d0cb240e214912a2f6ca829561959865a1edef2326943d"
+      url "https://github.com/dlang/phobos/archive/refs/tags/v2.107.1.tar.gz"
+      sha256 "a258d5e2178f2ebf2ffb54feddca5260823356d4dcc34d1010cc6ce496c2ab21"
     end
   end
 
   bottle do
-    sha256 ventura:      "e1919e30cafb4f9ca84b295ec67cd1eb744f2e4f0a06ca5e04c2c09d0c3490a3"
-    sha256 monterey:     "b25853a30aa2dc419487c6dc66b79867c39f61c3b2612dcea0a86e2b6ddf25f3"
-    sha256 x86_64_linux: "623f999180bad970e2a856d7238563d828baef7312bc7c2ca93669513f0a9d58"
+    sha256 sonoma:       "174aaf6aca3b7b064bfbded93a327feaa5b59ddd2a71bfb06224af19965d8e2f"
+    sha256 ventura:      "c3ea275562063ea3e58f05b5a4377d95b3c0e1ee3d7cced7cc5429f0b0d97be4"
+    sha256 monterey:     "1948cdde38fd7689f98b53fba14e4f08910f57754655b62dd580055c3c221906"
+    sha256 x86_64_linux: "e2b9a2550239da0b6de06be7fd442df415bf986543658ef9b5e50fd523c94035"
   end
 
   head do
@@ -32,6 +33,8 @@ class Dmd < Formula
   depends_on arch: :x86_64
 
   def install
+    odie "phobos resource needs to be updated" if build.stable? && version != resource("phobos").version
+
     dmd_make_args = %W[
       INSTALL_DIR=#{prefix}
       SYSCONFDIR=#{etc}
@@ -65,9 +68,19 @@ class Dmd < Formula
     cp_r ["phobos/std", "phobos/etc"], include/"dlang/dmd"
     lib.install Dir["druntime/**/libdruntime.*", "phobos/**/libphobos2.*"]
 
+    dflags = "-I#{opt_include}/dlang/dmd -L-L#{opt_lib}"
+    # We include the -ld_classic linker argument in dmd.conf because it seems to need
+    # changes upstream to support the newer linker:
+    # https://forum.dlang.org/thread/jwmpdecwyazcrxphttoy@forum.dlang.org?page=1
+    # https://github.com/ldc-developers/ldc/issues/4501
+    #
+    # Also, macOS can't run CLT/Xcode new enough to need this flag, so restrict to Ventura
+    # and above.
+    dflags << " -L-ld_classic" if OS.mac? && DevelopmentTools.clang_build_version >= 1500
+
     (buildpath/"dmd.conf").write <<~EOS
       [Environment]
-      DFLAGS=-I#{opt_include}/dlang/dmd -L-L#{opt_lib}
+      DFLAGS=#{dflags}
     EOS
     etc.install "dmd.conf"
   end

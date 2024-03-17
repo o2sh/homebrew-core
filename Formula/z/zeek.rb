@@ -2,10 +2,9 @@ class Zeek < Formula
   desc "Network security monitor"
   homepage "https://www.zeek.org"
   url "https://github.com/zeek/zeek.git",
-      tag:      "v5.2.2",
-      revision: "a6f825b81da389bb2deb1cf389dbd7e88efd4a1c"
+      tag:      "v6.2.0",
+      revision: "e90c6e4d0bd6a60af0c5cea9f89b8ce6afff9827"
   license "BSD-3-Clause"
-  revision 1
   head "https://github.com/zeek/zeek.git", branch: "master"
 
   livecheck do
@@ -14,14 +13,13 @@ class Zeek < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_sonoma:   "98b8d8943f442221f05174c229f17672ef255160e4d12db2690dfeef2a1324a2"
-    sha256 arm64_ventura:  "5b19a489563490138968960941d0a7d83fea696a36d744209ec4b46161d4e39f"
-    sha256 arm64_monterey: "40de368557e8b27c93f99f956b0a8e88509d57babc96974fe6c416cc987904b1"
-    sha256 sonoma:         "b45e9cb72cd6bfe052382566fb66d2f57022feec177a001e3f001fd747e59e59"
-    sha256 ventura:        "dc38bec2698e550aef8519be5efe969cdf2683758ef85dd30963f06fe10c64c3"
-    sha256 monterey:       "02642cbc88ff2b026e540e1864b3642956bd05e1869bb3cd6b266603732fdfb9"
-    sha256 x86_64_linux:   "3d59a313bc94c48911256bc5e9b1ac2ed4ff7477b107ff63552b9b99c58d9d46"
+    sha256 arm64_sonoma:   "a4fe1e0c29d37e29409fbdaf76006e6f2a5a3f59b50e6ee189b5c38933a36f76"
+    sha256 arm64_ventura:  "ddc90c194bf7312fc41effb57beefc3abc94beb36badf735c849b968e6a7f5c3"
+    sha256 arm64_monterey: "487d2add970f8f5736e0b93f5144deb3ccb7841b97bae2bd93eeab397e0cb83a"
+    sha256 sonoma:         "d84fdfcaa30b026b7ca0e2256a52100c0563ee72b305a972a7173e41a4a989ce"
+    sha256 ventura:        "ab23d66f22d056a807f7faa23b975b2b037666918014cd845cd3e1d73c71eda6"
+    sha256 monterey:       "1ea3ab15c0b9376ad6866e4040643c3e47121045a29e87c6957551cdcde19701"
+    sha256 x86_64_linux:   "3e4ec1678b96f46a8567e4926f19fa55f887e0dcca1c5a418edbe075130dbb76"
   end
 
   depends_on "bison" => :build
@@ -41,17 +39,15 @@ class Zeek < Formula
   fails_with gcc: "5"
 
   def install
-    (buildpath/"auxil/c-ares").rmtree
-
     # Remove SDK paths from zeek-config. This breaks usage with other SDKs.
     # https://github.com/Homebrew/homebrew-core/pull/74932
-    inreplace "zeek-config.in" do |s|
+    inreplace "cmake_templates/zeek-config.in" do |s|
       s.gsub! "@ZEEK_CONFIG_PCAP_INCLUDE_DIR@", ""
       s.gsub! "@ZEEK_CONFIG_ZLIB_INCLUDE_DIR@", ""
     end
 
     # Avoid references to the Homebrew shims directory
-    inreplace "auxil/spicy/spicy/hilti/toolchain/src/config.cc.in", "${CMAKE_CXX_COMPILER}", ENV.cxx
+    inreplace "auxil/spicy/hilti/toolchain/src/config.cc.in", "${CMAKE_CXX_COMPILER}", ENV.cxx
 
     system "cmake", "-S", ".", "-B", "build",
                     "-DBROKER_DISABLE_TESTS=on",

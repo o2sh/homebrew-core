@@ -1,20 +1,19 @@
 class MinizipNg < Formula
   desc "Zip file manipulation library with minizip 1.x compatibility layer"
   homepage "https://github.com/zlib-ng/minizip-ng"
-  url "https://github.com/zlib-ng/minizip-ng/archive/refs/tags/4.0.3.tar.gz"
-  sha256 "e39a736d4f55c22fa548e68225b2e92bc22aedd9ab90d002b0c5851e3a7bdace"
+  url "https://github.com/zlib-ng/minizip-ng/archive/refs/tags/4.0.5.tar.gz"
+  sha256 "9bb636474b8a4269280d32aca7de4501f5c24cc642c9b4225b4ed7b327f4ee73"
   license "Zlib"
-  revision 1
   head "https://github.com/zlib-ng/minizip-ng.git", branch: "dev"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "ea68a12a79402cb2482c122ab769b964bcb44667fe2c0f1bcd5cb2bf0bee2d69"
-    sha256 cellar: :any,                 arm64_ventura:  "eec66f06e26d77a8d3dd57bc26677e25aeb9a79216a39e3bdd88cd279f7d187f"
-    sha256 cellar: :any,                 arm64_monterey: "c68930ccf771fbfdb3167f324d2c01ab3714bd69de4d1cf74be1deeedcd1b34c"
-    sha256 cellar: :any,                 sonoma:         "673e8aef209cdf5b35091de70b04c67d37a94fc9024503f463058b438bed9d46"
-    sha256 cellar: :any,                 ventura:        "15e3bd2b91b617722970e5b62ac9cc9a292ecc8c974c0022c8220fca25bc6e74"
-    sha256 cellar: :any,                 monterey:       "5ae61b61ccf64ccb26700022a3ef2f2bf134152623c81ae76a0a47cb7fda9e8d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0038016885277010620bcbbe0a5254135c3a221ca2b73bcab9dfe49afb1050c5"
+    sha256 cellar: :any,                 arm64_sonoma:   "1493c8ed642685b17f89e9615d48eb12c7e4f91a1442a35663df194597c093b6"
+    sha256 cellar: :any,                 arm64_ventura:  "4847ee1eb6c87e465f3f8244f780cb73de8dbcf32f0655fc79d51ccbd9cff205"
+    sha256 cellar: :any,                 arm64_monterey: "ec5f88fcbb1ab2aae3f6d8164eafdc8bd2e645600cad4af9bd12779c912f0ec3"
+    sha256 cellar: :any,                 sonoma:         "409dfe7e5694a42a525f557ecc0e47302efff28254d7935df90a3f2bb51f6bff"
+    sha256 cellar: :any,                 ventura:        "ddeaf4570a38989c26cc1d9380858c3f93e72fd3b18e70ae7a4f28c154f43c24"
+    sha256 cellar: :any,                 monterey:       "a4ae470fffb451ea380556b9523531554ab8e57acf66b5aff8ef1d800db14e48"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "73b5ab8fc7c2ec053c67b6b38a83bb646c2e64beb23479a25681ee4d5043c44d"
   end
 
   depends_on "cmake" => :build

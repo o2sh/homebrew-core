@@ -1,18 +1,12 @@
 class Apktool < Formula
   desc "Tool for reverse engineering 3rd party, closed, binary Android apps"
   homepage "https://github.com/iBotPeaches/Apktool"
-  url "https://github.com/iBotPeaches/Apktool/releases/download/v2.9.0/apktool_2.9.0.jar"
-  sha256 "e5ecf759297b845be64a3a5145ccc372db905b15a801a22ea1c91ee03c4c7a65"
+  url "https://github.com/iBotPeaches/Apktool/releases/download/v2.9.3/apktool_2.9.3.jar"
+  sha256 "7956eb04194300ce0d0a84ad18771eebc94b89fb8d1ddcce8ea4c056818646f4"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c2b6082903913bc1a509984ee0111dfa77ea9add070379ff665023b8e043958f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c2b6082903913bc1a509984ee0111dfa77ea9add070379ff665023b8e043958f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c2b6082903913bc1a509984ee0111dfa77ea9add070379ff665023b8e043958f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c2b6082903913bc1a509984ee0111dfa77ea9add070379ff665023b8e043958f"
-    sha256 cellar: :any_skip_relocation, ventura:        "c2b6082903913bc1a509984ee0111dfa77ea9add070379ff665023b8e043958f"
-    sha256 cellar: :any_skip_relocation, monterey:       "c2b6082903913bc1a509984ee0111dfa77ea9add070379ff665023b8e043958f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cf48bb5ce93744b860bda4b4985df7ef5a1fb2d186ce33c22c05272013019611"
+    sha256 cellar: :any_skip_relocation, all: "108cad7b26c5b0d9b771b6a2c4414c6b84d60875eeb2303ff76d9e672edbcfc7"
   end
 
   depends_on "openjdk"

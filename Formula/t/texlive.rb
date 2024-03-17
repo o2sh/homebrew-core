@@ -7,8 +7,8 @@ class Texlive < Formula
   url "https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2023/texlive-20230313-source.tar.xz"
   mirror "https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive/2023/texlive-20230313-source.tar.xz"
   sha256 "3878aa0e1ed0301c053b0e2ee4e9ad999c441345f4882e79bdd1c8f4ce9e79b9"
-  license :public_domain
-  revision 2
+  license :cannot_represent
+  revision 3
   head "https://github.com/TeX-Live/texlive-source.git", branch: "trunk"
 
   livecheck do
@@ -34,15 +34,14 @@ class Texlive < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "a3a31bbb1d9bc1e9d373b9674f9f9e430715cc4dde6163e4a74c258c8fe000c0"
-    sha256 arm64_ventura:  "7c4424d7dbda8aa023b5a4c4d07ddf604ccf872a2241967bae24c3b05e65e08c"
-    sha256 arm64_monterey: "42560a30b4731c8db5f74e6bbefb17075b68aba0c83899733c703997f62f6b33"
-    sha256 arm64_big_sur:  "091fa3f73856f3c2fdffb6402925de126c1773ec734c90700d27af6c791849ea"
-    sha256 sonoma:         "72d4f3997dddf64b72fa3937cc1bf5f3587ac4a010a4a8c460f6fb829b8d5731"
-    sha256 ventura:        "3b82d7b12355a116decb003b11ab06f2e65c582ba83daa0d20c187c0320f91dc"
-    sha256 monterey:       "9e82bafde878de14292757dfe00038d03f500639ee873d22da31a5fc7bd81882"
-    sha256 big_sur:        "8618d95d4161d83e59e2ea99d35c5cb389789d48ba2227a5bcb578d963c98b20"
-    sha256 x86_64_linux:   "7c68fa0c6ba0f08acf5af865cecd5dd5f1f822438cd6e9bfb38e866163416d0b"
+    rebuild 1
+    sha256 arm64_sonoma:   "e419045893bb23bd9f393d6f90d7127a62390fda8a70949881cc9a6b6e38c7c1"
+    sha256 arm64_ventura:  "ce6e67f8a21e2c580ec0ef2573309d0076a1245a6eed323859e90c5c0868da6c"
+    sha256 arm64_monterey: "82584e70745b55ac5f31fb0965054a4ad240f7c7f87169694c89d33fc973aac7"
+    sha256 sonoma:         "14dd39ec9dc5245b7d0be51823e52f6eed5df10334068023cc922f659b556857"
+    sha256 ventura:        "aaa7d1f3d6232a178ad4a19eab1c760f0f3fd18c35e41308dfbfc42c5acd2487"
+    sha256 monterey:       "910b314ed2a19e1c9093e577e38cda0305a8bd95ff7714fd3e89f7d1c3f8c46a"
+    sha256 x86_64_linux:   "e7cd95b9d9104cb8911ebfca2f4092b4b8988ed5e4717dc8e36ffff357dad62c"
   end
 
   depends_on "pkg-config" => :build
@@ -66,8 +65,7 @@ class Texlive < Formula
   depends_on "pixman"
   depends_on "potrace"
   depends_on "pstoedit"
-  depends_on "pygments"
-  depends_on "python@3.11"
+  depends_on "python@3.12"
 
   uses_from_macos "icu4c"
   uses_from_macos "ncurses"
@@ -336,8 +334,16 @@ class Texlive < Formula
     sha256 "32aa7271a6bdfedc3330119b3825daddd0aa4b5c936f84ad74eabb932a200a5e"
   end
 
+  resource "pygments" do
+    url "https://files.pythonhosted.org/packages/55/59/8bccf4157baf25e4aa5a0bb7fa3ba8600907de105ebc22b0c78cfbf6f565/pygments-2.17.2.tar.gz"
+    sha256 "da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367"
+  end
+
   def install
-    python3 = "python3.11"
+    python3 = "python3.12"
+    venv = virtualenv_create(libexec, python3)
+    venv.pip_install resource("pygments")
+
     # Install Perl resources
     ENV.prepend_create_path "PERL5LIB", libexec/"lib/perl5"
     ENV["PERL_MM_USE_DEFAULT"] = "1"
@@ -346,12 +352,15 @@ class Texlive < Formula
     tex_resources = %w[texlive-extra install-tl texlive-texmf]
 
     resources.each do |r|
-      r.stage do
-        next if tex_resources.include? r.name
+      next if tex_resources.include? r.name
+      next if r.name == "pygments"
 
+      r.stage do
         if File.exist? "Makefile.PL"
-          system "perl", "Makefile.PL", "INSTALL_BASE=#{libexec}",
-                 "CCFLAGS=-I#{Formula["freetype"].opt_include}/freetype2"
+          args = ["INSTALL_BASE=#{libexec}"]
+          args += ["X11INC=#{HOMEBREW_PREFIX}/include", "X11LIB=#{HOMEBREW_PREFIX}/lib"] if r.name == "Tk"
+
+          system "perl", "Makefile.PL", *args
           system "make"
           system "make", "install"
         else
@@ -470,8 +479,7 @@ class Texlive < Formula
     end
 
     # Wrap some Python scripts so they can find dependencies and fix depythontex.
-    python_path = libexec/Language::Python.site_packages(python3)
-    ENV.prepend_path "PYTHONPATH", python_path
+    ENV.prepend_path "PYTHONPATH", venv.site_packages
     rm bin/"pygmentex"
     rm bin/"pythontex"
     rm bin/"depythontex"

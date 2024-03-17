@@ -1,25 +1,25 @@
 class Cntb < Formula
   desc "Contabo Command-Line Interface (CLI)"
   homepage "https://github.com/contabo/cntb"
-  url "https://github.com/contabo/cntb/archive/refs/tags/1.4.7.tar.gz"
-  sha256 "d36d4516146cc366818569cd451c9f19725ef60f7054d842ccf697fe16f47970"
+  url "https://github.com/contabo/cntb/archive/refs/tags/v1.4.9.tar.gz"
+  sha256 "20c8f8c3c72cf7a6ab9376650b7370e7654b5f4e10a12e618472162dcd93c779"
   license "GPL-3.0-only"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b59c8ac2af1214fff73b4c0bf8a47ad14d58f72f304f15da04a6c27f4bfb09c7"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "50ee4f491364ec52c342518fb8c4db42c860ee3e3cb4a20f5677601ee9255da9"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "27c8340597adf564bee40f50e76285504ce5da1fc7f206d56cf7eeabb8b2d047"
-    sha256 cellar: :any_skip_relocation, sonoma:         "edda55e22c9d9c4ceaca155f171e935f745ef08406a2e61ab08b71ac4fd27da5"
-    sha256 cellar: :any_skip_relocation, ventura:        "c0d102cf1ee32e9ab151aba9c9de660cc699e200846e1fdaf47e71d2809d249a"
-    sha256 cellar: :any_skip_relocation, monterey:       "332731e1544794b0be3d2460869b171cd3d0c016bd1196467d2bc8397d91ef2d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d44d3a2eb35ec4fd9b11f95dce9ff253c914654d44af96099c745ab4ec3a21e6"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "016092ad5092972f88b02a951dbe8fa8aecc20aa0f9ee3a1e6760a1b3cce6752"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "305707ebaad71801ccd6c4f8a5f8d51ce6a3038edf8a83a900b20be6ec3d6ad9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e3465361798c5abeafafec2211f2c1ad478eb2959a54206ba87f7efd13308e94"
+    sha256 cellar: :any_skip_relocation, sonoma:         "995d19aaaa1dbfba822b8fa8340054d4fd8421ff4c73d138f304c9cd8ab83703"
+    sha256 cellar: :any_skip_relocation, ventura:        "f0b2b9b11f61469c25e9a8be90d2b8b2433ddb538853a1c5de0d385c8c8cf2ad"
+    sha256 cellar: :any_skip_relocation, monterey:       "91081b3c7f431652cfe6151f903678d50d6ac7e4c0f92a7bacc6b9e8995bd482"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0d59efbe6e2bc937e898c0418eeaf3ef4666d53a9e4244236715c014906ae5be"
   end
 
   depends_on "go" => :build
 
   def install
     ldflags = "-s -w -X contabo.com/cli/cntb/cmd.version=#{version}"
-    system "go", "build", *std_go_args(ldflags: ldflags)
+    system "go", "build", *std_go_args(ldflags:)
 
     generate_completions_from_executable(bin/"cntb", "completion")
   end

@@ -1,8 +1,8 @@
 class PgpoolIi < Formula
   desc "PostgreSQL connection pool server"
   homepage "https://www.pgpool.net/mediawiki/index.php/Main_Page"
-  url "https://www.pgpool.net/mediawiki/images/pgpool-II-4.4.4.tar.gz"
-  sha256 "10bed66f8197c74dcb00a0e73f618066d5d5e0adc878865c2fcfa1c945e68f4f"
+  url "https://www.pgpool.net/mediawiki/images/pgpool-II-4.5.1.tar.gz"
+  sha256 "8e14b0558a15dae8767c8e1acee3f2f6c7c08ebfffda66a359367eaaa56c3936"
   # NTP license that excludes distributing "with fee"
   license :cannot_represent
 
@@ -12,15 +12,13 @@ class PgpoolIi < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "0c15e2c537a8d47a965f49b1e472381b49050aeec4ddd10226e03d01b8ff92aa"
-    sha256 arm64_ventura:  "7ef99d9a9a7a5e6d689261c3e6775ac066228e4ed808acd2e140089e727ea85f"
-    sha256 arm64_monterey: "5c1a35fcb786a6c6642fd1e6eb6f82b885fcd8372e048a224403875f648b240d"
-    sha256 arm64_big_sur:  "c637136b04faacc236f00e6dc5e26b046eddd1f11de50a5480517530455fdf5d"
-    sha256 sonoma:         "159190629c3609d71b1c47fbbb2153aeedb48a65238b7a50e572dec956772468"
-    sha256 ventura:        "979124aef4621cdb480b2e828ec07387b1f7c63bdb9dc60a3880b03270ec0b9f"
-    sha256 monterey:       "b3e9be633db629e3819b95e9080c5ffb1a85be92a6596fce6327cb31a0ae0969"
-    sha256 big_sur:        "09afcf624639d670fdeeaeb14c4aeddb7e0d62518d2b7462e94afd89542b2101"
-    sha256 x86_64_linux:   "67038ee8f2d59677772f6c5a0f40d08ff810e06ed87b8817401414aa3bebb1e6"
+    sha256 arm64_sonoma:   "ec4d38c4b5c73bc5cbcd3c2355e20cb1c6ce302392585bdcebdafb3aef15b917"
+    sha256 arm64_ventura:  "807ec55e9d36041dc0c190ca21d3d10fd115355fb10f649f4864c4ef8aa979ee"
+    sha256 arm64_monterey: "38480a1464a8da32afda555d67b8d1f65df6493196b012681e9d12a20b69041d"
+    sha256 sonoma:         "b3aca47abf17eab1e042f314d209742bdddb148934a3d37ee5cd3578d797d1bf"
+    sha256 ventura:        "616694d55e745fbb55bdd46a6d7d01e5db47ad2382eb7839cb181a2ceda33033"
+    sha256 monterey:       "c4087418b227e67985b445b7329d3cc3c4bdea7104b6718369c67d9b9f1468e0"
+    sha256 x86_64_linux:   "0ecc3f571a533b689a749f83de5fb813e23a909ba5efdb595eb2f6d9aa796785"
   end
 
   depends_on "libmemcached"

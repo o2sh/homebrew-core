@@ -3,18 +3,18 @@ require "language/node"
 class VercelCli < Formula
   desc "Command-line interface for Vercel"
   homepage "https://vercel.com/home"
-  url "https://registry.npmjs.org/vercel/-/vercel-32.5.6.tgz"
-  sha256 "e127bb4f6fa6b97aac9b68b462d3965004da69b93efae48eeea7f0ef886050f9"
+  url "https://registry.npmjs.org/vercel/-/vercel-33.6.1.tgz"
+  sha256 "8953686011cff42d1b2564b61a3e3cbfb5f454124852d104b5d75b8281fb991d"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d44e541046281a776be32d98e5eeaa1541c933e0699adfce27e5d10d8e520e84"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d44e541046281a776be32d98e5eeaa1541c933e0699adfce27e5d10d8e520e84"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d44e541046281a776be32d98e5eeaa1541c933e0699adfce27e5d10d8e520e84"
-    sha256 cellar: :any_skip_relocation, sonoma:         "7acd4758786212c4186ac12294c7787bd0ffdc4a54aaad2bad8fface61c860c2"
-    sha256 cellar: :any_skip_relocation, ventura:        "7acd4758786212c4186ac12294c7787bd0ffdc4a54aaad2bad8fface61c860c2"
-    sha256 cellar: :any_skip_relocation, monterey:       "7acd4758786212c4186ac12294c7787bd0ffdc4a54aaad2bad8fface61c860c2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "05b5a803f17c7b9bf530bda9580ea8f28a53abe78a7f4139115076e18e73b14d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "19432aac6396ef6390c3331f886a3d4939eb0d6fe13877f1958e0db38cc653df"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "19432aac6396ef6390c3331f886a3d4939eb0d6fe13877f1958e0db38cc653df"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "19432aac6396ef6390c3331f886a3d4939eb0d6fe13877f1958e0db38cc653df"
+    sha256 cellar: :any_skip_relocation, sonoma:         "dcad8c02cd9b9b68e31b20567caed14daaf97615bfe1bfab18d2d46f99619eb0"
+    sha256 cellar: :any_skip_relocation, ventura:        "dcad8c02cd9b9b68e31b20567caed14daaf97615bfe1bfab18d2d46f99619eb0"
+    sha256 cellar: :any_skip_relocation, monterey:       "dcad8c02cd9b9b68e31b20567caed14daaf97615bfe1bfab18d2d46f99619eb0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7248e58a0339eda44a6da50a69c20d3f391de7c1980ecfac8820f95d8f05fd8d"
   end
 
   depends_on "node"
@@ -31,10 +31,6 @@ class VercelCli < Formula
     node_modules = libexec/"lib/node_modules/vercel/node_modules"
     node_modules.glob("deasync/bin/*")
                 .each { |dir| dir.rmtree if dir.basename.to_s != "#{os}-#{arch}" }
-
-    # Replace universal binaries with native slices
-    (node_modules/"fsevents/fsevents.node").unlink if OS.mac? && Hardware::CPU.arm?
-    deuniversalize_machos
   end
 
   test do

@@ -1,18 +1,18 @@
 class Pgvector < Formula
   desc "Open-source vector similarity search for Postgres"
   homepage "https://github.com/pgvector/pgvector"
-  url "https://github.com/pgvector/pgvector/archive/refs/tags/v0.5.1.tar.gz"
-  sha256 "cc7a8e034a96e30a819911ac79d32f6bc47bdd1aa2de4d7d4904e26b83209dc8"
+  url "https://github.com/pgvector/pgvector/archive/refs/tags/v0.6.1.tar.gz"
+  sha256 "38b4c0d3137a0f54d85348ff0c5c4975d3a0d458f8a1333298a10e3abed5973d"
   license "PostgreSQL"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bd35ed8d3861f7a63b2e3ecb3e313a1d04c692217653047c26445e8267d068e4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3aa310ce6b3d8983b272e65a07da1b88ff70029bf4c7c345543daadbf313395c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "dbc637916d4d5d1f48ecacc31f0eb84932602aa65966fd03e2184fc414abf02d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "47dcec2eba86593f17bb9c70f1df0f7e32b2164af985e89ff132f3c4336b06f9"
-    sha256 cellar: :any_skip_relocation, ventura:        "fc3096f2ad79fff305effbc82c6432b3fa86eb1b2296079822520bb3b2444062"
-    sha256 cellar: :any_skip_relocation, monterey:       "7245dd8df790678ca7708eb0a243e67f9bb7a3ac251a64eb4563a2087bdb9bd3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "125ac363467a38139f439964cdfddbae17632b1d4615ebcf55ff697ad38abfd8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "94d298bc4aa736c2cd9196660ec8484ddf226abbe1ead953a382f434f65e0a94"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4a91ddd8f4f17043ad4ce7cf088ea70868a83b571f3d0cf074db5abb2020af2a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c0642da922542d80fc8db425dd5060eb923808076933052cba71d3dd25b313ce"
+    sha256 cellar: :any_skip_relocation, sonoma:         "5f7ef3a232ccfd1f59a93f1a9f3ea3a32cea115d91e16468ca864ee6f6623bda"
+    sha256 cellar: :any_skip_relocation, ventura:        "9af4aa06cf474a6ad3ae102b081ae60e940e66f7b319856f0ecfe171d0e1a4c4"
+    sha256 cellar: :any_skip_relocation, monterey:       "f49bc71b41aefec97a0d8c9c5f84b4a9fbad361c192c555dd72219998d2767db"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "af37331ef5e58071d44f9140d1ea23921b667c5fa2b90c252ebc139696d22e62"
   end
 
   depends_on "postgresql@14"
@@ -23,28 +23,28 @@ class Pgvector < Formula
 
   def install
     ENV["PG_CONFIG"] = postgresql.opt_bin/"pg_config"
-
     system "make"
-    (lib/postgresql.name).install "vector.so"
-    (share/postgresql.name/"extension").install "vector.control"
-    (share/postgresql.name/"extension").install Dir["sql/vector--*.sql"]
-    (include/postgresql.name/"server/extension/vector").install "src/vector.h"
+    system "make", "install", "pkglibdir=#{lib/postgresql.name}",
+                              "datadir=#{share/postgresql.name}",
+                              "pkgincludedir=#{include/postgresql.name}"
   end
 
   test do
+    ENV["LC_ALL"] = "C"
     pg_ctl = postgresql.opt_bin/"pg_ctl"
     psql = postgresql.opt_bin/"psql"
+    datadir = testpath/postgresql.name
     port = free_port
 
-    system pg_ctl, "initdb", "-D", testpath/"test"
-    (testpath/"test/postgresql.conf").write <<~EOS, mode: "a+"
+    system pg_ctl, "initdb", "-D", datadir
+    (datadir/"postgresql.conf").write <<~EOS, mode: "a+"
       port = #{port}
     EOS
-    system pg_ctl, "start", "-D", testpath/"test", "-l", testpath/"log"
+    system pg_ctl, "start", "-D", datadir, "-l", testpath/"log"
     begin
       system psql, "-p", port.to_s, "-c", "CREATE EXTENSION vector;", "postgres"
     ensure
-      system pg_ctl, "stop", "-D", testpath/"test"
+      system pg_ctl, "stop", "-D", datadir
     end
   end
 end

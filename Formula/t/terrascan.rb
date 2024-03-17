@@ -1,21 +1,19 @@
 class Terrascan < Formula
   desc "Detect compliance and security violations across Infrastructure as Code"
   homepage "https://github.com/tenable/terrascan"
-  url "https://github.com/tenable/terrascan/archive/refs/tags/v1.18.3.tar.gz"
-  sha256 "214f96d009d2aed4e589b456e469c7ebc2225329c124a082f05d961e481e158b"
+  url "https://github.com/tenable/terrascan/archive/refs/tags/v1.19.1.tar.gz"
+  sha256 "e3ebce8fb568cd1e95dc0d65efaedd494395f38f24a992c0d7b2992ad5aa4710"
   license "Apache-2.0"
   head "https://github.com/tenable/terrascan.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f6eb00ba3a1f108126f492e48e7bff15119eac8c80c554b13bc5a94010d998f0"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "461ff9bc01555c0027ee35c47023bd42a1d83c509410c3373a6c0e64b3d803a0"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f2cfa6ef466a099cba86462f587c91a9c3e26fcd68b1a3b820a6ca671975789e"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "aeed001333afc15e2f9251642bd8c0eb731f9766874d1ed7ba44355b338b98fa"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f4c83086ee4f2f731ff69ca01fc8d0df1f0fc86033266501336b54bc3036e8af"
-    sha256 cellar: :any_skip_relocation, ventura:        "eb2cf1c5c897aeb34ff80ba721a74650bb7a3ed6a9e971643e38b4089ac7eb9c"
-    sha256 cellar: :any_skip_relocation, monterey:       "377cd3d30d3142fd714846f4b07c50e1016bcc04872367ebd3cc44915176222a"
-    sha256 cellar: :any_skip_relocation, big_sur:        "37926d5c24058e236994513c8d685e47c9a381444c67a6d10c58a0242ae18232"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dac495eb1901a28dfc1cd11abf8a606178fb89eebc955989299a4b4181fc718f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "eea2023b14d5c5687e0378391bfed26f0c4cd614d132252068180cab7aab2810"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "af895d9a429bc0ce51103a0d7cc5453030d8b5170e9796cead549545da3327ca"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c790d8e14b57c390fc8d4eb7428ca36316e1fb3955a243ed37ddfb1fb2d2026e"
+    sha256 cellar: :any_skip_relocation, sonoma:         "2cc050d0a9a7baf735e4160e4dd24a7d2cb2c16ccafc5dfc58fba9aa05b75cb4"
+    sha256 cellar: :any_skip_relocation, ventura:        "4309e1acab8e088bb14b03cfdca25dbd7047d2ed0d22315d762706083a6d5626"
+    sha256 cellar: :any_skip_relocation, monterey:       "2b2acfe57c14b214dbd7934d59ed70d2da26380efcc2f1d021b0d67528262fa9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0306e0c03d6fae4bba96741a48a2ac3a4ffa105e380deaef74cc800571279c75"
   end
 
   depends_on "go" => :build

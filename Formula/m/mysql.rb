@@ -1,9 +1,10 @@
 class Mysql < Formula
   desc "Open source relational database management system"
-  homepage "https://dev.mysql.com/doc/refman/8.2/en/"
-  url "https://cdn.mysql.com/Downloads/MySQL-8.2/mysql-boost-8.2.0.tar.gz"
-  sha256 "9a6fe88c889dfb54a8ee203a3aaa2af4d21c97fbaf171dadaf5956714552010e"
+  homepage "https://dev.mysql.com/doc/refman/8.3/en/"
+  url "https://cdn.mysql.com/Downloads/MySQL-8.3/mysql-boost-8.3.0.tar.gz"
+  sha256 "f0a73556b8a417bc4dc6d2d78909080512beb891930cd93d0740d22207be285b"
   license "GPL-2.0-only" => { with: "Universal-FOSS-exception-1.0" }
+  revision 1
 
   livecheck do
     url "https://dev.mysql.com/downloads/mysql/?tpl=files&os=src"
@@ -11,13 +12,13 @@ class Mysql < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "48fc4c67db269f4109ef3974f4edd7b266503da3f1cde1fc7b0ef3b84edf9281"
-    sha256 arm64_ventura:  "12313e81be31befb421e03388a88d6ce1125214e49b33dbfecec3f8f4f747170"
-    sha256 arm64_monterey: "82dca6accbc6927319641c057757987ab3ed1181ee51a20d43c02a12dc472d14"
-    sha256 sonoma:         "f17f8fce4afb74375dadb15296fc696f1e743523c2903c04d11f814f8f612427"
-    sha256 ventura:        "37ba734daa925a9899066838e9a39f6ef6282adccf57582406242150825a9aff"
-    sha256 monterey:       "0767841f5c72e978de0a371f04b760b95dd4f2d24b87293eebc77ff3b448c38e"
-    sha256 x86_64_linux:   "c3112206f1a263505843e5db5254e6aa15ebbf234178b30bb6c1e3b65daca521"
+    sha256 arm64_sonoma:   "33919f057802485d77e2eaa66618d837d73e54a7b1c1953a2709d4e08358c46a"
+    sha256 arm64_ventura:  "325df850a10bcba335ad37ba964f037782cf6b502bb16693d3593b0b954f289f"
+    sha256 arm64_monterey: "2d1c67c9fd7819a680719017793dbc855b5594ce64341e4243e773a350f47e14"
+    sha256 sonoma:         "1fdc5b8989a5f8e8a1543792c8bd5a20ca6bf477280b1d31774af033600d2e3b"
+    sha256 ventura:        "ca686ca38112b46a348d014397a8a279a9a8a4cc3812dc8096b1c6fb72997aa8"
+    sha256 monterey:       "b0f19a04b4a11e8c14e8d6ad387ffe63af7a2e291a739872b455c1604845582d"
+    sha256 x86_64_linux:   "66c4a58b3f7f376bdcdec40dd747ccb544cac7e167cd359392cb3877df36bafe"
   end
 
   depends_on "bison" => :build
@@ -92,17 +93,12 @@ class Mysql < Formula
       -DWITH_ZLIB=system
       -DWITH_ZSTD=system
       -DWITH_UNIT_TESTS=OFF
-      -DENABLED_LOCAL_INFILE=1
       -DWITH_INNODB_MEMCACHED=ON
     ]
 
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
-
-    # Fix bad linker flags in `mysql_config`.
-    # https://bugs.mysql.com/bug.php?id=111011
-    inreplace bin/"mysql_config", "-lzlib", "-lz"
 
     (prefix/"mysql-test").cd do
       system "./mysql-test-run.pl", "status", "--vardir=#{Dir.mktmpdir}"

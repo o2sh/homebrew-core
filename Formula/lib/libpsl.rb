@@ -1,27 +1,24 @@
 class Libpsl < Formula
   desc "C library for the Public Suffix List"
   homepage "https://rockdaboot.github.io/libpsl"
-  url "https://github.com/rockdaboot/libpsl/releases/download/0.21.2/libpsl-0.21.2.tar.gz"
-  sha256 "e35991b6e17001afa2c0ca3b10c357650602b92596209b7492802f3768a6285f"
+  url "https://github.com/rockdaboot/libpsl/releases/download/0.21.5/libpsl-0.21.5.tar.gz"
+  sha256 "1dcc9ceae8b128f3c0b3f654decd0e1e891afc6ff81098f227ef260449dae208"
   license "MIT"
-  revision 2
+  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "669b3ec271b052f66ea65aad5deee3757010f90d74d4b76231333b5d4f6720de"
-    sha256 cellar: :any,                 arm64_ventura:  "54e6c05ff0b41c160db7087ee741d616c899c63a74e157e4a74007be055bc4b4"
-    sha256 cellar: :any,                 arm64_monterey: "29b19583775b9a640685e24bd453f16a3e5be86546b828561a6ecd338a662e80"
-    sha256 cellar: :any,                 arm64_big_sur:  "f6f58b4348f12016325eb53fa4e1cfd35dc558a42147c16498560c7337ef24e0"
-    sha256 cellar: :any,                 sonoma:         "c1939620d3b71cc9a6b03836e0d6c304bf4b37ab9789f5b9067319a70a79f6e9"
-    sha256 cellar: :any,                 ventura:        "cc6122f645807aaa12528f23f94a006e2cc0f826a0640ec05c1fd5549fa48f49"
-    sha256 cellar: :any,                 monterey:       "d37094a8cd209afbab03e05ce8cd0e0300639a1ac368317a2cd1f50a09edffd5"
-    sha256 cellar: :any,                 big_sur:        "ba7c45172edcb181c9865cb0f607945f8f01905aa8b01e36d83930141873f461"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9eea17163910178315e7448318bb74b70fc69eec179c44dbdbb64183b32f777d"
+    sha256 cellar: :any,                 arm64_sonoma:   "72f334f8492ea88cc42d1c1cbf9caed0cc95eddf79a00dc2298a17fd98ca0fdd"
+    sha256 cellar: :any,                 arm64_ventura:  "40df0dc5de78fc9d3f4bbfca4988a14def101ee75802f0e009448aec3279481f"
+    sha256 cellar: :any,                 arm64_monterey: "e4074b1c27b904fcc7536013bac0b82ee7bbf5b1e556c185bf92c0c42c2d8684"
+    sha256 cellar: :any,                 sonoma:         "8616a029a8697f21768ca908014aa0fb809958815c8c62cd850c421b95203c22"
+    sha256 cellar: :any,                 ventura:        "bbc78df069c704feddb6a74d1e507b0d69fc58fef414afbc9421a24659645464"
+    sha256 cellar: :any,                 monterey:       "049bb0a67f33453df85d1dc2568fd52959ac5ac2549a9c4b54191ac3859aa0f5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d3b8a8d4dfe0081a71acc9033dbfa81105e7e2a0c571dc1ca577573701f5aa14"
   end
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.11" => :build
   depends_on "icu4c"
 
   def install

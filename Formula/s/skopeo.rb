@@ -1,18 +1,18 @@
 class Skopeo < Formula
   desc "Work with remote images registries"
   homepage "https://github.com/containers/skopeo"
-  url "https://github.com/containers/skopeo/archive/refs/tags/v1.14.0.tar.gz"
-  sha256 "062ca24dcc106c3758e90a4af207b67166437ab71128bd33749b0414e0a42f79"
+  url "https://github.com/containers/skopeo/archive/refs/tags/v1.15.0.tar.gz"
+  sha256 "f219d31e5f3742b08a6e7327d84fd84cdcf8e5a297914bb6e19a96fef1b19b76"
   license "Apache-2.0"
 
   bottle do
-    sha256 arm64_sonoma:   "1e38059439e585d3fca999b3bf1031590e6151fb0e4ec341a4d28aa1ad5d0c5f"
-    sha256 arm64_ventura:  "d15e5c5d55c9900d9c4e3a8411611cd7dfaccc1c63d1067bec791d6db889a7b3"
-    sha256 arm64_monterey: "75c5f3d70149e4fb002c16fddc37b28e97a1a2760634339c0b4d30ef089ba926"
-    sha256 sonoma:         "6b8876891a5dff56bd80d5269d09a268dddec5a5a845c0c801a4a2ed2d7a1833"
-    sha256 ventura:        "0686bf155b94815dc9f8fef1abfd322c3f80c398fb94567f975198ba83e24b55"
-    sha256 monterey:       "42c0a37751cc5a6826c0ef7a59c46d8f2428047462ed965fba7d33c89c664680"
-    sha256 x86_64_linux:   "09336203f9c537159af65395fe26286f91cd00d805f638617209aee49fe57809"
+    sha256 arm64_sonoma:   "047ea5c5c94d0733c4ea702cc4fa4734f7bf8bf73e4c6ea9d10b8bc2ad9d3b07"
+    sha256 arm64_ventura:  "80965fcf9c9f5fed4a659cb816fc327eeb2b8d20e091dc42f504f77bfc4573ba"
+    sha256 arm64_monterey: "480e6333cb550b911bcfac32a9b3ba070231a515bb8891d49a752c380e2eabd0"
+    sha256 sonoma:         "f59ddfa94a87cc5639002848327cdfd11eecf2b7db8b1af47c20e5182867f1e7"
+    sha256 ventura:        "3f66a43e919d0218e35b6703871171a2b6187c0e5bbe4884d1d09c5f2b4c6ff8"
+    sha256 monterey:       "76701d4e9acb3309c22a53dfac0dad8d00fc265b96114c4434fb9c074c0acb95"
+    sha256 x86_64_linux:   "22aed2b29f4c849952eafa95ab423fe0f06cd93cf908c71816952d5c8210c1c8"
   end
 
   depends_on "go" => :build
@@ -45,7 +45,7 @@ class Skopeo < Formula
       -X #{ldflag_prefix}/pkg/sysregistriesv2.systemRegistriesConfPath=#{etc}/containers/registries.conf
     ]
 
-    system "go", "build", "-tags", buildtags, *std_go_args(ldflags: ldflags), "./cmd/skopeo"
+    system "go", "build", "-tags", buildtags, *std_go_args(ldflags:), "./cmd/skopeo"
     system "make", "PREFIX=#{prefix}", "GOMD2MAN=go-md2man", "install-docs"
 
     (etc/"containers").install "default-policy.json" => "policy.json"

@@ -1,8 +1,8 @@
 class Legitify < Formula
   desc "Tool to detect/remediate misconfig and security risks of GitHub/GitLab assets"
   homepage "https://legitify.dev/"
-  url "https://github.com/Legit-Labs/legitify/archive/refs/tags/v1.0.4.tar.gz"
-  sha256 "7113a4f937c8ecf6d0071ad2e82956d0db9a88d66c194865ebecfac8a6aac409"
+  url "https://github.com/Legit-Labs/legitify/archive/refs/tags/v1.0.7.tar.gz"
+  sha256 "7f3d59141207d97579a4fbf6d787b1c522b840c2b2be79bac3e056829577040c"
   license "Apache-2.0"
   head "https://github.com/Legit-Labs/legitify.git", branch: "main"
 
@@ -12,13 +12,13 @@ class Legitify < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d43b5a925f494950fbe650a31cb098238f2af4ad1e20c4a9f2056e03befa5e98"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e68ee8b4391dcf8625e77639a2b22390ed28345d27a664ee3516531522bfd4e2"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4da1d5b406ec12a66916f41c7480cd2a8cc9c5e0c7ed218f9578caf825e6017b"
-    sha256 cellar: :any_skip_relocation, sonoma:         "cc6d32dbc64f01f8b0dc6e7288c6dcf5e81871a634343fe195d090188bc294bf"
-    sha256 cellar: :any_skip_relocation, ventura:        "7a6a136dc2f45f2b597155ea85a5b2a34e78c90badd442c556ee5c29f9ff103b"
-    sha256 cellar: :any_skip_relocation, monterey:       "0fad12deb41aa5ad8f25556f1dcaf1cd6031a725b100dc45be33567c68c73d2d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "07b9cf02e9715d48589fa2763a27b43de19188f3f2e6655d4ca8fc663598027d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9853a395e30e5ed056d9f30d64452e4026a2eae8f51db98da5b8d68195d460d8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7e43b34ba67e265b342fa55ae7787792aa43a60163f672ba31c1e6008272c5ab"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "0215d3c767b73d7cf74ef2c6a4fa5d03a906ef55adcef722831f974db6509938"
+    sha256 cellar: :any_skip_relocation, sonoma:         "5478047035e1fdcdd8b46c92dc2ef4760e581a94d8e9d26b41ab13520c39f57c"
+    sha256 cellar: :any_skip_relocation, ventura:        "2d412ed0d61edb40cff321d85c3fa01a55ffc9c517b0dabb9cbd4aaede76ab02"
+    sha256 cellar: :any_skip_relocation, monterey:       "03865b37838a0d833a5c9a3c942b36b86e4ff6a929a28958fc4821a849fc3063"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7b82c509695a08a9b4ae3c277084c878f8c5b7adb26ff650009a4142895166a1"
   end
 
   depends_on "go" => :build
@@ -30,7 +30,7 @@ class Legitify < Formula
       -X github.com/Legit-Labs/legitify/internal/version.Commit=#{tap.user}
     ]
 
-    system "go", "build", *std_go_args(ldflags: ldflags)
+    system "go", "build", *std_go_args(ldflags:)
 
     generate_completions_from_executable(bin/"legitify", "completion")
   end

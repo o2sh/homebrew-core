@@ -1,20 +1,19 @@
 class WoofDoom < Formula
   desc "Woof! is a continuation of the Boom/MBF bloodline of Doom source ports"
   homepage "https://github.com/fabiangreffrath/woof"
-  url "https://github.com/fabiangreffrath/woof/archive/refs/tags/woof_12.0.0.tar.gz"
-  sha256 "9c27250ab3289f407ca58c6500fdcb4dc3c9f70693eb42b9cead3a525e4da5fa"
+  url "https://github.com/fabiangreffrath/woof/archive/refs/tags/woof_14.3.0.tar.gz"
+  sha256 "c19c876ae6b7cb052255c12375921f694d46bdc1b7e445a883e809f097211d2e"
   license "GPL-2.0-only"
+  head "https://github.com/fabiangreffrath/woof.git", branch: "master"
 
   bottle do
-    sha256 arm64_sonoma:   "272696d111b626b917191c9b2d2f01a7f6485b9e323534dc1a95833584c629d9"
-    sha256 arm64_ventura:  "1435dd815bd152e47a784482e13dc5648696e110416f493846428bc5de200f3c"
-    sha256 arm64_monterey: "bf211d3b9ecb07e1d0f63d86fa4b83177318280af492924e0c037a75896f7638"
-    sha256 arm64_big_sur:  "f19e4e52a79f87500e103ad142f3ecec6a080eac973cd662b623aa10681ff5b0"
-    sha256 sonoma:         "dc78f78bc1d3c6cf7a15d618a5796a480f52256f517faaa691104e26a572a97e"
-    sha256 ventura:        "dfe29d620379a8bb2bfe992437d815ea132b5197f36057d9346de542869bd36a"
-    sha256 monterey:       "425fcf2c84d2ebe2000816195a62c7ebe3fb19d46564b743b26365082194f2a2"
-    sha256 big_sur:        "65b38efa006d6ecd2541e72f5ae2ebfa4cf8c3933788c33002a29c63a1684687"
-    sha256 x86_64_linux:   "6a437e9062ee58685305c105012391a849f44e59df153dd19ba67b6857f60596"
+    sha256 arm64_sonoma:   "29c3b691fbd2060f0f443fbe730c2b8cf4b86839c43f8ad02079d6426988b41e"
+    sha256 arm64_ventura:  "2d1c48b61cc10739d9335b55e6a7db0437db4e8e8a43a116d4e3421bdfd9032a"
+    sha256 arm64_monterey: "22814db8feb186af74c72bdb6ed27a91e95cdce013db327a7e8dfb1243dd1c6e"
+    sha256 sonoma:         "a96a066c3108564f61085cd4662eccb73f7e403388c0333044ac8db8384e368f"
+    sha256 ventura:        "8861ed14c8d7ae500772c42ece95bd1698e8cbac13e4dfbdb8eaee89e4f5b83e"
+    sha256 monterey:       "3dea1479ae976390c5ad050e20d04010ecac761ce764d5f822386351f2565b64"
+    sha256 x86_64_linux:   "d173fa89ae1fe8e7246d1bf5a14d3d2f210104ef1bcda6fdb3abe43163172748"
   end
 
   depends_on "cmake" => :build
@@ -32,7 +31,12 @@ class WoofDoom < Formula
   end
 
   test do
-    expected_output = "Woof #{version.major_minor_patch}"
-    assert_match expected_output, shell_output("#{bin}/woof -iwad -nogui invalid_wad 2>&1", 255)
+    testdata = <<~EOS
+      Invalid IWAD file
+    EOS
+    (testpath/"test_invalid.wad").write testdata
+
+    expected_output = "Wad file test_invalid.wad doesn't have IWAD or PWAD id"
+    assert_match expected_output, shell_output("#{bin}/woof -nogui -iwad test_invalid.wad 2>&1", 255)
   end
 end

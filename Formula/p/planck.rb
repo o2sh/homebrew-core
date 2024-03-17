@@ -4,19 +4,17 @@ class Planck < Formula
   url "https://github.com/planck-repl/planck/archive/refs/tags/2.27.0.tar.gz"
   sha256 "d69be456efd999a8ace0f8df5ea017d4020b6bd806602d94024461f1ac36fe41"
   license "EPL-1.0"
-  revision 2
+  revision 3
   head "https://github.com/planck-repl/planck.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "9cda80839b8479be4fd8448ff98327aeeaaf014837570b7d54127d46f1e18c2d"
-    sha256 cellar: :any,                 arm64_ventura:  "c731aea9cb0275695b209bb5084210afd6a0e9a5e67c8e9efec9a13a1b2e9518"
-    sha256 cellar: :any,                 arm64_monterey: "1f4b0e70f38857049b419ccff92ac1a14f021789f781e29d9e289d8efd260cde"
-    sha256 cellar: :any,                 arm64_big_sur:  "31ce144c77bacf764cda0691e55d5e252de259b8e06a47a09230f7bb90f8b87f"
-    sha256 cellar: :any,                 sonoma:         "a7fc27c30776c4f22e85730bcb22ad18fa88b9cb077bd4fdb362c1be034e3ee1"
-    sha256 cellar: :any,                 ventura:        "c45d560dfe371e1da07165c220cd0df5cd271049d1767301f21b44a3f1cd0c6e"
-    sha256 cellar: :any,                 monterey:       "6cfca8f70816b1fda8316c2fbc2c78c781968890e31ee1c3afc358dc5dc4fdc4"
-    sha256 cellar: :any,                 big_sur:        "a5846446249d8101ac5fd2b92bd2af291d908be3f0437b469ed1435fcb878d02"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "426d25fd74343b3736c67c93f2f0e51499d4699f82473ec04916416b7544c5de"
+    sha256 cellar: :any,                 arm64_sonoma:   "6ff3ca72b2b4cf469eb4319d31a45784ecdf4943a99e65b7cf1b0644f679f9da"
+    sha256 cellar: :any,                 arm64_ventura:  "970c6f4dd5346c0acf49d25fdc2256ad3553b5ad646a347c99765510cf517b53"
+    sha256 cellar: :any,                 arm64_monterey: "3545c08d8d72de0a809fdc78db7a3b062e813dc760d5e23cafcc9c469171539d"
+    sha256 cellar: :any,                 sonoma:         "2078414c6bedde4348454315bf808b1df07f4d6e5898626465591daa2191a944"
+    sha256 cellar: :any,                 ventura:        "1740760a4e914f41546f3bb1b4d7eaa0594a9492a73e20843da76b715c10a02b"
+    sha256 cellar: :any,                 monterey:       "7aabe1b076a404ebf5f5795413b4ce92b661981140d7445885856020d9d555d5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ffce7a73a0e99520998c61c87c42606c387ab78f57734f1dc7d172821997e865"
   end
 
   depends_on "clojure" => :build
@@ -28,11 +26,9 @@ class Planck < Formula
 
   uses_from_macos "vim" => :build # for xxd
   uses_from_macos "curl"
-  uses_from_macos "libffi"
+  uses_from_macos "zlib"
 
   on_linux do
-    depends_on "glib"
-    depends_on "pcre"
     depends_on "webkitgtk"
   end
 
@@ -43,7 +39,7 @@ class Planck < Formula
   patch :DATA
 
   def install
-    ENV["JAVA_HOME"] = Formula["openjdk"].opt_prefix
+    ENV["JAVA_HOME"] = Language::Java.java_home
 
     if OS.linux?
       ENV.prepend_path "PATH", Formula["openjdk"].opt_bin

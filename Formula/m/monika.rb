@@ -3,21 +3,27 @@ require "language/node"
 class Monika < Formula
   desc "Synthetic monitoring made easy"
   homepage "https://monika.hyperjump.tech"
-  url "https://registry.npmjs.org/@hyperjumptech/monika/-/monika-1.16.0.tgz"
-  sha256 "d64c6b59abfe0d9363d26ff8597f40b70813c105545e08080f040a38e2142831"
+  url "https://registry.npmjs.org/@hyperjumptech/monika/-/monika-1.19.0.tgz"
+  sha256 "2254031b8eb73aa40d65f28e3e22a2353ea8c1b3311ca77988f2d7b48077dce9"
   license "MIT"
 
   bottle do
-    sha256                               arm64_sonoma:   "b0e2926f119299ed9da165d3717872963845e90126d2d9449dbcb11ea5eda37e"
-    sha256                               arm64_ventura:  "5dd1239bb23d5d31d83ba864646d7e92424fabc0c81faf5873207db0ec8af14d"
-    sha256                               arm64_monterey: "58c57042cbe8cc79964e6c11caf5a118363491a2ae40574bf74eeb85c18ee332"
-    sha256                               sonoma:         "b33ab82b80bc5fe6f281142f80916508c198cdc971afb0d0405eb2602ba16a66"
-    sha256                               ventura:        "0836a5d40157eea7d546d7d57a75b9838a546a28237a72cc5f0cbf47fb86bae6"
-    sha256                               monterey:       "366a09fa3232531ea1a8e684b548615a1137e08976179f409ceae54cfaddd207"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fe2cf96d0fff0ab3c6f01757fb1ce7c8ae9526e65c17bc51362f649e79a43f72"
+    sha256                               arm64_sonoma:   "aeafcb3c52f247c1c9126ef2e630c2b526d2254ec18badfdc820812f5edb45a4"
+    sha256                               arm64_ventura:  "33f0d8e021321e2a819de9f7f6b91c54c6fad2ac734233fb587a2684755ee730"
+    sha256                               arm64_monterey: "f2cff07a9e66476dd3c86c2fd754ba9dd54f9bd09e34a24f8eebe23148d9adc9"
+    sha256                               sonoma:         "26820f0b20c62bf5604d31cea32b19d0c3e79a151d3c2462b1e5ef4fd7d8d86c"
+    sha256                               ventura:        "7ac7aab6e9336ed67c23226430fe0e5b0c7d44c407c93fc46e0be32e2c9456e2"
+    sha256                               monterey:       "9e556fd1381362eecb2b551230de9a83dcbdd8eeabeae071c1852d25464079df"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2b40d07ee55ddc5088ce1f49b5972ccef7a3fd74fbaa872768f21c02855654aa"
   end
 
   depends_on "node"
+
+  on_linux do
+    # Workaround for old `node-gyp` that needs distutils.
+    # TODO: Remove when `node-gyp` is v10+
+    depends_on "python-setuptools" => :build
+  end
 
   def install
     system "npm", "install", *Language::Node.std_npm_install_args(libexec)

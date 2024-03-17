@@ -1,39 +1,26 @@
 class Mesa < Formula
+  include Language::Python::Virtualenv
+
   desc "Graphics Library"
   homepage "https://www.mesa3d.org/"
+  url "https://mesa.freedesktop.org/archive/mesa-24.0.3.tar.xz"
+  sha256 "77aec9a2a37b7d3596ea1640b3cc53d0b5d9b3b52abed89de07e3717e91bfdbe"
   license "MIT"
-  revision 1
   head "https://gitlab.freedesktop.org/mesa/mesa.git", branch: "main"
-
-  stable do
-    # TODO: Check if we can use unversioned `llvm` at version bump.
-    url "https://mesa.freedesktop.org/archive/mesa-22.3.6.tar.xz"
-    sha256 "4ec8ec65dbdb1ee9444dba72970890128a19543a58cf05931bd6f54f124e117f"
-
-    patch do
-      url "https://raw.githubusercontent.com/Homebrew/formula-patches/f0a40cf7d70ee5a25639b91d9a8088749a2dd04e/mesa/fix-build-on-macOS.patch"
-      sha256 "a9b646e48d4e4228c3e06d8ca28f65e01e59afede91f58d4bd5a9c42a66b338d"
-    end
-  end
-
   bottle do
-    rebuild 1
-    sha256 arm64_sonoma:   "dddd482d9ce3c3039cb6e2cb723d6574d530eef7bde7c7479d67f3c527f6e3ab"
-    sha256 arm64_ventura:  "23ab97f0b19d4f29bbb29f99098b03a351beb9b742a07141e5b9df6f1f28ca6d"
-    sha256 arm64_monterey: "afa96fc1b42afee3f3a87a96995be248bd6c14db878137cfda97befdf77b1593"
-    sha256 sonoma:         "c192ead99cce30c3144631a0bfbdab742c83c9282ed5d7a83eda8cbe1e834abe"
-    sha256 ventura:        "914668e4f5dfb87ea564d63e94933ef972e3e4c9c4572171b905af9a52cf09c5"
-    sha256 monterey:       "539337056f221acea7ad231bdff22ce6c3f34574f9e9b1146469070bebbdf342"
-    sha256 x86_64_linux:   "c489ab18612fbafecd6c52fb8ba66eeb0c345e7587c459ac528e976e98643fa5"
+    sha256 arm64_sonoma:   "a267a7fad192daaeacd5504c21559d0dfdb285475fb4b0d6cefb61e0a508e111"
+    sha256 arm64_ventura:  "a9003a675890dfae1281590688dae49a2fc3b88424fadeadd9208a23a4027229"
+    sha256 arm64_monterey: "656f8b28de0edc1ccb7c80399e952c1bb2d914a2a0851f93553e88797c2f87cf"
+    sha256 sonoma:         "944fec93ebd95c97ce9fe502fb5abf1b1d81952f1656fd4bb11885db7e016aea"
+    sha256 ventura:        "2aa707cd17bf14baab394ae79ec3b4cd2ce6fab9b843e7ecbe0102249ed87867"
+    sha256 monterey:       "3276e9be772f36b809922177d31bb9336299c7cce4fae4f9a733d52f084abc1a"
+    sha256 x86_64_linux:   "1e46a1611ab618fa0b814074245ea167b6b71c7be5bfa334b965b90ab7e9ec6a"
   end
 
   depends_on "bison" => :build # can't use from macOS, needs '> 2.3'
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
-  depends_on "pygments" => :build
-  depends_on "python-mako" => :build
-  depends_on "python-setuptools" => :build
   depends_on "python@3.12" => :build
   depends_on "xorgproto" => :build
 
@@ -44,6 +31,7 @@ class Mesa < Formula
   depends_on "libxext"
 
   uses_from_macos "flex" => :build
+  uses_from_macos "llvm"
   uses_from_macos "ncurses"
   uses_from_macos "zlib"
 
@@ -55,6 +43,7 @@ class Mesa < Formula
     depends_on "elfutils"
     depends_on "glslang"
     depends_on "gzip"
+    depends_on "libclc"
     depends_on "libdrm"
     depends_on "libva"
     depends_on "libvdpau"
@@ -63,8 +52,9 @@ class Mesa < Formula
     depends_on "libxshmfence"
     depends_on "libxv"
     depends_on "libxxf86vm"
-    depends_on "llvm@15" # TODO: Change to `uses_from_macos` when this is unversioned.
     depends_on "lm-sensors"
+    depends_on "spirv-llvm-translator"
+    depends_on "valgrind"
     depends_on "wayland"
     depends_on "wayland-protocols"
   end
@@ -72,8 +62,8 @@ class Mesa < Formula
   fails_with gcc: "5"
 
   resource "glxgears.c" do
-    url "https://gitlab.freedesktop.org/mesa/demos/-/raw/caac7be425a185e191224833375413772c4aff8d/src/xdemos/glxgears.c"
-    sha256 "344a03aff01708350d90603fd6b841bccd295157670f519b459bbf3874acf847"
+    url "https://gitlab.freedesktop.org/mesa/demos/-/raw/391cafee6d43a28afaf87a269475e0ede7d97469/src/xdemos/glxgears.c"
+    sha256 "294d7b9984eb1194a110a5a5500878df8b8d7b7922ec56257e9d8d8ae5e578e6"
   end
 
   resource "gl_wrap.h" do
@@ -81,23 +71,87 @@ class Mesa < Formula
     sha256 "41f5a84f8f5abe8ea2a21caebf5ff31094a46953a83a738a19e21c010c433c88"
   end
 
+  resource "mako" do
+    url "https://files.pythonhosted.org/packages/d4/1b/71434d9fa9be1ac1bc6fb5f54b9d41233be2969f16be759766208f49f072/Mako-1.3.2.tar.gz"
+    sha256 "2a0c8ad7f6274271b3bb7467dd37cf9cc6dab4bc19cb69a4ef10669402de698e"
+  end
+
+  resource "markupsafe" do
+    url "https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz"
+    sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
+  end
+
+  resource "packaging" do
+    url "https://files.pythonhosted.org/packages/ee/b5/b43a27ac7472e1818c4bafd44430e69605baefe1f34440593e0332ec8b4d/packaging-24.0.tar.gz"
+    sha256 "eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"
+  end
+
+  resource "pygments" do
+    url "https://files.pythonhosted.org/packages/55/59/8bccf4157baf25e4aa5a0bb7fa3ba8600907de105ebc22b0c78cfbf6f565/pygments-2.17.2.tar.gz"
+    sha256 "da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367"
+  end
+
+  resource "ply" do
+    on_linux do
+      url "https://files.pythonhosted.org/packages/e5/69/882ee5c9d017149285cab114ebeab373308ef0f874fcdac9beb90e0ac4da/ply-3.11.tar.gz"
+      sha256 "00c7c1aaa88358b9c765b6d3000c6eec0ba42abca5351b095321aef446081da3"
+    end
+  end
+
+  def python3
+    "python3.12"
+  end
+
   def install
-    args = ["-Db_ndebug=true"]
+    venv_root = buildpath/"venv"
+    venv = virtualenv_create(venv_root, python3)
+
+    python_resources = resources.to_set(&:name) - ["glxgears.c", "gl_wrap.h"]
+    python_resources.each do |r|
+      venv.pip_install resource(r)
+    end
+    ENV.prepend_path "PYTHONPATH", venv_root/Language::Python.site_packages(python3)
+    ENV.prepend_path "PATH", venv_root/"bin"
+
+    args = %w[
+      -Db_ndebug=true
+      -Dosmesa=true
+    ]
+
+    if OS.mac?
+      args += %w[
+        -Dgallium-drivers=swrast
+      ]
+    end
 
     if OS.linux?
       args += %w[
-        -Dplatforms=x11,wayland
-        -Dglx=auto
         -Ddri3=enabled
-        -Dgallium-drivers=auto
-        -Dgallium-omx=disabled
         -Degl=enabled
+        -Dgallium-drivers=r300,r600,radeonsi,nouveau,virgl,svga,swrast,i915,iris,crocus,zink
+        -Dgallium-extra-hud=true
+        -Dgallium-nine=true
+        -Dgallium-omx=disabled
+        -Dgallium-opencl=icd
+        -Dgallium-va=enabled
+        -Dgallium-vdpau=enabled
+        -Dgallium-xa=enabled
         -Dgbm=enabled
-        -Dopengl=true
         -Dgles1=enabled
         -Dgles2=enabled
-        -Dvalgrind=disabled
+        -Dglx=dri
+        -Dintel-clc=enabled
+        -Dlmsensors=enabled
+        -Dllvm=enabled
+        -Dmicrosoft-clc=disabled
+        -Dopengl=true
+        -Dplatforms=x11,wayland
+        -Dshared-glapi=enabled
         -Dtools=drm-shim,etnaviv,freedreno,glsl,nir,nouveau,lima
+        -Dvalgrind=enabled
+        -Dvideo-codecs=vc1dec,h264dec,h264enc,h265dec,h265enc
+        -Dvulkan-drivers=amd,intel,intel_hasvk,swrast,virtio
+        -Dvulkan-layers=device-select,intel-nullhw,overlay
       ]
     end
 

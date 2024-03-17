@@ -1,54 +1,45 @@
 class Scipy < Formula
   desc "Software for mathematics, science, and engineering"
   homepage "https://www.scipy.org"
-  url "https://files.pythonhosted.org/packages/6e/1f/91144ba78dccea567a6466262922786ffc97be1e9b06ed9574ef0edc11e1/scipy-1.11.4.tar.gz"
-  sha256 "90a2b78e7f5733b9de748f589f09225013685f9b218275257f8a8168ededaeaa"
+  url "https://files.pythonhosted.org/packages/30/85/cdbf2c3c460fe5aae812917866392068a88d02f07de0fe31ce738734c477/scipy-1.12.0.tar.gz"
+  sha256 "4bf5abab8a36d20193c698b0f1fc282c1d083c94723902c447e5d2f1780936a3"
   license "BSD-3-Clause"
   head "https://github.com/scipy/scipy.git", branch: "main"
 
   bottle do
     rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "4896cd0a9ce676799572f79955f8130730396d4ce7ee1906de29887bca2a926a"
-    sha256 cellar: :any,                 arm64_ventura:  "0fbb27be6c587b2a93012f2481e9455fc9e948280de18bc409ee34dfe789ea5f"
-    sha256 cellar: :any,                 arm64_monterey: "021dbd48d31691391dc450800ce5360dedc6ba2649b8f914b464d9a61126cea1"
-    sha256 cellar: :any,                 sonoma:         "ea5ae340909ee300580379041849d1b2eeb0a00122fc124e9ac450ee15a05b73"
-    sha256 cellar: :any,                 ventura:        "766729c0e24d756f4437ac87148effb330a6e19a528301cf3b1647983ffd6020"
-    sha256 cellar: :any,                 monterey:       "923731834f661a57771abf52652a8ea8d38b36228ac04cc18d35d8617888431d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b16b58aad7cb25d2ef852d7e940bd28a2e01a1f1f9abcfdb98d53d32ab0855ee"
+    sha256 cellar: :any,                 arm64_sonoma:   "14309cef056fb3a80ee4008a4cee601ba400245d74c9bae56122a1c489d01804"
+    sha256 cellar: :any,                 arm64_ventura:  "ee9573ade0845e6a45020febc9546af6aed2b0806c7adcbc0a7e6b2508e19da3"
+    sha256 cellar: :any,                 arm64_monterey: "87e8bf8a997ed4e1645153ed962b0bb3085453029e4e01affb868bdd0ad9dbc2"
+    sha256 cellar: :any,                 sonoma:         "1d61ae6e455049b29bb0c32c6be938ae882a15f26b6ab6a0758752b1f314dffb"
+    sha256 cellar: :any,                 ventura:        "3eb8407e1c1e57b52a74b96f8b82ab92a4b30a52b7d713eef45f586586bb1a39"
+    sha256 cellar: :any,                 monterey:       "88e8b4c895c25639b0ca0a7ee5a45cdb41a1e1ae2c1eb2fdfcbfebadca2c1504"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d3fee4a603c611e8ad336bc3fe9f6d8c354670b371cbe4cc29c2f4b1ae586c96"
   end
 
-  depends_on "libcython" => :build
   depends_on "meson" => :build
-  depends_on "meson-python" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.11" => [:build, :test]
-  depends_on "python@3.12" => [:build, :test]
-  depends_on "pythran" => :build
   depends_on "gcc" # for gfortran
   depends_on "numpy"
   depends_on "openblas"
-  depends_on "pybind11"
+  depends_on "python@3.12"
   depends_on "xsimd"
+
+  on_linux do
+    depends_on "patchelf" => :build
+  end
 
   cxxstdlib_check :skip
 
   fails_with gcc: "5"
 
-  def pythons
-    deps.map(&:to_formula).sort_by(&:version).filter { |f| f.name.start_with?("python@") }
+  def python3
+    "python3.12"
   end
 
   def install
-    ENV.prepend_path "PATH", Formula["libcython"].opt_libexec/"bin"
-
-    pythons.each do |python|
-      python_exe = python.opt_libexec/"bin/python"
-      site_packages = Language::Python.site_packages(python_exe)
-      ENV.prepend_path "PYTHONPATH", Formula["libcython"].opt_libexec/site_packages
-
-      system python_exe, "-m", "pip", "install", *std_pip_args, "."
-    end
+    system python3, "-m", "pip", "install", *std_pip_args(build_isolation: true), "."
   end
 
   # cleanup leftover .pyc files from previous installs which can cause problems
@@ -62,9 +53,6 @@ class Scipy < Formula
       from scipy import special
       print(special.exp10(3))
     EOS
-    pythons.each do |python|
-      python_exe = python.opt_libexec/"bin/python"
-      assert_equal "1000.0", shell_output("#{python_exe} test.py").chomp
-    end
+    assert_equal "1000.0", shell_output("#{python3} test.py").chomp
   end
 end

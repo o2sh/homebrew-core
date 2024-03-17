@@ -1,9 +1,9 @@
 class Mpich < Formula
   desc "Implementation of the MPI Message Passing Interface standard"
   homepage "https://www.mpich.org/"
-  url "https://www.mpich.org/static/downloads/4.1.2/mpich-4.1.2.tar.gz"
-  mirror "https://fossies.org/linux/misc/mpich-4.1.2.tar.gz"
-  sha256 "3492e98adab62b597ef0d292fb2459b6123bc80070a8aa0a30be6962075a12f0"
+  url "https://www.mpich.org/static/downloads/4.2.0/mpich-4.2.0.tar.gz"
+  mirror "https://fossies.org/linux/misc/mpich-4.2.0.tar.gz"
+  sha256 "a64a66781b9e5312ad052d32689e23252f745b27ee8818ac2ac0c8209bc0b90e"
   license "mpich2"
 
   livecheck do
@@ -12,13 +12,13 @@ class Mpich < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "94e8c25c5a1e3cc52e879fd2c0424cffbbfebcfca385b05e7533b0eb8c00f377"
-    sha256 cellar: :any,                 arm64_monterey: "f9d1f4b8265e752100f68ec24a1aa43b2059db11e4076ec1bc002c55a653e5f2"
-    sha256 cellar: :any,                 arm64_big_sur:  "ef3cccd0f4d28077063514870b2eecab742735a4a90948c429c334ae646d2dd0"
-    sha256 cellar: :any,                 ventura:        "2256a222b91ab3951fc62b5166006b2c29d31165a762417cffdaf8c1718833be"
-    sha256 cellar: :any,                 monterey:       "54dacf4a4cc94dd66d44573b677313f8b59ba69526c95dc40be560155b45100a"
-    sha256 cellar: :any,                 big_sur:        "a5017cd76fd00791965426990a8a817a0de034c9c4ecf29f718e3b93fe5b8668"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6e8f6700fbc550d259fd8cbbffbd2a70a532bfa3076b762abb72f18bc9d90f6a"
+    sha256 cellar: :any,                 arm64_sonoma:   "e84a57098267890c6174d0d9007fef78504629e6fceb1d67749e39211699faeb"
+    sha256 cellar: :any,                 arm64_ventura:  "17a4aa0bab34913b1dddbfef1d570f9a7c88667ffcf047be529c03b0c7c3af77"
+    sha256 cellar: :any,                 arm64_monterey: "52ce7bedc122020aa9205ad7649ef3eb7422b97da90bd95ab792fc3e8ea6d5e2"
+    sha256 cellar: :any,                 sonoma:         "5ab386e0e35adedeae8af99ce781ee058eb7eeeb62cd02197778a01ca25d65c3"
+    sha256 cellar: :any,                 ventura:        "df23bda25a08f1e95e78fe20c3cce7fc76bbd3b1e9225b03989343ab7a61b3e8"
+    sha256 cellar: :any,                 monterey:       "9eda7695702314fef6d9994b55abedc2bdbab7e934ce49224d357e2a17b36725"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a7fcb87c252b8a78f4f615b02c1d3847c1d6ae5728d9029211972e2ecc19d916"
   end
 
   head do
@@ -55,22 +55,18 @@ class Mpich < Formula
 
     args = %W[
       --disable-dependency-tracking
+      --disable-silent-rules
       --enable-fast=all,O3
       --enable-g=dbg
       --enable-romio
       --enable-shared
+      --with-hwloc=#{Formula["hwloc"].opt_prefix}
       --with-pm=hydra
-      F77=gfortran
-      FC=gfortran
-      FCFLAGS=-fallow-argument-mismatch
-      --disable-silent-rules
       --prefix=#{prefix}
       --mandir=#{man}
+      F77=gfortran
+      FC=gfortran
     ]
-
-    # Flag for compatibility with GCC 10
-    # https://lists.mpich.org/pipermail/discuss/2020-January/005863.html
-    args << "FFLAGS=-fallow-argument-mismatch"
 
     if OS.linux?
       # Use libfabric https://lists.mpich.org/pipermail/discuss/2021-January/006092.html

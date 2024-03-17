@@ -2,19 +2,19 @@ class Tilt < Formula
   desc "Define your dev environment as code. For microservice apps on Kubernetes"
   homepage "https://tilt.dev/"
   url "https://github.com/tilt-dev/tilt.git",
-    tag:      "v0.33.6",
-    revision: "9ea391c65a22dc9030de15d2996d1c7a45987ed5"
+    tag:      "v0.33.11",
+    revision: "670651de706f64e29df933dfc468cd66bc543eea"
   license "Apache-2.0"
   head "https://github.com/tilt-dev/tilt.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "250a1f8745e5803ae5276745e3c8b6c42a7c95e3ac9e1bed8a13ff16232f1381"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "613bb66b786e081efcf50018b2156600630575c0fa04a1bacd5377ad2fd7457b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "90fc948060afdb32f18af7b3383776c8466a3fcf15b7c9c008fc546d6a2739ba"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8f225cdc146aa6fca6b56f7475a79eb4fd8d499714374bbb6337b354f1ba7637"
-    sha256 cellar: :any_skip_relocation, ventura:        "ca3f9a42a4971dc009af18bf275bb91ee89853d00f85753ea836c078883de1c1"
-    sha256 cellar: :any_skip_relocation, monterey:       "506c350a8cadb3d81315d79e971cdc866f2d5925d48a328de8cafa144466091c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5338f8e91deef66a753d4d6c807abcee7aaf4772a15ceb5842e3ce358d36095d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b729988897e9211c173c1d33fa0f6c73bc04697abbc3b257c9dc7d1e20582383"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c353c95d67c361bf7535c28db2cc2374279dfad66bd8e8a8d96757be24c87038"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "3493edd96151c4a8b975663f9f52f54bd5a8977fd68ce7fc474427c0b1441113"
+    sha256 cellar: :any_skip_relocation, sonoma:         "6914c7fa66d167a7006f6ca1d685dfddeccc2519350ebe05ec3fec38ab49ae2b"
+    sha256 cellar: :any_skip_relocation, ventura:        "27ca500cdd2bf614fe9a61a77b18a990cbba229a0bb048373df682cc4a662d65"
+    sha256 cellar: :any_skip_relocation, monterey:       "ad78398b640eb44931149110613403efcfc3c3b211e33ed82df659a8877720eb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b238997bb7a831a82ad405aec3bc72aee29a2661c94259d2d4af1529f60c0799"
   end
 
   depends_on "go" => :build
@@ -34,7 +34,7 @@ class Tilt < Formula
       -X main.commit=#{Utils.git_head}
       -X main.date=#{time.iso8601}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/tilt"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/tilt"
 
     generate_completions_from_executable(bin/"tilt", "completion")
   end

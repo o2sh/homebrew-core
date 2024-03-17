@@ -1,20 +1,20 @@
 class Opencoarrays < Formula
   desc "Open-source coarray Fortran ABI, API, and compiler wrapper"
   homepage "http://www.opencoarrays.org"
-  url "https://github.com/sourceryinstitute/OpenCoarrays/releases/download/2.10.1/OpenCoarrays-2.10.1.tar.gz"
-  sha256 "b04b8fa724e7e4e5addbab68d81d701414e713ab915bafdf1597ec5dd9590cd4"
+  url "https://github.com/sourceryinstitute/OpenCoarrays/releases/download/2.10.2/OpenCoarrays-2.10.2.tar.gz"
+  sha256 "e13f0dc54b966b0113deed7f407514d131990982ad0fe4dea6b986911d26890c"
   license "BSD-3-Clause"
-  revision 3
+  revision 1
   head "https://github.com/sourceryinstitute/opencoarrays.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "ed611d58f8b731abca64c0af5ea8b32004958163ccc38f07aa9e7af4809fe74e"
-    sha256 cellar: :any,                 arm64_ventura:  "62770dc7c4372e3916dc2954b9e7789522a30814d4a5ba6a668464cf8aac1451"
-    sha256 cellar: :any,                 arm64_monterey: "9a0f57befe2f8d8693ee381f47af080af71dc31d599536ec412066d2ada892f2"
-    sha256 cellar: :any,                 sonoma:         "3d6f991d961cb8cd57e420a660c1629809f02eef20cf531e1e5a1d5ef7ff0597"
-    sha256 cellar: :any,                 ventura:        "b07e075bed22a99fba5e1863af072e3578368c431e8481eae607dc2f6c5daf1c"
-    sha256 cellar: :any,                 monterey:       "959f6396ba12770f50e41861fb779e9fee5ce00f4a60d9dfaa527998fc4dad3d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a149104f5a43c6759953519389650bcdf306ffe69be0db351cf7af8a482aeee8"
+    sha256 cellar: :any,                 arm64_sonoma:   "8634e54e9c138059aa3db74266bd2adc087748362d31c50bb37a96a8d16fc967"
+    sha256 cellar: :any,                 arm64_ventura:  "bba3fa0e77bd90ac55fd77bb1098b64a20e988014a316f65b399c7ecce2abe26"
+    sha256 cellar: :any,                 arm64_monterey: "006ccf317093b6751a22052c630aa1d1a72635d27962962014d3a343e2fda3ed"
+    sha256 cellar: :any,                 sonoma:         "419a3bf2be98e546374e3efc012e11fd5423a9a6f7b93fb4cbc385115a480e5e"
+    sha256 cellar: :any,                 ventura:        "240ca2297f35090aa9eb1ec9c4b51eb9801baaf26b78306b80976e060ea379a5"
+    sha256 cellar: :any,                 monterey:       "54da9e5906dacd91e476b19c594f237a8413ac46a9e4d41821a7f08539004517"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fea7590b0103f4ebb92bd2869ce5a177ba34840284d0a3b1ead175fd626243da"
   end
 
   depends_on "cmake" => :build
@@ -22,11 +22,9 @@ class Opencoarrays < Formula
   depends_on "open-mpi"
 
   def install
-    mkdir "build" do
-      system "cmake", "..", *std_cmake_args
-      system "make"
-      system "make", "install"
-    end
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do

@@ -1,19 +1,19 @@
 class Ittapi < Formula
   desc "Intel Instrumentation and Tracing Technology (ITT) and Just-In-Time (JIT) API"
   homepage "https://github.com/intel/ittapi"
-  url "https://github.com/intel/ittapi/archive/refs/tags/v3.24.4.tar.gz"
-  sha256 "f7341c563f228f4358b645fce526208c742fe13e61fc3ba2c777ba94d36e98f5"
+  url "https://github.com/intel/ittapi/archive/refs/tags/v3.24.6.tar.gz"
+  sha256 "4e6cb42b6bd9e699e3dfbaf678e572f4292127dfee3312744137ac567064a26f"
   license "GPL-2.0-only"
   head "https://github.com/intel/ittapi.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "85b1e860b8c33ba0b1cbe5e4f2457e4b067f29d974a8914dedc28b3036f3fb2c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b826ca60108bc7007d43d9180a017037e3160b5f0c6aef21a08ed6416f3b42ed"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "104817cba696e44c83a28eb39b22546f2c48b4f7b26f965caf828ed0e679cafa"
-    sha256 cellar: :any_skip_relocation, sonoma:         "2859dcbaee6bfad0d7285e0af16f6cecf7a44687dd4393acb4843fa519ea55b8"
-    sha256 cellar: :any_skip_relocation, ventura:        "88036c805a7e29a838653417e34424b0294adbb62fcd87deb2925b6b18fb0a5b"
-    sha256 cellar: :any_skip_relocation, monterey:       "528a82a9bd2dba8ff0addd2113cc4756f691769e0f4b6ac55d555cab5e1dc1d9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "81a449da764c421f9a9f269e328d3444eff64b5fa2177d5b8b7291d4198bff63"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d21f77b26d707f05747a8a01b74b86ff138c4d6ec79a9ca0338b8e961b698ccc"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e8bff4141b9a5765dc86e406cf301d670bc99af0701a8ad0b82621c002ebb567"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6b9ab35e23524ae02d9bea684d6b88786ec76c9e4a0e2d325e9ac12a742b4171"
+    sha256 cellar: :any_skip_relocation, sonoma:         "d6db3164e0676e96dc6cda2ba2d7e133c53831e53f57932d3bc3ec25ee30e511"
+    sha256 cellar: :any_skip_relocation, ventura:        "6b89b05910dab67abaf4b20f506a0353dfbd5210fe48db9e746fd42ba2b5c1e6"
+    sha256 cellar: :any_skip_relocation, monterey:       "04e0759d6ff6a1080b806845ad3e7c4961e2e1af58b3f366eb60f9009c022af7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "56a442aeaef8bbcc295a9975c21f526efd5fc5be45e2a3487b0f35c55b7a19e5"
   end
 
   depends_on "cmake" => :build

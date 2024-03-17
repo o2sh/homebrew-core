@@ -1,8 +1,8 @@
 class Glslang < Formula
   desc "OpenGL and OpenGL ES reference compiler for shading languages"
   homepage "https://www.khronos.org/opengles/sdk/tools/Reference-Compiler/"
-  url "https://github.com/KhronosGroup/glslang/archive/refs/tags/13.1.1.tar.gz"
-  sha256 "1c4d0a5a38c8aaf89a2d7e6093be734320599f5a6775b2726beeb05b0c054e66"
+  url "https://github.com/KhronosGroup/glslang/archive/refs/tags/14.1.0.tar.gz"
+  sha256 "b5e4c36d60eda7613f36cfee3489c6f507156829c707e1ecd7f48ca45b435322"
   license all_of: ["BSD-3-Clause", "GPL-3.0-or-later", "MIT", "Apache-2.0"]
   head "https://github.com/KhronosGroup/glslang.git", branch: "main"
 
@@ -12,23 +12,27 @@ class Glslang < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "82125054d400fbf989277d611522edd4b0224d6fee78205ce68bd5bfb5698b99"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "eaabfb5a0be3ed448bca92ec3509f2cc47b80627dd9e51fe880c11b66a7b0bb9"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0505de184924cf59d53065247082bd66c789f46894f651d3484609c1e78fc71f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "dd2decd9f89031c9835c871018504317204fcf902b4f803ec4054ee1bc8092d9"
-    sha256 cellar: :any_skip_relocation, ventura:        "4f83040703624f75f7bfd627a6a01ea7e9574e8bd83cc3038db643bd38a12239"
-    sha256 cellar: :any_skip_relocation, monterey:       "5886f7d5817a9281fe3758eb847abbd9f197913dfe347349c3a440c5125e71c4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7fa5f6acef44ab05cbbb45e4913b4d92fffd4be6f553e35e3c7a22becb4d187e"
+    sha256 cellar: :any,                 arm64_sonoma:   "81fbdb7f4e7edcca47adc9337c31ebc7f1d6d7f3c9b67867b872312929212ae8"
+    sha256 cellar: :any,                 arm64_ventura:  "349076703938e47853112c7aaf29dccac29afe2ce6e5a6134887a2e7a46f9d8b"
+    sha256 cellar: :any,                 arm64_monterey: "33ea41abdedb8461aaf9cf4f29be8db9095b33cbbd8cc23b62aed9f337bacfaa"
+    sha256 cellar: :any,                 sonoma:         "dafc35c34e646d0174c8520d5e536508a106e7c898188187b281c2bee5df2d79"
+    sha256 cellar: :any,                 ventura:        "fb7d821023a42b9650d4a0a84f59943d7cb15f9436bd08b232b6d181de8b084b"
+    sha256 cellar: :any,                 monterey:       "b80d3475b5ca869c8868bfbbbe55d9471d403ff896bb0be13a3e34b60bfa6c46"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5675952d5fb1d20301e68599ade2515e625aadb545e280fc6c5d04a8a7f04116"
   end
 
   depends_on "cmake" => :build
+  depends_on "spirv-tools"
   uses_from_macos "python" => :build
 
   def install
     system "cmake", "-S", ".", "-B", "build",
                     "-DBUILD_EXTERNAL=OFF",
+                    "-DALLOW_EXTERNAL_SPIRV_TOOLS=ON",
+                    "-DBUILD_SHARED_LIBS=ON",
                     "-DENABLE_CTEST=OFF",
-                    "-DENABLE_OPT=OFF",
+                    "-DENABLE_OPT=ON",
+                    "-DCMAKE_INSTALL_RPATH=#{rpath}",
                     *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"

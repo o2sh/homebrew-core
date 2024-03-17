@@ -4,14 +4,14 @@ class Sysdig < Formula
   license "Apache-2.0"
 
   stable do
-    url "https://github.com/draios/sysdig/archive/refs/tags/0.34.1.tar.gz"
-    sha256 "840a9099b66984c6ba71bb750b9440fb51c508d06e97e20d152c4f9a5e50d757"
+    url "https://github.com/draios/sysdig/archive/refs/tags/0.35.4.tar.gz"
+    sha256 "d07e2fee1ef10fc3fc514cd66dd3f9eba88eb929f2209abf915e743c56526c28"
 
     # Update to value of FALCOSECURITY_LIBS_VERSION found in
     # https://github.com/draios/sysdig/blob/#{version}/cmake/modules/falcosecurity-libs.cmake
     resource "falcosecurity-libs" do
-      url "https://github.com/falcosecurity/libs/archive/refs/tags/0.13.1.tar.gz"
-      sha256 "2be42a27be3ffe6bd7e53eaa5d8358cab05a0dca821819c6e9059e51b9786219"
+      url "https://github.com/falcosecurity/libs/archive/refs/tags/0.14.2.tar.gz"
+      sha256 "b4ae7bbf3ad031deee4a808145f9fd64b71c537406cc5a92f512823b2e52cdd5"
     end
   end
 
@@ -21,13 +21,13 @@ class Sysdig < Formula
   end
 
   bottle do
-    sha256                               arm64_sonoma:   "5bfd914de485ef9ddd790b78520c2a285e0873811c75b53458701fb090c87737"
-    sha256                               arm64_ventura:  "1db818a95c01d217444759a37bc7c2c9f3875eb478257505a141eade0cb5b923"
-    sha256                               arm64_monterey: "38c1f371e44ba32cd744ce2ae22936fea15aa3e49fb028959b130fd557beed23"
-    sha256                               sonoma:         "978f52e06e75245868d21bb5bc9e017365d11221a9899a156f13c9c0ebfda1d3"
-    sha256                               ventura:        "45a6aa1a851cfcef68ae5718a7850b5cc207776c0f2276e8fb7a5bac812a998e"
-    sha256                               monterey:       "ba2268668c04d728d52520ccf29509c0da88bb1a53d24f32113943d69779c02b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a53a77d15ae08e5eb60c4901090f9d4bd3504ad688ec06672d8c5d4094defd4f"
+    sha256                               arm64_sonoma:   "721cf5df099e66e40afd796ee6ca8420968cd0bd53438517775ecd3ed0287fce"
+    sha256                               arm64_ventura:  "8f18e5abd56b33767d1a441d3be84e8c31c8ada00970c44adbf98e98582d131d"
+    sha256                               arm64_monterey: "ad60bf982362b2722b4185b499ff128a897d507b2c031b595d69ad1829937180"
+    sha256                               sonoma:         "25cd9f5f8141285c5bcfffeabe139daf2c13c4470b3b194946dc1257743194b4"
+    sha256                               ventura:        "53a882fc49b13338dd9a933cbbf16e2a36271239cc0583c934a0b2465faf84bb"
+    sha256                               monterey:       "1bebf4a7701f07055b3523e6ab4adff9dc4721beeaf370ebe9138bc2defd03b3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6fc1565eb5e510a4886a6ee30353998b5b0a7e30f29357944a001742522c4e74"
   end
 
   head do
@@ -46,6 +46,7 @@ class Sysdig < Formula
   depends_on "luajit"
   depends_on "re2"
   depends_on "tbb"
+  depends_on "uthash"
   depends_on "yaml-cpp"
 
   uses_from_macos "curl"
@@ -56,10 +57,10 @@ class Sysdig < Formula
     depends_on "libb64" => :build
     depends_on "abseil"
     depends_on "elfutils"
-    depends_on "grpc@1.54"
+    depends_on "grpc"
     depends_on "jq"
     depends_on "openssl@3"
-    depends_on "protobuf@21"
+    depends_on "protobuf"
     depends_on "zstd"
   end
 
@@ -87,7 +88,6 @@ class Sysdig < Formula
       -DBUILD_LIBSCAP_EXAMPLES=OFF
       -DDIR_ETC=#{etc}
       -DFALCOSECURITY_LIBS_SOURCE_DIR=#{buildpath}/falcosecurity-libs
-      -DCMAKE_CXX_FLAGS=-std=c++17
     ]
 
     # `USE_BUNDLED_*=OFF` flags are implied by `USE_BUNDLED_DEPS=OFF`, but let's be explicit.

@@ -1,9 +1,10 @@
 class NodeAT18 < Formula
   desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v18.18.2/node-v18.18.2.tar.xz"
-  sha256 "7249e2f0af943ec38599504f4b2a2bd31fb938787291b6ccca6c8badf01e3b56"
+  url "https://nodejs.org/dist/v18.19.1/node-v18.19.1.tar.xz"
+  sha256 "090f96a2ecde080b6b382c6d642bca5d0be4702a78cb555be7bf02b20bd16ded"
   license "MIT"
+  revision 1
 
   livecheck do
     url "https://nodejs.org/dist/"
@@ -11,21 +12,20 @@ class NodeAT18 < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_sonoma:   "b75d54bf46f0b18d5335f75951e793c5801cf460b61c22dceb402d1fc4dd104a"
-    sha256 arm64_ventura:  "b272f1316a03553ea3906f82267f65231a4be3c6de61d732fbc7603120c45593"
-    sha256 arm64_monterey: "9802ec37e7f98967ddc380b347189339ec62912ff0b21bd0dc6e141e65155231"
-    sha256 sonoma:         "a3545cb021ff3fd71267a2123bc84703cc3f4ad1a447417c01b547b1471846c9"
-    sha256 ventura:        "f0d51675eafeab5892d5bee4527e0ce4849362e53013cb3af479711cb1ecfc67"
-    sha256 monterey:       "a99dcbaf8a9089eaa127f5737a675b5b56549ed87ece995f8aa83f37da1c2791"
-    sha256 x86_64_linux:   "129a7225b0ea5808e8c877a0c54f95d67c81b31b7ec0a50c18be9f482bf59748"
+    sha256 arm64_sonoma:   "6ceb39cdb19984aed3125dff77678c77d136c40a492742a01d7aac6921e802ef"
+    sha256 arm64_ventura:  "3eb7bc97555f2c6bfd0336621dcdc95b19070ca9bc78e1cfdc3a39a71c32ca50"
+    sha256 arm64_monterey: "8073af2db5b500f9a6aa9d897103b41eb13f647fa6fff439e0c80dde0921700e"
+    sha256 sonoma:         "c5b3ccb0d88886acb6d7d0afb002ca0dd3fed6abacabd115956baf501517cb59"
+    sha256 ventura:        "7b6f43da3692969a73875f0c2b67b1812ffbe10331594ce31ce7c80b37825d61"
+    sha256 monterey:       "76e403212a3cf036325c835b6276d340ec88835b7bcdd59fd7e8e3a39546d16c"
+    sha256 x86_64_linux:   "2e3a2c258c64de94eae19f8c7c1eab88fe9ba5273cd53a3d405a7a8b09557104"
   end
 
   keg_only :versioned_formula
 
-  # https://nodejs.org/en/about/releases/
+  # https://github.com/nodejs/release#release-schedule
   # disable! date: "2025-04-30", because: :unsupported
-  deprecate! date: "2023-12-18", because: :unsupported
+  deprecate! date: "2024-10-29", because: :unsupported
 
   depends_on "pkg-config" => :build
   depends_on "python-setuptools" => :build

@@ -1,48 +1,40 @@
-require "language/node"
-
 class TreeSitter < Formula
   desc "Parser generator tool and incremental parsing library"
   homepage "https://tree-sitter.github.io/"
-  url "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.20.8.tar.gz"
-  sha256 "6181ede0b7470bfca37e293e7d5dc1d16469b9485d13f13a605baec4a8b1f791"
+  url "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.22.1.tar.gz"
+  sha256 "b21065e78da33e529893c954e712ad15d9ad44a594b74567321d4a3a007d6090"
   license "MIT"
   head "https://github.com/tree-sitter/tree-sitter.git", branch: "master"
 
-  bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "9c5ff6c727c1e2276f3cfbe64373bd57d8699425b533796b2413ed4e8bc1e3a1"
-    sha256 cellar: :any,                 arm64_ventura:  "80f5d110450dfa623f0ff043bfb9279a03e760aafa8b67a8f919f8371a8a4282"
-    sha256 cellar: :any,                 arm64_monterey: "d65d3a05944e834d25950b9fa1d3d79a306af2c28b209aaac043e546c0577965"
-    sha256 cellar: :any,                 arm64_big_sur:  "20c1f77800a47d9fd3f055a9b33e06f1782e5b897541b6935262efb831d29c45"
-    sha256 cellar: :any,                 sonoma:         "0415c0fdf2750387f23f713c5081dad3c928149bac6be85b4d0826f08075b4e7"
-    sha256 cellar: :any,                 ventura:        "0b96dc12579c8693392a737e0939c5956f88d9d7beddb18ee045e127d359096b"
-    sha256 cellar: :any,                 monterey:       "84af6fb8f8980273ecc06099ad359dc100a13e0535c2f5ffe5380e7e4a50baed"
-    sha256 cellar: :any,                 big_sur:        "b025e1d6e7ed804c5cf099b4a6bea0dbbf09752aef4582916678dd88f2cd0ab0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d413c47e7b8641aae812d19b39c3f927088e450eabde992f3d7cc32de7d29aa9"
+  livecheck do
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
-  depends_on "emscripten" => [:build, :test]
-  depends_on "node" => [:build, :test]
+  bottle do
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sonoma:   "8372628b9a7ed4290b61ec9bf32deb696d1cdcc0e359b10104f60e4c1ce043b8"
+    sha256 cellar: :any,                 arm64_ventura:  "6c1b5522caf843e5380a57897c8a0e6ecee0803ac0615b4fc266fdc299018cd6"
+    sha256 cellar: :any,                 arm64_monterey: "723197da6498c8f90d53001f0672808a202b29219301866662130cc1c22321fa"
+    sha256 cellar: :any,                 sonoma:         "6f92b83165eeaa97c52ddfae7d1319759a0ca43b4b7c0229d56ce6646e8e576b"
+    sha256 cellar: :any,                 ventura:        "c7db892c6da0e13db9a3b1678fb300b3fc59e226862365519e216d11e6da866d"
+    sha256 cellar: :any,                 monterey:       "6de75cd81aaf3f32aa6eeacbb6a495e408b65aa61e44010f93695b6eda392547"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a1661898fd95f0faf8aa8b65fee585a85cc85425daf32e48778faed7b2b0a04d"
+  end
+
   depends_on "rust" => :build
+  depends_on "node" => :test
+
+  # Fix Makefile for BSD `install`
+  # https://github.com/tree-sitter/tree-sitter/issues/3157
+  patch :p0 do
+    url "https://raw.githubusercontent.com/macports/macports-ports/76faa188751724c04931ebb3dfb4d18152424cfc/devel/tree-sitter/files/patch-makefile-install.diff"
+    sha256 "fdce92d9ebcad0c25f0b7cd4e0eae810e2670ece47631740b002f2a3ea99f7cf"
+  end
 
   def install
-    system "make", "AMALGAMATED=1"
-    system "make", "install", "PREFIX=#{prefix}"
-
-    # NOTE: This step needs to be done *before* `cargo install`
-    cd "lib/binding_web" do
-      system "npm", "install", *Language::Node.local_npm_install_args
-    end
-    system "script/build-wasm"
-
-    cd "cli" do
-      system "cargo", "install", *std_cargo_args
-    end
-
-    # Install the wasm module into the prefix.
-    # NOTE: This step needs to be done *after* `cargo install`.
-    %w[tree-sitter.js tree-sitter-web.d.ts tree-sitter.wasm package.json].each do |file|
-      (lib/"binding_web").install "lib/binding_web/#{file}"
-    end
+    system "make", "install", "AMALGAMATED=1", "PREFIX=#{prefix}"
+    system "cargo", "install", *std_cargo_args(path: "cli")
   end
 
   test do
@@ -79,6 +71,7 @@ class TreeSitter < Formula
     system "#{bin}/tree-sitter", "test"
 
     (testpath/"test_program.c").write <<~EOS
+      #include <stdio.h>
       #include <string.h>
       #include <tree_sitter/api.h>
       int main(int argc, char* argv[]) {
@@ -106,9 +99,5 @@ class TreeSitter < Formula
     EOS
     system ENV.cc, "test_program.c", "-L#{lib}", "-ltree-sitter", "-o", "test_program"
     assert_equal "tree creation failed", shell_output("./test_program")
-
-    # test `tree-sitter build-wasm`
-    ENV.delete "CPATH"
-    system bin/"tree-sitter", "build-wasm"
   end
 end

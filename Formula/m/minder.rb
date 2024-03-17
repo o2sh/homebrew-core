@@ -1,19 +1,19 @@
 class Minder < Formula
   desc "CLI for interacting with Stacklok's Minder platform"
   homepage "https://minder-docs.stacklok.dev"
-  url "https://github.com/stacklok/minder/archive/refs/tags/v0.0.18.tar.gz"
-  sha256 "b8a993d1e3247475a2f6cac915dcd249da360fb45c2dfa6cf834d3d399bc60cc"
+  url "https://github.com/stacklok/minder/archive/refs/tags/v0.0.35.tar.gz"
+  sha256 "202e0619d7f979a65c3f3430f31a2b4f3b131c81331120ea9afcdf73430ea16e"
   license "Apache-2.0"
   head "https://github.com/stacklok/minder.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d6341598382281a3520b446a0a6baf80c16b0171d8db0f96c851352cb83bbcc5"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "add41de109be32c22f349f75b6c70aea8fb2188b4db51139c5eeb1c8b36c7ff3"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "99fb1656d3de9f566416289e4e490e915d2dcf9df5402bfc9ce3b0e09371c6a1"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3eeae0f36a6e2e1474b9e3bc5421bb1a6c8cec24b1138f866d9f2c4ff660f08b"
-    sha256 cellar: :any_skip_relocation, ventura:        "6bdfc95689722d2ab8b1ba91902c44b749e39b4d407fba288d384b8f6013be9a"
-    sha256 cellar: :any_skip_relocation, monterey:       "5cafba69c41d3068624f63775d9a872e8714151a46c21aae3c1e630dd1dbb36c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3b67a8046cd37ec3ac0ac258502f7f0c63eeece51f1d35b5bf49b4e6e5e8738c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7538acddd98ac96dfcf250bf21f6eab194fb10638df8b9a0030b3bf50e665a7e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e4c0ea0223b5b40d8b64905575a0aea6fac6502eecdaa91777c9925a0972a19e"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "7f9b80b9fc9295d5059bbd010ed9ab56fe0e78a1f29cebf3ce5be5e615b68b87"
+    sha256 cellar: :any_skip_relocation, sonoma:         "e3194bc1fe6b5ab9ce4548613a5a20b26479ebc75e49456bf8ccadf266048421"
+    sha256 cellar: :any_skip_relocation, ventura:        "89c3c506d97f84d5921dd3827b5d96a3ae184702df890311903518f4aab5fee1"
+    sha256 cellar: :any_skip_relocation, monterey:       "0ef404d9b42ffb687b9e09b82d14b12bdd1bb9a093ac0910f8afeee0ed401fbb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7097900638af61e97cdd9710187c24cea7b87715d332514b24998165754a18ff"
   end
 
   depends_on "go" => :build
@@ -23,7 +23,7 @@ class Minder < Formula
       -s -w
       -X github.com/stacklok/minder/internal/constants.CLIVersion=#{version}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags), "./cmd/cli"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/cli"
 
     generate_completions_from_executable(bin/"minder", "completion")
   end
@@ -31,7 +31,7 @@ class Minder < Formula
   test do
     assert_match version.to_s, shell_output("#{bin}/minder version")
 
-    output = shell_output("#{bin}/minder artifact list -p github 2>&1", 1)
-    assert_match "Error on execute: error getting artifacts", output
+    output = shell_output("#{bin}/minder artifact list -p github 2>&1", 16)
+    assert_match "No config file present, using default values", output
   end
 end

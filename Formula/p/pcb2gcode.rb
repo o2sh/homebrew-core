@@ -4,23 +4,19 @@ class Pcb2gcode < Formula
   url "https://github.com/pcb2gcode/pcb2gcode/archive/refs/tags/v2.5.0.tar.gz"
   sha256 "96f1b1b4fd58e86f152b691202a15593815949dc9250fab9ab02f2346f5c2c52"
   license "GPL-3.0-or-later"
-  revision 4
+  revision 5
   head "https://github.com/pcb2gcode/pcb2gcode.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "165dcd58cedd972f134aca913649728a39819f5cb17e01a6f9b5adf34ede7792"
-    sha256 cellar: :any,                 arm64_ventura:  "83bf29c11793c0a6208364355933e342f50c7fa06a8ce78e82b1e20443eda6fd"
-    sha256 cellar: :any,                 arm64_monterey: "0ef47de906052a46031dd49c805d891bfd5be25bbe468a9933a3afe523d55be6"
-    sha256 cellar: :any,                 sonoma:         "a5f6f6d946b919477efb31e923f378ff89f04861f1bf35aa7cbacbbd9dc5de51"
-    sha256 cellar: :any,                 ventura:        "bef81727aaaa2079ceef617955d35a26a48721785b3903afca106b5f14b25a29"
-    sha256 cellar: :any,                 monterey:       "9e79fcda35d2e77f22aa77f0054393751912b05361473320cea9901de5cacf2b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ec22ceb70ddf645429e299780bed3d3ed0e3e26c2c1a97ba986d8fe7ebc881fd"
+    sha256 cellar: :any,                 arm64_sonoma:   "0bf71b4828f76f21c9ab6c3c779004d0f4fdb9db5c023aebac525a2607837daf"
+    sha256 cellar: :any,                 arm64_ventura:  "e1465733383fca18362c1072e9bab0e162447d0c4c95dcf752395c0d4ab50ae7"
+    sha256 cellar: :any,                 arm64_monterey: "3cca9f5f4400dd4a70928a59d3d6ef19ed20e7fe36769e4af090d97bd2f63d27"
+    sha256 cellar: :any,                 sonoma:         "3c9ad610072d6ec9e720d1139132516163e965476fb78138e50cc9f36459ed7c"
+    sha256 cellar: :any,                 ventura:        "224d2694ba92974aabbf60e147826ad7160cd024186276517980a427c9f1fd91"
+    sha256 cellar: :any,                 monterey:       "1cfd344f332c5375e78728141db6097c2db5f42469edf1dba5fb6dfc20fa0feb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0293994b093ffc006b64ab0b124727e86606bc0461d5b9c0de4d5dbd831f40cc"
   end
 
-  # Release 2.0.0 doesn't include an autoreconfed tarball
-  # glibmm, gtkmm and librsvg are used only in unittests,
-  # and are therefore not needed at runtime.
-  depends_on "atkmm@2.28" => :build
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "cairomm@1.14" => :build
@@ -31,8 +27,16 @@ class Pcb2gcode < Formula
   depends_on "libtool" => :build
   depends_on "pangomm@2.46" => :build
   depends_on "pkg-config" => :build
+  depends_on "at-spi2-core"
   depends_on "boost"
+  depends_on "cairo"
+  depends_on "gdk-pixbuf"
   depends_on "gerbv"
+  depends_on "gettext"
+  depends_on "glib"
+  depends_on "gtk+"
+  depends_on "harfbuzz"
+  depends_on "pango"
 
   fails_with gcc: "5"
 

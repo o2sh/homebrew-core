@@ -1,9 +1,10 @@
 class Protobuf < Formula
   desc "Protocol buffers (Google's data interchange format)"
   homepage "https://protobuf.dev/"
-  url "https://github.com/protocolbuffers/protobuf/releases/download/v25.1/protobuf-25.1.tar.gz"
-  sha256 "9bd87b8280ef720d3240514f884e56a712f2218f0d693b48050c836028940a42"
+  url "https://github.com/protocolbuffers/protobuf/releases/download/v25.3/protobuf-25.3.tar.gz"
+  sha256 "d19643d265b978383352b3143f04c0641eea75a75235c111cc01a1350173180e"
   license "BSD-3-Clause"
+  revision 1
 
   livecheck do
     url :stable
@@ -11,18 +12,17 @@ class Protobuf < Formula
   end
 
   bottle do
-    sha256                               arm64_sonoma:   "6e19f8133d388f868b407a7eb9574fa3ec1a80a3831f4e367977e475a07bf280"
-    sha256                               arm64_ventura:  "71951995260eca6b9474e468372d13be43cc172b579ec48422d3f0a991b3f752"
-    sha256                               arm64_monterey: "3615e7f2f90ffc582edec2319a0fc09a65d13464cd794dcc8194abce6dca53e1"
-    sha256                               sonoma:         "4053a1e8a6be1520a17193bc7761849d583f7176f7efdd37252568ea7e0051c2"
-    sha256                               ventura:        "d518fa7501f1696b517b17732a874a93565dd775d538c1feff03a6b9c8c7dba2"
-    sha256                               monterey:       "ab0a5867b35eeafd4b045795ed2432aa3a04c6f33659d97a33758f52a274176f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "103b44b7ab5af979e5289e98b729f5e57161c7e81d19837bc25cf5df79100890"
+    sha256                               arm64_sonoma:   "fddad1ce30679b586263d42f6873ad14033bf081f1a02265a2dfd0db6c5b90a9"
+    sha256                               arm64_ventura:  "e5f9660c2add8a0b25a739d8733f8e39994627a52c4280fda3f6a6952fd3580c"
+    sha256                               arm64_monterey: "25697e79cbf8a2aa5ae3c70e2a03700cd8c071a1731ecc3eb89bcf44e7d70310"
+    sha256                               sonoma:         "f39583032815a31f5d31b520e24d70f75755e921235496b29fd1ed964fd6bcb5"
+    sha256                               ventura:        "7a1992bf50282507f8a5b707b98f85d02cc95da61b4a77145ecaa7dc48905f5f"
+    sha256                               monterey:       "80f58bba003e5b796d80d00a9324326431340a44abcbcf722596db9c95fc7055"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "56699682719d48c950eb9e0e862669759e974d9120b08b3d004a61fdd4b4bae8"
   end
 
   depends_on "cmake" => :build
   depends_on "python-setuptools" => :build
-  depends_on "python@3.10" => [:build, :test]
   depends_on "python@3.11" => [:build, :test]
   depends_on "python@3.12" => [:build, :test]
   depends_on "abseil"

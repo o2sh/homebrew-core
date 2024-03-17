@@ -3,18 +3,18 @@ require "language/node"
 class Dicebear < Formula
   desc "CLI for DiceBear - An avatar library for designers and developers"
   homepage "https://github.com/dicebear/dicebear"
-  url "https://registry.npmjs.org/dicebear/-/dicebear-7.0.1.tgz"
-  sha256 "3b787a849f720244648d01e6f25120a92dd88c900c799b92bb4207ff311ab2ee"
+  url "https://registry.npmjs.org/dicebear/-/dicebear-8.0.0.tgz"
+  sha256 "bdd8c468bdb7d14974e6f888b462eb12c7ea07d3f03ae22b40f709eb60c82c5d"
   license "MIT"
 
   bottle do
-    sha256                               arm64_sonoma:   "9685d5dcfd18fe7ecee18f565fafcae60b1d835db95ede5e44fe659a69c40700"
-    sha256                               arm64_ventura:  "8185cb5be9847d02137f6512718f21524fe426817050c9f33e126cbadf9a0131"
-    sha256                               arm64_monterey: "725678da423ad2b8cc9984b9fb0ed47113042691a9f7652bd581d107f8e9df2d"
-    sha256                               sonoma:         "a991610d84c07d1a20606f32d675e7e2aea09257a32be65657f3e12bb120c6a1"
-    sha256                               ventura:        "e32f498f9d2978fb388d0ffcbd30cf5d9b7ff076fdf4f65ae874c72dc8e0cc3d"
-    sha256                               monterey:       "aaff211699ed5c4450441e689ca4fdb708f680b6ffc612de8e8dd5d911815426"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "59471671bdf88f35c866ec29649cd8660ccb7e80d661ef103e59ea8882ad459d"
+    sha256                               arm64_sonoma:   "6e79fa663d43d331ebf6febb6bfccee38eb784b1b414c58bc826e41977829c89"
+    sha256                               arm64_ventura:  "e30db9845a7d38e59949709e9f0ba17d0c6ad575a0fdb36712b12bc5c3b0418a"
+    sha256                               arm64_monterey: "d9006eeff06b9e5784b8bc0b29dc0f6b1a541eb8fe65e75af4084ceacb78d6c2"
+    sha256                               sonoma:         "77fd18654a21c16fd20d014f98f84ae2803022329c68a88173693632f501b23f"
+    sha256                               ventura:        "524d962bc2bcb369513f27b5ddd94a1462a5926fb03c1928a20a16a881ab5092"
+    sha256                               monterey:       "0a872d482c070c321f951c05837dea2acf58b0aca60a47c4713c520336b75286"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7a6494f17d622da49859e463a7dcfea6a8564d95c06b6a73466b4e79125e904f"
   end
 
   depends_on "node"
@@ -27,9 +27,13 @@ class Dicebear < Formula
     system "npm", "install", *Language::Node.std_npm_install_args(libexec)
     bin.install_symlink Dir["#{libexec}/bin/*"]
 
-    # Delete native binaries installed by npm, as we dont support `musl` for a `libc` implementation
     node_modules = libexec/"lib/node_modules/dicebear/node_modules"
-    (node_modules/"@resvg/resvg-js-linux-x64-musl/resvgjs.linux-x64-musl.node").unlink if OS.linux?
+
+    # Remove incompatible pre-built `bare-fs`/`bare-os` binaries
+    os = OS.kernel_name.downcase
+    arch = Hardware::CPU.intel? ? "x64" : Hardware::CPU.arch.to_s
+    node_modules.glob("{bare-fs,bare-os}/prebuilds/*")
+                .each { |dir| dir.rmtree if dir.basename.to_s != "#{os}-#{arch}" }
   end
 
   test do

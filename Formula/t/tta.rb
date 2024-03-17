@@ -1,9 +1,9 @@
 class Tta < Formula
   desc "Lossless audio codec"
-  homepage "https://web.archive.org/web/20100131140204/true-audio.com/"
+  homepage "https://sourceforge.net/projects/tta/"
   url "https://downloads.sourceforge.net/project/tta/tta/libtta/libtta-2.2.tar.gz"
   sha256 "1723424d75b3cda907ff68abf727bb9bc0c23982ea8f91ed1cc045804c1435c4"
-  license "LGPL-3.0"
+  license "LGPL-3.0-only"
 
   livecheck do
     url :stable
@@ -29,7 +29,14 @@ class Tta < Formula
 
   def install
     args = ["--disable-silent-rules"]
-    args << "--enable-#{MacOS.version.requires_sse4? ? "sse4" : "sse2"}" if Hardware::CPU.intel?
+    if Hardware::CPU.intel?
+      sse = if OS.mac? && MacOS.version.requires_sse4?
+        "sse4"
+      else
+        "sse2"
+      end
+      args << "--enable-#{sse}"
+    end
 
     system "./configure", *std_configure_args, *args
     system "make", "install"

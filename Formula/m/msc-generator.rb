@@ -1,9 +1,10 @@
 class MscGenerator < Formula
   desc "Draws signalling charts from textual description"
   homepage "https://gitlab.com/msc-generator/msc-generator"
-  url "https://gitlab.com/api/v4/projects/31167732/packages/generic/msc-generator/8.3.2/msc-generator-8.3.2.tar.gz"
-  sha256 "f9eb8acb81a017ca8544d3397120468fd01b2e98c3734b1e3c92d0e7e6f89e55"
+  url "https://gitlab.com/api/v4/projects/31167732/packages/generic/msc-generator/8.5/msc-generator-8.5.tar.gz"
+  sha256 "134da30f58458a5ddda0cf6c7a43872636dfc6cae1b8e8a02efe28a0cc9f35d3"
   license "AGPL-3.0-or-later"
+  revision 1
 
   livecheck do
     url "https://gitlab.com/api/v4/projects/31167732/packages"
@@ -17,13 +18,13 @@ class MscGenerator < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "76278d5fa2ce33e4e1f2ebcc27d1eb6fc6861f6c4dff0d888ab98d37b6720686"
-    sha256 arm64_monterey: "d6c721135921bd819cea49c2f02693d357ca0218ba230a765c12284218cbdcb9"
-    sha256 arm64_big_sur:  "c20c6559cb104390b8698e8cc97bf54d8c1e0d250f92c558fa6088c6fab3c8e0"
-    sha256 ventura:        "216a07418371d93713f5841fdf096159f279a7d1e13005e534ecfa0c109a8fae"
-    sha256 monterey:       "48cb526ca7471152b121ea2e3e9859111b5963c08b361ceea3aaea85f31425a8"
-    sha256 big_sur:        "e375256edabd34d86a4539796d31ffc7fe1426c5a41b176e0a76fcd4b7f9314c"
-    sha256 x86_64_linux:   "c5e7880a5dc72e8e053f3e686ec469cf1ab9a028016f1c290cc39231ef80bd9a"
+    sha256 arm64_sonoma:   "b79054b74a26b3399dbc2dfd03ab5b4f08b8000930aa47bca1bf011771f62095"
+    sha256 arm64_ventura:  "44858dc437fd4c0b5eded8cba714a3ea24f8cff1e222227e6a860565ddd00f31"
+    sha256 arm64_monterey: "c4edbe1ee76e8d8d8a288947de4801ca24d34872addd1507a88c07eeace09a0f"
+    sha256 sonoma:         "0301617bb99084da55aeef04d903745903a6a028e14e12b22b33cc7f487fbd33"
+    sha256 ventura:        "434e60dbd056048910b1405a61591cb73271e5696e7c88e4d3bdc380dcc8ec14"
+    sha256 monterey:       "10d9efd0d5201466d9b35d5419c4df6963431eb3ab991d113d6be7a644d5db44"
+    sha256 x86_64_linux:   "87d19390e344e2652c93ce0c396892588deb488748336a84156378bf8de51e4a"
   end
 
   depends_on "autoconf" => :build
@@ -38,6 +39,9 @@ class MscGenerator < Formula
   depends_on "tinyxml2"
 
   on_macos do
+    # Some upstream sed discussions in https://gitlab.com/msc-generator/msc-generator/-/issues/92
+    depends_on "gnu-sed" => :build
+    depends_on "make" => :build # needs make 4.3+
     depends_on "gcc"
   end
 
@@ -53,21 +57,25 @@ class MscGenerator < Formula
   end
 
   def install
+    args = %w[--disable-font-checks --disable-silent-rules]
+    make = "make"
+
     # Brew uses shims to ensure that the project is built with a single compiler.
     # However, gcc cannot compile our Objective-C++ sources (clipboard.mm), while
     # clang++ cannot compile the rest of the project. As a workaround, we set gcc
     # as the main compiler, and bypass brew's compiler shim to force using clang++
     # for Objective-C++ sources. This workaround should be removed once brew supports
     # setting separate compilers for C/C++ and Objective-C/C++.
-    extra_args = []
     if OS.mac?
-      extra_args << "OBJCXX=/usr/bin/clang++"
+      args << "OBJCXX=/usr/bin/clang++"
       ENV.append_to_cflags "-DNDEBUG"
+      ENV.prepend_path "PATH", Formula["gnu-sed"].opt_libexec/"gnubin"
+      ENV["MAKE"] = make = "gmake"
     end
 
-    system "./configure", *std_configure_args, "--disable-font-checks", *extra_args
-    system "make", "V=1", "-C", "src", "install"
-    system "make", "-C", "doc", "msc-gen.1"
+    system "./configure", *args, *std_configure_args
+    system make, "-C", "src", "install"
+    system make, "-C", "doc", "msc-gen.1"
     man1.install "doc/msc-gen.1"
   end
 

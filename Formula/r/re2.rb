@@ -1,10 +1,11 @@
 class Re2 < Formula
   desc "Alternative to backtracking PCRE-style regular expression engines"
   homepage "https://github.com/google/re2"
-  url "https://github.com/google/re2/archive/refs/tags/2023-11-01.tar.gz"
-  version "20231101"
-  sha256 "4e6593ac3c71de1c0f322735bc8b0492a72f66ffccfad76e259fa21c41d27d8a"
+  url "https://github.com/google/re2/archive/refs/tags/2024-03-01.tar.gz"
+  version "20240301"
+  sha256 "7b2b3aa8241eac25f674e5b5b2e23d4ac4f0a8891418a2661869f736f03f57f4"
   license "BSD-3-Clause"
+  revision 1
   head "https://github.com/google/re2.git", branch: "main"
 
   # The `strategy` block below is used to massage upstream tags into the
@@ -14,18 +15,18 @@ class Re2 < Formula
     url :stable
     regex(/^(\d{2,4}-\d{2}-\d{2})$/i)
     strategy :git do |tags, regex|
-      tags.map { |tag| tag[regex, 1]&.gsub(/\D/, "") }.compact
+      tags.filter_map { |tag| tag[regex, 1]&.gsub(/\D/, "") }
     end
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "5284e881c685c63ebe4eb050a5c142411c5e985b75cc14071e2fa5d86b22cbf6"
-    sha256 cellar: :any,                 arm64_ventura:  "83f5eb2c99beceb45f93b35a9058d1c556605c21bc2382ebe01b88a9937e5e05"
-    sha256 cellar: :any,                 arm64_monterey: "b1bc82f91411308a1e7dd0a58655d1eee47e38a0b119efec10bf080107818f51"
-    sha256 cellar: :any,                 sonoma:         "3758b54970292370b1b60583cf131f9dde94c49c0f1f340a8002b902a28f0872"
-    sha256 cellar: :any,                 ventura:        "772ecee379c6a29b5b770bd734c82b753c3fb46cda73fd705a2d4520332e313a"
-    sha256 cellar: :any,                 monterey:       "82d0ac3196c8beb1b0246d2149b374e7a170f29d24c5405c2c3efe775e4a1882"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fb4465aef8884e998af0d2f965124d7c747eb2b9d2dfc6b9ab88b714208c18df"
+    sha256 cellar: :any,                 arm64_sonoma:   "46278237882d1a8fdd48afeb10f94a0cf42ab8d326284f399a433b85ac27eb32"
+    sha256 cellar: :any,                 arm64_ventura:  "7585b34981dfba275e500537dc772d6adf100d809d920cc6a83b7d4c5da61db7"
+    sha256 cellar: :any,                 arm64_monterey: "68ae4068df93988d1fc3178011d36a05bd87be4f3b738826dcecf75cf3b3fdcd"
+    sha256 cellar: :any,                 sonoma:         "8c07eedf0866beee552172f13fe28e50d69be3652edd6095ef46486404e700e8"
+    sha256 cellar: :any,                 ventura:        "1c6a5866d90786ecbf2204b3873e3f486f3ea1ad178270f35743c59b04db2929"
+    sha256 cellar: :any,                 monterey:       "72db93f852223dacc9eeac34c45f2adee83bd3d92facbfdc1f91dafc0a968386"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b517ef3943ec7a5d72654eda4f0bd1fc9d3eed20b8bd32e58aac5c66f187caa6"
   end
 
   depends_on "cmake" => :build

@@ -1,8 +1,8 @@
 class Node < Formula
   desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v21.2.0/node-v21.2.0.tar.xz"
-  sha256 "d57c9cea394764fa1d9af51e52c7449f71193e9d44c4a81fbedec653ec827707"
+  url "https://nodejs.org/dist/v21.7.1/node-v21.7.1.tar.xz"
+  sha256 "1272b6e129d564dbde17527b844210b971c20a70ae729268186b7cb9d990a64b"
   license "MIT"
   head "https://github.com/nodejs/node.git", branch: "main"
 
@@ -12,13 +12,13 @@ class Node < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "169c259c897ebc624b7d2a639d623bcf472756f2b5d87271f012666101a7f7dd"
-    sha256 arm64_ventura:  "143649fa351ddc8d82212697b307d5397386700e1d31da62cae9f12e1a8efc5d"
-    sha256 arm64_monterey: "e7899bef00a10c25faec15f719faf8129be0de919634653edcb552cd2172bd5a"
-    sha256 sonoma:         "23aa79a37e3d2957eee9634c52347ceb2ef514b2f24616b8f56570a4497c6a06"
-    sha256 ventura:        "ff48bcd34b22e48bb45ad5b49337aab70b7cebc0b163a8507fa6551dad22a8b7"
-    sha256 monterey:       "3a166d34894e15d1192881aeef43495c4c0dd725e33e194eff5d40d330220af5"
-    sha256 x86_64_linux:   "ff84a08c55ae522155bc6429579b043280e1bf3e225c801bf3dde9aa84a10df7"
+    sha256 arm64_sonoma:   "1063aef6c3fcc8590343a47891c58834623e0e0a12f4a36c2aa2be699381b877"
+    sha256 arm64_ventura:  "e53082c75dc7c4e0e0d79c8f91f650cffa6cffdc30fb18fd3bc8dfd1cc4b140f"
+    sha256 arm64_monterey: "6477d4048ed7f27f11f7d68cc8277f348f2702fe8afccc8b3447e508a0c526a0"
+    sha256 sonoma:         "acb56af4bf0e15ff4d6ef56fec98ecf5b4000910f0b7b298b9047b369431b4c2"
+    sha256 ventura:        "a547d63eaf7dd21be8ee1cc0f7faea9e1f38d88412f1d2703d2a1e7da3754d6c"
+    sha256 monterey:       "db63e269d54ea08abf7f542d6ad5d3551182e64959bfbb732a4c716f85b4bb62"
+    sha256 x86_64_linux:   "615b632eb04603ce05068644f7875a1e9c7bec4af5e806941e8a158c57ababbb"
   end
 
   depends_on "pkg-config" => :build
@@ -49,8 +49,8 @@ class Node < Formula
   # We track major/minor from upstream Node releases.
   # We will accept *important* npm patch releases when necessary.
   resource "npm" do
-    url "https://registry.npmjs.org/npm/-/npm-10.2.3.tgz"
-    sha256 "9316bf3da0a0ec6b81eb83784539098a0e802246d8269c45797a87a6a82a62bf"
+    url "https://registry.npmjs.org/npm/-/npm-10.5.0.tgz"
+    sha256 "17ca6e08e7633b624e8f870db81a78f46afe119de62bcaf0a7407574139198fc"
   end
 
   def install
@@ -93,7 +93,7 @@ class Node < Formula
     # terminate called after throwing an instance of 'std::out_of_range'
     # Pre-Catalina macOS also can't build with LTO
     # LTO is unpleasant if you have to build from source.
-    args << "--enable-lto" if MacOS.version >= :catalina && build.bottle?
+    args << "--enable-lto" if OS.mac? && MacOS.version >= :catalina && build.bottle?
 
     system "./configure", *args
     system "make", "install"

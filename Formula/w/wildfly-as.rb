@@ -1,8 +1,8 @@
 class WildflyAs < Formula
   desc "Managed application runtime for building applications"
   homepage "https://www.wildfly.org/"
-  url "https://github.com/wildfly/wildfly/releases/download/30.0.0.Final/wildfly-30.0.0.Final.tar.gz"
-  sha256 "e10404c9d3e035a7d364b22b2e343fe8ae867b6bbcbf945bf2a969eff7d9ebea"
+  url "https://github.com/wildfly/wildfly/releases/download/31.0.1.Final/wildfly-31.0.1.Final.tar.gz"
+  sha256 "d5b0d9490f22d9e5f509794470c773a7147301b512fd2db9315991340f2b562d"
   license "Apache-2.0"
 
   livecheck do
@@ -11,12 +11,12 @@ class WildflyAs < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "6bbea4633eb9c618e5d5fa08d926a9f65000dfcc7323c7ab7de3a110176eed48"
-    sha256 cellar: :any, arm64_ventura:  "6bbea4633eb9c618e5d5fa08d926a9f65000dfcc7323c7ab7de3a110176eed48"
-    sha256 cellar: :any, arm64_monterey: "6bbea4633eb9c618e5d5fa08d926a9f65000dfcc7323c7ab7de3a110176eed48"
-    sha256 cellar: :any, sonoma:         "f9cd88aa5606ec0c0911719149f3e8e92006d67b9026d2c87b5c3a49963db196"
-    sha256 cellar: :any, ventura:        "f9cd88aa5606ec0c0911719149f3e8e92006d67b9026d2c87b5c3a49963db196"
-    sha256 cellar: :any, monterey:       "f9cd88aa5606ec0c0911719149f3e8e92006d67b9026d2c87b5c3a49963db196"
+    sha256 cellar: :any, arm64_sonoma:   "044be5c1e36113ad826996dc9d8c22343caa9a81ea5416be242fdc3b7f3953b3"
+    sha256 cellar: :any, arm64_ventura:  "044be5c1e36113ad826996dc9d8c22343caa9a81ea5416be242fdc3b7f3953b3"
+    sha256 cellar: :any, arm64_monterey: "044be5c1e36113ad826996dc9d8c22343caa9a81ea5416be242fdc3b7f3953b3"
+    sha256 cellar: :any, sonoma:         "4d6b23a3360a6c12ac10a2e4777d4c647b9ea282c71b9959aef5ab94fa460a7a"
+    sha256 cellar: :any, ventura:        "4d6b23a3360a6c12ac10a2e4777d4c647b9ea282c71b9959aef5ab94fa460a7a"
+    sha256 cellar: :any, monterey:       "4d6b23a3360a6c12ac10a2e4777d4c647b9ea282c71b9959aef5ab94fa460a7a"
   end
 
   # Installs a pre-built `libartemis-native-64.so` file with linkage to libaio.so.1
@@ -61,7 +61,7 @@ class WildflyAs < Formula
 
   test do
     ENV["JBOSS_HOME"] = opt_libexec
-    system "#{opt_libexec}/bin/standalone.sh --version | grep #{version}"
+    ENV["JBOSS_LOG_DIR"] = testpath
 
     port = free_port
 

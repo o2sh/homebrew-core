@@ -2,7 +2,7 @@ class Ntopng < Formula
   desc "Next generation version of the original ntop"
   homepage "https://www.ntop.org/products/traffic-analysis/ntop/"
   license "GPL-3.0-only"
-  revision 4
+  revision 5
 
   stable do
     url "https://github.com/ntop/ntopng/archive/refs/tags/5.2.1.tar.gz"
@@ -12,13 +12,13 @@ class Ntopng < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "7ca16f7e7c6b052dcce8135e96f6897a266585860188e42b5ab0df8dcf87743a"
-    sha256 arm64_ventura:  "0ccce8c1d3457391ddee1a71b21c012a285d7bff835a778c4f4f3c4df2697b3e"
-    sha256 arm64_monterey: "2080dbfa548589be9c22240b2881b973e3d8afc8c0c228b96a7e7080aa36ba96"
-    sha256 sonoma:         "90037bc24820f23f7c0b7234dc0ec7dece571e154a3fb4f7ea65f33e8b716d62"
-    sha256 ventura:        "cd0f47b21571491328d72250c13b7d57b92775982d012a19be8ddad3e769a469"
-    sha256 monterey:       "ac774dcf2b187764277cbcdb916fe5f12b0563a62144cbdf95ae5449c3fcadea"
-    sha256 x86_64_linux:   "2d3ab6177d447935c6781da442eb484a02b3f29e926b9702519d26ad0578233f"
+    sha256 arm64_sonoma:   "8df6d0eb2c7d4d068a9cdec38da78c89cde9ba5b4f12f973079122dc75df05d1"
+    sha256 arm64_ventura:  "40d94f8ae91f6976185afd9f7df38445eb4bb564131c774de4bd5fff9ec48113"
+    sha256 arm64_monterey: "fff9eaa732a40c116c822f60f6f65e7454ed50c15db1e38869eda88e2d29125c"
+    sha256 sonoma:         "28057973193ccb7bc27b3da961851c461e65c8749ec9e68803b477b9c43f056d"
+    sha256 ventura:        "7b492dded11e9c5280a36ac7d62b114882aff16e252d8163b978d395033f70b9"
+    sha256 monterey:       "4cc9805b6124b4f331020e81d1df1960f47c5981be9b9126dc1f551785d540f0"
+    sha256 x86_64_linux:   "89145e39fcf271fb9e2504c083f7653c09f814ce5539e5d2d45dfb0b25f62433"
   end
 
   head do
@@ -36,7 +36,6 @@ class Ntopng < Formula
   depends_on "libtool" => :build
   depends_on "lua" => :build
   depends_on "pkg-config" => :build
-  depends_on "geoip"
   depends_on "json-c"
   depends_on "libmaxminddb"
   depends_on "libsodium"

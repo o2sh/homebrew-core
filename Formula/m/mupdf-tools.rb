@@ -1,8 +1,8 @@
 class MupdfTools < Formula
   desc "Lightweight PDF and XPS viewer"
   homepage "https://mupdf.com/"
-  url "https://mupdf.com/downloads/archive/mupdf-1.23.6-source.tar.gz"
-  sha256 "ac11eb859dd404488e5153cdc9651bb4341e5baaf4d3b3f27e2afc82f9aadc29"
+  url "https://mupdf.com/downloads/archive/mupdf-1.23.11-source.tar.gz"
+  sha256 "478f2a167feae2a291c8b8bc5205f2ce2f09f09b574a6eb0525bfad95a3cfe66"
   license "AGPL-3.0-or-later"
   head "https://git.ghostscript.com/mupdf.git", branch: "master"
 
@@ -11,13 +11,13 @@ class MupdfTools < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d7629c10b70006609d8fe9344dad4b2d3e41aa0683090bf9b1510dbdd7b6063b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "620284e379e899190616c0b95b4ac5e9212154e841d32da1a49c7f7c8371834e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7c3bcd7224824ec3c7843f2be1b8b86b5e075792905dd53b03df790ab0332de6"
-    sha256 cellar: :any_skip_relocation, sonoma:         "6422363ff46a8dcc41b73aee75ea8882e17ccaca5ab1641d66b5e489f7fe5d5b"
-    sha256 cellar: :any_skip_relocation, ventura:        "45a4938ab1bcaf34f914c6be5df81eed992042eb0ef7a12cbf81ce408a9b7d42"
-    sha256 cellar: :any_skip_relocation, monterey:       "e27dc0be5c04648af9a4b25dbb0bf6addde8bb36e343bc1a1e1fb6907a419c37"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bd7252461c620ec10443f746e37c1f59073381995fcd41bb1f9ccb66100a4901"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bd23d0f128cda11e03c9d6b316775438f03efa8e5e244291065491729987c17a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "12bdb80c5812748e61249318839caf528ede3f3bb5c06f20c03008106aa96865"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "7b5657d24084a2d1c8ca0914604dbfed407489ec60ce8980985bb2fc42536cbd"
+    sha256 cellar: :any_skip_relocation, sonoma:         "b65c83248eea921dd9d0c887a9c55e36207ed322bbdc40b7e4a34e0369e326da"
+    sha256 cellar: :any_skip_relocation, ventura:        "c2f3d00c39fd05f628c49a42e1575976b0dff7d1fea1a61026c7efc64c91c544"
+    sha256 cellar: :any_skip_relocation, monterey:       "8e9196348789761ebd0f43d2007da44c1ed0dcf18e8caef756d9be969132afc5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b48482c03e3b6bd4639762e1d677ed25fa50090ddd6d5985e8b1476b0bf9ba20"
   end
 
   conflicts_with "mupdf",

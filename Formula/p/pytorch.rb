@@ -3,9 +3,8 @@ class Pytorch < Formula
 
   desc "Tensors and dynamic neural networks"
   homepage "https://pytorch.org/"
-  url "https://github.com/pytorch/pytorch.git",
-      tag:      "v2.1.0",
-      revision: "7bcf7da3a268b435777fe87c7794c382f444e86d"
+  url "https://github.com/pytorch/pytorch/releases/download/v2.2.0/pytorch-v2.2.0.tar.gz"
+  sha256 "e12d18c3dbb12d7ae2f61f5ab9a21023e3dd179d67ed87279ef96600b9ac08c5"
   license "BSD-3-Clause"
   revision 1
 
@@ -15,43 +14,51 @@ class Pytorch < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "2673d638d0cac286ae5613deef32d2da9ba63275776f8211e58975578b50934d"
-    sha256 cellar: :any,                 arm64_ventura:  "677e8a8d53d18009e426991c91084abc5d6bd95472f04e81d3f89bd973a938e7"
-    sha256 cellar: :any,                 arm64_monterey: "ffd3d3449e95ade737e45158b21ebb6578013f762085918eb15a6255ba7338ad"
-    sha256 cellar: :any,                 sonoma:         "b4c09c8d1f71c7ebe8fc02493b4671dc77904a5faca18914338f53ec824b58c9"
-    sha256 cellar: :any,                 ventura:        "52306dbc78c7cba778ab2da899c5739cb5595de90117057f7bff069170e0b0bf"
-    sha256 cellar: :any,                 monterey:       "fa196a022d59f43f5f4565c472a28417f4fc18a87e0ce9c2a05c6e8078553564"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3442f68d930f32128bfd495052650233a6aa4682383a67fd8bf821d5d0d5fc1a"
+    sha256 cellar: :any,                 arm64_sonoma:   "8d5d28e6158f6349509a9128624789ebbea78b14f3de7401ec7167554680496e"
+    sha256 cellar: :any,                 arm64_ventura:  "ed4dbf499e81c5f5f04aeda0a1666750f0b903f3213e5a08f67bc51648ddd2a5"
+    sha256 cellar: :any,                 arm64_monterey: "e7a39bb01dd6f20f804cd9e3b971dd7e861e6995655cecb65a0c3b096d938e3b"
+    sha256 cellar: :any,                 sonoma:         "b0805e1df40e9cbd9e3f0df1b9e455fa996e6ff6a70964f7d97b38b1b97d9125"
+    sha256 cellar: :any,                 ventura:        "906f534ed596b32baf0751c0ec21bd631c23e115e490775dfbbee55d91e0d309"
+    sha256 cellar: :any,                 monterey:       "71a4e0827d32de6087131538f4a8786724cea010098e1300e9aa8c9036526e88"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bded0f2cd4040928b304c6b9d47c12abd32180472ce3295b87dd10324a2fa1d1"
   end
 
   depends_on "cmake" => :build
   depends_on "ninja" => :build
-  depends_on "python@3.11" => [:build, :test]
+  depends_on "python@3.12" => [:build, :test]
   depends_on xcode: :build
   depends_on "eigen"
   depends_on "libuv"
+  depends_on "libyaml"
   depends_on macos: :monterey # MPS backend only supports 12.3 and above
   depends_on "numpy"
   depends_on "openblas"
   depends_on "protobuf"
   depends_on "pybind11"
-  depends_on "python-typing-extensions"
-  depends_on "pyyaml"
+  depends_on "sleef"
 
   on_macos do
     depends_on "libomp"
   end
 
-  conflicts_with "fmt", because: "both install `include/fmt/args.h` headers"
-
   resource "filelock" do
-    url "https://files.pythonhosted.org/packages/d5/71/bb1326535231229dd69a9dd2e338f6f54b2d57bd88fc4a52285c0ab8a5f6/filelock-3.12.4.tar.gz"
-    sha256 "2e6f249f1f3654291606e046b09f1fd5eac39b360664c27f5aad072012f8bcbd"
+    url "https://files.pythonhosted.org/packages/70/70/41905c80dcfe71b22fb06827b8eae65781783d4a14194bce79d16a013263/filelock-3.13.1.tar.gz"
+    sha256 "521f5f56c50f8426f5e03ad3b281b490a87ef15bc6c526f168290f0c7148d44e"
   end
 
-  resource "Jinja2" do
-    url "https://files.pythonhosted.org/packages/7a/ff/75c28576a1d900e87eb6335b063fab47a8ef3c8b4d88524c4bf78f670cce/Jinja2-3.1.2.tar.gz"
-    sha256 "31351a702a408a9e7595a8fc6150fc3f43bb6bf7e319770cbc0db9df9437e852"
+  resource "fsspec" do
+    url "https://files.pythonhosted.org/packages/28/d3/c2e0403c735548abf991bba3f45ba39194dff4569f76a99fbe77078ba7c5/fsspec-2024.2.0.tar.gz"
+    sha256 "b6ad1a679f760dda52b1168c859d01b7b80648ea6f7f7c7f5a8a91dc3f3ecb84"
+  end
+
+  resource "jinja2" do
+    url "https://files.pythonhosted.org/packages/b2/5e/3a21abf3cd467d7876045335e681d276ac32492febe6d98ad89562d1a7e1/Jinja2-3.1.3.tar.gz"
+    sha256 "ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"
+  end
+
+  resource "markupsafe" do
+    url "https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz"
+    sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
   end
 
   resource "mpmath" do
@@ -60,13 +67,29 @@ class Pytorch < Formula
   end
 
   resource "networkx" do
-    url "https://files.pythonhosted.org/packages/fd/a1/47b974da1a73f063c158a1f4cc33ed0abf7c04f98a19050e80c533c31f0c/networkx-3.1.tar.gz"
-    sha256 "de346335408f84de0eada6ff9fafafff9bcda11f0a0dfaa931133debb146ab61"
+    url "https://files.pythonhosted.org/packages/c4/80/a84676339aaae2f1cfdf9f418701dd634aef9cc76f708ef55c36ff39c3ca/networkx-3.2.1.tar.gz"
+    sha256 "9f1bb5cf3409bf324e0a722c20bdb4c20ee39bf1c30ce8ae499c8502b0b5e0c6"
   end
 
   resource "opt-einsum" do
     url "https://files.pythonhosted.org/packages/7d/bf/9257e53a0e7715bc1127e15063e831f076723c6cd60985333a1c18878fb8/opt_einsum-3.3.0.tar.gz"
     sha256 "59f6475f77bbc37dcf7cd748519c0ec60722e91e63ca114e68821c0c54a46549"
+
+    # Backport ConfigParser fix for Python 3.12 support
+    patch do
+      url "https://github.com/dgasmith/opt_einsum/commit/7c8f193f90b6771a6b3065bb5cf6ec2747af8209.patch?full_index=1"
+      sha256 "7c90ac470278deca8aa9d7ecb4bb2b31a2f79928e1783ae1316fcc3aa81f348a"
+    end
+  end
+
+  resource "pyyaml" do
+    url "https://files.pythonhosted.org/packages/cd/e5/af35f7ea75cf72f2cd079c95ee16797de7cd71f29ea7c68ae5ce7be1eda0/PyYAML-6.0.1.tar.gz"
+    sha256 "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
+  end
+
+  resource "setuptools" do
+    url "https://files.pythonhosted.org/packages/c8/1f/e026746e5885a83e1af99002ae63650b7c577af5c424d4c27edcf729ab44/setuptools-69.1.1.tar.gz"
+    sha256 "5c0806c7d9af348e6dd3777b4f4dbb42c7ad85b190104837488eab9a7c945cf8"
   end
 
   resource "sympy" do
@@ -74,46 +97,48 @@ class Pytorch < Formula
     sha256 "ebf595c8dac3e0fdc4152c51878b498396ec7f30e7a914d6071e674d49420fb8"
   end
 
+  resource "typing-extensions" do
+    url "https://files.pythonhosted.org/packages/0c/1d/eb26f5e75100d531d7399ae800814b069bc2ed2a7410834d57374d010d96/typing_extensions-4.9.0.tar.gz"
+    sha256 "23478f88c37f27d76ac8aee6c905017a143b0b1b886c3c9f66bc2fd94f9f5783"
+  end
+
   def install
-    python_exe = Formula["python@3.11"].opt_libexec/"bin/python"
-    args = %W[
-      -GNinja
-      -DBLAS=OpenBLAS
-      -DBUILD_CUSTOM_PROTOBUF=OFF
-      -DBUILD_PYTHON=ON
-      -DCMAKE_CXX_COMPILER=#{ENV.cxx}
-      -DCMAKE_C_COMPILER=#{ENV.cc}
-      -DPYTHON_EXECUTABLE=#{python_exe}
-      -DUSE_CUDA=OFF
-      -DUSE_DISTRIBUTED=ON
-      -DUSE_METAL=OFF
-      -DUSE_MKLDNN=OFF
-      -DUSE_NNPACK=OFF
-      -DUSE_OPENMP=ON
-      -DUSE_SYSTEM_EIGEN_INSTALL=ON
-      -DUSE_SYSTEM_PYBIND11=ON
-    ]
-    args << "-DUSE_MPS=ON" if OS.mac?
+    python3 = "python3.12"
 
-    ENV["LDFLAGS"] = "-L#{buildpath}/build/lib"
+    ENV["ATEN_NO_TEST"] = "ON"
+    ENV["BLAS"] = "OpenBLAS"
+    ENV["BUILD_CUSTOM_PROTOBUF"] = "OFF"
+    ENV["BUILD_PYTHON"] = "ON"
+    ENV["BUILD_TEST"] = "OFF"
+    ENV["PYTHON_EXECUTABLE"] = which(python3)
+    ENV["USE_CUDA"] = "OFF"
+    ENV["USE_DISTRIBUTED"] = "ON"
+    ENV["USE_METAL"] = "OFF"
+    ENV["USE_MKLDNN"] = "OFF"
+    ENV["USE_NNPACK"] = "OFF"
+    ENV["USE_OPENMP"] = "ON"
+    ENV["USE_SYSTEM_EIGEN_INSTALL"] = "ON"
+    ENV["USE_SYSTEM_PYBIND11"] = "ON"
+    ENV["USE_SYSTEM_SLEEF"] = "ON"
+    ENV["USE_MPS"] = "ON" if OS.mac?
 
-    # Update references to shared libraries
-    inreplace "torch/__init__.py" do |s|
-      s.sub!(/here = os.path.abspath\(__file__\)/, "here = \"#{lib}\"")
-      s.sub!(/get_file_path\('torch', 'bin', 'torch_shm_manager'\)/, "\"#{bin}/torch_shm_manager\"")
+    # Work around superenv removing `-Werror=` but leaving `-Wno-error=` breaking flag detection
+    if ENV.compiler.to_s.start_with?("gcc")
+      inreplace "CMakeLists.txt", 'append_cxx_flag_if_supported("-Wno-error=inconsistent-missing-', "# \\0"
     end
 
-    inreplace "torch/utils/cpp_extension.py", "_TORCH_PATH = os.path.dirname(os.path.dirname(_HERE))",
-                                              "_TORCH_PATH = \"#{opt_prefix}\""
-
-    system "cmake", "-B", "build", "-S", ".", *std_cmake_args, *args
-
     # Avoid references to Homebrew shims
-    inreplace "build/caffe2/core/macros.h", Superenv.shims_path/ENV.cxx, ENV.cxx
+    inreplace "caffe2/core/macros.h.in", "${CMAKE_CXX_COMPILER}", ENV.cxx
 
-    venv = virtualenv_create(libexec, "python3.11")
+    venv = virtualenv_create(libexec, python3)
     venv.pip_install resources
     venv.pip_install_and_link(buildpath, build_isolation: false)
+
+    # Expose C++ API
+    torch = libexec/Language::Python.site_packages(python3)/"torch"
+    include.install_symlink (torch/"include").children
+    lib.install_symlink (torch/"lib").children
+    (share/"cmake").install_symlink (torch/"share/cmake").children
   end
 
   test do

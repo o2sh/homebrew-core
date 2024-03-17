@@ -3,28 +3,23 @@ class Zurl < Formula
 
   desc "HTTP and WebSocket client worker with ZeroMQ interface"
   homepage "https://github.com/fanout/zurl"
-  url "https://github.com/fanout/zurl/releases/download/v1.11.1/zurl-1.11.1.tar.bz2"
-  sha256 "39948523ffbd0167bc8ba7d433b38577156e970fe9f3baa98f2aed269241d70c"
+  url "https://github.com/fanout/zurl/releases/download/v1.12.0/zurl-1.12.0.tar.bz2"
+  sha256 "46d13ac60509a1566a4e3ad3eaed5262adf86eb5601ff892dba49affb0b63750"
   license "GPL-3.0-or-later"
-  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "d61f6c9edd6c3dde53d2d27e60601facce836bdee497c72335143695da6ebfc3"
-    sha256 cellar: :any,                 arm64_monterey: "2efcee057b489a77051a02f057aea00f0834817816adb4d2142fef391d32054e"
-    sha256 cellar: :any,                 arm64_big_sur:  "97675f8113bb55f7580ea2486545460768a82116a593947fff9966ce6bdd32e4"
-    sha256 cellar: :any,                 sonoma:         "c25591faeb9c1a0140b9527c0274772be698cbf90aa5023ffbf9bd9e6c9df246"
-    sha256 cellar: :any,                 ventura:        "9cc2298a117300f4763b2de6a4952c4792e04af85321ae25002eedb7eee81f59"
-    sha256 cellar: :any,                 monterey:       "d5cf6cd530015d455a5f58dbf1dfe4a539e11130fee073391cbd46783f0230d4"
-    sha256 cellar: :any,                 big_sur:        "44482bd90787c77de93a589265ca0eb139c21dfb9c375307041146f88a6750f9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7b317aaefababd9955137556a3a246368fd4724370532013be9759bd39ed1501"
+    sha256 cellar: :any,                 arm64_ventura:  "e12d1eeabfc9d23cc6a0ef3058f46ae4102fd7df0d0fb7698aa088509aeacc61"
+    sha256 cellar: :any,                 arm64_monterey: "1d0ffa790ce260a143e2e128320ce7855dc4d7876daadd5739fe8c7a1ee43845"
+    sha256 cellar: :any,                 sonoma:         "2e6ac2a0fc30fc02b75d3220348ca9c15267d58de252a01b7f1c6484deb9cfe4"
+    sha256 cellar: :any,                 ventura:        "a692e80b53a7275e0ab4f4dff81f0dc5737a4d2fa350fa4b9d6aff76d887d77f"
+    sha256 cellar: :any,                 monterey:       "40652b39c795d9157fcd95c097791723af7ec011ad65ad959d07242fc6ed8143"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "62fc5497cd9456a5d5639870392b048f04d987f535ee167140950610ecb7a303"
   end
 
   depends_on "pkg-config" => :build
-  depends_on "libcython" => :test
-  depends_on "python-packaging" => :test
-  depends_on "python-setuptools" => :test
+  depends_on "cython" => :test # use brew cython as building it in test can cause time out
   depends_on "python@3.12" => :test
-  depends_on "qt@5"
+  depends_on "qt"
   depends_on "zeromq"
 
   uses_from_macos "curl"
@@ -35,13 +30,26 @@ class Zurl < Formula
 
   fails_with gcc: "5"
 
+  resource "packaging" do
+    url "https://files.pythonhosted.org/packages/fb/2b/9b9c33ffed44ee921d0967086d653047286054117d584f1b1a7c22ceaf7b/packaging-23.2.tar.gz"
+    sha256 "048fb0e9405036518eaaf48a55953c750c11e1a1b68e0dd1a9d62ed0c092cfc5"
+  end
+
   resource "pyzmq" do
-    url "https://files.pythonhosted.org/packages/3f/7c/69d31a75a3fe9bbab349de7935badac61396f22baf4ab53179a8d940d58e/pyzmq-25.1.1.tar.gz"
-    sha256 "259c22485b71abacdfa8bf79720cd7bcf4b9d128b30ea554f01ae71fdbfdaa23"
+    url "https://files.pythonhosted.org/packages/3a/33/1a3683fc9a4bd64d8ccc0290da75c8f042184a1a49c146d28398414d3341/pyzmq-25.1.2.tar.gz"
+    sha256 "93f1aa311e8bb912e34f004cf186407a4e90eec4f0ecc0efd26056bf7eda0226"
+  end
+
+  resource "setuptools" do
+    url "https://files.pythonhosted.org/packages/c8/1f/e026746e5885a83e1af99002ae63650b7c577af5c424d4c27edcf729ab44/setuptools-69.1.1.tar.gz"
+    sha256 "5c0806c7d9af348e6dd3777b4f4dbb42c7ad85b190104837488eab9a7c945cf8"
   end
 
   def install
-    system "./configure", "--prefix=#{prefix}", "--extraconf=QMAKE_MACOSX_DEPLOYMENT_TARGET=#{MacOS.version}"
+    args = ["--qtselect=#{Formula["qt"].version.major}"]
+    args << "--extraconf=QMAKE_MACOSX_DEPLOYMENT_TARGET=#{MacOS.version}" if OS.mac?
+
+    system "./configure", "--prefix=#{prefix}", *args
     system "make"
     system "make", "install"
   end
@@ -53,20 +61,20 @@ class Zurl < Formula
     ipcfile = testpath/"zurl-req"
     runfile = testpath/"test.py"
 
-    ENV.append_path "PYTHONPATH", Formula["libcython"].opt_libexec/Language::Python.site_packages(python3)
+    ENV.append_path "PYTHONPATH", Formula["cython"].opt_libexec/Language::Python.site_packages(python3)
     venv = virtualenv_create(testpath/"vendor", python3)
+    venv.pip_install resources.reject { |r| r.name == "pyzmq" }
     venv.pip_install(resource("pyzmq"), build_isolation: false)
 
-    conffile.write(<<~EOS,
+    conffile.write <<~EOS
       [General]
       in_req_spec=ipc://#{ipcfile}
       defpolicy=allow
       timeout=10
     EOS
-                  )
 
     port = free_port
-    runfile.write(<<~EOS,
+    runfile.write <<~EOS
       import json
       import threading
       from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -105,7 +113,6 @@ class Zurl < Formula
       assert('type' not in resp)
       assert(resp['body'] == 'test response\\n')
     EOS
-                 )
 
     pid = fork do
       exec "#{bin}/zurl", "--config=#{conffile}"

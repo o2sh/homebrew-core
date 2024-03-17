@@ -1,19 +1,20 @@
 class Gdrive < Formula
   desc "Google Drive CLI Client"
   homepage "https://github.com/glotlabs/gdrive"
-  url "https://github.com/glotlabs/gdrive/archive/refs/tags/3.9.0.tar.gz"
-  sha256 "a4476480f0cf759f6a7ac475e06f819cbebfe6bb6f1e0038deff1c02597a275a"
+  url "https://github.com/glotlabs/gdrive/archive/refs/tags/3.9.1.tar.gz"
+  sha256 "9aadb1b9a23d83f5aaa785960973bef1c63b85346de6be01a36e0630f2ddec1c"
   license "MIT"
   head "https://github.com/glotlabs/gdrive.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c4561fa71b34e9b35bc364c4804713a764f5670edf4060fe907b288d6e3becbd"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0966a92b7e068a25e5e0607dc980c99d735f6aaf95df6ec81280e0da0fe9e051"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c9899eeeedee1505f99e1b8d56c1556e285d08399fe052abd40ac7256f49438d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "7bc03621ccea283006cf99f5149c2e12f8184d5a73e8d96d250063d007c94d32"
-    sha256 cellar: :any_skip_relocation, ventura:        "fe7e38edb55425f8b6397acfa72d22721685784869605c819229c465daf6e7cc"
-    sha256 cellar: :any_skip_relocation, monterey:       "298e93d09b97c5c55f74e707396f731c2cc2176ed45ffe2f79f264b91fa4d42b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5db075196c5d95b3353b025e1af49e14bab67cd0e085cc87a098955d38bd4bbc"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f46421761f47656b69c91d12f132a512c90a622f032e22979eaeaeb492158c80"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d43198708aa0d16925a7183cc028ea7356a42c2c6f25366dda2372e6310c227d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9fcffe4b624640c73631bbbe0872e14e60f8e4d26bcb38bc15d4d01e6236ec6f"
+    sha256 cellar: :any_skip_relocation, sonoma:         "2389051617cde44c9144ddf5c0696dea4a7cd16f8c940c6b50366bc762d10ae6"
+    sha256 cellar: :any_skip_relocation, ventura:        "1e67b9d2936b20f5460fe4a2117b56d34fc49fa0c5b25edb8b2db2159deb7036"
+    sha256 cellar: :any_skip_relocation, monterey:       "36ff90fdf725f1615e6546897b9c4c3d78d47d4ceffc98f4d5e13af00b6ba303"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "048b5454b4d9390a1258ca0c9c731aa8a8e5ba871ccb20e7691b1f9486862bab"
   end
 
   depends_on "rust" => :build

@@ -2,8 +2,8 @@ class LaceworkCli < Formula
   desc "CLI for managing Lacework"
   homepage "https://docs.lacework.com/cli"
   url "https://github.com/lacework/go-sdk.git",
-      tag:      "v1.40.2",
-      revision: "fd3528a1115623ec4f2fbcc6588de1d58e1b6347"
+      tag:      "v1.47.2",
+      revision: "a3df7825c82a1d76bfca8f2e6e46fe67fc810918"
   license "Apache-2.0"
   head "https://github.com/lacework/go-sdk.git", branch: "main"
 
@@ -16,13 +16,13 @@ class LaceworkCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9b48d96f9b8d27770c280717c9a1d13d29b16ceef7c24c810527db1d34dc6c0d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5aeccfb8ca06eab566bdb75a8afc62a71e0a3eca90999c79e80edd5e7a80768c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "219bf5f2909a3c18dfe7c31eee3d0d241116735457a45cf16597603c98f9a3eb"
-    sha256 cellar: :any_skip_relocation, sonoma:         "1ff1ff377e822eb999d3e9cd07ca631956c022f707c7b2a072076b26cb752f8e"
-    sha256 cellar: :any_skip_relocation, ventura:        "1d50e8f31adfdc711a85c0023ddd4cf32295657f2cda09f848f316b17f275739"
-    sha256 cellar: :any_skip_relocation, monterey:       "be2b56798b5b0d5ef2f8dda8dba6cd35e0d123988a4666afda7a74e12fb7108a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "aba6199c4c812f1fef00808ceadaff460e37b1b34869640476116778f516d136"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9b7532a96b5aec1237712481d2c972422a33ecad68b563b21c41e46884424fe7"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "233321b8fc1ec55832bede4a75d653cfef4d8a81b87510b851436240fe33f2f6"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a4e323d74b1933776901dd6945cba3b6d3303b565ade7e0540ada3775f99c700"
+    sha256 cellar: :any_skip_relocation, sonoma:         "883a592c1d34fb02102bb3bc52ca4163cf86c2e3c29fb374d4e1634090e05011"
+    sha256 cellar: :any_skip_relocation, ventura:        "b5618eb2316b5b627380290a5c3ace17e48abcbc53067256bb09ee81a6e59478"
+    sha256 cellar: :any_skip_relocation, monterey:       "913920a1aa1394d2754cae55ca77f9938c077057dc7f7c773610bc562d0474f0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1ff3188886c382a37e0cabbc2b0a1fa654b903d21d801c01156f9b42c8c85545"
   end
 
   depends_on "go" => :build
@@ -32,9 +32,10 @@ class LaceworkCli < Formula
       -s -w
       -X github.com/lacework/go-sdk/cli/cmd.Version=#{version}
       -X github.com/lacework/go-sdk/cli/cmd.GitSHA=#{Utils.git_head}
+      -X github.com/lacework/go-sdk/cli/cmd.HoneyDataset=lacework-cli-prod
       -X github.com/lacework/go-sdk/cli/cmd.BuildTime=#{time.iso8601}
     ]
-    system "go", "build", *std_go_args(output: bin/"lacework", ldflags: ldflags), "./cli"
+    system "go", "build", *std_go_args(output: bin/"lacework", ldflags:), "./cli"
 
     generate_completions_from_executable(bin/"lacework", "completion", base_name: "lacework")
   end

@@ -1,8 +1,8 @@
 class Rke < Formula
   desc "Rancher Kubernetes Engine, a Kubernetes installer that works everywhere"
   homepage "https://rke.docs.rancher.com/"
-  url "https://github.com/rancher/rke/archive/refs/tags/v1.4.11.tar.gz"
-  sha256 "c04182cf0df6ae74cb3db6163f694f427fdb92a0f3621341716f107445860047"
+  url "https://github.com/rancher/rke/archive/refs/tags/v1.5.6.tar.gz"
+  sha256 "ddcc444fdd8f7eb5a094c183085c59af80c20d01ea3a51b6b517c07789f9c007"
   license "Apache-2.0"
 
   # It's necessary to check releases instead of tags here (to avoid upstream
@@ -16,20 +16,20 @@ class Rke < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "3ed15260735b0c4a5c28dd70b9151348e39d32edeab16d50f16060800cf60a20"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "94dd8255d762a363825c520702c9c636fcd7573ff239c5f890076e27debcc6ba"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f6497071313589f058f4a122d1729ee30701269b962a8335573642995686430c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f90df0f087eca86598cdbc15c90e857985bb540b7cc0767385cc6e2a7787d38d"
-    sha256 cellar: :any_skip_relocation, ventura:        "186dc027eb427f7dd65a6b70321289f39df23c6b6c941dac4f830b2f993b74c5"
-    sha256 cellar: :any_skip_relocation, monterey:       "4d06f9a9e449264825a8d7f0957690104ea5aa9b844cd3ecc23e6dc76f349557"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "448bc9d8aed72fe05233cef68c38b855bd5b7bc7aa3033e748014720355975a8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4cbd4499d7419ec717cdc4e00f8071f45b32e5f00db6662b4e603200afbde609"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bbc9db7bfc28d66103e99e147f52572fc7435beaa28f00d4eda2b36d997a92e6"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a806c1130ee621430ab4a8192f0e95bfadb8ddf60d6cbd24a16fcda8005aa6bc"
+    sha256 cellar: :any_skip_relocation, sonoma:         "be150c9a296614c154f397a87657983dcb69a56dc7a8f36e032112da738e3df7"
+    sha256 cellar: :any_skip_relocation, ventura:        "ef7ca40e5b27b95df7f4ab9f740accf01f9f598518b3241c888eee6c8ac8cfee"
+    sha256 cellar: :any_skip_relocation, monterey:       "c5cc383b4e51f456bd9c3450bc169667fd23ee33c54ef59e12f58a024cff8bbd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7118f896d7c076ff3dd864e583df14f5ab0fc850953d5023805bcf74f2a0a009"
   end
 
   depends_on "go" => :build
 
   def install
     ldflags = "-s -w -X main.VERSION=v#{version}"
-    system "go", "build", *std_go_args(ldflags: ldflags)
+    system "go", "build", *std_go_args(ldflags:)
   end
 
   test do

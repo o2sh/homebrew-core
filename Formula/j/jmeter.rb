@@ -1,24 +1,16 @@
 class Jmeter < Formula
   desc "Load testing and performance measurement application"
   homepage "https://jmeter.apache.org/"
-  url "https://www.apache.org/dyn/closer.lua?path=jmeter/binaries/apache-jmeter-5.6.2.tgz"
-  mirror "https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.2.tgz"
-  sha256 "08696d3b6278d272342d18609e2167ef28d2d1d5f71b592809c00bbd57cc8ef0"
+  url "https://www.apache.org/dyn/closer.lua?path=jmeter/binaries/apache-jmeter-5.6.3.tgz"
+  mirror "https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.3.tgz"
+  sha256 "f68efc17fe060f698c48a6abe2599a933927486bda2924dbe14c74895318ddde"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "057e07995bc4c4085510a2f53f0b1b673ebdb215db18d8c6497248b5b5855874"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f63ab326b37c6c29d7ccdc0d115e2a3a7db0fb959f25af01067eb13c4b10d1d0"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f63ab326b37c6c29d7ccdc0d115e2a3a7db0fb959f25af01067eb13c4b10d1d0"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f63ab326b37c6c29d7ccdc0d115e2a3a7db0fb959f25af01067eb13c4b10d1d0"
-    sha256 cellar: :any_skip_relocation, sonoma:         "057e07995bc4c4085510a2f53f0b1b673ebdb215db18d8c6497248b5b5855874"
-    sha256 cellar: :any_skip_relocation, ventura:        "f63ab326b37c6c29d7ccdc0d115e2a3a7db0fb959f25af01067eb13c4b10d1d0"
-    sha256 cellar: :any_skip_relocation, monterey:       "f63ab326b37c6c29d7ccdc0d115e2a3a7db0fb959f25af01067eb13c4b10d1d0"
-    sha256 cellar: :any_skip_relocation, big_sur:        "f63ab326b37c6c29d7ccdc0d115e2a3a7db0fb959f25af01067eb13c4b10d1d0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "30e671f75a56f645115bb3f5c91968afcfbb89643565737a1c18d79928c9bf83"
+    sha256 cellar: :any_skip_relocation, all: "5107d96ba3897ce857dc916c88874fe857b6eb4b5b1a05a67a25008d38e8bf89"
   end
 
-  depends_on "openjdk@17"
+  depends_on "openjdk"
 
   resource "jmeter-plugins-manager" do
     url "https://search.maven.org/remotecontent?filepath=kg/apc/jmeter-plugins-manager/1.9/jmeter-plugins-manager-1.9.jar"
@@ -30,7 +22,7 @@ class Jmeter < Formula
     rm_f Dir["bin/*.bat"]
     prefix.install_metafiles
     libexec.install Dir["*"]
-    (bin/"jmeter").write_env_script libexec/"bin/jmeter", JAVA_HOME: Formula["openjdk@17"].opt_prefix
+    (bin/"jmeter").write_env_script libexec/"bin/jmeter", JAVA_HOME: Formula["openjdk"].opt_prefix
 
     resource("jmeter-plugins-manager").stage do
       (libexec/"lib/ext").install Dir["*"]

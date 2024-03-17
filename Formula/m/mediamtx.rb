@@ -1,25 +1,27 @@
 class Mediamtx < Formula
   desc "Zero-dependency real-time media server and media proxy"
   homepage "https://github.com/bluenviron/mediamtx"
-  url "https://github.com/bluenviron/mediamtx/archive/refs/tags/v1.3.1.tar.gz"
-  sha256 "a844bc95b4b33dadaaeeab2945add83c9c8ca1c6833e0d3d43a82c5c9bb126af"
+  url "https://github.com/bluenviron/mediamtx/archive/refs/tags/v1.6.0.tar.gz"
+  sha256 "7eb2f94e6246bde435f19cfb56ac69926b7d700206c8491e0dd9c69e4324fe92"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "aadf15953997213549616d14ff91b8268ca4277afb711505c0835ab8e44feeb5"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b3becd9d0d59a5b8b36cdf35142ff172505452a0a8dea8853f0e7214b64961c9"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "5120b0948dc0ddf2a00f8b83c75e2d55f73617cebd6587a7bf34a011cec348a2"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a44857068f9282f9932be7ecbea1a70947e368e402f74501b27e4613c5bf46ea"
-    sha256 cellar: :any_skip_relocation, ventura:        "b6468d3f5792e6b8be60870b9bd7de2fda0c902dcc741bbf486de4daea1919de"
-    sha256 cellar: :any_skip_relocation, monterey:       "3007beb38ff637ac418b40acaf0ddd70e26c9082a96659e3f92c323a8ff16cb7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8ec8657913150ec8155fad66f70c4b4e92afa2eb8de8db0354143a2a88f210d5"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b62141e0731acab47e338c1e4c79c6dad92cbdfd76b9409ecbecf3c74835dd0a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e0f6516b6d75cbeefa07f7aaf0b63a1be1452454380c8e0ac60e7922870390d9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "3ad21a144b56e21eedb3e8588a77c6a03df2e43c3fbbea8ccce252d60868d1a1"
+    sha256 cellar: :any_skip_relocation, sonoma:         "ddd831cba4b0fec9d43b44ec41d7a3843d7fc0738041e059be64e91f1ec88830"
+    sha256 cellar: :any_skip_relocation, ventura:        "f3a373939c7c2fa27d1332334e70604566684eda01053c6371c880537cf28a31"
+    sha256 cellar: :any_skip_relocation, monterey:       "547586e8d7a87727842369c26520f94c153dea3e2b796a7b54ae099b6552f7c7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "25a99c1eaa0fb695973a25fb2a6bd266e283009ab6590c5e9ebddbb2b707d4be"
   end
 
   depends_on "go" => :build
 
   def install
+    system "go", "generate", "./..."
+
     ldflags = "-s -w -X github.com/bluenviron/mediamtx/internal/core.version=#{version}"
-    system "go", "build", *std_go_args(ldflags: ldflags)
+    system "go", "build", *std_go_args(ldflags:)
 
     # Install default config
     (etc/"mediamtx").install "mediamtx.yml"

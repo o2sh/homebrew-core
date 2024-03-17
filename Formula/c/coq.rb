@@ -1,9 +1,10 @@
 class Coq < Formula
   desc "Proof assistant for higher-order logic"
   homepage "https://coq.inria.fr/"
-  url "https://github.com/coq/coq/archive/refs/tags/V8.17.1.tar.gz"
-  sha256 "724667de65825359081b747d41fdbead0620d43b57aa8377a27acd4b072585e6"
+  url "https://github.com/coq/coq/releases/download/V8.19.0/coq-8.19.0.tar.gz"
+  sha256 "17e5c10fadcd3cda7509d822099a892fcd003485272b56a45abd30390f6a426f"
   license "LGPL-2.1-only"
+  revision 1
   head "https://github.com/coq/coq.git", branch: "master"
 
   livecheck do
@@ -12,15 +13,13 @@ class Coq < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "a71548b2617c87031535b97395750ba041cb524dddc1ab81634e78a8972b6f1d"
-    sha256 arm64_ventura:  "17428d897cd59b5ad624055c3de93ad2e40781ccc99db16333a71aaad58a3386"
-    sha256 arm64_monterey: "16f1d9f1950219e0af6e4e06c28813908367ed23bff7ff1c3c4310c8afbaf653"
-    sha256 arm64_big_sur:  "afc36bee0d091cc4902e1553daee20767dd4b4585ab7b54c8d34adf602616270"
-    sha256 sonoma:         "09071170eccb180640017811c7525da624c685453e46342901adeaae0a9b527a"
-    sha256 ventura:        "d78a6b69c915bf1529eb04aae3b2582a9226102abf02182eb12966a59f22e8de"
-    sha256 monterey:       "0e46aa5d4bc792918c9532644c16f40f7c67c351bb12731afb60b93b17d61591"
-    sha256 big_sur:        "ebc637b55147ceed8574602c71575281b7b12246859dd61eb0fdf1c71693cc5d"
-    sha256 x86_64_linux:   "19fb510814e223b19f28e0c2aa67c4b9add7fdbc65772ad7b8a41214685b9acd"
+    sha256 arm64_sonoma:   "7f13ef92eeff6e21d81bbed374013088f38246d9450bc8634d2b243736c0146c"
+    sha256 arm64_ventura:  "aa0333fdf567061b8e610f4adb7fe7e893e344c4488dc17a86009c7716f7a617"
+    sha256 arm64_monterey: "d338d4f1236f9373f1365fc2ce71fe22dcd695e2b4f521d9339e4955ec06906e"
+    sha256 sonoma:         "3fe57eb1deebee70fe6d3b5e24a7aacf60d90c7a7941db292e70a1611ce0236e"
+    sha256 ventura:        "b62c26db868ad4cc07b48fb8be5b1abc0cf7534e7758cdd9959f5c43c105f343"
+    sha256 monterey:       "96ce2e5bde5e1b56f5e90b7a71ed68600d57004baabb8c541a6b2d28756be9a4"
+    sha256 x86_64_linux:   "0a3e56daf611ef10e0904a4d3960a2653ebbd1fbef064a3f1514d5efb5f19269"
   end
 
   depends_on "dune" => :build
@@ -37,11 +36,13 @@ class Coq < Formula
     ENV.prepend_path "OCAMLPATH", Formula["ocaml-findlib"].opt_lib/"ocaml"
     system "./configure", "-prefix", prefix,
                           "-mandir", man,
+                          "-libdir", HOMEBREW_PREFIX/"lib/ocaml/coq",
                           "-docdir", pkgshare/"latex"
     system "make", "dunestrap"
     system "dune", "build", "-p", "coq-core,coq-stdlib,coqide-server,coq"
     system "dune", "install", "--prefix=#{prefix}",
                               "--mandir=#{man}",
+                              "--libdir=#{lib}/ocaml",
                               "coq-core",
                               "coq-stdlib",
                               "coqide-server",
@@ -75,5 +76,8 @@ class Coq < Formula
       Qed.
     EOS
     system bin/"coqc", testpath/"testing.v"
+    # test ability to find plugin files
+    output = shell_output("#{Formula["ocaml-findlib"].bin}/ocamlfind query coq-core.plugins.ltac")
+    assert_equal "#{HOMEBREW_PREFIX}/lib/ocaml/coq-core/plugins/ltac", output.chomp
   end
 end

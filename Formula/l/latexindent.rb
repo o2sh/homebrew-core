@@ -1,18 +1,18 @@
 class Latexindent < Formula
   desc "Add indentation to LaTeX files"
   homepage "https://latexindentpl.readthedocs.io"
-  url "https://github.com/cmhughes/latexindent.pl/archive/refs/tags/V3.23.4.tar.gz"
-  sha256 "da12f343b4be311eb3eee5b844a661c561e278c2c862ce7bc168d03b6b1541b1"
+  url "https://github.com/cmhughes/latexindent.pl/archive/refs/tags/V3.23.7.tar.gz"
+  sha256 "2536644c4d5c4d0ce3b4f77f4f0fcb9a6479a315febd1beae4c4cb476e6064ea"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e984e3fa7afe6cb3d2e10007fa3f84cceed5e7b57fe150f43ce533840ba1b9e5"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d05abe499abb296eb2893887df00edab83c1aba7b70ed89155f03fcd923ec531"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f46554c8725b2d6baf3513e9cb9ea7f46f4c4166f7e42383036e7bd49514633c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "736b94832986939489c6ca9c6685362156aad328ae0aa65565b0d44795667fb8"
-    sha256 cellar: :any_skip_relocation, ventura:        "4d4164330993d19b4cb167ac2e4cd9181ed99a2d0d3d27c4f11d0389b42d5815"
-    sha256 cellar: :any_skip_relocation, monterey:       "fa67e4cc2b939a2a8aae83a1b4793b963e053bc589973988fb08f33a87317b24"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a58812428826cb3ef178db245d546cb197d03fa8bf130430a52675cfd0d7c00e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ef998eb49cbddc2f60862c4af92274e3e45c46d31c4b9fe2e68348fa2ab94542"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "43ec94cceee7117532f2b0bd33b7c14eed51c16cf3972a7b25a4bfc75c21f0db"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f6d08bb74a6fae8c30edc9d3d246f80b6ecc54ce29804901240c40b2fc17ca00"
+    sha256 cellar: :any_skip_relocation, sonoma:         "ab9f1e276341c67aafec8c179c9f1d8ed734fe28a6e65a28e5337af9cb3cd502"
+    sha256 cellar: :any_skip_relocation, ventura:        "b2751ddc23f17e3ea5ce568352c107d08eaec9db33e6ee29c050e66989db87f5"
+    sha256 cellar: :any_skip_relocation, monterey:       "adc6d235938a4274a9de41df774fd47550106de288f2ac5a4c9d7b36e1b4bf19"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2b74f974e99c53ffdab34aadca862993ac0c6a87ade835dbe307a1545a099dcf"
   end
 
   depends_on "perl"
@@ -25,8 +25,8 @@ class Latexindent < Formula
   end
 
   resource "B::Hooks::EndOfScope" do
-    url "https://cpan.metacpan.org/authors/id/E/ET/ETHER/B-Hooks-EndOfScope-0.26.tar.gz"
-    sha256 "39df2f8c007a754672075f95b90797baebe97ada6d944b197a6352709cb30671"
+    url "https://cpan.metacpan.org/authors/id/E/ET/ETHER/B-Hooks-EndOfScope-0.28.tar.gz"
+    sha256 "edac77a17fc36620c8324cc194ce1fad2f02e9fcbe72d08ad0b2c47f0c7fd8ef"
   end
 
   resource "Class::Data::Inheritable" do
@@ -40,8 +40,8 @@ class Latexindent < Formula
   end
 
   resource "Devel::StackTrace" do
-    url "https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/Devel-StackTrace-2.04.tar.gz"
-    sha256 "cd3c03ed547d3d42c61fa5814c98296139392e7971c092e09a431f2c9f5d6855"
+    url "https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/Devel-StackTrace-2.05.tar.gz"
+    sha256 "63cb6196e986a7e578c4d28b3c780e7194835bfc78b68eeb8f00599d4444888c"
   end
 
   resource "Dist::CheckConflicts" do

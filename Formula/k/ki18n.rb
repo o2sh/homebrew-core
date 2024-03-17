@@ -1,8 +1,8 @@
 class Ki18n < Formula
   desc "KDE Gettext-based UI text internationalization"
   homepage "https://api.kde.org/frameworks/ki18n/html/index.html"
-  url "https://download.kde.org/stable/frameworks/5.112/ki18n-5.112.0.tar.xz"
-  sha256 "33d542e760c2bd5dd2d3511624cac3311c60187d7c7b155a4b968a7c6b7a961b"
+  url "https://download.kde.org/stable/frameworks/6.0/ki18n-6.0.0.tar.xz"
+  sha256 "15cbfb73ef1d3954d6206755b6e6a9c86ea27be4b4db0c843d38494851bcc354"
   license all_of: [
     "BSD-3-Clause",
     "LGPL-2.0-or-later",
@@ -16,35 +16,35 @@ class Ki18n < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "6d841eb9fe44f81f1a85c65ff75866b1ba94bacd8499d17dd057709c19768b67"
-    sha256 cellar: :any,                 arm64_ventura:  "55af29ff56fb4c3f2962b608c905b36c07008b48e7ab0af9e755a8ee2ee2efee"
-    sha256 cellar: :any,                 arm64_monterey: "5837f9757264b0bb88a11183c3496b2da026dd7930f31657ccf9a10a0f8bc463"
-    sha256 cellar: :any,                 sonoma:         "e5fea5c336856deda5705bc1c1d73ba62dd85bd66ba3950840f18f0eacf70658"
-    sha256 cellar: :any,                 ventura:        "305d36763c239529140420a6de17525fd55e0ceeb65b4275cbe395616eb9aac1"
-    sha256 cellar: :any,                 monterey:       "5c766ad27d7cd7dfc9bf3515ba115e6a506a250c4ad74b89fbbf4e2cd4dbe431"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cd6a90d20224d621690f7f18fb4b76dfe4b6e65c75d2d8354b687c7d9ad1d20d"
+    sha256 arm64_sonoma:   "3f6a65bf693cb3b22127995fee52f63bb99476b98ec159e86545588b0a100672"
+    sha256 arm64_ventura:  "19d81539d2d12d038cfa7a16fde677fd9f2d9f19734f3be05abd7001e895f064"
+    sha256 arm64_monterey: "90d08a0ff4b2997fa1f4779017f3acc0e4ac82ba718ea1f1261856f11d38261e"
+    sha256 sonoma:         "005807c4e4512af04b8ea2315175f46eca77ba200122fc482adcb525fdc27ed9"
+    sha256 ventura:        "20474c8832b0cf6052610e84eab889e9e20dfc41ba07fdc25791c3eedcd579ad"
+    sha256 monterey:       "7d97831a5dc3e5a66f9564f3e94e7d31fbb03aa148fb8c0b458cabaca6e8ac2c"
+    sha256 x86_64_linux:   "eb0ea37f0de37e40404400abd75a07e3863e322ebe4d8249cff3a3f552290513"
   end
 
   depends_on "cmake" => [:build, :test]
   depends_on "doxygen" => :build
   depends_on "extra-cmake-modules" => [:build, :test]
-  depends_on "graphviz" => :build
-  depends_on "python@3.11" => :build
+  depends_on "pkg-config" => :build
   depends_on "gettext"
   depends_on "iso-codes"
-  depends_on "qt@5"
+  depends_on "qt"
+
+  uses_from_macos "python" => :build, since: :catalina
 
   fails_with gcc: "5"
 
   def install
-    args = std_cmake_args + %w[
-      -S .
-      -B build
+    args = %W[
       -DBUILD_QCH=ON
       -DBUILD_WITH_QML=ON
+      -DPython3_EXECUTABLE=#{which("python3")}
     ]
 
-    system "cmake", *args
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
@@ -53,18 +53,21 @@ class Ki18n < Formula
   end
 
   test do
+    qt = Formula["qt"]
+    qt_major = qt.version.major
+
     (testpath/"CMakeLists.txt").write <<~EOS
       cmake_minimum_required(VERSION 3.5)
       include(FeatureSummary)
-      find_package(ECM #{version} NO_MODULE)
+      find_package(ECM #{version unless build.head?} NO_MODULE)
       set_package_properties(ECM PROPERTIES TYPE REQUIRED)
       set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} "#{pkgshare}/cmake")
       set(CMAKE_CXX_STANDARD 17)
-      set(QT_MAJOR_VERSION 5)
+      set(QT_MAJOR_VERSION #{qt_major})
       set(BUILD_WITH_QML ON)
-      set(REQUIRED_QT_VERSION #{Formula["qt@5"].version})
+      set(REQUIRED_QT_VERSION #{qt.version})
       find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} REQUIRED Core Qml)
-      find_package(KF5I18n REQUIRED)
+      find_package(KF#{qt_major}I18n REQUIRED)
       INCLUDE(CheckCXXSourceCompiles)
       find_package(LibIntl)
       set_package_properties(LibIntl PROPERTIES TYPE REQUIRED)
@@ -73,15 +76,16 @@ class Ki18n < Formula
 
     cp_r (pkgshare/"autotests"), testpath
 
-    args = std_cmake_args + %W[
-      -S .
-      -B build
-      -DQt5_DIR=#{Formula["qt@5"].opt_lib}/cmake/Qt5
-      -DLibIntl_INCLUDE_DIRS=#{Formula["gettext"].include}
-      -DLibIntl_LIBRARIES=#{Formula["gettext"].lib}/libintl.dylib
-    ]
+    args = if OS.mac?
+      %W[
+        -DLibIntl_INCLUDE_DIRS=#{Formula["gettext"].include}
+        -DLibIntl_LIBRARIES=#{Formula["gettext"].lib}/libintl.dylib
+      ]
+    else
+      []
+    end
 
-    system "cmake", *args
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
   end
 end

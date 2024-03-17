@@ -1,20 +1,20 @@
 class GitAnnex < Formula
   desc "Manage files with git without checking in file contents"
   homepage "https://git-annex.branchable.com/"
-  url "https://hackage.haskell.org/package/git-annex-10.20230926/git-annex-10.20230926.tar.gz"
-  sha256 "e7ded189aa10b7926ec8624a30755c63d117b59d2d714c5f79b0b1962f70a41a"
+  url "https://hackage.haskell.org/package/git-annex-10.20240227/git-annex-10.20240227.tar.gz"
+  sha256 "18db118fbd0da08927f810080980e9189fe6c91b40c80d7de15722ad5d37fe1e"
   license all_of: ["AGPL-3.0-or-later", "BSD-2-Clause", "BSD-3-Clause",
                    "GPL-2.0-only", "GPL-3.0-or-later", "MIT"]
   head "git://git-annex.branchable.com/", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "59d124ef423c9f6e6bfb92b06f74a0d20855f19c688d705c7c8aa96328f98158"
-    sha256 cellar: :any,                 arm64_ventura:  "72111a427c64eeded953fdf5da51dbc2b7463d3a4e649d5cf75b50dd785fcabf"
-    sha256 cellar: :any,                 arm64_monterey: "54d201f6cca9371551b665aaba0211651e527f253361555cc6486cf136b6c5ca"
-    sha256 cellar: :any,                 sonoma:         "578d2c2fd6a6eca84f97333a4a9fbd99e73a19122e7ccb26c50be35e46643e30"
-    sha256 cellar: :any,                 ventura:        "31f7af0aee41392c0e319e23c708a5a33347327bc35c072bf7133825d0655226"
-    sha256 cellar: :any,                 monterey:       "1716c05f2eb5ced147458dd23b33e3cbf18f54e403632a617be3a390be318751"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9c7abeed7e3d80b67c2b79a039f9f74a6a84fa32be4e5bd84def04bd71ffafc2"
+    sha256 cellar: :any,                 arm64_sonoma:   "8318d2548028d62b247a5900f985c243223c557a802da9712fd7f76eb5df85fd"
+    sha256 cellar: :any,                 arm64_ventura:  "f360ad3b0686e8cfc07b9cf49d15b3215018b4ea6dce9b726fbc47bbf07cf146"
+    sha256 cellar: :any,                 arm64_monterey: "8c27862f0fb81c50aceee8287c0b271a085ab67e8f0ab521caf2c9f44dd5f200"
+    sha256 cellar: :any,                 sonoma:         "a9cd96feb01545efccb2a2281b49b5931a60162e6e49f2c4a6f0129b027f0770"
+    sha256 cellar: :any,                 ventura:        "6cdb1e33c187196e8d6e9df79268430981c8e54fd356e39368c5289702b14c22"
+    sha256 cellar: :any,                 monterey:       "01cca9c6d8db018fd85abdfc446cae3325048b7b7edfc5d3154dfb98c8a7c985"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5b016fc86c4434ccb7711588e6111d550703164e5fb466a3fbf84e096ad3b86c"
   end
 
   depends_on "cabal-install" => :build
@@ -37,8 +37,6 @@ class GitAnnex < Formula
   test do
     # make sure git can find git-annex
     ENV.prepend_path "PATH", bin
-    # We don't want this here or it gets "caught" by git-annex.
-    rm_r "Library/Python/2.7/lib/python/site-packages/homebrew.pth"
 
     system "git", "init"
     system "git", "annex", "init"

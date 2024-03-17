@@ -1,29 +1,44 @@
 class PhylumCli < Formula
   desc "Command-line interface for the Phylum API"
   homepage "https://www.phylum.io"
-  url "https://github.com/phylum-dev/cli/archive/refs/tags/v5.8.1.tar.gz"
-  sha256 "c723c87832d47694fe55cc860bb7969efec52c5ac0bcee917d3bd6b2e1a1ccfc"
+  url "https://github.com/phylum-dev/cli/archive/refs/tags/v6.1.2.tar.gz"
+  sha256 "45638a358e3ddb03a75f1834e000ab8017b6379eb6a016343c5bf218dad3f66c"
   license "GPL-3.0-or-later"
   head "https://github.com/phylum-dev/cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "367a4616ff626124f3e75a5192e64f6d5d6fd7289afb8c3d5c1a03f3630da482"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "cf6f221c27afba65de24263bb6c6db4a047ea7f6d00547acd88c6416060a6873"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3ff70b6edf50b09e56995710c2d6b09dbb385e0ecf0aef83b5fad3974b920d62"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8d9d955083afc6e13de273bef89b925cb1c8c7c61f89ea869d2efc6999639038"
-    sha256 cellar: :any_skip_relocation, ventura:        "21c49a3c99a285ccda22760afb1975029bc4aa33cea1e368d40dfbdea2770da9"
-    sha256 cellar: :any_skip_relocation, monterey:       "4920d2fde5cd71b4776a57aeef2d264836c27d272a14f3935f568c6f38f78769"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4ebd35eac681d32b88fc09b95b69896107982b9ea8db0a2976a7089138ec42c2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6f22db4b5d200c3834cb3b7fda6b0c245a3122139b0311a46321417f1c28183d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0375374c2e86e9126ef38b61c50fd67109c3eab852021d22703a29f64e1b399d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "93be2c7257bd3e26c49b0d5e3a37447a5a186c59d45783e14b4bca8fc9a2b4be"
+    sha256 cellar: :any_skip_relocation, sonoma:         "a3982fbee3a289c059d0e15e8d799e045d3b2011ad516b06c8282111b4dea146"
+    sha256 cellar: :any_skip_relocation, ventura:        "a44f593d363e93e886b6b5726b68e911dda0783fd0224764a721b5e072b49aec"
+    sha256 cellar: :any_skip_relocation, monterey:       "c9e8e4cf84ed2074bdf231ff693a3db6d74e367bec388dd06745d5434a8314cf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0e1faa8bfaeb78296c552ab296fce876474dc987de28080f99b942b9a2b35cdc"
   end
 
+  depends_on "protobuf" => :build
   depends_on "rust" => :build
 
+  uses_from_macos "zlib"
+
   def install
-    system "cargo", "install", *std_cargo_args(path: "cli")
+    system "cargo", "install", "--no-default-features", *std_cargo_args(path: "cli")
+
+    # Generate and install shell completions
+    system "cargo", "run", "--package", "xtask", "--no-default-features", "gencomp"
+    bash_completion.install "target/completions/phylum.bash" => "phylum"
+    zsh_completion.install "target/completions/_phylum"
+    fish_completion.install "target/completions/phylum.fish"
+  end
+
+  def caveats
+    <<~EOS
+      No official extensions have been preinstalled.
+    EOS
   end
 
   test do
-    assert_match version.to_s, shell_output("#{bin}/phylum version")
+    assert_match version.to_s, shell_output("#{bin}/phylum --version")
 
     output = shell_output("#{bin}/phylum extension")
     assert_match "No extensions are currently installed.", output

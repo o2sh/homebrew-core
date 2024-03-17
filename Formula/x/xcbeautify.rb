@@ -1,32 +1,24 @@
 class Xcbeautify < Formula
   desc "Little beautifier tool for xcodebuild"
-  homepage "https://github.com/tuist/xcbeautify"
-  url "https://github.com/tuist/xcbeautify.git",
-      tag:      "1.0.1",
-      revision: "7dc31d4a9e9cc660f2de6ff6c6e0f0d5dfbb572b"
+  homepage "https://github.com/cpisciotta/xcbeautify"
+  url "https://github.com/cpisciotta/xcbeautify.git",
+      tag:      "2.0.1",
+      revision: "3140aa2d58063dbe30426cce118f8ba8feb37e60"
   license "MIT"
-  head "https://github.com/tuist/xcbeautify.git", branch: "master"
+  head "https://github.com/cpisciotta/xcbeautify.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4a5479b847e453d31a6f0db5dc2025a7cec02a3abee949633f3d4b933c63d4bf"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "65c88205f9cad6b2decfc1822e020474e29f39cee2b0829e5ee45d730f916dff"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "07d7483ef82ce4f8e5454192ab57af31081ddce1dc1a59e0b78047083b3c2d46"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ba9a4d02d7c11272c5772a751d6e3429071c208f599c6f72359a59db3ba7ab50"
-    sha256 cellar: :any_skip_relocation, ventura:        "28704b049d5826632dca6a0d4df678d9420debdc6e72b7d9a74569fd6ad749ca"
-    sha256 cellar: :any_skip_relocation, monterey:       "698a79eefa07f2bc8371961ae59efd863fba1dab4c50cca0a79d935d9c42cffe"
-    sha256                               x86_64_linux:   "8bf201e9ccf569c24001db8c4cf14d86272de79d844a6e24c3f63a7d5a391a89"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1214dd4c5918fe702710ad5a7966239a9102d0d4add685bae3eff71a6c901576"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "bbcd950c6e9b581a4840efd703977adffee5f8bbf4c626e29ada9f5396217620"
+    sha256 cellar: :any_skip_relocation, sonoma:        "980bdf18ca7e57ad1c0f6ab5ba632370db94e29b9eefcab82904de580e15d5d3"
+    sha256 cellar: :any_skip_relocation, ventura:       "e59fd6d042abb621bd60f88a1cd6fb7a3a8833cdaa28f8773c4888393706305e"
+    sha256                               x86_64_linux:  "c16e3098d644c3fee4af2646a11d0567b335d5237334ce58d8f1aee86a18a32b"
   end
 
-  # needs Swift tools version 5.7.0
-  depends_on xcode: ["14.0", :build]
+  # needs Swift tools version 5.9.0
+  depends_on xcode: ["15.0", :build]
 
   uses_from_macos "swift"
-
-  # fix version report issue, upstream PR ref, https://github.com/tuist/xcbeautify/pull/159
-  patch do
-    url "https://github.com/tuist/xcbeautify/commit/af3847b6a3bbe1142c055fc968f20322788bf3a0.patch?full_index=1"
-    sha256 "863884832585c19cce03f9f10dc4e38575ec44f74e2d235c6654a6301a6a8d5d"
-  end
 
   def install
     system "swift", "build", "--disable-sandbox", "--configuration", "release"
@@ -35,8 +27,8 @@ class Xcbeautify < Formula
 
   test do
     log = "CompileStoryboard /Users/admin/MyApp/MyApp/Main.storyboard (in target: MyApp)"
-    assert_match "[\u{1B}[36mMyApp\u{1B}[0m] \u{1B}[1mCompiling\u{1B}[0m Main.storyboard",
-      pipe_output("#{bin}/xcbeautify", log).chomp
+    assert_match "[MyApp] Compiling Main.storyboard",
+      pipe_output("#{bin}/xcbeautify --disable-colored-output", log).chomp
     assert_match version.to_s,
       shell_output("#{bin}/xcbeautify --version").chomp
   end

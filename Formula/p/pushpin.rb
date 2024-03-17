@@ -1,40 +1,58 @@
 class Pushpin < Formula
   desc "Reverse proxy for realtime web services"
   homepage "https://pushpin.org/"
-  url "https://github.com/fastly/pushpin/releases/download/v1.37.0/pushpin-1.37.0.tar.bz2"
-  sha256 "5fe5042f34a7955113cea3946c5127e3e182df446d8704d6a26d13cde74e960f"
   license "Apache-2.0"
   head "https://github.com/fastly/pushpin.git", branch: "main"
 
-  bottle do
-    sha256 ventura:      "a14bd996772ffd8d662690864e7412135fd3fa50df4d953694969d02280971ea"
-    sha256 monterey:     "9b7ffe6547bb8bf7790b64d0ca0fb81a85d069dbc5bf8782606fd670afa730e6"
-    sha256 big_sur:      "c382905cb6068f69fb4af65a0f5fcefd441519d1fb186d4ffbe048126e701b82"
-    sha256 x86_64_linux: "2e3da86aaf8b0bd905cac0ec5291e6ea2e111c287cc44b68a9b05333287a8bce"
+  stable do
+    url "https://github.com/fastly/pushpin/releases/download/v1.39.0/pushpin-1.39.0.tar.bz2"
+    sha256 "25044e1f1dabdbd20fd42d35666f4b4a0e84bae2146dd30c8f82c85543a97bf2"
+
+    patch do
+      url "https://github.com/fastly/pushpin/commit/b20aeed32fa0d7eb7cd47119608c0208d0373513.patch?full_index=1"
+      sha256 "bb7e181a0ed35e67d784b658658bbceb9f3c6b108e027431dd1e1798b2c5a0e3"
+    end
+    patch do
+      url "https://github.com/fastly/pushpin/commit/8b17bf4b59731af62a9508b1143d72f6615cef7d.patch?full_index=1"
+      sha256 "32bd7cb01251d4a365ecf83c7e76b27a47dfca2a84aeecd11d9d5ede398af293"
+    end
   end
 
+  bottle do
+    sha256 cellar: :any,                 sonoma:       "ace5ffa91826756133c944eb86bd0cc93f60d5143fd054966ad6a960c2ad02b8"
+    sha256 cellar: :any,                 ventura:      "e03f4034571cf0ecb9f3ca5273581b6092bdbc4b8db6c59df6bd06682c1b2c17"
+    sha256 cellar: :any,                 monterey:     "fe0a1365ca2bf4893497e94a821eae6f757576415f11cb739ffbad4a865624e8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "02a03ff705aa26e807f3de0f58e7c221eb8243091a0d0c680626bb750f8dead4"
+  end
+
+  depends_on "boost" => :build
   depends_on "pkg-config" => :build
   depends_on "rust" => :build
-  depends_on "condure"
   depends_on "mongrel2"
-  depends_on "python@3.11"
-  depends_on "qt@5"
+  depends_on "python@3.12"
+  depends_on "qt"
   depends_on "zeromq"
   depends_on "zurl"
 
   fails_with gcc: "5"
 
   def install
-    args = %W[
-      --configdir=#{etc}
-      --rundir=#{var}/run
-      --logdir=#{var}/log
-    ]
-    args << "--extraconf=QMAKE_MACOSX_DEPLOYMENT_TARGET=#{MacOS.version}" if OS.mac?
+    # Work around `cc` crate picking non-shim compiler when compiling `ring`.
+    # This causes include/GFp/check.h:27:11: fatal error: 'assert.h' file not found
+    ENV["HOST_CC"] = ENV.cc
 
-    system "./configure", *std_configure_args, *args
-    system "make"
-    system "make", "install"
+    args = %W[
+      RELEASE=1
+      PREFIX=#{prefix}
+      LIBDIR=#{lib}
+      CONFIGDIR=#{etc}
+      RUNDIR=#{var}/run
+      LOGDIR=#{var}/log
+      BOOST_INCLUDE_DIR=#{Formula["boost"].include}
+    ]
+
+    system "make", *args
+    system "make", *args, "install"
   end
 
   test do
@@ -85,13 +103,16 @@ class Pushpin < Formula
         assert(body == b'test response\\n')
     EOS
 
+    ENV["LC_ALL"] = "en_US.UTF-8"
+    ENV["LANG"] = "en_US.UTF-8"
+
     pid = fork do
       exec "#{bin}/pushpin", "--config=#{conffile}"
     end
 
     begin
       sleep 3 # make sure pushpin processes have started
-      system Formula["python@3.11"].opt_bin/"python3.11", runfile
+      system Formula["python@3.12"].opt_bin/"python3.12", runfile
     ensure
       Process.kill("TERM", pid)
       Process.wait(pid)

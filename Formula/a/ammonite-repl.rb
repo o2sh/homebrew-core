@@ -1,28 +1,28 @@
 class AmmoniteRepl < Formula
   desc "Ammonite is a cleanroom re-implementation of the Scala REPL"
   homepage "https://ammonite.io/"
-  # TODO: Check if we can use unversioned `openjdk` (or `openjdk@21`) at version bump.
-  url "https://github.com/com-lihaoyi/Ammonite/releases/download/2.5.11/3.2-2.5.11"
-  version "2.5.11"
-  sha256 "384cf08e2591be4d199c75cf1913d44c043466b8cddeaa21dd5669d10f94a18f"
+  url "https://github.com/com-lihaoyi/Ammonite/releases/download/3.0.0-M1/3.3-3.0.0-M1"
+  version "3.0.0-M1"
+  sha256 "10bf264d499b71eb552153878ddfc9bcef0db179dbdc4b582b6fa2b59c0eb032"
   license "MIT"
 
   livecheck do
     url :stable
     strategy :github_latest
+    regex(/^v?(\d+(?:\.\d+)+[._-]M\d)$/i)
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "bc3ee73003b1b68cd598d24833dc3ca8ca8ba30dfac338bf5d2e48fe30bf6f4d"
+    sha256 cellar: :any_skip_relocation, all: "37fb4a5e267505d134a88a6d0fa3ddc92f014d3178a9a61eb814d46b8b1407d5"
   end
 
-  depends_on "openjdk@17"
+  depends_on "openjdk"
 
   def install
     (libexec/"bin").install Dir["*"].first => "amm"
     chmod 0755, libexec/"bin/amm"
-    env = Language::Java.overridable_java_home_env("17")
-    env["PATH"] = "$PATH:$JAVA_HOME/bin"
+    env = Language::Java.overridable_java_home_env
+    env["PATH"] = "$JAVA_HOME/bin:$PATH"
     (bin/"amm").write_env_script libexec/"bin/amm", env
   end
 

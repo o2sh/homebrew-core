@@ -6,6 +6,7 @@ class FfmpegAT4 < Formula
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
   license "GPL-2.0-or-later"
+  revision 4
 
   livecheck do
     url "https://ffmpeg.org/download.html"
@@ -13,14 +14,13 @@ class FfmpegAT4 < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_sonoma:   "15c4a32adc718d753b6cb503430d646e49acde84fdc8ebd34cd25177bb1fb1f9"
-    sha256 arm64_ventura:  "9db8f8fbee8211261e1dc05ee7c3fe45eec0b6cbae92dc0292b95f97c1d12cf4"
-    sha256 arm64_monterey: "8a66960be41d02a89598d31c4bd6533ed4fd173ac25792dcc711980cb0082410"
-    sha256 sonoma:         "515c0777d65ee82a6bcf354c4463ac7d48bc4cf66bf58d66d4143523610e6514"
-    sha256 ventura:        "f40b6990aa6568eaf90218bb970c0ab038fda0328562ef0a5795d07ca4c7e171"
-    sha256 monterey:       "b452dd762ba928773f2d8b325e19091344970883f48483102ac69923a33f5315"
-    sha256 x86_64_linux:   "52ba7c46775df566cc4281349a878adcf794d2f41815e10cefc92b7781a5d309"
+    sha256 arm64_sonoma:   "1797363ec0d50082473d532fb2cea7fb51a9f7bc245298dd2f965327e141cc9b"
+    sha256 arm64_ventura:  "f4694b200722b39385c309b25618de9f1d978dce3b4aa5dd76582086f09f269e"
+    sha256 arm64_monterey: "1cf6a2b196893942bcf08bd30e2f7fdc1aa055b3fd8ff3ea74b46e1ffde91c32"
+    sha256 sonoma:         "250bd70ea9f79d197f73830a66cf3a0a86aace2089d2e66ab729b68d0a8a3d3d"
+    sha256 ventura:        "495de31aa416d2046a986083249bf726ec264bdafca638f54b9b3d55f30f0ffe"
+    sha256 monterey:       "dc7666e3f742a6c21f688e0aefab9ebd554b509d23461ee60ffafd431229d1da"
+    sha256 x86_64_linux:   "5d243ef576e3f8b2f697e42fca10f5244b0d279376cd3e79de33a3147f343c23"
   end
 
   keg_only :versioned_formula
@@ -39,7 +39,6 @@ class FfmpegAT4 < Formula
   depends_on "librist"
   depends_on "libsoxr"
   depends_on "libvidstab"
-  depends_on "libvmaf"
   depends_on "libvorbis"
   depends_on "libvpx"
   depends_on "opencore-amr"
@@ -104,7 +103,6 @@ class FfmpegAT4 < Formula
       --enable-libtesseract
       --enable-libtheora
       --enable-libvidstab
-      --enable-libvmaf
       --enable-libvorbis
       --enable-libvpx
       --enable-libwebp
@@ -130,13 +128,6 @@ class FfmpegAT4 < Formula
 
     # Needs corefoundation, coremedia, corevideo
     args << "--enable-videotoolbox" if OS.mac?
-
-    # Replace hardcoded default VMAF model path
-    %w[doc/filters.texi libavfilter/vf_libvmaf.c].each do |f|
-      inreplace f, "/usr/local/share/model", HOMEBREW_PREFIX/"share/libvmaf/model"
-      # Since libvmaf v2.0.0, `.pkl` model files have been deprecated in favor of `.json` model files.
-      inreplace f, "vmaf_v0.6.1.pkl", "vmaf_v0.6.1.json"
-    end
 
     # The new linker leads to duplicate symbol issue
     # https://github.com/homebrew-ffmpeg/homebrew-ffmpeg/issues/140

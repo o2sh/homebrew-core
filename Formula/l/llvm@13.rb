@@ -8,14 +8,14 @@ class LlvmAT13 < Formula
   revision 2
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any,                 arm64_sonoma:   "ec7069e2ef45c1c7b5088961aebbb4818c7a72cf7b031ab4b7c88bac208039b8"
-    sha256 cellar: :any,                 arm64_ventura:  "f4e2b7b3aa213e7d634f944cfacb9579a198224b82b111f410e536d3fc1ba9a3"
-    sha256 cellar: :any,                 arm64_monterey: "dc925c760eec7dc198f9fc0020f73dc0c7b6be988a3a44fb90a2e4481d578c54"
-    sha256 cellar: :any,                 sonoma:         "63d7c41c10ec196efe9344071e2255a662374e2971b959e043dad528c11bf4d7"
-    sha256 cellar: :any,                 ventura:        "623f775f7f68a4b99c7e9b7b4394cad6c3c5cd7dc3c82c2237124ee88e12389b"
-    sha256 cellar: :any,                 monterey:       "baa96ae03422c4b5326f3b94a822df388d07ac103ab6a3be0f04350b387b2b1e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "00e97b89acd17e0b9e331abccb015b41f1e5272c9c8a9d85063c78c34188facd"
+    rebuild 3
+    sha256 cellar: :any,                 arm64_sonoma:   "db9efb0df5d75d654e23e0699cc26c0ccd2b873e2f4b806c9009f499e2f451da"
+    sha256 cellar: :any,                 arm64_ventura:  "ef709ae700f432ef0276155a638829209fdcf962534a098a136104236b0f7a63"
+    sha256 cellar: :any,                 arm64_monterey: "aa340cdabef508ad825ff0536591509d358d0f415934ba60503d884a1394b1ae"
+    sha256 cellar: :any,                 sonoma:         "8ab60dd1c20eb7703ead39f4941341e7d05a79070bd4371c935f32754ee3e452"
+    sha256 cellar: :any,                 ventura:        "c35559d766684ab3bec45d5fb193889e5747559b881d8ce59b957143404a29c6"
+    sha256 cellar: :any,                 monterey:       "eac8512d5dcaf83f34d9c50b9a9a0d136eb01660081e429bc44f748f68663362"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a6a082798274468805b9a1c19e165a9dd78d2043b80a2c97d289010967316a77"
   end
 
   # Clang cannot find system headers if Xcode CLT is not installed
@@ -119,19 +119,16 @@ class LlvmAT13 < Formula
       -DCLANG_VENDOR_UTI=org.#{tap.user.downcase}.clang
     ]
 
-    macos_sdk = MacOS.sdk_path_if_needed
-    if MacOS.version >= :catalina
-      args << "-DFFI_INCLUDE_DIR=#{macos_sdk}/usr/include/ffi"
-      args << "-DFFI_LIBRARY_DIR=#{macos_sdk}/usr/lib"
-    else
-      args << "-DFFI_INCLUDE_DIR=#{Formula["libffi"].opt_include}"
-      args << "-DFFI_LIBRARY_DIR=#{Formula["libffi"].opt_lib}"
-    end
-
     runtimes_cmake_args = []
     builtins_cmake_args = []
 
     if OS.mac?
+      macos_sdk = MacOS.sdk_path_if_needed
+      if MacOS.version >= :catalina
+        args << "-DFFI_INCLUDE_DIR=#{macos_sdk}/usr/include/ffi"
+        args << "-DFFI_LIBRARY_DIR=#{macos_sdk}/usr/lib"
+      end
+
       args << "-DLLVM_BUILD_LLVM_C_DYLIB=ON"
       args << "-DLLVM_ENABLE_LIBCXX=ON"
       args << "-DLIBCXX_INSTALL_LIBRARY_DIR=#{lib}/c++"
@@ -147,6 +144,9 @@ class LlvmAT13 < Formula
         arg_array << "-DCMAKE_LINKER=ld"
       end
     else
+      args << "-DFFI_INCLUDE_DIR=#{Formula["libffi"].opt_include}"
+      args << "-DFFI_LIBRARY_DIR=#{Formula["libffi"].opt_lib}"
+
       # Disable `libxml2` which isn't very useful.
       args << "-DLLVM_ENABLE_LIBXML2=OFF"
       args << "-DLLVM_ENABLE_LIBCXX=OFF"
@@ -320,7 +320,7 @@ class LlvmAT13 < Formula
     # These tests should ignore the usual SDK includes
     with_env(CPATH: nil) do
       # Testing Command Line Tools
-      if MacOS::CLT.installed?
+      if OS.mac? && MacOS::CLT.installed?
         toolchain_path = "/Library/Developer/CommandLineTools"
         cpp_base = (MacOS.version >= :big_sur) ? MacOS::CLT.sdk_path : toolchain_path
         system "#{bin}/clang++", "-v",
@@ -336,7 +336,7 @@ class LlvmAT13 < Formula
       end
 
       # Testing Xcode
-      if MacOS::Xcode.installed?
+      if OS.mac? && MacOS::Xcode.installed?
         cpp_base = (MacOS::Xcode.version >= "12.5") ? MacOS::Xcode.sdk_path : MacOS::Xcode.toolchain_path
         system "#{bin}/clang++", "-v",
                "-isysroot", MacOS::Xcode.sdk_path,

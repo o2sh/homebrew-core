@@ -2,10 +2,9 @@ class Monero < Formula
   desc "Official Monero wallet and CPU miner"
   homepage "https://www.getmonero.org/"
   url "https://github.com/monero-project/monero.git",
-      tag:      "v0.18.3.1",
-      revision: "2656cdf5056c07684741c4425a051760b97025b0"
+      tag:      "v0.18.3.2",
+      revision: "ef3e18b51beb937c7f786ecef0d0a0e3f6295082"
   license "BSD-3-Clause"
-  revision 2
 
   livecheck do
     url :stable
@@ -13,13 +12,13 @@ class Monero < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "11b25c7b6eb035825512713fe759ff52e65cc87f2b5b1d004b1c53568999259c"
-    sha256 cellar: :any,                 arm64_ventura:  "c864c2cf92144fe704f1a3201b5ec2a3b9fa30e4cac834bb171ec1f53b735535"
-    sha256 cellar: :any,                 arm64_monterey: "5188247269ec0d15a0844f27da260dca6fb36551b8708282f1597bde0937e944"
-    sha256 cellar: :any,                 sonoma:         "efb23b89e41a0677f5b780e7725ec7bfd64c9fa70a13b21c229569b27740e9fa"
-    sha256 cellar: :any,                 ventura:        "ef8a281eba2a86c873aec3a6a44191d4cbbad2ed051cbb9d081d4a37884b2a23"
-    sha256 cellar: :any,                 monterey:       "981cf50d2c92b39f8fa34ab2f2ea5db7a22842ba908cd8688953b65cb2894ead"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "33d86d52c3f325364733563cb58e9796d8096425078d8d8b3359f4220ab46a83"
+    sha256 cellar: :any,                 arm64_sonoma:   "fd910276a984741cfc32bf18f5f1920fa8a72e5db2d976d854a0edeb0d3c1b81"
+    sha256 cellar: :any,                 arm64_ventura:  "ba591223bbac418fde38f98569a887cacb929dc9fef0da8205fb0e22c3365bf0"
+    sha256 cellar: :any,                 arm64_monterey: "d87d8d98d931fdbbe1f07224be2416d24d162577a6d2c658b2df05b84dd3a3e6"
+    sha256 cellar: :any,                 sonoma:         "1c5db02df695dd4e218f297a0ce009a28792bc99909c9ad8f03db10a7b6934a3"
+    sha256 cellar: :any,                 ventura:        "b5c26acbb37c822fa114a75b5c5cd69fa641f6d0adad9743609149a1fe0ef322"
+    sha256 cellar: :any,                 monterey:       "1c1f96eaf1aa841b1892a14d9af3ca06fa4e0d995a2d3fcae6a4eb48fad4d7a6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5bf12c2d90e325c7d99cee28af545f75528ec8139621d9b06b5971c4efd9699e"
   end
 
   depends_on "cmake" => :build

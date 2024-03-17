@@ -1,8 +1,8 @@
 class Biosig < Formula
   desc "Tools for biomedical signal processing and data conversion"
   homepage "https://biosig.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/biosig/BioSig%20for%20C_C%2B%2B/src/biosig-2.5.2.src.tar.xz"
-  sha256 "3c87fa4ae6d69e1a75477f85451b6f16480418a0018d59e1586a2e3e8954ec47"
+  url "https://downloads.sourceforge.net/project/biosig/BioSig%20for%20C_C%2B%2B/src/biosig-2.6.0.src.tar.xz"
+  sha256 "c45d076c2113c8a082a9d5775a428b690bb7d972ae2cd22a88d13cda9e9ffaee"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -11,13 +11,11 @@ class Biosig < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "83d191f0a0ac811bcf64c0c5112eed21d6a259f05d0b34be1e796e76a758d7f4"
-    sha256 cellar: :any,                 arm64_monterey: "a4f03b4dd7ed99343a9c38635a032b18062d7987994a0771f366b365a3198665"
-    sha256 cellar: :any,                 arm64_big_sur:  "08a1fd1b2ed45e852c449dec1fa31acfba84647102b686aa7dd80b2fc011dfd3"
-    sha256 cellar: :any,                 ventura:        "2f62a6de7d6d95332d5786db95bd128a4f1e622588eb2484059ec11016cae52d"
-    sha256 cellar: :any,                 monterey:       "16b28c2c2d7a6c51a5d36f2213cfb64fcbbfe0255aedfa98ff77c260dad8e107"
-    sha256 cellar: :any,                 big_sur:        "ad212b7f5f76da51d0ef8b33c8b9d8a2e47e015f0cc218056d753e023fe0d267"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1a39f2773b2ddf64ffa46b897c77cb09e2ba38ba93b274c2b4e49ba9d5ed4c20"
+    sha256 cellar: :any,                 arm64_ventura:  "0291ca9069319fdcd819687793de9c47ebb48c599a98f262d22e717dede9ba5d"
+    sha256 cellar: :any,                 arm64_monterey: "7909aab7b61f194b11d5c36fef628e20cc7d7bacd5128405b158df4e8df6844b"
+    sha256 cellar: :any,                 ventura:        "05db65c0715db978f1178a39c1bd1d6d505fdaaabfe52c8ea762276c5059017a"
+    sha256 cellar: :any,                 monterey:       "e4c90391837952b98fc5b321f69d9142690db01229994f899fb757014f51f2fb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "07d675f55a42cc46e79b367c17e7e8e6f564ab56f664ad06d3a9eac9a0b30236"
   end
 
   depends_on "gawk" => :build
@@ -26,7 +24,7 @@ class Biosig < Formula
   depends_on "libb64"
   depends_on "numpy"
   depends_on "suite-sparse"
-  depends_on "tinyxml"
+  depends_on "tinyxml2"
 
   def install
     # Fix compile with newer Clang

@@ -3,8 +3,8 @@ class Corepack < Formula
 
   desc "Package acting as bridge between Node projects and their package managers"
   homepage "https://github.com/nodejs/corepack"
-  url "https://registry.npmjs.org/corepack/-/corepack-0.23.0.tgz"
-  sha256 "25920d16d1b6ccaa954ab2352b078c8f4107234c511ce9e8bd755f1413909783"
+  url "https://registry.npmjs.org/corepack/-/corepack-0.26.0.tgz"
+  sha256 "0593c2ef1ff4aa4189c970294ca0063f4cbf7dcda936ee5a411ac9bdb5c422d0"
   license "MIT"
 
   livecheck do
@@ -13,7 +13,7 @@ class Corepack < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "539969a3253c98fe6c2626671b06773457ac0bdca6244da8a950675e47d0ae4b"
+    sha256 cellar: :any_skip_relocation, all: "219e79e0fe176eb914e0d895851558229827911b43ceaa6abfdf08c5971e5067"
   end
 
   depends_on "node"

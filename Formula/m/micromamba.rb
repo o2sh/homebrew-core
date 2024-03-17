@@ -1,8 +1,8 @@
 class Micromamba < Formula
   desc "Fast Cross-Platform Package Manager"
   homepage "https://github.com/mamba-org/mamba"
-  url "https://github.com/mamba-org/mamba/archive/refs/tags/micromamba-1.5.3.tar.gz"
-  sha256 "f13e6e31279a8b526af63d53216cb6582fe0e4989d084260c24b0ab35de58dce"
+  url "https://github.com/mamba-org/mamba/archive/refs/tags/micromamba-1.5.7.tar.gz"
+  sha256 "bdc6d1d5ff8af77c5f12bbe79636cdc34f06dcf0694830a47a0c196833b8a186"
   license "BSD-3-Clause"
   head "https://github.com/mamba-org/mamba.git", branch: "main"
 
@@ -14,13 +14,13 @@ class Micromamba < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "77afa79e9475e043ef929309f67aa5dd5afcdb398d37e95ba5b5f6ade38517d2"
-    sha256 cellar: :any,                 arm64_ventura:  "f65094c542be593ddac08150b03fe0002d826e92ef7ecd9386390dba3eb60b1a"
-    sha256 cellar: :any,                 arm64_monterey: "c7d47cec7fd32d8c74e64b60d97736ecb9f7aaed27a14875658382140aeff410"
-    sha256 cellar: :any,                 sonoma:         "5e5ae19517b95c0260929f829281989b3e84ffe24e111624ab76d55fc99cc953"
-    sha256 cellar: :any,                 ventura:        "063e337a6ac7ce2dee74849d3ba0aa30ab3066f5ef2d37b830f5f002a0991049"
-    sha256 cellar: :any,                 monterey:       "8936706a3609d035276869df46b7efb3ecdfc3b168121e22897c94672b65279c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f97380ba2cd21fee2ebfeefb48d646cc2436fb8c9e29ab95ec99ed34037cc40e"
+    sha256 cellar: :any,                 arm64_sonoma:   "2165f5278d308d5f84f72b613863aeb1171150468df7780d582a112b4f1dcdcd"
+    sha256 cellar: :any,                 arm64_ventura:  "2351b8451140bfd3edf6ad0e84d80fe39109023db8522934a0b457fa1a099988"
+    sha256 cellar: :any,                 arm64_monterey: "0e7820de14d0cbabbbd688f821ad6699473c56fa85b16bfac5e56da081c14fab"
+    sha256 cellar: :any,                 sonoma:         "fba47ea65c445f83bf94d9cb531c662d39646449f5eb2d4c270fa94dd449aef5"
+    sha256 cellar: :any,                 ventura:        "15cb8d0dbb70f9a25db6e61d656babb928cf0e9bda7e0eaa3fd4502dd6ebbbcf"
+    sha256 cellar: :any,                 monterey:       "6b8af8500dbbf7e8134a552710a81b1a7e882514a2e8773685534373b7082f37"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "44e1f871cdf482068d6116877cdfb004aa7bc221be30638b092555681b0ede34"
   end
 
   depends_on "cli11" => :build
@@ -45,8 +45,8 @@ class Micromamba < Formula
 
   resource "libarchive-headers" do
     on_monterey :or_newer do
-      url "https://github.com/apple-oss-distributions/libarchive/archive/refs/tags/libarchive-121.tar.gz"
-      sha256 "f38736ffdbf9005726bdc126e68ff34ddaee25326ae51d58e4385de717bc773f"
+      url "https://github.com/apple-oss-distributions/libarchive/archive/refs/tags/libarchive-121.40.3.tar.gz"
+      sha256 "bb972360581fe5326ef5d313ec51579b1c1a4c8a6f20a5068851032a0fa74f33"
     end
   end
 

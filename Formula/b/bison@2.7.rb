@@ -4,6 +4,7 @@ class BisonAT27 < Formula
   url "https://ftp.gnu.org/gnu/bison/bison-2.7.1.tar.gz"
   mirror "https://ftpmirror.gnu.org/bison/bison-2.7.1.tar.gz"
   sha256 "08e2296b024bab8ea36f3bb3b91d071165b22afda39a17ffc8ff53ade2883431"
+  license "GPL-3.0-or-later"
   revision 1
 
   bottle do
@@ -24,6 +25,8 @@ class BisonAT27 < Formula
   end
 
   keg_only :versioned_formula
+
+  deprecate! date: "2023-12-14", because: :versioned_formula
 
   uses_from_macos "m4"
 

@@ -2,21 +2,19 @@ class Openrct2 < Formula
   desc "Open source re-implementation of RollerCoaster Tycoon 2"
   homepage "https://openrct2.io/"
   url "https://github.com/OpenRCT2/OpenRCT2.git",
-      tag:      "v0.4.6",
-      revision: "b40b5da5a570155298335e276839a41588337b5d"
+      tag:      "v0.4.9",
+      revision: "a17240544b4ac83acf5195c38de1fd1f5f723307"
   license "GPL-3.0-only"
   head "https://github.com/OpenRCT2/OpenRCT2.git", branch: "develop"
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "1c94a3bc76cbc4e9fd7e5662a37bc87659931e87a584c1e2ef6827d79022b96c"
-    sha256 cellar: :any, arm64_ventura:  "df51696476437df5af49a0755f922980dc77b7f718c30c7acc41e7687d3d642d"
-    sha256 cellar: :any, arm64_monterey: "afe6bb0c3a677b1a78a4b521d0ee82b15c6d8896e85ed681b5d3ddc3990f6dab"
-    sha256 cellar: :any, arm64_big_sur:  "73210c0f7679527a8351793507e5ed96e586e11a6f627dea35b85d421c4aaaee"
-    sha256 cellar: :any, sonoma:         "135bc5f9ebeac6cdf165ec962986476368a5d3a1daf1daceca87761204f25bef"
-    sha256 cellar: :any, ventura:        "740c9900c72268bf5761b53940155b55eba9a860b3514c91b6fff0a08492a390"
-    sha256 cellar: :any, monterey:       "9b1569c5e1c2422912bb3170a5f95378a3e2e6d1d4ea9ea9379e399ec3e5505f"
-    sha256 cellar: :any, big_sur:        "84a3d5a9a7c135e5d33a0769a5c4c79e2281d66e1d54eb50859b1ea2be49f67b"
-    sha256               x86_64_linux:   "89076f1b729d47de34afbe3932c5b964338e234fb70859b67eb82c09d1d25662"
+    sha256 cellar: :any, arm64_sonoma:   "c28ac6ddb5476afb2a79fb1583319ee4636dcf88fdc99622c18e9a425fddce55"
+    sha256 cellar: :any, arm64_ventura:  "39338772277457f3a60a7149cb2e0894443e4fcab67ff094d6276f8eee9174d7"
+    sha256 cellar: :any, arm64_monterey: "ba10c8f50b4b4ad148208989545caeb0a5cbaebaac70e74f2adfcbaa838179bc"
+    sha256 cellar: :any, sonoma:         "0d628f9aaa7d3784fd7b7937871e036ae1f085d80fa8db03bbe261d44e583195"
+    sha256 cellar: :any, ventura:        "6475113ac2c270aad9edfa429b53c4a1781ae8c883693f81daa5c9fea1915ad3"
+    sha256 cellar: :any, monterey:       "3ea36e85b718e0e63b1717a6d1836efb7c93d0897892b1823bc7e7acb2660f1d"
+    sha256               x86_64_linux:   "800178abd00d66dfdb254a55015b4c0ab4bdbc3f3b3c750271a89b1eadde6709"
   end
 
   depends_on "cmake" => :build
@@ -49,8 +47,8 @@ class Openrct2 < Formula
   end
 
   resource "objects" do
-    url "https://github.com/OpenRCT2/objects/releases/download/v1.3.11/objects.zip"
-    sha256 "bf85d88e4fb11ca2e5915567390898747dc2459b3c7a057bdc32b829c91780b4"
+    url "https://github.com/OpenRCT2/objects/releases/download/v1.4.0/objects.zip"
+    sha256 "c7ea3f5c6dfe2ef0a7ac0a428fc9281beac7f5290f0a9ebecbfb6313a3b525d8"
   end
 
   def install
@@ -59,13 +57,16 @@ class Openrct2 < Formula
     (buildpath/"data/object").install resource("objects")
 
     mkdir "build" do
-      system "cmake", "..", *std_cmake_args,
-                            "-DCMAKE_OSX_DEPLOYMENT_TARGET=#{MacOS.version}",
-                            "-DWITH_TESTS=OFF",
-                            "-DDOWNLOAD_TITLE_SEQUENCES=OFF",
-                            "-DDOWNLOAD_OBJECTS=OFF",
-                            "-DMACOS_USE_DEPENDENCIES=OFF",
-                            "-DDISABLE_DISCORD_RPC=ON"
+      cmake_args = [
+        "-DWITH_TESTS=OFF",
+        "-DDOWNLOAD_TITLE_SEQUENCES=OFF",
+        "-DDOWNLOAD_OBJECTS=OFF",
+        "-DMACOS_USE_DEPENDENCIES=OFF",
+        "-DDISABLE_DISCORD_RPC=ON",
+      ]
+      cmake_args << "-DCMAKE_OSX_DEPLOYMENT_TARGET=#{MacOS.version}" if OS.mac?
+      system "cmake", "..", *std_cmake_args, *cmake_args
+
       system "make", "install"
     end
 

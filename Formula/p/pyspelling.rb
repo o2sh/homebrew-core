@@ -3,27 +3,27 @@ class Pyspelling < Formula
 
   desc "Spell checker automation tool"
   homepage "https://facelessuser.github.io/pyspelling/"
-  url "https://files.pythonhosted.org/packages/cc/49/789313a50b9cf1f46389f38d90549269472093ea4f21aff9269c5ff0a41c/pyspelling-2.9.tar.gz"
-  sha256 "df74c42e6e24171b7e1a83ac62fa2e151028ac045817c4f0384791c2d6099c5c"
+  url "https://files.pythonhosted.org/packages/12/07/168a857755a29b7e41550a28cd8f527025bc62fcb36a951d8f3f2eedcdf7/pyspelling-2.10.tar.gz"
+  sha256 "acd67133c1b7cecd410e3d4489e61f2e4b1f0b6acf1ae6c48c240fbb21729c37"
   license "MIT"
 
   bottle do
     rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4955931444a37d184aa4333aa375ba80b3c705bcab1685cf9f59b7a5e472cd61"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1d8695b142445a11e36b3b88d1a9d9bfaefff0afcc687d8a9bcd528d2aa783ad"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7ef306133073366de18475fcee2bfc1e9276a50d8d32ddf1448da175b461607e"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8fb0caba189977a032fc4573462095e332fceeed462f5201b154b9a7df945234"
-    sha256 cellar: :any_skip_relocation, ventura:        "9ee5749e9ed26b61cd3a4b00caa57bcf5b5dff734fc543b7cf333dbcd17072cd"
-    sha256 cellar: :any_skip_relocation, monterey:       "f737111a0e037983820b5e3e03f2231534df40780b738acc868586cacdbc36d4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b121441818a29b1ed89b1e8c2b6d9ad2b50be5ee390f3e3ecd0212ab9be4f639"
+    sha256 cellar: :any,                 arm64_sonoma:   "31af3ab0a1d1140f67e88cc63b4f79f9163b1511851426ccb417a8ca9edc1c3a"
+    sha256 cellar: :any,                 arm64_ventura:  "a8d008f4df13c54a997fe861c9650641e6e3de2606ed45a25af69e8ae6ffd3e2"
+    sha256 cellar: :any,                 arm64_monterey: "8df71eca0c124434e4f916acfdbc1f7490c55a1264ac9eb639d5fe54ac7dddce"
+    sha256 cellar: :any,                 sonoma:         "52fe4ae96c116be9c6ddb115d85e2d1856e4f5094447ae30c7b02f79b629ebd5"
+    sha256 cellar: :any,                 ventura:        "17bf18493ca33f15ae915d200c56f655f548ad3b65ba6e6efa4b957631ddfc75"
+    sha256 cellar: :any,                 monterey:       "336469ed9ad07024bdfd91dcebf13b9ec62820f0d112fa9e9152240e5e95b01c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f0b6798b11855e5e28dd020a9470672805f5c5a7917a78f2a00a10efa660a592"
   end
 
   depends_on "aspell" => :test
-  depends_on "python-lxml"
-  depends_on "python-markdown"
+  depends_on "libyaml"
   depends_on "python@3.12"
-  depends_on "pyyaml"
-  depends_on "six"
+
+  uses_from_macos "libxml2"
+  uses_from_macos "libxslt"
 
   resource "beautifulsoup4" do
     url "https://files.pythonhosted.org/packages/af/0b/44c39cf3b18a9280950ad63a579ce395dda4c32193ee9da7ff0aed547094/beautifulsoup4-4.12.2.tar.gz"
@@ -40,9 +40,29 @@ class Pyspelling < Formula
     sha256 "b2e5b40261e20f354d198eae92afc10d750afb487ed5e50f9c4eaf07c184146f"
   end
 
+  resource "lxml" do
+    url "https://files.pythonhosted.org/packages/2b/b4/bbccb250adbee490553b6a52712c46c20ea1ba533a643f1424b27ffc6845/lxml-5.1.0.tar.gz"
+    sha256 "3eea6ed6e6c918e468e693c41ef07f3c3acc310b70ddd9cc72d9ef84bc9564ca"
+  end
+
+  resource "markdown" do
+    url "https://files.pythonhosted.org/packages/11/28/c5441a6642681d92de56063fa7984df56f783d3f1eba518dc3e7a253b606/Markdown-3.5.2.tar.gz"
+    sha256 "e1ac7b3dc550ee80e602e71c1d168002f062e49f1b11e26a36264dafd4df2ef8"
+  end
+
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
+  end
+
   resource "soupsieve" do
     url "https://files.pythonhosted.org/packages/ce/21/952a240de1c196c7e3fbcd4e559681f0419b1280c617db21157a0390717b/soupsieve-2.5.tar.gz"
     sha256 "5663d5a7b3bfaeee0bc4372e7fc48f9cff4940b3eec54a6451cc5299f1097690"
+  end
+
+  resource "pyyaml" do
+    url "https://files.pythonhosted.org/packages/cd/e5/af35f7ea75cf72f2cd079c95ee16797de7cd71f29ea7c68ae5ce7be1eda0/PyYAML-6.0.1.tar.gz"
+    sha256 "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
   end
 
   resource "wcmatch" do

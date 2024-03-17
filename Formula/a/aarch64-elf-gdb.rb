@@ -1,9 +1,9 @@
 class Aarch64ElfGdb < Formula
   desc "GNU debugger for aarch64-elf cross development"
   homepage "https://www.gnu.org/software/gdb/"
-  url "https://ftp.gnu.org/gnu/gdb/gdb-13.2.tar.xz"
-  mirror "https://ftpmirror.gnu.org/gdb/gdb-13.2.tar.xz"
-  sha256 "fd5bebb7be1833abdb6e023c2f498a354498281df9d05523d8915babeb893f0a"
+  url "https://ftp.gnu.org/gnu/gdb/gdb-14.2.tar.xz"
+  mirror "https://ftpmirror.gnu.org/gdb/gdb-14.2.tar.xz"
+  sha256 "2d4dd8061d8ded12b6c63f55e45344881e8226105f4d2a9b234040efa5ce7772"
   license "GPL-3.0-or-later"
   head "https://sourceware.org/git/binutils-gdb.git", branch: "master"
 
@@ -12,21 +12,26 @@ class Aarch64ElfGdb < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_sonoma:   "c079442c342ce94b213f7551fc57a67c81ac91d1344da58c4aa77f3935bd99ac"
-    sha256 arm64_ventura:  "e5fbbe574ba723fe4fcb3f9b3bdadd882750b1b749e72d43a6ad63eb470f5a2e"
-    sha256 arm64_monterey: "4c13676f6ae41a761955748c4bfa00ea1f63ec98747562baf70f20cfbad97138"
-    sha256 sonoma:         "2bbb1821162de6f90f1d3a5da4b68dfafc376900faf0bbc1a77791b53b5e47a2"
-    sha256 ventura:        "92c1733e1328ca927d2ee9c24913b910f2c151d73742d3befc19a04a57548a62"
-    sha256 monterey:       "2fc80c9827c68d611d9d8f930f5f83ab196ab85a2190e063e9eb5e356f74530e"
-    sha256 x86_64_linux:   "6f4bc10aca712b3983b25ae43d7fe4b0e5b5800dd1d5aedcdd50dc4555cb313f"
+    sha256 arm64_sonoma:   "e0fe06ddf01e98f9f3b1bacbacdfeb8e94c69fed9ed296adb3237014dc5d388d"
+    sha256 arm64_ventura:  "3e8a6f8721ae7f70b4d7c9bc24f75674604bc3985e829fa90f4d8f89493b9eee"
+    sha256 arm64_monterey: "be4fb136fe3c6be6096cdb2712da166fb9d9217ff5b294859acbaa362840ed88"
+    sha256 sonoma:         "5e56fc21982e0c9b493e51847f55e268693e1a381dbfb1ae761fd3cd1dbef26f"
+    sha256 ventura:        "8f151a4fbf9185320e6d8ce79e0fba4e856b2286364c3ece369f766549f2750e"
+    sha256 monterey:       "299757fa86eee8576b7bda5c0822836dfbaa4e9049e98fa96df58c20e99b751a"
+    sha256 x86_64_linux:   "afe17d09b65783e472a0c8410a0204f40467b762c0f6156b680a4bf659228334"
   end
 
+  depends_on "pkg-config" => :build
   depends_on "aarch64-elf-gcc" => :test
   depends_on "gmp"
+  depends_on "mpfr"
   depends_on "python@3.12"
+  depends_on "readline"
   depends_on "xz" # required for lzma support
+  depends_on "zstd"
 
+  uses_from_macos "expat"
+  uses_from_macos "ncurses"
   uses_from_macos "zlib"
 
   on_system :linux, macos: :ventura_or_newer do
@@ -37,21 +42,24 @@ class Aarch64ElfGdb < Formula
     target = "aarch64-elf"
     args = %W[
       --target=#{target}
-      --prefix=#{prefix}
       --datarootdir=#{share}/#{target}
       --includedir=#{include}/#{target}
       --infodir=#{info}/#{target}
       --mandir=#{man}
-      --disable-debug
-      --disable-dependency-tracking
+      --enable-tui
+      --with-curses
+      --with-expat
       --with-lzma
       --with-python=#{which("python3.12")}
+      --with-system-readline
       --with-system-zlib
+      --with-zstd
       --disable-binutils
+      --disable-nls
     ]
 
     mkdir "build" do
-      system "../configure", *args
+      system "../configure", *args, *std_configure_args
       ENV.deparallelize # Error: common/version.c-stamp.tmp: No such file or directory
       system "make"
 

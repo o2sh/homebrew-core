@@ -6,25 +6,30 @@ class SolcSelect < Formula
   url "https://files.pythonhosted.org/packages/60/a0/2a2bfbbab1d9bd4e1a24e3604c30b5d6f84219238f3c98f06191faf5d019/solc-select-1.0.4.tar.gz"
   sha256 "db7b9de009af6de3a5416b80bbe5b6d636bf314703c016319b8c1231e248a6c7"
   license "AGPL-3.0-only"
-  revision 1
+  revision 2
   head "https://github.com/crytic/solc-select.git", branch: "dev"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "07b826d0c1537cf1093a2e078fa3cff317e4b925cfb010c5c837a42f70af1cbb"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "de60f7407a43524e866b85cc9fa23486ffa72df776dc7a0d7fc859b8834876b1"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b9447b07126201a3e2cda1c17f1ae6b9302202fefb9480819332e52f934a6ccc"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ab579c6c9455faa2b3bb35f11f5648840018848b7c4e4bdeb248a41c39d8da2b"
-    sha256 cellar: :any_skip_relocation, ventura:        "27cc8d84e1451e7a631ff3d29a8e84b1975f136f49dd4dd7da9f578a7e39bb55"
-    sha256 cellar: :any_skip_relocation, monterey:       "41d0902be82ea2529d3a86cd169d01447b10a071b8a1821d5bf6c433cf7acd64"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "642069ff0cd7f6c5a658e1f43ed279d77ae395faa2f7511548da23e2c1533e99"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "dcf2eda0e30f6361041ed6d3a9cf058c0621ac9b3aaf32953c6cb5f3bb321378"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f3a72a574989a15328910c3339eb1840aba5b7a84375859ca0bd6835d96b16b0"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4c7d8c394a4831a52da179c98fc476386433dcd18205314b0f9bd21b63600609"
+    sha256 cellar: :any_skip_relocation, sonoma:         "0af1d0beb9c4c438b2c2983bc6e8598997417da0e7e4971a2f2d706d1c5fcb92"
+    sha256 cellar: :any_skip_relocation, ventura:        "b699007b5b946854167d61d4973d658277ec09da13efc8d7888813faec4295d2"
+    sha256 cellar: :any_skip_relocation, monterey:       "34f1dc7cffa7cb317316d6a00e0d44dc8e34b9395974062e7be8abf26575a7f2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "01ef9d77fd4f6823091b8a867632c9c5b935c0d0458bd104824eb28deb49e9cd"
   end
 
-  depends_on "python-packaging"
   depends_on "python@3.12"
 
+  resource "packaging" do
+    url "https://files.pythonhosted.org/packages/fb/2b/9b9c33ffed44ee921d0967086d653047286054117d584f1b1a7c22ceaf7b/packaging-23.2.tar.gz"
+    sha256 "048fb0e9405036518eaaf48a55953c750c11e1a1b68e0dd1a9d62ed0c092cfc5"
+  end
+
   resource "pycryptodome" do
-    url "https://files.pythonhosted.org/packages/b9/05/0e7547c445bbbc96c538d870e6c5c5a69a9fa5df0a9df3e27cb126527196/pycryptodome-3.18.0.tar.gz"
-    sha256 "c9adee653fc882d98956e33ca2c1fb582e23a8af7ac82fee75bd6113c55a0413"
+    url "https://files.pythonhosted.org/packages/b1/38/42a8855ff1bf568c61ca6557e2203f318fb7afeadaf2eb8ecfdbde107151/pycryptodome-3.19.1.tar.gz"
+    sha256 "8ae0dd1bcfada451c35f9e29a3e5db385caabc190f98e4a80ad02a61098fb776"
   end
 
   def install

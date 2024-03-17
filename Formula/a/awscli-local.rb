@@ -3,33 +3,33 @@ class AwscliLocal < Formula
 
   desc "Thin wrapper around the `aws` command-line interface for use with LocalStack"
   homepage "https://localstack.cloud/"
-  url "https://files.pythonhosted.org/packages/a1/83/884aba89b4245c39da0e020b2c3f2edec84a71327401ac1ab29fbd187a58/awscli-local-0.21.1.tar.gz"
-  sha256 "31a579438a932127d32c27c1dbd656197a12c3183facb18afe8bd713ec9aab3d"
+  url "https://files.pythonhosted.org/packages/25/f9/023c80ea27d67b0930f116597fd55a93f84de9b05d18b38c7d2d5d75c1c9/awscli-local-0.22.0.tar.gz"
+  sha256 "3807cf2ee4bbdd4df4dfc8bef027f25bde523dcaf8119720f677ed95ebba66a4"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "89e79ad4a1d6154030f86e9f5595db107baba5407d2fcb1f26d566df3ab69199"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1d5ff2622d41095a9bb5ebc1cebf338245256d329221f5294046df8a1eedbdb0"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a61f3bfe59fbb2a7d823e4f647728774d0a31d451e1c2ed17a6f26d3a99a88b2"
-    sha256 cellar: :any_skip_relocation, sonoma:         "111a846c72b25142838b44f4510b6393baec692054f5b897567dde9191efc60d"
-    sha256 cellar: :any_skip_relocation, ventura:        "08581c0256205d19a2ef2166559420c9f711c1e502d11c9047cc4bd5bb3c6f92"
-    sha256 cellar: :any_skip_relocation, monterey:       "e8937e080e3ce7599ecb5e77736a449d0f44ed9867ab9a2f2d3f9fe139f3d269"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "53a71d80cc2668397bcc681143b53f2bfc3872314974883f5723e22f44189cf6"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4a1a6d14ba1703b371655f76fbd4e3c1fc1a5305c0057d88a248bb3574941419"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4e7f0f292f91a43f0826a27fc78d4777658613b479fdb2598e2e88ffcff9efab"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "80cbb97d4adb633da5a90cc933e124e59ca87aae5941d073b76cafa8644a95f0"
+    sha256 cellar: :any_skip_relocation, sonoma:         "8b25d7ab6accf7b1ce62b0e040dab8e378cc258dd19dab67a48c4147d4496928"
+    sha256 cellar: :any_skip_relocation, ventura:        "4618ee7cf772cd6ffaf99eb4d6f4b0ccb25b04478a4b3d943c6a993cd4eaf20d"
+    sha256 cellar: :any_skip_relocation, monterey:       "a7d804ed824d80a78a14bb8a9d718bc0add1d660988e891d67200b72f7f5c1d4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "da3c9208ffd1f92e21f67a1de1b2e5c351f110b7b02721454cde00136e8aa1f3"
   end
 
   depends_on "awscli" => :test # awscli-local can work with any version of awscli
   depends_on "localstack"
   depends_on "python@3.12"
-  depends_on "six"
 
   resource "boto3" do
-    url "https://files.pythonhosted.org/packages/6b/06/7e2ca443db1af4f3cb76d36eb9f20baf78688ddb095d473e733309a22bb2/boto3-1.29.3.tar.gz"
-    sha256 "d038b19cbe29d488133351ee6eb36ee11a0934df8bcbc0892bbeb2c544a327a4"
+    url "https://files.pythonhosted.org/packages/e2/8e/75c1e586b46f0f324175253a35265769d60f66934b8a397a027aa7d1a989/boto3-1.34.51.tar.gz"
+    sha256 "2cd9463e738a184cbce8a6824027c22163c5f73e277a35ff5aa0fb0e845b4301"
   end
 
   resource "botocore" do
-    url "https://files.pythonhosted.org/packages/de/d1/6bbd2a3ade785ff5af9f46c0865c3e7e0f1e4d3c99e9530756ffda9cc1aa/botocore-1.32.3.tar.gz"
-    sha256 "be622915db1dbf1d6d5ed907633471f9ed8f5399dd3cf333f9dc2b955cd3e80d"
+    url "https://files.pythonhosted.org/packages/74/75/fe7eb7a170d9a1a8a2ae93e5bfaa17cbbb308e90da7bfaa28145252fd307/botocore-1.34.51.tar.gz"
+    sha256 "5086217442e67dd9de36ec7e87a0c663f76b7790d5fb6a12de565af95e87e319"
   end
 
   resource "jmespath" do
@@ -48,8 +48,13 @@ class AwscliLocal < Formula
   end
 
   resource "s3transfer" do
-    url "https://files.pythonhosted.org/packages/3f/ff/5fd9375f3fe467263cff9cad9746fd4c4e1399440ea9563091c958ff90b5/s3transfer-0.7.0.tar.gz"
-    sha256 "fd3889a66f5fe17299fe75b82eae6cf722554edca744ca5d5fe308b104883d2e"
+    url "https://files.pythonhosted.org/packages/a0/b5/4c570b08cb85fdcc65037b5229e00412583bb38d974efecb7ec3495f40ba/s3transfer-0.10.0.tar.gz"
+    sha256 "d0c8bbf672d5eebbe4e57945e23b972d963f07d82f661cabf678a5c88831595b"
+  end
+
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
+    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
   end
 
   resource "urllib3" do

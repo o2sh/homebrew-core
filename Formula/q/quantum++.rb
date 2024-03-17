@@ -1,12 +1,12 @@
 class Quantumxx < Formula
   desc "Modern C++ quantum computing library"
   homepage "https://github.com/softwareQinc/qpp"
-  url "https://github.com/softwareQinc/qpp/archive/refs/tags/v4.3.4.tar.gz"
-  sha256 "efa6b440c1dae2bcdd230c1e1fd400de0d994809e4227f12c2d780b1254169d1"
+  url "https://github.com/softwareQinc/qpp/archive/refs/tags/v5.1.tar.gz"
+  sha256 "971483eefbf5e4d427553276d9bfd237e3d22ea8757a1ee7afa25417aca158ea"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "803924340499e2f35b44d83c0182e610bcdff11eef977b825c48550733c5bf26"
+    sha256 cellar: :any_skip_relocation, all: "0ff3efd01b8a28045694ee46bc49bdbf510652e6318fcf3a7976b545aed1e53d"
   end
 
   depends_on "cmake" => [:build, :test]

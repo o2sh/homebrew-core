@@ -4,7 +4,7 @@ class PythonAT38 < Formula
   url "https://www.python.org/ftp/python/3.8.18/Python-3.8.18.tar.xz"
   sha256 "3ffb71cd349a326ba7b2fadc7e7df86ba577dd9c4917e52a8401adbda7405e3f"
   license "Python-2.0"
-  revision 1
+  revision 2
 
   livecheck do
     url "https://www.python.org/ftp/python/"
@@ -12,18 +12,21 @@ class PythonAT38 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "824db0b533d835a52d4012551db4b20e4ddbd37c1afb4780629189e770545e31"
-    sha256 arm64_ventura:  "ec8c706b462a41908de8f315d539b98ca29b73ac482a23038c9f354bfdc250e7"
-    sha256 arm64_monterey: "394eac20f56312698b16e998c97bfe11be79c18f496f3e647f262a6a16bc0693"
-    sha256 sonoma:         "704e624bcb70dd63d62d17387431f157a3cbe8dd436046dd03119a7bdc6630fc"
-    sha256 ventura:        "0dc715ab0bc5886a78b18e642c58e8de7b381ec19bcb4d131c4746f66058db36"
-    sha256 monterey:       "3d7b4c66509f33403cb91db5573fe7d08268b6e2b76cd8b5894e46c134ab5b0d"
-    sha256 x86_64_linux:   "5485b4805ea56f2e2317a34c3e1b31a6f1171bd2921bd97cbc7d43e8c1a0d57b"
+    sha256 arm64_sonoma:   "7ece56b07ccab539bb1d340dfc7f41573ab392bbde678dabd1425af1b0b472fc"
+    sha256 arm64_ventura:  "768ef87b6156371315a2ed803945df259ec8e1b4d55317f786e812dd27444610"
+    sha256 arm64_monterey: "f13f7bea7fb4021510a971f5d70f90c43798bf5d9a666e073762d17f2d28ac51"
+    sha256 sonoma:         "cb252c20abf616aabc0dbee2e4a49b71a784effe8350eb2356fdf1a7fc044e5e"
+    sha256 ventura:        "6206fa8ddbdfa261c44e56ca602f5c3b4318506ad6f1f5af5f2dc4afef941c7f"
+    sha256 monterey:       "66d3dd50cb782da9be63621c8daeeefabd9bc3830c1944ccce6a1ef754e27fb7"
+    sha256 x86_64_linux:   "07cd581511827e641c540d293a2c7362ce80a172e58692c11f09033af5b3a9f8"
   end
 
   # setuptools remembers the build flags python is built with and uses them to
   # build packages later. Xcode-only systems need different flags.
   pour_bottle? only_if: :clt_installed
+
+  # https://devguide.python.org/versions/#versions
+  disable! date: "2024-10-14", because: :deprecated_upstream
 
   depends_on "pkg-config" => :build
   depends_on "gdbm"
@@ -116,13 +119,6 @@ class PythonAT38 < Formula
       --with-system-libmpdec
     ]
 
-    if OS.mac?
-      args << "--enable-framework=#{frameworks}"
-      args << "--with-dtrace"
-    else
-      args << "--enable-shared"
-    end
-
     # Python re-uses flags when building native modules.
     # Since we don't want native modules prioritizing the brew
     # include path, we move them to [C|LD]FLAGS_NODIST.
@@ -134,14 +130,22 @@ class PythonAT38 < Formula
     ldflags_nodist = ["-L#{HOMEBREW_PREFIX}/lib", "-Wl,-rpath,#{HOMEBREW_PREFIX}/lib"]
     cppflags       = ["-I#{HOMEBREW_PREFIX}/include"]
 
-    if MacOS.sdk_path_if_needed
-      # Help Python's build system (setuptools/pip) to build things on SDK-based systems
-      # The setup.py looks at "-isysroot" to get the sysroot (and not at --sysroot)
-      cflags  << "-isysroot #{MacOS.sdk_path}"
-      ldflags << "-isysroot #{MacOS.sdk_path}"
+    if OS.mac?
+      args << "--enable-framework=#{frameworks}"
+      args << "--with-dtrace"
+
+      if MacOS.sdk_path_if_needed
+        # Help Python's build system (setuptools/pip) to build things on SDK-based systems
+        # The setup.py looks at "-isysroot" to get the sysroot (and not at --sysroot)
+        cflags  << "-isysroot #{MacOS.sdk_path}"
+        ldflags << "-isysroot #{MacOS.sdk_path}"
+      end
+
+      # Avoid linking to libgcc https://mail.python.org/pipermail/python-dev/2012-February/116205.html
+      args << "MACOSX_DEPLOYMENT_TARGET=#{MacOS.version}"
+    else
+      args << "--enable-shared"
     end
-    # Avoid linking to libgcc https://mail.python.org/pipermail/python-dev/2012-February/116205.html
-    args << "MACOSX_DEPLOYMENT_TARGET=#{MacOS.version}"
 
     args << "--with-tcltk-includes=-I#{Formula["tcl-tk"].opt_include/"tcl-tk"}"
     args << "--with-tcltk-libs=-L#{Formula["tcl-tk"].opt_lib} -ltcl8.6 -ltk8.6"

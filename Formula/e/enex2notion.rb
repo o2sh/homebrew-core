@@ -6,21 +6,21 @@ class Enex2notion < Formula
   url "https://files.pythonhosted.org/packages/de/5c/c0ce22d810226345411b03177f9b43c35b82c3a671d5d73f56fc43b0858e/enex2notion-0.3.1.tar.gz"
   sha256 "f11d8a7b6c135b4d08c63e1256279d56b3798cdd48ad3b6e39c0770dc3bd82e6"
   license "MIT"
-  revision 2
+  revision 4
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bd2e88d6b73520b37140cf866b6590a58a22aff654fbcb76a576b72142249c11"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0ebcba69344dd662af056f4a3a4e9642e96c0cd3caa74c69f0d45d621690ed70"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4619bfef993a4a4a440b118c2956f80b89bee6e6ef84f687bdc2b5eff0f803ec"
-    sha256 cellar: :any_skip_relocation, sonoma:         "bc02815148edbdf374e44bf11a627969da5dec10f8e49c3a5f09715c508d20ab"
-    sha256 cellar: :any_skip_relocation, ventura:        "c5121211adf25093c0048681a486addc986a2be847acead2116838ae5cf99ef2"
-    sha256 cellar: :any_skip_relocation, monterey:       "63f0e58e7617b1279ac70de4ae0e69c48bb5cce0bc5e3bb250b5a0298b9b3468"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5033eaec71899ffbf63f44162e18553fa2341ebc4c394acaa5e4419e9c6d3c56"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "47796626cad17dc694b5b15e18d27d4e308d1ff5abf8517c0d9bc7f0bfb377ae"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1aed36fa89197fb21c7194a44c06d1410b9ccdea771b6a4b2196dbf6213e638c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "637b2e70c96f2085fec61bbb729aa644ca9c30a1e7928ae6721436572550dabf"
+    sha256 cellar: :any_skip_relocation, sonoma:         "db6fcf910a8591797f56cdf33fe3855734c0d62867a6440a57de6c88b43d43fd"
+    sha256 cellar: :any_skip_relocation, ventura:        "7ade64231139e7d17cae023b4864b23c1f8466b6292a951b3f9c0bbeceb7362c"
+    sha256 cellar: :any_skip_relocation, monterey:       "bbb877a9c790196ba1591412bcae5f3508033ba2acd82de719553552e0f9f9fa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9867a6d8a2ba6a8dced30ab82e552cd829996cad2f1f7c61defe3d5d34a04838"
   end
 
   depends_on "python-setuptools" => :build
+  depends_on "certifi"
   depends_on "pymupdf"
-  depends_on "python-certifi"
   depends_on "python-lxml"
   depends_on "python@3.12"
   depends_on "six"
@@ -138,6 +138,12 @@ class Enex2notion < Formula
   resource "webencodings" do
     url "https://files.pythonhosted.org/packages/0b/02/ae6ceac1baeda530866a85075641cec12989bd8d31af6d5ab4a3e8c92f47/webencodings-0.5.1.tar.gz"
     sha256 "b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923"
+  end
+
+  # build patch to support pymupdf 1.23.15, https://github.com/vzhd1701/enex2notion/pull/108
+  patch do
+    url "https://github.com/vzhd1701/enex2notion/commit/2d05d856c73030b340f0a6326ba3725bece23c2b.patch?full_index=1"
+    sha256 "e5c2d013fcc083370cbc1d458ecffa6a6d9ad44cb3781e8629aa57bda4b25ff5"
   end
 
   def install

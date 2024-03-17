@@ -1,19 +1,19 @@
 class Cloudlist < Formula
   desc "Tool for listing assets from multiple cloud providers"
   homepage "https://github.com/projectdiscovery/cloudlist"
-  url "https://github.com/projectdiscovery/cloudlist/archive/refs/tags/v1.0.4.tar.gz"
-  sha256 "e7f6e981d20c95a34eb5b858ac554f39003b01f5a50d37980be4bf87e98c7712"
+  url "https://github.com/projectdiscovery/cloudlist/archive/refs/tags/v1.0.7.tar.gz"
+  sha256 "d2ab36f0d8c7186778f30da8d69b828c3110ae1f91d6a6fc72db911e8c2f41df"
   license "MIT"
   head "https://github.com/projectdiscovery/cloudlist.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "121415517c2ffae1ebd74d21c8c37f04701104a87a586dc3af5d614ee905e58b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6081054e42b76cb3e6900c7318afe4f406557fe628297d3778700a4a26791d34"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7a7ce8f029a1a8b38c0557af2ce5560b2bbe85f7adda84d38969fdaf704ff9f5"
-    sha256 cellar: :any_skip_relocation, sonoma:         "b3d2332ad2ccb77262bf7897e065c11fe9752430d1be772cd7d934d1dab1a7d1"
-    sha256 cellar: :any_skip_relocation, ventura:        "73f1722ffa51ad3ba35fa470aedcf98d06b8e72754e5f149cce72c19fec772cd"
-    sha256 cellar: :any_skip_relocation, monterey:       "975b011092d859efe769ae39a103c3ebb4e702f1ef63ceae4970fca724be8c4a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b5fe0f1dfa6fd33f5d9f329200d7d3c16ed59cbba465287432cb072ffeebbdf4"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "62f3bbf69fe4091f59d50e6879dfb4689c831d59f1dd53f5b0cf7003bae442d3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b87b04aa8f61c1ffb206b9481a1d9c4156f6fe83ae7f746d9a0456e86df2c65a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "24a85205b787ba0f038f0fd018678fba7e4530c37ca3fd3254bb96a9b8c03ae9"
+    sha256 cellar: :any_skip_relocation, sonoma:         "d81e38c4048e5fc2c170c31f8ed09e3d133b15a259f399e8ae72f09299f7075d"
+    sha256 cellar: :any_skip_relocation, ventura:        "fb64a9e27346d803ae9e828436b0130df753053a71947b87c2b1141a93abd660"
+    sha256 cellar: :any_skip_relocation, monterey:       "c4bcc04c76658ab22998d62f9167649f1f789bfce343ad081be167cda24d9b9c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8db4c147ea9dddd11bfe771f6e189c4a496c3639947399fcc8a492a88c8f85eb"
   end
 
   depends_on "go" => :build

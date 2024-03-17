@@ -1,21 +1,19 @@
 class Miller < Formula
   desc "Like sed, awk, cut, join & sort for name-indexed data such as CSV"
   homepage "https://github.com/johnkerl/miller"
-  url "https://github.com/johnkerl/miller/archive/refs/tags/v6.9.0.tar.gz"
-  sha256 "e85ce4d7ea2aa7d0986939c64db9eec69f2e1e59a91bbee25d7d1f994543ca60"
+  url "https://github.com/johnkerl/miller/archive/refs/tags/v6.11.0.tar.gz"
+  sha256 "ff9a646db5c4bf7f9af837dae62574e1d3cd12857116522bc5a5f09dec873cda"
   license "BSD-2-Clause"
   head "https://github.com/johnkerl/miller.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "29c12543fec8278b0ad514d96d092a887b89658b04c68bd129eeff67aeb105f2"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "894631be7f24a39276adfe8f5071c35fddfa5c0f1feed0dc4da8d510865b0dbb"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0f5c62c9055c1aab369b40a66783d271c9afe0371e2719bdc5af2530b6f7dcd2"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "8302e89879478823af03725278fe389e4ace4490f97428eba97dfa95aae6b955"
-    sha256 cellar: :any_skip_relocation, sonoma:         "7240169297bc0888edf99559e1cf05e5f8e8af8e260227b1830eef38fc4e9676"
-    sha256 cellar: :any_skip_relocation, ventura:        "970ae777b22d8a83f5c64b36f127b53282859773684c6a496be03727c214c8dc"
-    sha256 cellar: :any_skip_relocation, monterey:       "25674457f02fddac8754a6329006754913d457e1410de64534420caf19b561e0"
-    sha256 cellar: :any_skip_relocation, big_sur:        "53b81d510c3e26c84e546bc4a78d7a0a95ab30fe72d47c6bd1e83692b6dedb00"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8a9dd71ff519c297319dbed8bd3510b7cafa7cda6234f8ffe540f8172b4c5a92"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "41d165628034e98e790e1278f1e580fdc459c9569aa32707ccae50181420c031"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "31f74d6ce36b939e7af50c426957fe9643d8ea7c5428ffea70fa7caa75b5ce06"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "b860d5ac94d3a3d5ed24c4e9e02f6767a069ea022d3e7cccc0a024396c32270a"
+    sha256 cellar: :any_skip_relocation, sonoma:         "a27b3626056fb33840ef9da328f234653532db44115db56dfaa66d2773cc6778"
+    sha256 cellar: :any_skip_relocation, ventura:        "e40f7e0adff847e2d17318f0aeceaec52936b89b51845c7f2a9dbdcb980fc095"
+    sha256 cellar: :any_skip_relocation, monterey:       "1f18150db9d42cf11a12054479e83178cc6cb3df29dc5eded5cfaa5730d88c9d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f0febf0d69cc90f68b939a40ded6fa07ac67613dbbf7284aa0257e5244263771"
   end
 
   depends_on "go" => :build

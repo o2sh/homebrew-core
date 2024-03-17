@@ -1,22 +1,18 @@
 class Grin < Formula
   desc "Minimal implementation of the Mimblewimble protocol"
   homepage "https://grin.mw/"
-  # TODO: remove the `cargo update` line when this is next updated (5.2.x).
-  url "https://github.com/mimblewimble/grin/archive/refs/tags/v5.1.2.tar.gz"
-  sha256 "a4856335d88630e742b75e877f1217d7c9180b89f030d2e1d1c780c0f8cc475c"
+  url "https://github.com/mimblewimble/grin/archive/refs/tags/v5.2.1.tar.gz"
+  sha256 "243f391e5181307c5a8158759f560bc835b3e0287ffdd1898d38d6db644de631"
   license "Apache-2.0"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e39401a14c113a9dc0f5596b05254528729459bd91487dd9c1491378365c473b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1fab9195a99a295a16188c052518879bd5dadedc2ebcbd8c320ed498facf1f28"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "6401984d8253b18d9b6ddb50d7804d53e77df627b97430a4dc7403f24e8ee2de"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "e85a55594c77f1a6864064b8764221e543b679b673adab978e586c21945bee4b"
-    sha256 cellar: :any_skip_relocation, sonoma:         "930b4c12cf15053a5064bafcf708adf1d78083b6ebfc6a3b2d8d4f992edaf8e6"
-    sha256 cellar: :any_skip_relocation, ventura:        "33b88a2920ae853a8945fb31b60fb913b729618811a1ed2059bf34ac862011fa"
-    sha256 cellar: :any_skip_relocation, monterey:       "379a7ae7790a3e4eaa6d43da60a43e9d431dd94cb9c21165be3cd5ce640b8161"
-    sha256 cellar: :any_skip_relocation, big_sur:        "2c30855732887dd75a1fdb3e88127a42c3f748f2787cf133c5643ba8bf976f34"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c4be0f608e09ddd44d9f897f6cdf080411306d47967b135a806c616931e89c84"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "05f68f3caf0b4cef0870c96275a817bccfd9b903290a823c8b3b4a2e670a210a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "428409d7fbe42d5724fc854f327b60a0495a81e55dbea52e9c2e67d81806b236"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "aa57538c97aff157112eb556cd5488fd0d0626f53bc637753710e8b09ffef5c3"
+    sha256 cellar: :any_skip_relocation, sonoma:         "a4e38053926da306851e7f52dd21c94a6c7f01230acfc74bd4ddba1aa8c5129d"
+    sha256 cellar: :any_skip_relocation, ventura:        "0cdca72ad1c8de934c61e079842d06d5fdfd4f345ccf08370cc5f93f78a85128"
+    sha256 cellar: :any_skip_relocation, monterey:       "b240b9c21819088b04c045a82480e6d5650947e68c38f136aaada618deef2bf7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "56241d9e23541542bdce1c9c22905509140c3254c5b63d3ae6e8bb8ae7fedf07"
   end
 
   # Use `llvm@15` to work around build failure with Clang 16 described in
@@ -28,21 +24,10 @@ class Grin < Formula
 
   uses_from_macos "ncurses"
 
-  # Patch to build with rust 1.71.0, remove in next release
-  # upstream PR ref, https://github.com/mimblewimble/grin/pull/3763
-  patch do
-    url "https://github.com/mimblewimble/grin/commit/399fb19c3014a4a5c3f0575dd222e7df6fda8c83.patch?full_index=1"
-    sha256 "0966dd64d8b91a3179207c38f0590ffbeb61ff911ddd3dc4be45045c9331eebf"
-  end
-
   def install
     # Work around an Xcode 15 linker issue which causes linkage against LLVM's
     # libunwind due to it being present in a library search path.
     ENV.remove "HOMEBREW_LIBRARY_PATHS", Formula["llvm@15"].opt_lib
-
-    # Fixes compile with newer Rust.
-    # REMOVE ME in the next release.
-    system "cargo", "update", "--package", "socket2", "--precise", "0.3.16"
 
     bindgen_version = Version.new(
       (buildpath/"Cargo.lock").read

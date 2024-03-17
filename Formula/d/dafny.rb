@@ -1,16 +1,16 @@
 class Dafny < Formula
   desc "Verification-aware programming language"
   homepage "https://github.com/dafny-lang/dafny/blob/master/README.md"
-  url "https://github.com/dafny-lang/dafny/archive/refs/tags/v4.3.0.tar.gz"
-  sha256 "f5cb71b3ea0ee0008291cf48540797f62d336f01330e8e519329dcdd1e78ce92"
+  url "https://github.com/dafny-lang/dafny/archive/refs/tags/v4.5.0.tar.gz"
+  sha256 "16fbb3ab58b1e134888e9c1870c21596de096e2343e2d1e4dac92eb133e5d709"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "94e5c99f96e61b34bd0fbf4ae0911ed51494331cfeb0a371ac7d72a003798173"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b144d10a4b6d837d95935d61542ce099144b6ef04862f2d37daf9f7074095e5c"
-    sha256 cellar: :any_skip_relocation, ventura:        "b5c1248f3838792406c6eb24c80af33adf91a37da832bddd5b672650e0da062e"
-    sha256 cellar: :any_skip_relocation, monterey:       "8b7ad20eca0adc568b453dbdc8e6c34e512c0d630953c8bd48013a5d1853658d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f36f301181e63c313fe4d805c8fd5524e6eccfd2086f2c50c9571f0e7134c1f3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "82da952f859be276293a2aa78adb35525069d42b62abcdd5b36154600d157f79"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "b6d09b23732c6cee2d3722e3a4e76ba4996239edc0470a01fddc8969738fb1fb"
+    sha256 cellar: :any_skip_relocation, ventura:        "5944c263e072071d4da4f3a3d33e7a1d655d1f69f5936e094b474ff5119f6cf4"
+    sha256 cellar: :any_skip_relocation, monterey:       "97fb3aa48d29a64e4a55c5761b3e4ac9031646cdec10ec20e0049ebd6fad0bda"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "256789e5f23cd1e67f8cce25fc648aa87ac54164e3b14f328edaf93f233d2304"
   end
 
   depends_on "dotnet@6"

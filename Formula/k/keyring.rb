@@ -3,26 +3,24 @@ class Keyring < Formula
 
   desc "Easy way to access the system keyring service from python"
   homepage "https://github.com/jaraco/keyring"
-  url "https://files.pythonhosted.org/packages/69/cd/889c6569a7e5e9524bc1e423fd2badd967c4a5dcd670c04c2eff92a9d397/keyring-24.3.0.tar.gz"
-  sha256 "e730ecffd309658a08ee82535a3b5ec4b4c8669a9be11efb66249d8e0aeb9a25"
+  url "https://files.pythonhosted.org/packages/ae/6c/bd2cfc6c708ce7009bdb48c85bb8cad225f5638095ecc8f49f15e8e1f35e/keyring-24.3.1.tar.gz"
+  sha256 "c3327b6ffafc0e8befbdb597cacdb4928ffe5c1212f7645f186e6d9957a898db"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "036f54c565a93f9f0b909b69cd45ff1f72dfe81cc2876960d6a3fd905982d1f4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4613f7464bdbb9f507d0ad52d856ac09867053f54db651b82a6e3f60e83376df"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b59e21e3fc9edce1dc5aec35ccdef53d84e9afba9a5d02e76eade3aac190878c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "179dbca134482ef6704d5659448e5a94cf020b5b5524b2bcd49c6b953889bfdd"
-    sha256 cellar: :any_skip_relocation, ventura:        "8744251e993d35ad520223cb0ef42c1c17e08c05c2f9eb478064dac88d8b3be3"
-    sha256 cellar: :any_skip_relocation, monterey:       "6e4abd8454ae73eb8589945406fa20ae7ef6fae82d683a440f018b154c29f13f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e8a1500909e30e1a614a4a4127a53ea0503482d534a2bf28e0370803d6618192"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "23c9073a230f05c2c1aab7e42f4d756dbc2ff8e89ef8401fe5e199a6e4a920c6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a51b9c1b339499884f12b1642768f71d62c34a8702c59d08a412a446a197e983"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "33d3e0a94454b7707f6653ab8f0c522bd9c302d32598aa618ab2700f60eeb618"
+    sha256 cellar: :any_skip_relocation, sonoma:         "9fe86785c99cdcf1c63c7270559680bb0237512b5181d85d32f53ea15456d441"
+    sha256 cellar: :any_skip_relocation, ventura:        "8d79b49556b7a020187791aad13a1ca4ca1d08581ae312dc2bdd5376fbdf832e"
+    sha256 cellar: :any_skip_relocation, monterey:       "e0189070dcdb8c28aa767efe5a05464e4ca2f965a3dd117cb950121eab1d7de1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bb39fb6fda4c9593811000aa1d6e05a99dd9bce5565632144ac40b7f6f728ee5"
   end
 
-  depends_on "cffi"
-  depends_on "pycparser"
   depends_on "python@3.12"
 
   on_linux do
-    depends_on "python-cryptography"
+    depends_on "cryptography"
 
     resource "jeepney" do
       url "https://files.pythonhosted.org/packages/d6/f4/154cf374c2daf2020e05c3c6a03c91348d59b23c5366e968feb198306fdf/jeepney-0.8.0.tar.gz"
@@ -35,29 +33,19 @@ class Keyring < Formula
     end
   end
 
-  resource "importlib-metadata" do
-    url "https://files.pythonhosted.org/packages/33/44/ae06b446b8d8263d712a211e959212083a5eda2bf36d57ca7415e03f6f36/importlib_metadata-6.8.0.tar.gz"
-    sha256 "dbace7892d8c0c4ac1ad096662232f831d4e64f4c4545bd53016a3e9d4654743"
-  end
-
   resource "jaraco-classes" do
-    url "https://files.pythonhosted.org/packages/8b/de/d0a466824ce8b53c474bb29344e6d6113023eb2c3793d1c58c0908588bfa/jaraco.classes-3.3.0.tar.gz"
-    sha256 "c063dd08e89217cee02c8d5e5ec560f2c8ce6cdc2fcdc2e68f7b2e5547ed3621"
+    url "https://files.pythonhosted.org/packages/a5/8a/ed955184b2ef9c1eef3aa800557051c7354e5f40a9efc9a46e38c3e6d237/jaraco.classes-3.3.1.tar.gz"
+    sha256 "cb28a5ebda8bc47d8c8015307d93163464f9f2b91ab4006e09ff0ce07e8bfb30"
   end
 
   resource "more-itertools" do
-    url "https://files.pythonhosted.org/packages/2d/73/3557e45746fcaded71125c0a1c0f87616e8258c78391f0c365bf97bbfc99/more-itertools-10.1.0.tar.gz"
-    sha256 "626c369fa0eb37bac0291bce8259b332fd59ac792fa5497b59837309cd5b114a"
+    url "https://files.pythonhosted.org/packages/df/ad/7905a7fd46ffb61d976133a4f47799388209e73cbc8c1253593335da88b4/more-itertools-10.2.0.tar.gz"
+    sha256 "8fccb480c43d3e99a00087634c06dd02b0d50fbf088b380de5a41a015ec239e1"
   end
 
   resource "shtab" do
-    url "https://files.pythonhosted.org/packages/72/5c/6614a030e5308c244f3fb7ada978d3860720d8dc69522c651d3052c50e8c/shtab-1.6.4.tar.gz"
-    sha256 "aba9e049bed54ffdb650cb2e02657282d8c0148024b0f500277052df124d47de"
-  end
-
-  resource "zipp" do
-    url "https://files.pythonhosted.org/packages/58/03/dd5ccf4e06dec9537ecba8fcc67bbd4ea48a2791773e469e73f94c3ba9a6/zipp-3.17.0.tar.gz"
-    sha256 "84e64a1c28cf7e91ed2078bb8cc8c259cb19b76942096c8d7b84947690cabaf0"
+    url "https://files.pythonhosted.org/packages/18/95/5691f59ef352d45017863bb6082d3c046a7cee2672458b4aa1850a12904a/shtab-1.7.0.tar.gz"
+    sha256 "6661c2835d0214e259ab74d09bdb9a863752e898bcf2e75ad8cf7ebd7c35bc7e"
   end
 
   def install

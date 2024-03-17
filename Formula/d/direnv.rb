@@ -1,27 +1,26 @@
 class Direnv < Formula
   desc "Load/unload environment variables based on $PWD"
   homepage "https://direnv.net/"
-  url "https://github.com/direnv/direnv/archive/refs/tags/v2.32.3.tar.gz"
-  sha256 "c66f6d1000f28f919c6106b5dcdd0a0e54fb553602c63c60bf59d9bbdf8bd33c"
+  url "https://github.com/direnv/direnv/archive/refs/tags/v2.34.0.tar.gz"
+  sha256 "3d7067e71500e95d69eac86a271a6b6fc3f2f2817ba0e9a589524bf3e73e007c"
   license "MIT"
   head "https://github.com/direnv/direnv.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6a8436d33ce6a6d19ec4c177304b46de90c51e5bf8c34b6c59fc87d7ac768759"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c8349393ab02680cd46631d870fde9f4f66cb69a12b0c8c57ccc9beb05861e33"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "bd652c6a23b380884b7f8554e1e916cabd5d0503883783b115fb2c30a2e9ee1d"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "30d022f74ec3cd0f14b28f6b498ecaa6067c77802320177e69b57e015fcb8533"
-    sha256 cellar: :any_skip_relocation, sonoma:         "55a81cac50200cad48927c64c4bbb29ed7bbc4e080762449b8800482386c9564"
-    sha256 cellar: :any_skip_relocation, ventura:        "3dd3db7beae8e876f0945302f5038a1528987b72ff33b16bfe626f4469a7e264"
-    sha256 cellar: :any_skip_relocation, monterey:       "d8a2d94c985d3fca8eb1fb7e1ab28b542008995d65e78658f6be0395d6a26608"
-    sha256 cellar: :any_skip_relocation, big_sur:        "139d35367a4f9e7a14f3dd8bbaa2e2b7e08c35cdeb6e98990349e9a583d093de"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9ca33d2cfc8a8af1f4775d823986ec53d8fbfdbd9351914514ad39ee612f8595"
+    sha256 arm64_sonoma:   "fd210e16bd6764b33cd2e556a7f07ed579453ba19d518ec11de33edcf3c5c2c7"
+    sha256 arm64_ventura:  "59af7e0d05a50eda59d60a8c2c67eb0a3491c0650a334568ae13988da3b32951"
+    sha256 arm64_monterey: "2577f8c5e2c3c7d1ee2f6966e3c92a16853edb9302d78089ddfc4f8ef9efda24"
+    sha256 sonoma:         "4148bce1352772af61eb44303877e57e54a8531240cb551ec2c879660ac90c54"
+    sha256 ventura:        "b4eefec1b63c6c32713290af5f5e1f2c318d3c64ba052aab786aab0b87c1b437"
+    sha256 monterey:       "41cadfe20ab1913f07376ac5206ee49c3322ac8689ecd9a5dc85c5146850dff2"
+    sha256 x86_64_linux:   "be4b933f8f607bf1a705c13abe75d04a99856f1698c3ebcb71e07e469850e964"
   end
 
   depends_on "go" => :build
+  depends_on "bash"
 
   def install
-    system "make", "install", "PREFIX=#{prefix}"
+    system "make", "install", "PREFIX=#{prefix}", "BASH_PATH=#{Formula["bash"].opt_bin}/bash"
   end
 
   test do

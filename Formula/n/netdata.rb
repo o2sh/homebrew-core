@@ -1,8 +1,8 @@
 class Netdata < Formula
   desc "Diagnose infrastructure problems with metrics, visualizations & alarms"
   homepage "https://netdata.cloud/"
-  url "https://github.com/netdata/netdata/releases/download/v1.43.2/netdata-v1.43.2.tar.gz"
-  sha256 "d4a7ea2717ac7c8f04865f18e13aeaa0a36784156059f1b5ced75a44f74afc4d"
+  url "https://github.com/netdata/netdata/releases/download/v1.44.3/netdata-v1.44.3.tar.gz"
+  sha256 "50df30a9aaf60d550eb8e607230d982827e04194f7df3eba0e83ff7919270ad2"
   license "GPL-3.0-or-later"
   revision 2
 
@@ -12,13 +12,13 @@ class Netdata < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "4b29aefee0bfa6619b5b3a0c03b1cf38f482caacd0588638dd999923b07fd52d"
-    sha256 arm64_ventura:  "c099704763315b1a3fbfb0a9c76134b75645bc72a1a71a165db7598af8bba59a"
-    sha256 arm64_monterey: "18de2cce6fdde0098ac5a7ae96d942e65c27ce4660a48cf5ea2436ac214707b9"
-    sha256 sonoma:         "b884ee587564a5795685b9bfc6600307b6d9f03e0dc29fc87a0642f98a8930db"
-    sha256 ventura:        "2d6b47a6ffb4d97a40398e6db574c53909be4ea1361448a973b19b4e5fd6cbec"
-    sha256 monterey:       "64f3b601aec6e0f1a41ac875b90cd363e84583bec28d985ad2ce08135089e89d"
-    sha256 x86_64_linux:   "91566edb4090834cec05bd5a3f702ecbc938143a2bbf5c351dc9a8cc5fb93c10"
+    sha256 arm64_sonoma:   "c8101e05d417e88592f1580f111f062ed2c64f7a107271ac9ecd50ac76f1b0eb"
+    sha256 arm64_ventura:  "e0eadb2f33af018b9ba4435c6b53eb98e804170b980c1603c9487dae793002b7"
+    sha256 arm64_monterey: "fa982cd46ddabb9a20302e6c2a059969d5a9b8361a2beac09583808ba33310d8"
+    sha256 sonoma:         "bd24418a3bad424f6178bccbfd045f16bb0616d8b5b73b3dd397edff6a2c7da0"
+    sha256 ventura:        "41d6ce9afd539e97dccecb5da9d7ac7cecf37e867db82708953cbddbbe4e2742"
+    sha256 monterey:       "471ef2176b93e22b9b8fa12fda8e7de0e971bfd1fdc1e8d2890b74fd4c1688f8"
+    sha256 x86_64_linux:   "eaf7d9f20de88f1e860c8f3709cb98d9d0cc37dc45f200d2d5e1df2fb6bdaf48"
   end
 
   depends_on "autoconf" => :build
@@ -30,6 +30,7 @@ class Netdata < Formula
   depends_on "libyaml"
   depends_on "lz4"
   depends_on "openssl@3"
+  depends_on "pcre2"
   depends_on "protobuf"
   depends_on "protobuf-c"
 

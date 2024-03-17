@@ -3,17 +3,18 @@ require "language/node"
 class WebExt < Formula
   desc "Command-line tool to help build, run, and test web extensions"
   homepage "https://github.com/mozilla/web-ext"
-  url "https://registry.npmjs.org/web-ext/-/web-ext-7.8.0.tgz"
-  sha256 "227ce577a95005d8294e6bf1ca0ae5f345a5dfa98f9f52c91be977ada96d7fa6"
+  url "https://registry.npmjs.org/web-ext/-/web-ext-7.11.0.tgz"
+  sha256 "e3561fae3a56d2e645176122ebdb5bb3cd3bb60fee9ae9c921e92a0e521caa6f"
   license "MPL-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "beb1d9eef6a50ddb7146112dcdd6a7a7453ce440ed9847e7b57d7c10a52d84b8"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5c27eca9aa5fbf6252a462b978f460748f38d7f859beceb110c54b16ecf34100"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f33db3fe55397911af10f6a73ea9d6453db1cac164b61765653c8cacdc07cbed"
-    sha256 cellar: :any_skip_relocation, ventura:        "974af2d0d8c0f9a8de59def9299edb93b2860f5958c27d5e8c9f5a750605f913"
-    sha256 cellar: :any_skip_relocation, monterey:       "e243a9036f681f6680b517cc35d77087cfed38b5838b1f2412521e1dc9262c45"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "70df45eb94c5b74da01af8d93c0d91f1771a235fe02f9b302c071e5a159c9dc8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6ed58abfbfe9ec673a25cc89d2eb605fb1ce1f7368311955e140b4a5fe1dc7f4"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c806063f12a3bc0ff6d339e1e3e485d6f70db37d7745015c9cdccb1db09337c4"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f4cc344463fdf9f6df3e3e19642ed3a893c403cc85932bb13896c9919030eefe"
+    sha256 cellar: :any_skip_relocation, sonoma:         "22508d98eec560de68db0b125892134903c6a159cac86d8171e3bf1a600096c8"
+    sha256 cellar: :any_skip_relocation, ventura:        "1a3b4a35bbd3d259e82945265c2e6072f1090ec4fbdbcb7d763f4fbbb13990b8"
+    sha256 cellar: :any_skip_relocation, monterey:       "6e6f613f7453e96f47c1c1557f4e15c65681478a3628743a296acbfa55368f04"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b61797ceb75bc11976d6487200fdb86277a4cdb72afad7601601ac1d3b31b9d7"
   end
 
   depends_on "node"

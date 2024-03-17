@@ -1,10 +1,9 @@
 class Pdns < Formula
   desc "Authoritative nameserver"
   homepage "https://www.powerdns.com"
-  url "https://downloads.powerdns.com/releases/pdns-4.8.3.tar.bz2"
-  sha256 "77b91199bdf71874334501c67e26469c2667a373d8423803fe657417295c77ba"
+  url "https://downloads.powerdns.com/releases/pdns-4.9.0.tar.bz2"
+  sha256 "fe1d5433c88446ed70d931605c6ec377da99839c4e151b90b71aa211bd6eea92"
   license "GPL-2.0-or-later"
-  revision 1
 
   livecheck do
     url "https://downloads.powerdns.com/releases/"
@@ -12,13 +11,13 @@ class Pdns < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "0bec6105e793a8d8d08cda1d8c02586527b3789d0fc639bfb4eec8a571c779d5"
-    sha256 arm64_ventura:  "477ec905932dde8d6eeed8171bf02fd2e3b62d8c50cef2986b3188612f64af54"
-    sha256 arm64_monterey: "47cf2ae650b319c14eb3dc0ecc147b2e28235d1b55e9708b02fd8ca8356e6afb"
-    sha256 sonoma:         "bbf5deb73f6318175120901a0e9c01799ddee5adf99ceca950d65a140374bc7d"
-    sha256 ventura:        "beb940aac07440ad0138a28a099a0f27d3ec2306699904b7b8be0bfcd5a464a3"
-    sha256 monterey:       "e77769a854176ef353a7821027a8f27a83231337c5f34380f7e185a3f4bfef22"
-    sha256 x86_64_linux:   "0b86c97f289efff9e9719d846bd0135edacf62fda9d57fae71c729f7e7688ace"
+    sha256 arm64_sonoma:   "b46d44881fcf1a830f3c883a1fc764b5e985c82633ab188ba3fdee961db20028"
+    sha256 arm64_ventura:  "116f9566bcca9232acd03cd6ff32749b63f02314708cd2a87fdd86debf45950b"
+    sha256 arm64_monterey: "c15ee8377e2848e7d8ad7bbaed8eb93f0c4f6c31120a01984c0fede96efcea4c"
+    sha256 sonoma:         "5fa0158f807bf73512b4dbc140ce5b45daafddc076cabdcc25f9e32cfdaf0b9b"
+    sha256 ventura:        "6a1056a3e8310b86cbe1ac643cf382599db1c5ba8593e5a881f386b96a463f76"
+    sha256 monterey:       "86504e3ab78e68aedcb2dda68834b178a7a5e27f05c92f7e94e5844a6c05316a"
+    sha256 x86_64_linux:   "46eddab0ef267edd5a1584d7d629b8ccb5460b9094a09f260100a89058c88f78"
   end
 
   head do
@@ -61,7 +60,7 @@ class Pdns < Formula
   end
 
   test do
-    output = shell_output("#{sbin}/pdns_server --version 2>&1", 99)
+    output = shell_output("#{sbin}/pdns_server --version 2>&1")
     assert_match "PowerDNS Authoritative Server #{version}", output
   end
 end

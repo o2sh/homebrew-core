@@ -1,18 +1,18 @@
 class Observerward < Formula
   desc "Cross platform community web fingerprint identification tool"
   homepage "https://0x727.github.io/ObserverWard/"
-  url "https://github.com/0x727/ObserverWard/archive/refs/tags/v2023.11.29.tar.gz"
-  sha256 "dd17eee7f845140184ed583c46182b76ddb8e2030144c33714cee4987ef6a1de"
+  url "https://github.com/0x727/ObserverWard/archive/refs/tags/v2024.3.15.tar.gz"
+  sha256 "2aa47779158e09625f1a012874e6200122727d595abb7e15e67a9f58535cb9d8"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "cb998657e7d5c082152c9d3b717c936035d058a79569e3c59319e736b5b08cb8"
-    sha256 cellar: :any,                 arm64_ventura:  "2fac90fee4e357b44cc847efe48b0d0040d21b6b60df8f75ed39b2695942a4d4"
-    sha256 cellar: :any,                 arm64_monterey: "f8c1081c4edeac00d8936565ce7ff10533113a5f4094599240317ce8dbbc137d"
-    sha256 cellar: :any,                 sonoma:         "45a08a2173298661e42d8b7a0eab9721990851f2043f2f9bdacd1a0250b5d797"
-    sha256 cellar: :any,                 ventura:        "69e9dac39df27c449c3bd958b6b144dbe51a2d4b20582f453c42ed97635ba375"
-    sha256 cellar: :any,                 monterey:       "2df3bbc11470bce7ce338afe5d14b05ef2591fe6d9046e2a605c162e898a3e6a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bb72ef3b28e4b564d40805b92001d5476b360ec794f2fa9d0508ee75a1c62a71"
+    sha256 cellar: :any,                 arm64_sonoma:   "b261659ea64d67c4d77a4511f925c9afb4b672f90758665c5b2c30b56b78c1ff"
+    sha256 cellar: :any,                 arm64_ventura:  "fb5c21cacbf32b14fc2782b343a14b08df02a1f64f860620fed4b7ca8a5db8bf"
+    sha256 cellar: :any,                 arm64_monterey: "2c442820a3253827ff4586dd36afac95f0a7e7a520dbdf9d9d9929f078f35495"
+    sha256 cellar: :any,                 sonoma:         "562d55f8fa1dee50805d10960dc22f276fff4fd70334115b0a4120ab38afb744"
+    sha256 cellar: :any,                 ventura:        "cc53f6ba716e77e9f1894df7250abbb4264329383b5aed99becc45ed9ae434b4"
+    sha256 cellar: :any,                 monterey:       "59f43bc002806728ad0ba8bdc378358539e4f7dbdc11e61d499b89118fd1709f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0c6cb34478b914acba08b631467010bc6ecd16859713e3a192bd9bcb9ebc3b11"
   end
 
   depends_on "rust" => :build
@@ -23,7 +23,7 @@ class Observerward < Formula
     ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
     ENV["OPENSSL_NO_VENDOR"] = "1"
 
-    system "cargo", "install", *std_cargo_args
+    system "cargo", "install", *std_cargo_args(path: "observer_ward")
   end
 
   def check_binary_linkage(binary, library)

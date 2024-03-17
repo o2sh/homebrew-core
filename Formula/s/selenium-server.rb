@@ -1,8 +1,8 @@
 class SeleniumServer < Formula
   desc "Browser automation for testing purposes"
   homepage "https://www.selenium.dev/"
-  url "https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.15.0/selenium-server-4.15.0.jar"
-  sha256 "0933b1fc5febce425b0e3f538c9832f43f4e384f69f384d6223d1e9ec9ba597a"
+  url "https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.18.0/selenium-server-4.18.1.jar"
+  sha256 "74e72673c1e7dda04f110616a75ac2d15f3b97d4677dafeeac63fbc3be0ca331"
   license "Apache-2.0"
 
   livecheck do
@@ -11,13 +11,7 @@ class SeleniumServer < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "068bbd7f8a7deb14348608feb703b372e2d28b196572469090a06617bc0b4cad"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "068bbd7f8a7deb14348608feb703b372e2d28b196572469090a06617bc0b4cad"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "068bbd7f8a7deb14348608feb703b372e2d28b196572469090a06617bc0b4cad"
-    sha256 cellar: :any_skip_relocation, sonoma:         "068bbd7f8a7deb14348608feb703b372e2d28b196572469090a06617bc0b4cad"
-    sha256 cellar: :any_skip_relocation, ventura:        "068bbd7f8a7deb14348608feb703b372e2d28b196572469090a06617bc0b4cad"
-    sha256 cellar: :any_skip_relocation, monterey:       "068bbd7f8a7deb14348608feb703b372e2d28b196572469090a06617bc0b4cad"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "38ffaaa85b8a3a278f72fcc4b90bc4b6f3e20c7781bba976fcd0f39df4b1e4ac"
+    sha256 cellar: :any_skip_relocation, all: "2c9643c3894889bad9a03db6166ec175a42afedd782469855c0d5d6777813933"
   end
 
   depends_on "openjdk"

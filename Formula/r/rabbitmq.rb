@@ -1,8 +1,8 @@
 class Rabbitmq < Formula
-  desc "Messaging broker"
+  desc "Messaging and streaming broker"
   homepage "https://www.rabbitmq.com"
-  url "https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.12.10/rabbitmq-server-generic-unix-3.12.10.tar.xz"
-  sha256 "cf79a3ae875f3dea23e865f52dbf205f9a98312e98e0836af41aa422752f8f47"
+  url "https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.13.0/rabbitmq-server-generic-unix-3.13.0.tar.xz"
+  sha256 "fd6e74990aefd9e722e1bcf222feadbdb17b59a34687a68efcbf1d87a6e07c55"
   license "MPL-2.0"
 
   livecheck do
@@ -11,7 +11,7 @@ class Rabbitmq < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "f483ebdc2731cda6146caad79a9016af3f5f7e0513766150de4cafaaa153e69f"
+    sha256 cellar: :any_skip_relocation, all: "898a7a507b556a756f08a513e993770cf2d05ebbcdb9cadf74da2e424db02ac4"
   end
 
   depends_on "erlang"
@@ -58,7 +58,8 @@ class Rabbitmq < Formula
 
   def caveats
     <<~EOS
-      Management Plugin enabled by default at http://localhost:15672
+      Management UI: http://localhost:15672
+      Homebrew-specific docs: https://rabbitmq.com/install-homebrew.html
     EOS
   end
 
