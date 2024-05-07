@@ -1,8 +1,8 @@
 class Kics < Formula
   desc "Detect vulnerabilities, compliance issues, and misconfigurations"
   homepage "https://kics.io/"
-  url "https://github.com/Checkmarx/kics/archive/refs/tags/v1.7.13.tar.gz"
-  sha256 "6262632cb70fd4d642deb66b1c02ae2825bde34d9020632a9a627c94350650cf"
+  url "https://github.com/Checkmarx/kics/archive/refs/tags/v2.0.1.tar.gz"
+  sha256 "7c4b5c5e2d696db4edf5a319aad39c8108156c2832fbf2c4429c92c6ee2ada2f"
   license "Apache-2.0"
   head "https://github.com/Checkmarx/kics.git", branch: "master"
 
@@ -12,13 +12,13 @@ class Kics < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e98a0b491acdb69a978ee32ed366a64c134c6a5d0218876a59db78bb6126098e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f0031ca5434d13e61cf0cae758061b2bff3b3903cc5778e972d62d1b5e6506bf"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "71c5cf147dc8b434e222b5e5573f8e30fbdffc4170b2fdd5f4b7af15d3acc9e7"
-    sha256 cellar: :any_skip_relocation, sonoma:         "6c71f970d2232650b13797850bc01aa74c1d31f3bdbbccdb3b31a9aacabeff31"
-    sha256 cellar: :any_skip_relocation, ventura:        "416665c840b5e0cbffad5f63a9cb1866b01d62e3bc5885396fdefbe7a69ff26c"
-    sha256 cellar: :any_skip_relocation, monterey:       "d4489f7d79c257cd931bb343ae8f1200bf6c5c2038316a3d09c10ef10b28cfd6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6c40c05b9da1e335d141f03bdad85c882f57596cf3cabaca491e03024c6d20fb"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8bc80fcbb1692b139e56e373286324fc920f0f9ca6582e05a66f8ffebeb939d1"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2d3acbf525a4655cf4621c635eec41ab14fb17aa8e714ad1984e17fb25d4a355"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6a8fd1e9a5bb5f35832b75f719e0dd536d227dc2f5bec09bc0ae3a2943f24ff2"
+    sha256 cellar: :any_skip_relocation, sonoma:         "272050530665cf1ae1885f21db1cdbbdd2463bb509107394747c336740b50609"
+    sha256 cellar: :any_skip_relocation, ventura:        "604d7850eb94c17cc1c168bfd7a01d8751040298774efae66e4ba46d768807b7"
+    sha256 cellar: :any_skip_relocation, monterey:       "8175af214421abf85237de91097f5825f0020dcf9bbc0a589639ca7a86ea4e21"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f0b3c6f3c28197841fa26d69e89f76316072a60561c607d84db2bd832dcd585d"
   end
 
   depends_on "go" => :build
@@ -49,6 +49,7 @@ class Kics < Formula
 
     assert_match <<~EOS, shell_output("#{bin}/kics scan -p #{testpath}")
       Results Summary:
+      CRITICAL: 0
       HIGH: 0
       MEDIUM: 0
       LOW: 0

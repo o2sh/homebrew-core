@@ -1,19 +1,19 @@
 class Lychee < Formula
   desc "Fast, async, resource-friendly link checker"
-  homepage "https://github.com/lycheeverse/lychee"
-  url "https://github.com/lycheeverse/lychee/archive/refs/tags/v0.14.3.tar.gz"
-  sha256 "b2ce1bd57040ab9d1719b9540e8c2905327f6a71674a0e5f2297f00bb4410651"
+  homepage "https://lychee.cli.rs/"
+  url "https://github.com/lycheeverse/lychee/archive/refs/tags/v0.15.1.tar.gz"
+  sha256 "21c52aab5eefb0fda578f8192dffc5b776954e585f5692b87079cbb52ac1d89c"
   license any_of: ["Apache-2.0", "MIT"]
   head "https://github.com/lycheeverse/lychee.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "8add17c02ea36a4a2baefe80f8d343a0fd8eb1ddf8f8358b8b50d6a171dab145"
-    sha256 cellar: :any,                 arm64_ventura:  "e2b0467a22f97a8524f1fa800c88baaa946c7636d4be805be54d2ed86a68c54c"
-    sha256 cellar: :any,                 arm64_monterey: "bfde51ee50cc21f50de35015c8b5e33556691b4d9c56bfc9419905475d51dc05"
-    sha256 cellar: :any,                 sonoma:         "1ee613a63ddddbe842cd43ebb9268c91dde6689e2666478fa3892911d5c5cdfd"
-    sha256 cellar: :any,                 ventura:        "af75dd5f3a93e7a94ecd69a1c4bcf486fe6fc171f626d9af68c9662af3d7c8ca"
-    sha256 cellar: :any,                 monterey:       "017ab64c9e0662cf2438ef588decf115648be6d37eb85a39f0bc717e622421d6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "504469b40e0be7cd5ee31c3d38870af58298bd931f6d3a4ffd0dc0bda1db418c"
+    sha256 cellar: :any,                 arm64_sonoma:   "924b3ce2bfaee2a6bbe294de6f330be63bf35a16377f7f3fd1d17bd8bea233ca"
+    sha256 cellar: :any,                 arm64_ventura:  "c6521df6fdf60325b68a4ba3e8e54f43491716a8a8f656b54b9c00d0e319e803"
+    sha256 cellar: :any,                 arm64_monterey: "c87eb977a24d7c493ce1647593a4509deac9a5485acf48c35521ccc209cef3a7"
+    sha256 cellar: :any,                 sonoma:         "25c1855e06584cc7a09b1f0f197a0500206435e0046fa6311aedbe9d4f8e8a86"
+    sha256 cellar: :any,                 ventura:        "20646313a781d98048858aea8655c5799135622158bddf49fde21da4bc4d14b8"
+    sha256 cellar: :any,                 monterey:       "a0e1eb289a41db8c30191e08f77709ed634d97fb2e503e7e40bd78cb4bfc9ff3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7be7a8b341023b5b6538713fbd6eecf6a1ee9bdbef07fc08e31be67fae8cb925"
   end
 
   depends_on "rust" => :build

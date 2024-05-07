@@ -4,7 +4,7 @@ class SpatialiteGui < Formula
   url "https://www.gaia-gis.it/gaia-sins/spatialite-gui-sources/spatialite_gui-2.1.0-beta1.tar.gz"
   sha256 "ba48d96df18cebc3ff23f69797207ae1582cce62f4596b69bae300ca3c23db33"
   license "GPL-3.0-or-later"
-  revision 3
+  revision 5
 
   livecheck do
     url "https://www.gaia-gis.it/gaia-sins/spatialite-gui-sources/"
@@ -12,15 +12,13 @@ class SpatialiteGui < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "89884971497663bdf9b7e889b94e05013d80a28084ce2be0cc8780e08fe91ec4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c536a53e5bee1a2971e50aa51eba04bbbcfc71f5ce490c06c84801eec1c822be"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0b7434afc44f7b02180d57580736ceb108f87d3c178f4719e2333e1c24c1988a"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "5d3120e5b4bdd9e8a56834e2c06d304d6ccd740084e63f16fc81f384d0e1aa05"
-    sha256 cellar: :any,                 sonoma:         "15aff386a158acc0f2dfc58223b613771d5427541b9cb129cd30ed899dd2adb1"
-    sha256 cellar: :any_skip_relocation, ventura:        "fb28b10d6fcc6d2ae140e635dfb5055d6428b34a08a3f3a5b585441773dbe00a"
-    sha256 cellar: :any_skip_relocation, monterey:       "06a2e3f898aec3797366f6ba02120434b6e97469e6331484e7edf257036110d5"
-    sha256 cellar: :any_skip_relocation, big_sur:        "8ca6204b4ed2605f6172eb35c206cce06171042b321ab09237d383924a4e8739"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ef5b135c6e6a396b28dd0516613d517615077cd9dd2bbe8477f82b9e4eb390ba"
+    sha256 cellar: :any,                 arm64_sonoma:   "d4392dabb5d4c3e56557cffa6fa8bf201fb0957f3b36e6ff10dda3c5f4440997"
+    sha256 cellar: :any,                 arm64_ventura:  "3bcca03de6319c89394192908fca92324947083337fe1aae61eb22f440c363fd"
+    sha256 cellar: :any,                 arm64_monterey: "700d4623fe0584fc17654457a2dcd830910c5fbe2ebf9dd722711907aa5103fb"
+    sha256 cellar: :any,                 sonoma:         "1014b5a5eadb32b48daeb0a2a06f972b286faf03779e56cb9571559b9e403e5d"
+    sha256 cellar: :any,                 ventura:        "e6884941f998ac9a3f945d76a415405553238e702e0b28aa2881fcdde07864ca"
+    sha256 cellar: :any,                 monterey:       "08d7dcbb6918eb49a19844e1754c7347eb6c3d0c811e432620e7f2099257d19e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e49cf249287df161d75d0fb638bdf614e2adc2e91e72248f0f85521edeac0fbd"
   end
 
   depends_on "pkg-config" => :build
@@ -48,6 +46,15 @@ class SpatialiteGui < Formula
   uses_from_macos "zlib"
 
   def install
+    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
+    # libunwind due to it being present in a library search path.
+    if DevelopmentTools.clang_build_version >= 1500
+      recursive_dependencies
+        .select { |d| d.name.match?(/^llvm(@\d+)?$/) }
+        .map { |llvm_dep| llvm_dep.to_formula.opt_lib }
+        .each { |llvm_lib| ENV.remove "HOMEBREW_LIBRARY_PATHS", llvm_lib }
+    end
+
     # Link flags for sqlite don't seem to get passed to make, which
     # causes builds to fatally error out on linking.
     # https://github.com/Homebrew/homebrew/issues/44003

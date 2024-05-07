@@ -4,25 +4,19 @@ require "json"
 class Babel < Formula
   desc "Compiler for writing next generation JavaScript"
   homepage "https://babeljs.io/"
-  url "https://registry.npmjs.org/@babel/core/-/core-7.24.0.tgz"
-  sha256 "cf810a424622b37f2dc023ccb1aed9200c71286c000592483daa3e9826d01943"
+  url "https://registry.npmjs.org/@babel/core/-/core-7.24.5.tgz"
+  sha256 "61d6fa7b2633d5c6c39aaddd7ea62e7e80e0d34b78633385294f3c6b7234012d"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8ef1db70f25fdca101e5ca54af8ed69487a1309f06613851141ae20f3dfad265"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8ef1db70f25fdca101e5ca54af8ed69487a1309f06613851141ae20f3dfad265"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8ef1db70f25fdca101e5ca54af8ed69487a1309f06613851141ae20f3dfad265"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8ef1db70f25fdca101e5ca54af8ed69487a1309f06613851141ae20f3dfad265"
-    sha256 cellar: :any_skip_relocation, ventura:        "8ef1db70f25fdca101e5ca54af8ed69487a1309f06613851141ae20f3dfad265"
-    sha256 cellar: :any_skip_relocation, monterey:       "8ef1db70f25fdca101e5ca54af8ed69487a1309f06613851141ae20f3dfad265"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cd20b81f2e174261198180a6a71969a6c0c9db170a9cea02482985ca6b3c1cbb"
+    sha256 cellar: :any_skip_relocation, all: "35d35560c68bc39802530952a30a5deb233909b19561070df1252e48d2fb262f"
   end
 
   depends_on "node"
 
   resource "babel-cli" do
-    url "https://registry.npmjs.org/@babel/cli/-/cli-7.23.9.tgz"
-    sha256 "095234aa8743f03e4baa0a5f2938ba4bb1e32bdbff0df3ebf00f9772d257d49a"
+    url "https://registry.npmjs.org/@babel/cli/-/cli-7.24.5.tgz"
+    sha256 "bf1baf99b310455a79108f0beb774ae1c9d900b9f128be6475fd71e35359489e"
   end
 
   def install

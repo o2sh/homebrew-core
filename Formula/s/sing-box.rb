@@ -2,18 +2,18 @@ class SingBox < Formula
   desc "Universal proxy platform"
   homepage "https://sing-box.sagernet.org"
   # using `:homebrew_curl` to work around audit failure from TLS 1.3-only homepage
-  url "https://github.com/SagerNet/sing-box/archive/refs/tags/v1.8.9.tar.gz", using: :homebrew_curl
-  sha256 "764c51bdf43af86e67b2657baf87bf67a2e1d8e42b0d39ee9ef7a9a414c658fc"
+  url "https://github.com/SagerNet/sing-box/archive/refs/tags/v1.8.13.tar.gz", using: :homebrew_curl
+  sha256 "de1c09d096c6fca9f59863a051438aeb3197713faa6518cb46d7ca0a9bc63976"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1984d8be5110f2b5d2e69c421b5cafb690bb04f27f578c4bf494dd8a58d9ab94"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "928c107668755a6c95a6607c17f431135260fffe7e1d8c8a893c207c60de670c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a93487bd024aa25c23c1d46fadc8ef0f14f9a64ba569a82af87966c23e3e3595"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c2bde0771655b6b716ded21c230398c11e1b9b45bb632df8f194f1b169489e98"
-    sha256 cellar: :any_skip_relocation, ventura:        "e01af3fcb8bead825874470daf7066c693da955bcdedabe9a733f611a3582528"
-    sha256 cellar: :any_skip_relocation, monterey:       "8ec45fa074b3761136487ebc88e88fb99f06f3c0ac635ea82fb2629eaba12abe"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f530205116537309d06c52672bd3c3777a45f2a45c9b68e1c424adefdb046c54"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e3edc9f6b363d419cad1e2693b9818d8891a2cbfbcc28f6548ebc4fdfd9a0679"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "42a5b5d8fd4066e51e0a55596632ffcff77dbf37ef100cc11008d9b2e1f4c7e7"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "26cace26b952e1e638ee8268c2de0a4eafead100d9950d19ff6c778743f9f041"
+    sha256 cellar: :any_skip_relocation, sonoma:         "fbc2ea020cf8ec4d83c2f654a085307c2530a4190d26df3cffadad6f2b0ca225"
+    sha256 cellar: :any_skip_relocation, ventura:        "e9474392029cc8fbc70af0b5bffa8e7623b724b41f15935071e096472e7bbc53"
+    sha256 cellar: :any_skip_relocation, monterey:       "3d476595c23154850107e247a45c5637a9c046a9bb86f27ca5bcdcdae4b15790"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4da643f1a0223b5e1b35e9999ecb7764befa11922bc62eb567feb1114d26f3a4"
   end
 
   depends_on "go" => :build
@@ -26,7 +26,7 @@ class SingBox < Formula
   end
 
   service do
-    run [opt_bin/"sing-box", "run", "--config", etc/"sing-box/config.json"]
+    run [opt_bin/"sing-box", "run", "--config", etc/"sing-box/config.json", "--directory", var/"lib/sing-box"]
     run_type :immediate
     keep_alive true
   end

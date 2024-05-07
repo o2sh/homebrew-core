@@ -3,9 +3,10 @@ class ConanAT1 < Formula
 
   desc "Distributed, open source, package manager for C/C++"
   homepage "https://conan.io"
-  url "https://files.pythonhosted.org/packages/83/ff/6c76fd241d8fccd794f24d8bb62e7c9919ccfd043d0a26502da8c13017ab/conan-1.63.0.tar.gz"
-  sha256 "4e2b8da8a68d18bc85e3f7512f72c2326a4806c352c5bd8affae667119de3704"
+  url "https://files.pythonhosted.org/packages/bd/da/a9312a0e37e78f4dd9e0812869debe51566619b59eb593cb777cba872357/conan-1.64.0.tar.gz"
+  sha256 "0f9694f98d3fb9b62ca5869cd41c4cbd0434c5f5d9fb2da52e8a6f6b44300157"
   license "MIT"
+  revision 2
 
   livecheck do
     url "https://github.com/conan-io/conan.git"
@@ -13,14 +14,13 @@ class ConanAT1 < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "a5b165b27836c2ad4baa446ca75e383a025eb6ff111486770b1e29eb5b20655c"
-    sha256 cellar: :any,                 arm64_ventura:  "15e91fe9e4734410b769dc04d731d81ed90e06592e837099bc6a6bcde15367b7"
-    sha256 cellar: :any,                 arm64_monterey: "a9018ff763a6363dd47ab80d92dffe392a11330279718a84069d37011d607a66"
-    sha256 cellar: :any,                 sonoma:         "fa2fd36357f9cd753774daf0c2078c47d724f895c22ba35a7e4221a0dffb73c0"
-    sha256 cellar: :any,                 ventura:        "a23517d48980cc5eb2904055116c0d139c48f93b06784d829689854aaebc5363"
-    sha256 cellar: :any,                 monterey:       "193fcc60bf3ac9b39ec3863c4c9dc1b57e094bb5c42b88d941f92a8c4419cb7a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9364965220352bab46982003874d197ebc196a54189dc15e7f28da36312747b9"
+    sha256 cellar: :any,                 arm64_sonoma:   "cfd2de5433ff95eb19595c40e9fc31840f274aa7228a149908bd0e6e9a1f219f"
+    sha256 cellar: :any,                 arm64_ventura:  "47bbd68bcc0994b9c4d8225bf55f41d86bdf7f0fa7ad7813bb9f2f94bb0251a9"
+    sha256 cellar: :any,                 arm64_monterey: "f0ec3a0299b174d51b6ee1af4ce390b16ba3d543edc65bd7bcd3074143a8c6bd"
+    sha256 cellar: :any,                 sonoma:         "18f97e4925d08d772a652c47eeca541a1c704c48503e46e9613752ac4d3be620"
+    sha256 cellar: :any,                 ventura:        "e9e21fc9c8f0beb9f5f22e24e885bca71caef71c384f25838745b11e309826ee"
+    sha256 cellar: :any,                 monterey:       "af0a34d7d477c977fa79c66d1f95a379da7698634594198e7e1733dba9e6569b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1e3aff6390c1981e8833b43dd189908edcc75eea7e0141fe287dddffe7209d39"
   end
 
   keg_only :versioned_formula
@@ -57,8 +57,8 @@ class ConanAT1 < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/bf/3f/ea4b9117521a1e9c50344b909be7886dd00a519552724809bb1f486986c2/idna-3.6.tar.gz"
-    sha256 "9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "jinja2" do
@@ -97,8 +97,8 @@ class ConanAT1 < Formula
   end
 
   resource "python-dateutil" do
-    url "https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz"
-    sha256 "0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"
+    url "https://files.pythonhosted.org/packages/66/c0/0c8b6ad9f17a802ee498c46e004a0eb49bc148f2fd230864601a86dcf6db/python-dateutil-2.9.0.post0.tar.gz"
+    sha256 "37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"
   end
 
   resource "pyyaml" do
@@ -117,8 +117,8 @@ class ConanAT1 < Formula
   end
 
   resource "tqdm" do
-    url "https://files.pythonhosted.org/packages/ea/85/3ce0f9f7d3f596e7ea57f4e5ce8c18cb44e4a9daa58ddb46ee0d13d6bff8/tqdm-4.66.2.tar.gz"
-    sha256 "6cd52cdf0fef0e0f543299cfc96fec90d7b8a7e88745f411ec33eb44d5ed3531"
+    url "https://files.pythonhosted.org/packages/5a/c0/b7599d6e13fe0844b0cda01b9aaef9a0e87dbb10b06e4ee255d3fa1c79a2/tqdm-4.66.4.tar.gz"
+    sha256 "e4d936c9de8727928f3be6079590e97d9abfe8d39a590be678eb5919ffc186bb"
   end
 
   resource "urllib3" do

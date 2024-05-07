@@ -3,19 +3,20 @@ class LuaLanguageServer < Formula
   homepage "https://github.com/LuaLS/lua-language-server"
   # pull from git tag to get submodules
   url "https://github.com/LuaLS/lua-language-server.git",
-      tag:      "3.7.4",
-      revision: "34ff9d3ca730bc28879ab2b0c1a49f2c5480f9a3"
+      tag:      "3.8.3",
+      revision: "6b5e19597d88a219aac73cbccd6f88a4213e07aa"
   license "MIT"
   head "https://github.com/LuaLS/lua-language-server.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a38183bd0ccdf8412d93444c0a1a7a12cd7f3a1c11a8a7e4ac36358984d464f3"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "244756c236d94189b4cfed05e968f06c482acc1214bad6c6b41404e0bbf8d110"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "65314d6e4b3e8548cdb629603afd2b9e497cecf985c376d0f39635d289cf6329"
-    sha256 cellar: :any_skip_relocation, sonoma:         "d60087d3680c6d7383753e9eee205af60d08deb4cc7b493c0e109d2f1d908e59"
-    sha256 cellar: :any_skip_relocation, ventura:        "5eb13fd30838ab0c42213100d1307d9258b230aa4aa3cdc65408b9b3462bbb19"
-    sha256 cellar: :any_skip_relocation, monterey:       "3361364d1abe42adb182b53ad56bcd102c0868afdab3d612332076a69445cf5b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c589223d43934d9acfecc5e0c224e7db0fa148d1c8dc8b65cb3beb23f79ef427"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "3a7bf03022ff209381538d58d1ac3c722551ed7f7f25ae351bdb8805edae2e4e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7bda2abb3ef0626a1dd97348b63f5130ac3e95b999ba315d06a7fb0dc7cf5789"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6ddb70f6d8dfcdcdcd2b36cf44eb1498a7605f63f76f75991dbd01d3a8317771"
+    sha256 cellar: :any_skip_relocation, sonoma:         "0a6af2bd4a5c3ae770645a43f79848ab0c64660b04dca1f67a7c59a7a9a56b85"
+    sha256 cellar: :any_skip_relocation, ventura:        "e667adb77db6e1fd5afa9b33e81c5577a037145b76b1ca167e855a6fb1926cf5"
+    sha256 cellar: :any_skip_relocation, monterey:       "b77331ead78d84ae1e3dc9cf23d7b923ebf17b997d94a56b2aff050ac4752dac"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9f439899b5d17f29e1b0dec5fdafee8b89b1e0bf48e1642bfe6637535e18eda7"
   end
 
   depends_on "ninja" => :build
@@ -37,15 +38,22 @@ class LuaLanguageServer < Formula
 
     (libexec/"bin").install "bin/lua-language-server", "bin/main.lua"
     libexec.install "main.lua", "debugger.lua", "locale", "meta", "script"
-    bin.write_exec_script libexec/"bin/lua-language-server"
-    (libexec/"log").mkpath
+
+    # Make sure `lua-language-server` does not need to write into the Cellar.
+    (bin/"lua-language-server").write <<~BASH
+      #!/bin/bash
+      exec -a lua-language-server #{libexec}/bin/lua-language-server \
+        --logpath="${XDG_CACHE_HOME:-${HOME}/.cache}/lua-language-server/log" \
+        --metapath="${XDG_CACHE_HOME:-${HOME}/.cache}/lua-language-server/meta" \
+        "$@"
+    BASH
   end
 
   test do
     require "pty"
     output = /^Content-Length: \d+\s*$/
 
-    stdout, stdin, lua_ls = PTY.spawn bin/"lua-language-server", "--logpath=#{testpath}/log"
+    stdout, stdin, lua_ls = PTY.spawn bin/"lua-language-server"
     sleep 5
     stdin.write "\n"
     sleep 25

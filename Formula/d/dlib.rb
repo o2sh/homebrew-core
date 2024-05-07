@@ -1,8 +1,8 @@
 class Dlib < Formula
   desc "C++ library for machine learning"
   homepage "http://dlib.net/"
-  url "https://github.com/davisking/dlib/archive/refs/tags/v19.24.2.tar.gz"
-  sha256 "0f5c7e3de6316a513635052c5f0a16a84e1cef26a7d233bf00c21348462b6d6f"
+  url "https://github.com/davisking/dlib/archive/refs/tags/v19.24.4.tar.gz"
+  sha256 "d881911d68972d11563bb9db692b8fcea0ac1b3fd2e3f03fa0b94fde6c739e43"
   license "BSL-1.0"
   head "https://github.com/davisking/dlib.git", branch: "master"
 
@@ -12,13 +12,13 @@ class Dlib < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "22eab3f6edb254c1d4e2ded48f795bad876f130f03d81edbc4679ec66136820c"
-    sha256 cellar: :any,                 arm64_ventura:  "6d6cae37f9439f4bbaa534412c3ec957ed8da0c9a14febdc387eae7d8e9a96dd"
-    sha256 cellar: :any,                 arm64_monterey: "773966ac744aada4490deba607795cbbf4a506af2a3fa4196045f613fffcbb55"
-    sha256 cellar: :any,                 sonoma:         "3882169b190fd2f7eda3d39c4f1fd9800f2e610ee5e058a91e0613574eea85db"
-    sha256 cellar: :any,                 ventura:        "f0a79ecbfd60fba3650eb41c2abe5d93a3dae2a1756102bcc0b524cab2dbd91c"
-    sha256 cellar: :any,                 monterey:       "8c67247601b0b4d2824e0eaac979c7f22d1ac43ab3b1cb55d765775b1e90d27d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "548d76fa95dc4639132aef2f2637db129f6c0a94d8e15f57db34b8fe4c580345"
+    sha256 cellar: :any,                 arm64_sonoma:   "349de1e0fd1a13a138faae3a4df8ad3fc383b859bc9cdf9f9692c20b768a8862"
+    sha256 cellar: :any,                 arm64_ventura:  "e00034573b2c57f8f7c517a3605bc6465c9c75999e5780e06c5a1b47ff2ed6bf"
+    sha256 cellar: :any,                 arm64_monterey: "64418c886f8b3bba884d906ae37763069e2fb69d5cdc36ff6074054dba15db6d"
+    sha256 cellar: :any,                 sonoma:         "2aaccb56920511cb87630695ce43a782876f9f84395919595d423d2348ab1868"
+    sha256 cellar: :any,                 ventura:        "d24b6b3902e7b30db69656f87a11f3ec0d270b77281591ad70e433d2e21d8d27"
+    sha256 cellar: :any,                 monterey:       "5e7d9540338554f8f4485ae8f322e18734cb1bb6102e595d61eed85a087ceaa1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7b89725bd805895a735b2a4ec83180ac17f14d6511716f820ec3db21d0265739"
   end
 
   depends_on "cmake" => :build
@@ -33,6 +33,7 @@ class Dlib < Formula
       -Dcblas_lib=#{Formula["openblas"].opt_lib/shared_library("libopenblas")}
       -Dlapack_lib=#{Formula["openblas"].opt_lib/shared_library("libopenblas")}
       -DDLIB_NO_GUI_SUPPORT=ON
+      -DDLIB_LINK_WITH_SQLITE3=OFF
       -DBUILD_SHARED_LIBS=ON
     ]
 

@@ -1,8 +1,8 @@
 class Ethereum < Formula
   desc "Official Go implementation of the Ethereum protocol"
   homepage "https://geth.ethereum.org/"
-  url "https://github.com/ethereum/go-ethereum/archive/refs/tags/v1.13.14.tar.gz"
-  sha256 "629723fa82c629581ccada149c05d2fdbcbba04ad783042d4cabe59434c4759d"
+  url "https://github.com/ethereum/go-ethereum/archive/refs/tags/v1.14.0.tar.gz"
+  sha256 "25ce1d8d134931c6e9664f3cda8aacecf6667c0e4207884137c752a97a14abba"
   license "LGPL-3.0-or-later"
   head "https://github.com/ethereum/go-ethereum.git", branch: "master"
 
@@ -12,13 +12,13 @@ class Ethereum < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6b7f7689714407b03a9aaa1224195db3d56c7364ab0e633557d62d5171fb3b29"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "666056493bf57705c5d97cd8495af88a6643f5870b861bee63c5eab658e728cf"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d14b0b273e0eb052c32ea4aadc14129d409142bb77de3e5bbbe368fb0f8e3bdb"
-    sha256 cellar: :any_skip_relocation, sonoma:         "e1ba561ebc4860e4adc06ab7336d9f046e2e5a7d70fffb0f41c089284de150fa"
-    sha256 cellar: :any_skip_relocation, ventura:        "253635e0c2df26290b7a165bf7f56785268f6c26512c7ee285547b96ad638114"
-    sha256 cellar: :any_skip_relocation, monterey:       "9aec277d05293eb6353fd9c10e0d8635f8ef6fc5270ed9c3cc5083fc0587f9ae"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2f2ab0e3e4e3de482e63e420fa7d78d252e6c70fddd8becba456e868961ee6e0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4602a5863be1745ad34f368537f1097d209b2cabc76a3f89bcd579e7131f84d6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "cc1b588fbe8494106acfc2287ad9babf18ba4c26eeb2ef70f895f9042c89fed9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "343d5ef94776879f433c0e801a31fe83b5c991130dd235e172a1ae6cb3a73bd0"
+    sha256 cellar: :any_skip_relocation, sonoma:         "9567ddc22bdeaf73996d5f165fa1ed99cbf7985ed4c44f6ccc5e7534929bca81"
+    sha256 cellar: :any_skip_relocation, ventura:        "51dc07bc18951829aa1eb83ff96b9a93384487abd750899f0c11ad535c2e4463"
+    sha256 cellar: :any_skip_relocation, monterey:       "4a962a8a55bafe50fb704593f503267f8275dd2c6788bfad2fb37c0942a6dbef"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4d69bd6b920cfc9bca3e5ee4bbd7286e7ee6834f526e41e084f4d3c129823b59"
   end
 
   depends_on "go" => :build

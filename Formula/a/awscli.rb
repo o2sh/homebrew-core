@@ -3,19 +3,19 @@ class Awscli < Formula
 
   desc "Official Amazon AWS command-line interface"
   homepage "https://aws.amazon.com/cli/"
-  url "https://github.com/aws/aws-cli/archive/refs/tags/2.15.30.tar.gz"
-  sha256 "5e768c91e21c180911e129d0f716cb8ed5fcf30e184ef2fb3fcc238d6e0a3a2b"
+  url "https://github.com/aws/aws-cli/archive/refs/tags/2.15.45.tar.gz"
+  sha256 "541ecc70ceaccb0d475223f40c5e0624726dbc68e2db43b638eff54cef671a52"
   license "Apache-2.0"
   head "https://github.com/aws/aws-cli.git", branch: "v2"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "441f854e5f8fb4a54ed5f66bb1b046922b95aeeb3e91a5c71c5060cb90213689"
-    sha256 cellar: :any,                 arm64_ventura:  "090c8d4b59c3c087b47d0088d9b2ead1cd6d514d79ae10ca3315607216861504"
-    sha256 cellar: :any,                 arm64_monterey: "58da8ca18cd932316caed1f6fb8184c1ebb60faca45fd12a1440af5a5352e8cd"
-    sha256 cellar: :any,                 sonoma:         "0c0390375d520eb9de99336fa1e7f57ed4190873791c47a6bcc7da9b7d8354d6"
-    sha256 cellar: :any,                 ventura:        "73361d27d8039065f757b0155486841977326109aca4d77e4cc9672dfa7efc80"
-    sha256 cellar: :any,                 monterey:       "4d55feb595a5b2c29654f539ca1cc5773bfbe7946137f38a6ee9be068036e313"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e4b2845265dfabde18aacfa69c9407ac02e69be450eaa8fb41fa4cca5934b3a5"
+    sha256 cellar: :any,                 arm64_sonoma:   "22115ce4a4ebf7dae9ac7389db9bb8c8869f277ce629e5cd108192794965e63c"
+    sha256 cellar: :any,                 arm64_ventura:  "a82747dcac800071910c31f0e69c367babba7c017250a8d91c5eebad3b92a20a"
+    sha256 cellar: :any,                 arm64_monterey: "699d9cbb7b1f0fb747c4385d7066b5193a8e1230b72da649c65c95b393d5bd57"
+    sha256 cellar: :any,                 sonoma:         "c1439efa55a0513ebfada11c908618ca6ed92aebdb86b8c5f821ef4225e8d414"
+    sha256 cellar: :any,                 ventura:        "4030678a9e9c1c8092e419b74286014e35b16631b0e3296881dbd4158d3de0a9"
+    sha256 cellar: :any,                 monterey:       "bb46b8b82475b639e4a536da3616ef1955e11a1f5f38e228c2195639532ec1dc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3a37e746c6e58fac5f8e849bc87275bff717565d68248d0cecc3902d60f01b2a"
   end
 
   # `pkg-config`, `rust`, and `openssl@3` are for cryptography.
@@ -68,8 +68,8 @@ class Awscli < Formula
   end
 
   resource "pycparser" do
-    url "https://files.pythonhosted.org/packages/5e/0b/95d387f5f4433cb0f53ff7ad859bd2c6051051cebbb564f139a999ab46de/pycparser-2.21.tar.gz"
-    sha256 "e644fdec12f7872f86c58ff790da456218b10f863970249516d60a5eaca77206"
+    url "https://files.pythonhosted.org/packages/1d/b2/31537cf4b1ca988837256c910a668b553fceb8f069bedc4b1c826024b52c/pycparser-2.22.tar.gz"
+    sha256 "491c8be9c040f5390f5bf44a5b07752bd07f56edf992381b05c701439eec10f6"
   end
 
   resource "python-dateutil" do
@@ -88,8 +88,8 @@ class Awscli < Formula
   end
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/4d/5b/dc575711b6b8f2f866131a40d053e30e962e633b332acf7cd2c24843d83d/setuptools-69.2.0.tar.gz"
-    sha256 "0ff4183f8f42cd8fa3acea16c45205521a4ef28f73c6391d8a25e92893134f2e"
+    url "https://files.pythonhosted.org/packages/d6/4f/b10f707e14ef7de524fe1f8988a294fb262a29c9b5b12275c7e188864aed/setuptools-69.5.1.tar.gz"
+    sha256 "6c1fccdac05a97e598fb0ae3bbed5904ccb317337a51139dcd51453611bbb987"
   end
 
   resource "six" do
@@ -137,10 +137,7 @@ class Awscli < Formula
     ENV.append_to_cflags "-Wno-incompatible-function-pointer-types" if DevelopmentTools.clang_build_version >= 1500
 
     # The `awscrt` resource requires `setuptools` & `wheel`, so they must be installed first
-    venv = virtualenv_create(libexec, "python3.11", system_site_packages: false)
-    venv.pip_install resources.reject { |r| r.name == "awscrt" }
-    venv.pip_install resource("awscrt")
-    venv.pip_install_and_link buildpath
+    virtualenv_install_with_resources(system_site_packages: false, end_with: "awscrt")
 
     pkgshare.install "awscli/examples"
 

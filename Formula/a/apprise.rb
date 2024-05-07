@@ -3,18 +3,18 @@ class Apprise < Formula
 
   desc "Send notifications from the command-line to popular notification services"
   homepage "https://pypi.org/project/apprise/"
-  url "https://files.pythonhosted.org/packages/0a/08/dac0221615b78c97dfc031d5043d44084e23898e05e1a471c48e31e67e09/apprise-1.7.4.tar.gz"
-  sha256 "ef5e830051140d4228a759c5bc2d6857bcc7f8664df3e44f30f64617ce0c7a73"
+  url "https://files.pythonhosted.org/packages/a2/fb/e64be71a57f69f46db65043b16f86750870c1710ee2650c30c20a9bfa624/apprise-1.7.6.tar.gz"
+  sha256 "077f09309cc8a6c9063dbd614b343807d527d546693b7fe8fc5a4433502fea6c"
   license "BSD-3-Clause"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "839b9cc6733c24b01bfa75a3aa4886e07fbc81b333a6b830d06862707f627a15"
-    sha256 cellar: :any,                 arm64_ventura:  "33dc204ab45de10847399b13217267a9b0710b454d7de66f4c91f81a24a0dbba"
-    sha256 cellar: :any,                 arm64_monterey: "8f7bb5ced4558a51131babdf4ab6b1bbcc8041b56341a3fee09b4e04ae8b0a29"
-    sha256 cellar: :any,                 sonoma:         "7c8261e5b08fd6cab6d2079ad761bcca02a27fdd8a1a09b087f994235e56a6d4"
-    sha256 cellar: :any,                 ventura:        "cd40370d1344f2637c455c5df0b45451c8ba0a859b633aa43978765a7ecac375"
-    sha256 cellar: :any,                 monterey:       "4046ee0be0b6e9c821eb1e3fd8bb43d79b1ae575f00b14cc352650ada276fca8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "15633e616f692d04ae0c75454650fa308d6bc8034e545f3e8dda6eb9977bfea0"
+    sha256 cellar: :any,                 arm64_sonoma:   "49457a8e3c949dd8cc9f962d25bc2b09432337b8077301aa45e6ae7b3869d3ef"
+    sha256 cellar: :any,                 arm64_ventura:  "d2c2a68f433b9e40b55232d60ccaf4d1170c76eb5ebc819a1e34e44b29263106"
+    sha256 cellar: :any,                 arm64_monterey: "551722e7e3c7ad5b483fc0cc5341a2e1145229d4c8f5ff629a41f71e84e11d4b"
+    sha256 cellar: :any,                 sonoma:         "ca0d5a87267d99be0455769ada18ce86a5bb275d8748b777d9675a4fa9bdf98a"
+    sha256 cellar: :any,                 ventura:        "b6f68f102cf39cf60018d21c61e4e4a37637dfb2a47a154c54c3668192710012"
+    sha256 cellar: :any,                 monterey:       "6ef59a3b7a97012d12607c732d5905fec4c945168a9fc3a8ca31cab259ad5581"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f0f904338b03723b8f06371c6b6ec210714552ab030dcb5cfc39c1591f9a34e0"
   end
 
   depends_on "certifi"
@@ -32,13 +32,13 @@ class Apprise < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/bf/3f/ea4b9117521a1e9c50344b909be7886dd00a519552724809bb1f486986c2/idna-3.6.tar.gz"
-    sha256 "9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "markdown" do
-    url "https://files.pythonhosted.org/packages/11/28/c5441a6642681d92de56063fa7984df56f783d3f1eba518dc3e7a253b606/Markdown-3.5.2.tar.gz"
-    sha256 "e1ac7b3dc550ee80e602e71c1d168002f062e49f1b11e26a36264dafd4df2ef8"
+    url "https://files.pythonhosted.org/packages/22/02/4785861427848cc11e452cc62bb541006a1087cf04a1de83aedd5530b948/Markdown-3.6.tar.gz"
+    sha256 "ed4f41f6daecbeeb96e576ce414c41d2d876daa9a16cb35fa8ed8c2ddfad0224"
   end
 
   resource "oauthlib" do
@@ -57,8 +57,8 @@ class Apprise < Formula
   end
 
   resource "requests-oauthlib" do
-    url "https://files.pythonhosted.org/packages/95/52/531ef197b426646f26b53815a7d2a67cb7a331ef098bb276db26a68ac49f/requests-oauthlib-1.3.1.tar.gz"
-    sha256 "75beac4a47881eeb94d5ea5d6ad31ef88856affe2332b9aafb52c6452ccf0d7a"
+    url "https://files.pythonhosted.org/packages/42/f2/05f29bc3913aea15eb670be136045bf5c5bbf4b99ecb839da9b422bb2c85/requests-oauthlib-2.0.0.tar.gz"
+    sha256 "b3dffaebd884d8cd778494369603a9e7b58d29111bf6b41bdc2dcd87203af4e9"
   end
 
   resource "urllib3" do

@@ -22,7 +22,6 @@ class Pngquant < Formula
   depends_on "little-cms2"
 
   def install
-    system "tar", "--strip-components", "1", "-xzvf", "pngquant-#{version}.crate"
     system "cargo", "install", *std_cargo_args
   end
 

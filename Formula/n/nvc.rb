@@ -1,18 +1,19 @@
 class Nvc < Formula
   desc "VHDL compiler and simulator"
   homepage "https://github.com/nickg/nvc"
-  url "https://github.com/nickg/nvc/releases/download/r1.11.3/nvc-1.11.3.tar.gz"
-  sha256 "0004d29681063720b356318c586d5ec85f9c807b7d012c5e32c202b0b682f3ec"
+  url "https://github.com/nickg/nvc/releases/download/r1.12.0/nvc-1.12.0.tar.gz"
+  sha256 "68d43db9cdfdfad3cf5a45fa08ed20900733c9f3799117f8f5e10744af79136f"
   license "GPL-3.0-or-later"
+  revision 1
 
   bottle do
-    sha256 arm64_sonoma:   "e78f2e2fb1e1771743f76e3097f7dbd654839200b4ae1f34096e501df9b6b9e7"
-    sha256 arm64_ventura:  "d3ca94c31f7adb6377741854041a50f1ab00a635353af915363460036d538894"
-    sha256 arm64_monterey: "6bc769647ab32cbc6b47286f77f29801ade071bd7b0d870135803df3a6ae6071"
-    sha256 sonoma:         "85b5dbd1f313583c8569c3697fbc539da8cdd0b16fef9dfb97b93faeb7ff4051"
-    sha256 ventura:        "c648f49712ba3edde537f248538943c0fa091a0046bab34a309e2e9cc10d2753"
-    sha256 monterey:       "41f7ac69b72fea0d3e1739c74f4c31dd39768e037b54a31628b23002c4cb1f5a"
-    sha256 x86_64_linux:   "36ddfc72cc7a2c8bbc4cd599ec3cbabaf5b8774461eb6953c8540114de8a346a"
+    sha256 arm64_sonoma:   "b075f20648d94e176131d0b80ece517631b06151bbc923118a3355d8257c15c3"
+    sha256 arm64_ventura:  "5c119fea28c0af1b6085e28ccdd633010043a0219ea558a4a0fbda418d1f0fc6"
+    sha256 arm64_monterey: "2fd3b582a9b60a054c3dffdfff7555c4139e007f9e8c168a7e64aa80a2f7655b"
+    sha256 sonoma:         "2140633d44b4fe48f791d0c319d1a36a8c5a581202f366cd4e617354ed6dd8ad"
+    sha256 ventura:        "f27c42ba7de89e7b0626054808b7b329b4417ecd0e2888d942d62c4bc03ef68f"
+    sha256 monterey:       "d946186a51d11f629c1ffbed0f77736d71be33838da001b1d5e91e9781e211cb"
+    sha256 x86_64_linux:   "d47a62a1b1152da36591f2adc90901f2aba1843033b119040158f518727fd02d"
   end
 
   head do
@@ -24,7 +25,7 @@ class Nvc < Formula
 
   depends_on "check" => :build
   depends_on "pkg-config" => :build
-  depends_on "llvm"
+  depends_on "llvm@17"
 
   uses_from_macos "flex" => :build
 
@@ -43,7 +44,7 @@ class Nvc < Formula
 
     # In-tree builds are not supported.
     mkdir "build" do
-      system "../configure", "--with-llvm=#{Formula["llvm"].opt_bin}/llvm-config",
+      system "../configure", "--with-llvm=#{Formula["llvm@17"].opt_bin}/llvm-config",
                              "--prefix=#{prefix}",
                              "--with-system-cc=#{ENV.cc}",
                              "--disable-silent-rules"

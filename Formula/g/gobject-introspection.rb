@@ -4,19 +4,18 @@ class GobjectIntrospection < Formula
 
   desc "Generate introspection data for GObject libraries"
   homepage "https://gi.readthedocs.io/en/latest/"
-  url "https://download.gnome.org/sources/gobject-introspection/1.78/gobject-introspection-1.78.1.tar.xz"
-  sha256 "bd7babd99af7258e76819e45ba4a6bc399608fe762d83fde3cac033c50841bb4"
+  url "https://download.gnome.org/sources/gobject-introspection/1.80/gobject-introspection-1.80.1.tar.xz"
+  sha256 "a1df7c424e15bda1ab639c00e9051b9adf5cea1a9e512f8a603b53cd199bc6d8"
   license all_of: ["GPL-2.0-or-later", "LGPL-2.0-or-later", "MIT"]
 
   bottle do
-    rebuild 2
-    sha256 arm64_sonoma:   "96d6d76ee31526ffa6c8f5f3c7869b8ff1f0c6eada16f3e4a3fadd4493db2ea4"
-    sha256 arm64_ventura:  "6d95c26c2f55fa9c580c7c752f2206213ef084e1e809b57a44010f00dab93541"
-    sha256 arm64_monterey: "e0bd5fa89b92f5b59089a65a4619d01357f181046d1c40cb1fd305497ef4c36a"
-    sha256 sonoma:         "6c368de4058f8a828e199693087d4f91bf484a45b8caae7361adac73fc46d580"
-    sha256 ventura:        "76d91c3f79ef5bb1136b48d0d824d6273a7060372d4d100361bd4413595100b9"
-    sha256 monterey:       "00d3d7872a095c21e0ae895a482a330da60db35d6f8062dc5f6a20d3ebc96e8e"
-    sha256 x86_64_linux:   "9bedb5012b273ce8918c43935ede3dfee2fc3faf8a8f209551d10cbfb45813ba"
+    sha256 arm64_sonoma:   "c1c697721fa887da0a7ecf1da74166307dda223b8cd922480d35ee7528455a79"
+    sha256 arm64_ventura:  "0c84786d152faae9223090e6fdd185bf233c556a4ead8d14fc0854d276d7fa88"
+    sha256 arm64_monterey: "af672a045ca17ed75abf4599981ca482df1dd2a28eb28962ac55ed129e906805"
+    sha256 sonoma:         "46ed11128af5bdb834a7f216fa222854fd274cab9314105b2ff73359254df56d"
+    sha256 ventura:        "03e5c450af9264cfe141056ccd91a5866eab01f3a15f22269092a0482a335eae"
+    sha256 monterey:       "965341cb99b3ce445576e7e74ec23e974a3366b8e1b5a6ae708810e10e550e4f"
+    sha256 x86_64_linux:   "57923660703711398295e51f51d1f4d976ce0220b2d116bba14c240ece504925"
   end
 
   depends_on "bison" => :build
@@ -38,8 +37,8 @@ class GobjectIntrospection < Formula
   end
 
   resource "markdown" do
-    url "https://files.pythonhosted.org/packages/11/28/c5441a6642681d92de56063fa7984df56f783d3f1eba518dc3e7a253b606/Markdown-3.5.2.tar.gz"
-    sha256 "e1ac7b3dc550ee80e602e71c1d168002f062e49f1b11e26a36264dafd4df2ef8"
+    url "https://files.pythonhosted.org/packages/22/02/4785861427848cc11e452cc62bb541006a1087cf04a1de83aedd5530b948/Markdown-3.6.tar.gz"
+    sha256 "ed4f41f6daecbeeb96e576ce414c41d2d876daa9a16cb35fa8ed8c2ddfad0224"
   end
 
   resource "markupsafe" do
@@ -82,13 +81,18 @@ class GobjectIntrospection < Formula
   end
 
   test do
-    resource "homebrew-tutorial" do
-      url "https://gist.github.com/tdsmith/7a0023656ccfe309337a.git",
-          revision: "499ac89f8a9ad17d250e907f74912159ea216416"
-    end
+    (testpath/"main.c").write <<~EOS
+      #include <girepository.h>
 
-    resource("homebrew-tutorial").stage testpath
-    system "make"
-    assert_predicate testpath/"Tut-0.1.typelib", :exist?
+      int main (int argc, char *argv[]) {
+        GIRepository *repo = g_irepository_get_default();
+        g_assert_nonnull(repo);
+        return 0;
+      }
+    EOS
+
+    pkg_config_flags = shell_output("pkg-config --cflags --libs gobject-introspection-1.0").strip.split
+    system ENV.cc, "main.c", "-o", "test", *pkg_config_flags
+    system "./test"
   end
 end

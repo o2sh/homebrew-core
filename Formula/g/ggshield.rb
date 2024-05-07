@@ -3,19 +3,19 @@ class Ggshield < Formula
 
   desc "Scanner for secrets and sensitive data in code"
   homepage "https://www.gitguardian.com"
-  url "https://files.pythonhosted.org/packages/82/00/b751d687403c3b8f5b986efd20afc498e5dcd693390238e1fef520dc8f2b/ggshield-1.25.0.tar.gz"
-  sha256 "202bd5749ddf03a8f92a2def1d26d6583d264ff63f40962c6243bcdd5609d1bd"
+  url "https://files.pythonhosted.org/packages/e4/81/3e415d5b06b22120e5503f3182c1d03876197d5e0e3074fc5b2f5e8cc7bd/ggshield-1.27.0.tar.gz"
+  sha256 "9bc16c253bef41301823230b240390c2fbf7b0f5df6d050c34d919db30d4b597"
   license "MIT"
   head "https://github.com/GitGuardian/ggshield.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "fb322704b53b6aafdfdfe4a737042f2f5e9132d4df93f404b659ec278eec77e2"
-    sha256 cellar: :any,                 arm64_ventura:  "64e2b25c529a4d3961747fa246a557d0b83d0c7fb115b5f8f7e776fdefd79b16"
-    sha256 cellar: :any,                 arm64_monterey: "7f49ee9ed1e96bec6831ed71a0611726046c9624b57ebc2dd53152086a2363fc"
-    sha256 cellar: :any,                 sonoma:         "7a2dd318a486cb0fa44de5bcd2e54e645e6c1918bb7649a5f546b144eec0a345"
-    sha256 cellar: :any,                 ventura:        "3399663c8084ff826f11de4bdef5c725ba2e8344a08472c37e98ff6c52f68c66"
-    sha256 cellar: :any,                 monterey:       "2df74c5144ac37d8692ba7e3efc6e8601bfa8e156838776e95dfb0b2411a1a14"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b7ba43511eaaccd914b76bb41aeaad168b3888d7609716fe4a643aeca52f0e81"
+    sha256 cellar: :any,                 arm64_sonoma:   "fbc4308faf7997589731df36435ba7e3b5d69b7be0f4a491e8768a96d065fae0"
+    sha256 cellar: :any,                 arm64_ventura:  "81dff7d595883e6f4ecc8b65b09dc959d9bee62678fba11453ee288aacc73c6b"
+    sha256 cellar: :any,                 arm64_monterey: "c1059561bd3cc9c15b58f6769efc9fb323d6eb5be048b3d825b3f5a524386931"
+    sha256 cellar: :any,                 sonoma:         "eefe77af2eb72be4abd94dde4579068a392a481844b552183c9387dc37964535"
+    sha256 cellar: :any,                 ventura:        "e49a3f27c18749fa1f906edec5f81e9160d076c770dbad6e5a0a20de8032cacb"
+    sha256 cellar: :any,                 monterey:       "5895dae5dbbc46fd811e2386107c8ad958d4d188f4ccc2fb38b64e5c57f9e41c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ae1f0b8c0e5ed606e336dfb0205ab1132bcf6f88e763203fa3482a9972592ae7"
   end
 
   depends_on "certifi"
@@ -39,8 +39,8 @@ class Ggshield < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/bf/3f/ea4b9117521a1e9c50344b909be7886dd00a519552724809bb1f486986c2/idna-3.6.tar.gz"
-    sha256 "9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "marshmallow" do
@@ -64,8 +64,8 @@ class Ggshield < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/fb/2b/9b9c33ffed44ee921d0967086d653047286054117d584f1b1a7c22ceaf7b/packaging-23.2.tar.gz"
-    sha256 "048fb0e9405036518eaaf48a55953c750c11e1a1b68e0dd1a9d62ed0c092cfc5"
+    url "https://files.pythonhosted.org/packages/ee/b5/b43a27ac7472e1818c4bafd44430e69605baefe1f34440593e0332ec8b4d/packaging-24.0.tar.gz"
+    sha256 "eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"
   end
 
   resource "platformdirs" do
@@ -109,8 +109,8 @@ class Ggshield < Formula
   end
 
   resource "typing-extensions" do
-    url "https://files.pythonhosted.org/packages/16/3a/0d26ce356c7465a19c9ea8814b960f8a36c3b0d07c323176620b7b483e44/typing_extensions-4.10.0.tar.gz"
-    sha256 "b0abd7c89e8fb96f98db18d86106ff1d90ab692004eb746cf6eda2682f91b3cb"
+    url "https://files.pythonhosted.org/packages/f6/f3/b827b3ab53b4e3d8513914586dcca61c355fa2ce8252dea4da56e67bf8f2/typing_extensions-4.11.0.tar.gz"
+    sha256 "83f085bd5ca59c80295fc2a82ab5dac679cbe02b9f33f7d83af68e241bea51b0"
   end
 
   resource "typing-inspect" do

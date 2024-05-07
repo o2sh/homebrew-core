@@ -1,19 +1,10 @@
 class Ocp < Formula
   desc "UNIX port of the Open Cubic Player"
   homepage "https://stian.cubic.org/project-ocp.php"
+  url "https://stian.cubic.org/ocp/ocp-0.2.109.tar.xz"
+  sha256 "aa043503bd1dfd1433fabe0d5f4bb85bcadc3bae8cc19630a77c89182bce8d90"
   license "GPL-2.0-or-later"
   head "https://github.com/mywave82/opencubicplayer.git", branch: "master"
-
-  stable do
-    url "https://stian.cubic.org/ocp/ocp-0.2.107.tar.xz"
-    sha256 "7627e4fe3acf7ffd7108ac2a6bf53e8a28de7a220c054338c8642c4e37d94626"
-
-    # Backport fix for label in front of variable. Remove in the next release.
-    patch do
-      url "https://github.com/mywave82/opencubicplayer/commit/93ec77fa19226a42972d599a2037e2b0cbd2ac00.patch?full_index=1"
-      sha256 "fef3fde17c923a732aa831825ba84efa9d3b6652b40964dfad5a07ad33b511ce"
-    end
-  end
 
   livecheck do
     url :homepage
@@ -21,13 +12,13 @@ class Ocp < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "9c40cfcc02399a27905449ba2b8a4420cbd6b6836eb9496a5ea8208ea91efdb9"
-    sha256 arm64_ventura:  "4b507936cb44e1f1eeef0555dce047d4115812c45ef6a80eec7127080017514b"
-    sha256 arm64_monterey: "6fc04ea0e775c8ad0eaec3e886aad49876e507453e505cdea34ca85466473c55"
-    sha256 sonoma:         "db1c374f4d234dfce8b34e4ca5fcda181e6cfe7b0f79451db12bd7813210d008"
-    sha256 ventura:        "86fd71c9434c9254c4b91fae6a246e8e7595390fca2627a6ee28d6117a1c4db2"
-    sha256 monterey:       "a408931b6cb7341bf1198afa2aff10e2bf4753cd6731af7068433ed072d8a23e"
-    sha256 x86_64_linux:   "595c0efa0a0e7574138cceb2170925db092aec5d853e22c69b474d7c25383bc3"
+    sha256 arm64_sonoma:   "462d8e35f07308e170caa48842075baa49a1cc8f0f7ffb2d14929cf7e9d63e49"
+    sha256 arm64_ventura:  "8680caad7650448489b181ef095e82a20f2a3757b6ed9e546f045ea1eab3b12b"
+    sha256 arm64_monterey: "c522fdc20022948049c46fe8ff99f0d3e6702049c1fa65ed4dd598a3206aab27"
+    sha256 sonoma:         "940a928439f2840880e05cee094e86a9509f5be3cbbb3bf119c3e75178993cc3"
+    sha256 ventura:        "75906ae975ffe405f47d8a06f2d57286022a44c7bd18d734173d4e0e7eee80ae"
+    sha256 monterey:       "26d1ae3d2c0bfb0e267994a1be776301ebe10672c1ba514c47af7b6ef96c2102"
+    sha256 x86_64_linux:   "4cd81c537874b42e0de929447ecc9fe813030cce6a3b1296caf32309233239bb"
   end
 
   depends_on "pkg-config" => :build
@@ -51,6 +42,7 @@ class Ocp < Formula
     depends_on "util-linux" => :build # for `hexdump`
   end
 
+  # pin to 15.0.6 to use precompiled fonts
   resource "unifont" do
     url "https://ftp.gnu.org/gnu/unifont/unifont-15.0.06/unifont-15.0.06.tar.gz"
     sha256 "36668eb1326d22e1466b94b3929beeafd10b9838bf3d41f4e5e3b52406ae69f1"

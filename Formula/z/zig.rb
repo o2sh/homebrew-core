@@ -2,8 +2,8 @@ class Zig < Formula
   desc "Programming language designed for robustness, optimality, and clarity"
   homepage "https://ziglang.org/"
   # TODO: Check if we can use unversioned `llvm` at version bump.
-  url "https://ziglang.org/download/0.11.0/zig-0.11.0.tar.xz"
-  sha256 "72014e700e50c0d3528cef3adf80b76b26ab27730133e8202716a187a799e951"
+  url "https://ziglang.org/download/0.12.0/zig-0.12.0.tar.xz"
+  sha256 "a6744ef84b6716f976dad923075b2f54dc4f785f200ae6c8ea07997bd9d9bd9a"
   license "MIT"
 
   livecheck do
@@ -12,47 +12,26 @@ class Zig < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "2045088ae2dc8f88dcb6e10a508d677a622e01c0082e9eb4def0e4629d968028"
-    sha256 cellar: :any,                 arm64_ventura:  "c86f263129502db9b998b279c79ba373a6d9e88e2e47e4492ed696a004d21980"
-    sha256 cellar: :any,                 arm64_monterey: "fbc4211c5beacb7cc1c7c36ba1db931492fb3289bbcbc2b085f0e5af6ab40659"
-    sha256 cellar: :any,                 arm64_big_sur:  "472a2c08984811317234c134d7347266ce8e30c24ef75076f397d8b50b474e3b"
-    sha256 cellar: :any,                 sonoma:         "81b7a46ac4198743b53d92e02f20215a6505feb33c753ee6618528d3fbfc3ed6"
-    sha256 cellar: :any,                 ventura:        "9adbe95444f3b648d1cd2ae2f8dc07891f7527cb1da369fd3f5db6c75ace1079"
-    sha256 cellar: :any,                 monterey:       "172f93925e39207a580e1d5a71b211415364e8756e0a02386c9e5f6be99b1ea5"
-    sha256 cellar: :any,                 big_sur:        "00002da55679b70ef280b06f67154a449876c5ab08b13cbdaa261bacca07fa74"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6a108d8abb0c31301daab3230db5537136281309291fcba3df62817fbbb32c13"
+    sha256 cellar: :any,                 arm64_sonoma:   "b29fd206a2901a98bc54965e635ceeda49b888eb19d232102bd9325e44ea7f56"
+    sha256 cellar: :any,                 arm64_ventura:  "d62fd01d62ff70335248de047a393e02198a64538cc571eb22b732eba1ddcce5"
+    sha256 cellar: :any,                 arm64_monterey: "b236a97dd7e99560f0163bf125d4de32dba12e8128d8721c9e885a4fd396dc9d"
+    sha256 cellar: :any,                 sonoma:         "280268416169c9380803c9a4f09946c19effd120eaf9789432a66a437a41a7fc"
+    sha256 cellar: :any,                 ventura:        "8cb59f37d582014e5d44bed5bfc6bd01bdd26e29266bc5aff202cb4264fd8da7"
+    sha256 cellar: :any,                 monterey:       "6130fb2b4b92efc04f3fc306be13ac72054f51ac0805020a9e54dc01f9a26220"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "33292b8bb48bc913b72630876cdc1b7e9839a0e99f750a1b2c2f4c8835a64b9a"
   end
 
   depends_on "cmake" => :build
   # Check: https://github.com/ziglang/zig/blob/#{version}/CMakeLists.txt
   # for supported LLVM version.
-  # When switching to `llvm`, remove the `on_linux` block below.
-  depends_on "llvm@16" => :build
+  depends_on "llvm@17" => :build
   depends_on macos: :big_sur # https://github.com/ziglang/zig/issues/13313
-  depends_on "z3"
   depends_on "zstd"
+
   uses_from_macos "ncurses"
   uses_from_macos "zlib"
 
-  # `llvm` is not actually used, but we need it because `brew`'s compiler
-  # selector does not currently support using Clang from a versioned LLVM.
-  on_linux do
-    depends_on "llvm" => :build
-  end
-
-  fails_with :gcc
-
   def install
-    # Make sure `llvm@16` is used.
-    ENV.prepend_path "PATH", Formula["llvm@16"].opt_bin
-    ENV["CC"] = Formula["llvm@16"].opt_bin/"clang"
-    ENV["CXX"] = Formula["llvm@16"].opt_bin/"clang++"
-
-    # Work around duplicate symbols with Xcode 15 linker.
-    # Remove on next release.
-    # https://github.com/ziglang/zig/issues/17050
-    ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
-
     # Workaround for https://github.com/Homebrew/homebrew-core/pull/141453#discussion_r1320821081.
     # This will likely be fixed upstream by https://github.com/ziglang/zig/pull/16062.
     if OS.linux?

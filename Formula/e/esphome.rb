@@ -3,19 +3,18 @@ class Esphome < Formula
 
   desc "Make creating custom firmwares for ESP32/ESP8266 super easy"
   homepage "https://github.com/esphome/esphome"
-  url "https://files.pythonhosted.org/packages/85/6c/def19ffaec3e24db1f651b4a34880a94a59ac1b65bd4c92a8fc917eef10d/esphome-2024.2.2.tar.gz"
-  sha256 "4611dab7f4de0f5f68e70a3abbdec6c6d45f7710640bddc63791502a9eadb4b3"
+  url "https://files.pythonhosted.org/packages/d9/d6/6d8a264a78e9c5ab61135e9c939aa9f06b3eab8f6e7e887df15d6e2d72b2/esphome-2024.4.2.tar.gz"
+  sha256 "d8ddb2fe0b0c9ddd5b5662896b27f0d4ac208e3791966f233b4c76745757c0f8"
   license "MIT"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "356eef03eee2ebda30af01aff7805b9b89ad7774a529809b8a1303961d324f80"
-    sha256 cellar: :any,                 arm64_ventura:  "5bf9f5b5882d2cecef3d16377b4688644605dc13f219562c7118dc54e65b2168"
-    sha256 cellar: :any,                 arm64_monterey: "a4a1ba2547e55ed82ee18544effe79db6ca0ba5ba87875a59eaeca9d012aea27"
-    sha256 cellar: :any,                 sonoma:         "c8782ce36d8e15044614b2ca8ffcd3fb7fd3ee75db6589c0003048345a4d0b06"
-    sha256 cellar: :any,                 ventura:        "d8d5053309d446f6bbafc88b4d2d714b34480d261f95e53acbe53da317e1442a"
-    sha256 cellar: :any,                 monterey:       "5327890a154eaad10340379158fee788442d9df74a72a0d419e3b4d4c80466fc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "45bdaf28ee97935d6fe4b481283308a99f555d04eb363b8808ae0b1c90b12033"
+    sha256 cellar: :any,                 arm64_sonoma:   "6528d47b97da2cb0bc8c80aea1e9f06a651a5513baa28b43e5512848d18257b0"
+    sha256 cellar: :any,                 arm64_ventura:  "1ae299fb814ae1388c4b10e3fca6f184dfa77f65ba88b6f1fddcdd42cf16056e"
+    sha256 cellar: :any,                 arm64_monterey: "0b9adb93e33afb7f904442cc0064a49096fbb607912b87bacb609f902e0eb548"
+    sha256 cellar: :any,                 sonoma:         "2d32058085ce6fb2a5399593027b73fc069e0b5dfde246a668f5fcc46b6d6472"
+    sha256 cellar: :any,                 ventura:        "af4ef0e564b5730ceade34c8baf1430aa1fe3be1d4b682fce902092fa7ce5f94"
+    sha256 cellar: :any,                 monterey:       "a45173e84605968869a5a534cfed368dff2bbfae146b3b6a83097fa1ccf51188"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8d2b28a9f213d433fd37eb809a0565dfc9bb7411561dff3af75956c1652819e4"
   end
 
   depends_on "certifi"
@@ -26,8 +25,8 @@ class Esphome < Formula
   uses_from_macos "libffi"
 
   resource "aioesphomeapi" do
-    url "https://files.pythonhosted.org/packages/49/5c/9854cf6ea8f4739f7508fc15e646a3a3cc43c88d4fea515fe8c2a5daac48/aioesphomeapi-21.0.2.tar.gz"
-    sha256 "339579dc067579dd2b2f7d904b736ddf727e9f3e797134765814fff394e02ada"
+    url "https://files.pythonhosted.org/packages/99/68/96702205f1f140086873680931691687fde7e05dbf6ff60a960146d55dff/aioesphomeapi-23.2.0.tar.gz"
+    sha256 "8a2ec2b6d55cd4f1a8af9d3510ff3d63707ac863dedb433ddbcb24b0476ce59e"
   end
 
   resource "aiohappyeyeballs" do
@@ -46,8 +45,13 @@ class Esphome < Formula
   end
 
   resource "argcomplete" do
-    url "https://files.pythonhosted.org/packages/3c/c0/031c507227ce3b715274c1cd1f3f9baf7a0f7cec075e22c7c8b5d4e468a9/argcomplete-3.2.3.tar.gz"
-    sha256 "bf7900329262e481be5a15f56f19736b376df6f82ed27576fa893652c5de6c23"
+    url "https://files.pythonhosted.org/packages/79/51/fd6e293a64ab6f8ce1243cf3273ded7c51cbc33ef552dce3582b6a15d587/argcomplete-3.3.0.tar.gz"
+    sha256 "fd03ff4a5b9e6580569d34b273f741e85cd9e072f3feeeee3eba4891c70eda62"
+  end
+
+  resource "async-interrupt" do
+    url "https://files.pythonhosted.org/packages/6e/cb/4e2b30cb2b99fbf02bf8d56f2f3ef71cc69bbbc6c0ef2906a470d69b1ea0/async_interrupt-1.1.1.tar.gz"
+    sha256 "1e5999f0980b5db21293e4cd022518eeaf52284c0499631932a1df250cb99215"
   end
 
   resource "bitarray" do
@@ -56,8 +60,8 @@ class Esphome < Formula
   end
 
   resource "bitstring" do
-    url "https://files.pythonhosted.org/packages/7f/07/0fd502a29127b968bada3d1824a8af997546d2b9ff73f00e800b3d9888cb/bitstring-4.1.4.tar.gz"
-    sha256 "94f3f1c45383ebe8fd4a359424ffeb75c2f290760ae8fcac421b44f89ac85213"
+    url "https://files.pythonhosted.org/packages/eb/57/699428f6ab4c0863f8555d80ffceb3e7b385622cefdcebe5264121349986/bitstring-4.2.1.tar.gz"
+    sha256 "8abb5a661588c764bacf1a23d64c7bb57517d2841e3e6f54fb8c057119e0540d"
   end
 
   resource "bottle" do
@@ -68,11 +72,6 @@ class Esphome < Formula
   resource "chacha20poly1305-reuseable" do
     url "https://files.pythonhosted.org/packages/18/c4/011bf30a7b82df544c9f1b1703bfe249b76f2309b2ca7d65e3359152fb2c/chacha20poly1305_reuseable-0.12.1.tar.gz"
     sha256 "c1ca3de2c78eb87ac006d975729e0b9032ff31597e3c112e78268f4cd431fd6a"
-  end
-
-  resource "chardet" do
-    url "https://files.pythonhosted.org/packages/f3/0d/f7b6ab21ec75897ed80c17d79b15951a719226b9fababf1e40ea74d69079/chardet-5.2.0.tar.gz"
-    sha256 "1b3b6ff479a8c414bc3fa2c0852995695c4a026dcd6d0633b2dd092ca39c1cf7"
   end
 
   resource "charset-normalizer" do
@@ -91,13 +90,13 @@ class Esphome < Formula
   end
 
   resource "ecdsa" do
-    url "https://files.pythonhosted.org/packages/ff/7b/ba6547a76c468a0d22de93e89ae60d9561ec911f59532907e72b0d8bc0f1/ecdsa-0.18.0.tar.gz"
-    sha256 "190348041559e21b22a1d65cee485282ca11a6f81d503fddb84d5017e9ed1e49"
+    url "https://files.pythonhosted.org/packages/5e/d0/ec8ac1de7accdcf18cfe468653ef00afd2f609faf67c423efbd02491051b/ecdsa-0.19.0.tar.gz"
+    sha256 "60eaad1199659900dd0af521ed462b793bbdf867432b3948e87416ae4caf6bf8"
   end
 
   resource "esphome-dashboard" do
-    url "https://files.pythonhosted.org/packages/4c/26/0fd5346999ff61b7dce87b19b1a1fda5cbdcb772764e46035a2795264dee/esphome-dashboard-20231107.0.tar.gz"
-    sha256 "f3888cf7cee7c4d89d30e6e76d8de5b7bf3145b37d51236da90cdf3b391dd7b9"
+    url "https://files.pythonhosted.org/packages/ad/1f/583c28b40593bb320eeeddcb9937dad69195ccfaaf076f2d4838cc6aff46/esphome-dashboard-20240412.0.tar.gz"
+    sha256 "313fc4a59f240ca1e12461789e3761e90fb17bc185e056316a82228214a0ba24"
   end
 
   resource "esptool" do
@@ -116,8 +115,8 @@ class Esphome < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/bf/3f/ea4b9117521a1e9c50344b909be7886dd00a519552724809bb1f486986c2/idna-3.6.tar.gz"
-    sha256 "9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "ifaddr" do
@@ -161,8 +160,8 @@ class Esphome < Formula
   end
 
   resource "protobuf" do
-    url "https://files.pythonhosted.org/packages/ea/ab/ae590cd71f5a50cd9e0979593e217529b532a001e46c2dd0811c8697f4ad/protobuf-5.26.0.tar.gz"
-    sha256 "82f5870d74c99addfe4152777bdf8168244b9cf0ac65f8eccf045ddfa9d80d9b"
+    url "https://files.pythonhosted.org/packages/d2/e5/7e22ca7201a6b1040aae7787d0fe6cd970311da376a86fdafa5182be1d1b/protobuf-5.26.1.tar.gz"
+    sha256 "8ca2a1d97c290ec7b16e4e5dff2e5ae150cc1582f55b5ab300d45cb0dfa90e51"
   end
 
   resource "pyelftools" do
@@ -198,6 +197,16 @@ class Esphome < Formula
   resource "requests" do
     url "https://files.pythonhosted.org/packages/9d/be/10918a2eac4ae9f02f6cfe6414b7a155ccd8f7f9d4380d62fd5b955065c3/requests-2.31.0.tar.gz"
     sha256 "942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"
+  end
+
+  resource "ruamel-yaml" do
+    url "https://files.pythonhosted.org/packages/29/81/4dfc17eb6ebb1aac314a3eb863c1325b907863a1b8b1382cdffcb6ac0ed9/ruamel.yaml-0.18.6.tar.gz"
+    sha256 "8b27e6a217e786c6fbe5634d8f3f11bc63e0f80f6a5890f28863d9c45aac311b"
+  end
+
+  resource "ruamel-yaml-clib" do
+    url "https://files.pythonhosted.org/packages/46/ab/bab9eb1566cd16f060b54055dd39cf6a34bfa0240c53a7218c43e974295b/ruamel.yaml.clib-0.2.8.tar.gz"
+    sha256 "beb2e0404003de9a4cab9753a8805a8fe9320ee6673136ed7f04255fe60bb512"
   end
 
   resource "semantic-version" do
@@ -251,8 +260,8 @@ class Esphome < Formula
   end
 
   resource "voluptuous" do
-    url "https://files.pythonhosted.org/packages/d8/33/98b8032d580525c04e0691f4df9a74b0cfb327661823e32fe6d00bed55a4/voluptuous-0.14.1.tar.gz"
-    sha256 "7b6e5f7553ce02461cce17fedb0e3603195496eb260ece9aca86cc4cc6625218"
+    url "https://files.pythonhosted.org/packages/a1/ce/0733e4d6f870a0e5f4dbb00766b36b71ee0d25f8de33d27fb662f29154b1/voluptuous-0.14.2.tar.gz"
+    sha256 "533e36175967a310f1b73170d091232bf881403e4ebe52a9b4ade8404d151f5d"
   end
 
   resource "wsproto" do
@@ -266,6 +275,10 @@ class Esphome < Formula
   end
 
   def install
+    # Work around ruamel.yaml.clib not building on Xcode 15.3, remove after a new release
+    # has resolved: https://sourceforge.net/p/ruamel-yaml-clib/tickets/32/
+    ENV.append_to_cflags "-Wno-incompatible-function-pointer-types" if DevelopmentTools.clang_build_version >= 1500
+
     virtualenv_install_with_resources
   end
 

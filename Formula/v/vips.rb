@@ -4,6 +4,7 @@ class Vips < Formula
   url "https://github.com/libvips/libvips/releases/download/v8.15.2/vips-8.15.2.tar.xz"
   sha256 "a2ab15946776ca7721d11cae3215f20f1f097b370ff580cd44fc0f19387aee84"
   license "LGPL-2.1-or-later"
+  revision 1
 
   livecheck do
     url :stable
@@ -11,13 +12,13 @@ class Vips < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "b2ebb56e24d468a5ec0df113e46d59955f6e57dd1fc92e1b2a6e27f8141fd86b"
-    sha256 arm64_ventura:  "78e7fd5e7b010bf16b393c3c90b8b6831e8c83968b79eb225d8b63dd899d49e2"
-    sha256 arm64_monterey: "e4c85f4abecc1ea57de48987c00778dacf6b148f3d89b94dd69e2685e04b4313"
-    sha256 sonoma:         "f7331f678f4fa0c1f7eb264dbe7be9204edb09d49aa81cd4e79cbea9899c5ed6"
-    sha256 ventura:        "42b359d7406f0d163ae7b707c9efafac7f43e25acb17377f26c8a183c60bab01"
-    sha256 monterey:       "3aa48eb7a0191c2b06ffda9c47e5d0ce659c97da35f2cf30c445920b0e2389d0"
-    sha256 x86_64_linux:   "d2a4f010269a9ab764c5ad367e18cd257ec6d61b58e29f1fca9df34e35988187"
+    sha256 arm64_sonoma:   "50c8d330fae9dd68f6949d9076cc9383a258988bc7539b1822e84419655b39c4"
+    sha256 arm64_ventura:  "6d370076f82459111c781a4f0d986d4a98a53e45938e5aedcf0d3553603dd6ff"
+    sha256 arm64_monterey: "9203d37040f877adc69533d06aa797d6d495b2a280759c6e5f88839b161836d5"
+    sha256 sonoma:         "2e9c8b59f7c6085466b6ca3262b38784ca20b010e1603acac2ddcb7bb55dbb1d"
+    sha256 ventura:        "9e36a24bcaec2528d5bec1b7cd432315dccbb95a5f0b054be85f59eef407cf7b"
+    sha256 monterey:       "58cb16ffcc869c425fe28da42e9e047e369f53dc00b4843d58e8093585096fc2"
+    sha256 x86_64_linux:   "0210e24b2f4c93ac6786d44dcb539fad4710343f0f23281f35deb7aaccb1842c"
   end
 
   depends_on "gobject-introspection" => :build
@@ -31,6 +32,7 @@ class Vips < Formula
   depends_on "fontconfig"
   depends_on "gettext"
   depends_on "glib"
+  depends_on "highway"
   depends_on "imagemagick"
   depends_on "jpeg-xl"
   depends_on "libarchive"
@@ -46,7 +48,6 @@ class Vips < Formula
   depends_on "openexr"
   depends_on "openjpeg"
   depends_on "openslide"
-  depends_on "orc"
   depends_on "pango"
   depends_on "poppler"
   depends_on "webp"
@@ -58,9 +59,6 @@ class Vips < Formula
   fails_with gcc: "5"
 
   def install
-    # workaround for Xcode 15.3, upstream bug report: https://github.com/libvips/libvips/issues/3901
-    ENV.append_to_cflags "-Wno-incompatible-function-pointer-types" if DevelopmentTools.clang_build_version >= 1500
-
     # mozjpeg needs to appear before libjpeg, otherwise it's not used
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["mozjpeg"].opt_lib/"pkgconfig"
 

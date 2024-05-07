@@ -1,8 +1,8 @@
 class Scummvm < Formula
   desc "Graphic adventure game interpreter"
   homepage "https://www.scummvm.org/"
-  url "https://downloads.scummvm.org/frs/scummvm/2.8.0/scummvm-2.8.0.tar.xz"
-  sha256 "d6e9fbee06a924706635dea225dfd560ff6770f35aa99d59570a3eb883795a72"
+  url "https://downloads.scummvm.org/frs/scummvm/2.8.1/scummvm-2.8.1.tar.xz"
+  sha256 "7e97f4a13d22d570b70c9b357c941999be71deb9186039c87d82bbd9c20727b7"
   license "GPL-3.0-or-later"
   head "https://github.com/scummvm/scummvm.git", branch: "master"
 
@@ -12,13 +12,14 @@ class Scummvm < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "ce7088b67e74a857ef8d7752569f60a1411d1bea5077339a821ff6f8f87a4ae6"
-    sha256 arm64_ventura:  "c3aa391c44e9b0c4c1443c3dbdb9bf2049537dcb127ca3f2fa546bbafb77f2c9"
-    sha256 arm64_monterey: "d56db8b5ea54d9d9e2f292152de94df96164d6ca8fe98f991a27ad19098b2f44"
-    sha256 sonoma:         "c5a826a1eda1db58f6088e18810128342e157d9385d80d26c39002d8287154e2"
-    sha256 ventura:        "84fb49c0e4acba4878704b148fe3b7263fe7191a7b25bd93b2987e45274589da"
-    sha256 monterey:       "cbf5137b5f6b45198db19a26dfbf0cd6957a30b92afd410ebc51f2bcfc4e7ea4"
-    sha256 x86_64_linux:   "65be731207ab3c1d76d260572e0cb4a4e077781c607cdd58835a1553ef9c8ba7"
+    rebuild 1
+    sha256 arm64_sonoma:   "1f34c784f24a09d9c1e2a33cbbf18dedeff09e0bafd58d01716a4096b9c48b14"
+    sha256 arm64_ventura:  "8baab614c52c858f80f44ba0223f43c92bc3b5ed8997c32362943a7d6cb03d35"
+    sha256 arm64_monterey: "e9709285ca539ccb4afa33b6de2ff5280a59d7ed36bc64f9653aa944d2006e70"
+    sha256 sonoma:         "9bfa4e1c9aa80ad21fed3241d97a933d537b6a5868afb3d955a1e89a563db033"
+    sha256 ventura:        "cd6d4c32e81f40a9c32713ce9b3a936901bfbd3d382ebd33b589bb2f5fc4d57a"
+    sha256 monterey:       "00e9e4d8ceecdbfb5a2b882019b82fec235ff7c36e94d98974e968c59ca10757"
+    sha256 x86_64_linux:   "33ad7a863a3c60bb98e020f9bb38dabff301759ae3f7add00b4a05d95d88a1a0"
   end
 
   depends_on "a52dec"
@@ -26,10 +27,14 @@ class Scummvm < Formula
   depends_on "flac"
   depends_on "fluid-synth"
   depends_on "freetype"
+  depends_on "fribidi"
+  depends_on "giflib"
   depends_on "jpeg-turbo"
+  depends_on "libmikmod"
   depends_on "libmpeg2"
   depends_on "libpng"
   depends_on "libvorbis"
+  depends_on "libvpx"
   depends_on "mad"
   depends_on "sdl2"
   depends_on "theora"

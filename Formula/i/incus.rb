@@ -1,19 +1,19 @@
 class Incus < Formula
   desc "CLI client for interacting with Incus"
   homepage "https://linuxcontainers.org/incus"
-  url "https://linuxcontainers.org/downloads/incus/incus-0.6.tar.xz"
-  sha256 "dd79abc494bcbce3f5e63a3d26176ce55910da6499f69d563f57066c6f742f80"
+  url "https://linuxcontainers.org/downloads/incus/incus-6.0.0.tar.xz"
+  sha256 "6120be57e66ccc526a39a5f7429bbb12b736270e86ffacc11a3bb97bf5c5a9b9"
   license "Apache-2.0"
   head "https://github.com/lxc/incus.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d00f1cb16c61c4f3c8cd1d54a194508a7501198fb7c701cb4b9bf4e074b21333"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d3375f779341ed562154dd8cf06d2f7195e1f4a2dc39e3f10e1b4c2338a4fd69"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "14ddb00a041354bbb0e290285f7d130f09d0eb57e279d1e7493826d343b3a9ba"
-    sha256 cellar: :any_skip_relocation, sonoma:         "871288a638822dbb10587452cdd5847bf65f4fb4c0a1f95e0f49f0553af5496d"
-    sha256 cellar: :any_skip_relocation, ventura:        "e9166dae7c32c45730f149393e88fd63eaaa36091bc48c8e08196c9492b6c671"
-    sha256 cellar: :any_skip_relocation, monterey:       "9dd537cfad6d092179a58f96819fd8809894e24275b0810b1078f62d141a25eb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "69d173e87930c3f0cadd31bed11be7e93c18196fa1e9dc073cf9e46cd307c9df"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "47777efdac9e6d6f7f38515601853a453d112f40a0245f86dc36da469429fadb"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "423da94581445d64764225d7ec525f0ad75b2002c86bb0c467352723bd94008c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d8d30cc5bbfbfa4555303eaf232edc25da12086df1fb49b06c4d45da6e1023c1"
+    sha256 cellar: :any_skip_relocation, sonoma:         "ef8129d13e134649ec0909abf43910c81dc379506809c4f5ae921df97a832f1c"
+    sha256 cellar: :any_skip_relocation, ventura:        "ce32c6c3cae369468b867a54efcd8db18b670f334fd42d868e9c762f295dd291"
+    sha256 cellar: :any_skip_relocation, monterey:       "a81f55180bbbf02d2a282fd159f7aabab4a98c56a6279fb91ea559c28c5a44c8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "901c10fbf9109c1666d5e60b63e389e3ce0ac30e26c9ba1bbf1bcf41e958f526"
   end
 
   depends_on "go" => :build

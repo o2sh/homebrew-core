@@ -2,18 +2,18 @@ class Saml2aws < Formula
   desc "Login and retrieve AWS temporary credentials using a SAML IDP"
   homepage "https://github.com/Versent/saml2aws"
   url "https://github.com/Versent/saml2aws.git",
-      tag:      "v2.36.13",
-      revision: "580933599476ee52f911bbb2293cfec77382f326"
+      tag:      "v2.36.15",
+      revision: "8988caca5e3f597028ddaaccdb8ff71a92fe9bc4"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "279804432ba3b62b1929a11a1296a2ba2a5dd0f6eec3f9b25849e17c69e5747e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "217cb205692c52beb5b595c80fa7ba6a2bbda4e13592458e9495aa831dc67023"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "aeab8c87fc95df5cda133e6ceab8efe368c766bd959b906b7adb142c1e883826"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ad75b5ccc7d2148d2f6f9293e33826ad8b86ac2c7e37a3e896a37b53a612cb91"
-    sha256 cellar: :any_skip_relocation, ventura:        "c95a6a7d454b32cdb9f909a73ab249c03cf710a86b71d25553483524a2c843e2"
-    sha256 cellar: :any_skip_relocation, monterey:       "4e66753ab2767a72ad4fe581b23b0cc67033db55406e1b39b3cc75ed59d7e3fb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "59ae063cae4b22e0c1607495f43c55ec7ec14f02dbc1753d187ce1d91fa5f5fa"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "24ede64b83fa4823a974123478a8df54c064bd8e43ba4a31107d754aefe632dd"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e0e3a1b04a820a68584674c05049aef756f4ad42ea7fffd1d20938f62bc3fe8c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a5e161d3bdf2b4d405ede6947d14c8fd7578815ec131509f524345b1afd62eee"
+    sha256 cellar: :any_skip_relocation, sonoma:         "8dc1a3e9b5bf3363df3e03ba8b116c81c1c46cf4210e35b3724bdae92b641a62"
+    sha256 cellar: :any_skip_relocation, ventura:        "0372ae26e5d7571a3866a689eaa211b3a1ce68c3333dcb8c199b44dc74391b6f"
+    sha256 cellar: :any_skip_relocation, monterey:       "9bbc901956babe5f2c0838ad1f38eb3769dc804693a5ecc1d877321492b87e49"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "36eee967c5028cf5776558abcd17cdd9f33df1e1436cdabf5f96a3430939538b"
   end
 
   depends_on "go" => :build

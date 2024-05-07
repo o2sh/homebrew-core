@@ -1,8 +1,8 @@
 class Qmmp < Formula
   desc "Qt-based Multimedia Player"
   homepage "https://qmmp.ylsoftware.com/"
-  url "https://qmmp.ylsoftware.com/files/qmmp/2.1/qmmp-2.1.6.tar.bz2"
-  sha256 "927aa8e720a470efdb16633efb3f927625b3a4328af68a15d30aa57082a3eeca"
+  url "https://qmmp.ylsoftware.com/files/qmmp/2.1/qmmp-2.1.7.tar.bz2"
+  sha256 "e6a767bc616014493ed34b639d586a5b6f40cb28c27e21503b26325660231e73"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -11,11 +11,11 @@ class Qmmp < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "3a184744eb22e470cc024c1d02139be521951c67dbb73c5dcd2c9cad4326a076"
-    sha256 arm64_monterey: "f373f60656cb8e8e5672b66155c2bdb584cd6d1b3a9de8af462843eea2074142"
-    sha256 ventura:        "b74c8c23c89b3d6c5b30db1b9fcf4c59b2564e1af6162fcf24db9f9e128977e3"
-    sha256 monterey:       "a623dc262436782fc3e9a312237b608499734dab0b5b63a53c7acda382f2069f"
-    sha256 x86_64_linux:   "a25566cbca3372edfab950071571db44639fabb22fb7287ac3ce29d9cf821c6d"
+    sha256 arm64_ventura:  "cf0a4bae1f3d7a701e0dc470bf29c1639ef8e6ce7aa7eb7223f6d92fa00dd0ad"
+    sha256 arm64_monterey: "8d32be4f308ab3e5c6539c37420eeea7ba9ff08e23ce5f8fdc3477453bdbb8eb"
+    sha256 ventura:        "444cbda7c6c256683095a73ed6bde3f259e4555adf0bdf0e7e6042c505a6b359"
+    sha256 monterey:       "eda43cfd38a2ec6fbbddc670f651eb5870cf1ec9241c1103a49586c8f263c054"
+    sha256 x86_64_linux:   "5a39825f705696e3a163bd6b668f09013e405e8622c81071b01c44a319271cf2"
   end
 
   depends_on "cmake"      => :build
@@ -23,7 +23,7 @@ class Qmmp < Formula
 
   # TODO: on linux: pipewire
   depends_on "faad2"
-  depends_on "ffmpeg"
+  depends_on "ffmpeg@6"
   depends_on "flac"
   depends_on "game-music-emu"
   depends_on "jack"

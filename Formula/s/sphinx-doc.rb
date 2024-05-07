@@ -3,20 +3,18 @@ class SphinxDoc < Formula
 
   desc "Tool to create intelligent and beautiful documentation"
   homepage "https://www.sphinx-doc.org/"
-  url "https://files.pythonhosted.org/packages/73/8e/6e51da4b26665b4b92b1944ea18b2d9c825e753e19180cc5bdc818d0ed3b/sphinx-7.2.6.tar.gz"
-  sha256 "9a5160e1ea90688d5963ba09a2dcd8bdd526620edbb65c328728f1b2228d5ab5"
+  url "https://files.pythonhosted.org/packages/b7/0a/b88033900b1582f5ed8f880263363daef968d1cd064175e32abfd9714410/sphinx-7.3.7.tar.gz"
+  sha256 "a4a7db75ed37531c05002d56ed6948d4c42f473a36f46e1382b0bd76ca9627bc"
   license "BSD-2-Clause"
-  revision 2
 
   bottle do
-    rebuild 3
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d67deb11b71d484b636d56949b9aadc0b1712aeb08a0fed018cba360116e4149"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "82aba8a18df00a7f592ca5a212fdcc01099d6e1cdb38e2bf7f3e044760d729c7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "6a983c7b105fd8306dbf59c05ba04c0be754c3ce43b1cbcba18fd12f53eb9c7d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ced52f10ed5b79d41fe49580e624defe5b862b95f6432639cdcca4a611594a8c"
-    sha256 cellar: :any_skip_relocation, ventura:        "39ce809202a4184c5e1e02b11defb7da851e80bcfeeb05f8ce4ecbcffaf14aae"
-    sha256 cellar: :any_skip_relocation, monterey:       "976bdc399bf5cd82a3e73cb781202b1ed12dc58dec77c4d952e6d52ae70818ea"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cd8e9f7ad97eb8c909e82b6d49243406fff7f69479802c40ae6ae49edd7187be"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7b7bcf45774a2488adf59947844afa57a00b18bd91188964de5ef6f0cc391963"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "88e7f44f61711444b143d2fd4d942b6dd00be6ef5414254c649343f7b942c949"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6753b93b832ca78aec4757b484431ae8fed1fcb3945e8f51ebbe95bccf151133"
+    sha256 cellar: :any_skip_relocation, sonoma:         "0084c0936db0a00d16db5081d4db087cd3df6ce018fb9f86ca5c0fd50323bb05"
+    sha256 cellar: :any_skip_relocation, ventura:        "46775c91af86deb004010ef551b5885f6cbe7ae743cb97875aa6e77a88f78725"
+    sha256 cellar: :any_skip_relocation, monterey:       "17fdd15c8e0f309f9cbef23d959e11fab574596da54e77e48fda16bdaeb5b165"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ed7bbc312895db3acce57b004c366b47671d68460fd71adbb22171ed348dc67c"
   end
 
   keg_only <<~EOS
@@ -43,13 +41,13 @@ class SphinxDoc < Formula
   end
 
   resource "docutils" do
-    url "https://files.pythonhosted.org/packages/1f/53/a5da4f2c5739cf66290fac1431ee52aff6851c7c8ffd8264f13affd7bcdd/docutils-0.20.1.tar.gz"
-    sha256 "f08a4e276c3a1583a86dce3e34aba3fe04d02bba2dd51ed16106244e8a923e3b"
+    url "https://files.pythonhosted.org/packages/21/ff/c495b797462434f0befcb598b51cde31c3ebdf8577c3fd9d9a8f5eeb844c/docutils-0.21.1.tar.gz"
+    sha256 "65249d8a5345bc95e0f40f280ba63c98eb24de35c6c8f5b662e3e8948adea83f"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/bf/3f/ea4b9117521a1e9c50344b909be7886dd00a519552724809bb1f486986c2/idna-3.6.tar.gz"
-    sha256 "9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "imagesize" do
@@ -68,13 +66,13 @@ class SphinxDoc < Formula
   end
 
   resource "numpydoc" do
-    url "https://files.pythonhosted.org/packages/5f/ed/5ca4b2e90f4b0781f5fac49cdb2947cf719b6d289eedb67e8b1a63d019e3/numpydoc-1.6.0.tar.gz"
-    sha256 "ae7a5380f0a06373c3afe16ccd15bd79bc6b07f2704cbc6f1e7ecc94b4f5fc0d"
+    url "https://files.pythonhosted.org/packages/76/69/d745d43617a476a5b5fb7f71555eceaca32e23296773c35decefa1da5463/numpydoc-1.7.0.tar.gz"
+    sha256 "866e5ae5b6509dcf873fc6381120f5c31acf13b135636c1a81d68c166a95f921"
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/fb/2b/9b9c33ffed44ee921d0967086d653047286054117d584f1b1a7c22ceaf7b/packaging-23.2.tar.gz"
-    sha256 "048fb0e9405036518eaaf48a55953c750c11e1a1b68e0dd1a9d62ed0c092cfc5"
+    url "https://files.pythonhosted.org/packages/ee/b5/b43a27ac7472e1818c4bafd44430e69605baefe1f34440593e0332ec8b4d/packaging-24.0.tar.gz"
+    sha256 "eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"
   end
 
   resource "pygments" do

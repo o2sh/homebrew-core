@@ -1,19 +1,19 @@
 class Fn < Formula
   desc "Command-line tool for the fn project"
   homepage "https://fnproject.io"
-  url "https://github.com/fnproject/cli/archive/refs/tags/0.6.29.tar.gz"
-  sha256 "22713f717786faf34dd01fe0dc63bf3afcf5f67b0d1763053ed032f5d0fd290f"
+  url "https://github.com/fnproject/cli/archive/refs/tags/0.6.32.tar.gz"
+  sha256 "81156cc2be54c4b1d5d10110aff82e89e68c730fa2845afbb64cf675bf2c6cd1"
   license "Apache-2.0"
   head "https://github.com/fnproject/cli.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ec29848186eb487b080a553cbf2d59e9a15195e46e1a19c0b44480a1d170d994"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d37e832bf4a14d95e57f1c8c0cc5fe64b401a1ce71fbb39cb9006cd56b1f36f4"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f4b287eb2085fd2868af88123c3407a6f239c06917d821876878478f76cf550a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "d105db9b17d086139a796904de64d617acf3f6bfc59cf824572c67ab91ea44b6"
-    sha256 cellar: :any_skip_relocation, ventura:        "40b183bf152c3a95090079accab256fc259b9b6c28fbad62dc19712f72cb9e2c"
-    sha256 cellar: :any_skip_relocation, monterey:       "c5003c6e397987be79e59df91797dbd21e1102b86220c85a0b9440cc4bb96976"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7320ea7050604ef30a39cc6fe917360e4b65a72ef613db6bbde6ec7392f486a4"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5cd174f098888b7fdd159c19314758052fa4aa631a8d4eeec84d2dfc460b67e9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "abb4b93a3773e3fc8c34d605ebb52f0bad02a8306c4d096153cf1ac2d69eb58a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "3306163770ddc7c8ab0f25f827287a083e13dc46b6237df1c4d82f2b867c3829"
+    sha256 cellar: :any_skip_relocation, sonoma:         "63aba99e3aa8c456df1e1de52fd442dab954b6fe953594400fac433fe0e5f2ee"
+    sha256 cellar: :any_skip_relocation, ventura:        "d62a85472c41624cb6a02f8e513fd52b16f0bfd6b0c24963aa2625f5d2d68cc3"
+    sha256 cellar: :any_skip_relocation, monterey:       "f64ce0af373319eec3363660f3d0e9fd69b89c19af0ad1d8d98b58f8ed4b3721"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4e4e6ac9b3612166475a7fce4149154f37e044745d0a2d369c4b22396d8b7e38"
   end
 
   depends_on "go" => :build

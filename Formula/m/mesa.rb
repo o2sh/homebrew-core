@@ -3,18 +3,19 @@ class Mesa < Formula
 
   desc "Graphics Library"
   homepage "https://www.mesa3d.org/"
-  url "https://mesa.freedesktop.org/archive/mesa-24.0.3.tar.xz"
-  sha256 "77aec9a2a37b7d3596ea1640b3cc53d0b5d9b3b52abed89de07e3717e91bfdbe"
+  url "https://mesa.freedesktop.org/archive/mesa-24.0.6.tar.xz"
+  sha256 "8b7a92dbe6468c18f2383700135b5fe9de836cdf0cc8fd7dbae3c7110237d604"
   license "MIT"
   head "https://gitlab.freedesktop.org/mesa/mesa.git", branch: "main"
+
   bottle do
-    sha256 arm64_sonoma:   "a267a7fad192daaeacd5504c21559d0dfdb285475fb4b0d6cefb61e0a508e111"
-    sha256 arm64_ventura:  "a9003a675890dfae1281590688dae49a2fc3b88424fadeadd9208a23a4027229"
-    sha256 arm64_monterey: "656f8b28de0edc1ccb7c80399e952c1bb2d914a2a0851f93553e88797c2f87cf"
-    sha256 sonoma:         "944fec93ebd95c97ce9fe502fb5abf1b1d81952f1656fd4bb11885db7e016aea"
-    sha256 ventura:        "2aa707cd17bf14baab394ae79ec3b4cd2ce6fab9b843e7ecbe0102249ed87867"
-    sha256 monterey:       "3276e9be772f36b809922177d31bb9336299c7cce4fae4f9a733d52f084abc1a"
-    sha256 x86_64_linux:   "1e46a1611ab618fa0b814074245ea167b6b71c7be5bfa334b965b90ab7e9ec6a"
+    sha256 arm64_sonoma:   "b2b7c294d537ab856fea1f6973c6ef05188c623839a0211ce267257c7b21ad62"
+    sha256 arm64_ventura:  "7e9719bfbb72d8062c6aeefa136814be11a0ea474dfec4d1a877dadeebd4d96b"
+    sha256 arm64_monterey: "7b0425db41f5c5c0f6ec52d9e978efdb07ee33a227d4b01ffd703cc61d57343c"
+    sha256 sonoma:         "4611b295173eff6707d67d54e1029ed7c241d462fc65e1b81284ea13052634c5"
+    sha256 ventura:        "cfd5c3eb3be3c9b0d97fa05114652661b061dacb59554756a23b46ffbf326582"
+    sha256 monterey:       "875f54b17f74df2fea6a82e898ae7376150675e954f50f5d903ed752ba1bc538"
+    sha256 x86_64_linux:   "6a6063d9b0257031b9114078d2c28d2fd9ddbb4b82bf91a08f29e10e7354b922"
   end
 
   depends_on "bison" => :build # can't use from macOS, needs '> 2.3'
@@ -72,8 +73,8 @@ class Mesa < Formula
   end
 
   resource "mako" do
-    url "https://files.pythonhosted.org/packages/d4/1b/71434d9fa9be1ac1bc6fb5f54b9d41233be2969f16be759766208f49f072/Mako-1.3.2.tar.gz"
-    sha256 "2a0c8ad7f6274271b3bb7467dd37cf9cc6dab4bc19cb69a4ef10669402de698e"
+    url "https://files.pythonhosted.org/packages/0a/dc/48e8853daf4b32748d062ce9cd47a744755fb60691ebc211ca689b849c1c/Mako-1.3.3.tar.gz"
+    sha256 "e16c01d9ab9c11f7290eef1cfefc093fb5a45ee4a3da09e2fec2e4d1bae54e73"
   end
 
   resource "markupsafe" do

@@ -1,8 +1,8 @@
 class Apt < Formula
   desc "Advanced Package Tool"
   homepage "https://wiki.debian.org/Apt"
-  url "https://deb.debian.org/debian/pool/main/a/apt/apt_2.7.13.tar.xz"
-  sha256 "c42ab55e91d7bee5fcbf7ff8c3584714cbacaa0365f091e7e604f7f8493c7e35"
+  url "https://deb.debian.org/debian/pool/main/a/apt/apt_2.9.2.tar.xz"
+  sha256 "80aa74466b132e50ed8d0159f10e64a448b6a6c64723d62c42b83a5199ca03a7"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -11,7 +11,7 @@ class Apt < Formula
   end
 
   bottle do
-    sha256 x86_64_linux: "b8d3b5f6db4cb581b6c83e1c058f150817ebe093e44e66e1a48f6674f241c886"
+    sha256 x86_64_linux: "2826c71ef02a6398c61282ffb803059bf89bbc7c4ffa93d841906777df4f427d"
   end
 
   keg_only "not linked to prevent conflicts with system apt"
@@ -86,8 +86,8 @@ class Apt < Formula
   end
 
   resource "ExtUtils::CChecker" do
-    url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/ExtUtils-CChecker-0.11.tar.gz"
-    sha256 "117736677e37fc611f5b76374d7f952e1970eb80e1f6ad5150d516e7ae531bf5"
+    url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/ExtUtils-CChecker-0.12.tar.gz"
+    sha256 "8b87d145337dec1ee754d30871d0b105c180ad4c92c7dc0c7fadd76cec8c57d3"
   end
 
   resource "XS::Parse::Keyword::Builder" do
@@ -98,12 +98,6 @@ class Apt < Formula
   resource "Syntax::Keyword::Try" do
     url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Syntax-Keyword-Try-0.29.tar.gz"
     sha256 "cc320719d3608daa9514743a43dac2be99cb8ccd989b1fefa285290cb1d59d8f"
-  end
-
-  # upstream bug report, https://github.com/mquinson/po4a/issues/475
-  patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/07275a9af84b536ac737c364d66fc2eb4daf729a/apt/po4a-0.70.patch"
-    sha256 "35f0ac1416af3116e17275a4b233a7abc34767655734bf07dda83ff307266e15"
   end
 
   def install

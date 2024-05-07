@@ -1,29 +1,22 @@
 class Ibazel < Formula
   desc "Tools for building Bazel targets when source files change"
   homepage "https://github.com/bazelbuild/bazel-watcher"
-  url "https://github.com/bazelbuild/bazel-watcher/archive/refs/tags/v0.24.0.tar.gz"
-  sha256 "bc0ac30e84aa8b8a18ae1fc69d9ef6c575a9fa28239f36b6d14d3603e2b1d667"
+  url "https://github.com/bazelbuild/bazel-watcher/archive/refs/tags/v0.25.2.tar.gz"
+  sha256 "b2f63188f4c25d9108903f89e3f3c1ee09016816e2ee54590dd7c6c5da43350d"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "327eb4aa65bc834e884f76b5af270bfc5145ea1f4388c54fe7535ae1255b642c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "399db101ac48b5a109cf803e4fe27f433213b49c459abe4e26a080700904ee60"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "53489f1fdcd03db40ca83cbde1cb7b3d77d3402a1768c249f2c848af4e938470"
-    sha256 cellar: :any_skip_relocation, sonoma:         "4639defe58380b5824d980f2738ab145e7dadb996de0276259fae5c3dceddf49"
-    sha256 cellar: :any_skip_relocation, ventura:        "adfa8dfab533aa4082cebeb011b5170c0d4a859357fde36e8dd67be019b7367d"
-    sha256 cellar: :any_skip_relocation, monterey:       "804a47113c9b4c603fe6a78c8854179adcdd720f123341d396dee31fce120b1b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ce6f8c1bdf830475aa19d04cead3b3d13e2827c53626cf289b3a4cf8920c1162"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ff220f5873d6ea83d61eb68231ec68450e5fd6eba58d7ed5559a9a44f8389141"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7ace57e4ea621a9785de4c99b3ce6ebc19f8de8254145dbf440d333315345b49"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "99185086ee14a9727fa710e0a11f6129c4fb8601b132bd37e6920fb6c8318699"
+    sha256 cellar: :any_skip_relocation, sonoma:         "c955602d4b4d016db7078292aff68b171c28ec4b98ad97afa39af87cfa061114"
+    sha256 cellar: :any_skip_relocation, ventura:        "6cbc66724381a8e9865879b33da3029a5b7e62ba45b27ff2b57a5223a1d5845f"
+    sha256 cellar: :any_skip_relocation, monterey:       "6c26e5c4886d1b220d600af899e96cee5578439ee8f985832d2ece8e47ec4cf0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f4d41d7e120c27e03e29d0c763060a792284bc386e18e2cce315af0f515d00ea"
   end
 
+  depends_on "bazelisk" => [:build, :test]
   depends_on "go" => [:build, :test]
-
-  on_macos do
-    depends_on "bazel" => [:build, :test]
-  end
-
-  on_linux do
-    depends_on "bazelisk" => [:build, :test]
-  end
 
   # bazel 6.x support issue, https://github.com/bazelbuild/bazel-watcher/issues/616
   # patch to use bazel 6.4.0, upstream PR, https://github.com/bazelbuild/bazel-watcher/pull/575

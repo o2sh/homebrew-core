@@ -4,6 +4,7 @@ class MingwW64 < Formula
   url "https://downloads.sourceforge.net/project/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v11.0.1.tar.bz2"
   sha256 "3f66bce069ee8bed7439a1a13da7cb91a5e67ea6170f21317ac7f5794625ee10"
   license "ZPL-2.1"
+  revision 1
 
   livecheck do
     url :stable
@@ -11,17 +12,18 @@ class MingwW64 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "c45756cb14bc20bdab5da3d0b3d2905f78515fad7b3e177bee3f01f7aecd6644"
-    sha256 arm64_ventura:  "ebe4ec33ed811413153bcd56381440261abcc4edcbeb2ff08a15ee357da0f1ce"
-    sha256 arm64_monterey: "681fe92f7519de5c736b4810f22c1d16c196ac787c7de951365aea73c974b40a"
-    sha256 arm64_big_sur:  "79bfe5da00414bd0959a273492a059f21f4c3ffc04bc15a26a925866a016638e"
-    sha256 sonoma:         "7e72789298e04f227e5d76c356874774a1d712475cfa850ba00c5750fed11751"
-    sha256 ventura:        "43c897a1bcb227a373f6caf50036245dc7dbe1888f6f2b6919d758f56a4d9a96"
-    sha256 monterey:       "fe84e18ccf9867602823df481a7e13acfbeb1907bc2f7982bb1055b04f133631"
-    sha256 big_sur:        "a08fef246cd50141454068976ad8cd91d6ba87f7944221ca3fa875aff6978fd8"
-    sha256 x86_64_linux:   "ed0e3ad639d4c7754beb5943b5b5dc0e806005a14c2aee5230cd5d114dc4f9a8"
+    rebuild 2
+    sha256 arm64_sonoma:   "166737c970ee5a025dc5ecfc36afd0850ed16a4a3b13ac7a1a706b7d98eb20b7"
+    sha256 arm64_ventura:  "fa487b22ea3635fac2e05d91b7c31667927e693085135dd3f3ef7c8645f6aabb"
+    sha256 arm64_monterey: "3397b288b7d9133a6b9e7bd6f9f016151440a724de848dfb8d90ccb27876a242"
+    sha256 sonoma:         "bf54be7e06281b1090f94a6e98e32ce63ceb67b7ba13fc0f2187127bbf5753f2"
+    sha256 ventura:        "dcaeed42886127b357f8a48cce28752f71f56270100d8b026e908ccd0e455dba"
+    sha256 monterey:       "05f340ac5b0f75e20d59bbe71cb53fd0599f2b49a1c312380daec2be931ba752"
+    sha256 x86_64_linux:   "94c79056b935ead8fa122187e4b3c29c2b4a2e11e56ea07b927807deceb90516"
   end
 
+  # binutils searches for zstd using pkg-config
+  depends_on "pkg-config" => :build
   # Apple's makeinfo is old and has bugs
   depends_on "texinfo" => :build
 
@@ -29,17 +31,32 @@ class MingwW64 < Formula
   depends_on "isl"
   depends_on "libmpc"
   depends_on "mpfr"
+  depends_on "zstd"
+
+  uses_from_macos "zlib"
 
   resource "binutils" do
-    url "https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.xz"
-    mirror "https://ftpmirror.gnu.org/binutils/binutils-2.41.tar.xz"
-    sha256 "ae9a5789e23459e59606e6714723f2d3ffc31c03174191ef0d015bdf06007450"
+    url "https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.xz"
+    mirror "https://ftpmirror.gnu.org/binutils/binutils-2.42.tar.xz"
+    sha256 "f6e4d41fd5fc778b06b7891457b3620da5ecea1006c6a4a41ae998109f85a800"
   end
 
   resource "gcc" do
     url "https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.xz"
     mirror "https://ftpmirror.gnu.org/gcc/gcc-13.2.0/gcc-13.2.0.tar.xz"
     sha256 "e275e76442a6067341a27f04c5c6b83d8613144004c0413528863dc6b5c743da"
+
+    # Backport fix for ctype build errors with Xcode 15.3
+    patch do
+      url "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=9970b576b7e4ae337af1268395ff221348c4b34a"
+      sha256 "968bfcb58f75d889470f2f815787f6aa254fb43f1e5516e04f577dad22259905"
+    end
+
+    # Backport fix for libcc1 std::vector build errors with Xcode 15.3
+    patch do
+      url "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=5213047b1d50af63dfabb5e5649821a6cb157e33"
+      sha256 "0d36d0d5556aefa59dbedf821f5c9dcda940a9c6f92cb3509423f524fd93351a"
+    end
   end
 
   def target_archs
@@ -59,6 +76,8 @@ class MingwW64 < Formula
           --enable-targets=#{target}
           --disable-multilib
           --disable-nls
+          --with-system-zlib
+          --with-zstd
         ]
         mkdir "build-#{arch}" do
           system "../configure", *args
@@ -86,14 +105,15 @@ class MingwW64 < Formula
         --with-sysroot=#{arch_dir}
         --prefix=#{arch_dir}
         --with-bugurl=#{tap.issues_url}
-        --enable-languages=c,c++,fortran
+        --enable-languages=c,c++,objc,obj-c++,fortran
         --with-ld=#{arch_dir}/bin/#{target}-ld
         --with-as=#{arch_dir}/bin/#{target}-as
         --with-gmp=#{Formula["gmp"].opt_prefix}
         --with-mpfr=#{Formula["mpfr"].opt_prefix}
         --with-mpc=#{Formula["libmpc"].opt_prefix}
         --with-isl=#{Formula["isl"].opt_prefix}
-        --with-zstd=no
+        --with-system-zlib
+        --with-zstd
         --disable-multilib
         --disable-nls
         --enable-threads=posix

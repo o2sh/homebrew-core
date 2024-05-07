@@ -82,7 +82,7 @@ module.exports = async ({github, context, core}, formulae_detect) => {
       core.setOutput('timeout-minutes', 4320)
     } else {
       console.log('No CI-long-timeout label found. Setting short GitHub Actions timeout.')
-      core.setOutput('timeout-minutes', 90)
+      core.setOutput('timeout-minutes', 120)
 
       if (label_names.includes('long build')) {
         core.setFailed('PR requires the CI-long-timeout label but it is not set!')
@@ -148,6 +148,20 @@ module.exports = async ({github, context, core}, formulae_detect) => {
       test_bot_formulae_args.push('--skip-revision-audit')
     } else {
       console.log('No CI-skip-revision-audit label found. Not passing --skip-revision-audit to brew test-bot.')
+    }
+
+    if (label_names.includes('CI-skip-new-formulae')) {
+      console.log('CI-skip-new-formulae label found. Passing --skip-new to brew test-bot.')
+      test_bot_formulae_args.push('--skip-new')
+    } else {
+      console.log('No CI-skip-new-formulae label found. Not passing --skip-new to brew test-bot.')
+    }
+
+    if (label_names.includes('CI-skip-new-formulae-strict')) {
+      console.log('CI-skip-new-formulae-strict label found. Passing --skip-new-strictw to brew test-bot.')
+      test_bot_formulae_args.push('--skip-new-strict')
+    } else {
+      console.log('No CI-skip-new-formulae-strict label found. Not passing --skip-new-strict to brew test-bot.')
     }
 
     core.setOutput('test-bot-formulae-args', test_bot_formulae_args.join(" "))

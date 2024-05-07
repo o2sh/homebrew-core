@@ -1,18 +1,18 @@
 class GnuGetopt < Formula
   desc "Command-line option parsing utility"
   homepage "https://github.com/util-linux/util-linux"
-  url "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.39/util-linux-2.39.3.tar.xz"
-  sha256 "7b6605e48d1a49f43cc4b4cfc59f313d0dd5402fa40b96810bd572e167dfed0f"
+  url "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.1.tar.xz"
+  sha256 "59e676aa53ccb44b6c39f0ffe01a8fa274891c91bef1474752fad92461def24f"
   license "GPL-2.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "854e71038ba45a258bd05e853fd112571677f5da98848b2f867a0c63de123ebe"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "fe623d78be3c9dfad5ca28dbb96f7f6d048a191f670f810921b2cf624fb59c9c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "42898660d945bc7599a98c515c55e3cfa3f4e229484af336f706aa5591089ca5"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c5b3a0c36b58751871cbf1a70003101aaff0acf6813aed77129418b99dbcd446"
-    sha256 cellar: :any_skip_relocation, ventura:        "498225ee7af6affad1a791542e3ca534fd68818a6565abcdc5090597b2976965"
-    sha256 cellar: :any_skip_relocation, monterey:       "a6e02614d017db903671edc2a83d97dbfe7eb64bfcf1888e73591b1830a258f4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c4c84c1512548321cb7c2aa649f9ac3139cec518b8b579eaf9856b940e8f07c0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d962cadd3808ac3efbc1f7ddb3aa8df8b1f1e8af07c19b26b4ff748435ceb816"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6f308eaa55cfb4e8bd0f0e0cd81384b851ae03db9b3ceee06d2a1c4f6bde474b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "92e24798cd0b451ca4f049482e8de67be4d9fde0d632f18036a06fe146800864"
+    sha256 cellar: :any_skip_relocation, sonoma:         "a178761cb75758af3b1b7ae4c3c96163e20e4c0e87a65d3d886b4aa0bbecfff0"
+    sha256 cellar: :any_skip_relocation, ventura:        "025b40b38db8f58791ad3efa2b9bcbe1405c226ff1dcf2577e571e389aa58acf"
+    sha256 cellar: :any_skip_relocation, monterey:       "a4c00b3de41a02b8199d3519a438497213eb344b166bb0f85538a5b99eebcbce"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "11e6e22a099575d3463765a3d056a4b9417ee85f03325d9a014658e0b6bae1c4"
   end
 
   keg_only :provided_by_macos
@@ -27,9 +27,9 @@ class GnuGetopt < Formula
   end
 
   def install
-    system "./configure", "--disable-dependency-tracking",
+    system "./configure", *std_configure_args,
                           "--disable-silent-rules",
-                          "--prefix=#{prefix}"
+                          "--disable-liblastlog2"
 
     system "make", "getopt", "misc-utils/getopt.1"
 

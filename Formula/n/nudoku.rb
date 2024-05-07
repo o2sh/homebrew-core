@@ -1,19 +1,19 @@
 class Nudoku < Formula
   desc "Ncurses based sudoku game"
   homepage "https://jubalh.github.io/nudoku/"
-  url "https://github.com/jubalh/nudoku/archive/refs/tags/3.0.0.tar.gz"
-  sha256 "56c9f8d70ca350411dccfdc5a0e2dc39aaa83da08f87ad874f7f4b7fb64b3541"
+  url "https://github.com/jubalh/nudoku/archive/refs/tags/4.0.1.tar.gz"
+  sha256 "070dc06d9dad2a436fd44ff52a24f51c2522b13cc68e3d97765f4357f4dfc3d8"
   license "GPL-3.0-or-later"
   head "https://github.com/jubalh/nudoku.git", branch: "master"
 
   bottle do
-    sha256 arm64_sonoma:   "85ce667fde814b7ca2b8c3144c1a81947c899e9f091bf90805cf77bdec0f4c9c"
-    sha256 arm64_ventura:  "df24e16774377f98521d6bc623460dbe8a1340afdf08486f27c060b3911b37ed"
-    sha256 arm64_monterey: "aaba4315a0bcaa31e2fbb6f667e49a04e80078bd43dec4b5c706f30f5954c054"
-    sha256 sonoma:         "b557d8370bc5be84244ba9ec0ece988b92f83110bf58e2f4a68208da3bfb5013"
-    sha256 ventura:        "e2a099b569c0f32ec86d4827962661af24c6e739fa33e416e46b6065744ecea6"
-    sha256 monterey:       "b1f68424a9e2847b7e420ca03caa73fc523f64203d6619da8a17da1aa89cfbc8"
-    sha256 x86_64_linux:   "dafd045886518df5e1eda43914636403c31a5e48a4c090a08df33bbab8573730"
+    sha256 arm64_sonoma:   "0af8b4c36a68855242d8c6b5c11edafa23d95b99f01c75ff5afe5e363fc5ffdf"
+    sha256 arm64_ventura:  "d36571bdc6681967b1b4c4415749977df1cf546dfe6e7497144ceb7dece98b26"
+    sha256 arm64_monterey: "b497e4ceb353928460e9a4b0d68d4cea8beefd949ac12997e24c830e74e47d59"
+    sha256 sonoma:         "0fff4919f933d9b8a591945215e69af29ebfc388d9ee3daad5ce8fdf2ba6cafa"
+    sha256 ventura:        "04242eff8300d13cb0a02454eb9499283995ae5694c32d4b4f5422abc9eb04bd"
+    sha256 monterey:       "03f8f7201d2d950ae6b02ae3cf6a29e55424af8942447801d0b5ba9a440c8ec1"
+    sha256 x86_64_linux:   "f7ba800fdbd5b5aeeba031362afb606cde57e93d1763c581212084793a23c267"
   end
 
   depends_on "autoconf" => :build
@@ -25,7 +25,7 @@ class Nudoku < Formula
   uses_from_macos "ncurses"
 
   def install
-    system "autoreconf", "-fiv"
+    system "autoreconf", "--force", "--install", "--verbose"
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",
                           "--enable-cairo",

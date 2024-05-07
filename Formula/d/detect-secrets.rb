@@ -3,21 +3,19 @@ class DetectSecrets < Formula
 
   desc "Enterprise friendly way of detecting and preventing secrets in code"
   homepage "https://github.com/Yelp/detect-secrets"
-  url "https://files.pythonhosted.org/packages/f1/55/292f9ce52bba7f3df0a9cde65dabf458d3aeec6a63bf737e5a5fa9fe6d31/detect_secrets-1.4.0.tar.gz"
-  sha256 "d56787e339758cef48c9ccd6692f7a094b9963c979c9813580b0169e41132833"
+  url "https://files.pythonhosted.org/packages/69/67/382a863fff94eae5a0cf05542179169a1c49a4c8784a9480621e2066ca7d/detect_secrets-1.5.0.tar.gz"
+  sha256 "6bb46dcc553c10df51475641bb30fd69d25645cc12339e46c824c1e0c388898a"
   license "Apache-2.0"
-  revision 3
   head "https://github.com/Yelp/detect-secrets.git", branch: "master"
 
   bottle do
-    rebuild 3
-    sha256 cellar: :any,                 arm64_sonoma:   "369d04afa889d5ee9635f530ab53b2df4ed7634d529f16948a29ef5909829857"
-    sha256 cellar: :any,                 arm64_ventura:  "8a88936d5203a614ad21522ef4389611c76883d9f415a80b9e96a6f4ac109359"
-    sha256 cellar: :any,                 arm64_monterey: "86c9210007811b70e213339122faad329d6612da0e8dfef8bac3bfa76039ef90"
-    sha256 cellar: :any,                 sonoma:         "b0c76a50fb08fbe80f13e080b5822ac4e68d2b97c7bdd647b3ebbba2ddc0cb7b"
-    sha256 cellar: :any,                 ventura:        "a887cfa36f12e3af499e4bd071852a15ad2d95357d58987242445d992e1caeed"
-    sha256 cellar: :any,                 monterey:       "0f48a9fa4d37049ceab4d716b9e40d6e990949d97ac245ec1ee30d2ec9e68409"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "08510131dace027059a68516b5b41620f0cee95954dd93d50fd6cbdd41eac8fc"
+    sha256 cellar: :any,                 arm64_sonoma:   "e2dc35d337354cff76eac70b05ca0fd9164d0fedc1a3b38167e3798b46452876"
+    sha256 cellar: :any,                 arm64_ventura:  "edb67c4637c4ef4484fdfc110235c2c4da023aed8b28979e8bd52fcf38e0acf7"
+    sha256 cellar: :any,                 arm64_monterey: "8e4cba8883dbf9345d576585a9671d98bb855e492824a9026fb4d399df993fee"
+    sha256 cellar: :any,                 sonoma:         "e284122a417a74f1526ca226756cfc8528c6c622afd378d9a2efb28ddc485916"
+    sha256 cellar: :any,                 ventura:        "5d68e3af5143f498a3a47b184899220fe8b057ec23968a36d52e24ffd8f9091b"
+    sha256 cellar: :any,                 monterey:       "ab29018f23b1d789b460d6a8d0f4ca29a8ce338eedff17d1f6633c47751773a9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "81767db7ddfd33133588f54d977441f506dcd755310a1b4b745ff1894ab501c0"
   end
 
   depends_on "certifi"
@@ -30,8 +28,8 @@ class DetectSecrets < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/bf/3f/ea4b9117521a1e9c50344b909be7886dd00a519552724809bb1f486986c2/idna-3.6.tar.gz"
-    sha256 "9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "pyyaml" do

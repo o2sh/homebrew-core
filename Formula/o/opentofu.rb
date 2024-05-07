@@ -1,22 +1,25 @@
 class Opentofu < Formula
   desc "Drop-in replacement for Terraform. Infrastructure as Code Tool"
   homepage "https://opentofu.org/"
-  url "https://github.com/opentofu/opentofu/archive/refs/tags/v1.6.2.tar.gz"
-  sha256 "3bf0fc807004ba26305331ecf1334ff2160f8c131ee53c107292d60069400da6"
+  url "https://github.com/opentofu/opentofu/archive/refs/tags/v1.7.0.tar.gz"
+  sha256 "04f43bc496adc3dfe5ca39121355ed5c12b5b1f3b2cceedf1aae3382bceecefc"
   license "MPL-2.0"
   head "https://github.com/opentofu/opentofu.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "883170dcdc5df4bf8d895dbabc8c6b06941c4c819266ba58bd3664674f1022ae"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "564ce4b3c92a68e84ab2ea7cf6fa73c093e4a6b0f012ece99373996d7491691c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ae7b28ae61d35203ba1a39868c9b5c1a2cbd656cb55c2b2887d57f68a05436af"
-    sha256 cellar: :any_skip_relocation, sonoma:         "9a4ccbceb83e60fcb7474478a877fcb282b41050bfe7b872ba72ab1ff456f84b"
-    sha256 cellar: :any_skip_relocation, ventura:        "97d3590c34489e3516bc77988582c003e1de067ff18ae0d1b52cce7a9e78b093"
-    sha256 cellar: :any_skip_relocation, monterey:       "557d894c0e9451d07110425595d49d7f671f393d2437a035f24e5c5f8edae5ce"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0a6fe96e4a92938356ce567dcf4fb7cddbae5b82f5098eb169f495d17aa1275c"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "508b01d909ef6ff490ea4c61e168855ffd1813a288406fc1a7148b9554908c38"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "08445a4864b3a0a4a4f01fefef8959a864ee6359d3f10753d3e56882cdd27883"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "1e541ac96cd68979c8a2953338cdb9499b24924f330af8854c004f112fd3547f"
+    sha256 cellar: :any_skip_relocation, sonoma:         "b095806c5c78d1047187ba66c2ff4e1e96dc14629d4a594977588a76272d777e"
+    sha256 cellar: :any_skip_relocation, ventura:        "d131b28b84d7d6a96f8904675ee500ac7ce75bbec280b9a39782fe0642a1058f"
+    sha256 cellar: :any_skip_relocation, monterey:       "ebfac9b6d16f9e3e987ddf07f3d4f47f3a81f24662954a933edc5a4b2aa2a0bc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0b28feb55a41bcb9fb6ece68d079611222804adc2a930af0e388bdb85970888a"
   end
 
   depends_on "go" => :build
+
+  conflicts_with "tenv", because: "both install tofu binary"
 
   # Needs libraries at runtime:
   # /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.29' not found (required by node)

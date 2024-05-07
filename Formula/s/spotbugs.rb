@@ -1,12 +1,17 @@
 class Spotbugs < Formula
   desc "Tool for Java static analysis (FindBugs's successor)"
   homepage "https://spotbugs.github.io/"
-  url "https://repo.maven.apache.org/maven2/com/github/spotbugs/spotbugs/4.8.3/spotbugs-4.8.3.tgz"
-  sha256 "4713c0ebcc76125ba11be3cfcb288a39b809fdabfbeec0acd0ac7494ef649851"
+  url "https://repo.maven.apache.org/maven2/com/github/spotbugs/spotbugs/4.8.5/spotbugs-4.8.5.tgz"
+  sha256 "c514054fd8f81f242ac6d64871d30bdb7b79cb49be7bd6b58067484efae8bfa0"
   license "LGPL-2.1-or-later"
 
+  livecheck do
+    url "https://repo.maven.apache.org/maven2/com/github/spotbugs/spotbugs/"
+    regex(%r{href=["']?v?(\d+(?:\.\d+)+)/?["' >]}i)
+  end
+
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "4c55927f5f1a54efc25424484861e091e4d3c2e53904292c6c6f8f58930a5883"
+    sha256 cellar: :any_skip_relocation, all: "50d22096ab0a28a88957201e5f0cc54e8af15106f95ae115686b846a2bbe19bc"
   end
 
   head do

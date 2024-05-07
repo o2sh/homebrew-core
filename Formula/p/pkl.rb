@@ -1,21 +1,23 @@
 class Pkl < Formula
   desc "CLI for the Pkl programming language"
   homepage "https://pkl-lang.org"
-  url "https://github.com/apple/pkl/archive/refs/tags/0.25.2.tar.gz"
-  sha256 "810f6018562ec9b54a43ba3cea472a6d6242e15da15b73a94011e1f8abc34927"
+  url "https://github.com/apple/pkl/archive/refs/tags/0.25.3.tar.gz"
+  sha256 "864f4971e7f6b3c679703b486a493a3d827efd9c79c04e42859905190ecd02cc"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "258e24047f0819094d0675c13264590c943fa50dbcd0804b2702a4cd77b1f1a4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f1e39d973ef23ab2ca35d36bcc9ee73a91e3fb28028f8bebabaccb91dfc6ba6c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "bdd07ad1623b10e1246d2a029812e74d23f9881acfb7d620fac87fe1ff15fba2"
-    sha256 cellar: :any_skip_relocation, sonoma:         "d27479533299925620e258ce90054550499fa5f22f6f9be6b55c7a71d8c57f19"
-    sha256 cellar: :any_skip_relocation, ventura:        "9bf5000de455b890618e5133809982134e2a6f8864838919ce0548984410643b"
-    sha256 cellar: :any_skip_relocation, monterey:       "255d6a47be95fc0e2fba5462858bc03bfc32ec44c7bdbbbdf5d1d3bd4439c200"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6dd0de922f67ed3abaa3d19d9b03228317766a663844fdd3f4a0a5e19257bc87"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "02ea7423366e9f1a0e42b4ad1eca3760d66e2b4f93cf2fa63fda171173c0b656"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d091b125838eb6a51d41d13d28b3145beb9167de90726173675c42b7bac113f9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "235953bd9e72b4522c7bf0b0c556448e52fec962c9e8e5ca511a44e99d48191c"
+    sha256 cellar: :any_skip_relocation, sonoma:         "766b2bbb4f4ec439a02abf26b7290ad893d63299f44a3b646d0aa8972b98258a"
+    sha256 cellar: :any_skip_relocation, ventura:        "99f8dc74e5feb287ae483e742a20e2be87e578d8c5d7508386e9abfa02feef6f"
+    sha256 cellar: :any_skip_relocation, monterey:       "c4f736300847a85d17f14f7815a550ee842a3f2eacad44c15baa0c5ab98b87a7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a45d2a4de3b038bffb36eb976ed107f440f65c10b3ba15506d97a6868f653caf"
   end
 
-  depends_on "openjdk" => :build
+  # Can change this to 21 in later releases.
+  depends_on "openjdk@17" => :build
 
   uses_from_macos "zlib"
 
@@ -33,7 +35,7 @@ class Pkl < Formula
   end
 
   def install
-    ENV["JAVA_HOME"] = Formula["openjdk"].opt_prefix
+    ENV["JAVA_HOME"] = Formula["openjdk@17"].opt_prefix
     # Need to set this so that native-image passes through env vars when calling out to the C toolchain.
     # This is only needed for GraalVM 23.0, which is only used when building for macOS/aarch64.
     ENV["NATIVE_IMAGE_DEPRECATED_BUILDER_SANITATION"] = "true" if OS.mac? && Hardware::CPU.arm?

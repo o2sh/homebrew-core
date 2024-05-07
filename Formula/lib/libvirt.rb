@@ -1,8 +1,8 @@
 class Libvirt < Formula
   desc "C virtualization API"
   homepage "https://libvirt.org/"
-  url "https://download.libvirt.org/libvirt-10.1.0.tar.xz"
-  sha256 "36d9077e2b0ef6b0c6df3b42e42a67411b6ce3b1564b427b55e65019dde60eed"
+  url "https://download.libvirt.org/libvirt-10.3.0.tar.xz"
+  sha256 "2af5a50b6b1027822b6344e35080fa78cc8266f821a3ae6f8f372f18dd049018"
   license all_of: ["LGPL-2.1-or-later", "GPL-2.0-or-later"]
   head "https://gitlab.com/libvirt/libvirt.git", branch: "master"
 
@@ -12,13 +12,13 @@ class Libvirt < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "f9368ee48068efb258497872e5ccbb6044ed24b10c975e49817f584cb214aa1e"
-    sha256 arm64_ventura:  "f6dbae0e0ef931be418762439d849aef0875a92ee951340f9cfdc500f8dbf4f1"
-    sha256 arm64_monterey: "08105bc5f72391f1b89b912078f93ab971e510ed69bde30ee731316327cf3caf"
-    sha256 sonoma:         "65a2d8a06cdd1ac30c6724d7764a7602b7e306941d33dde0032a53ee309f8ef7"
-    sha256 ventura:        "22d5c2807e6138c030cb2d9a36d822152350b19e8272d92ecd2f598398ed8773"
-    sha256 monterey:       "7a32ed954f2ac824174492d3f1971f6a1605537511021faaa34fa73f3935e0b0"
-    sha256 x86_64_linux:   "277d8f21b21170ebf40a4c6dc1bb27be69162da6b03c93bc9ae38075a5953345"
+    sha256 arm64_sonoma:   "341bbab1e2391bad27fd3005fc838e7a4f2b3813b5a95603079e087629e3261b"
+    sha256 arm64_ventura:  "6b17437183629c7a220dc83893f139019a01968b23d821a634eb64360d527f4d"
+    sha256 arm64_monterey: "b1cff4f96ec580c584798bffaeaf3b08e801a2484d945884d333dd20089c7d26"
+    sha256 sonoma:         "e33bfafe1d565baf2bf994b6eb492b5817949b08adf1c1fcd4734bb3f2403a87"
+    sha256 ventura:        "7497f2e13255e4dd70bc223df782cb611f72d24da7957045f1c601da6ac4238d"
+    sha256 monterey:       "7e1f5656f3a6a492c594672044047c73170c8560434955645a3e9e8262c843b0"
+    sha256 x86_64_linux:   "3fcbeb4ce6c7a4b14f45d634d928c28f2f8f84c4577173ce881ccd2cfad6a330"
   end
 
   depends_on "docutils" => :build
@@ -45,6 +45,7 @@ class Libvirt < Formula
   end
 
   on_linux do
+    depends_on "acl"
     depends_on "libtirpc"
   end
 

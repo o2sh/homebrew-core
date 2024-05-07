@@ -3,8 +3,8 @@ require "language/node"
 class Emscripten < Formula
   desc "LLVM bytecode to JavaScript compiler"
   homepage "https://emscripten.org/"
-  url "https://github.com/emscripten-core/emscripten/archive/refs/tags/3.1.55.tar.gz"
-  sha256 "0be7f08c1a5e37e1965f429a84c8c9bf9864cd26eba83b59d38bb2ed77fd2e9b"
+  url "https://github.com/emscripten-core/emscripten/archive/refs/tags/3.1.59.tar.gz"
+  sha256 "55f26f6ec4f05e0de2b5e4ccd9e350acc54081364cee10cc4b05071919f152a4"
   license all_of: [
     "Apache-2.0", # binaryen
     "Apache-2.0" => { with: "LLVM-exception" }, # llvm
@@ -18,14 +18,13 @@ class Emscripten < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "d9ab0cb60d3c09d7c7e1e7fe1c9cc49837acaa30e890230920abb0c9bd2f1550"
-    sha256 cellar: :any,                 arm64_ventura:  "3173bf33dd55534dc69bd85184749e0d86545002d9da464b5e48b3cdbe3d2a70"
-    sha256 cellar: :any,                 arm64_monterey: "cca1db82774db6ab2327b2627bc6fdedce893ef103713fc639eaf2cf88d5a96c"
-    sha256 cellar: :any,                 sonoma:         "be16cf4e7cf32f9b2bcf8c7e83ecf1e01eb083b52078563a250c64e7b47e8715"
-    sha256 cellar: :any,                 ventura:        "cbb7ebcbd55fb01969e4f93dab21475481ab614acf0dcf11fc43a90335b57e86"
-    sha256 cellar: :any,                 monterey:       "b8bb7b2cbdc97726f55c7328f39593403157f7871a116009c789d3a9de9e86c8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7c1d786b52f156ff7f5bc0d838822a2147cb1106054abc779205e5a051272e9b"
+    sha256 cellar: :any,                 arm64_sonoma:   "a5bfeb13d41e97979f7feb3f518395193e992446e074b65bbf4079bec5c2b27e"
+    sha256 cellar: :any,                 arm64_ventura:  "a17f37394fe224247b1ad2e6a75c605fb55d20d81e43d3086aa74691d9ee4106"
+    sha256 cellar: :any,                 arm64_monterey: "b6f815c21fdce3a2cd392dfd5f08d8d670bdb443d5fce8b40c517a5575d5d7f5"
+    sha256 cellar: :any,                 sonoma:         "ac6eed62fe853a6775ce4b17b76a1b1e4472bc8e960676db0369bc8a3ff3cbcd"
+    sha256 cellar: :any,                 ventura:        "0c56ff7c9299d4e33f7598b7715c0240f28571c9791032c1419e38bb9bfc7562"
+    sha256 cellar: :any,                 monterey:       "dc6907bc002bfffde7bcafd38baa57c614c578773580a0aa225c6a98cc81e018"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "64ee26f5d4264f9183182722db3bfb0be3a466b9534bcf8f3df6be5f7e0c2860"
   end
 
   depends_on "cmake" => :build
@@ -33,6 +32,7 @@ class Emscripten < Formula
   depends_on "python@3.12"
   depends_on "yuicompressor"
 
+  uses_from_macos "llvm" => :build
   uses_from_macos "zlib"
 
   # OpenJDK is needed as a dependency on Linux and ARM64 for google-closure-compiler,
@@ -47,7 +47,14 @@ class Emscripten < Formula
     depends_on "openjdk"
   end
 
-  fails_with gcc: "5"
+  # We use LLVM to work around an error while building bundled `google-benchmark` with GCC
+  fails_with :gcc do
+    cause <<~EOS
+      .../third-party/benchmark/src/thread_manager.h:50:31: error: expected ‘)’ before ‘(’ token
+         50 |   GUARDED_BY(GetBenchmarkMutex()) Result results;
+            |                               ^
+    EOS
+  end
 
   # Use emscripten's recommended binaryen revision to avoid build failures.
   # https://github.com/emscripten-core/emscripten/issues/12252
@@ -58,7 +65,7 @@ class Emscripten < Formula
   # Then use the listed binaryen_revision for the revision below.
   resource "binaryen" do
     url "https://github.com/WebAssembly/binaryen.git",
-        revision: "2ca9638354e4a5f260ced04d186808fc8b498986"
+        revision: "abd51437426c72a2d2f8195da5d5cf570941b805"
   end
 
   # emscripten does not support using the stable version of LLVM.
@@ -66,8 +73,8 @@ class Emscripten < Formula
   # See binaryen resource above for instructions on how to update this.
   # Then use the listed llvm_project_revision for the tarball below.
   resource "llvm" do
-    url "https://github.com/llvm/llvm-project/archive/6c7805d5d186a6d1263f90b8033ad85e2d2633d7.tar.gz"
-    sha256 "ca16158a37923eba027cc6354539caee53fd980530c844ab531e7aceb3da98e6"
+    url "https://github.com/llvm/llvm-project/archive/df762a1643bb5b0b3c907611d118c82d4b68a39d.tar.gz"
+    sha256 "f379650efec50c51420c5d56310667e065fa6fa3046060681a45da5be5d97807"
   end
 
   def install

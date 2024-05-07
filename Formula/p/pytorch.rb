@@ -6,7 +6,7 @@ class Pytorch < Formula
   url "https://github.com/pytorch/pytorch/releases/download/v2.2.0/pytorch-v2.2.0.tar.gz"
   sha256 "e12d18c3dbb12d7ae2f61f5ab9a21023e3dd179d67ed87279ef96600b9ac08c5"
   license "BSD-3-Clause"
-  revision 1
+  revision 3
 
   livecheck do
     url :stable
@@ -14,13 +14,13 @@ class Pytorch < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "8d5d28e6158f6349509a9128624789ebbea78b14f3de7401ec7167554680496e"
-    sha256 cellar: :any,                 arm64_ventura:  "ed4dbf499e81c5f5f04aeda0a1666750f0b903f3213e5a08f67bc51648ddd2a5"
-    sha256 cellar: :any,                 arm64_monterey: "e7a39bb01dd6f20f804cd9e3b971dd7e861e6995655cecb65a0c3b096d938e3b"
-    sha256 cellar: :any,                 sonoma:         "b0805e1df40e9cbd9e3f0df1b9e455fa996e6ff6a70964f7d97b38b1b97d9125"
-    sha256 cellar: :any,                 ventura:        "906f534ed596b32baf0751c0ec21bd631c23e115e490775dfbbee55d91e0d309"
-    sha256 cellar: :any,                 monterey:       "71a4e0827d32de6087131538f4a8786724cea010098e1300e9aa8c9036526e88"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bded0f2cd4040928b304c6b9d47c12abd32180472ce3295b87dd10324a2fa1d1"
+    sha256 cellar: :any,                 arm64_sonoma:   "d9c08fd490515661e81740f15ec770b676efb1b16075986134b813d1ce0b1cac"
+    sha256 cellar: :any,                 arm64_ventura:  "41d65f43b8174f0808f9337f531961ff69beac1d16f048c583b9cd6ed68e1801"
+    sha256 cellar: :any,                 arm64_monterey: "725949d34528a1ab39a603651f7aaa31b49def0c9b487473d46f2f58816b6fcf"
+    sha256 cellar: :any,                 sonoma:         "3f24e42aaf11c3abdc82e446ce6169ec783b889a125be0625ccb101648d1bf99"
+    sha256 cellar: :any,                 ventura:        "55ec2c0ee2c1298a0b315853dae23730a2211afc15dbfcede1bc514aaada5f0a"
+    sha256 cellar: :any,                 monterey:       "f2c1169ecb5b6d5e498af8123eb6e2e8990ddeebe547905010ed915b68e16b4d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c2647fc8559bc33f2e70bbf529ba23664bcd2b60cb50baf17cf447206b28352c"
   end
 
   depends_on "cmake" => :build
@@ -102,6 +102,10 @@ class Pytorch < Formula
     sha256 "23478f88c37f27d76ac8aee6c905017a143b0b1b886c3c9f66bc2fd94f9f5783"
   end
 
+  # Backport usage of SLEEF_CONST from upstream commit
+  # Ref: https://github.com/pytorch/pytorch/commit/2b060983809e5fe8706acd085fff67b6a27bfb5f
+  patch :DATA
+
   def install
     python3 = "python3.12"
 
@@ -174,3 +178,33 @@ class Pytorch < Formula
     end
   end
 end
+
+__END__
+diff --git a/aten/src/ATen/cpu/vec/vec256/vec256_bfloat16.h b/aten/src/ATen/cpu/vec/vec256/vec256_bfloat16.h
+index 3e26213d6d26609b2cda7bde2d026fc92c626db2..edda0210746530bb60765939e90899083f8be595 100644
+--- a/aten/src/ATen/cpu/vec/vec256/vec256_bfloat16.h
++++ b/aten/src/ATen/cpu/vec/vec256/vec256_bfloat16.h
+@@ -265,7 +266,8 @@ static_assert(
+     }
+     return b;
+   }
+-  Vectorized<T> map(const __m256 (*const vop)(__m256)) const {
++
++  Vectorized<T> map(SLEEF_CONST __m256 (*vop)(__m256)) const {
+     __m256 lo, hi;
+     cvt_to_fp32<T>(values, lo, hi);
+     const auto o1 = vop(lo);
+diff --git a/aten/src/ATen/cpu/vec/vec512/vec512_bfloat16.h b/aten/src/ATen/cpu/vec/vec512/vec512_bfloat16.h
+index f9fc92d52bfe0c8ea594384beecf4da47961faa0..6513455283e2be3e588fd15131c5d48a17e107bb 100644
+--- a/aten/src/ATen/cpu/vec/vec512/vec512_bfloat16.h
++++ b/aten/src/ATen/cpu/vec/vec512/vec512_bfloat16.h
+@@ -362,7 +363,8 @@ static_assert(
+   }
+   #pragma clang diagnostic push
+   #pragma clang diagnostic ignored "-Wignored-qualifiers"
+-  Vectorized<T> map(const __m512 (*const vop)(__m512)) const {
++
++  Vectorized<T> map(SLEEF_CONST __m512 (*vop)(__m512)) const {
+     __m512 lo, hi;
+     cvt_to_fp32<T>(values, lo, hi);
+     const auto o1 = vop(lo);

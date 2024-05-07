@@ -1,19 +1,19 @@
 class Dartsim < Formula
   desc "Dynamic Animation and Robotics Toolkit"
   homepage "https://dartsim.github.io/"
-  url "https://github.com/dartsim/dart/archive/refs/tags/v6.13.1.tar.gz"
-  sha256 "d3792b61bc2a7ae6682b6d87e09b5d45e325cb08c55038a01e58288ddc3d58d8"
+  url "https://github.com/dartsim/dart/archive/refs/tags/v6.13.2.tar.gz"
+  sha256 "02699a8f807276231c80ffc5dbc3f66dc1c3612364340c91bcad63a837c01576"
   license "BSD-2-Clause"
-  revision 2
+  revision 3
 
   bottle do
-    sha256                               arm64_sonoma:   "92a1e1472a83abd6b83007dd6a3d7b4514d833aaab447495889f484bfa904e88"
-    sha256                               arm64_ventura:  "f7707244487d30886bde0d26b07aa9b789d4cc4f8992351e5e3b4c84b999e709"
-    sha256                               arm64_monterey: "027f346e433241969067494ae0b746a27b8ebbf62568e4b99160718b25d5310d"
-    sha256                               sonoma:         "1ac1b8cf587e4bafdf92c182faa45f9ade3a657f65810742f04cb75ca42feb65"
-    sha256                               ventura:        "d234878f0b625c4b8f3da1bcac92a91f29dd80235e81a52fe485466e2d53306a"
-    sha256                               monterey:       "18678581a549e1e74fed53d5e4ddf76429d859eb4efea35973d5523d3fed17bf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "01a32775382aedc46a0bd140e48e46bcdc928b77b662bcefba3ea0077c167e5a"
+    sha256                               arm64_sonoma:   "d482ac5d4fced6f80b4161342f6532fd736fdbc2ba536d03d108205597fe16f0"
+    sha256                               arm64_ventura:  "a0513f294b6cf7c55f3d63759dfa80bec77805ca1fdf042260802480ed2d0236"
+    sha256                               arm64_monterey: "f26c5f3a861b4190de9a4102e23cd1686ee3b692d05c8cc19a9c8cac42beaa6b"
+    sha256                               sonoma:         "7b0f35fe2ccab08976cdd40edfbc97182a9c425f1c48077d3403dfcddfdd9c10"
+    sha256                               ventura:        "8d0ded6d56feef80c7e4a53f154a25763b84033f45d43fdc1383ada312857567"
+    sha256                               monterey:       "1f80d49484d33b85afaeda38cc8c3bd0af56776ca982c79748e11d77ce72d507"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "15e014a208567544b13b1056c671ad76ae9447f55035cba12a27404bfea0c7d3"
   end
 
   depends_on "cmake" => :build

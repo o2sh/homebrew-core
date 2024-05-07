@@ -1,10 +1,9 @@
 class Webkitgtk < Formula
   desc "GTK interface to WebKit"
   homepage "https://webkitgtk.org"
-  url "https://webkitgtk.org/releases/webkitgtk-2.42.5.tar.xz"
-  sha256 "b64278c1f20b8cfdbfb5ff573c37d871aba74a1db26d9b39f74e8953fe61e749"
+  url "https://webkitgtk.org/releases/webkitgtk-2.44.1.tar.xz"
+  sha256 "425b1459b0f04d0600c78d1abb5e7edfa3c060a420f8b231e9a6a2d5d29c5561"
   license "GPL-3.0-or-later"
-  revision 2
 
   livecheck do
     url "https://webkitgtk.org/releases/"
@@ -12,7 +11,7 @@ class Webkitgtk < Formula
   end
 
   bottle do
-    sha256 x86_64_linux: "8674747f1ad1d4eea57988ee44f7d1a83fd16e83573f59f99a1cf933ca0d757e"
+    sha256 x86_64_linux: "12f27454bf4206e515b0768fba6a12f8369396f2cc5460c5928e87d8f83986ff"
   end
 
   depends_on "cmake" => :build
@@ -66,7 +65,9 @@ class Webkitgtk < Formula
       -DENABLE_GAMEPAD=OFF
       -DENABLE_MINIBROWSER=ON
       -DUSE_AVIF=ON
+      -DUSE_GTK4=OFF
       -DUSE_JPEGXL=ON
+      -DUSE_LIBBACKTRACE=OFF
       -DUSE_LIBHYPHEN=OFF
       -DPython_EXECUTABLE=#{which("python3.12")}
     ]

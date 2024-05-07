@@ -6,27 +6,25 @@ class OnlykeyAgent < Formula
   url "https://files.pythonhosted.org/packages/68/80/e89b6c3680bedb1e14e99f0539ac805bddc7d8dd87c58805c64484966b7c/onlykey-agent-1.1.15.tar.gz"
   sha256 "49b19bec28dc0fb7053ef01266d8a9e7a078bb146214a641bdbb1feac6fc7ddb"
   license "LGPL-3.0-only"
+  revision 2
 
   bottle do
-    rebuild 5
-    sha256 cellar: :any,                 arm64_sonoma:   "d7156da46ac46ee3304c5fb890f60ae0bc69932370c53c5d9ff1505bc572841c"
-    sha256 cellar: :any,                 arm64_ventura:  "b7d47312f32b43114117757274454b736cdc705bf01067bdd7d1fcccc3da7b5d"
-    sha256 cellar: :any,                 arm64_monterey: "a2d0f18fcfa9255b630db09e88c0460154deee0d047c2b796080d5b06520ca37"
-    sha256 cellar: :any,                 sonoma:         "ddc5f87245caa30a1aba51d6ec5a6fd37990cc9187a3532595ace500cb968208"
-    sha256 cellar: :any,                 ventura:        "f27025df5012b9cbb6f1d9f2b50fa33c48e50e009728ac3039ff8cf4214eb99c"
-    sha256 cellar: :any,                 monterey:       "e4f43138a7a177389fbc6616decf5560de592d6fa7a2f8a6e821fc0ef71d6ffb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "57f928159591276e2bc7a01263290307d4046df036ab0e4302221ed434ee6f9e"
+    sha256 cellar: :any,                 arm64_sonoma:   "df2aec63a18b97d68daea2eec00abf41da00cdef71809d6b86ed5c6d0082c147"
+    sha256 cellar: :any,                 arm64_ventura:  "65cdc304a9fdd5cae61bcad514bfedefdaaa31d1c2b2ce8c5980f08cafe76f8f"
+    sha256 cellar: :any,                 arm64_monterey: "1d565d4d6c563894bc2dd71e2184b4d8cc99b527e7f9f12a8e33d1d44f067713"
+    sha256 cellar: :any,                 sonoma:         "018dcca71117ae9939eff6d65757a4881e4183de6664fc57cee9618429d3211a"
+    sha256 cellar: :any,                 ventura:        "0dac0f883cfc9e5446bf38235a9185ef915a7ab63a530400895530eba5fc93c3"
+    sha256 cellar: :any,                 monterey:       "5edae9717a1ad9c5f31448a414a4436f723bc1b503b328849e3657a0ccdb3022"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1753ef31fec509a7829c2a600160fb000bca4859068cb45baebdae4f774d3d09"
   end
 
   depends_on "certifi"
   depends_on "cryptography"
+  depends_on "cython"
   depends_on "gnupg"
   depends_on "hidapi"
-  depends_on "libcython"
   depends_on "libusb"
   depends_on "python@3.12"
-
-  uses_from_macos "libffi"
 
   resource "aenum" do
     url "https://files.pythonhosted.org/packages/d0/f8/33e75863394f42e429bb553e05fda7c59763f0fd6848de847a25b3fbccf6/aenum-3.1.15.tar.gz"
@@ -59,13 +57,13 @@ class OnlykeyAgent < Formula
   end
 
   resource "docutils" do
-    url "https://files.pythonhosted.org/packages/1f/53/a5da4f2c5739cf66290fac1431ee52aff6851c7c8ffd8264f13affd7bcdd/docutils-0.20.1.tar.gz"
-    sha256 "f08a4e276c3a1583a86dce3e34aba3fe04d02bba2dd51ed16106244e8a923e3b"
+    url "https://files.pythonhosted.org/packages/21/ff/c495b797462434f0befcb598b51cde31c3ebdf8577c3fd9d9a8f5eeb844c/docutils-0.21.1.tar.gz"
+    sha256 "65249d8a5345bc95e0f40f280ba63c98eb24de35c6c8f5b662e3e8948adea83f"
   end
 
   resource "ecdsa" do
-    url "https://files.pythonhosted.org/packages/ff/7b/ba6547a76c468a0d22de93e89ae60d9561ec911f59532907e72b0d8bc0f1/ecdsa-0.18.0.tar.gz"
-    sha256 "190348041559e21b22a1d65cee485282ca11a6f81d503fddb84d5017e9ed1e49"
+    url "https://files.pythonhosted.org/packages/5e/d0/ec8ac1de7accdcf18cfe468653ef00afd2f609faf67c423efbd02491051b/ecdsa-0.19.0.tar.gz"
+    sha256 "60eaad1199659900dd0af521ed462b793bbdf867432b3948e87416ae4caf6bf8"
   end
 
   resource "fido2" do
@@ -85,8 +83,8 @@ class OnlykeyAgent < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/bf/3f/ea4b9117521a1e9c50344b909be7886dd00a519552724809bb1f486986c2/idna-3.6.tar.gz"
-    sha256 "9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "intelhex" do
@@ -165,8 +163,8 @@ class OnlykeyAgent < Formula
   end
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/c8/1f/e026746e5885a83e1af99002ae63650b7c577af5c424d4c27edcf729ab44/setuptools-69.1.1.tar.gz"
-    sha256 "5c0806c7d9af348e6dd3777b4f4dbb42c7ad85b190104837488eab9a7c945cf8"
+    url "https://files.pythonhosted.org/packages/7a/12/dc02a2401dac87cb2d3ea8d3b23eab30db4cd2948d5b048bf912b9fe959a/setuptools-69.4.tar.gz"
+    sha256 "659e902e587e77fab8212358f5b03977b5f0d18d4724310d4a093929fee4ca1a"
   end
 
   resource "six" do
@@ -190,40 +188,30 @@ class OnlykeyAgent < Formula
   end
 
   resource "wheel" do
-    url "https://files.pythonhosted.org/packages/b0/b4/bc2baae3970c282fae6c2cb8e0f179923dceb7eaffb0e76170628f9af97b/wheel-0.42.0.tar.gz"
-    sha256 "c45be39f7882c9d34243236f2d63cbd58039e360f85d0913425fbd7ceea617a8"
-  end
-
-  def python3
-    "python3.12"
+    url "https://files.pythonhosted.org/packages/b8/d6/ac9cd92ea2ad502ff7c1ab683806a9deb34711a1e2bd8a59814e8fc27e69/wheel-0.43.0.tar.gz"
+    sha256 "465ef92c69fa5c5da2d1cf8ac40559a8c940886afcef87dcf14b9470862f1d85"
   end
 
   def install
-    # prevent "fatal error: libusb.h: No such file or directory" when building hidapi on linux
-    ENV.append_to_cflags "-I#{Formula["libusb"].include}/libusb-1.0"
-    # replacement for virtualenv_install_with_resources per https://docs.brew.sh/Python-for-Formula-Authors
+    python3 = "python3.12"
     venv = virtualenv_create(libexec, python3)
-    # build hidapi
+
+    # Use brewed hidadpi: https://github.com/trezor/cython-hidapi/issues/54
+    # TODO: For hidapi>0.14, replace with ENV["HIDAPI_SYSTEM_HIDAPI"] = ENV["HIDAPI_WITH_LIBUSB"] = "1"
     resource("hidapi").stage do
-      # monkey patch hidapi's include paths to be the homebrew-installed path instead
-      # TODO: Fix this with an upstream patch to support `--with-system-hidapi=/foo/bar/hidapi`
-      #       per https://github.com/Homebrew/homebrew-core/pull/104096#discussion_r919469723
       inreplace "setup.py" do |s|
-        s.gsub! "/usr/include/libusb-1.0", "#{Formula["libusb"].opt_include}/libusb-1.0"
+        s.gsub! "system_hidapi = 0", "system_hidapi = 1"
         s.gsub! "/usr/include/hidapi", "#{Formula["hidapi"].opt_include}/hidapi"
       end
-      system python3, *Language::Python.setup_install_args(libexec, python3), "--with-system-hidapi"
+      venv.pip_install Pathname.pwd
     end
-    # now have pip build other resources except hidapi:
+
     venv.pip_install resources.reject { |r| r.name == "hidapi" }
     venv.pip_install_and_link buildpath
 
     # add path configuration file to find cython
     site_packages = Language::Python.site_packages(python3)
-    pth_contents = <<~EOS
-      import site; site.addsitedir('#{Formula["libcython"].opt_libexec/site_packages}')
-    EOS
-    (libexec/site_packages/"homebrew-onlykey-agent.pth").write pth_contents
+    (libexec/site_packages/"homebrew-onlykey-agent.pth").write Formula["cython"].opt_libexec/site_packages
   end
 
   test do

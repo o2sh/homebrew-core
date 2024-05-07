@@ -1,20 +1,19 @@
 class Pcl < Formula
   desc "Library for 2D/3D image and point cloud processing"
   homepage "https://pointclouds.org/"
-  url "https://github.com/PointCloudLibrary/pcl/archive/refs/tags/pcl-1.14.0.tar.gz"
-  sha256 "de297b929eafcb93747f12f98a196efddf3d55e4edf1b6729018b436d5be594d"
+  url "https://github.com/PointCloudLibrary/pcl/archive/refs/tags/pcl-1.14.1.tar.gz"
+  sha256 "5dc5e09509644f703de9a3fb76d99ab2cc67ef53eaf5637db2c6c8b933b28af6"
   license "BSD-3-Clause"
-  revision 2
   head "https://github.com/PointCloudLibrary/pcl.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "9d6a2445628d80caef165a1725ec4fe482c56a842507dc38dace4f42f5643c20"
-    sha256 cellar: :any,                 arm64_ventura:  "5ea57ad75157527441b0c268f5e86df0292cb9efc26ea679ba4eb39750a85742"
-    sha256 cellar: :any,                 arm64_monterey: "9ef5c624f47b90e0f630269363dfa6393844214d0ca9b4bf7da2a285a2092be4"
-    sha256 cellar: :any,                 sonoma:         "3d670c49251a6a98cc1395113b999ca0c329d01f143b6a44ff53ab19e9356f18"
-    sha256 cellar: :any,                 ventura:        "f9e6cc80ebc3cbf47976e256d5b2814c4cb8d9e93604541d036a81af999be34a"
-    sha256 cellar: :any,                 monterey:       "99a66f4f0a511272a762976c3c1de4192a3fea0cdf86ccac169bc5960628e30a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "88ba89986eca360c9790e771996e2435e30b4ad39a6e19f29d9d949a5f652a0d"
+    sha256 cellar: :any,                 arm64_sonoma:   "39cee09c2c655d0d74f33f32a54ba6b6c1d10d46eadc9f11fed15bdcdd9a8f29"
+    sha256 cellar: :any,                 arm64_ventura:  "f8f25c19570bfc7cc02b28075f6b7bd1bcc2f15849140b9fe9fd80558883493a"
+    sha256 cellar: :any,                 arm64_monterey: "a3053dcaa4dbdec6b23a38939c5253fa7e3eeb3e9f0782b1b73270c0715c04c2"
+    sha256 cellar: :any,                 sonoma:         "38b740dcc918055e8bea36a7e67efe3fe9c403afd89f55f850f96771a5beb04b"
+    sha256 cellar: :any,                 ventura:        "10e1bdaa812868ceb2812dfa35778e3e638fa52bd2c40e575ddafffa7d6cd9a1"
+    sha256 cellar: :any,                 monterey:       "dd3676be1b53c96b0455639d6c8b2d3b965f5780542d387d3e98453e134806cd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dca70fec9d5e3fa8040e73d16eff29f07d1998c22fb8446d87ce9c4294c45164"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -35,7 +34,7 @@ class Pcl < Formula
   end
 
   def install
-    args = std_cmake_args + %w[
+    args = %w[
       -DBUILD_SHARED_LIBS:BOOL=ON
       -DBUILD_apps=AUTO_OFF
       -DBUILD_apps_3d_rec_framework=AUTO_OFF
@@ -62,11 +61,10 @@ class Pcl < Formula
     # The AppleClang versions shipped on current MacOS versions do not support the -march=native flag on arm
     args << "-DPCL_ENABLE_MARCHNATIVE:BOOL=OFF" if build.bottle?
 
-    mkdir "build" do
-      system "cmake", "..", *args
-      system "make", "install"
-      prefix.install Dir["#{bin}/*.app"]
-    end
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
+    prefix.install bin.glob("*.app")
   end
 
   test do

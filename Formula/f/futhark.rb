@@ -1,24 +1,23 @@
 class Futhark < Formula
   desc "Data-parallel functional programming language"
   homepage "https://futhark-lang.org/"
-  # TODO: Try to switch `ghc@9.4` to `ghc` when futhark.cabal allows base>=4.17
-  url "https://github.com/diku-dk/futhark/archive/refs/tags/v0.25.14.tar.gz"
-  sha256 "859a31828dc897b06d39a576c16fb7263cad3a664535bf81460dbc70efa88450"
+  url "https://github.com/diku-dk/futhark/archive/refs/tags/v0.25.16.tar.gz"
+  sha256 "1192fcf50671bc8ff2f60e754e500fa2b6790a7e38d7eb5fc7db303039524188"
   license "ISC"
   head "https://github.com/diku-dk/futhark.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2d2543f06bea8c1fc300ad359ac093096595c98b8e7e236caba2d247aff0f56b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ae75d8fbada547b0c775b94d875a04f4d9ca29059f6c57bf9042358463fadeb6"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "24aec4d778954f024c6358c0add536c10c5c127b3ef023b291222e7d437908f7"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ea3161c981b708993c37fee9afebeb6f8f7082dd1923555b4e5728ed443804ba"
-    sha256 cellar: :any_skip_relocation, ventura:        "fc5de7644d7b96062f15758fa045df1e9ed780aa20352803c25f25434201891a"
-    sha256 cellar: :any_skip_relocation, monterey:       "2f053c0ba0dae3c9c54c48964496653cfdc4d5302adc959965fdbf6f102205a1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "907392ae38051cce6c7ffad4bb95088909aece5e9b49581689f6cb334680848f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e981fb2ebbe7f7bfcabedbe636d160ff5ca7c736739e44a593b75fafe093cd9d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4395a2b5a7ab6cb789431379e60e33b71a8fe69519ac6eed6c2b351c7274c1ef"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9def2c782e2e816410b2b20ac5415175130b115c83456e97657658be0c58eda4"
+    sha256 cellar: :any_skip_relocation, sonoma:         "999badc5af59698fdd5d4fa773cec7c15e8af088164c94527d440e471bdbd724"
+    sha256 cellar: :any_skip_relocation, ventura:        "c15dce449b317ea4db6ee35e00badefdc44dda07dce156f3d2ddf09c957621a9"
+    sha256 cellar: :any_skip_relocation, monterey:       "3a7f81e0a6853c1b7787e8af2d1b497f14628fd0bd0cf8ba779d1b2222fe0f4e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "020978cd9fafb705dbe7581987db655e7a3ccce9b2ca51cbe38fad563cb6ac7f"
   end
 
   depends_on "cabal-install" => :build
-  depends_on "ghc@9.4" => :build
+  depends_on "ghc" => :build
   depends_on "sphinx-doc" => :build
 
   uses_from_macos "ncurses"

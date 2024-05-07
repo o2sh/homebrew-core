@@ -1,24 +1,27 @@
 class Oxipng < Formula
   desc "Multithreaded PNG optimizer written in Rust"
   homepage "https://github.com/shssoichiro/oxipng"
-  url "https://github.com/shssoichiro/oxipng/archive/refs/tags/v9.0.0.tar.gz"
-  sha256 "534fa8f349f52b01c2ee4332cef25ce1311edca04209ac6d972e38b171550a1b"
+  url "https://github.com/shssoichiro/oxipng/archive/refs/tags/v9.1.1.tar.gz"
+  sha256 "f50db90c7ef95c0964dc980f6596b821f362e15d6d4bab247f1eb4aab7554db8"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "515a50a042def4794a83acc53185f281bce8312a6ec082f607c294694eac1229"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f25c738b7ccd0fdc1445e00e57f90f50c1053cc5935223a381f158473f576a54"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "306871ca772324b194bf16058923755a5fbbd2aacfbbf4bc81bfe216f1748cfb"
-    sha256 cellar: :any_skip_relocation, sonoma:         "d70214dbc046088a04dd949acedc15bc81b39a8fb6e5c0adde08fb509284665a"
-    sha256 cellar: :any_skip_relocation, ventura:        "3f16034e85b67e9927f23067ec3dc4050c1206dda80ad2b83d6ac49c8cbe2f8e"
-    sha256 cellar: :any_skip_relocation, monterey:       "84313801552949295a5148f6c0cc4ab941b8035a7951c05ad80c7fb3a73604a2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "54a62a64b21a2a312e3c54a8379230a4e857d9cff7e2cb664b277a8e7e6bebc0"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9fdd4be90f915c227b082531a803296bea10670202f5b9f43a49f42c96b77cbb"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "799aee08ac1b340d69807fc69fda8d2acbb30d67c5f95a8e3f7b9276c3cb9271"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ac860a10f482704f8b732e43138ab81720fdc4f1af522a27fb44ac3676015c42"
+    sha256 cellar: :any_skip_relocation, sonoma:         "51d0acd5344987d04055aff80cee92c15a7e5973dbe10c77ba8903bc9f06048b"
+    sha256 cellar: :any_skip_relocation, ventura:        "f5f5bc9127350691ca9e4b6bf2227410578cef12ca0982bbea07e46c8b957da7"
+    sha256 cellar: :any_skip_relocation, monterey:       "54b4aef8f48f3dc0c22fd083253ba8136685ede238b3500e9bb2ef9ef9d14b6e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "859dc8247db729b83a23d1279d2e5c31b4b14b7f9376838715f832b316b3e7da"
   end
 
   depends_on "rust" => :build
 
   def install
     system "cargo", "install", *std_cargo_args
+
+    man1.install "target/release/assets/oxipng.1"
   end
 
   test do

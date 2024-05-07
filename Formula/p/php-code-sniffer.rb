@@ -1,22 +1,24 @@
 class PhpCodeSniffer < Formula
   desc "Check coding standards in PHP, JavaScript and CSS"
   homepage "https://github.com/PHPCSStandards/PHP_CodeSniffer"
-  url "https://github.com/PHPCSStandards/PHP_CodeSniffer/releases/download/3.9.0/phpcs.phar"
-  sha256 "0112bd965eb80fe14172271dca6f1cdebef8f4a98bdf59bd013cde241facd38c"
+  url "https://github.com/PHPCSStandards/PHP_CodeSniffer/releases/download/3.9.2/phpcs.phar"
+  sha256 "7cb7f6fbd1f66b19172728024d2e601a8185c63574ff2c50baf2b61921c4ac07"
   license "BSD-3-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "af3c82aaf708206a849854deb336a2fbf848767006deb887acc8560ead328e48"
+    sha256 cellar: :any_skip_relocation, all: "e300d347a0ff0077aaa764d5b512a64a3b72e734eda06a66bea3356cc7fb02f5"
   end
 
   depends_on "php"
 
   resource "phpcbf.phar" do
-    url "https://github.com/PHPCSStandards/PHP_CodeSniffer/releases/download/3.9.0/phpcbf.phar"
-    sha256 "870a85742cc260d6e80ccd69e435fe7543d7d31cd278ad54b90ec28e756db12a"
+    url "https://github.com/PHPCSStandards/PHP_CodeSniffer/releases/download/3.9.2/phpcbf.phar"
+    sha256 "06ed26daa765a06e81548a41309280026d0ca9633dcd641a7717d9ccadaa5c3d"
   end
 
   def install
+    odie "phpcbf.phar resource needs to be updated" if version != resource("phpcbf.phar").version
+
     bin.install "phpcs.phar" => "phpcs"
     resource("phpcbf.phar").stage { bin.install "phpcbf.phar" => "phpcbf" }
   end

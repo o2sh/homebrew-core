@@ -1,8 +1,8 @@
 class ArgyllCms < Formula
   desc "ICC compatible color management system"
   homepage "https://www.argyllcms.com/"
-  url "https://www.argyllcms.com/Argyll_V3.1.0_src.zip"
-  sha256 "4fdd5a1d7bc6dde79a54e350ec9374f6ef00b53903ee0d184cdfa4a11f0ecdcb"
+  url "https://www.argyllcms.com/Argyll_V3.2.0_src.zip"
+  sha256 "4861ab87b41618fb6706843099aad2cc649115634dee1e60738792387b371176"
   license "AGPL-3.0-only"
 
   livecheck do
@@ -11,13 +11,14 @@ class ArgyllCms < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "4c387a6551506759bc97e05f1a8210c9daa6067766a928aec40f6f53f98cece4"
-    sha256 cellar: :any,                 arm64_ventura:  "f278516489fd047cf57e844c11b865d174dbca8d0fd3f8933d043a4ec8fcc9b5"
-    sha256 cellar: :any,                 arm64_monterey: "5291dc8cc86cead75c15e6911d38953c384bea72b2f73ef3ebc910b8f262bdfe"
-    sha256 cellar: :any,                 sonoma:         "a882ec21e0a632a75ff2ba7de2599811c18bf8418db0838c45c820392f999e51"
-    sha256 cellar: :any,                 ventura:        "1a8e2ff8c685c60e4bcadcc221453fe3d5dfdf7fc0394afcf99d628035139a5a"
-    sha256 cellar: :any,                 monterey:       "4b467bb519a71f349989b2ad225704703a6dd4ae8525624ac4f562f3ed2c4262"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c071c90cae813ef853d2b3d17fa25b4f846b2a6079392b0f7270e194d135c51e"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sonoma:   "9416d935216f5054e63c9baa53364c28d96d678c70abaf4d697c41bcc9bed185"
+    sha256 cellar: :any,                 arm64_ventura:  "6954dce83aba27dfa337eca3141fe1506bfcd72ffcc79d63040ba329d236a658"
+    sha256 cellar: :any,                 arm64_monterey: "9862c45da43e3cca13c78e82081c1dcaa5806dac6583c00f8eba95fe6ac298ed"
+    sha256 cellar: :any,                 sonoma:         "4577cd47871d566e045db7872a94946b7a4fab52d38e52e39ce6b353aa6082fd"
+    sha256 cellar: :any,                 ventura:        "2f13881ab15bd8d8b0aba4bf9ef4b9a40217c4b36b847190cc1f47e577f9bce3"
+    sha256 cellar: :any,                 monterey:       "3259f5cd7063614fa2e2434b7be2ccd19971226d2d5bb1a7561c942b8c4625ef"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "746d1e088f61bdfbca13e17f5351cc81a22ccba3acc3ea8e0f7ebe38c4bd82c2"
   end
 
   depends_on "jpeg-turbo"
@@ -57,15 +58,9 @@ class ArgyllCms < Formula
     # * Fix a typo that leads to an undeclared function error:
     #   `parse.c:102:20: error: call to undeclared function 'yylineno'`
     patch do
-      url "https://raw.githubusercontent.com/Homebrew/formula-patches/42252ab3d438f7ada66e83b92bb51a9178d3df10/jam/2.6.1-undeclared_functions.diff"
-      sha256 "d567cbaf3914f38bb8c5017ff01cc40fe85970c34d3ad84dbeda8c893518ffae"
+      url "https://raw.githubusercontent.com/Homebrew/formula-patches/cf70f015e7398796660da57212ff0ab90c609acf/jam/2.6.1.patch"
+      sha256 "1850cf53c4db0e05978d52b90763b519c00fa4f2fbd6fc2753200e49943821ec"
     end
-  end
-
-  # Fixes a missing header, which is an error by default on arm64 but not x86_64
-  patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/f6ede0dff06c2d9e3383416dc57c5157704b6f3a/argyll-cms/unistd_import.diff"
-    sha256 "5ce1e66daf86bcd43a0d2a14181b5e04574757bcbf21c5f27b1f1d22f82a8a6e"
   end
 
   def install

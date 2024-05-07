@@ -3,20 +3,20 @@ class Platformio < Formula
 
   desc "Your Gateway to Embedded Software Development Excellence"
   homepage "https://platformio.org/"
-  url "https://files.pythonhosted.org/packages/f1/7c/149bb05152ebbb6f4c29d00fe7ee5433e870b73f1e51cf46bcfcf11d1707/platformio-6.1.13.tar.gz"
-  sha256 "ed7c6397f0ced579bc8137c8253465c0cfab6c0cc38d4f63da4502e995bdb5ce"
+  url "https://files.pythonhosted.org/packages/13/78/8903f4f505a393ee48a18a00b4b9c866a726ef844d23ff3ce4863d710898/platformio-6.1.15.tar.gz"
+  sha256 "d3209a60d40340fdbab2c76ee23303d90e5ecea0a11f92980c9d2068d0975fde"
   license "Apache-2.0"
   head "https://github.com/platformio/platformio-core.git", branch: "develop"
 
   bottle do
     rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8d9396b5537e8e5f7a246d3f3e7aa967cd4a5d2acbf0471380ee9549cd96a9e0"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "92c0b79c16645cca083a620626e71dd1500666c35bab8b89e47acf8130b064fd"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "27588e17dbfb747a17c7f811bb119e725aa2502f927d928a3198982b09023f1a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f57f955f5d4527bdebe7a14f7c9be225e5290e54bede99f808cad45bebc150cc"
-    sha256 cellar: :any_skip_relocation, ventura:        "21844235a47b5685f9401e124dd28874a69051e5fb05f71ba489cd5c9ce4258a"
-    sha256 cellar: :any_skip_relocation, monterey:       "0970ff99fca1732baffe28bda0287be96207842649119d3af54f43152360a672"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1f28e3c9c08eccc6f815465badfb2d2fc2dbb553525f760a4bb6a09793e96b5d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9ebcd4bfc0d65123e1d540d7e3331d956ed1be90c138dd682ebfa91167634f52"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9ebcd4bfc0d65123e1d540d7e3331d956ed1be90c138dd682ebfa91167634f52"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9ebcd4bfc0d65123e1d540d7e3331d956ed1be90c138dd682ebfa91167634f52"
+    sha256 cellar: :any_skip_relocation, sonoma:         "897795ce217662c4126ae2154bf0d8bb8af2290feb68ed54dad134ec3c6b6a70"
+    sha256 cellar: :any_skip_relocation, ventura:        "897795ce217662c4126ae2154bf0d8bb8af2290feb68ed54dad134ec3c6b6a70"
+    sha256 cellar: :any_skip_relocation, monterey:       "897795ce217662c4126ae2154bf0d8bb8af2290feb68ed54dad134ec3c6b6a70"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b3b44acc28b1a7866bb82d3fba5c35608356992f13cf3467927a3b070b98518a"
   end
 
   depends_on "certifi"
@@ -63,23 +63,23 @@ class Platformio < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/bf/3f/ea4b9117521a1e9c50344b909be7886dd00a519552724809bb1f486986c2/idna-3.6.tar.gz"
-    sha256 "9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "marshmallow" do
-    url "https://files.pythonhosted.org/packages/03/81/763717b3448e5d3a3906f27ab2ffedc9a495e8077946f54b8033967d29fd/marshmallow-3.20.2.tar.gz"
-    sha256 "4c1daff273513dc5eb24b219a8035559dc573c8f322558ef85f5438ddd1236dd"
+    url "https://files.pythonhosted.org/packages/a2/16/06ad266adc423f9d7ee49dce26787b973907aa70213760c9fe1711745405/marshmallow-3.21.2.tar.gz"
+    sha256 "82408deadd8b33d56338d2182d455db632c6313aa2af61916672146bb32edc56"
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/fb/2b/9b9c33ffed44ee921d0967086d653047286054117d584f1b1a7c22ceaf7b/packaging-23.2.tar.gz"
-    sha256 "048fb0e9405036518eaaf48a55953c750c11e1a1b68e0dd1a9d62ed0c092cfc5"
+    url "https://files.pythonhosted.org/packages/ee/b5/b43a27ac7472e1818c4bafd44430e69605baefe1f34440593e0332ec8b4d/packaging-24.0.tar.gz"
+    sha256 "eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"
   end
 
   resource "pyelftools" do
-    url "https://files.pythonhosted.org/packages/84/05/fd41cd647de044d1ffec90ce5aaae935126ac217f8ecb302186655284fc8/pyelftools-0.30.tar.gz"
-    sha256 "2fc92b0d534f8b081f58c7c370967379123d8e00984deb53c209364efd575b40"
+    url "https://files.pythonhosted.org/packages/88/56/0f2d69ed9a0060da009f672ddec8a71c041d098a66f6b1d80264bf6bbdc0/pyelftools-0.31.tar.gz"
+    sha256 "c774416b10310156879443b81187d182d8d9ee499660380e645918b50bc88f99"
   end
 
   resource "pyserial" do
@@ -98,13 +98,13 @@ class Platformio < Formula
   end
 
   resource "sniffio" do
-    url "https://files.pythonhosted.org/packages/cd/50/d49c388cae4ec10e8109b1b833fd265511840706808576df3ada99ecb0ac/sniffio-1.3.0.tar.gz"
-    sha256 "e60305c5e5d314f5389259b7f22aaa33d8f7dee49763119234af3755c55b9101"
+    url "https://files.pythonhosted.org/packages/a2/87/a6771e1546d97e7e041b6ae58d80074f81b7d5121207425c964ddf5cfdbd/sniffio-1.3.1.tar.gz"
+    sha256 "f4324edc670a0f49750a81b895f35c3adb843cca46f0530f79fc1babb23789dc"
   end
 
   resource "starlette" do
-    url "https://files.pythonhosted.org/packages/5e/8a/80e0343c8051e522752eaae54e96c814946ac97ae0c08b441620e3a22755/starlette-0.35.1.tar.gz"
-    sha256 "3e2639dac3520e4f58734ed22553f950d3f3cb1001cd2eaac4d57e8cdc5f66bc"
+    url "https://files.pythonhosted.org/packages/61/b5/6bceb93ff20bd7ca36e6f7c540581abb18f53130fabb30ba526e26fd819b/starlette-0.37.2.tar.gz"
+    sha256 "9af890290133b79fc3db55474ade20f6220a364a0402e0b556e7cd5e1e093823"
   end
 
   resource "tabulate" do
@@ -118,8 +118,8 @@ class Platformio < Formula
   end
 
   resource "uvicorn" do
-    url "https://files.pythonhosted.org/packages/ec/54/0eb4441bf38c70f6ed1886dddb2e29d1650026041d19e49fc373e332fa60/uvicorn-0.25.0.tar.gz"
-    sha256 "6dddbad1d7ee0f5140aba5ec138ddc9612c5109399903828b4874c9937f009c2"
+    url "https://files.pythonhosted.org/packages/49/8d/5005d39cd79c9ae87baf7d7aafdcdfe0b13aa69d9a1e3b7f1c984a2ac6d2/uvicorn-0.29.0.tar.gz"
+    sha256 "6a69214c0b6a087462412670b3ef21224fa48cae0e452b5883e8e8bdfdd11dd0"
   end
 
   resource "wsproto" do

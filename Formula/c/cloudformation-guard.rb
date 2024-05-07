@@ -1,18 +1,18 @@
 class CloudformationGuard < Formula
   desc "Checks CloudFormation templates for compliance using a declarative syntax"
   homepage "https://github.com/aws-cloudformation/cloudformation-guard"
-  url "https://github.com/aws-cloudformation/cloudformation-guard/archive/refs/tags/3.0.3.tar.gz"
-  sha256 "936754678b037c5310d65e6480e1905176b6a0be7111e8b19a4bdd1df3ee52a0"
+  url "https://github.com/aws-cloudformation/cloudformation-guard/archive/refs/tags/3.1.1.tar.gz"
+  sha256 "ee870572b4b5e943a42c452c755c7a8af49675794b738051b8a63aa284695276"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4f04e9016bd5e469b400d9dd26d719249f5685425974bac4cbee1682216fb2a9"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0f10190b2966c6e27a1a6fe77726c1c72035b6ea340bd38f9a17c3c7713d60d5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "67f006acd7a2730e17ec7cc61cb4edf38f9bda7d3d924d091a06404f21922ebd"
-    sha256 cellar: :any_skip_relocation, sonoma:         "7cfe35a0fa4257187ac151d1a47360a346dc9287a230fb68ceca0896d4d24e5b"
-    sha256 cellar: :any_skip_relocation, ventura:        "85591b511f1ed9e3fa0153f3748126a5bdddab4996137a8f1357c0bfdf381d99"
-    sha256 cellar: :any_skip_relocation, monterey:       "f330c909451cb53ca01984da486702b33115644ccb275f2afbbdd2355b17e1a5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c8bbc703526de95a0475b87b9b4d01322836dd01f4f5ebbb2c3e738ba29b5631"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e85551c6efc0bc9749403de993f0e2cfee43c1e0839cafecddf797f92210ed90"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b1f9b0163980146193564d347e7f042c226850c9518f931edeb350c0645c4c3a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c6baf6f0deb18323592252b17316589062dce7fe54296b6f2827b68c6629231e"
+    sha256 cellar: :any_skip_relocation, sonoma:         "92ede39ca7745763c47da6c9a6da61084b5d7a7c6b3e5e07c135fd286794e359"
+    sha256 cellar: :any_skip_relocation, ventura:        "ae8ea3e6f9295868eaec3c63e409739c900d69d956753aa92ce47e3331a31d08"
+    sha256 cellar: :any_skip_relocation, monterey:       "6f64bcc66ef1c0c0db113aa215b6c8ba0c8e1f34f0709788347df54105618726"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "36c2a82c1b64b8bbaac3fea7c446f8cbccdfb39e3b6aae5a47b8e8d03280b139"
   end
 
   depends_on "rust" => :build

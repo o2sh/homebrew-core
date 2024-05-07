@@ -3,19 +3,18 @@ class PythonYq < Formula
 
   desc "Command-line YAML and XML processor that wraps jq"
   homepage "https://kislyuk.github.io/yq/"
-  url "https://files.pythonhosted.org/packages/e3/c6/adfbfb59eda5d2eccf2e0af9e906b9919febe62bc444f2f5891944c2be9f/yq-3.2.3.tar.gz"
-  sha256 "29c8fe1d36b4f64163f4d01314c6ae217539870f610216dee6025dfb5eafafb1"
+  url "https://files.pythonhosted.org/packages/38/6a/eb9721ed0929d0f55d167c2222d288b529723afbef0a07ed7aa6cca72380/yq-3.4.3.tar.gz"
+  sha256 "ba586a1a6f30cf705b2f92206712df2281cd320280210e7b7b80adcb8f256e3b"
   license "Apache-2.0"
 
   bottle do
-    rebuild 4
-    sha256 cellar: :any,                 arm64_sonoma:   "05e8bd1893802d621c4c64322bd254c4435a7d5237b8854bc8983192565ed63a"
-    sha256 cellar: :any,                 arm64_ventura:  "8c4dcd5544310cfa1b86dc6fb848d65e056ef1ebd384659a9a938afed60cdbba"
-    sha256 cellar: :any,                 arm64_monterey: "98df65b73ecf0ea502e18fc88b626b3ffd238934f47d125414ec71aa875da12c"
-    sha256 cellar: :any,                 sonoma:         "657956d4c2d68326f3af1be6a82c77ea51f751a10f3505df418b35c3ccaad0a5"
-    sha256 cellar: :any,                 ventura:        "25741aeffea74a1166982f93b60cc2b57c4fd84225ac96f66c079669c6307c56"
-    sha256 cellar: :any,                 monterey:       "3e9816ee9c6031d3d834b83864f097530326575c55e712f95085e3ef87982c9b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "32ca42e3523231b38e1b7468562df5af902360fc2f1ed6ced6e99cd0474824b5"
+    sha256 cellar: :any,                 arm64_sonoma:   "d4a63ac6260203d6a60d1c8de1cf2ee2134975dfa3c87c77a3e251e14a5388fb"
+    sha256 cellar: :any,                 arm64_ventura:  "20f88a8d36c11e7559624d3c28b01c4607fdd4d0d0c08bdaa960fb9fc848e9b4"
+    sha256 cellar: :any,                 arm64_monterey: "502fa5f120e445b2252c5ab471621389877c5f421c9aa86410403f29de502470"
+    sha256 cellar: :any,                 sonoma:         "2dfe19226f54797ea5781031368d9c512427b9054950c7da2189226e4a3e1eb8"
+    sha256 cellar: :any,                 ventura:        "23d85150011c1351d57b2e2ddaf41eda9d370988f35d3c5a8170fe1611e515df"
+    sha256 cellar: :any,                 monterey:       "b4c2355407bec5cb6c655473842ebbda96b67244df4650a2e83274b57c25becc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bc7bbd9af1e510f3d65cc8ccd5a89d52419b87ba022988999b35d6b274878a13"
   end
 
   depends_on "jq"
@@ -25,8 +24,8 @@ class PythonYq < Formula
   conflicts_with "yq", because: "both install `yq` executables"
 
   resource "argcomplete" do
-    url "https://files.pythonhosted.org/packages/f0/a2/ce706abe166457d5ef68fac3ffa6cf0f93580755b7d5f883c456e94fab7b/argcomplete-3.2.2.tar.gz"
-    sha256 "f3e49e8ea59b4026ee29548e24488af46e30c9de57d48638e24f54a1ea1000a2"
+    url "https://files.pythonhosted.org/packages/79/51/fd6e293a64ab6f8ce1243cf3273ded7c51cbc33ef552dce3582b6a15d587/argcomplete-3.3.0.tar.gz"
+    sha256 "fd03ff4a5b9e6580569d34b273f741e85cd9e072f3feeeee3eba4891c70eda62"
   end
 
   resource "pyyaml" do
@@ -35,8 +34,8 @@ class PythonYq < Formula
   end
 
   resource "tomlkit" do
-    url "https://files.pythonhosted.org/packages/df/fc/1201a374b9484f034da4ec84215b7b9f80ed1d1ea989d4c02167afaa4400/tomlkit-0.12.3.tar.gz"
-    sha256 "75baf5012d06501f07bee5bf8e801b9f343e7aac5a92581f20f80ce632e6b5a4"
+    url "https://files.pythonhosted.org/packages/7d/49/4c0764898ee67618996148bdba4534a422c5e698b4dbf4001f7c6f930797/tomlkit-0.12.4.tar.gz"
+    sha256 "7ca1cfc12232806517a8515047ba66a19369e71edf2439d0f5824f91032b6cc3"
   end
 
   resource "xmltodict" do

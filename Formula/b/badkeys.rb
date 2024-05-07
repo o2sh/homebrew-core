@@ -3,19 +3,19 @@ class Badkeys < Formula
 
   desc "Tool to find common vulnerabilities in cryptographic public keys"
   homepage "https://badkeys.info"
-  url "https://files.pythonhosted.org/packages/f2/29/3e87b8c7fc9779bf216349ffcaed9a748928a015b77d71ab2e0dd1b4e073/badkeys-0.0.6.tar.gz"
-  sha256 "ead74de1a60844bbd8019710aa8314ecde82ac077eee72d68a6f185e7ab5ee48"
+  url "https://files.pythonhosted.org/packages/88/1e/8f47852ae7030e034f5d2b1710e2e45c5fe1ae2233f2e2ae62acc93ffcc0/badkeys-0.0.9.tar.gz"
+  sha256 "c1aead663d8cc8a715669750fb39b3d0d1e6254b35c49c3f577bc13c20196292"
   license "MIT"
   head "https://github.com/badkeys/badkeys.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "a4650c9a7766c7bb41ddcc1dff83ee46f3c61dbcc59372c81dee306038e1de21"
-    sha256 cellar: :any,                 arm64_ventura:  "48c1bfa3d51f2a137d406c0d37e1d669b482dbcc72e881b7d44fb3c9a466f698"
-    sha256 cellar: :any,                 arm64_monterey: "7f98a06d22880f47f54f33f11ce7711b5319315b57dfdcadc066c4459b9b4fa8"
-    sha256 cellar: :any,                 sonoma:         "eebacd8833af7dec4587017bad38f53e1a400931a66cd88148146624607a7339"
-    sha256 cellar: :any,                 ventura:        "5466bbcd795e901352daa14964d8d80fbf0f08e129516be98c23eca170337599"
-    sha256 cellar: :any,                 monterey:       "1da07989afba7bf157f145d4d9b11d49f8e5ad24fcdca817dcb9666b81ef25b5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "53fa9501f5bc882d53d5d0b205371046d4a9051fc634c6bcb53c89bd06c1d45c"
+    sha256 cellar: :any,                 arm64_sonoma:   "08567dd3770e8bea78ea608ff64b3431d22296695f6f6ceb36f3d657ce1e4440"
+    sha256 cellar: :any,                 arm64_ventura:  "f01a3b1c481e70752e166995036176cd90431840e193d2e4c01ad46214c5e60e"
+    sha256 cellar: :any,                 arm64_monterey: "58f633f7ebd1e807834444fa4e46968b7bfba890b8ff61df0459bdd0f79be4f3"
+    sha256 cellar: :any,                 sonoma:         "4e124ac5bb15a53b2c4c9529d89ab7a6cd35bd1b7cc71624d74f9db5258d924d"
+    sha256 cellar: :any,                 ventura:        "57401dcd3ba8b971565cc5db0ae1357902a5d24147585d7e8d2731931b51a06d"
+    sha256 cellar: :any,                 monterey:       "199ac579e133313da8dfe60edfcf85ab0a64a6fb8257a0d6a3a807ddedd1283d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9e98238bcd30fba9f6dc37f59601c2e5ac1c6f9ac534983b82192c8e1bbfb53b"
   end
 
   depends_on "cryptography"
@@ -25,8 +25,14 @@ class Badkeys < Formula
   depends_on "python@3.12"
 
   resource "gmpy2" do
-    url "https://files.pythonhosted.org/packages/a7/d1/249a57c014c3a73ffc842d5a33a1ce3d4198f3e6ea0ee84c237d24b5a556/gmpy2-2.2.0a1.tar.gz"
-    sha256 "3b8acc939a40411a8ad5541ed178ff866dd1759e667ee26fe34c9291b6b350c3"
+    url "https://files.pythonhosted.org/packages/d9/2e/2848cb5ab5240cb34b967602990450d0fd715f013806929b2f82821cef7f/gmpy2-2.1.5.tar.gz"
+    sha256 "bc297f1fd8c377ae67a4f493fc0f926e5d1b157e5c342e30a4d84dc7b9f95d96"
+
+    # upstream bug report, https://github.com/aleaxit/gmpy/issues/446
+    patch do
+      url "https://raw.githubusercontent.com/Homebrew/formula-patches/d77631527c866bbd168f7add6814e3388033cf2f/badkeys/gmpy2-2.1.5-py3.12.patch"
+      sha256 "6b0994285919e373d2e91b3e0662c7775f03a194a116b5170fdc41837dd3551e"
+    end
   end
 
   def install
@@ -37,20 +43,19 @@ class Badkeys < Formula
     output = shell_output("#{bin}/badkeys --update-bl")
     assert_match "Writing new badkeysdata.json...", output
 
-    (testpath/"rsa-nprime.key").write <<~EOS
-      Invalid RSA key with prime N.
-
+    # taken from https://raw.githubusercontent.com/badkeys/badkeys/main/tests/data/rsa-debianweak.key
+    (testpath/"rsa-debianweak.key").write <<~EOS
       -----BEGIN RSA PUBLIC KEY-----
-      MIIBCgKCAQEAqQSg27883tGr5jtyOaZkEn597cuw1Wz4wWuFp1quvHOyiMId7L7m
-      KHh2G+WQaEEBKl2A/M/tXgdfbrY0NnW3SMIZ9PMTWJNjtAqjBKVBDXDJbJhOpvya
-      gL4HBKR6cnB0TE+3m0co6o98xRT7eFBP4V9WyZYIG15XDruFvGkgeqmXefqf5BB5
-      Erquu6RePYNt25I3SFM12kZTW+HcrDyj34CO4Jxkw5JI5bUtP9wV5ocr/Z5FmvmI
-      Di3eNbHBVteLN3BIuFax8JQvpcdwEjy7Qdro5Ad3a3Ld4//2Vn/mAkGPop/HmJme
-      wI1poiKh+VgF87bloijO+izBYk/eo9ZWWQIDAQAB
+      MIIBCgKCAQEAwJZTDExKND/DiP+LbhTIi2F0hZZt0PdX897LLwPf3+b1GOCUj1OH
+      BZvVqhJPJtOPE53W68I0NgVhaJdY6bFOA/cUUIFnN0y/ZOJOJsPNle1aXQTjxAS+
+      FXu4CQ6a2pzcU+9+gGwed7XxAkIVCiTprfmRCI2vIKdb61S8kf5D3YdVRH/Tq977
+      nxyYeosEGYJFBOIT+N0mqca37S8hA9hCJyD3p0AM40dD5M5ARAxpAT7+oqOXkPzf
+      zLtCTaHYJK3+WAce121Br4NuQJPqYPVxniUPohT4YxFTqB7vwX2C4/gZ2ldpHtlg
+      JVAHT96nOsnlz+EPa5GtwxtALD43CwOlWQIDAQAB
       -----END RSA PUBLIC KEY-----
     EOS
 
-    output = shell_output("#{bin}/badkeys #{testpath}/rsa-nprime.key")
-    assert_match "rsainvalid/prime_n vulnerability, rsa[2048], #{testpath}/rsa-nprime.key", output
+    output = shell_output("#{bin}/badkeys #{testpath}/rsa-debianweak.key")
+    assert_match "blocklist/debianssl vulnerability, rsa[2048], #{testpath}/rsa-debianweak.key", output
   end
 end

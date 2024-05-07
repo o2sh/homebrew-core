@@ -2,36 +2,37 @@ class Duckdb < Formula
   desc "Embeddable SQL OLAP Database Management System"
   homepage "https://www.duckdb.org"
   url "https://github.com/duckdb/duckdb.git",
-      tag:      "v0.10.0",
-      revision: "20b1486d1192f9fbd2328d1122b5afe5f1747fce"
+      tag:      "v0.10.2",
+      revision: "1601d94f94a7e0d2eb805a94803eb1e3afbbe4ed"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "646fe14caca4b1583df74fc4a0823abd23ab07744b22cda1eb06362142c16775"
-    sha256 cellar: :any,                 arm64_ventura:  "e029245236b3c6b1d019bf026666ff2ec4e906c8b67dd92e0d83a9749f91b974"
-    sha256 cellar: :any,                 arm64_monterey: "6086064341bd2665b449a5c95f44d4807fa87ab565dab7277b55537e10045b3d"
-    sha256 cellar: :any,                 sonoma:         "408b13291b72fe123045a2b4e3de10f492e529ab52f2a07d3eac027860aebcf3"
-    sha256 cellar: :any,                 ventura:        "964b743f0cf86c56a24bb169cf18e74eefc66464f6fd16f7c078a1ab262597e5"
-    sha256 cellar: :any,                 monterey:       "52017e33636689b14f311b59b413141ca141ff081f1d839d49047d68df547348"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "33ba9b83c69fce14cc96fda85e06211dad9420d2b2661b00fd57846e8a5aaa3b"
+    sha256 cellar: :any,                 arm64_sonoma:   "78ac19d61f3e987dd62ff410fff2a8538d1f7a7872097ed04e1b0783232fc79f"
+    sha256 cellar: :any,                 arm64_ventura:  "34878da351d28f3a2d16620b315fbed1b15277cea2074e3bf42279e2d215bea3"
+    sha256 cellar: :any,                 arm64_monterey: "8fdd40597ae92745e6393747050881231fb1525fe7c0238cb7f18bcf4c66f6e3"
+    sha256 cellar: :any,                 sonoma:         "b3199306567c564d620f5530f7c1647449e00a6a6d34f4bb69209211ac275c55"
+    sha256 cellar: :any,                 ventura:        "2313efdfe9376a39a13d83e8a08b1ecdfb870b1b6b0dab6119d171ae8ae67f60"
+    sha256 cellar: :any,                 monterey:       "8a66f5ff68b0bcfd7cbd92bccea9edc4ff20a5fd7fa3759b950053a9c3e86939"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e3afe1f9acd784aa6f12123436e3648d5d6a33abfd5c368cd8619e42b4db6d2c"
   end
 
   depends_on "cmake" => :build
   uses_from_macos "python" => :build
 
   def install
-    mkdir "build"
-    cd "build" do
-      system "cmake", "..", *std_cmake_args, "-DBUILD_EXTENSIONS='autocomplete;icu;parquet;json'",
-             "-DENABLE_EXTENSION_AUTOLOADING=1",
-             "-DENABLE_EXTENSION_AUTOINSTALL=1"
-      system "make"
-      system "make", "install"
-      bin.install "duckdb"
-      # The cli tool was renamed (0.1.8 -> 0.1.9)
-      # Create a symlink to not break compatibility
-      bin.install_symlink bin/"duckdb" => "duckdb_cli"
-    end
+    args = %w[
+      -DBUILD_EXTENSIONS='autocomplete;icu;parquet;json'
+      -DENABLE_EXTENSION_AUTOLOADING=1
+      -DENABLE_EXTENSION_AUTOINSTALL=1
+    ]
+
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
+
+    # The cli tool was renamed (0.1.8 -> 0.1.9)
+    # Create a symlink to not break compatibility
+    bin.install_symlink bin/"duckdb" => "duckdb_cli"
   end
 
   test do

@@ -1,8 +1,8 @@
 class Logstash < Formula
   desc "Tool for managing events and logs"
   homepage "https://www.elastic.co/products/logstash"
-  url "https://github.com/elastic/logstash/archive/refs/tags/v8.12.2.tar.gz"
-  sha256 "65ca4e394f99099f0173295118cb69fa09d6bdff30c2890bfc7dabc42218deda"
+  url "https://github.com/elastic/logstash/archive/refs/tags/v8.13.3.tar.gz"
+  sha256 "279fa2361f469e4d7eed9ac9843e1af1d69daa1fcbe965767dfeb36726af891f"
   license "Apache-2.0"
   version_scheme 1
   head "https://github.com/elastic/logstash.git", branch: "main"
@@ -13,13 +13,13 @@ class Logstash < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "c0b8b261e193e892a6e2d8f62fa5a986cd24941d51cf7fd0874bdd3781ef28a5"
-    sha256 cellar: :any,                 arm64_ventura:  "2e881bb0e7f6b59b369323322714e050f8d410ece85076fd8505f512948fa811"
-    sha256 cellar: :any,                 arm64_monterey: "cebf1267e51f695cdfb37e24e05a2360acc7f9efad5761e343a4c1c987467cbf"
-    sha256 cellar: :any,                 sonoma:         "9e4555472ffbe681ea417bb95eb74e34df3eebca93f44dae8639b1b0f40d5dfd"
-    sha256 cellar: :any,                 ventura:        "d2bae061ffef6120adc17d436d9e2137f397640ac7a43e5d742cdd99ec8fc457"
-    sha256 cellar: :any,                 monterey:       "3b4777e719957a1c8e1ecb74d0a4f152b3641cc66f270dd8d6b7ea9f06344518"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cfd3fc3739562520ef75a71ae8e8e117312469c66ce52e4c3bbe541d1c848826"
+    sha256 cellar: :any,                 arm64_sonoma:   "2be32b29a675dc9199cd37113e21ecc761489124698af1ca12f5d9a37107e46b"
+    sha256 cellar: :any,                 arm64_ventura:  "bb82f660da87f61ba723e1cea30d1204c7a72a444cdf748185e93cdd984700f5"
+    sha256 cellar: :any,                 arm64_monterey: "3df6710156f8140dfa34a9b4dcbc4df2c663931888e03d1a315febd6cf8cbafb"
+    sha256 cellar: :any,                 sonoma:         "2715ccf598f49f117802839e92a2c49fc16b34b027b1ea52c01a0759fdd61437"
+    sha256 cellar: :any,                 ventura:        "a8d23c16c8640938142a832d3023116d4bbc4dabf43e4a32135c614d1319519c"
+    sha256 cellar: :any,                 monterey:       "820b3812ef4e546d309fb90f2c4ab011dca01eb614942cc8cb42cf30f00ab574"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "652fdee5f6a72487123c02d5584c1f5f0c57996bd6822c9977ca29c33253932d"
   end
 
   depends_on "openjdk@17"
@@ -75,7 +75,7 @@ class Logstash < Formula
   end
 
   def post_install
-    ln_s etc/"logstash", libexec/"config"
+    ln_s etc/"logstash", libexec/"config" unless (libexec/"config").exist?
   end
 
   def caveats

@@ -1,25 +1,21 @@
 class Veilid < Formula
   desc "Peer-to-peer network for easily sharing various kinds of data"
   homepage "https://veilid.com/"
-  url "https://gitlab.com/veilid/veilid/-/archive/v0.2.5/veilid-v0.2.5.tar.gz"
-  sha256 "167c9a140aadc69d02a292d79edf949027d70a02985a860f0068adef914341df"
+  url "https://gitlab.com/veilid/veilid/-/archive/v0.3.2/veilid-v0.3.2.tar.gz"
+  sha256 "31d7ae1caaf76468321fa0d5970179a4459c3ff033807a70292971f738f333a6"
   license "MPL-2.0"
   head "https://gitlab.com/veilid/veilid.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4af59cf1c45d697760a57fd067a2481c054e9cc3308dd897710394e58429f37e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f82fb89e37207ca4e33848df1ac88aa2310e913c268d972469a27ab65a15ac3e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d90a504c2891dee26c2a774bad92b7d1bc9ba26b187292156a2b039c79bf1812"
-    sha256 cellar: :any_skip_relocation, sonoma:         "6aa96311b4cff90ce917451abb0a0f018fa8f3ad2f5beca78f240734ecbdc153"
-    sha256 cellar: :any_skip_relocation, ventura:        "d5b6a3a46bc3b81553b6194660c68d4bd20b9f09beaf794953facecacf7f9df4"
-    sha256 cellar: :any_skip_relocation, monterey:       "03e842aaad66d915437efc8828437f5c92ab62e1834e832c70d02c9ec7097b0e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d3eabb1ad8a40ec4de9935563d716367fbb42ad7ed8e0c78ea44bc8b05bb075f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9214b93e4187ad44a8088e7f9b606056288fa086689b5362701f07e8f313eb5a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "374b207ce137c2806a49c5ea00cf87052e241890fe2d30f6e08280c3e1482f27"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "161a78b4875dbf8f8af11f1d3827f0c8a4c72aad9482635aa03b228891ddc62d"
+    sha256 cellar: :any_skip_relocation, sonoma:         "14da5a02dbf07cc476174e2476a6ef867f997dfca7dbe5416952bb74060a0e39"
+    sha256 cellar: :any_skip_relocation, ventura:        "39dd9f488619d8c666a14a722c0e604a228b775c8a52de98bcef69088225d5b9"
+    sha256 cellar: :any_skip_relocation, monterey:       "80f4343c8a672a5949986e2574f504797795da4a34aa1e699d9af42518d58376"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b0e1d3a116fb19ce64855de6ac081c37cd17082d03bc9c9b213b215951d7391d"
   end
 
-  # TODO: Remove `capnp` dependency once version >v0.2.5
-  depends_on "capnp" => :build
-  # TODO: Remove `protobuf` dependency once version >v0.2.5
-  depends_on "protobuf" => :build
   depends_on "rust" => :build
 
   def install
@@ -29,7 +25,8 @@ class Veilid < Formula
 
   test do
     require "yaml"
-    server_config = YAML.load(shell_output(bin/"veilid-server --dump-config"))
+    command = "#{bin}/veilid-server --set-config client_api.ipc_enabled=false --dump-config"
+    server_config = YAML.load(shell_output(command))
     assert_match "server.crt", server_config["core"]["network"]["tls"]["certificate_path"]
     assert_match "Invalid server address", shell_output(bin/"veilid-cli --address FOO 2>&1", 1)
   end

@@ -1,10 +1,9 @@
 class F3d < Formula
   desc "Fast and minimalist 3D viewer"
   homepage "https://f3d-app.github.io/f3d/"
-  url "https://github.com/f3d-app/f3d/archive/refs/tags/v2.3.0.tar.gz"
-  sha256 "9c2906b62f3066f075effbabd6501964391e8a8ffad6ed773c33db12580cc466"
+  url "https://github.com/f3d-app/f3d/archive/refs/tags/v2.4.0.tar.gz"
+  sha256 "3286ad1b324b995fd95818679b4ced80ebc3cc3b4bd4c8e6964695c05c934c8f"
   license "BSD-3-Clause"
-  revision 1
 
   # Upstream creates releases that use a stable tag (e.g., `v1.2.3`) but are
   # labeled as "pre-release" on GitHub before the version is released, so it's
@@ -15,13 +14,13 @@ class F3d < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "bcad7d34043370b81a4cdf53644e13f376f4dbe7d6c069c7f670802b7271a298"
-    sha256 cellar: :any,                 arm64_ventura:  "1a3016b4fa3720db4107415e74d8fcb84844c438499262b9a6a7e85bcd68c313"
-    sha256 cellar: :any,                 arm64_monterey: "0971955926faf47a8b75d91c7e0318ae0a4f381f12aee9004fdb67d7b4c65421"
-    sha256 cellar: :any,                 sonoma:         "d97c18e472b1d4feca5b6b56cb87e91d420ce19fd5eb13374f9d3d820d4cb66e"
-    sha256 cellar: :any,                 ventura:        "117b6f726dbfd5f030c41eb1e04e4c2f0c064cacbe69c47b1a8989124ecface8"
-    sha256 cellar: :any,                 monterey:       "2edb856024a3b602b58f06ff0b9c2dfffd4fe11b8c0e1a9cbf6affcc4bf19b08"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6cc33156b2695e74b4fdc75fe8a20a49b01d47f15921c12c5f854d979337425f"
+    sha256 cellar: :any,                 arm64_sonoma:   "7228814f2f8b8d2c40eb6493a49f2367cd8e6de9d5359a06c16326771979e40c"
+    sha256 cellar: :any,                 arm64_ventura:  "8129e5791dc9c0d96330247f140c656c094be4a3d253b22c5c38b40ee3f4699f"
+    sha256 cellar: :any,                 arm64_monterey: "4d98f1f9d485eaa9eba6f2072fe0684d8ea5b6e4cb72cd4ae8f61cbca3e5693c"
+    sha256 cellar: :any,                 sonoma:         "c6ce5e83cb1bb7d6676281155793d280d4943a43e82eeec0a0d532e55b058425"
+    sha256 cellar: :any,                 ventura:        "0b0d806ac97ae7e33f82e9f55c1251702da8d22b7e03e8762d18831a1f3b976c"
+    sha256 cellar: :any,                 monterey:       "dea031face1027358e1b5c3a348399585562a1a3826cc4c91a520a8d6f118aea"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bd05866bbacc29d67c6d2221f38196d8d3f0ed47eae32632c388742100f1fa6a"
   end
 
   depends_on "cmake" => :build
@@ -29,12 +28,6 @@ class F3d < Formula
   depends_on "assimp"
   depends_on "opencascade"
   depends_on "vtk"
-
-  # Upstream fix for https://github.com/f3d-app/f3d/issues/1087
-  patch do
-    url "https://github.com/f3d-app/f3d/commit/a5ecb6bd.patch?full_index=1"
-    sha256 "62856957da64bdf56243c11573b79a624979d9952f64c613c7fe8d5f0ab484dc"
-  end
 
   def install
     args = %W[

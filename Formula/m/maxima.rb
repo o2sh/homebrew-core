@@ -4,7 +4,7 @@ class Maxima < Formula
   url "https://downloads.sourceforge.net/project/maxima/Maxima-source/5.47.0-source/maxima-5.47.0.tar.gz"
   sha256 "9104021b24fd53e8c03a983509cb42e937a925e8c0c85c335d7709a14fd40f7a"
   license "GPL-2.0-only"
-  revision 7
+  revision 9
 
   livecheck do
     url :stable
@@ -12,13 +12,13 @@ class Maxima < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d6b6bd49172b9c29c153b947f2d6c993f764fd1a24739b7e84ef9e5da818f980"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "404a06558fb3a0d9f93455106ac7a0bc37c173962c61bc002fbe484aea6e5dd9"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "26aa87f5a0fed5c44f47fd4fe063791ad41f7d0e3e7888a2f2b7e50015a13594"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ac9cae0720609b2cad4be511c297b7b1ec385ae553c613fce06ff4cf73568a4a"
-    sha256 cellar: :any_skip_relocation, ventura:        "4963ff3425c8a112db32cb71b84cab86feb55cf86e2e0ea82b6bd7ae434ef478"
-    sha256 cellar: :any_skip_relocation, monterey:       "0c016a84e70cc42903995d59cc024825040c44b153fc8d44b5a47bca0d3345e3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "671b6e07c16b91128f1afbcea13b9a236c415f3afc33bf0be2bcf8e49dcbf112"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0e6287f483d4244fc7adf19046a1b142998d59a9452a5252e9a741ab22820aca"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "255033acc8941556bb57de7a7a81f87709ce11a60842fe6e047238bed6052a78"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6ba4af5f83e587df5180931ccabedf39e4da5f7de6cdc62352dc7f6df8c950a7"
+    sha256 cellar: :any_skip_relocation, sonoma:         "ece358d0c7f90abfdf598f6e4f111257032237a750477b5daeef1efe675ee6d1"
+    sha256 cellar: :any_skip_relocation, ventura:        "f6581615d4c71dc66b568cb02137cf9b57bf24be4a6027f6ec458cd83a6ff2a6"
+    sha256 cellar: :any_skip_relocation, monterey:       "85e99fc3f1777429b85fa1055c674d070980a9b183038e9b4664f221e6502498"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "973d892af58487e90e612183d5d45dfbd732aa55760285d8846069af99931e59"
   end
 
   depends_on "gawk" => :build

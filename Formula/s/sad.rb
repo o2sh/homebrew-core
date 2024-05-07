@@ -1,21 +1,19 @@
 class Sad < Formula
   desc "CLI search and replace | Space Age seD"
   homepage "https://github.com/ms-jpq/sad"
-  url "https://github.com/ms-jpq/sad/archive/refs/tags/v0.4.23.tar.gz"
-  sha256 "bdb366b6c3a3cb069d4d4acb33faeff6f6c40d38ed4bbf66fafbe46e71cbafda"
+  url "https://github.com/ms-jpq/sad/archive/refs/tags/v0.4.28.tar.gz"
+  sha256 "efda19aecec408095bb515975a1a6ed9e66d0ab985c2b580087b031261f71cfc"
   license "MIT"
   head "https://github.com/ms-jpq/sad.git", branch: "senpai"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "fdfdadb1427daffaa162ec8e3d3bb59e5800bcea3f9a6752c889777d58a2a5d6"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "11cc4875f8a0e61f5460c32b690b3383a05977c1781757eb5fb2d4f1f0af551f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "6e1baefaec3e780a624158013dc5f43363402d814f285cf6b6695acf1865b9af"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "1604ed184a03f92bf1fa7d8305b8160b3976b5e4a3239efdde084b595d880ae1"
-    sha256 cellar: :any_skip_relocation, sonoma:         "e88274e8bcd5288ba6180b48bbc43ddf1e9a11654be75b472f4150dd94f632e4"
-    sha256 cellar: :any_skip_relocation, ventura:        "2fdbada4bd1ff10afcb0701481ab11f939a166c1cec125af80e7b383dbcb442b"
-    sha256 cellar: :any_skip_relocation, monterey:       "db6d9b36c126b985c3e2346b5ce8a6df779e80ee9ce2b8deff4517e5bc0820ec"
-    sha256 cellar: :any_skip_relocation, big_sur:        "8bf2d0ff89c1ea56cec9e067628d57b00be4b143a437bc2cce47d9e8933e01bd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2115afbd70c36285540df21c3de43d145570f9cd032ec664d970b609e81efc35"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "dbd6742f7ca10b7a35934d48c97c15191b2a3a2838a8555dda14d49109135ec2"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ca01f710469f4d9bc707800122a780bea33bf65b8c0905b6b20b07d9da4e7ee4"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "389062b6527626a595b9eca5fff77226f83946174cf1e8e8763fba2f0e19103e"
+    sha256 cellar: :any_skip_relocation, sonoma:         "4688e0e640f04662017f5578f1c70e3cfe7b1f63022ce380a095887edf3445cd"
+    sha256 cellar: :any_skip_relocation, ventura:        "3bd4b813859fcf59ff862d243d6258b466898ef8e321b2c13df38cefc8d748c9"
+    sha256 cellar: :any_skip_relocation, monterey:       "5b68be7a2dbd1faca977892f165ab7741a683ef1e69e163ddf11c365e805b0c0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ab533cf53f9716e0a690e92245ac96fb45ad6db60f11a8e2d6787b8a0e744284"
   end
 
   depends_on "rust" => :build

@@ -1,20 +1,18 @@
 class Kalker < Formula
   desc "Full-featured calculator with math syntax"
   homepage "https://kalker.strct.net"
-  url "https://github.com/PaddiM8/kalker/archive/refs/tags/v2.0.4.tar.gz"
-  sha256 "f9ea40521f8e435adfc5db7f811c63bab7276407c6c0a95a40673f777f57c3bd"
+  url "https://github.com/PaddiM8/kalker/archive/refs/tags/v2.2.0.tar.gz"
+  sha256 "4f34d34e922308e586fd9f7077e1cba126f3e75d269f4859d0472bb565ce1d4d"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "43fcf01ea69f721a3dc86165bc9597dd5e76f1926744275b838c2112220e6b6f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4ee4036b4dc8dc9c6d7d8f6d8555a69b004226ec25049a7aab3624cca34b43fd"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "6a8fef02b3300ca11f60b4b6c8ecf0af6ab95f964cb3b067ba34bd7b39396ba3"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "85ffdc1c6fb323a24b572e1d39dd91ebd3d45822cf4dec31be3f34603f415a33"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a662cdc7a510916f83b5883f06748fd2ac506e1caf92364f8db8eed47fbecbcc"
-    sha256 cellar: :any_skip_relocation, ventura:        "c09066ae27648232ce2854359c01b16ec2c05205dc318435524b9470279a4b87"
-    sha256 cellar: :any_skip_relocation, monterey:       "ed288790e1bb931223e9edd5aaca90562595058f9edf6f2ce726c225e2caecd4"
-    sha256 cellar: :any_skip_relocation, big_sur:        "73232c8f4c1fcb92010d8620ca76bded2da5f1a8040353a4d0320983b4d247d7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e0698d25d84770b0c1649370a0afa23fe32cca3bf3007d5418034d4e8c45bd38"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c7e8a9929f77a7fd009e0290793fe22518d945ef362cf980876ce62cc48f25b6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "00c3b095d17680177a8aa6de792b5086f6eeb11291543b5fb57bca8cfa31562f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "69fdaed91c5a9ce2cecb38ad7873ca317617ae727bcad99f34b705344263fa5f"
+    sha256 cellar: :any_skip_relocation, sonoma:         "9c68b74e2490526623a47f2f4195c1824f1eda787fccb20da9a8a34d49bb918f"
+    sha256 cellar: :any_skip_relocation, ventura:        "b0a2540f5dda3f93061e7432fd9180b03c76bbe9c08f267241099a11e8bcb0c2"
+    sha256 cellar: :any_skip_relocation, monterey:       "185cf3399accd7bf448e22b20360aaceccf9e94c4d57b86c3577bf0f8b574e94"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2ed47375080db64cb26b84b1733f093216e808f4b87d55bcfdf5218104adb084"
   end
 
   depends_on "rust" => :build
@@ -28,6 +26,7 @@ class Kalker < Formula
   end
 
   test do
-    assert_equal shell_output("#{bin}/kalker 'sum(n=1, 3, 2n+1)'").chomp, "15"
+    assert_equal shell_output("#{bin}/kalker 'sum(n=1, 3, 2n+1)'").chomp, "= 15"
+    assert_match version.to_s, shell_output("#{bin}/kalker -h")
   end
 end

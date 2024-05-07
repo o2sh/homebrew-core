@@ -1,19 +1,19 @@
 class D2 < Formula
   desc "Modern diagram scripting language that turns text to diagrams"
   homepage "https://d2lang.com/"
-  url "https://github.com/terrastruct/d2/archive/refs/tags/v0.6.3.tar.gz"
-  sha256 "e7df127e20ec37c83c881e15c6fb3fbefb55cbfeeb9380a78575164726144bd9"
+  url "https://github.com/terrastruct/d2/archive/refs/tags/v0.6.5.tar.gz"
+  sha256 "bb54639c1e9711fd6d2c88f15abd5d3a31b657d5b182154db60a32ee93ee2713"
   license "MPL-2.0"
   head "https://github.com/terrastruct/d2.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "3fe73ebb390941c620177e27cabc4b8e53f93bb0c7235c68e7ffaa2d0a46ecc0"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1efbe689cf17735288ea51d9081773c561b56b0d13de28e82697e427a7a327c1"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8a7ae2ab809333166533e2f4a8011ffc5c231e01c521353f283d01b3d8b45908"
-    sha256 cellar: :any_skip_relocation, sonoma:         "b843d5a5fb1f69c9f98fefd3e10730069230457914480ba61f3d7c091856d067"
-    sha256 cellar: :any_skip_relocation, ventura:        "a24e70b809153b120cae373865d485632632fced7cc027ecf60fd3859903085b"
-    sha256 cellar: :any_skip_relocation, monterey:       "3d119d85ed9816db269acba29acd07557cb8d991a95d125fd240cf5a85c074ef"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "76e0665995664f122041fffdd4ba4f1c30ba8ea5c15f7aa7cc0c6aaeb405160f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "badae3b8b62d0c18e663bb183d49fd47a599a965fc37cd148f81e9be77150310"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0245ce18c9bab9f9de4bdfff5aa87a997f6530f612d6b780e5aebc9816640c78"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e1ca7044d94e84f2558dc96dec20916c6968a4344d47ffea0767fd765bcc3a55"
+    sha256 cellar: :any_skip_relocation, sonoma:         "daffa2f0d1ba1460fe11028b6099dca4dea0a5c1613ce09da448a70ed28255dc"
+    sha256 cellar: :any_skip_relocation, ventura:        "53a4719c990267cdfee1a7af1be19f506f122459cc4fc2b3ee392890c539276a"
+    sha256 cellar: :any_skip_relocation, monterey:       "0fb24aef8ab7aec24363141fe01fd16875a84638078cf3cbb11903e4624e4a48"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8222035b37bcc11ed13382fbd60f162a59baaedb265a0c86e285214aff332f1c"
   end
 
   depends_on "go" => :build

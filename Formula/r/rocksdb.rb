@@ -1,19 +1,20 @@
 class Rocksdb < Formula
   desc "Embeddable, persistent key-value store for fast storage"
   homepage "https://rocksdb.org/"
-  url "https://github.com/facebook/rocksdb/archive/refs/tags/v8.11.3.tar.gz"
-  sha256 "3b51d1d907ea13fab430bf052618610994f08cd8ed0b1341c3e89fe02e199f8e"
+  url "https://github.com/facebook/rocksdb/archive/refs/tags/v9.1.1.tar.gz"
+  sha256 "54ca90dd782a988cd3ebc3e0e9ba9b4efd563d7eb78c5e690c2403f1b7d4a87a"
   license any_of: ["GPL-2.0-only", "Apache-2.0"]
+  revision 1
   head "https://github.com/facebook/rocksdb.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "f60f266e273ec88e3c5caef7b6f2071d9efabc69530ddf670d3f49f6ba3484fd"
-    sha256 cellar: :any,                 arm64_ventura:  "588579d9c0eb5f4a321015afbf19b2388deaa80e60c8aa3e46e2d992952e1174"
-    sha256 cellar: :any,                 arm64_monterey: "afc59e7f29aab78b9433c8d95f2f0ca8694522090b5fd540319ad43a7bb0454d"
-    sha256 cellar: :any,                 sonoma:         "0223266a1925134c16f54d7edea3397b1130ca125da5c1af361e4ccccae1dfda"
-    sha256 cellar: :any,                 ventura:        "62b7c7649aded0786729d86af21eaa1167c8c7c7a9365d67d959034f537c1b62"
-    sha256 cellar: :any,                 monterey:       "6e1493d8fec1ba72d938d3df0aa832e83727eb2a7dd5c02b183d48541d4aaa51"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "db12fa7cf7d6192964e5628db0c16937bd0707f5da622e20b141cb61748f2e4b"
+    sha256 cellar: :any,                 arm64_sonoma:   "9cf792c71d5c89990ecc04b853d36a4fb78856ef08d1fb5a205796f6ce1d2daa"
+    sha256 cellar: :any,                 arm64_ventura:  "414e895ec0455abb37149355a425224193202b74d63d3ce2758d92eb69f27986"
+    sha256 cellar: :any,                 arm64_monterey: "4e1093c9ff3e892aad8fda3bcdda81bba2195b851a0b6188a1f9caaf555d4aeb"
+    sha256 cellar: :any,                 sonoma:         "0f7f4a51dae7797df6a23e3cfef9bae27d4767dbeed16a5a8bc1ff45bd8587e3"
+    sha256 cellar: :any,                 ventura:        "aa96dd77b80b8ee7e2d70da1580d951893dae3ec52383c5772359167aadb809b"
+    sha256 cellar: :any,                 monterey:       "d4b042f5e323a9671f2b0364bdfb5a51596458d44551b888243db238b90a179e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8ab6e0636dc5e7beaec5d5f93d078a9bdf7abcca9a619e777a911caf03eec4cc"
   end
 
   depends_on "cmake" => :build
@@ -42,6 +43,7 @@ class Rocksdb < Formula
       -DWITH_ZSTD=ON
       -DROCKSDB_BUILD_SHARED=ON
       -DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath,#{rpath}
+      -DZSTD_INCLUDE_DIRS=#{Formula["zstd"].include}
     ]
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"

@@ -1,8 +1,8 @@
 class HaskellStack < Formula
   desc "Cross-platform program for developing Haskell projects"
   homepage "https://haskellstack.org/"
-  url "https://github.com/commercialhaskell/stack/archive/refs/tags/v2.13.1.tar.gz"
-  sha256 "00333782b1bda3bda02ca0c1bbc6becdd86e5a39f6448b0df788b634e1bde692"
+  url "https://github.com/commercialhaskell/stack/archive/refs/tags/v2.15.5.tar.gz"
+  sha256 "39c192f7dd6e1c41da55c2128c5c5b39a18e6fe57ac69cef7396f1e65f7de8e4"
   license "BSD-3-Clause"
   head "https://github.com/commercialhaskell/stack.git", branch: "master"
 
@@ -12,13 +12,13 @@ class HaskellStack < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0426cc31adddad813c139f9fefddce55a6e614893f2c1052b3ae56c0a9958cb7"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3269aa3a8dcf82d1c8cbb8e362ed4609d99193611ece6ef0c00b1c820c9494f4"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f20bef09d83372ced23f7cf80a7174a70640da5f228729b1c8b4cff39ea6fa2c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "5ec70b9dbe8c49239f6058f8ad647478a063e879ddf663c49be1d9623e11fd1f"
-    sha256 cellar: :any_skip_relocation, ventura:        "ece414965294e7d82b7c073cf3607822541cec6ae171360fbcd01cc18da91ef8"
-    sha256 cellar: :any_skip_relocation, monterey:       "70b7031bd72c6c17ae139094c4471728a9d13d4e9b6141c7ac7818d39fd7fbf0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ddcddb8cc82773695f1733fb34caef081a8cb6f9a953e847ae4b7d5c1984c590"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "236cffcba74603b1d06aec86d1a51e894ee4c5d00bc70e094e70b019224dbb80"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "fd37843feb7d01c6ae7d253cc0e554ff12faa0e8fa7406ea44081e7c8d782e25"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "11ce315ed896195af53f10d436ab74fb97b440dcc92f730ee6f2ad385a8829b0"
+    sha256 cellar: :any_skip_relocation, sonoma:         "9e9214af75de6d0d85daa17b8f78c7be7542497da315e741890c3217c2484177"
+    sha256 cellar: :any_skip_relocation, ventura:        "737653e3fb423bfcf8bc1fa97b8628c4ac50b9438b03733f83d1c49ea419dced"
+    sha256 cellar: :any_skip_relocation, monterey:       "b4a6e360974f29952ca075422eda6bfe6b164ae0f601ecea48940c3024aac1fe"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "974537686d3191778f0cea7cada915d29f792f6641b8789fd89b7b4137634f52"
   end
 
   depends_on "cabal-install" => :build
@@ -32,6 +32,7 @@ class HaskellStack < Formula
     (buildpath/"cabal.project").unlink
     (buildpath/"cabal.project").write <<~EOS
       packages: .
+      constraints: tar < 0.6
     EOS
 
     system "cabal", "v2-update"

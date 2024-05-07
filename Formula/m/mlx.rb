@@ -1,28 +1,27 @@
 class Mlx < Formula
-  include Language::Python::Virtualenv
-
   desc "Array framework for Apple silicon"
   homepage "https://github.com/ml-explore/mlx"
-  url "https://github.com/ml-explore/mlx/archive/refs/tags/v0.7.0.tar.gz"
-  sha256 "42e616f2e84e9f7bd43353b5ec346debf07b5219043c46b26bb89ee1d151d446"
+  url "https://github.com/ml-explore/mlx/archive/refs/tags/v0.12.2.tar.gz"
+  sha256 "6d3f2549801fb4f84eba7f059016c84256e7e5751e05b9fab2c96c3d81cf91d6"
   license "MIT"
   head "https://github.com/ml-explore/mlx.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:  "a635458b40c5265240cf3c8387b40c8a908e870030b79e052c7dbf9ab1af7054"
-    sha256 cellar: :any, arm64_ventura: "83d9ed0a843918daa62e80ee3e165e5c2ab22bdc1d14d838a2901a9e1d489869"
+    sha256 cellar: :any, arm64_sonoma:  "37a9848aadba85b526ff5924990b376588e939a8fe5a0e025f92cd65137817dc"
+    sha256 cellar: :any, arm64_ventura: "519e748baec19f0da410debd209fa04aef1476bf6de6488509a65bed8e890bb0"
   end
 
   depends_on "cmake" => :build
-  depends_on "pybind11" => :build
+  depends_on "nlohmann-json" => :build
   depends_on xcode: ["14.3", :build]
   depends_on arch: :arm64
   depends_on :macos
   depends_on "python@3.12"
 
-  resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/c8/1f/e026746e5885a83e1af99002ae63650b7c577af5c424d4c27edcf729ab44/setuptools-69.1.1.tar.gz"
-    sha256 "5c0806c7d9af348e6dd3777b4f4dbb42c7ad85b190104837488eab9a7c945cf8"
+  # Update to GIT_TAG at https://github.com/ml-explore/mlx/blob/v#{version}/mlx/io/CMakeLists.txt#L21
+  resource "gguflib" do
+    url "https://github.com/antirez/gguf-tools/archive/af7d88d808a7608a33723fba067036202910acb3.tar.gz"
+    sha256 "1ee2dde74a3f9506af9ad61d7638a5e87b5e891b5e36a5dd3d5f412a8ce8dd03"
   end
 
   def python3
@@ -30,29 +29,25 @@ class Mlx < Formula
   end
 
   def install
-    args = %w[
+    ENV.append_to_cflags "-I#{Formula["nlohmann-json"].opt_include}/nlohmann"
+    (buildpath/"gguflib").install resource("gguflib")
+    args = %W[
       -DBUILD_SHARED_LIBS=ON
+      -DFETCHCONTENT_SOURCE_DIR_GGUFLIB=#{buildpath}/gguflib
       -DMLX_BUILD_BENCHMARKS=OFF
       -DMLX_BUILD_EXAMPLES=OFF
       -DMLX_BUILD_METAL=OFF
       -DMLX_BUILD_PYTHON_BINDINGS=OFF
       -DMLX_BUILD_TESTS=OFF
     ]
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, *args
+
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
-    venv_root = buildpath/"venv"
-    site_packages = Language::Python.site_packages(python3)
-    ENV.prepend_create_path "PYTHONPATH", venv_root/site_packages
-    venv = virtualenv_create(venv_root, python3)
-    venv.pip_install resource("setuptools")
-
-    env = { PYPI_RELEASE: version.to_s }
-    env["DEV_RELEASE"] = "1" if build.head?
-    with_env(env) do
-      system python3, *Language::Python.setup_install_args(prefix, python3)
-    end
+    ENV[build.head? ? "DEV_RELEASE" : "PYPI_RELEASE"] = "1"
+    ENV["MACOSX_DEPLOYMENT_TARGET"] = "#{MacOS.version.major}.#{MacOS.version.minor.to_i}" if OS.mac?
+    system python3, "-m", "pip", "install", *std_pip_args(build_isolation: true), "."
   end
 
   test do

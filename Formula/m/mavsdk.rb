@@ -1,13 +1,10 @@
 class Mavsdk < Formula
-  include Language::Python::Virtualenv
-
   desc "API and library for MAVLink compatible systems written in C++17"
   homepage "https://mavsdk.mavlink.io"
   url "https://github.com/mavlink/MAVSDK.git",
-      tag:      "v2.4.1",
-      revision: "fad115cb9e51e45c7ea052a9a699260e20ecdc8a"
+      tag:      "v2.9.1",
+      revision: "7b9655e512b326c7a8f807b4b5caecdd893e8e9c"
   license "BSD-3-Clause"
-  revision 1
 
   livecheck do
     url :stable
@@ -15,13 +12,13 @@ class Mavsdk < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "99392e33812f1d5902fd64821e534f11aeb51acacc8857e2627b1ee05eb7bb0d"
-    sha256 cellar: :any,                 arm64_ventura:  "a8fb435ccdf7e7adfe3ad124327c321ace71186564793a97daccbf82abee826a"
-    sha256 cellar: :any,                 arm64_monterey: "47dd65e255258d53cd206ad91b49a9aa108b8ddf22567eb0203fc12c8faf7afb"
-    sha256 cellar: :any,                 sonoma:         "786c98c070d414f5d1e00bd4a27a2002b5b79f0565a9c0a577e438709549dc88"
-    sha256 cellar: :any,                 ventura:        "458830cd8994e7f3aad1db5b55867daa72b85344e59dd6583d00b6a17fa88437"
-    sha256 cellar: :any,                 monterey:       "6186efc8954c71d74fa0c0abb650bdf0b898a95411bb3093a5c5421688d2107c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5f2689a6fab7c612e8e6a45837020f5d013c58f1d35ad8a8c3bec3a34ddf10c8"
+    sha256 cellar: :any,                 arm64_sonoma:   "097265f9fba8dc21e1c5089bb16d61b81d0d2918dfdbd9b0f59d630438a15651"
+    sha256 cellar: :any,                 arm64_ventura:  "54133eeea355c1bce3b9aca2630588e9f6bd813bdee4e3f71f7f1a7601b28ca9"
+    sha256 cellar: :any,                 arm64_monterey: "8762ed80e48e37c9bc0198f9251ad3e5cf488202dceacbc79e9558cca48f9ac6"
+    sha256 cellar: :any,                 sonoma:         "5c14fa85b0a3a4eae8172fc7ec388cbb1f41ef99d2c469ad246aeaa20611131d"
+    sha256 cellar: :any,                 ventura:        "f737ae45f9cfe8497f336d414218406c9cc4681ec7a665487402ba5e5b922989"
+    sha256 cellar: :any,                 monterey:       "5d63ae2b33f74287f55e4bc8f9cafd78d8523682f86b155ed2f9df22fbeb925c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "78c9c4cabd9ee0b0c61ae31a20ed38540a667a0feaaf8146149ceff32ce979b5"
   end
 
   depends_on "cmake" => :build
@@ -59,10 +56,13 @@ class Mavsdk < Formula
   end
 
   def install
+    ENV.llvm_clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1100)
+
     # Fix version being reported as `v#{version}-dirty`
     inreplace "CMakeLists.txt", "OUTPUT_VARIABLE VERSION_STR", "OUTPUT_VARIABLE VERSION_STR_IGNORED"
 
-    ENV.llvm_clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1100)
+    # Regenerate files to support newer protobuf
+    system "tools/generate_from_protos.sh"
 
     resource("mavlink").stage do
       system "cmake", "-S", ".", "-B", "build",

@@ -2,8 +2,8 @@ class Tailscale < Formula
   desc "Easiest, most secure way to use WireGuard and 2FA"
   homepage "https://tailscale.com"
   url "https://github.com/tailscale/tailscale.git",
-      tag:      "v1.62.0",
-      revision: "cc950c079140abfdaaf69777fa171f0bcfa63598"
+      tag:      "v1.64.2",
+      revision: "ede81e2669bc01d60f52c84eea1d404215b13e16"
   license "BSD-3-Clause"
 
   livecheck do
@@ -12,13 +12,13 @@ class Tailscale < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "cefeb1860e415cbd56b2b4a6be4e95222e8480ef0013d87f3e49bbcfe266ffa9"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "55a3e38f44db9861079e119ac801e2ec7ea1a745184496587f4cd09e090880b8"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "00d7d547e155dd334e05dbb1fab8d38ea5c9eba548a6b21ddcba21417894e51e"
-    sha256 cellar: :any_skip_relocation, sonoma:         "56e57d7a7c44ab8f5c3f0c3ef09a952dbe32dc480dd4e9dcddacdd8cab1ca997"
-    sha256 cellar: :any_skip_relocation, ventura:        "98c60d374c527d54ca6d161d03e935d195e7ace2d5fa8b0aa4798998eb9d1117"
-    sha256 cellar: :any_skip_relocation, monterey:       "d948e8cf48fd4c51656287752b6a5c4c736432f22ef49da06b7edbc5bfef5c33"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2b1b16402b9936029f42e79a4bb1a0315abc4d6c555a46ad3a813c449f944e3e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1bf2ed37660279253164a0f31cfb3e7f8dafdec22bf194c02b37a2ce714fa884"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "eebf1e5271098db2f3499e33fa2bc7479229632814b1950f2d1df1a5f5a4f11b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d7939853815cbbed23e587a7bd82bf7ec41b9cdaaf22b2a1ca134e734cf0ffdf"
+    sha256 cellar: :any_skip_relocation, sonoma:         "d5238126cb10c2c75fe503cf8ec750f06ffade4ac551af843aec3cda8f30606b"
+    sha256 cellar: :any_skip_relocation, ventura:        "257cfe1918cc8955147f4c55c8143b28a934a7c5ffd92b70d27aabb6f272b1da"
+    sha256 cellar: :any_skip_relocation, monterey:       "2d7955be29022033afb249d941a8aba54e93f3484fbbf5ea05bb73dc4ece1dfa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "96fe0f20123402da99e5d74b224b5550afcb945f07d79b5939b1bdfe903105a8"
   end
 
   depends_on "go" => :build

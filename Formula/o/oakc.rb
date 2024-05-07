@@ -23,7 +23,6 @@ class Oakc < Formula
   depends_on "rust" => :build
 
   def install
-    system "tar", "--strip-components", "1", "-xzvf", "oakc-#{version}.crate"
     system "cargo", "install", *std_cargo_args
     pkgshare.install "examples"
   end

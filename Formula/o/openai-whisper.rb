@@ -6,17 +6,17 @@ class OpenaiWhisper < Formula
   url "https://files.pythonhosted.org/packages/d2/6e/50ace2bf704e5ffc786d20d96403ab0d57c5d6ab8729de7fed8c436687df/openai-whisper-20231117.tar.gz"
   sha256 "7af424181436f1800cc0b7d75cf40ede34e9ddf1ba4983a910832fcf4aade4a4"
   license "MIT"
-  revision 1
+  revision 3
   head "https://github.com/openai/whisper.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "4c7699f18e18799736ce28800d6040ec454cfca2f00cc09081e9c4a525178c90"
-    sha256 cellar: :any,                 arm64_ventura:  "b369003e2be75695b8cab6be6edd1f4d89c50cea5efed2f00fd3cc9dacd80e8e"
-    sha256 cellar: :any,                 arm64_monterey: "3e55312927c5e4b216cbbe73b6e8203c7bdcc1f7c76352cc0ac46f61fb26472c"
-    sha256 cellar: :any,                 sonoma:         "c0f9e109855aef6f4251ffe1f62d8b4c6c5f1285e00076c61d36c511578521a6"
-    sha256 cellar: :any,                 ventura:        "41096642700cef3b6a1b1b9739505f210ddec97147e46e355f49732611ca11e0"
-    sha256 cellar: :any,                 monterey:       "184612f34ec3ba01510a411b845a2e2a3848c3ec4adc6959bc06be0836ed9fd1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d7999941923a991fa99274ce7f3ba1c4f346a3521d8c224393e009c769582eda"
+    sha256 cellar: :any,                 arm64_sonoma:   "2a98ede89522e54e259c33e22605cab4acde0a32126b84b759e99d74257574c2"
+    sha256 cellar: :any,                 arm64_ventura:  "e057ec4fdb71e3c420e1629bab7be967d46a977b524da23130e4f0ac6f00efa8"
+    sha256 cellar: :any,                 arm64_monterey: "9ce9c11ca4afc116951a374566de26f152244004f07a4039399dadcbb5a667b5"
+    sha256 cellar: :any,                 sonoma:         "e2e6882d94acc25e41ac270dc91f34a3138cb5fb77d811fb9da22ff74b1b37d0"
+    sha256 cellar: :any,                 ventura:        "eab8aed4349da8601e53341d5e9025491db371842ccb91598af5b1f43ba7e393"
+    sha256 cellar: :any,                 monterey:       "ba8d40934101194399d6acbf82a201cbf076d9e69089481fba82ac7c2b038755"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "136cef2b14d46f9584803afb8fbd11b977491c546eacce655fd063c9582d77b3"
   end
 
   depends_on "rust" => :build # for tiktoken
@@ -37,8 +37,8 @@ class OpenaiWhisper < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/bf/3f/ea4b9117521a1e9c50344b909be7886dd00a519552724809bb1f486986c2/idna-3.6.tar.gz"
-    sha256 "9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "llvmlite" do
@@ -52,13 +52,13 @@ class OpenaiWhisper < Formula
   end
 
   resource "numba" do
-    url "https://files.pythonhosted.org/packages/a3/5e/ad8f7a2ca55b5903cea0aa6ec0bb0eee7faeec3ca1c4f871d99ff46aad36/numba-0.59.0.tar.gz"
-    sha256 "12b9b064a3e4ad00e2371fc5212ef0396c80f41caec9b5ec391c8b04b6eaf2a8"
+    url "https://files.pythonhosted.org/packages/bb/84/468592513867604800592b58d106f5e7e6ef61de226b59c1e9313917fbbb/numba-0.59.1.tar.gz"
+    sha256 "76f69132b96028d2774ed20415e8c528a34e3299a40581bae178f0994a2f370b"
   end
 
   resource "regex" do
-    url "https://files.pythonhosted.org/packages/b5/39/31626e7e75b187fae7f121af3c538a991e725c744ac893cc2cfd70ce2853/regex-2023.12.25.tar.gz"
-    sha256 "29171aa128da69afdf4bde412d5bedc335f2ca8fcfe4489038577d05f16181e5"
+    url "https://files.pythonhosted.org/packages/c0/d6/87709afa2a195ea902810dfaa796d21dd45d91b496dc98828073acbfe5af/regex-2024.4.28.tar.gz"
+    sha256 "83ab366777ea45d58f72593adf35d36ca911ea8bd838483c1823b883a121b0e4"
   end
 
   resource "requests" do
@@ -72,8 +72,8 @@ class OpenaiWhisper < Formula
   end
 
   resource "tqdm" do
-    url "https://files.pythonhosted.org/packages/ea/85/3ce0f9f7d3f596e7ea57f4e5ce8c18cb44e4a9daa58ddb46ee0d13d6bff8/tqdm-4.66.2.tar.gz"
-    sha256 "6cd52cdf0fef0e0f543299cfc96fec90d7b8a7e88745f411ec33eb44d5ed3531"
+    url "https://files.pythonhosted.org/packages/5a/c0/b7599d6e13fe0844b0cda01b9aaef9a0e87dbb10b06e4ee255d3fa1c79a2/tqdm-4.66.4.tar.gz"
+    sha256 "e4d936c9de8727928f3be6079590e97d9abfe8d39a590be678eb5919ffc186bb"
   end
 
   resource "urllib3" do

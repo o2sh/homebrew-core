@@ -1,19 +1,19 @@
 class HelmLs < Formula
   desc "Language server for Helm"
   homepage "https://github.com/mrjosh/helm-ls"
-  url "https://github.com/mrjosh/helm-ls/archive/refs/tags/v0.0.12.tar.gz"
-  sha256 "6a8ac0c177721c8b2145763d57810d565bc84149251c19c914e348f303fac0f0"
+  url "https://github.com/mrjosh/helm-ls/archive/refs/tags/v0.0.15.tar.gz"
+  sha256 "7a60745ee147fe72a0fd9d0b3d21b9e3fd1e998002cc871580477664d57bddc3"
   license "MIT"
   head "https://github.com/mrjosh/helm-ls.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0aff6a165b7b1eef6cc0023b7cdd26ea1af45fb5648cc8a6a7bef1872a2f3b84"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d5efabef80c78af18299dcce4e17b1f85ce19904c8831fd0bb8be051d9010f2c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e746df085a5cbf2c36ae736d3ad1ebda770adef38184622e7774222456160c47"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8e30a2e97dadf5e81944ae0162c96f55847573aa172fb7476bf5ca7133fa522e"
-    sha256 cellar: :any_skip_relocation, ventura:        "d9daffd642f2978031c5e08422a748963063986040a33438ae705bf2d7985199"
-    sha256 cellar: :any_skip_relocation, monterey:       "2a968eabbb81cddecb6887dd56155fb10d309a2c06125cb3eb7079f1e2d99864"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "734b245ed3104647c3ce41cfdd119d951e6e2d33a2ce32c590b782bdc8924152"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "412f84e01c9bdaa69b59286e2e4f4d042e026d7746c3dbae4b350f72a1739567"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "029c5ccbb6e35fb27d061ba9ca121f422c0f7705083c190d5b419b3afeae4d1c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a9db74cef32b830277fd6e32e794f90eb98b825a7ebb289c40678bb24169e1c1"
+    sha256 cellar: :any_skip_relocation, sonoma:         "514da2baf67bef715fb78c3d9750e1e8f94f266cbb6ed40c6bf46ef22ae762de"
+    sha256 cellar: :any_skip_relocation, ventura:        "d725f0127e0dd39112e7be66f16150cc7f8b327f6b90af355412422d83664ea3"
+    sha256 cellar: :any_skip_relocation, monterey:       "893207e9b9e23185d64f5a36813b90d5f10f07c2b7463d304a5dfe401738259d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3a40685921bc0008a7dfb3e8ef8cce8edae9c4af68d573549d4b87650a9658b4"
   end
 
   depends_on "go" => :build

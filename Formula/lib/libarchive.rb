@@ -1,8 +1,8 @@
 class Libarchive < Formula
   desc "Multi-format archive and compression library"
   homepage "https://www.libarchive.org"
-  url "https://www.libarchive.org/downloads/libarchive-3.7.2.tar.xz"
-  sha256 "04357661e6717b6941682cde02ad741ae4819c67a260593dfb2431861b251acb"
+  url "https://www.libarchive.org/downloads/libarchive-3.7.4.tar.xz"
+  sha256 "f887755c434a736a609cbd28d87ddbfbe9d6a3bb5b703c22c02f6af80a802735"
   license "BSD-2-Clause"
 
   livecheck do
@@ -11,15 +11,13 @@ class Libarchive < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "5dcd7bf0a4b9ed437b6e0c6b19f386f837e52c80a99478e0d68bd320b38dfc87"
-    sha256 cellar: :any,                 arm64_ventura:  "732a8e07ffd6ea82672b2de1164f139cf5567c4a7b730ff30c01820452f49c33"
-    sha256 cellar: :any,                 arm64_monterey: "1c2386f4b7fb039dd6bad86e90d6f248594317810e28690bda23cb58b4952d09"
-    sha256 cellar: :any,                 arm64_big_sur:  "86aa150734eddd98d6fc5f3131ef78fb182d0019ffc3ee98a5f0167d4dc99233"
-    sha256 cellar: :any,                 sonoma:         "d132c0e42cb00165bf4765cb8af3f0bf954ed30d28b73ce4cf9168921fddb303"
-    sha256 cellar: :any,                 ventura:        "2d766707533c6f3cbc43bcd516fde051664f1c60043439ee9bb0905be2f96d5e"
-    sha256 cellar: :any,                 monterey:       "375f3581f47fbdf94c1650edc123bd80c3569fee3669f6349bfbdeec52dd09bf"
-    sha256 cellar: :any,                 big_sur:        "cab50dba89e41b7fef61db78b65c3b6352cfe39cb473cb6e1b33eb5e4f960a8d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e41d7e3e515e4b37715d68de96db99e8946f3be9306eb934cb8ddc166ba9de02"
+    sha256 cellar: :any,                 arm64_sonoma:   "d97e0d2bf8558c7c09b84a48931a75b69e91635d876aee86d99ff2f2f1857ef6"
+    sha256 cellar: :any,                 arm64_ventura:  "cd817acf144903029b3afcd77f71676cee79c8836709d31f53ef25b2416ca11e"
+    sha256 cellar: :any,                 arm64_monterey: "2eee8e2a8945d77bea76a2640d1cb7206d6968a98bb9c3ee5dd1cd1d55f864a4"
+    sha256 cellar: :any,                 sonoma:         "54b0d28b0b58e520aa821731d4273381bb2f876b074c2c5e5f805c8289f6be7d"
+    sha256 cellar: :any,                 ventura:        "f79cb4e1998fd66e7c2e9da3aad7909386c6ddf46384d953f37454c99b4fd132"
+    sha256 cellar: :any,                 monterey:       "fe413fdc80c20fba27c219558e969d67674379035790a5395f4c985e33dcdc4e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ead64680a2a627e4443a898a653ba76c95dbbd099fbd1be5b3f6790f7571b6e1"
   end
 
   keg_only :provided_by_macos

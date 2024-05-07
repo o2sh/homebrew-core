@@ -3,26 +3,26 @@ class AdrViewer < Formula
 
   desc "Generate easy-to-read web pages for your Architecture Decision Records"
   homepage "https://github.com/mrwilson/adr-viewer"
-  url "https://files.pythonhosted.org/packages/a7/9d/f9fa91d28be99a47bc30abe4eef18052f1745a85cafc6971e4c2855e00c7/adr-viewer-1.3.0.tar.gz"
-  sha256 "af936a6c3a3ff10d56a9e9fc970497e147ff56639f787bdf4ddc95d11f3e4ae4"
+  url "https://files.pythonhosted.org/packages/1b/72/0f787da38d0f9d69c06b31d8f412735ed4fad383edd7f7d2286f4fc7b5b0/adr_viewer-1.4.0.tar.gz"
+  sha256 "9a2f02a9feb3a6d03d055dd8599b20d34126f8e755b4b4ee1a353ecbbd590cef"
   license "MIT"
   revision 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b3012fb54668eb17d5306681d9a99efa79c34a6103d4e6d5c8d2f4a5a3736d72"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "43664d77279796afdeadbef4443b6c583f82d156393698ca018bd5bf89249ad2"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "55b98dd660a86e2c8fc4b60572887c2ba7b726f1a188516db65994b7da3acd9d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "b5c03ef785abcfb091cc863f6ab422fd8f8ca1e272632a9b79d94c4ef164c23c"
-    sha256 cellar: :any_skip_relocation, ventura:        "1bcfc044e06d95952de0cf0a8af7d61a82cc9b102cb07a9925bfda3df5305c8d"
-    sha256 cellar: :any_skip_relocation, monterey:       "febe2df12048536883a405402e8cb3f70458ec12e0e18725f50146fec0119c50"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "645664afc04069b3734da2a0d2f0e78d2b867c7460a280db11629612560cc667"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5318d78eabe31c1b114ca32615317b488f6d586c2bcef64af8fc420cd7fbe58e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c61f5cedde30afad943d4e11fed05a6bcd8eef1b8e8aa5b2e68e8810ad185fc5"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "fba7ede4d8f7dbdccd2712460e79fe364e54c4d5c45c58d364094f1958dcd1f6"
+    sha256 cellar: :any_skip_relocation, sonoma:         "8ee0cf976f32eb79be1b9c81912327e4c56e0ab1f66254ae7ae87069e8c273cf"
+    sha256 cellar: :any_skip_relocation, ventura:        "ebc4aa912ff8f326f96c4802c75687c4eb7406dabf0ace81d4976eda508c75ae"
+    sha256 cellar: :any_skip_relocation, monterey:       "de080d53d892580f4456233e69f165ca715d681fd89b9fcec88cfc192285bece"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "282d480f5200e1be5e355fbd64c28baca9bf64432f09ce04a8a407eb3bd78072"
   end
 
   depends_on "python@3.12"
 
   resource "beautifulsoup4" do
-    url "https://files.pythonhosted.org/packages/af/0b/44c39cf3b18a9280950ad63a579ce395dda4c32193ee9da7ff0aed547094/beautifulsoup4-4.12.2.tar.gz"
-    sha256 "492bbc69dca35d12daac71c4db1bfff0c876c00ef4a2ffacce226d4638eb72da"
+    url "https://files.pythonhosted.org/packages/b3/ca/824b1195773ce6166d388573fc106ce56d4a805bd7427b624e063596ec58/beautifulsoup4-4.12.3.tar.gz"
+    sha256 "74e3d1928edc070d21748185c46e3fb33490f22f52a3addee9aee0f4f7781051"
   end
 
   resource "bottle" do
@@ -31,8 +31,8 @@ class AdrViewer < Formula
   end
 
   resource "bs4" do
-    url "https://files.pythonhosted.org/packages/10/ed/7e8b97591f6f456174139ec089c769f89a94a1a4025fe967691de971f314/bs4-0.0.1.tar.gz"
-    sha256 "36ecea1fd7cc5c0c6e4a1ff075df26d50da647b75376626cc186e2212886dd3a"
+    url "https://files.pythonhosted.org/packages/c9/aa/4acaf814ff901145da37332e05bb510452ebed97bc9602695059dd46ef39/bs4-0.0.2.tar.gz"
+    sha256 "a48685c58f50fe127722417bae83fe6badf500d54b55f7e39ffe43b798653925"
   end
 
   resource "click" do
@@ -41,13 +41,13 @@ class AdrViewer < Formula
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/b2/5e/3a21abf3cd467d7876045335e681d276ac32492febe6d98ad89562d1a7e1/Jinja2-3.1.3.tar.gz"
-    sha256 "ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"
+    url "https://files.pythonhosted.org/packages/ed/55/39036716d19cab0747a5020fc7e907f362fbf48c984b14e62127f7e68e5d/jinja2-3.1.4.tar.gz"
+    sha256 "4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369"
   end
 
   resource "markupsafe" do
-    url "https://files.pythonhosted.org/packages/6d/7c/59a3248f411813f8ccba92a55feaac4bf360d29e2ff05ee7d8e1ef2d7dbf/MarkupSafe-2.1.3.tar.gz"
-    sha256 "af598ed32d6ae86f1b747b82783958b1a4ab8f617b06fe68795c7f026abbdcad"
+    url "https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz"
+    sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
   end
 
   resource "mistune" do

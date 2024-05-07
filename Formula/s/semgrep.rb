@@ -4,8 +4,8 @@ class Semgrep < Formula
   desc "Easily detect and prevent bugs and anti-patterns in your codebase"
   homepage "https://semgrep.dev"
   url "https://github.com/semgrep/semgrep.git",
-      tag:      "v1.65.0",
-      revision: "59a374abf873866d72fcc03d31384495acb94062"
+      tag:      "v1.71.0",
+      revision: "6d69592387a191344f91dd5d6e8937c0ff46be50"
   license "LGPL-2.1-only"
   head "https://github.com/semgrep/semgrep.git", branch: "develop"
 
@@ -15,13 +15,13 @@ class Semgrep < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "f383285ff4cdf95f7395d9b7b1e9e61adead1522ace6254e049f0f888c9e034e"
-    sha256 cellar: :any,                 arm64_ventura:  "4968a07c639f83fe8944337aeaf08a7fec6f0b7ebaf595fbca9dad7e82f2fa27"
-    sha256 cellar: :any,                 arm64_monterey: "62e4a5746c6c3fc656eda79a29535564e217f24d31dfb4352955330c6c94e907"
-    sha256 cellar: :any,                 sonoma:         "96ecddd2d2d8e9129ca35e3374a59249e4f0184b57e4c6ed96e9f14606eb9958"
-    sha256 cellar: :any,                 ventura:        "d83500a5693960e954f75ff3a2d8b4b04773f37ddd2202027d5ba218c0c56ec1"
-    sha256 cellar: :any,                 monterey:       "b345e5d1a0e17178f278b794252ff0f6d419e4f5db010509cb0a3d1b8ccc14d5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "701682fb4c3a8ce32edd4b83142cb291f6fa8635c20659d2feccbf07ffa6278f"
+    sha256 cellar: :any,                 arm64_sonoma:   "2f6d0fa2e26d8d3114d39e54363ef4cd928fa9cd77f4a6367d84dc5b29275aac"
+    sha256 cellar: :any,                 arm64_ventura:  "a5ee0d0d9ff58cf493b60e16892f1824972c9f0a3c316b64a5a51cc1fb4bf246"
+    sha256 cellar: :any,                 arm64_monterey: "fae763b99c40d8aa5f9a0a506110fa723a59f76e1d5d3bfe2b2d52d3ec227103"
+    sha256 cellar: :any,                 sonoma:         "2eb58eef87b5627e3684ebb426dc8965aec18bffe79b38928a12bae8e7a3399f"
+    sha256 cellar: :any,                 ventura:        "fbddf432871146759f30690be51db1ef6d3510a67255cdc700b739284ff71dd5"
+    sha256 cellar: :any,                 monterey:       "6a1a5ac3901e45ce383d2f83b79eb53281cda51f1e5365c0c002fadb9a04787f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c5228116622a25a8275ef7c94ba65021c8d38481f36e97c723c0935f20e999bb"
   end
 
   depends_on "autoconf" => :build
@@ -37,6 +37,7 @@ class Semgrep < Formula
   depends_on "gmp"
   depends_on "libev"
   depends_on "pcre"
+  depends_on "pcre2"
   depends_on "python@3.11" # Python 3.12 blocked by imp usage in glom < 23.4.0
   depends_on "sqlite"
   depends_on "tree-sitter"
@@ -87,8 +88,8 @@ class Semgrep < Formula
   end
 
   resource "exceptiongroup" do
-    url "https://files.pythonhosted.org/packages/8e/1c/beef724eaf5b01bb44b6338c8c3494eff7cab376fab4904cfbbc3585dc79/exceptiongroup-1.2.0.tar.gz"
-    sha256 "91f5c769735f051a4290d52edd0858999b57e5876e9f85937691bd4c9fa3ed68"
+    url "https://files.pythonhosted.org/packages/a0/65/d66b7fbaef021b3c954b3bbb196d21d8a4b97918ea524f82cfae474215af/exceptiongroup-1.2.1.tar.gz"
+    sha256 "a4785e48b045528f5bfe627b6ad554ff32def154f42372786903b7abcfe1aa16"
   end
 
   resource "face" do
@@ -102,13 +103,13 @@ class Semgrep < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/bf/3f/ea4b9117521a1e9c50344b909be7886dd00a519552724809bb1f486986c2/idna-3.6.tar.gz"
-    sha256 "9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"
+    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
+    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
   end
 
   resource "jsonschema" do
-    url "https://files.pythonhosted.org/packages/4d/c5/3f6165d3df419ea7b0990b3abed4ff348946a826caf0e7c990b65ff7b9be/jsonschema-4.21.1.tar.gz"
-    sha256 "85727c00279f5fa6bedbe6238d2aa6403bedd8b4864ab11207d07df3cc1b2ee5"
+    url "https://files.pythonhosted.org/packages/19/f1/1c1dc0f6b3bf9e76f7526562d29c320fa7d6a2f35b37a1392cc0acd58263/jsonschema-4.22.0.tar.gz"
+    sha256 "5b22d434a45935119af990552c862e5d6d564e8f6601206b305a61fdf661a2b7"
   end
 
   resource "jsonschema-specifications" do
@@ -132,8 +133,8 @@ class Semgrep < Formula
   end
 
   resource "peewee" do
-    url "https://files.pythonhosted.org/packages/8d/a5/89cdbc4a7f6d7a0624c120be102db770ee717aa371066581e3daf2beb96f/peewee-3.17.1.tar.gz"
-    sha256 "e009ac4227c4fdc0058a56e822ad5987684f0a1fbb20fed577200785102581c3"
+    url "https://files.pythonhosted.org/packages/7a/b1/2331e6b1fc8c61686dd9276f34142265462640eb0dd431246e30c4461065/peewee-3.17.3.tar.gz"
+    sha256 "ef15f90b628e41a584be8306cdc3243c51f73ce88b06154d9572f6d0284a0169"
   end
 
   resource "pygments" do
@@ -142,8 +143,8 @@ class Semgrep < Formula
   end
 
   resource "referencing" do
-    url "https://files.pythonhosted.org/packages/21/c5/b99dd501aa72b30a5a87d488d7aa76ec05bdf0e2c7439bc82deb9448dd9a/referencing-0.33.0.tar.gz"
-    sha256 "c775fedf74bc0f9189c2a3be1c12fd03e8c23f4d371dce795df44e06c5b412f7"
+    url "https://files.pythonhosted.org/packages/99/5b/73ca1f8e72fff6fa52119dbd185f73a907b1989428917b24cff660129b6d/referencing-0.35.1.tar.gz"
+    sha256 "25b42124a6c8b632a425174f24087783efb348a6f1e0008e63cd4466fedf703c"
   end
 
   resource "requests" do
@@ -177,8 +178,8 @@ class Semgrep < Formula
   end
 
   resource "typing-extensions" do
-    url "https://files.pythonhosted.org/packages/16/3a/0d26ce356c7465a19c9ea8814b960f8a36c3b0d07c323176620b7b483e44/typing_extensions-4.10.0.tar.gz"
-    sha256 "b0abd7c89e8fb96f98db18d86106ff1d90ab692004eb746cf6eda2682f91b3cb"
+    url "https://files.pythonhosted.org/packages/f6/f3/b827b3ab53b4e3d8513914586dcca61c355fa2ce8252dea4da56e67bf8f2/typing_extensions-4.11.0.tar.gz"
+    sha256 "83f085bd5ca59c80295fc2a82ab5dac679cbe02b9f33f7d83af68e241bea51b0"
   end
 
   resource "urllib3" do
@@ -192,12 +193,18 @@ class Semgrep < Formula
   end
 
   def install
+    # Work around ruamel.yaml.clib not building on Xcode 15.3, remove after a new release
+    # has resolved: https://sourceforge.net/p/ruamel-yaml-clib/tickets/32/
+    ENV.append_to_cflags "-Wno-incompatible-function-pointer-types" if DevelopmentTools.clang_build_version >= 1500
+
     ENV.deparallelize
     Dir.mktmpdir("opamroot") do |opamroot|
       ENV["OPAMROOT"] = opamroot
       ENV["OPAMYES"] = "1"
       # Set library path so opam + lwt can find libev
       ENV["LIBRARY_PATH"] = "#{HOMEBREW_PREFIX}/lib"
+      # Set path to libev for our static linking logic
+      ENV["SEMGREP_LIBEV_ARCHIVE_PATH"] = "#{HOMEBREW_PREFIX}/lib/libev.a"
 
       system "opam", "init", "--no-setup", "--disable-sandboxing"
       ENV.deparallelize { system "opam", "switch", "create", "ocaml-base-compiler.4.14.0" }

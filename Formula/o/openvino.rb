@@ -1,8 +1,8 @@
 class Openvino < Formula
   desc "Open Visual Inference And Optimization toolkit for AI inference"
   homepage "https://docs.openvino.ai"
-  url "https://github.com/openvinotoolkit/openvino/archive/refs/tags/2023.3.0.tar.gz"
-  sha256 "27cff20ac0662f5495d2c2eec47cbe5469ab2f225aa091d223f8bfc9d32f4fc3"
+  url "https://github.com/openvinotoolkit/openvino/archive/refs/tags/2024.1.0.tar.gz"
+  sha256 "b298a91b5aae252ef9883e0f2017e88677be88a9839b1aa2f6e9f70067d98ce6"
   license "Apache-2.0"
   head "https://github.com/openvinotoolkit/openvino.git", branch: "master"
 
@@ -12,17 +12,16 @@ class Openvino < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "0aa85634e6098d2700f123a7938482dbc04ed8fdb9e7ed5c8126bca81c5ae7b6"
-    sha256 cellar: :any,                 arm64_ventura:  "1b4878e5aa0687c126e221c4b623757ffd9f5d285a657aefbc8f43090a20c12c"
-    sha256 cellar: :any,                 arm64_monterey: "c348ebe9b9513ca07f63386bb285e41b4764935d99e51d0424665281ecca05fd"
-    sha256 cellar: :any,                 sonoma:         "507fe65857c6227ef974646e002b36241f59acfc3de8969d184842971e56f375"
-    sha256 cellar: :any,                 ventura:        "e1db750a4f82eb41c7639b23a84b49bc540e8a298049c335a35e507c01c1efb2"
-    sha256 cellar: :any,                 monterey:       "6eac7a57c4fb2f7babc6e51dbd03d737a01038f56c5dfe81a559eb02c05cf20a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "44900ffc477d5c4bca4575a96f05448c69e298a4c2a4e059295aaa25172b8389"
+    sha256 cellar: :any,                 arm64_sonoma:   "a91bcff7e57b16c3e54c4916688f83618bfed26c31cc40642903338abad98b9c"
+    sha256 cellar: :any,                 arm64_ventura:  "7fcd7e0b9e22df209fe7d6bc39af60a87411b0c4bdd796affba22072ab23ed6d"
+    sha256 cellar: :any,                 arm64_monterey: "1aff2106605cfea24ef754fbf139a6954abcae23b191778162fecb602fb9a47c"
+    sha256 cellar: :any,                 sonoma:         "7235ef56a930cf1eaa38a868a45244bf0992e50813a5ed10db54c3e87cfdf6f0"
+    sha256 cellar: :any,                 ventura:        "ded034e479eec8c7cfe11f65c1c01c7fcf1bb94089d6fc91dd40287b0b0f4991"
+    sha256 cellar: :any,                 monterey:       "96135b3ce48d4656ee3e7b4d74d9ba12dbba1adb27245a9162151aa39a48f153"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f5ab89d572de42b03428ac17b01fc556ea58cc56a8b1ef5c4c81fb47a0ef6542"
   end
 
   depends_on "cmake" => [:build, :test]
-  depends_on "cython" => :build
   depends_on "flatbuffers" => :build
   depends_on "pkg-config" => [:build, :test]
   depends_on "protobuf@21" => :build
@@ -31,6 +30,7 @@ class Openvino < Formula
   depends_on "python@3.12" => [:build, :test]
   depends_on "numpy"
   depends_on "pugixml"
+  depends_on "python-packaging"
   depends_on "snappy"
   depends_on "tbb"
 
@@ -41,8 +41,8 @@ class Openvino < Formula
     depends_on "opencl-icd-loader"
 
     resource "onednn_gpu" do
-      url "https://github.com/oneapi-src/oneDNN/archive/cb77937ffcf5e83b5d1cf2940c94e8b508d8f7b4.tar.gz"
-      sha256 "2ca304c033786aa5c3ec1ec6f8fc3936ae5c6874d5964b586311da11bec2ec4a"
+      url "https://github.com/oneapi-src/oneDNN/archive/4e6ff043c439652fcf6c400ac4e0c81bbac7c71c.tar.gz"
+      sha256 "c3543d560fbbb7297df91c191cc9bf682322c5554302e256f1bf4a757424a331"
     end
   end
 
@@ -50,8 +50,8 @@ class Openvino < Formula
     depends_on "scons" => :build
 
     resource "arm_compute" do
-      url "https://github.com/ARM-software/ComputeLibrary/archive/refs/tags/v23.08.tar.gz"
-      sha256 "62f514a555409d4401e5250b290cdf8cf1676e4eb775e5bd61ea6a740a8ce24f"
+      url "https://github.com/ARM-software/ComputeLibrary/archive/refs/tags/v24.02.1.tar.gz"
+      sha256 "590d5cb710355bce2ddfe7117529c2f492cd253b548f709bbfe84702203d99c8"
     end
   end
 
@@ -59,19 +59,14 @@ class Openvino < Formula
     depends_on "xbyak" => :build
   end
 
-  resource "ade" do
-    url "https://github.com/opencv/ade/archive/refs/tags/v0.1.2d.tar.gz"
-    sha256 "edefba61a33d6cd4b78a9976cb3309c95212610a81ba6dade09882d1794198ff"
-  end
-
   resource "mlas" do
-    url "https://github.com/openvinotoolkit/mlas/archive/7a35e48a723944972088627be1a8b60841e8f6a5.tar.gz"
-    sha256 "b7fdd19523a88373d19fd8d5380f64c2834040fa50a6f0774acf08f3fa858daa"
+    url "https://github.com/openvinotoolkit/mlas/archive/d1bc25ec4660cddd87804fcf03b2411b5dfb2e94.tar.gz"
+    sha256 "0a44fbfd4b13e8609d66ddac4b11a27c90c1074cde5244c91ad197901666004c"
   end
 
   resource "onednn_cpu" do
-    url "https://github.com/openvinotoolkit/oneDNN/archive/cb3060bbf4694e46a1359a3d4dfe70500818f72d.tar.gz"
-    sha256 "9dea3da8dab8511677db3db68ff4d9cdbfd31d8614bf04fd79a7610892bb991c"
+    url "https://github.com/openvinotoolkit/oneDNN/archive/26633ae49edd4353a29b7170d9fcef6b2d79f4b3.tar.gz"
+    sha256 "3cd4a2aea30cd6ca689e63545cf986f8e83c88333b73d42bb750fcaf08940b17"
   end
 
   resource "onnx" do
@@ -83,16 +78,9 @@ class Openvino < Formula
     "python3.12"
   end
 
-  # Fix linux build with our OpenCL
-  # https://github.com/openvinotoolkit/openvino/pull/22051
-  patch do
-    url "https://github.com/openvinotoolkit/openvino/commit/0d455544f599ca5b2bb8993f209a01e7b61a336e.patch?full_index=1"
-    sha256 "67a1ba9296d3f23eeb5a3cf95dfe24171657d21e6cc6eef372a7e308f57a3092"
-  end
-
   def install
     # Remove git cloned 3rd party to make sure formula dependencies are used
-    dependencies = %w[thirdparty/ade thirdparty/ocl
+    dependencies = %w[thirdparty/ocl
                       thirdparty/xbyak thirdparty/gflags
                       thirdparty/ittapi thirdparty/snappy
                       thirdparty/pugixml thirdparty/protobuf
@@ -104,7 +92,6 @@ class Openvino < Formula
                       src/plugins/intel_cpu/thirdparty/ComputeLibrary]
     dependencies.each { |d| (buildpath/d).rmtree }
 
-    resource("ade").stage buildpath/"thirdparty/ade"
     resource("onnx").stage buildpath/"thirdparty/onnx/onnx"
     resource("mlas").stage buildpath/"src/plugins/intel_cpu/thirdparty/mlas"
     resource("onednn_cpu").stage buildpath/"src/plugins/intel_cpu/thirdparty/onednn"
@@ -120,8 +107,9 @@ class Openvino < Formula
       -DENABLE_CPPLINT=OFF
       -DENABLE_CLANG_FORMAT=OFF
       -DENABLE_NCC_STYLE=OFF
+      -DENABLE_JS=OFF
       -DENABLE_TEMPLATE=OFF
-      -DENABLE_INTEL_GNA=OFF
+      -DENABLE_INTEL_NPU=OFF
       -DENABLE_PYTHON=OFF
       -DENABLE_SAMPLES=OFF
       -DCPACK_GENERATOR=BREW
@@ -166,10 +154,10 @@ class Openvino < Formula
       #ifndef __APPLE__
           OV_CALL(ov_core_get_property(core, "GPU", "AVAILABLE_DEVICES", &ret));
       #endif
-          OV_CALL(ov_core_get_property(core, "AUTO", "SUPPORTED_METRICS", &ret));
-          OV_CALL(ov_core_get_property(core, "MULTI", "SUPPORTED_METRICS", &ret));
-          OV_CALL(ov_core_get_property(core, "HETERO", "SUPPORTED_METRICS", &ret));
-          OV_CALL(ov_core_get_property(core, "BATCH", "SUPPORTED_METRICS", &ret));
+          OV_CALL(ov_core_get_property(core, "AUTO", "SUPPORTED_PROPERTIES", &ret));
+          OV_CALL(ov_core_get_property(core, "MULTI", "SUPPORTED_PROPERTIES", &ret));
+          OV_CALL(ov_core_get_property(core, "HETERO", "SUPPORTED_PROPERTIES", &ret));
+          OV_CALL(ov_core_get_property(core, "BATCH", "SUPPORTED_PROPERTIES", &ret));
           ov_core_free(core);
           return 0;
       }

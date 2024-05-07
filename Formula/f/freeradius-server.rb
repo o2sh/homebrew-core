@@ -2,7 +2,7 @@ class FreeradiusServer < Formula
   desc "High-performance and highly configurable RADIUS server"
   homepage "https://freeradius.org/"
   license all_of: ["GPL-2.0-or-later", "LGPL-2.1-or-later"]
-  revision 2
+  revision 4
   head "https://github.com/FreeRADIUS/freeradius-server.git", branch: "master"
 
   stable do
@@ -22,14 +22,13 @@ class FreeradiusServer < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_sonoma:   "975eb3ec60ead242efbddafd806f7221ca8d620d834596223cb06b1dc1757e6b"
-    sha256 arm64_ventura:  "37734c06c9574c408e54949be5cbd8d5bd854cc1ee62a38db20e59e0c40099b9"
-    sha256 arm64_monterey: "7a44daa75f6580de3b0c94272a7f9571f7a980479605ec0ed3cb758ce62efd47"
-    sha256 sonoma:         "d363438223648119548525ad6445ba46637fc98826abdb901a738975ba5b9a7b"
-    sha256 ventura:        "288de84c2b4f3c8af2c818ccb9663acddf3844e37563196eb7dccf49f6a77d9f"
-    sha256 monterey:       "f0ca09ead3c4384d90869155652a4181402da2c9c1281d6522ee2e3246c652fb"
-    sha256 x86_64_linux:   "3d3bb2b2e6a477690ac32054c51e1f01c7ebbed5c8580123f3b0afae6a85308b"
+    sha256 arm64_sonoma:   "813a586b28502bb65ecf7b219b8c4f453c2be602c4d22ae9e6acedcbe7dba261"
+    sha256 arm64_ventura:  "a3b350ba4693c8ef7c569181b838335087db6c0f2e202eb35252afa041e9069a"
+    sha256 arm64_monterey: "4701828525754c3696bbc2aad476c4791170d932b222ee7fec84beaa34159bdb"
+    sha256 sonoma:         "3f70ad4001df9d13fa3de810e21b960cffc81d583da437faeb3de1f1fd6bbbbe"
+    sha256 ventura:        "23847bbd5bd1d05407bb4776683658d39a0b5f277dfab68de056044b1edfebe7"
+    sha256 monterey:       "e3d590372d756cd494628c5c57144c4a6c10c5bfd693de68aee6fd821dd202e8"
+    sha256 x86_64_linux:   "c25868df8d318a2662d3fe296120cf226eb282f4d1a2667b64f206d7a57d667b"
   end
 
   depends_on "collectd"
@@ -73,7 +72,10 @@ class FreeradiusServer < Formula
   end
 
   test do
-    output = shell_output("#{bin}/smbencrypt homebrew")
-    assert_match "77C8009C912CFFCF3832C92FC614B7D1", output
+    assert_match "77C8009C912CFFCF3832C92FC614B7D1",
+                 shell_output("#{bin}/smbencrypt homebrew")
+
+    assert_match "Configuration appears to be OK",
+                 shell_output("#{bin}/radiusd -CX")
   end
 end

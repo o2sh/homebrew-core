@@ -12,6 +12,7 @@ env:
   HOMEBREW_GITHUB_ACTIONS: 1
   HOMEBREW_NO_AUTO_UPDATE: 1
   HOMEBREW_NO_INSTALL_FROM_API: 1
+  HOMEBREW_TEST_BOT_ANALYTICS: 1
   GH_REPO: ${{github.repository}}
   GH_NO_UPDATE_NOTIFIER: 1
   GH_PROMPT_DISABLED: 1
@@ -27,7 +28,12 @@ permissions:
 jobs:
   tap_syntax:
     if: github.repository_owner == 'Homebrew'
+    strategy:
+      matrix:
+        stable: [false, true]
+    name: tap_syntax${{ matrix.stable && ' (stable)' || '' }}
     runs-on: ubuntu-22.04
+    continue-on-error: ${{ matrix.stable }}
     container:
       image: ghcr.io/homebrew/ubuntu22.04:master
     env:
@@ -40,13 +46,14 @@ jobs:
           core: true
           cask: false
           test-bot: true
+          stable: ${{ matrix.stable }}
 
       - name: Cache style cache
         uses: actions/cache@v4
         with:
           path: /home/linuxbrew/.cache/Homebrew/style
-          key: style-cache-${{ github.sha }}
-          restore-keys: style-cache-
+          key: style-cache-${{ matrix.stable && 'stable-' || 'master-' }}${{ github.sha }}
+          restore-keys: style-cache-${{ matrix.stable && 'stable-' || 'master-' }}
 
       - run: brew test-bot --only-tap-syntax
 
@@ -359,7 +366,7 @@ jobs:
         if: always()
         uses: Homebrew/actions/post-build@master
         with:
-          runner: ${{ matrix.runner }}
+          runner: ${{ runner.os == 'Linux' && format('{0}-deps', matrix.runner) || matrix.runner }}
           cleanup: ${{ matrix.cleanup }}
           bottles-directory: ${{ env.BOTTLES_DIR }}
           logs-directory: ${{ format('{0}/logs', env.BOTTLES_DIR) }}

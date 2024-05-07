@@ -3,8 +3,8 @@ require "language/node"
 class HasuraCli < Formula
   desc "Command-Line Interface for Hasura GraphQL Engine"
   homepage "https://hasura.io"
-  url "https://github.com/hasura/graphql-engine/archive/refs/tags/v2.37.1.tar.gz"
-  sha256 "85257fecc97a531987bd3a4a7ead8a8fefaf46ceec8b0147401b8e96f87a5d77"
+  url "https://github.com/hasura/graphql-engine/archive/refs/tags/v2.38.1.tar.gz"
+  sha256 "5d0710a77367ca184a900e9653de004bf9e5b73a3af5e59c34e667f29f63b965"
   license "Apache-2.0"
 
   # There can be a notable gap between when a version is tagged and a
@@ -16,13 +16,13 @@ class HasuraCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c7b26a7b256ce9e1f347103db342e543d82caa0daf182ae650576fd6e41d7644"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8fd7bd2dd7d358172fefcacfd5bd93475d076a2f012d2f53dd128fcb0e836e04"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "19ec773fda89d2d62e9a3496d95e88382974c9cbd0c6a1a32892236cbe6fc38c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c0df5f505196a2a7c10e75bc217dfe6dc1aac02e551bad9ce812e1c27124a95c"
-    sha256 cellar: :any_skip_relocation, ventura:        "4372809cd5eb4f0cd80759d7f60b7e5594d5d9800f773ea6665756839a2ddafc"
-    sha256 cellar: :any_skip_relocation, monterey:       "e8380bef701fe10db4f55aa1d265f58c54ab755bcbee32e54e34c5a376f1a34e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "166ebbe44ab0e1753e2e4db48debb3ca36a1e75c85423f7485db84f5fc8d9420"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9ea0707497c54c458be70f070e05f514da36597fa413017d7768585508354229"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "56bca292fb6343a5e51bf829bbdef7c9b8ac3d88f3a5dac236eec0f53365b36c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "92723d8db1829ce0b781431db6dc8dc389acf38db3ed966b0429add87fc3239a"
+    sha256 cellar: :any_skip_relocation, sonoma:         "8533e00484df09c56f106bc6f1e9b6f96dfc9ef9fc02fb66bb87733bc8580192"
+    sha256 cellar: :any_skip_relocation, ventura:        "c06f31e843db60a5ccbcb50970b3adf4e8978f5d60e51c7dfa7ae1acd8d2d92d"
+    sha256 cellar: :any_skip_relocation, monterey:       "9020e3d6a2c453201974acab911c6a6e55ccb52aecf52db38de29be20d4b7d7e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ee5a5eeec37dd744046bde558e0c357b6cd5befb0c9065308b3cd5a5dd3e11e1"
   end
 
   depends_on "go" => :build

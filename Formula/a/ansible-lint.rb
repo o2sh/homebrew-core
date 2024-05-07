@@ -3,19 +3,19 @@ class AnsibleLint < Formula
 
   desc "Checks ansible playbooks for practices and behaviour"
   homepage "https://ansible-lint.readthedocs.io/"
-  url "https://files.pythonhosted.org/packages/25/6c/ad29634f856442a7cbb4894bf81eb8ae6ce256d86a1a2404537c3f1ddfe0/ansible-lint-24.2.1.tar.gz"
-  sha256 "c3619deaadf852c353decff7242589bd1339e29271552e4e37bfa8f67db4c56b"
+  url "https://files.pythonhosted.org/packages/0c/62/68c361cc7f778d2d6817470affe30708714bf64b472cc03b9c206472ca42/ansible_lint-24.2.3.tar.gz"
+  sha256 "2ec67cc1719f56e63b1dfc3728d0c2c4142e531f4452f6ae31f618438d59469a"
   license all_of: ["MIT", "GPL-3.0-or-later"]
+  revision 1
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "8b7708fa94915e493ae11dee6776771958bf3a4b9a65b94b0617c679f908822f"
-    sha256 cellar: :any,                 arm64_ventura:  "dbd62c59eaec73e1235f7e394fcd18b8166fdd65c7271613b896419d0c375f50"
-    sha256 cellar: :any,                 arm64_monterey: "e6a34b28c45120d91a7e40a5804cfd65bff8c46644df1945cbaba96c1e0574b3"
-    sha256 cellar: :any,                 sonoma:         "db8f331e32026b476e941899fdf35c15ac7f039c61a6147be513b7f6f84d3e74"
-    sha256 cellar: :any,                 ventura:        "ad88e1252eb8b83e8a660e8f4943b065e8903f93d5500f0e9e5c5034ff9b1b74"
-    sha256 cellar: :any,                 monterey:       "0a33c741f58e3b8e1be6d5e844f75da1c8496a3ac543dd9d9fe93c591b973efa"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "66adb42e6736427dbb1ca68fe99ea8ff0b38558827c093301ef8f82b06920bea"
+    sha256 cellar: :any,                 arm64_sonoma:   "9d8188bd0c5dca6b2f71c98c5069a3b1e3526f60e9c3c8c7fd387e4b1be7314d"
+    sha256 cellar: :any,                 arm64_ventura:  "08bd0f72f155aea919df6f6b1d2b240f8aa80f21d0b14566f9054e9d95c1b6a5"
+    sha256 cellar: :any,                 arm64_monterey: "5360c8c01a5d473ded255bb004bc320c2d2ee9900363b4cab823fae3954ac501"
+    sha256 cellar: :any,                 sonoma:         "31f7efee7f9aec0808f87ceb023ce63df7f8a5a32eb988181168a26a9b85f223"
+    sha256 cellar: :any,                 ventura:        "bcd36a5f5e6e3569581d2b87a9004d0ab0453750826ed0971f99ccc5c3c92547"
+    sha256 cellar: :any,                 monterey:       "632704aabc8a3a8f20a5633da4352d578e54109c712b6d904e78896a75b7280a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "af902b95bb9d209a6198060397602cb15a083826e9f51c132864e8784184287b"
   end
 
   depends_on "pkg-config" => :build
@@ -30,8 +30,8 @@ class AnsibleLint < Formula
   end
 
   resource "ansible-core" do
-    url "https://files.pythonhosted.org/packages/af/9c/12755b9ec6b696701fc7a33e8eab7a78f2b769dc0c966079c9005fffc7bf/ansible-core-2.16.4.tar.gz"
-    sha256 "2cd208b0915948c88bffad331e5d07097b6edca1872cb53375e51b6719e6a060"
+    url "https://files.pythonhosted.org/packages/0c/65/d28ed46f5daeb2ed37f9b55631cac7070d7a39f72b6d25cb99a5d8068827/ansible_core-2.16.6.tar.gz"
+    sha256 "111e55d358c2297ec0ce03ba98e6c5ce95947fdf50d878215eb8c183d0c275e4"
   end
 
   resource "attrs" do
@@ -40,8 +40,8 @@ class AnsibleLint < Formula
   end
 
   resource "black" do
-    url "https://files.pythonhosted.org/packages/8f/5f/bac24a952668c7482cfdb4ebf91ba57a796c9da8829363a772040c1a3312/black-24.3.0.tar.gz"
-    sha256 "a0c9c4a0771afc6919578cec71ce82a3e31e054904e7197deacbc9382671c41f"
+    url "https://files.pythonhosted.org/packages/a2/47/c9997eb470a7f48f7aaddd3d9a828244a2e4199569e38128715c48059ac1/black-24.4.2.tar.gz"
+    sha256 "c872b53057f000085da66a19c55d68f6f8ddcac2642392ad3a355878406fbd4d"
   end
 
   resource "bracex" do
@@ -55,18 +55,18 @@ class AnsibleLint < Formula
   end
 
   resource "filelock" do
-    url "https://files.pythonhosted.org/packages/70/70/41905c80dcfe71b22fb06827b8eae65781783d4a14194bce79d16a013263/filelock-3.13.1.tar.gz"
-    sha256 "521f5f56c50f8426f5e03ad3b281b490a87ef15bc6c526f168290f0c7148d44e"
+    url "https://files.pythonhosted.org/packages/06/ae/f8e03746f0b62018dcf1120f5ad0a1db99e55991f2cda0cf46edc8b897ea/filelock-3.14.0.tar.gz"
+    sha256 "6ea72da3be9b8c82afd3edcf99f2fffbb5076335a5ae4d03248bb5b6c3eae78a"
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/b2/5e/3a21abf3cd467d7876045335e681d276ac32492febe6d98ad89562d1a7e1/Jinja2-3.1.3.tar.gz"
-    sha256 "ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"
+    url "https://files.pythonhosted.org/packages/ed/55/39036716d19cab0747a5020fc7e907f362fbf48c984b14e62127f7e68e5d/jinja2-3.1.4.tar.gz"
+    sha256 "4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369"
   end
 
   resource "jsonschema" do
-    url "https://files.pythonhosted.org/packages/4d/c5/3f6165d3df419ea7b0990b3abed4ff348946a826caf0e7c990b65ff7b9be/jsonschema-4.21.1.tar.gz"
-    sha256 "85727c00279f5fa6bedbe6238d2aa6403bedd8b4864ab11207d07df3cc1b2ee5"
+    url "https://files.pythonhosted.org/packages/19/f1/1c1dc0f6b3bf9e76f7526562d29c320fa7d6a2f35b37a1392cc0acd58263/jsonschema-4.22.0.tar.gz"
+    sha256 "5b22d434a45935119af990552c862e5d6d564e8f6601206b305a61fdf661a2b7"
   end
 
   resource "jsonschema-specifications" do
@@ -105,13 +105,13 @@ class AnsibleLint < Formula
   end
 
   resource "platformdirs" do
-    url "https://files.pythonhosted.org/packages/96/dc/c1d911bf5bb0fdc58cc05010e9f3efe3b67970cef779ba7fbc3183b987a8/platformdirs-4.2.0.tar.gz"
-    sha256 "ef0cc731df711022c174543cb70a9b5bd22e5a9337c8624ef2c2ceb8ddad8768"
+    url "https://files.pythonhosted.org/packages/b2/e4/2856bf61e54d7e3a03dd00d0c1b5fa86e6081e8f262eb91befbe64d20937/platformdirs-4.2.1.tar.gz"
+    sha256 "031cd18d4ec63ec53e82dceaac0417d218a6863f7745dfcc9efe7793b7039bdf"
   end
 
   resource "pygments" do
-    url "https://files.pythonhosted.org/packages/55/59/8bccf4157baf25e4aa5a0bb7fa3ba8600907de105ebc22b0c78cfbf6f565/pygments-2.17.2.tar.gz"
-    sha256 "da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367"
+    url "https://files.pythonhosted.org/packages/8e/62/8336eff65bcbc8e4cb5d05b55faf041285951b6e80f33e2bff2024788f31/pygments-2.18.0.tar.gz"
+    sha256 "786ff802f32e91311bff3889f6e9a86e81505fe99f2735bb6d60ae0c5004f199"
   end
 
   resource "pyyaml" do
@@ -120,8 +120,8 @@ class AnsibleLint < Formula
   end
 
   resource "referencing" do
-    url "https://files.pythonhosted.org/packages/59/d7/48b862b8133da2e0ed091195028f0d45c4d0be0f7f23dbe046a767282f37/referencing-0.34.0.tar.gz"
-    sha256 "5773bd84ef41799a5a8ca72dc34590c041eb01bf9aa02632b4a973fb0181a844"
+    url "https://files.pythonhosted.org/packages/99/5b/73ca1f8e72fff6fa52119dbd185f73a907b1989428917b24cff660129b6d/referencing-0.35.1.tar.gz"
+    sha256 "25b42124a6c8b632a425174f24087783efb348a6f1e0008e63cd4466fedf703c"
   end
 
   resource "resolvelib" do
@@ -135,8 +135,8 @@ class AnsibleLint < Formula
   end
 
   resource "rpds-py" do
-    url "https://files.pythonhosted.org/packages/55/ba/ce7b9f0fc5323f20ffdf85f682e51bee8dc03e9b54503939ebb63d1d0d5e/rpds_py-0.18.0.tar.gz"
-    sha256 "42821446ee7a76f5d9f71f9e33a4fb2ffd724bb3e7f93386150b61a43115788d"
+    url "https://files.pythonhosted.org/packages/2d/aa/e7c404bdee1db7be09860dff423d022ffdce9269ec8e6532cce09ee7beea/rpds_py-0.18.1.tar.gz"
+    sha256 "dc48b479d540770c811fbd1eb9ba2bb66951863e448efec2e2c102625328e92f"
   end
 
   resource "ruamel-yaml" do

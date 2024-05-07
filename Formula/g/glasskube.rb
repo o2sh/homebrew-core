@@ -1,22 +1,23 @@
 class Glasskube < Formula
   desc "Missing Package Manager for Kubernetes"
   homepage "https://glasskube.dev/"
-  url "https://github.com/glasskube/glasskube/archive/refs/tags/v0.0.4.tar.gz"
-  sha256 "0c7d300b6a3deb22047e3d98548c4abcd87d23fc53042bfdce27a458582711db"
+  url "https://github.com/glasskube/glasskube/archive/refs/tags/v0.4.0.tar.gz"
+  sha256 "5e1b0fd11563739af44794faeb749f16d818325f53e527106f52c51024956b7c"
   license "Apache-2.0"
   head "https://github.com/glasskube/glasskube.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "160ba184eb4d0b1b793d196cdaf21c33a03c41cef5540023379204b540086c83"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8c38e2e440852635589944dce7e6a4d8e53d753bd468d22992433810e0ba63e4"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ae5e2af9c257731b9375d5c603cbd7d9c260fe6fa0ec116f042e5f950dfc7889"
-    sha256 cellar: :any_skip_relocation, sonoma:         "6609c7629c61a11f2a5530b4e7e6a622a6e9210b31d2559382323feb199e1f5d"
-    sha256 cellar: :any_skip_relocation, ventura:        "001ffb95fb090479ddf6cf783af20c3e9cb98b8c854a349ed96524122fc97c78"
-    sha256 cellar: :any_skip_relocation, monterey:       "fc45d079ebb81891ece05acb37589ee3295a992b1ee0054337b6013a92d3ba1f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3b74cc3160ca344fc02cf457344e2b111688f8c0ec6b61ab23730b6a3d28612f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "eaac51d3a429c639d9f655a078a4d7b1e57431c15aa1ac9fba4b53de4658421a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b6dc26b3b6bd455a2df7416e1acac6e82757fa380ddd60768796b57632af69f1"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a6a400338236073e4c8bfd90270d65940e2bd9af493d07a05b8a3ccc5a6fb054"
+    sha256 cellar: :any_skip_relocation, sonoma:         "921ab62767371143afa445a13218059b9f2bb174ff2fa50c4e52a34b72c23c5f"
+    sha256 cellar: :any_skip_relocation, ventura:        "6920bf4448cdbc90ee30a96dfb408ebf1fc01fc46475f7e7458b47686dbcb2be"
+    sha256 cellar: :any_skip_relocation, monterey:       "598341dfd1b7f7f04852004cc70a01d8cce96f9dd2380d4a899f0697e63f11c9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1b92ebdb5c9911ff2c125f5d871d5632d4ad01114c47ee85041972c20fb5a959"
   end
 
   depends_on "go" => :build
+  depends_on "node" => :build
 
   def install
     ldflags = %W[
@@ -26,6 +27,7 @@ class Glasskube < Formula
       -X github.com/glasskube/glasskube/internal/config.Date=#{time.iso8601}
     ]
 
+    system "make", "web"
     system "go", "build", *std_go_args(ldflags:), "./cmd/glasskube"
 
     generate_completions_from_executable(bin/"glasskube", "completion")

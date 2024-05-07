@@ -1,8 +1,8 @@
 class OpenMpi < Formula
   desc "High performance message passing library"
   homepage "https://www.open-mpi.org/"
-  url "https://download.open-mpi.org/release/open-mpi/v5.0/openmpi-5.0.2.tar.bz2"
-  sha256 "ee46ad8eeee2c3ff70772160bff877cbf38c330a0bc3b3ddc811648b3396698f"
+  url "https://download.open-mpi.org/release/open-mpi/v5.0/openmpi-5.0.3.tar.bz2"
+  sha256 "990582f206b3ab32e938aa31bbf07c639368e4405dca196fabe7f0f76eeda90b"
   license "BSD-3-Clause"
 
   livecheck do
@@ -11,13 +11,13 @@ class OpenMpi < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "aa070db000e56ead1e7c87b9323f1553b6a3c0607fc306d5c25f335cfac90768"
-    sha256 arm64_ventura:  "b8c996233ace18080e50277e677d5af1469038f32e0f63e2a13870bd91510a51"
-    sha256 arm64_monterey: "a8e600805bb241a390f5b3cbe832948bcff9d513a49d68ad2d913997f40cc2dd"
-    sha256 sonoma:         "754107cf878f10d09131cd30ec489f633030a77184eeb3366dc55fcd79485c4a"
-    sha256 ventura:        "65f4f9e307a4ff55dcd28e4d451c800ede8c85f3b2000187f997f5bef967b51a"
-    sha256 monterey:       "893ba074781a2174529372e37ac77e3d3c8c6a840ac8a72cf8aa2f4c2e2c86e0"
-    sha256 x86_64_linux:   "cf7a56d4cbd5a3f55f0cad89f25c4b23d7efb234edef9a8e0e878b6ecfe37dd3"
+    sha256 arm64_sonoma:   "14f9d433b601aa9cb6c072a18fe585214c5684b08711cfbf422ca2ab469ea7e3"
+    sha256 arm64_ventura:  "37c3628954f736dccf41af3110ccfeb9fd8c0191b5b3949f72d512c17a98aa05"
+    sha256 arm64_monterey: "349c1be9e22da58c890fab40e1ebe85bb0fd059ae8e910ffd359bf4cf8c29448"
+    sha256 sonoma:         "d1c7d15b340c353c56809246c9ea834da5ea0cf65967bad5d23f32a278e607e7"
+    sha256 ventura:        "3d92d622b3b68cace6bf91d451c49d887a11c37c7319e456aa6fc63d10298c90"
+    sha256 monterey:       "750b582c5f009fcf737426b1387ab3432425ebc07c15f14fc3e9dc6f7336596d"
+    sha256 x86_64_linux:   "b99d9e2602eeb49ec33c21c6792b921be5ddca9cbbde248924b1bc5e2e6b8d07"
   end
 
   head do
@@ -38,6 +38,10 @@ class OpenMpi < Formula
     if OS.mac?
       # Otherwise libmpi_usempi_ignore_tkr gets built as a static library
       ENV["MACOSX_DEPLOYMENT_TARGET"] = MacOS.version
+
+      # Work around asm incompatibility with new linker (FB13194320)
+      # https://github.com/open-mpi/ompi/issues/12427
+      ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
     end
 
     # Avoid references to the Homebrew shims directory
@@ -71,6 +75,10 @@ class OpenMpi < Formula
       --with-sge
     ]
     args << "--with-platform-optimized" if build.head?
+
+    # Work around asm incompatibility with new linker (FB13194320)
+    # https://github.com/open-mpi/ompi/issues/11935
+    args << "--with-wrapper-ldflags=-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
 
     system "./autogen.pl", "--force" if build.head?
     system "./configure", *std_configure_args, *args

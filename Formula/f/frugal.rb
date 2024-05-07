@@ -1,18 +1,18 @@
 class Frugal < Formula
   desc "Cross language code generator for creating scalable microservices"
   homepage "https://github.com/Workiva/frugal"
-  url "https://github.com/Workiva/frugal/archive/refs/tags/v3.17.9.tar.gz"
-  sha256 "54d2a4a20e52c10a2325c6952355eb91e02ab0720756963d59be43de88ef685d"
+  url "https://github.com/Workiva/frugal/archive/refs/tags/v3.17.13.tar.gz"
+  sha256 "3e55ad273b96bfc802beffe51ad694ce7b305a33a50c05efb1dfcf0bb4c7715f"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bb70cc746e89ae1dc09722cf0720527cde49decceecbab3a0d80640ef35588c7"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bb70cc746e89ae1dc09722cf0720527cde49decceecbab3a0d80640ef35588c7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "bb70cc746e89ae1dc09722cf0720527cde49decceecbab3a0d80640ef35588c7"
-    sha256 cellar: :any_skip_relocation, sonoma:         "0a3ff2c23bf06e9988309f2f333b23b69b2c96056f020d93a913764139fc4ff1"
-    sha256 cellar: :any_skip_relocation, ventura:        "0a3ff2c23bf06e9988309f2f333b23b69b2c96056f020d93a913764139fc4ff1"
-    sha256 cellar: :any_skip_relocation, monterey:       "0a3ff2c23bf06e9988309f2f333b23b69b2c96056f020d93a913764139fc4ff1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3fecc819fd62a02b8fc02050d541aead46598d4676311f0c4bdbdd8f454b9514"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "eacd34e93b0fc193380d03bc05a347ddad3fee930429b65ec0a90f87ddb44467"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "eacd34e93b0fc193380d03bc05a347ddad3fee930429b65ec0a90f87ddb44467"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "eacd34e93b0fc193380d03bc05a347ddad3fee930429b65ec0a90f87ddb44467"
+    sha256 cellar: :any_skip_relocation, sonoma:         "8b40940a628e8ccc22ea537c97fbd9fe4fbe0d65767898429c26a50a88ad6b83"
+    sha256 cellar: :any_skip_relocation, ventura:        "8b40940a628e8ccc22ea537c97fbd9fe4fbe0d65767898429c26a50a88ad6b83"
+    sha256 cellar: :any_skip_relocation, monterey:       "8b40940a628e8ccc22ea537c97fbd9fe4fbe0d65767898429c26a50a88ad6b83"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b3181b74500e524d491a135703928e2681c01bd2052cd116565f34e0eab102f6"
   end
 
   depends_on "go" => :build
