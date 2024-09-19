@@ -1,19 +1,20 @@
 class Kubetui < Formula
   desc "TUI tool for monitoring and exploration of Kubernetes resources"
   homepage "https://github.com/sarub0b0/kubetui"
-  url "https://github.com/sarub0b0/kubetui/archive/refs/tags/v1.5.1.tar.gz"
-  sha256 "6294b4fa3d85da1b6581a88aeec9bc98a939d42893791c125d4f0e77a06d338f"
+  url "https://github.com/sarub0b0/kubetui/archive/refs/tags/v1.5.3.tar.gz"
+  sha256 "6cf993dd0960e3a7d62ddb62819827e0a5e97b4efb84e9df0f0637b65204e846"
   license "MIT"
   head "https://github.com/sarub0b0/kubetui.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5f37b07a4c616e02c02b423151058ce57f3c0fc93d1f7266f92f05e90b98fab7"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3e823bb6829f65d92c53b9d901f86250dc185e9b1a1e681e50a1da34024afedf"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2a276e5367bad09ef9f66fcd9b47a17ee7a27930a419041fb1c5e6fb3da8e766"
-    sha256 cellar: :any_skip_relocation, sonoma:         "5d47f7ffc281b4dc3c417179ccb91ff12c9881401c255fac171bf41173e3072c"
-    sha256 cellar: :any_skip_relocation, ventura:        "cdb0a5eac2435f7320753f8bbca74583135211acfcec9e4f568cbfad385ba7b1"
-    sha256 cellar: :any_skip_relocation, monterey:       "48e2088f778390b4e92e336d04c00d2f5b485d867fd6b078b56ae7a15c6163e8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c2b068c953d03aa08476b1ca821c56baba313f353b903cdee15ffee085a966ee"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "6658e9a007b2aed3894aa94ab80ceb7c16071578648e8f4f0c1870d17e2a245c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c9bb18b65662c2b1be75ef3f9386cce60f5ccfc9382f240583131988b917b8e7"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f3746e023cb48704d5e11dcbd1975998ad17a0682d92915605838b64f94b174f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a8314b787782eec4f5168260f2f9ce69ca69cd4f570bc043a9c01e198a78100b"
+    sha256 cellar: :any_skip_relocation, sonoma:         "af582c10687f2d4397c629feafa61b3624b4b38781738dde5ff54817ee47ee1a"
+    sha256 cellar: :any_skip_relocation, ventura:        "1f8d55aaad0ef367362f66bd00770d26010632f3d52f43d30bda2041a7cff1f2"
+    sha256 cellar: :any_skip_relocation, monterey:       "c67ca077c75f3df1d17f08ba936c77badd52864398919d4ca3861937cc9401cf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ad41a4f507ccf98475638ce311984c68e34edff0b68505217f8524cd1323dc4c"
   end
 
   depends_on "rust" => :build

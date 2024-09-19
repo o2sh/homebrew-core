@@ -1,18 +1,19 @@
 class Enchant < Formula
   desc "Spellchecker wrapping library"
   homepage "https://abiword.github.io/enchant/"
-  url "https://github.com/AbiWord/enchant/releases/download/v2.7.3/enchant-2.7.3.tar.gz"
-  sha256 "fe6ad4cbe8c71b9384ffdef962be52d4d2bd5ebfb6351435bb390543d4f78b1e"
+  url "https://github.com/AbiWord/enchant/releases/download/v2.8.2/enchant-2.8.2.tar.gz"
+  sha256 "8f19535adb5577b83b00e02f330fe9b9eb40dd21f19e2899636fc4d3a7696375"
   license "LGPL-2.1-or-later"
 
   bottle do
-    sha256 arm64_sonoma:   "a3379030d191b09ee2be1d48ab9442c5520d67379a16f1d4877690c7bf038b10"
-    sha256 arm64_ventura:  "de4743d60a4fdc142c1e2b777edf2116e9dd35f123a74e9b2ed51bb463eb83a3"
-    sha256 arm64_monterey: "84c4caea703ac25694264b8831cc683687e74d209d41d01a7c6f59012f12485c"
-    sha256 sonoma:         "c0731ff8693cb78abdfbab3d96dbbc82495c065e44cb6c3ac03e11dbdabb35b4"
-    sha256 ventura:        "2379943777e66e63bf3dbf53dcd2f54658ff114dae8e231d6f83c1d7cbf1beb8"
-    sha256 monterey:       "ec66f38b40c09c54d91d95eb6c017cb56b9e48462925cd80366240eed04597f9"
-    sha256 x86_64_linux:   "9e4d3561eefe47808a9093a86baffa79a7ee22384c6b8e52c1b13c2eeeb0d4d2"
+    sha256 arm64_sequoia:  "19eeaec7ada86c6fd72e94de82f2c1647dc712274ac0a67a072057db8ae7675e"
+    sha256 arm64_sonoma:   "4327d3746697c8a0935580936c827a2ded1dd92d91bc2655d4ba9ee643ede046"
+    sha256 arm64_ventura:  "912e6067764e4402e6c718a909cca6b1fe1a380902d5e536cae1fe05d6cad047"
+    sha256 arm64_monterey: "e617eed7551db798a3b0fbcf8da0f8fbb51c72a351952309a5ba5a70b189dc12"
+    sha256 sonoma:         "7c53b37a59b7be9b065d5a45e75a4b605fd671c6e4495abd96b3e689b8624aba"
+    sha256 ventura:        "f6ea7979e2ef7d12132449e590ef560b6c1d2a068da3bbe42206051d00f08eca"
+    sha256 monterey:       "10cdfb36ac05c8f07d43cf0687425f3677a03cddcd0ab39c42065aad1e7d0f22"
+    sha256 x86_64_linux:   "d0aab4334f7a0feb7d168863bb81a4800982aacd709bee3b96146328b0a9f097"
   end
 
   depends_on "pkg-config" => :build
@@ -20,6 +21,10 @@ class Enchant < Formula
   depends_on "glib"
 
   uses_from_macos "mandoc" => :build
+
+  on_macos do
+    depends_on "gettext"
+  end
 
   on_system :linux, macos: :ventura_or_newer do
     depends_on "groff" => :build

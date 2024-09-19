@@ -1,8 +1,8 @@
 class DependencyCheck < Formula
   desc "OWASP dependency-check"
   homepage "https://owasp.org/www-project-dependency-check/"
-  url "https://github.com/jeremylong/DependencyCheck/releases/download/v9.1.0/dependency-check-9.1.0-release.zip"
-  sha256 "983b69f0eb7e53314323154772bc3e33b9ebfa9ad34692b8269b08b953a9ecce"
+  url "https://github.com/jeremylong/DependencyCheck/releases/download/v10.0.2/dependency-check-10.0.2-release.zip"
+  sha256 "c8b6089911586a4d2b1044be42ba497bce248867cdddf90875aab9b5e39aad68"
   license "Apache-2.0"
 
   livecheck do
@@ -11,13 +11,14 @@ class DependencyCheck < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "a097333a7ca378f24d243a951322f2882e0ec6af8e7507e1bd3fd5e9629d2b66"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, all: "5c6b82070703cf6c0602c7a57109ca2849ea57393aa0f77acee6a834fcd63c7a"
   end
 
   depends_on "openjdk"
 
   def install
-    rm_f Dir["bin/*.bat"]
+    rm(Dir["bin/*.bat"])
 
     chmod 0755, "bin/dependency-check.sh"
     libexec.install Dir["*"]

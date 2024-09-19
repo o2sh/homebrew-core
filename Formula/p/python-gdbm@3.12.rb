@@ -1,8 +1,8 @@
 class PythonGdbmAT312 < Formula
   desc "Python interface to gdbm"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.12.3/Python-3.12.3.tgz"
-  sha256 "a6b9459f45a6ebbbc1af44f5762623fa355a0c87208ed417628b379d762dddb0"
+  url "https://www.python.org/ftp/python/3.12.6/Python-3.12.6.tgz"
+  sha256 "85a4c1be906d20e5c5a69f2466b00da769c221d6a684acfd3a514dbf5bf10a66"
   license "Python-2.0"
 
   livecheck do
@@ -10,13 +10,14 @@ class PythonGdbmAT312 < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "0e9d8e27a4ef4ba1201642848e8755446036ab4ba78a9621c93de8025bbfda6a"
-    sha256 cellar: :any, arm64_ventura:  "6e350a390742e1fbbfea4632c18bc77dd62c935c1f011c0e8b9fe3d41349b881"
-    sha256 cellar: :any, arm64_monterey: "a217ccc97b574e2916747fd71b0a3cdd364439c0e880e9e037e84f90f6dc69df"
-    sha256 cellar: :any, sonoma:         "1c571bcfa3e315c4fab8cd09180070163b5b82eabcc8f9dbc0b03e7fd30816b9"
-    sha256 cellar: :any, ventura:        "993090be739bcc9b8b249f2ab20fcd57de536d0b04ddac44639806343bce6f1b"
-    sha256 cellar: :any, monterey:       "33223f24b92271d0c9a4e09d69428483ded2b8cd078bfcc5540bf75382161d18"
-    sha256               x86_64_linux:   "94d64581a33279210d24c794b06e4779f4fcdf516536b91da31cca8ff442d806"
+    sha256 cellar: :any, arm64_sequoia:  "35da9ab64a4f626fd7f4d862de865e4f26094b2459132cd12d2492180e288964"
+    sha256 cellar: :any, arm64_sonoma:   "7840935d50b840a039907e356c2b19fb27b54190a7923be1b875c13156dd4258"
+    sha256 cellar: :any, arm64_ventura:  "a58e8902545870fd5e8b3181e0303fd02d63af118bf2ab590a6272616359e17f"
+    sha256 cellar: :any, arm64_monterey: "417c663088633599d2b539b77a54950a12609f31405c097b372ad87f4ee22883"
+    sha256 cellar: :any, sonoma:         "d224856bf9801734163247d920a7d3ccec2fad437aae0ec63eb64b987054b647"
+    sha256 cellar: :any, ventura:        "41df5b3e11d4a427de35451a8bc4246262e9a9d2479c059767b7a2b973cb6e06"
+    sha256 cellar: :any, monterey:       "5bd51319db598aec79aa28420cabec54306473cbbf3be720bf76dc75dcc158ec"
+    sha256               x86_64_linux:   "86e4ff50ab0402ef77777535cedcfad5f8f0c11cd0065e5572f204f7c8bb88d8"
   end
 
   depends_on "gdbm"

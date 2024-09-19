@@ -3,10 +3,11 @@ class Rtorrent < Formula
   homepage "https://github.com/rakshasa/rtorrent"
   url "https://github.com/rakshasa/rtorrent/releases/download/v0.9.8/rtorrent-0.9.8.tar.gz"
   sha256 "9edf0304bf142215d3bc85a0771446b6a72d0ad8218efbe184b41e4c9c7542af"
-  license "GPL-2.0"
+  license "GPL-2.0-or-later"
   revision 3
 
   bottle do
+    sha256 cellar: :any,                 arm64_sequoia:  "d73c40d99e7cfbaa067a7c3b405ac28501376977857a68a66a9468122aa1d850"
     sha256 cellar: :any,                 arm64_sonoma:   "7b55a418e1ae243cd062ac5e3e1171ee082814623a15fd3898ecc3172b9a7fe4"
     sha256 cellar: :any,                 arm64_ventura:  "f2c7a8bd2f77caffa6fef4f0fa85f9e598fc8e8e0129562f6ebeb9fda9e84064"
     sha256 cellar: :any,                 arm64_monterey: "85c38e502a8c6ec4b20c973b4d79785436925776ae26db29461931f8221d2d8b"
@@ -38,7 +39,7 @@ class Rtorrent < Formula
 
   test do
     pid = fork do
-      exec "#{bin}/rtorrent", "-n", "-s", testpath
+      exec bin/"rtorrent", "-n", "-s", testpath
     end
     sleep 3
     assert_predicate testpath/"rtorrent.lock", :exist?

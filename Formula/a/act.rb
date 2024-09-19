@@ -1,19 +1,20 @@
 class Act < Formula
   desc "Run your GitHub Actions locally"
   homepage "https://github.com/nektos/act"
-  url "https://github.com/nektos/act/archive/refs/tags/v0.2.62.tar.gz"
-  sha256 "2b0231d02d57d5edbcc070b7c4802acf16110a0582ffb40181aaa695f2b7bf5c"
+  url "https://github.com/nektos/act/archive/refs/tags/v0.2.67.tar.gz"
+  sha256 "1a93acf48f1b8bd3689c8c6c906e42ef0bb695199abfab488f11051e9f855b57"
   license "MIT"
   head "https://github.com/nektos/act.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ca272eda5a06d47a251f3488102b236ebf14087f5287909b2a9598edd924ac53"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8f23b97ce5a9e6e7f03f7fb63bd6cf22c9826f3791b44454ffe1e6d6c49fd76a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9fa121151ee94ebe00bb5defd9440b7b3740b456b6cf26d751e171cf807b5101"
-    sha256 cellar: :any_skip_relocation, sonoma:         "4cfbf32a5c2dd7dc21cc7932ea20d1bd421526f33c953bb5f7d9f31152601051"
-    sha256 cellar: :any_skip_relocation, ventura:        "6cf13f39c5aaceed5510c6cbb51a1a4358aecc433f54cd261ab723ee0fffe69e"
-    sha256 cellar: :any_skip_relocation, monterey:       "485913ba7c4ed6f3b160684a83188f12e0b186c04d4e5362886695f9ce2526c6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ae0cde4b9f2364d50b474f8a40ecd3a3507b44e976e9c0cb53ef7e76b6d920b3"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "f20c5e9dab3640a074ba33d82330d35eeec2d7be0175ecd16f7c08d1db9136d1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "539c62d9ec18679794a97731998db6a889c41cca8337126b7ce28ba0879c22c3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1a67b834847f221787c7f681a66d0e4dc11213122127026927a72466cfa2fbea"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5bb879e806322e48b29f35c690e2e6bf011d650c3646e9f0e5332eafeb3ea245"
+    sha256 cellar: :any_skip_relocation, sonoma:         "e5354fe7d0a79c1d45afb9ccb80b8defa43ab5397a21202ee7033b40571fa791"
+    sha256 cellar: :any_skip_relocation, ventura:        "7c6bf15ddab3fcfb50b28214dc9092dc02af902e016e14f91f32442f10c98f9c"
+    sha256 cellar: :any_skip_relocation, monterey:       "450489ab881dd7416cdd2bcde5ef23488c451bd378deb44b76199da0da344de0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a6000e18bc683ac0cc1cb7680dcfdad12ee4f057ed71363f82c64364cd19af54"
   end
 
   depends_on "go" => :build

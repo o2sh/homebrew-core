@@ -1,19 +1,19 @@
 class VideoCompare < Formula
   desc "Split screen video comparison tool using FFmpeg and SDL2"
   homepage "https://github.com/pixop/video-compare"
-  url "https://github.com/pixop/video-compare/archive/refs/tags/20240429.tar.gz"
-  sha256 "28f0522efa728dd817e116346211c40d744d66b530c57900855e5f0e2152d79e"
+  url "https://github.com/pixop/video-compare/archive/refs/tags/20240818.tar.gz"
+  sha256 "29155c67c90307153e2b3c4a909083c9a7def710e3c0c4c9a7ffaa50398195d4"
   license "GPL-2.0-only"
-  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "d646239b37a1086c7428b54e2294ad51187e0b9ced9ccaf1f741bce367e7abdb"
-    sha256 cellar: :any,                 arm64_ventura:  "48a8f6e27e3e99f4f0d2d296b01f6a3bcd8696b36811045a48fc192176b70f9e"
-    sha256 cellar: :any,                 arm64_monterey: "951b0cf91ae1d08edce18825a241daf07c19d2843d87c3b1e405a05273b37cf1"
-    sha256 cellar: :any,                 sonoma:         "ab76e59c9279e65ec49cabf5ad9163d026e6c512a5b0815544bdfe0584b2bf62"
-    sha256 cellar: :any,                 ventura:        "2b9eba5ee7984247f0d86f241e5fa6dc3e9e7c6fc3a8e7d112b5ad608e10b78f"
-    sha256 cellar: :any,                 monterey:       "22266dd9db6776aacdd58fbd2a5e0e7d52e74166335c2545b9a044015b5b241e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bd431edaaba8793c10865132833da648649156717ace451140028f45a0a5ee1e"
+    sha256 cellar: :any,                 arm64_sequoia:  "224d6bc5f9b17a71d6aa715b2428c64c7d229da139680d595ca2dc0d2ccbd354"
+    sha256 cellar: :any,                 arm64_sonoma:   "a17fdb0881d933cb289dbb2a2889fde7cd8007fb377d90041e2db9bb348c2c16"
+    sha256 cellar: :any,                 arm64_ventura:  "907933adc8eab74c9f21b6a5d55d005c9306facb9729544f4bc4f7523ea86364"
+    sha256 cellar: :any,                 arm64_monterey: "fb2b305e62ef1b7792b85ffba6f927a372da008945856e3ccd70b950fdf471aa"
+    sha256 cellar: :any,                 sonoma:         "1afbaf0dfb2766bc9091938f1bb398edd36251bb2d79ca97e2c1aebe780965be"
+    sha256 cellar: :any,                 ventura:        "a61bcbab0b10c4e36960e3a73bb7f38c59c8d98dc6febbbdfa9590536a2d3f7c"
+    sha256 cellar: :any,                 monterey:       "c5070b7597b576ea6a5fb1f681441893baef91fccdd5de485528892704e5b069"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2693198a2dcc0078619c740c50a4b14d084a9ff3f59a3a8e3a6bded165c46ee5"
   end
 
   depends_on "ffmpeg"
@@ -29,7 +29,7 @@ class VideoCompare < Formula
     testvideo = test_fixtures("test.gif") # GIF is valid ffmpeg input format
     begin
       pid = fork do
-        exec "#{bin}/video-compare", testvideo, testvideo
+        exec bin/"video-compare", testvideo, testvideo
       end
       sleep 3
     ensure

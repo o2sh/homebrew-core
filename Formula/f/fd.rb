@@ -1,22 +1,25 @@
 class Fd < Formula
   desc "Simple, fast and user-friendly alternative to find"
   homepage "https://github.com/sharkdp/fd"
-  url "https://github.com/sharkdp/fd/archive/refs/tags/v10.0.0.tar.gz"
-  sha256 "a8e95bf363dc70896f5404bf7b0ab10f7d5e98a13485369e0dfd6579bf461a05"
+  url "https://github.com/sharkdp/fd/archive/refs/tags/v10.2.0.tar.gz"
+  sha256 "73329fe24c53f0ca47cd0939256ca5c4644742cb7c14cf4114c8c9871336d342"
   license any_of: ["Apache-2.0", "MIT"]
   head "https://github.com/sharkdp/fd.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "10d84be18e2dffa9bffe4062a967daafade8fe7725ce07cf1f12bb303cebb49e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6fc0340fa6eee4ca742361f9aacadddd82d3f629833990503a5173aee9a852db"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "03e2660c197b9e8de65b452179e50810efc5a4d3021bb2a5f59154ec5ef825ea"
-    sha256 cellar: :any_skip_relocation, sonoma:         "d04890eae56ecb35b17a7e36a3d9a58b8644b3972322067ac35d2703a981d06a"
-    sha256 cellar: :any_skip_relocation, ventura:        "01f2b28a838ab445f63beaee199db006c0cbd56ad40756ecb947eaf0c5035eff"
-    sha256 cellar: :any_skip_relocation, monterey:       "ecf7498d65d68eafb533b5f716935360d56a32535fd32223053eaad16a0af79b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7e2566c5225494852e954f2c1f0dabb8b284f9892bc50f837812ae19171f1926"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "9d17cfb029fbdc6ed31c732108f7aa746d3082dd4783ed35471ef79340615509"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "82d5c2ffc2e2d0d8643a7c3f620c81ed49d7b23920aa23b6a7f4c50be69abc0b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "354412ababb7d6c52abd9153ff96f133391406ce292b2122c76b96c2ab714f87"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "0b41f292041767fd1c3c5b92daaa6c823fb07c1d7cd11b0427a415f08463f035"
+    sha256 cellar: :any_skip_relocation, sonoma:         "4fa0fb4b3f512e45d35c569953efc7c59ebd8976caac9b2c1b1394b7e29157a0"
+    sha256 cellar: :any_skip_relocation, ventura:        "b1406e5414252b1e1b90cfad188454eb31058256ed6246baed48c4e1cfe593a1"
+    sha256 cellar: :any_skip_relocation, monterey:       "0ac060bf7d1529aa1f65e634f64b98b906df533d71f2185c883165c01f59ad53"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2464fb21cc981166ffa9783fa14a09265790af4d89ce3a763421ddaf29119541"
   end
 
   depends_on "rust" => :build
+
+  conflicts_with "fdclone", because: "both install `fd` binaries"
 
   def install
     system "cargo", "install", *std_cargo_args

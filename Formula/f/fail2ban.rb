@@ -4,6 +4,7 @@ class Fail2ban < Formula
   url "https://github.com/fail2ban/fail2ban/archive/refs/tags/1.1.0.tar.gz"
   sha256 "474fcc25afdaf929c74329d1e4d24420caabeea1ef2e041a267ce19269570bae"
   license "GPL-2.0-or-later"
+  revision 2
   head "https://github.com/fail2ban/fail2ban.git", branch: "master"
 
   livecheck do
@@ -12,14 +13,14 @@ class Fail2ban < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "9a2ad3c6f2d059d4850a456ee61d2ec7fb98871b691bf5459c5f72eb35718153"
-    sha256 cellar: :any,                 arm64_ventura:  "29d10c2c5fd555dde333ae1336671c4d6fd60185424b3d27ec96eb425d54acf4"
-    sha256 cellar: :any,                 arm64_monterey: "51edc42706c0111efa1b50c3d5a126560089ee21b71fd885a1dcb273a495dc9d"
-    sha256 cellar: :any,                 sonoma:         "1b8b7461c2cd1dcecb4e63b86e18e321fcd874a4f89a07991bffca12cc48c78c"
-    sha256 cellar: :any,                 ventura:        "a09486a0617d89608ecf994caffd4e113df92706fb8a544075ca0b543a5d9c77"
-    sha256 cellar: :any,                 monterey:       "15c3b1fdcf3acd343a965040256f3c5ab524f7d67f1d052207134077ed32d6e2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2c45ae1eabc4ee45291465540dbcd94724fa9bab68f93f85a11821e7de4dcae8"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "c35f7c03fdc881d8629ffeb8bb7120021f5c2801651400beae934732da5f5ca3"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2d091c51f21f9d594185598a9ca6d7845b429622eba307f0eef57a3b8b6e3c5f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2d091c51f21f9d594185598a9ca6d7845b429622eba307f0eef57a3b8b6e3c5f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2d091c51f21f9d594185598a9ca6d7845b429622eba307f0eef57a3b8b6e3c5f"
+    sha256 cellar: :any_skip_relocation, sonoma:         "b5c158d54cab237debb765bac1afbb9863c7ecd19ad7a37e1d1b6ed0cd06f430"
+    sha256 cellar: :any_skip_relocation, ventura:        "b5c158d54cab237debb765bac1afbb9863c7ecd19ad7a37e1d1b6ed0cd06f430"
+    sha256 cellar: :any_skip_relocation, monterey:       "b5c158d54cab237debb765bac1afbb9863c7ecd19ad7a37e1d1b6ed0cd06f430"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4c50360cfb4f6a2b5634347c45d934391ac64b3aa9a7f9e1c94168dbdafe6e9f"
   end
 
   depends_on "sphinx-doc" => :build
@@ -31,9 +32,12 @@ class Fail2ban < Formula
     sha256 "631ca7e59e21d4a9bbe6adf02d0b1ecc0fa33688d145eb5e736d961e0e55e4cd"
   end
 
-  def install
-    python3 = "python3.12"
+  def python3
+    deps.map(&:to_formula)
+        .find { |f| f.name.start_with?("python@") }
+  end
 
+  def install
     Pathname.glob("config/paths-*.conf").reject do |pn|
       pn.fnmatch?("config/paths-common.conf") || pn.fnmatch?("config/paths-osx.conf")
     end.map(&:unlink)
@@ -56,7 +60,9 @@ class Fail2ban < Formula
       s.gsub! "platform_system in ('linux',", "platform_system in ('linux', 'darwin',"
     end
 
-    system python3, "-m", "pip", "install", *std_pip_args(build_isolation: true), "."
+    system python3.opt_libexec/"bin/python", "-m", "pip", "install", *std_pip_args(build_isolation: true), "."
+    # Fix symlink broken by python upgrades
+    ln_sf python3.opt_libexec/"bin/python", bin/"fail2ban-python"
     etc.install (prefix/"etc").children
 
     # Install docs

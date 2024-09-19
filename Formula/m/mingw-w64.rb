@@ -1,8 +1,8 @@
 class MingwW64 < Formula
   desc "Minimalist GNU for Windows and GCC cross-compilers"
   homepage "https://sourceforge.net/projects/mingw-w64/"
-  url "https://downloads.sourceforge.net/project/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v11.0.1.tar.bz2"
-  sha256 "3f66bce069ee8bed7439a1a13da7cb91a5e67ea6170f21317ac7f5794625ee10"
+  url "https://downloads.sourceforge.net/project/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v12.0.0.tar.bz2"
+  sha256 "cc41898aac4b6e8dd5cffd7331b9d9515b912df4420a3a612b5ea2955bbeed2f"
   license "ZPL-2.1"
   revision 1
 
@@ -12,14 +12,14 @@ class MingwW64 < Formula
   end
 
   bottle do
-    rebuild 2
-    sha256 arm64_sonoma:   "166737c970ee5a025dc5ecfc36afd0850ed16a4a3b13ac7a1a706b7d98eb20b7"
-    sha256 arm64_ventura:  "fa487b22ea3635fac2e05d91b7c31667927e693085135dd3f3ef7c8645f6aabb"
-    sha256 arm64_monterey: "3397b288b7d9133a6b9e7bd6f9f016151440a724de848dfb8d90ccb27876a242"
-    sha256 sonoma:         "bf54be7e06281b1090f94a6e98e32ce63ceb67b7ba13fc0f2187127bbf5753f2"
-    sha256 ventura:        "dcaeed42886127b357f8a48cce28752f71f56270100d8b026e908ccd0e455dba"
-    sha256 monterey:       "05f340ac5b0f75e20d59bbe71cb53fd0599f2b49a1c312380daec2be931ba752"
-    sha256 x86_64_linux:   "94c79056b935ead8fa122187e4b3c29c2b4a2e11e56ea07b927807deceb90516"
+    sha256 arm64_sequoia:  "9c50b0cbeac45e0ca35f410e18c14018c665aa4bbdea9adf749ee96e677af13e"
+    sha256 arm64_sonoma:   "00b5146a2b3bbd942ecf749baa930e2f7b1d5a425cadb69a8f233883eb926e63"
+    sha256 arm64_ventura:  "c52e1f08ce3a00d33b125d85bb8a0a12f03f619c35f65ec8eed8adea99e8498f"
+    sha256 arm64_monterey: "883e7f44acb2e714e7a698f576c32a096bf34edc0627f101cd5e48c26f63eb1c"
+    sha256 sonoma:         "dbfb198d40cff9bb93ac41f0a4422fe823fde2fd2610052956dbc4037e51c482"
+    sha256 ventura:        "eed47c1f6336d28f4cebc5644202bfbc8e7723ef16cc8eef1ab50c3577f6a02b"
+    sha256 monterey:       "5c24fa44d33423e55ac48c43575764e522d46675cdea49ad8d1b6d609b7a7509"
+    sha256 x86_64_linux:   "1b00797a89f30786da9886ac657527b5c8e2dc98432679e9fafc7f7d230e9e87"
   end
 
   # binutils searches for zstd using pkg-config
@@ -36,27 +36,15 @@ class MingwW64 < Formula
   uses_from_macos "zlib"
 
   resource "binutils" do
-    url "https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.xz"
-    mirror "https://ftpmirror.gnu.org/binutils/binutils-2.42.tar.xz"
-    sha256 "f6e4d41fd5fc778b06b7891457b3620da5ecea1006c6a4a41ae998109f85a800"
+    url "https://ftp.gnu.org/gnu/binutils/binutils-2.43.1.tar.bz2"
+    mirror "https://ftpmirror.gnu.org/binutils/binutils-2.43.1.tar.bz2"
+    sha256 "becaac5d295e037587b63a42fad57fe3d9d7b83f478eb24b67f9eec5d0f1872f"
   end
 
   resource "gcc" do
-    url "https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.xz"
-    mirror "https://ftpmirror.gnu.org/gcc/gcc-13.2.0/gcc-13.2.0.tar.xz"
-    sha256 "e275e76442a6067341a27f04c5c6b83d8613144004c0413528863dc6b5c743da"
-
-    # Backport fix for ctype build errors with Xcode 15.3
-    patch do
-      url "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=9970b576b7e4ae337af1268395ff221348c4b34a"
-      sha256 "968bfcb58f75d889470f2f815787f6aa254fb43f1e5516e04f577dad22259905"
-    end
-
-    # Backport fix for libcc1 std::vector build errors with Xcode 15.3
-    patch do
-      url "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=5213047b1d50af63dfabb5e5649821a6cb157e33"
-      sha256 "0d36d0d5556aefa59dbedf821f5c9dcda940a9c6f92cb3509423f524fd93351a"
-    end
+    url "https://ftp.gnu.org/gnu/gcc/gcc-14.2.0/gcc-14.2.0.tar.xz"
+    mirror "https://ftpmirror.gnu.org/gcc/gcc-14.2.0/gcc-14.2.0.tar.xz"
+    sha256 "a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9"
   end
 
   def target_archs
@@ -234,16 +222,16 @@ class MingwW64 < Formula
       target = "#{arch}-w64-mingw32"
       outarch = (arch == "i686") ? "i386" : "x86-64"
 
-      system "#{bin}/#{target}-gcc", "-o", "test.exe", "hello.c"
+      system bin/"#{target}-gcc", "-o", "test.exe", "hello.c"
       assert_match "file format pei-#{outarch}", shell_output("#{bin}/#{target}-objdump -a test.exe")
 
-      system "#{bin}/#{target}-g++", "-o", "test.exe", "hello.cc"
+      system bin/"#{target}-g++", "-o", "test.exe", "hello.cc"
       assert_match "file format pei-#{outarch}", shell_output("#{bin}/#{target}-objdump -a test.exe")
 
-      system "#{bin}/#{target}-gfortran", "-o", "test.exe", "hello.f90"
+      system bin/"#{target}-gfortran", "-o", "test.exe", "hello.f90"
       assert_match "file format pei-#{outarch}", shell_output("#{bin}/#{target}-objdump -a test.exe")
 
-      system "#{bin}/#{target}-widl", "example.idl"
+      system bin/"#{target}-widl", "example.idl"
       assert_predicate testpath/"example_s.c", :exist?, "example_s.c should have been created"
     end
   end

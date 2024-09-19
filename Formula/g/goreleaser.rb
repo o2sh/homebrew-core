@@ -2,19 +2,18 @@ class Goreleaser < Formula
   desc "Deliver Go binaries as fast and easily as possible"
   homepage "https://goreleaser.com/"
   url "https://github.com/goreleaser/goreleaser.git",
-      tag:      "v1.25.1",
-      revision: "6a7a9ba3995728a4bdf7b5fff770d8caeb3d2cc8"
+      tag:      "v2.3.2",
+      revision: "e8c2ef77358b4b1e59b904322824ccbfa3487ab2"
   license "MIT"
   head "https://github.com/goreleaser/goreleaser.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a4716dee859a1cd132da50e64ef9714c22ead9b166d6aa097ae966a91ba6dfb5"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "13a7a39a9e81d3f6f8818e4d2cc0b3b79926e589adddfb805aed4f859d969f31"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3322c018831eacd3451e82b76c5f3b88257bc7778eeed796a7903841811b62cc"
-    sha256 cellar: :any_skip_relocation, sonoma:         "cac834ce95931726b7157548b03a340538128ec302fae2122eaf6b7ad16dab2e"
-    sha256 cellar: :any_skip_relocation, ventura:        "082f33a10889c992b7d2fa7a5c4b6aa291ba30fc0f200e59af4ebc5941e2d531"
-    sha256 cellar: :any_skip_relocation, monterey:       "fc1ff7b115a8259f301f1930eaaf4b34bcd1ae3fa0acd09fdde5ae4b4958b60e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "573136e0b14e1a5985133691e174ecc10ead776063a887e3646c03b8e835e2e0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f88339ddb4d476fe0ffed2e09deb1299ede972821cd5ca486fd358b8f065eb12"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f88339ddb4d476fe0ffed2e09deb1299ede972821cd5ca486fd358b8f065eb12"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "f88339ddb4d476fe0ffed2e09deb1299ede972821cd5ca486fd358b8f065eb12"
+    sha256 cellar: :any_skip_relocation, sonoma:        "0b4b54a77a4d4e38e72a181e7c6fb7363d91a31001012a2dcab1d8575d53e8f9"
+    sha256 cellar: :any_skip_relocation, ventura:       "0b4b54a77a4d4e38e72a181e7c6fb7363d91a31001012a2dcab1d8575d53e8f9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "60bef97f2177600f4e441a2b926de71074b8476ef419785065720d10419c1883"
   end
 
   depends_on "go" => :build

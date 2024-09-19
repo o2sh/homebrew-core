@@ -1,18 +1,19 @@
 class Pint < Formula
   desc "Prometheus rule linter/validator"
   homepage "https://cloudflare.github.io/pint/"
-  url "https://github.com/cloudflare/pint/archive/refs/tags/v0.58.1.tar.gz"
-  sha256 "35730442f4e38ab92f2f5dd98413a1a32e88b0a11bdee349e634bcc2509d32b3"
+  url "https://github.com/cloudflare/pint/archive/refs/tags/v0.65.1.tar.gz"
+  sha256 "e893e2601044f223090f62e86af0cebb94a365ae178f6b2162b0ccdc42a5d48a"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1263f7f67102591f7fb36e1f03613abae775152c0f7934fd79dfa76e1a994f76"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2976ac8fcf80a0d477daf584f485932914a11a809164bd502638d813a0b6404c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d304aaa1696d3c4fde4e0098d77810fd74f13d99630d4541fcac99bc3dea896d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "e056e05fcf0bed4ebbbc15f4eac109ee3911836e0c01ec37ef6510f518f1462b"
-    sha256 cellar: :any_skip_relocation, ventura:        "2a9b1c37d29ff3c10268ff9e90afe592b3f2d994674d558294a7820cc660ecad"
-    sha256 cellar: :any_skip_relocation, monterey:       "ee44d4fd31200c623f34fe8869996d1583c872c99865d2be441a5410025b13f1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "499a1b4901ab08892d0f68acbd2abb5d16ab1e937e49acc98591800e04e62217"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "10e3d8411b0450e307e0e07b64e9e7b30a4546e77ab8b77c2ec974caaee23262"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "fb78b4a58af4330542f3578e0dc2566640de4773f63d393f506fb0cfcef056db"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "fb78b4a58af4330542f3578e0dc2566640de4773f63d393f506fb0cfcef056db"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "fb78b4a58af4330542f3578e0dc2566640de4773f63d393f506fb0cfcef056db"
+    sha256 cellar: :any_skip_relocation, sonoma:         "8a377ab40d6897bbb62c7a5591dfd74a478019753aeb988a0ff301cc7f06815e"
+    sha256 cellar: :any_skip_relocation, ventura:        "8a377ab40d6897bbb62c7a5591dfd74a478019753aeb988a0ff301cc7f06815e"
+    sha256 cellar: :any_skip_relocation, monterey:       "8a377ab40d6897bbb62c7a5591dfd74a478019753aeb988a0ff301cc7f06815e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "22969557d702cff59f9fb94519e239e5b592ba23612399ff5490adf2f0d9a62a"
   end
 
   depends_on "go" => :build

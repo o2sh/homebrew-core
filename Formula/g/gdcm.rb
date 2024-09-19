@@ -11,6 +11,7 @@ class Gdcm < Formula
   end
 
   bottle do
+    sha256 arm64_sequoia:  "58ab3720e3224ffe2eddf7fdc9c09786dc6d9aedc9137ad041cd0593f72aa0a7"
     sha256 arm64_sonoma:   "b3c59d76d3075c22b131d69ffa1692c28a0fd2357a537b57b412e026f0a2d382"
     sha256 arm64_ventura:  "847ee192e58ed159a28116d4e02c849203adff75eee0bc27e865a1c9269966aa"
     sha256 arm64_monterey: "6e2a348a3aab4f5193aad6120e780605a3022393a4ffdb0af363dd89d306ab6e"
@@ -23,7 +24,6 @@ class Gdcm < Formula
   depends_on "cmake" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
-  depends_on "python-setuptools" => :build
   depends_on "swig" => :build
   depends_on "openjpeg"
   depends_on "openssl@3"
@@ -43,9 +43,12 @@ class Gdcm < Formula
   end
 
   def install
-    python_include =
-      Utils.safe_popen_read(python3, "-c", "from distutils import sysconfig;print(sysconfig.get_python_inc(True))")
-           .chomp
+    xy = Language::Python.major_minor_version python3
+    python_include = if OS.mac?
+      Formula["python@#{xy}"].opt_frameworks/"Python.framework/Versions/#{xy}/include/python#{xy}"
+    else
+      Formula["python@#{xy}"].opt_include/"python#{xy}"
+    end
 
     prefix_site_packages = prefix/Language::Python.site_packages(python3)
     args = [

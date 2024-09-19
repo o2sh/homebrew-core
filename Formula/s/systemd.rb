@@ -2,32 +2,47 @@ class Systemd < Formula
   include Language::Python::Virtualenv
 
   desc "System and service manager"
-  homepage "https://wiki.freedesktop.org/www/Software/systemd/"
-  url "https://github.com/systemd/systemd-stable/archive/refs/tags/v255.5.tar.gz"
-  sha256 "95e419f0bd80fde9f169533e070348beb94073d9a58daf505d719ed3ebfd2411"
-  license all_of: ["GPL-2.0-or-later", "LGPL-2.1-or-later"]
+  homepage "https://systemd.io"
+  url "https://github.com/systemd/systemd/archive/refs/tags/v256.5.tar.gz"
+  sha256 "41bb91861ab9f2f2b6cadad558ea1f8764d701452b018852146d642a850c8a8b"
+  license all_of: [
+    # Main license is LGPL-2.1-or-later while systemd-udevd is GPL-2.0-or-later
+    "LGPL-2.1-or-later",
+    "GPL-2.0-or-later",
+    # The remaining licenses encompass various exceptions as defined using
+    # file-specific SPDX-License-Identifier. Note that we exclude:
+    # 1. "BSD-3-Clause" - it is for an unused build script (gen_autosuspend_rules.py)
+    # 2. "OFL-1.1" - we do not install HTML documentation
+    "CC0-1.0",
+    "LGPL-2.0-or-later",
+    "MIT",
+    "MIT-0",
+    :public_domain,
+    { "LGPL-2.0-or-later" => { with: "Linux-syscall-note" } },
+    { "GPL-1.0-or-later" => { with: "Linux-syscall-note" } },
+    { "GPL-2.0-or-later" => { with: "Linux-syscall-note" } },
+    { "GPL-2.0-only" => { with: "Linux-syscall-note" } },
+    { any_of: ["BSD-3-Clause", "GPL-2.0-only" => { with: "Linux-syscall-note" }] },
+    { any_of: ["MIT", "GPL-2.0-only" => { with: "Linux-syscall-note" }] },
+    { any_of: ["MIT", "GPL-2.0-or-later" => { with: "Linux-syscall-note" }] },
+    { any_of: ["GPL-2.0-only", "BSD-2-Clause"] },
+  ]
   head "https://github.com/systemd/systemd.git", branch: "main"
 
   bottle do
-    sha256 x86_64_linux: "bc2c7f83e92c26314946760d9c81c3b3b9d908085208e3d1a842810d4f15490b"
+    sha256 x86_64_linux: "ac713dbdd70cb89c7066620f49360aa9f7cc863e3b02caaed80150061cf697dc"
   end
 
   depends_on "coreutils" => :build
   depends_on "docbook-xsl" => :build
   depends_on "gettext" => :build
   depends_on "gperf" => :build
-  depends_on "intltool" => :build
-  depends_on "libgpg-error" => :build
-  depends_on "libtool" => :build
   depends_on "libxml2" => :build
   depends_on "libxslt" => :build
-  depends_on "m4" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
   depends_on "python@3.12" => :build
-  depends_on "rsync" => :build
-  depends_on "expat"
   depends_on "glib"
   depends_on "libcap"
   depends_on "libxcrypt"
@@ -39,13 +54,13 @@ class Systemd < Formula
   depends_on "zstd"
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/b2/5e/3a21abf3cd467d7876045335e681d276ac32492febe6d98ad89562d1a7e1/Jinja2-3.1.3.tar.gz"
-    sha256 "ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"
+    url "https://files.pythonhosted.org/packages/ed/55/39036716d19cab0747a5020fc7e907f362fbf48c984b14e62127f7e68e5d/jinja2-3.1.4.tar.gz"
+    sha256 "4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369"
   end
 
   resource "lxml" do
-    url "https://files.pythonhosted.org/packages/ea/e2/3834472e7f18801e67a3cd6f3c203a5456d6f7f903cfb9a990e62098a2f3/lxml-5.2.1.tar.gz"
-    sha256 "3f7765e69bbce0906a7c74d5fe46d2c7a7596147318dbc08e4a2431f3060e306"
+    url "https://files.pythonhosted.org/packages/e7/6b/20c3a4b24751377aaa6307eb230b66701024012c29dd374999cc92983269/lxml-5.3.0.tar.gz"
+    sha256 "4e109ca30d1edec1ac60cdbe341905dc3b8f55b16855e03a54aaf59e51ec8c6f"
   end
 
   resource "markupsafe" do
@@ -53,53 +68,37 @@ class Systemd < Formula
     sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
   end
 
-  resource "docbook" do
-    url "https://downloads.sourceforge.net/docbook/docbook-xsl/1.79.1/docbook-xsl-1.79.1.tar.bz2"
-    sha256 "725f452e12b296956e8bfb876ccece71eeecdd14b94f667f3ed9091761a4a968"
-  end
-
-  resource "oasis-open-4.2" do
-    url "https://www.oasis-open.org/docbook/xml/4.2/docbook-xml-4.2.zip"
-    sha256 "acc4601e4f97a196076b7e64b368d9248b07c7abf26b34a02cca40eeebe60fa2"
-  end
-
-  resource "oasis-open-4.5" do
-    url "https://www.oasis-open.org/docbook/xml/4.5/docbook-xml-4.5.zip"
-    sha256 "4e4e037a2b83c98c6c94818390d4bdd3f6e10f6ec62dd79188594e26190dc7b4"
-  end
-
   def install
     venv = virtualenv_create(buildpath/"venv", "python3.12")
-    venv.pip_install resources.select { |r| r.url.start_with?("https://files.pythonhosted.org/") }
+    venv.pip_install resources
     ENV.prepend_path "PATH", venv.root/"bin"
     ENV.append "LDFLAGS", "-Wl,-rpath,#{lib}/systemd"
+    ENV["XML_CATALOG_FILES"] = etc/"xml/catalog"
 
     args = %W[
-      --sysconfdir=#{etc}
       --localstatedir=#{var}
-      -Drootprefix=#{prefix}
+      --sysconfdir=#{etc}
       -Dsysvinit-path=#{etc}/init.d
       -Dsysvrcnd-path=#{etc}/rc.d
+      -Drc-local=#{etc}/rc.local
       -Dpamconfdir=#{etc}/pam.d
       -Dbashcompletiondir=#{bash_completion}
+      -Dmode=release
+      -Dsshconfdir=no
+      -Dsshdconfdir=no
       -Dcreate-log-dirs=false
       -Dhwdb=false
-      -Dlz4=true
-      -Dgcrypt=false
-      -Dp11kit=false
-      -Dman=true
+      -Dtests=false
+      -Dlz4=enabled
+      -Dman=enabled
+      -Dacl=disabled
+      -Dgcrypt=disabled
+      -Dgnutls=disabled
+      -Dlibcurl=disabled
+      -Dmicrohttpd=disabled
+      -Dp11kit=disabled
+      -Dpam=disabled
     ]
-
-    %w[docbook oasis-open-4.2 oasis-open-4.5].each do |r|
-      resource(r).stage "man/#{r}"
-    end
-
-    inreplace "man/custom-man.xsl", "http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl",
-              "docbook/manpages/docbook.xsl"
-    inreplace Dir["man/*.xml"] do |f|
-      f.gsub! "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd", "oasis-open-4.2/docbookx.dtd", false
-      f.gsub! "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd", "oasis-open-4.5/docbookx.dtd", false
-    end
 
     system "meson", "setup", "build", *args, *std_meson_args
     system "meson", "compile", "-C", "build"
@@ -107,6 +106,6 @@ class Systemd < Formula
   end
 
   test do
-    assert_match "temporary: /tmp", shell_output("#{bin}/systemd-path")
+    assert_match "temporary: /tmp", shell_output(bin/"systemd-path")
   end
 end

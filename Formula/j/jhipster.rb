@@ -1,27 +1,26 @@
-require "language/node"
-
 class Jhipster < Formula
   desc "Generate, develop and deploy Spring Boot + Angular/React applications"
   homepage "https://www.jhipster.tech/"
-  url "https://registry.npmjs.org/generator-jhipster/-/generator-jhipster-8.4.0.tgz"
-  sha256 "5d9ddde6054c9b2c4a55907886fb97c1504b9370679ae00e59f5321c265b967c"
+  url "https://registry.npmjs.org/generator-jhipster/-/generator-jhipster-8.7.0.tgz"
+  sha256 "cd4ed3bc7a9879d3a15a95ce1dbd631cbd1463637dac5d70c153aab920c1200a"
   license "Apache-2.0"
 
   bottle do
-    sha256                               arm64_sonoma:   "286bc10588a65bb1f29e44872b7714290e71a633008372d75f6821d590a7b7bd"
-    sha256                               arm64_ventura:  "64ce9ad6819608587532354fc0377db34cb5128221fb807b2ca4e7b08843450b"
-    sha256                               arm64_monterey: "54260f8bd641e5204e270c31f3d47b331c1d02fbf4c8e10e4c0c0d834595abb4"
-    sha256                               sonoma:         "87996ac6099dda7c51af8bc9587c958375f6c19a8ac12b9620bd67a4c389094a"
-    sha256                               ventura:        "cb8379de68cd2ec31d83cf7c520652954755b2fcc59c79fb66777e4e3728b456"
-    sha256                               monterey:       "f3441f4aa20beecb1e0ec53f7dfb413d1675bf7291a99f0fbe1211d80bdb5fc0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "811b50a54d91efbe169c6679d35d23bfab615df65177da374ca5f2d33e970cb1"
+    sha256                               arm64_sequoia:  "38c49444f77acc5ab51b5a9cbe3e26dd826779f3fdcc756409ee303b73b69159"
+    sha256                               arm64_sonoma:   "8439eea81592493d45851b5f07d18aa561af48b91340465d349e5e96d9930ce4"
+    sha256                               arm64_ventura:  "4dbccebb2a5799f4100932d0e43963d09c895a5bba90308512ba8900ce747795"
+    sha256                               arm64_monterey: "119d4ed42bfcba5c31bdacd13742f207395d2f0e41c4de34cf2ddfc65240ce89"
+    sha256                               sonoma:         "a8fb8ebf22d70754c481f51c677c6adfce24220394dc8a7a6e656b4c608e2402"
+    sha256                               ventura:        "1155e955761d5493ca82e0cf2c86e7d5c0280519ae5771b4ecd5427fad8592b4"
+    sha256                               monterey:       "1e5a62819a767279cead2b12cb4b1c7f7d8a6517104b6ab670fd02a75b9815d5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3a8787045d760e37dbd384756990e39b2a3ce2fc935bfb929e98b82c52b747a6"
   end
 
   depends_on "node"
   depends_on "openjdk"
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
+    system "npm", "install", *std_npm_args
     bin.install Dir["#{libexec}/bin/*"]
     bin.env_script_all_files libexec/"bin", Language::Java.overridable_java_home_env
 
@@ -29,7 +28,7 @@ class Jhipster < Formula
     os = OS.kernel_name.downcase
     arch = Hardware::CPU.intel? ? "x64" : Hardware::CPU.arch.to_s
     node_modules = libexec/"lib/node_modules/generator-jhipster/node_modules"
-    (node_modules/"nice-napi/prebuilds").each_child { |dir| dir.rmtree if dir.basename.to_s != "#{os}-#{arch}" }
+    (node_modules/"nice-napi/prebuilds").each_child { |dir| rm_r(dir) if dir.basename.to_s != "#{os}-#{arch}" }
   end
 
   test do

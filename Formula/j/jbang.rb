@@ -1,12 +1,12 @@
 class Jbang < Formula
   desc "Tool to create, edit and run self-contained source-only Java programs"
   homepage "https://jbang.dev/"
-  url "https://github.com/jbangdev/jbang/releases/download/v0.116.0/jbang-0.116.0.zip"
-  sha256 "66ecce7021c371d1fe1b01e4bd6ee01aaaa48b10925f7c36bed635b3d1150d2d"
+  url "https://github.com/jbangdev/jbang/releases/download/v0.118.0/jbang-0.118.0.zip"
+  sha256 "689f7d974e6b6bfd7b29480ce5c87bcf6a3124fab33c15248566d6360835bee3"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "79d6a7da49c643e131e430f3e538fa083c4bd1b33b287945e4851dcadbbc8e41"
+    sha256 cellar: :any_skip_relocation, all: "44c365854523952aeba9d89d6b98f5ed3164e53c3af67a783f4bf379909d73d3"
   end
 
   depends_on "openjdk"
@@ -18,7 +18,7 @@ class Jbang < Formula
   end
 
   test do
-    system "#{bin}/jbang", "init", "--template=cli", testpath/"hello.java"
+    system bin/"jbang", "init", "--template=cli", testpath/"hello.java"
     assert_match "hello made with jbang", (testpath/"hello.java").read
     assert_match version.to_s, shell_output("#{bin}/jbang --version 2>&1")
   end

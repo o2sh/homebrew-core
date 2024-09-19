@@ -1,5 +1,3 @@
-require "language/node"
-
 class Autorest < Formula
   desc "Swagger (OpenAPI) Specification code generator"
   homepage "https://github.com/Azure/autorest"
@@ -8,6 +6,7 @@ class Autorest < Formula
   license "MIT"
 
   bottle do
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "e83b47baa0ca32e782bee30fb9370448ffc422da79bc9e908456cf1703e1e80e"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "30a9674e336cdda3efd1f20619c0fe0064756580ddad82f8fb5b644f70c047d7"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "30a9674e336cdda3efd1f20619c0fe0064756580ddad82f8fb5b644f70c047d7"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "30a9674e336cdda3efd1f20619c0fe0064756580ddad82f8fb5b644f70c047d7"
@@ -25,7 +24,7 @@ class Autorest < Formula
   end
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
+    system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
   end
 

@@ -1,19 +1,20 @@
 class Oha < Formula
   desc "HTTP load generator, inspired by rakyll/hey with tui animation"
   homepage "https://github.com/hatoo/oha/"
-  url "https://github.com/hatoo/oha/archive/refs/tags/v1.4.4.tar.gz"
-  sha256 "2beb733fb2b6c3490545b98d4abeab87004a501f0bcfb03751f9e7115c1b81f4"
+  url "https://github.com/hatoo/oha/archive/refs/tags/v1.4.6.tar.gz"
+  sha256 "8a68d4411ce241d161aeaa87e9f1e778b381398454bf58e58c976d575fcb2c3b"
   license "MIT"
   head "https://github.com/hatoo/oha.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9721babf91fa2e5bb65925db7fad2f89f2805a318ec9f694df6369309bd08817"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "807e6d1b11996887065f021aa6e01585303408164fb00a8305b1c5d42b861cb5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2205e83e399e00de58eb09e05080292769c8bbc635cc51b9b834167cbbdfe61f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "d9ab6481a0115d8d9d131ee6260b50d272b3dd169977ca85f8f89a4ce81f3070"
-    sha256 cellar: :any_skip_relocation, ventura:        "ad38de2269366cfa12641590731da47b89b5f7c8112d47adea548dcd6794514d"
-    sha256 cellar: :any_skip_relocation, monterey:       "d681f6d4f9c5a3a25773aa3b1cf098f6b6f3a1efb82388f8e9a835690bcd0217"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2a45979044029bf0fbe74e6e54d2483bd5c518f1e85ff631c10749d5c256a0fa"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "2d8394a12ef1d163a0e2a344f29cd9b21feee4fb42272872c8340274c5a6bac8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7271f86c11c845efa1ddaaac6003134b13a84bba8c9098c5181f3350fa454e07"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e231a37455a5615fbe999e4ac87abf1a8f18079b4d98fd220bb68606008112d3"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9a59c9b88c86bc79446a41d7029b4773d2d36d2d12ca1a6da8b3844cfeeee24e"
+    sha256 cellar: :any_skip_relocation, sonoma:         "4254122db32fe3bcb2fd62aa4396514306bab62955a015ea67b7ac1f7c7d781e"
+    sha256 cellar: :any_skip_relocation, ventura:        "8d9084615711cd10ec4e64c8fe8e6f434d90b3695388f5bf95585b8770e44f66"
+    sha256 cellar: :any_skip_relocation, monterey:       "7aab1a89bda91f90a493f5c6e7e1b78fd79c09fe0ffec793beb8cd45ce97c41c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ccacae033d20a23b965aa8e112a65c0ce2cc522b47ae600fc7238985dd3bfecb"
   end
 
   depends_on "cmake" => :build # for aws-lc-sys

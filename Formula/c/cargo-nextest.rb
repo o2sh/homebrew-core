@@ -1,8 +1,8 @@
 class CargoNextest < Formula
   desc "Next-generation test runner for Rust"
   homepage "https://nexte.st"
-  url "https://github.com/nextest-rs/nextest/archive/refs/tags/cargo-nextest-0.9.70.tar.gz"
-  sha256 "c604a391c1bab0b642e045ba31d4eeb3b4a0dd992125b8ccd8dc55c578d84fa6"
+  url "https://github.com/nextest-rs/nextest/archive/refs/tags/cargo-nextest-0.9.78.tar.gz"
+  sha256 "cab5f307ca28cca63ba577614a41a7d390731571241d0460e005e2b32d5efac6"
   license "Apache-2.0"
 
   livecheck do
@@ -11,17 +11,18 @@ class CargoNextest < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7b0b37b8106b8659d97434ea9d9a3f15d81482f8781583b8fd359b0c6195ebe6"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4e06cc307099f33cb7aed93bc08ff69eca3b162b3e56f480fafdbc0764373d7b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9377b37985cc04747cf278fafcd01c1474b53f60f8662715da339dba34bcd170"
-    sha256 cellar: :any_skip_relocation, sonoma:         "d9f59504e8440f115c07e166369f3e67aceee05b5189dd17d479a100f0137103"
-    sha256 cellar: :any_skip_relocation, ventura:        "215aea15519aebc2c59d124b57ed282b1c3e0003dfb2b07f2a24be292760942e"
-    sha256 cellar: :any_skip_relocation, monterey:       "0b11f7dc94bf221bf54cd1a42b014a162c85865abcdb2129eb91dccb8727feec"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "55485b808fa14f34a689272cc9e51e11d903fc81bfaacfbdf7bd8fe232fabf90"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "2164937f12035011437c08bec68536d978f190ee812b6ca787dea5242253ee17"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "76849e9c398276fb5ea0ee356c0051d0785fabf0f867d7e379afb6338d8e9a44"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f2774861cbba7ce18503d131d46bf3b478a348565fe72bbf21922b150ac2a33b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "41a69f08d55ef853ed7ae56c409b97c49f6cca2a7d887453d1fc75ab09e67b55"
+    sha256 cellar: :any_skip_relocation, sonoma:         "426f3ddbf21d5cbf0e9c7215646d28b812f05f2002eee9507279dbb6cd6a0bdb"
+    sha256 cellar: :any_skip_relocation, ventura:        "3ffdc1edd3a51b6a793ecb5260473300030c92655f41585ff2da249a032604db"
+    sha256 cellar: :any_skip_relocation, monterey:       "e30506fcca60085968eafa21f19704f33881d3fdf565c24d5352935c07409e7d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0b06221fcf62c03a5c77286199c5a1b29065c141bb612c27517201bcecc02647"
   end
 
   depends_on "rust" => :build
-  depends_on "rustup-init" => :test
+  depends_on "rustup" => :test
 
   def install
     system "cargo", "install", "--no-default-features", "--features", "default-no-update",
@@ -31,10 +32,9 @@ class CargoNextest < Formula
   test do
     # Show that we can use a different toolchain than the one provided by the `rust` formula.
     # https://github.com/Homebrew/homebrew-core/pull/134074#pullrequestreview-1484979359
-    ENV["RUSTUP_INIT_SKIP_PATH_CHECK"] = "yes"
-    rustup_init = Formula["rustup-init"].bin/"rustup-init"
-    system rustup_init, "-y", "--profile", "minimal", "--default-toolchain", "beta", "--no-modify-path"
-    ENV.prepend_path "PATH", HOMEBREW_CACHE/"cargo_cache/bin"
+    ENV.prepend_path "PATH", Formula["rustup"].bin
+    system "rustup", "default", "beta"
+    system "rustup", "set", "profile", "minimal"
 
     crate = testpath/"demo-crate"
     mkdir crate do

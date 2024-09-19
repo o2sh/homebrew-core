@@ -1,15 +1,15 @@
 class Lit < Formula
   desc "Portable tool for LLVM- and Clang-style test suites"
   homepage "https://llvm.org"
-  url "https://files.pythonhosted.org/packages/d1/a8/f60ac84614cfdde136f8b9bb8e15ea6a815397b1e11e1c712e43bf694222/lit-18.1.4.tar.gz"
-  sha256 "e6ca26eb0a86aef88cb674616100e32d1250d05cfec4ca57a74acabb0a26de78"
+  url "https://files.pythonhosted.org/packages/47/b4/d7e210971494db7b9a9ac48ff37dfa59a8b14c773f9cf47e6bda58411c0d/lit-18.1.8.tar.gz"
+  sha256 "47c174a186941ae830f04ded76a3444600be67d5e5fb8282c3783fba671c4edb"
   license "Apache-2.0" => { with: "LLVM-exception" }
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "3604fddc93584f677b94d9c4792f8f1ccacec4b4e168bd687c15afba833366d8"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, all: "752703098ad7bf62f5685a9d79a11acc872d83c7c82ebdcbee4a36d654c512ac"
   end
 
-  depends_on "python-setuptools" => :build
   depends_on "llvm" => :test
   depends_on "python@3.12"
 
@@ -17,8 +17,10 @@ class Lit < Formula
     which("python3.12")
   end
 
+  conflicts_with "luvit", because: "both install `lit` binaries"
+
   def install
-    system python3, "-m", "pip", "install", *std_pip_args, "."
+    system python3, "-m", "pip", "install", *std_pip_args(build_isolation: true), "."
 
     # Install symlinks so that `import lit` works with multiple versions of Python
     python_versions = Formula.names

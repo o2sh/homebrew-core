@@ -1,12 +1,15 @@
+# This is an exception to Homebrew policy on Python libraries. See:
+# https://github.com/Homebrew/homebrew-core/issues/167905#issuecomment-2328118401
 class PythonPackaging < Formula
   desc "Core utilities for Python packages"
   homepage "https://packaging.pypa.io/"
-  url "https://files.pythonhosted.org/packages/ee/b5/b43a27ac7472e1818c4bafd44430e69605baefe1f34440593e0332ec8b4d/packaging-24.0.tar.gz"
-  sha256 "eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"
+  url "https://files.pythonhosted.org/packages/51/65/50db4dda066951078f0a96cf12f4b9ada6e4b811516bf0262c0f4f7064d4/packaging-24.1.tar.gz"
+  sha256 "026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002"
   license any_of: ["Apache-2.0", "BSD-2-Clause"]
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "2cf07e8f77ff012e840b93321f30017d29b0b9408e11b8071ee0b4bbd647bcd1"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, all: "7423b5f0a0a2a65d981e88581abf853ea8cbf2486353f541d452d41ef5ea1e55"
   end
 
   depends_on "python@3.11" => [:build, :test]

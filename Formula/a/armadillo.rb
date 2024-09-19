@@ -1,9 +1,10 @@
 class Armadillo < Formula
   desc "C++ linear algebra library"
   homepage "https://arma.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/arma/armadillo-12.8.3.tar.xz"
-  sha256 "2922589f6387796504b340da6bb954bef3d87574c298515893289edd2d890151"
+  url "https://downloads.sourceforge.net/project/arma/armadillo-14.0.2.tar.xz"
+  sha256 "248e2535fc092add6cb7dea94fc86ae1c463bda39e46fd82d2a7165c1c197dff"
   license "Apache-2.0"
+  revision 1
 
   livecheck do
     url :stable
@@ -11,13 +12,13 @@ class Armadillo < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "91581eeea07c47954e719fdef8c964027ebeccae3c88cd059c0adf7f346e912a"
-    sha256 cellar: :any,                 arm64_ventura:  "50711d850b1a49414679bce7d82df1b8d05b5e3683ea76276a2a300384a41984"
-    sha256 cellar: :any,                 arm64_monterey: "a15f323c1504af5a32ade9a7882e577904b1bee8da8e53cc196c84fd03d7bc7a"
-    sha256 cellar: :any,                 sonoma:         "eef354133b970bbd06c1b3db0c4112a905015989bc51ce76c6f54c338df6a716"
-    sha256 cellar: :any,                 ventura:        "51650b6fb52ccec73d895fae548da8f4cf732a90e4a5b1aa6451a8231e73de44"
-    sha256 cellar: :any,                 monterey:       "944519057dcfcad30a67941c091ca21fcd82a2cfd43d920ff6090ce56df02c9e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0748e38af3d48210c705d7e23bbe40abed409654b271596385821234c613071d"
+    sha256 cellar: :any,                 arm64_sonoma:   "68e7fbb97adc00257478df23659656c061b120ab5ccbe4504e907d45c37c70cd"
+    sha256 cellar: :any,                 arm64_ventura:  "766499cb0d1f43fc05aabd34fedcc8cb737a466f9179e13a0f9e9d70999a316f"
+    sha256 cellar: :any,                 arm64_monterey: "8eeed39c2609dd2a86b23d5545626f6c67a78367c0ee51bfe1b4667bdc4eca7b"
+    sha256 cellar: :any,                 sonoma:         "8db6b5a47d80023c329f65867ef70cc8e55e32691fc5208a78fb0a601acce420"
+    sha256 cellar: :any,                 ventura:        "7c932d6837bc650692df680062e771215e452249d80eeb1b8fb4a1eec1d2638e"
+    sha256 cellar: :any,                 monterey:       "62ed45c56afd0f695a9d4f9d5938ce275f56da180adabf6984acaf249a24e3bd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5b20eca052b8531f1fac29c85a85caa3abd4d8c4c26fe41750d75dd65c1905c5"
   end
 
   depends_on "cmake" => :build

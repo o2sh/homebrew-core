@@ -3,22 +3,25 @@ class Atlas < Formula
   homepage "https://atlasgo.io/"
   # Upstream may not mark patch releases as latest on GitHub; it is fine to ship them.
   # See https://github.com/ariga/atlas/issues/1090#issuecomment-1225258408
-  url "https://github.com/ariga/atlas/archive/refs/tags/v0.22.0.tar.gz"
-  sha256 "410696021a098bb949c3d91f89df295bd8cc98fa7f51c43a8a4c959f6e9fe7c3"
+  url "https://github.com/ariga/atlas/archive/refs/tags/v0.27.0.tar.gz"
+  sha256 "444eed6b081269b9f42839092689ef1e935631c8c5890a53dbacac1ed2596a11"
   license "Apache-2.0"
   head "https://github.com/ariga/atlas.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "04893393ec7fad6f9ad08f6bb2a5c9bb07311376eb07a9e625607f65d44f877f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b3a9af449d66e054f2cf1c3831337f933d4f27596e47bea47e1fd26cb01ba3ac"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "54ca46a5d0976999b1bd82702317c8f6862cf6d18cab5586508da6bcdbb56ed4"
-    sha256 cellar: :any_skip_relocation, sonoma:         "54340dd8b5b38645daf1abce56b0399c17edea26ee2f38ea4d4caf5d0cb95056"
-    sha256 cellar: :any_skip_relocation, ventura:        "d8ec662a8edca302b43578c17ba9c3bc57987081b0c1e1d63d21371637990e04"
-    sha256 cellar: :any_skip_relocation, monterey:       "34cd8e47af8ffbd3f0af89e229ae5e50aa8a3a95d6d8cc6862ed90a069c34167"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d838d73dfda76627afe7c749cd322f76668193f598a3860a58f4fc61f01ed390"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "b6a9ec3cf11eb1dc65322e39df31a08f2d14acaddb737207eae1ebff876c9eed"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2c58de084bfd7fc470691e590758986e085bb8037bc082ff52f005cd5e2bd3d9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "94a7f705e06e643d658d302a7820ec9a49b488a292e61c5c7e85f8798018360e"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9f69659dd6b4417d8075105a21930fc456fe9a8572d7a59c18dcbe89055d0da7"
+    sha256 cellar: :any_skip_relocation, sonoma:         "23c4d10340ba3412d88f81180cd9064b30e2956f5c5b08d3a1943d68a8bcb32a"
+    sha256 cellar: :any_skip_relocation, ventura:        "0f03a3233a78a3ffc7a8ed51feef8c2cbd0065f30dbcb24de49a8b75173a2184"
+    sha256 cellar: :any_skip_relocation, monterey:       "e5ac413768e23e4b8ac5e2b59199f685b4a2f1af605d9636af33d70519aee4a7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3e611d691eb041bb1bc8c577a9a83aa39143f15538dee1367fb2cb196ac499ed"
   end
 
   depends_on "go" => :build
+
+  conflicts_with "mongodb-atlas-cli", "nim", because: "both install `atlas` executable"
 
   def install
     ldflags = %W[

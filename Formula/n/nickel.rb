@@ -1,19 +1,18 @@
 class Nickel < Formula
   desc "Better configuration for less"
   homepage "https://github.com/tweag/nickel"
-  url "https://github.com/tweag/nickel/archive/refs/tags/1.6.0.tar.gz"
-  sha256 "191d2ee9e1ed02600795dbe220906d528edd52c797bbdfcda17d06c53686042f"
+  url "https://github.com/tweag/nickel/archive/refs/tags/1.8.1.tar.gz"
+  sha256 "85cd1b42fdd41b5ff292631420467b86e94abce5edf80f033a02cc2629b8c766"
   license "MIT"
   head "https://github.com/tweag/nickel.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "58977d4e1db3ff658cf6887a091a7758426bbfdfc323b81b28e58b799c31ec8a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4c44570b4419710e5e0c4ed8929c1a2db1d5ccab57dc0b854a3fc6582746dec5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "257cc67ccac97a448b743b2480821fd84c655ad7d6567a900d7cde67dbc3528d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c9d6eb305e6c5cabab9d815f22eaf10e47a306487b25d47f4482c720c30a021b"
-    sha256 cellar: :any_skip_relocation, ventura:        "0a77e27fcf60a9749e8b8c4a1a3db37ae366bbd15e052e2b984d4c6d4eac4237"
-    sha256 cellar: :any_skip_relocation, monterey:       "11ddb718731cb912339002d07a3ff95d75dc1899d7ab5879f64a8cf022b90338"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b0cedb8516786ab66ddf1a1b012688a85a25618763ec6e5501ee5555895e0bb8"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1d01e228c64ee786f1c2074f1ec4e07684c6cf3adb808ed93f4a78d9b1adf790"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "769c5b5c6ac783519079ac730458e7ed249f341590358b4d1485c7fa85e3ca8a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "00e45a6b8f2f81191871cf9bde82baf13ba9b96423fb1ccd23059d865681f6ec"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f89dc2ca972a95c972724d1aad4cbeb3e28d751063e3c4c36364340b2780cff4"
+    sha256 cellar: :any_skip_relocation, ventura:       "3fd015602b876e04c369ca30c31d3918c9bbc8533a4532ea685c7d30e6d60b35"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7ff2ba9cdebadd6b542413a5e5a0ea6f97a7b79c9a41cef538f67e7d806a1729"
   end
 
   depends_on "rust" => :build

@@ -4,17 +4,17 @@ class Minetest < Formula
   license "LGPL-2.1-or-later"
 
   stable do
-    url "https://github.com/minetest/minetest/archive/refs/tags/5.8.0.tar.gz"
-    sha256 "610c85a24d77acdc3043a69d777bed9e6c00169406ca09df22ad490fe0d68c0c"
+    url "https://github.com/minetest/minetest/archive/refs/tags/5.9.1.tar.gz"
+    sha256 "aa9a6ae57445b779f57dcba5a83b0704fabd24c5eca37c6c8611e885bdf09d7c"
 
     resource "irrlichtmt" do
-      url "https://github.com/minetest/irrlicht/archive/refs/tags/1.9.0mt13.tar.gz"
-      sha256 "2fde8e27144988210b9c0ff1e202905834d9d25aaa63ce452763fd7171096adc"
+      url "https://github.com/minetest/irrlicht/archive/refs/tags/1.9.0mt15.tar.gz"
+      sha256 "12d24380a19be51cab29f54ae48fe08b327789da9c4d082ff815df60393d643f"
     end
 
     resource "minetest_game" do
-      url "https://github.com/minetest/minetest_game/archive/refs/tags/5.7.0.tar.gz"
-      sha256 "0787b24cf7b340a8a2be873ca3744cec60c2683011f1d658350a031d1bd5976d"
+      url "https://github.com/minetest/minetest_game/archive/refs/tags/5.8.0.tar.gz"
+      sha256 "33a3bb43b08497a0bdb2f49f140a2829e582d5c16c0ad52be1595c803f706912"
     end
   end
 
@@ -24,13 +24,12 @@ class Minetest < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "6d1e18e736c85005e57e7925e0064836df8fea870335b0836fbc34a8a2ef9ed1"
-    sha256 cellar: :any, arm64_ventura:  "49c3f74ad32d15b9bdf5b9a50d0b030ceaee0765b807e6dd6ab88225d752de65"
-    sha256 cellar: :any, arm64_monterey: "d72725938e822706c585254b1b0b7bffe46be99e9859ee31b37a1370fd157d7b"
-    sha256 cellar: :any, sonoma:         "66e8431e983e91fe3337f52552f6296a825d7ef94b9fd92cc10ee21fe4097e63"
-    sha256 cellar: :any, ventura:        "65085a5002468b37fcb1be9d8641ae701522be9a926c4832b386da9efa4f75f0"
-    sha256 cellar: :any, monterey:       "7294300c1673038c329acda2ec74bea9f99752b98234dc5d238733d09a763875"
-    sha256               x86_64_linux:   "ed27729be489033f9b22b8fbf5789c2848a6c1547289c2a16759a155ba12bf4d"
+    sha256 cellar: :any, arm64_sequoia: "883006c0b92b264f44b3be436d961c78e9cc1aad2a27e86243c566ea11657a41"
+    sha256 cellar: :any, arm64_sonoma:  "356346e62a73c3abd5aa26b938230c5522ee02642a9d91b86c6a8390f761439d"
+    sha256 cellar: :any, arm64_ventura: "79169ab7d2226e23bd877dcaac48effc607bcbcccbe9e0c7173f8fc223a7dc19"
+    sha256 cellar: :any, sonoma:        "86e5ea34a76d5d73fcb9e429a67ad464f9df73408d39e2e30a8bbeaa4a5afd9e"
+    sha256 cellar: :any, ventura:       "89629873d1fea0c717bfc6937574106c6a421e4e376428929c33cdb6cc464ab2"
+    sha256               x86_64_linux:  "6708859348bde047c9a966021a741d313c1c43eef7f34234f6dcb153ccdcd110"
   end
 
   head do
@@ -64,6 +63,7 @@ class Minetest < Formula
 
   on_linux do
     depends_on "libx11"
+    depends_on "libxi"
     depends_on "libxxf86vm"
     depends_on "mesa"
     depends_on "openal-soft"
@@ -75,7 +75,7 @@ class Minetest < Formula
     inreplace "src/CMakeLists.txt", "fixup_bundle(", "# \\0"
 
     # Remove bundled libraries to prevent fallback
-    %w[lua gmp jsoncpp].each { |lib| (buildpath/"lib"/lib).rmtree }
+    %w[lua gmp jsoncpp].each { |lib| rm_r(buildpath/"lib"/lib) }
 
     (buildpath/"games/minetest_game").install resource("minetest_game")
     (buildpath/"lib/irrlichtmt").install resource("irrlichtmt")

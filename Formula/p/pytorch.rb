@@ -6,7 +6,7 @@ class Pytorch < Formula
   url "https://github.com/pytorch/pytorch/releases/download/v2.2.0/pytorch-v2.2.0.tar.gz"
   sha256 "e12d18c3dbb12d7ae2f61f5ab9a21023e3dd179d67ed87279ef96600b9ac08c5"
   license "BSD-3-Clause"
-  revision 3
+  revision 10
 
   livecheck do
     url :stable
@@ -14,19 +14,19 @@ class Pytorch < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "d9c08fd490515661e81740f15ec770b676efb1b16075986134b813d1ce0b1cac"
-    sha256 cellar: :any,                 arm64_ventura:  "41d65f43b8174f0808f9337f531961ff69beac1d16f048c583b9cd6ed68e1801"
-    sha256 cellar: :any,                 arm64_monterey: "725949d34528a1ab39a603651f7aaa31b49def0c9b487473d46f2f58816b6fcf"
-    sha256 cellar: :any,                 sonoma:         "3f24e42aaf11c3abdc82e446ce6169ec783b889a125be0625ccb101648d1bf99"
-    sha256 cellar: :any,                 ventura:        "55ec2c0ee2c1298a0b315853dae23730a2211afc15dbfcede1bc514aaada5f0a"
-    sha256 cellar: :any,                 monterey:       "f2c1169ecb5b6d5e498af8123eb6e2e8990ddeebe547905010ed915b68e16b4d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c2647fc8559bc33f2e70bbf529ba23664bcd2b60cb50baf17cf447206b28352c"
+    sha256 cellar: :any,                 arm64_sequoia: "a8730fb4025725c29951fbb7e8a0931b6a45c3759835eb3fb39bee1b8e0c1242"
+    sha256 cellar: :any,                 arm64_sonoma:  "4dbe1b3fb0f3b0ae0bd8355451e4c0260d029042254653ac131904229b4807c0"
+    sha256 cellar: :any,                 arm64_ventura: "6edbdb8a029567d0f2e7702095b086922e484857fb31cd64ddba9744035d96ed"
+    sha256 cellar: :any,                 sonoma:        "c98330fc9d808f57f7abed39238e8fa5437772844b71cd1e50d203fd08fc70e9"
+    sha256 cellar: :any,                 ventura:       "c8e723b2a35632d279a2e16b4238fedcbb648c5af1c08aa8d83f3ad9dd326002"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "24ff7d21324f32d25654381ad4f49f5d4938bb7a6245f615751665b28d19845c"
   end
 
   depends_on "cmake" => :build
   depends_on "ninja" => :build
   depends_on "python@3.12" => [:build, :test]
   depends_on xcode: :build
+  depends_on "abseil"
   depends_on "eigen"
   depends_on "libuv"
   depends_on "libyaml"
@@ -100,6 +100,12 @@ class Pytorch < Formula
   resource "typing-extensions" do
     url "https://files.pythonhosted.org/packages/0c/1d/eb26f5e75100d531d7399ae800814b069bc2ed2a7410834d57374d010d96/typing_extensions-4.9.0.tar.gz"
     sha256 "23478f88c37f27d76ac8aee6c905017a143b0b1b886c3c9f66bc2fd94f9f5783"
+  end
+
+  # Support numpy 2.0: https://github.com/pytorch/pytorch/pull/121880
+  patch do
+    url "https://github.com/pytorch/pytorch/commit/38d9bb5abcc31ba97927a5399b88afe2cf60bf64.patch?full_index=1"
+    sha256 "c9bf84d154e5f3f9b67a68d25765f32a08b9deb3127254971ed6351231eba228"
   end
 
   # Backport usage of SLEEF_CONST from upstream commit

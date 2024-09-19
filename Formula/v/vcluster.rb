@@ -2,19 +2,28 @@ class Vcluster < Formula
   desc "Creates fully functional virtual k8s cluster inside host k8s cluster's namespace"
   homepage "https://www.vcluster.com"
   url "https://github.com/loft-sh/vcluster.git",
-      tag:      "v0.19.5",
-      revision: "38a919a551838204f5d6298d65770966ed4629f2"
+      tag:      "v0.20.0",
+      revision: "531ed2d4a99b8fd6bcaeaf1d1f61ee78355d4892"
   license "Apache-2.0"
   head "https://github.com/loft-sh/vcluster.git", branch: "main"
 
+  # Upstream creates releases that use a stable tag (e.g., `v1.2.3`) but are
+  # labeled as "pre-release" on GitHub before the version is released, so it's
+  # necessary to use the `GithubLatest` strategy.
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "dfeeaab3049f379192d40162a8d7c4215c294f929743f8d630868542a43dd60d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3517ecc630edc52f7eb4a7239c043c9af01df852191be1851824629193845f94"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7a9f3dc8eb8f9a91cc8e9bd276a020e93f9e8dccb13167989134b33d3c4c982e"
-    sha256 cellar: :any_skip_relocation, sonoma:         "17c3be35d4d2cf026e8f591428e2522e300898135d5f63a15accb336b127b9bb"
-    sha256 cellar: :any_skip_relocation, ventura:        "18dcb74d0612766699d6d674aa4c037b399e8f66807be5295c798a82142d3559"
-    sha256 cellar: :any_skip_relocation, monterey:       "445f62862149ba086fb144cf0c68aaf0491356b9eff2b6e90f1c64e896bcc324"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8aec7cc5c7f519a708e7ca28e578ea1c7f87f634b2bec9d4aa98f1b67d178398"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "7ad0cb23c4bacbc9ddfe1d5b93ae186631d74dae819d2f97a0fd3e6d08ab9e2f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7c412096446a34d288fc7f140550ca7c52ada8396ff1d5816bfece2c30dce89b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3e9915a3574ed5e15f53ebd1e714c5b841afbed84cf920b7c37ca9f4e3d5741c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d4c65ac232dc6398e4ea3a4f7469436d7953368ef9b6d9e5a86a86660fb3ceb6"
+    sha256 cellar: :any_skip_relocation, sonoma:         "185d274f863ace48d76c4566d90611e90087cebb25435c8459b5d1d086cbe65d"
+    sha256 cellar: :any_skip_relocation, ventura:        "229c9a786c969210eedc7e3029b8a13506b98826afb6543a88ee18ddf407b6c5"
+    sha256 cellar: :any_skip_relocation, monterey:       "8d639f1920a1e15c39348623d46d5282f93d060dccbe7c4eb7e477fbc52cb7be"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "654f6ce34996068cecaf667756bf1506c3f7a2cae1ab2a4865d1727b4576e10c"
   end
 
   depends_on "go" => :build

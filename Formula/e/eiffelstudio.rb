@@ -4,8 +4,16 @@ class Eiffelstudio < Formula
   url "https://ftp.eiffel.com/pub/download/22.05/pp/PorterPackage_std_106302.tar"
   version "22.05.10.6302"
   sha256 "c2ede38b19cedead58a9e075cf79d6a4b113e049c0723fe9556c4f36ee68b80d"
-  license "GPL-2.0"
+  license "GPL-2.0-only"
   revision 1
+
+  livecheck do
+    url "https://ftp.eiffel.com/pub/download/latest/pp/"
+    regex(/href=.*?PorterPackage[._-]std[._-]v?(\d+(?:[._-]\d+)+).t/i)
+    strategy :page_match do |page, regex|
+      page.scan(regex).map { |match| match[0].tr("_-", ".") }
+    end
+  end
 
   bottle do
     sha256 cellar: :any,                 arm64_sonoma:   "eb80572a9f45330718c9d37480bf5dd883654e1fef524447d828558d3fa86223"

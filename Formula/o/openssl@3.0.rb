@@ -1,25 +1,24 @@
 class OpensslAT30 < Formula
   desc "Cryptography and SSL/TLS Toolkit"
-  homepage "https://openssl.org/"
-  url "https://www.openssl.org/source/openssl-3.0.13.tar.gz"
-  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-3.0.13.tar.gz"
-  sha256 "88525753f79d3bec27d2fa7c66aa0b92b3aa9498dafd93d7cfa4b3780cdae313"
+  homepage "https://openssl-library.org"
+  url "https://github.com/openssl/openssl/releases/download/openssl-3.0.15/openssl-3.0.15.tar.gz"
+  sha256 "23c666d0edf20f14249b3d8f0368acaee9ab585b09e1de82107c66e1f3ec9533"
   license "Apache-2.0"
 
   livecheck do
-    url "https://www.openssl.org/source/"
+    url "https://openssl-library.org/source/"
     regex(/href=.*?openssl[._-]v?(3\.0(?:\.\d+)+)\.t/i)
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_sonoma:   "5cf40592c269c1bfffb25c9be18a07d7dfb65d499c81337d10fa088d61eb7e00"
-    sha256 arm64_ventura:  "c7701bc83751c65257f5fbea454cd5758d359b1df9ceaac721624c03f06d73ea"
-    sha256 arm64_monterey: "c362cc9e153f65f548f627f06c411d50dac642cc936541f6bf9dbb0ad7e7e1e7"
-    sha256 sonoma:         "3c391c2d92b620719d351f542ab2fdd4cae76a0c1d97ad572dfdfe7748bbe885"
-    sha256 ventura:        "c51aff36b2986ad4d77329902d3e3485b1b19dd218e12ac4236127cd825eda1a"
-    sha256 monterey:       "18bc7ea49056430a343c1d7d7de23925b445a7baecaed33261bf9defbd9eed02"
-    sha256 x86_64_linux:   "0ce99826f56f67ef9790d365da99c632f32686824f8c1e5c29300b6aa24638b4"
+    sha256 arm64_sequoia:  "0fbecf9a927e6cb2432283e6cf06cfce59067556a91b496528a6bdf66217a2e8"
+    sha256 arm64_sonoma:   "5f48e4f3391e514597cf9959a95daaafc1295ce4df9a26964d3ce0cb705a041f"
+    sha256 arm64_ventura:  "90d988c61932197830a7962e9dfe3997a139689489763ffa55ec54a607b69d0e"
+    sha256 arm64_monterey: "4491fd5d9e0bd3f27cd45d6b3026f2f1e9f648b1dff73cd41514bdeb55d8bae4"
+    sha256 sonoma:         "49d60e1d467c46db85643ff1ec0fc0d7883698b878f0456467c4e36758ae6197"
+    sha256 ventura:        "2330210545b943f2989ef8b30f712eeca2b2ba6762b6ac6de19f82d6f9c2d41f"
+    sha256 monterey:       "e6815ce49c0657d581fac3ffdabbac99c47ea9903d43f5e812621091b8bd9921"
+    sha256 x86_64_linux:   "88feaacad8c06a6308c1b1bf4d322e812d069b9e7a9808982debf89c5a226e39"
   end
 
   keg_only :versioned_formula
@@ -28,15 +27,15 @@ class OpensslAT30 < Formula
 
   on_linux do
     resource "Test::Harness" do
-      url "https://cpan.metacpan.org/authors/id/L/LE/LEONT/Test-Harness-3.44.tar.gz"
-      mirror "http://cpan.metacpan.org/authors/id/L/LE/LEONT/Test-Harness-3.44.tar.gz"
-      sha256 "7eb591ea6b499ece6745ff3e80e60cee669f0037f9ccbc4e4511425f593e5297"
+      url "https://cpan.metacpan.org/authors/id/L/LE/LEONT/Test-Harness-3.50.tar.gz"
+      mirror "http://cpan.metacpan.org/authors/id/L/LE/LEONT/Test-Harness-3.50.tar.gz"
+      sha256 "79b6acdc444f1924cd4c2e9ed868bdc6e09580021aca8ff078ede2ffef8a6f54"
     end
 
     resource "Test::More" do
-      url "https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test-Simple-1.302195.tar.gz"
-      mirror "http://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test-Simple-1.302195.tar.gz"
-      sha256 "b390bb23592e0b946c95adbb3c30b11bc634a286b2847be611ad929c57e39a6c"
+      url "https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test-Simple-1.302201.tar.gz"
+      mirror "http://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test-Simple-1.302201.tar.gz"
+      sha256 "956185dc96c1f2942f310a549a2b206cc5dd1487558f4e36d87af7a8aacbc87c"
     end
 
     resource "ExtUtils::MakeMaker" do
@@ -65,12 +64,6 @@ class OpensslAT30 < Formula
       args += (ENV.ldflags || "").split
     end
     args
-  end
-
-  # Fixes CVE-2024-2511. Remove in next release.
-  patch do
-    url "https://github.com/openssl/openssl/commit/b52867a9f618bb955bed2a3ce3db4d4f97ed8e5d.patch?full_index=1"
-    sha256 "6f36d0980ddbd7d40c34cb1a340fc1f726a91d7e75573806a77ae0778af37989"
   end
 
   def install
@@ -109,6 +102,9 @@ class OpensslAT30 < Formula
     system "make"
     system "make", "install", "MANDIR=#{man}", "MANSUFFIX=ssl"
     system "make", "test"
+
+    # Prevent `brew` from pruning the `certs` and `private` directories.
+    touch %w[certs private].map { |subdir| openssldir/subdir/".keepme" }
   end
 
   def openssldir
@@ -116,7 +112,7 @@ class OpensslAT30 < Formula
   end
 
   def post_install
-    rm_f openssldir/"cert.pem"
+    rm(openssldir/"cert.pem") if (openssldir/"cert.pem").exist?
     openssldir.install_symlink Formula["ca-certificates"].pkgetc/"cert.pem"
   end
 

@@ -1,25 +1,28 @@
 class Uwsgi < Formula
   desc "Full stack for building hosting services"
   homepage "https://uwsgi-docs.readthedocs.io/en/latest/"
-  url "https://files.pythonhosted.org/packages/52/9a/ab43cf8fb4847a6fda585beb1374deba0583660fa05c882a498784b2fc77/uwsgi-2.0.25.1.tar.gz"
-  sha256 "d653d2d804c194c8cbe2585fa56efa2650313ae75c686a9d7931374d4dfbfc6e"
+  url "https://files.pythonhosted.org/packages/3a/7a/4c910bdc9d32640ba89f8d1dc256872c2b5e64830759f7dc346815f5b3b1/uwsgi-2.0.26.tar.gz"
+  sha256 "86e6bfcd4dc20529665f5b7777193cdc48622fb2c59f0a7f1e3dc32b3882e7f9"
   license "GPL-2.0-or-later"
   head "https://github.com/unbit/uwsgi.git", branch: "master"
 
   bottle do
-    sha256 arm64_sonoma:   "983fe6f7af185a9153320b3cd52204dd748e0f41b695f8c6f098e0e11e1a871d"
-    sha256 arm64_ventura:  "b368a4c314a02ff7a8eb6711ee039b257114fdbed533b32e7585c0d41f8ef9e4"
-    sha256 arm64_monterey: "6c09b2e859d6383de85d3e3b8949c24a80d9f5071dfef98fb0f698409be1b7b5"
-    sha256 sonoma:         "5b3a6199dd5cf18504365fa22ca45cde1c861d52a3512ce6a5c2764c985400a1"
-    sha256 ventura:        "042a3a53a27cf8fb4132cb8de7d1b03ab02e243f38b46aeddc009538841b1cf5"
-    sha256 monterey:       "aa8065251cf0676dc1f7a0890c8f78295631fa916ffad0aa9319f8d6e3fa6750"
-    sha256 x86_64_linux:   "d24bc23d5bfcd050697811e1b57950f138fec1b05600e0986c205b80832f5ab2"
+    rebuild 1
+    sha256 arm64_sequoia:  "20d424690a47f7046ec833a3056c560928bff78880f00ed61644731f88985f67"
+    sha256 arm64_sonoma:   "8a0fe851ae6fc032d9edb666e21f2688285503d5f3680954262bae520664a606"
+    sha256 arm64_ventura:  "0f8603be2a9a008af7676a3563baa3e3150d1d52a4ccab1641a63a2ab69f9dc7"
+    sha256 arm64_monterey: "e4fb04cd0e8271c2389976835ad753fa4fff24f39858519083b2cc12bcef5a36"
+    sha256 sonoma:         "ff4331647474243f77905308c0399b6eac8b07f97f2336ecd5b04a83b11e0165"
+    sha256 ventura:        "aa6b6ecaad5d23ee694ca705759cd2f687b8c577335105ec8caa37ae3e602798"
+    sha256 monterey:       "abd4002d0e8c7d9d220aa4c3db11d208f0629ceac9602389afa09fe0d47d4804"
+    sha256 x86_64_linux:   "fcc5a66132b65c34b849729b0151b191e21b572b71ba4d703cd4ae8797a7b888"
   end
 
   depends_on "pkg-config" => :build
   depends_on "openssl@3"
-  depends_on "pcre" # PCRE2 issue: https://github.com/unbit/uwsgi/issues/2486
+  depends_on "pcre2"
   depends_on "python@3.12"
+  depends_on "sqlite"
   depends_on "yajl"
 
   uses_from_macos "curl"

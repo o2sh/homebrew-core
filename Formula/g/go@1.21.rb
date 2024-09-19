@@ -1,40 +1,33 @@
 class GoAT121 < Formula
   desc "Open source programming language to build simple/reliable/efficient software"
   homepage "https://go.dev/"
-  url "https://go.dev/dl/go1.21.10.src.tar.gz"
-  mirror "https://fossies.org/linux/misc/go1.21.10.src.tar.gz"
-  sha256 "900e0afe8900c1ee65a8a8c4f0c5a3ca02dcf85c1d1cb13a652be22c21399394"
+  url "https://go.dev/dl/go1.21.13.src.tar.gz"
+  mirror "https://fossies.org/linux/misc/go1.21.13.src.tar.gz"
+  sha256 "71fb31606a1de48d129d591e8717a63e0c5565ffba09a24ea9f899a13214c34d"
   license "BSD-3-Clause"
 
-  livecheck do
-    url "https://go.dev/dl/?mode=json"
-    regex(/^go[._-]?v?(1\.21(?:\.\d+)*)[._-]src\.t.+$/i)
-    strategy :json do |json, regex|
-      json.map do |release|
-        next if release["stable"] != true
-        next if release["files"].none? { |file| file["filename"].match?(regex) }
-
-        release["version"][/(\d+(?:\.\d+)+)/, 1]
-      end
-    end
-  end
-
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5d03a71a17c9b89713cc98db82547351f2029307a23086b60c2ee1252ff82e8b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "565d7eed0cc70c086755addfcc87cb70363ab613e1a6735fee5082a803015c4f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "249a35ab4398ddb11a079e48f1dc352128ea3b2e59b29ba2b7178332ad22c69a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "67d7833bfbc663cf8c81c48a4de51f6c855ecf312559b2efc5c8678ddb498784"
-    sha256 cellar: :any_skip_relocation, ventura:        "e9b93928c8117520d7b1387ff2b783a4ee89ba1afb897e5198a3ef674fcc4b0a"
-    sha256 cellar: :any_skip_relocation, monterey:       "ecafdfd0c809d5a4e8af17a11098c8a0b16381a8545cdd3ead85446bf3bebe35"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f54118fb1748957937baceac595ac22efe26e6f19c5ad37dc28db8b907c33cf9"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "f38f1b1d5915fc6e17cbb18f66cd0ed7160c61b8c9ee9269979631d190de2918"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c3757ac40700cd4d517029a65b116d6f77566a6a94c40c4596fe1260197b0a36"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2b87a776feaba8fa2acf3ed011a9975889605934252863494074b611bb45bb10"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4bcb9ea33785b35225901a94a79dafe6dd966772932afcded0267095ad473555"
+    sha256 cellar: :any_skip_relocation, sonoma:         "b6a9eb12dc8b09ac64043d014e0d2c4eae6d4037eb04d2716910b1915d790846"
+    sha256 cellar: :any_skip_relocation, ventura:        "ae6a9a23003e4d35ec7ad3c49ef019bd5eb601d3c4fbcae22855214b540f48f9"
+    sha256 cellar: :any_skip_relocation, monterey:       "cc9f41285f92be8306f1d46186042b16daba3ab78977e2cba24ccb72e278d416"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e99701f6ff4d7a776573f0a5b98bfd68194cc7abaa5dc28534142a8426a0f1dc"
   end
 
   keg_only :versioned_formula
 
+  # EOL with Go 1.23 release (2024-08-13)
+  # Ref: https://go.dev/doc/devel/release#policy
+  deprecate! date: "2024-08-16", because: :unsupported
+
   depends_on "go" => :build
 
   def install
-    ENV["GOROOT_BOOTSTRAP"] = buildpath/"gobootstrap"
+    inreplace "go.env", /^GOTOOLCHAIN=.*$/, "GOTOOLCHAIN=local"
 
     cd "src" do
       ENV["GOROOT_FINAL"] = libexec
@@ -49,12 +42,22 @@ class GoAT121 < Formula
 
     # Remove useless files.
     # Breaks patchelf because folder contains weird debug/test files
-    (libexec/"src/debug/elf/testdata").rmtree
+    rm_r(libexec/"src/debug/elf/testdata")
     # Binaries built for an incompatible architecture
-    (libexec/"src/runtime/pprof/testdata").rmtree
+    rm_r(libexec/"src/runtime/pprof/testdata")
+  end
+
+  def caveats
+    <<~EOS
+      Homebrew's Go toolchain is configured with
+        GOTOOLCHAIN=local
+      per Homebrew policy on tools that update themselves.
+    EOS
   end
 
   test do
+    assert_equal "local", shell_output("#{bin}/go env GOTOOLCHAIN").strip
+
     (testpath/"hello.go").write <<~EOS
       package main
 

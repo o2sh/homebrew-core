@@ -3,7 +3,7 @@ class Teleport < Formula
   homepage "https://goteleport.com/"
   url "https://github.com/gravitational/teleport/archive/refs/tags/v14.3.3.tar.gz"
   sha256 "c30cefedae3df3cacef78e385a369773820f9ed00432b3c1bd12b0026b01f144"
-  license "AGPL-3.0-or-later"
+  license all_of: ["AGPL-3.0-or-later", "Apache-2.0"]
   head "https://github.com/gravitational/teleport.git", branch: "master"
 
   # As of writing, two major versions of `teleport` are being maintained
@@ -18,6 +18,7 @@ class Teleport < Formula
   end
 
   bottle do
+    sha256 cellar: :any,                 arm64_sequoia:  "b782a358b35e34c01b520d3c707feff865740886c945221471a045a22e982984"
     sha256 cellar: :any,                 arm64_sonoma:   "327c97012b954c9e17e46926ff6d46e919bc9a32ca55ccf9dce95e0bf1c1b8b0"
     sha256 cellar: :any,                 arm64_ventura:  "f569c4a8b34f93e23bb76d05e76df1b16b22f7a8cc36c2d9916e67c7873be825"
     sha256 cellar: :any,                 arm64_monterey: "4e7c7c7d068bf972f65dff941b457db1a663cf26ac163e274a303ccfd6b4759b"
@@ -27,7 +28,7 @@ class Teleport < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "906b35b2c7dcc5bed2b1a9897b2464b113ba6c568340f3a193cfc665f041831a"
   end
 
-  depends_on "go" => :build
+  depends_on "go@1.22" => :build
   depends_on "pkg-config" => :build
   depends_on "yarn" => :build
   depends_on "libfido2"
@@ -39,6 +40,7 @@ class Teleport < Formula
   uses_from_macos "zip"
 
   conflicts_with "etsh", because: "both install `tsh` binaries"
+  conflicts_with "tctl", because: "both install `tctl` binaries"
 
   def install
     ENV.deparallelize { system "make", "full", "FIDO2=dynamic" }

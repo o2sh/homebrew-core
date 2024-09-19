@@ -7,6 +7,7 @@ class NetcdfCxx < Formula
   revision 1
 
   bottle do
+    sha256 cellar: :any,                 arm64_sequoia:  "8ac7fa511800851268403152dde0226f6915c1897031c023f93808c8bc96fb42"
     sha256 cellar: :any,                 arm64_sonoma:   "e84953471784443be7fdd3f1f5bc295e2bcdad7b4a926b4e76f6f02ff205484f"
     sha256 cellar: :any,                 arm64_ventura:  "8d967dce894b455bc5647dc9416e5a4eceefbf9a710cce01d80491f5c67a6d1f"
     sha256 cellar: :any,                 arm64_monterey: "055b3191f34e7f1d0c15bd63a50a65fd496a1dd402255d47189908abb8bb6514"
@@ -22,9 +23,16 @@ class NetcdfCxx < Formula
   depends_on "hdf5"
   depends_on "netcdf"
 
+  on_macos do
+    depends_on "zstd"
+  end
+
   def install
     args = std_cmake_args + %w[-DBUILD_TESTING=OFF -DNCXX_ENABLE_TESTS=OFF -DENABLE_TESTS=OFF -DENABLE_NETCDF_4=ON
                                -DENABLE_DOXYGEN=OFF]
+
+    # https://github.com/Unidata/netcdf-cxx4/issues/151#issuecomment-2041111870
+    args << "-DHDF5_C_LIBRARY_hdf5=#{Formula["hdf5"].opt_lib}"
 
     system "cmake", "-S", ".", "-B", "build_shared", *args, "-DBUILD_SHARED_LIBS=ON"
     system "cmake", "--build", "build_shared"
@@ -36,8 +44,8 @@ class NetcdfCxx < Formula
 
     # Remove shim paths
     inreplace [bin/"ncxx4-config", lib/"libnetcdf-cxx.settings"] do |s|
-      s.gsub!(Superenv.shims_path/ENV.cc, ENV.cc, false)
-      s.gsub!(Superenv.shims_path/ENV.cxx, ENV.cxx, false)
+      s.gsub!(Superenv.shims_path/ENV.cc, ENV.cc, audit_result: false)
+      s.gsub!(Superenv.shims_path/ENV.cxx, ENV.cxx, audit_result: false)
     end
   end
 

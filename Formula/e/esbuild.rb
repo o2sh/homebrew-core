@@ -1,27 +1,27 @@
-require "language/node"
-
 class Esbuild < Formula
   desc "Extremely fast JavaScript bundler and minifier"
   homepage "https://esbuild.github.io/"
-  url "https://registry.npmjs.org/esbuild/-/esbuild-0.21.1.tgz"
-  sha256 "e18d2e1cc4c690ab4e1d9274214195c69e021f5b0f08c0762151b602795bd9e2"
+  url "https://github.com/evanw/esbuild/archive/refs/tags/v0.23.1.tar.gz"
+  sha256 "da504f77d1856e642de6d6e96bab7ddc1da9a73726c7a67467eb4c2b7c0fdaae"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "32dc47afd7a2ef61869a71763bde47cf4593961062e822a51432a57853ec08ed"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ef01a5539ee7c63b9fc3f816ff0fb7fa0f4d1e4f86dac6b7118e511e1939eb02"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3e7f39955640ee90de3510aa215c015512e41c0283a387bdcac2dbe304a1c1f4"
-    sha256 cellar: :any_skip_relocation, sonoma:         "788f9871eb2b26417efa4e0b48823265dbbb53a2dab1c99a3b2c2d6cb5eb90bd"
-    sha256 cellar: :any_skip_relocation, ventura:        "166902a64528f290d219522680939ea38e10ca579eeaeaedbb95dbdf9cf978ad"
-    sha256 cellar: :any_skip_relocation, monterey:       "18d8d227d1cf6e56b9ebe96f49b3c95902559437feed40c8b068f560de133765"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6747b1958b5ab8d7a6799e7e656f2e93b1fa41aa66b0775e8cc50783e155e066"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "b936f62baab28868ba3b2c643fc02b67f6953fd33dcfb06e15abccf7a187e385"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d7b45d1386184c83f262c1dfd4a650f8c4159994281f0c136d94249f341d5520"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d7b45d1386184c83f262c1dfd4a650f8c4159994281f0c136d94249f341d5520"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d7b45d1386184c83f262c1dfd4a650f8c4159994281f0c136d94249f341d5520"
+    sha256 cellar: :any_skip_relocation, sonoma:         "c0fe1f83be036b0169e3df21ba9d2cf92c43d18d14f8f19f7d9df16444e5ea2e"
+    sha256 cellar: :any_skip_relocation, ventura:        "c0fe1f83be036b0169e3df21ba9d2cf92c43d18d14f8f19f7d9df16444e5ea2e"
+    sha256 cellar: :any_skip_relocation, monterey:       "c0fe1f83be036b0169e3df21ba9d2cf92c43d18d14f8f19f7d9df16444e5ea2e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "10d2211ea451ab99d01d1cff4c9cf5a4e4333fc0bcf06d821b5fde6d58bea13f"
   end
 
-  depends_on "node"
+  depends_on "go" => :build
+  depends_on "node" => :test
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
-    bin.install_symlink Dir["#{libexec}/bin/*"]
+    ENV["CGO_ENABLED"] = OS.mac? ? "1" : "0"
+    system "go", "build", *std_go_args(ldflags: "-s -w"), "./cmd/esbuild"
   end
 
   test do

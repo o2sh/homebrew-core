@@ -1,8 +1,8 @@
 class Protobuf < Formula
   desc "Protocol buffers (Google's data interchange format)"
   homepage "https://protobuf.dev/"
-  url "https://github.com/protocolbuffers/protobuf/releases/download/v26.1/protobuf-26.1.tar.gz"
-  sha256 "4fc5ff1b2c339fb86cd3a25f0b5311478ab081e65ad258c6789359cd84d421f8"
+  url "https://github.com/protocolbuffers/protobuf/releases/download/v28.1/protobuf-28.1.tar.gz"
+  sha256 "3b8bf6e96499a744bd014c60b58f797715a758093abf859f1d902194b8e1f8c9"
   license "BSD-3-Clause"
 
   livecheck do
@@ -11,30 +11,39 @@ class Protobuf < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "9bbacbfb7f31456778fcfa37bccee409afabb49702843870270404fc18941022"
-    sha256 cellar: :any,                 arm64_ventura:  "0ed7c159a485bfc56024239ddaec502bd5c7f9e36526b577d3fa9336c4009512"
-    sha256 cellar: :any,                 arm64_monterey: "a84f278a50c61da15d24c789ac2bb45eb919adc02dc311a4f4c04c23e6f78d9b"
-    sha256 cellar: :any,                 sonoma:         "99e10c650a00b3b017dd77642fd9230e97c472d40c71e6f34075f17dd0b94f90"
-    sha256 cellar: :any,                 ventura:        "a9dd7c9469573cb267c78423e600bbcba67b172ed9abcf789f6a7cec42c2491c"
-    sha256 cellar: :any,                 monterey:       "925c86112c0b15d006c5dea497b262f2d7960ecdb63b6d0b5aebbb28ed783be3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7460997e933897b54945444f56b3926407763cf2cdcc0d06b044f31eee252afa"
+    sha256 cellar: :any,                 arm64_sequoia: "b81d8671946f9a70a34b8e7894f272ac5a6dcf56b15de92fb667e83f360da9bb"
+    sha256 cellar: :any,                 arm64_sonoma:  "c399dcd8e8246c286b1e744cc7dabe499493eeea67af3720328871da497af5a3"
+    sha256 cellar: :any,                 arm64_ventura: "5f5f007500d7adc474a0f515fb07291506e1cf0bd92c538ee75382cf18bd6725"
+    sha256 cellar: :any,                 sonoma:        "85f2c7d3d03b09386bf29ce9484bafdbeaa9f4f21992c5672159e0720abd6310"
+    sha256 cellar: :any,                 ventura:       "738a87bd1330bc27393cf5e7ebab0b9b01a08bb3009b990791237bd8721751b6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e0ef7a5f3b7cd2a18781e5f4a358d6ae5549b150b9baf09b74c5d8f6a95a5a69"
   end
 
   depends_on "cmake" => :build
   depends_on "abseil"
-  depends_on "jsoncpp"
-
   uses_from_macos "zlib"
+
+  on_macos do
+    # We currently only run tests on macOS.
+    # Running them on Linux requires rebuilding googletest with `-fPIC`.
+    depends_on "googletest" => :build
+  end
+
+  patch do
+    url "https://github.com/protocolbuffers/protobuf/commit/e490bff517916495ed3a900aa85791be01f674f5.patch?full_index=1"
+    sha256 "7e89d0c379d89b24cb6fe795cd9d68e72f0b83fcc95dd91af721d670ad466022"
+  end
 
   def install
     # Keep `CMAKE_CXX_STANDARD` in sync with the same variable in `abseil.rb`.
     abseil_cxx_standard = 17
-    cmake_args = %w[
+    cmake_args = %W[
       -DBUILD_SHARED_LIBS=ON
       -Dprotobuf_BUILD_LIBPROTOC=ON
       -Dprotobuf_BUILD_SHARED_LIBS=ON
       -Dprotobuf_INSTALL_EXAMPLES=ON
-      -Dprotobuf_BUILD_TESTS=OFF
+      -Dprotobuf_BUILD_TESTS=#{OS.mac? ? "ON" : "OFF"}
+      -Dprotobuf_USE_EXTERNAL_GTEST=ON
       -Dprotobuf_ABSL_PROVIDER=package
       -Dprotobuf_JSONCPP_PROVIDER=package
     ]
@@ -42,6 +51,7 @@ class Protobuf < Formula
 
     system "cmake", "-S", ".", "-B", "build", *cmake_args, *std_cmake_args
     system "cmake", "--build", "build"
+    system "ctest", "--test-dir", "build", "--verbose" if OS.mac?
     system "cmake", "--install", "build"
 
     (share/"vim/vimfiles/syntax").install "editors/proto.vim"

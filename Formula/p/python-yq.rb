@@ -8,6 +8,7 @@ class PythonYq < Formula
   license "Apache-2.0"
 
   bottle do
+    sha256 cellar: :any,                 arm64_sequoia:  "7185ef35a2e31746e75db77f13e99952d8bcd0ee42f2a2646b155dbb03bae84c"
     sha256 cellar: :any,                 arm64_sonoma:   "d4a63ac6260203d6a60d1c8de1cf2ee2134975dfa3c87c77a3e251e14a5388fb"
     sha256 cellar: :any,                 arm64_ventura:  "20f88a8d36c11e7559624d3c28b01c4607fdd4d0d0c08bdaa960fb9fc848e9b4"
     sha256 cellar: :any,                 arm64_monterey: "502fa5f120e445b2252c5ab471621389877c5f421c9aa86410403f29de502470"
@@ -22,6 +23,7 @@ class PythonYq < Formula
   depends_on "python@3.12"
 
   conflicts_with "yq", because: "both install `yq` executables"
+  conflicts_with "xq", because: "both install `xq` binaries"
 
   resource "argcomplete" do
     url "https://files.pythonhosted.org/packages/79/51/fd6e293a64ab6f8ce1243cf3273ded7c51cbc33ef552dce3582b6a15d587/argcomplete-3.3.0.tar.gz"

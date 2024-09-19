@@ -1,18 +1,19 @@
 class Imposm3 < Formula
   desc "Imports OpenStreetMap data into PostgreSQL/PostGIS databases"
   homepage "https://imposm.org"
-  url "https://github.com/omniscale/imposm3/archive/refs/tags/v0.12.0.tar.gz"
-  sha256 "ab9edc262bd79dd6ee0d5547021ecd14c9931b35abb76cdeeb7cc93433ff9e13"
+  url "https://github.com/omniscale/imposm3/archive/refs/tags/v0.14.0.tar.gz"
+  sha256 "d6b012497eff1b8faa25d125ce0becb97f68c95a68dd2c35cf65a0bf3c34b833"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "b2cd313b199010b43cde186d8f1983abdb93c2df9b8bdb1109d681a66cbbe944"
-    sha256 cellar: :any,                 arm64_ventura:  "be4cd7a2f1035e99570547e4a9deeb372d2b585da07eea07fdb9f42b77539606"
-    sha256 cellar: :any,                 arm64_monterey: "f86562e84e513ca30c7d568fc13f963c5977518b68e8ea8323acd59e77f94300"
-    sha256 cellar: :any,                 sonoma:         "3d680915e3156555266ede0503e0e37f1c73b8791645b88fe271ace7e0dd32cc"
-    sha256 cellar: :any,                 ventura:        "ea62335f23869e6ab6bd4ccc256a452a43b8a0e658c649006f92637feb3bd4ba"
-    sha256 cellar: :any,                 monterey:       "c5702658eec7b40ce205156669b3c0f9e2b06a7182e6941baf5cc0d6c19d2f78"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "56f1ebf18396335e8a5c4d998074723af58db2bf2e67e65c45ef4ddf3853a0be"
+    sha256 cellar: :any,                 arm64_sequoia:  "64f97048173142e08936aeb2994efcd41266f6cee1d4946cb44183322cd1f30e"
+    sha256 cellar: :any,                 arm64_sonoma:   "0b5303c3ec7e530e54107a251fa4ef2fc9f4c2e54463c8b344b0c64fc781d905"
+    sha256 cellar: :any,                 arm64_ventura:  "bca1a61350ffd184a74065eb3ccd0af7ab33819dfc263bd9498548ea80d0e7a9"
+    sha256 cellar: :any,                 arm64_monterey: "8c0746261d6dbe9bf62f862f3731e963cafdff857067879339428b4973ac020f"
+    sha256 cellar: :any,                 sonoma:         "5b9c3f3a7c20f993b2e2479e57a87209231ee8321e83182fc97eaf63af22caf2"
+    sha256 cellar: :any,                 ventura:        "82aa12fbd85c9d6202cd4d841b78b07b615d6eba5350da7834e5cd27773b69ba"
+    sha256 cellar: :any,                 monterey:       "8deb68cd3de507b9c22026244991a9e9aca79f098beb0f144d25bc95d6e7a749"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c1f87849ae0dca6987ee13f5b35885efd169a8eea2eb69c24db97c385ba10234"
   end
 
   depends_on "go" => :build

@@ -4,6 +4,7 @@ class Geeqie < Formula
   url "https://github.com/BestImageViewer/geeqie/releases/download/v2.4/geeqie-2.4.tar.xz"
   sha256 "f2b7d1290786fdd1afec09bbe0217f327ff1ee7c80363563e8a108d03aec77da"
   license "GPL-2.0-or-later"
+  revision 2
 
   livecheck do
     url :stable
@@ -11,13 +12,12 @@ class Geeqie < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "f4b5b7ab7d532f9ffd874084a95dfcc9fe72e97fc99268f2d2e6dbbbb2c46494"
-    sha256 cellar: :any, arm64_ventura:  "339ff3d55396d64b25fe06f2d0ac9aa9227860ffc9580e2e3f97f60bc9424c01"
-    sha256 cellar: :any, arm64_monterey: "eac604d18c097e6ead04402af97208018ae0bfbbdce2fa6611c37ec251a872aa"
-    sha256 cellar: :any, sonoma:         "1a61c133caf1bb8053bf0f7fcd721b70b31edeac453cfd461f6d811f075d6e82"
-    sha256 cellar: :any, ventura:        "ff8c7decf730f08851b01d817eee846a8090b9bc7971893785e15320f0bc5193"
-    sha256 cellar: :any, monterey:       "e47bcf35bc04c406d80e37633357668e89eefd803b04091020c770386543cf4d"
-    sha256               x86_64_linux:   "f0ead1a37d0842bb95b63fba36b56f3ea2668f017b70f10f5467586819ca3600"
+    sha256 cellar: :any, arm64_sequoia: "ea8e701ee511f90d96b2619f7cf3860c24c1bfb8d23489e318f04937446bc467"
+    sha256 cellar: :any, arm64_sonoma:  "0d6f2e915b89bb36681f60bb05485db71d0e7fcf3bd8d17866e4ecba65cccb60"
+    sha256 cellar: :any, arm64_ventura: "355c39f628959783eb82caa205aa00db6710aa129c6f3bfb3fbd7e9df3579612"
+    sha256 cellar: :any, sonoma:        "e6f7b06f19c5ac08785f3145006d04b856349dfcdaf7ccdd8d993807e2c7f22c"
+    sha256 cellar: :any, ventura:       "2f169b84b5822523df8dbd600dd11b5abc97d5fc10f73f748da373bca444b317"
+    sha256               x86_64_linux:  "b68ca64973a0923dc25e2be3a189058318a92bd878b2ce4ab91052ec6c3ca5da"
   end
 
   depends_on "meson" => :build
@@ -29,6 +29,7 @@ class Geeqie < Formula
   depends_on "adwaita-icon-theme"
   depends_on "at-spi2-core"
   depends_on "cairo"
+  depends_on "djvulibre"
   depends_on "evince" # for print preview support
   depends_on "exiv2"
   depends_on "ffmpegthumbnailer"
@@ -39,16 +40,26 @@ class Geeqie < Formula
   depends_on "gtk+3"
   depends_on "imagemagick"
   depends_on "jpeg-turbo"
+  depends_on "jpeg-xl"
   depends_on "libarchive"
+  depends_on "libheif"
+  depends_on "libraw"
   depends_on "libtiff"
   depends_on "libx11"
   depends_on "little-cms2"
+  depends_on "openjpeg"
   depends_on "pango"
   depends_on "poppler" # for pdf support # for video thumbnails support
+  depends_on "webp"
   depends_on "webp-pixbuf-loader" # for webp support
 
   uses_from_macos "python" => :build
   uses_from_macos "vim" => :build # for xxd
+
+  on_macos do
+    depends_on "enchant"
+    depends_on "harfbuzz"
+  end
 
   def install
     system "meson", "setup", "build", "-Dlua=disabled", *std_meson_args

@@ -1,8 +1,8 @@
 class Virtctl < Formula
   desc "Allows for using more advanced kubevirt features"
   homepage "https://kubevirt.io/"
-  url "https://github.com/kubevirt/kubevirt/archive/refs/tags/v1.2.0.tar.gz"
-  sha256 "da63ee052939a68e54dca37084234ebd7a86233f2087bc13cb7d63fc24d356e3"
+  url "https://github.com/kubevirt/kubevirt/archive/refs/tags/v1.3.1.tar.gz"
+  sha256 "15204eb744175429be2d8f646a5a598a8c743539d3337c61e9b51f57d98cdce9"
   license "Apache-2.0"
   head "https://github.com/kubevirt/kubevirt.git", branch: "main"
 
@@ -15,13 +15,14 @@ class Virtctl < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "08d5586a3d69ea76c6ede249d2fdca6e95170dd13c4b6195c5966c0b5f6c57db"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ce967417de23a838c8064785ce626d1ef664c68a3beb66775d3fd83090d36795"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ba4549123195ac1e3c30313f95ffb6ed1bf867b80af72d67da9c21103caaf31d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "d5a788c0fb0a60b8226d1b4192be58786753c514e9a8b4a680f0963a2f091739"
-    sha256 cellar: :any_skip_relocation, ventura:        "bb62ce40020ab7b412189659c8b2749aa25d69252c82730fe98b21a37f2486a7"
-    sha256 cellar: :any_skip_relocation, monterey:       "8da1f1373ea543315e80189ae66eaee4781fdb598c80d576b3f8e5b332f5ad3a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5d7570fe1ced142e9e45baaf183e98df3515cd7916ab6ebffa80831430013fc3"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "f4dbd2788af079eb30fe06031c539daff0a4398484f0ff34a2a78bef6cd2e497"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2e9112993fdf92f3e543041245c24555e5dbd63ea83dad77b3034fed60e33208"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2e9112993fdf92f3e543041245c24555e5dbd63ea83dad77b3034fed60e33208"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "2e9112993fdf92f3e543041245c24555e5dbd63ea83dad77b3034fed60e33208"
+    sha256 cellar: :any_skip_relocation, sonoma:         "0dc356a805bf1e2478a1c6abb814b274595112a8f9c1b23628ae41408a5dc03c"
+    sha256 cellar: :any_skip_relocation, ventura:        "0dc356a805bf1e2478a1c6abb814b274595112a8f9c1b23628ae41408a5dc03c"
+    sha256 cellar: :any_skip_relocation, monterey:       "0dc356a805bf1e2478a1c6abb814b274595112a8f9c1b23628ae41408a5dc03c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "285b0ad52e825fc1463df79499b9e6e6466a0dd24d477deaac1b89d2d22ad05a"
   end
 
   depends_on "go" => :build

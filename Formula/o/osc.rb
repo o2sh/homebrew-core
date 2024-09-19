@@ -3,8 +3,8 @@ class Osc < Formula
 
   desc "Command-line interface to work with an Open Build Service"
   homepage "https://openbuildservice.org"
-  url "https://github.com/openSUSE/osc/archive/refs/tags/1.6.2.tar.gz"
-  sha256 "05c6b0bd4dd093fe57a6760e284ef285a28e978f247d54cee5cd174d1ec9c5dd"
+  url "https://github.com/openSUSE/osc/archive/refs/tags/1.9.1.tar.gz"
+  sha256 "2a9a466908190bd65bab047180abb372e30ac1ca06ef2488087d14e36edf1388"
   license "GPL-2.0-or-later"
   head "https://github.com/openSUSE/osc.git", branch: "master"
 
@@ -14,13 +14,14 @@ class Osc < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d45737856e50e0820118a372651a49b83633dbab58f5126b62881a0c3798f326"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d45737856e50e0820118a372651a49b83633dbab58f5126b62881a0c3798f326"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d45737856e50e0820118a372651a49b83633dbab58f5126b62881a0c3798f326"
-    sha256 cellar: :any_skip_relocation, sonoma:         "bf7ae517dbfe4b730945ae41a492fabf38c42b12d616c3b135d3707232904b4e"
-    sha256 cellar: :any_skip_relocation, ventura:        "bf7ae517dbfe4b730945ae41a492fabf38c42b12d616c3b135d3707232904b4e"
-    sha256 cellar: :any_skip_relocation, monterey:       "bf7ae517dbfe4b730945ae41a492fabf38c42b12d616c3b135d3707232904b4e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f3d67c8bf585a801fbd5b0d719c7ead7686201bbec4239458d1564778ebc461d"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "c2d1b50281a139b89e0f13e3a76d282c4b14bdda9e8a7085867586ef2e9c4248"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "32fdf1b9d5de5626e133db03159e5a6a4c06357dc9faf3c1f4bbc8997fe9576d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "32fdf1b9d5de5626e133db03159e5a6a4c06357dc9faf3c1f4bbc8997fe9576d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "32fdf1b9d5de5626e133db03159e5a6a4c06357dc9faf3c1f4bbc8997fe9576d"
+    sha256 cellar: :any_skip_relocation, sonoma:         "b440ae8843b0300dfd814393075b27463847bc66a699338134b3fe81b365dd4c"
+    sha256 cellar: :any_skip_relocation, ventura:        "b440ae8843b0300dfd814393075b27463847bc66a699338134b3fe81b365dd4c"
+    sha256 cellar: :any_skip_relocation, monterey:       "b440ae8843b0300dfd814393075b27463847bc66a699338134b3fe81b365dd4c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "32fdf1b9d5de5626e133db03159e5a6a4c06357dc9faf3c1f4bbc8997fe9576d"
   end
 
   depends_on "cryptography"
@@ -30,13 +31,13 @@ class Osc < Formula
   uses_from_macos "libffi"
 
   resource "rpm" do
-    url "https://files.pythonhosted.org/packages/8c/15/ef9b3d4a0b4b9afe62fd2be374003643ea03fc8026930646ad0781bb9492/rpm-0.1.0.tar.gz"
-    sha256 "0e320a806fb61c3980c0cd0c5f5faec97c73c347432902ba2955a08a7b1a034f"
+    url "https://files.pythonhosted.org/packages/44/1b/ef44b5e2fae8e398bfc58f38c25a6f0a10ea147e3e4970b7e66154017d1d/rpm-0.2.0.tar.gz"
+    sha256 "b92285f65c9ddf77678cb3e51aa67827426408fac34cdd8d537d8c14e3eaffbf"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
-    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
+    url "https://files.pythonhosted.org/packages/43/6d/fa469ae21497ddc8bc93e5877702dca7cb8f911e337aca7452b5724f1bb6/urllib3-2.2.2.tar.gz"
+    sha256 "dd505485549a7a552833da5e6063639d0d177c04f23bc3864e41e5dc5f612168"
   end
 
   def install

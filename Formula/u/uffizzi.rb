@@ -1,8 +1,8 @@
 class Uffizzi < Formula
   desc "Self-serve developer platforms in minutes, not months with k8s virtual clusters"
   homepage "https://uffizzi.com"
-  url "https://github.com/UffizziCloud/uffizzi_cli/archive/refs/tags/v2.4.9.tar.gz"
-  sha256 "c6b870205dacbefd58214ce59ac86eaf2a2bcdbd1b3c3fff700335df0a1f27c8"
+  url "https://github.com/UffizziCloud/uffizzi_cli/archive/refs/tags/v2.4.11.tar.gz"
+  sha256 "90c6d9bf225bc759c56188039e5aa9267b91cb78f0496ee6af0a4e2ce3e31430"
   license "Apache-2.0"
 
   livecheck do
@@ -11,17 +11,20 @@ class Uffizzi < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "62a02522ade9a0253d22cdc3ee485389ef6f599da97fe9d5fbe6f0bebb1f990d"
-    sha256 cellar: :any,                 arm64_ventura:  "e7c87f50b0af77434c73ec2b2876f08e14c3f29719eadd463a137b62628e32e9"
-    sha256 cellar: :any,                 arm64_monterey: "c347d9150f51c9f82ba7af1bd55898caf44559ce1113fd47f3eba277b8c63978"
-    sha256 cellar: :any,                 sonoma:         "30e25906138d02599095c252f289eb9005df408a5257c7ad4e4fbd9dcca6721e"
-    sha256 cellar: :any,                 ventura:        "95a000a50758eae111ec54eae615ad6df32d672d73da2f6df978c03c85cba3af"
-    sha256 cellar: :any,                 monterey:       "dfce7e3d16eb2b8acce424107da9b250e414247b884f787e72ffc2861d2d23fd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "444ff9f483308bc84b6ec63f5bb039e97e937b02e5d2649152d8b0f022c71b85"
+    sha256 cellar: :any,                 arm64_sequoia:  "b22c38d2105c9e5aa905523ca1179202f2aa987c6c7ae97341ef472e77db35fd"
+    sha256 cellar: :any,                 arm64_sonoma:   "c0b2c5f83812a149c776fe7e98607f47d260c5f9011906b1a94d9c921f0c2eba"
+    sha256 cellar: :any,                 arm64_ventura:  "2f52c0d4a6529cabb2a0433c49ca06ecc5c0c56e39db2eea2e2405572aba188d"
+    sha256 cellar: :any,                 arm64_monterey: "f810f30435e058488f29c9019aad3b48976894243ed99c9738803f91c31a0ffa"
+    sha256 cellar: :any,                 sonoma:         "be23cbe46234971df401a29e135da1748c15d164d6c02ae4dd6b30348aad8e32"
+    sha256 cellar: :any,                 ventura:        "77d743e634299ee4e05e74d0ae5e20e019e96e173387044157c7f401f35bad96"
+    sha256 cellar: :any,                 monterey:       "a630714e4ff38983547b92dfaecd2bcc972d99ed6da0a6a051b0a46f8a42c03b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2ae4c858d28cef6edb96bb2087ec3369239d50fb0305225acb418d4cfa3a3923"
   end
 
   depends_on "ruby"
   depends_on "skaffold"
+
+  conflicts_with "conserver", because: "both install `console` binaries"
 
   # Runtime dependencies of uffizzi
   # List with `gem install --explain uffizzi-cli`
@@ -75,9 +78,14 @@ class Uffizzi < Formula
     sha256 "82fdd3f8a0816e28d513e637bb2b90a45d7b982bdf4f3a0511722d2e495801e2"
   end
 
+  resource "bigdecimal" do
+    url "https://rubygems.org/gems/bigdecimal-3.1.8.gem"
+    sha256 "a89467ed5a44f8ae01824af49cbc575871fa078332e8f77ea425725c1ffe27be"
+  end
+
   resource "sentry-ruby" do
-    url "https://rubygems.org/gems/sentry-ruby-5.17.1.gem"
-    sha256 "5768c4339661463efc84452af92e20be58c1d8e1705aeeede1f056aaf1aab101"
+    url "https://rubygems.org/gems/sentry-ruby-5.18.2.gem"
+    sha256 "df25cb1bd0c6b23f3266e4a77e9b8efd76d41e1680b07b17d257a99262c10d99"
   end
 
   resource "securerandom" do
@@ -90,9 +98,14 @@ class Uffizzi < Formula
     sha256 "23c0bebead35dbfe9e24088dc436c8a233d03f51d365a686b9a11dd30dc2d588"
   end
 
+  resource "childprocess" do
+    url "https://rubygems.org/gems/childprocess-5.0.0.gem"
+    sha256 "0746b7ab1d6c68156e64a3767631d7124121516192c0492929a7f0af7310d835"
+  end
+
   resource "public_suffix" do
-    url "https://rubygems.org/gems/public_suffix-5.0.4.gem"
-    sha256 "35cd648e0d21d06b8dce9331d19619538d1d898ba6d56a6f2258409d2526d1ae"
+    url "https://rubygems.org/gems/public_suffix-5.0.5.gem"
+    sha256 "72c340218bb384610536919988705cc29e09749c0021fd7005f715c7e5dfc493"
   end
 
   resource "addressable" do
@@ -111,8 +124,8 @@ class Uffizzi < Formula
   end
 
   resource "faker" do
-    url "https://rubygems.org/gems/faker-3.3.1.gem"
-    sha256 "a42b9b0aca7a6d3c1741dc7713ac5a5491a8bf51af26e45a8687cf4e36665d47"
+    url "https://rubygems.org/gems/faker-3.4.2.gem"
+    sha256 "516b5a342020e6286b061084d7a60c848c024e9c91f7db6f94bf5bab45ef40f6"
   end
 
   resource "awesome_print" do
@@ -120,29 +133,24 @@ class Uffizzi < Formula
     sha256 "e99b32b704acff16d768b3468680793ced40bfdc4537eb07e06a4be11133786e"
   end
 
-  resource "tzinfo" do
-    url "https://rubygems.org/gems/tzinfo-2.0.6.gem"
-    sha256 "8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b"
-  end
-
   resource "mutex_m" do
     url "https://rubygems.org/gems/mutex_m-0.2.0.gem"
     sha256 "b6ef0c6c842ede846f2ec0ade9e266b1a9dac0bc151682b04835e8ebd54840d5"
   end
 
-  resource "minitest" do
-    url "https://rubygems.org/gems/minitest-5.22.2.gem"
-    sha256 "c5a5003fc2114a3fde506e87f377f32a0882b41d944d7b90cf4cd1f781dbc718"
-  end
-
-  resource "ruby2_keywords" do
-    url "https://rubygems.org/gems/ruby2_keywords-0.0.5.gem"
-    sha256 "ffd13740c573b7301cf7a2e61fc857b2a8e3d3aff32545d6f8300d8bae10e3ef"
-  end
-
   resource "drb" do
-    url "https://rubygems.org/gems/drb-2.2.0.gem"
-    sha256 "e9e4af1cded3306cfe37e064a0086e302d5f40df9cb4d161d059a6bb3a75d40f"
+    url "https://rubygems.org/gems/drb-2.2.1.gem"
+    sha256 "e9d472bf785f558b96b25358bae115646da0dbfd45107ad858b0bc0d935cb340"
+  end
+
+  resource "base64" do
+    url "https://rubygems.org/gems/base64-0.2.0.gem"
+    sha256 "0f25e9b21a02a0cc0cea8ef92b2041035d39350946e8789c562b2d1a3da01507"
+  end
+
+  resource "minitest" do
+    url "https://rubygems.org/gems/minitest-5.22.3.gem"
+    sha256 "ea84676290cb5e2b4f31f25751af6050aa90d3e43e4337141c3e3e839611981e"
   end
 
   resource "connection_pool" do
@@ -150,14 +158,9 @@ class Uffizzi < Formula
     sha256 "0f40cf997091f1f04ff66da67eabd61a9fe0d4928b9a3645228532512fab62f4"
   end
 
-  resource "bigdecimal" do
-    url "https://rubygems.org/gems/bigdecimal-3.1.6.gem"
-    sha256 "bcbc27d449cf8ed1b1814d21308f49c9d22ce73e33fff0d228e38799c02eab01"
-  end
-
-  resource "base64" do
-    url "https://rubygems.org/gems/base64-0.2.0.gem"
-    sha256 "0f25e9b21a02a0cc0cea8ef92b2041035d39350946e8789c562b2d1a3da01507"
+  resource "tzinfo" do
+    url "https://rubygems.org/gems/tzinfo-2.0.6.gem"
+    sha256 "8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b"
   end
 
   resource "activesupport" do
@@ -166,8 +169,8 @@ class Uffizzi < Formula
   end
 
   resource "uffizzi-cli" do
-    url "https://rubygems.org/gems/uffizzi-cli-2.4.9.gem"
-    sha256 "6ed97d55b2a6c5e9e9766035ee10a45e2abc238835a1a53d519f33b41350982f"
+    url "https://rubygems.org/gems/uffizzi-cli-2.4.11.gem"
+    sha256 "85a8bad87be98c1f9dbb13c9f5266236baf07a2f3a658e6e9ffb70fdeb0a0fd1"
   end
 
   def install

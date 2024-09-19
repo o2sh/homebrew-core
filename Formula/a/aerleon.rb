@@ -9,6 +9,7 @@ class Aerleon < Formula
   head "https://github.com/aerleon/aerleon.git", branch: "main"
 
   bottle do
+    sha256 cellar: :any,                 arm64_sequoia:  "8035c20f4b232aa3430edbb35e8c55cbb972dd74c096f3009cbe4387f1d5f96b"
     sha256 cellar: :any,                 arm64_sonoma:   "66ed88e3888a7584e9574f20fda2afcd4535ce25c74d6694b1c1805502942cd8"
     sha256 cellar: :any,                 arm64_ventura:  "7974e30641c93665207c6d6775118347f8acc75899a96a0f6463fbaf680eeae6"
     sha256 cellar: :any,                 arm64_monterey: "31fbe5882a576becd288f72d63213654955713d4197621745a61bd995843d015"
@@ -20,6 +21,8 @@ class Aerleon < Formula
 
   depends_on "libyaml"
   depends_on "python@3.12"
+
+  conflicts_with "cgrep", because: "both install `cgrep` binaries"
 
   resource "absl-py" do
     url "https://files.pythonhosted.org/packages/79/c9/45ecff8055b0ce2ad2bfbf1f438b5b8605873704d50610eda05771b865a0/absl-py-1.4.0.tar.gz"

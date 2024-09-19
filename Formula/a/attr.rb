@@ -15,7 +15,6 @@ class Attr < Formula
     sha256 x86_64_linux: "2c131520e0e49f68b20bce55f7efe36909ede3f95e484606d3f721b1d39a5f15"
   end
 
-  depends_on "gettext" => :build
   depends_on :linux
 
   def install
@@ -29,7 +28,7 @@ class Attr < Formula
 
   test do
     (testpath/"test.txt").write("Hello World!\n")
-    system bin/"attr", "-s", "name", "test.txt"
+    pipe_output "#{bin}/attr -s name test.txt", ""
     assert_match 'Attribute "name" has a 0 byte value for test.txt',
                  shell_output(bin/"attr -l test.txt")
   end

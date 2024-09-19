@@ -2,8 +2,8 @@ class Vlang < Formula
   desc "V programming language"
   homepage "https://vlang.io"
   # NOTE: Keep this in sync with V compiler below when updating
-  url "https://github.com/vlang/v/archive/refs/tags/0.4.5.tar.gz"
-  sha256 "3082ed68712c7d698e1cc19274b6428dc8c91963096aba01e5ff0321989a3040"
+  url "https://github.com/vlang/v/archive/refs/tags/0.4.7.tar.gz"
+  sha256 "fee48c07fb4fa7f21ea92a23d0f8aa566239b1733e314e2cf96608b497d12291"
   license "MIT"
 
   livecheck do
@@ -12,23 +12,26 @@ class Vlang < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f81a749d6aa1e4cf91b53ce561960653523c068b4c8731b68b20e03dddcfb420"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b371f4e3eff3e4876e927460f5d8e4344072c39daf8866d8baa552410e920785"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "5ad30259c9dd1945f0203fcab4a41d0ce5b0b7d0854bce23c8a3d2c04ce77bba"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3f3770181a8e22a477f917c5ee106685842ec3ea9f7feec03b14868ca804e1f5"
-    sha256 cellar: :any_skip_relocation, ventura:        "517f4714fcbfd3f0a9da6ab3ecd5808d87b961e879818e2c8c8478258647ef25"
-    sha256 cellar: :any_skip_relocation, monterey:       "1a884b57461196e4c7afe1abfe25e64896131e31cc5e6e961c28d7b0d5da110c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "947443ed1a2bf4f381d3ed108be25bbb5f5ba4927d08ca15177ceb4165a678b9"
+    sha256 cellar: :any,                 arm64_sequoia:  "a8a778818b12a7b2cb033612d75f4946e6bc27692ab9ccea373d98bf3dd401c6"
+    sha256 cellar: :any,                 arm64_sonoma:   "934a8183a614873e32f9b63ef08cd3e3b2cf2faf93b90c63d5f68567ea8ca2ae"
+    sha256 cellar: :any,                 arm64_ventura:  "3683411188d32596277900af6e1c7703176e1c2d39a0c87e631615cc86458b18"
+    sha256 cellar: :any,                 arm64_monterey: "7699eb19c77a46d2ae5ce338af93df4f2d106ca90774d1d7f024dc7c0e7a708b"
+    sha256 cellar: :any,                 sonoma:         "23e9d0f26124a5fe595acb13d4a3ff9312b65c13995f0e8bac0d234d7a4aeb7f"
+    sha256 cellar: :any,                 ventura:        "f000363ed502ea144cdfef7efee1fed5bf42457df047fb70572cadd9e13e6d66"
+    sha256 cellar: :any,                 monterey:       "19595ad544f767743dd3ac519a69c0578b72da179d5c0791eb2b844e49a56673"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "76612a548f534cff38b55517376fc9674caa7277243df4f671f89bccea0af87b"
   end
 
   depends_on "bdw-gc"
+
+  conflicts_with "v", because: "both install `v` binaries"
 
   resource "vc" do
     # For every vlang release there is a matching commit of the V compiler in the format
     # "[v:master] {short SHA of the vlang release commit} - {vlang version number}".
     # The sources of this V compiler commit need to be used here
     url "https://github.com/vlang/vc.git",
-        revision: "2386fe9a0d8cc92d0d013ecd81456f2831433a71"
+        revision: "8c681ed423243939500f98e2c7a2550f0bc9b33a"
 
     on_big_sur :or_older do
       patch do
@@ -44,13 +47,25 @@ class Vlang < Formula
 
   def install
     inreplace "vlib/builtin/builtin_d_gcboehm.c.v", "@PREFIX@", Formula["bdw-gc"].opt_prefix
+    # upstream-recommended packaging, https://github.com/vlang/v/blob/master/doc/packaging_v_for_distributions.md
+    %w[up self].each do |cmd|
+      (buildpath/"cmd/tools/v#{cmd}.v").delete
+      (buildpath/"cmd/tools/v#{cmd}.v").write <<~EOS
+        println('ERROR: `v #{cmd}` is disabled. Use `brew upgrade #{name}` to update V.')
+      EOS
+    end
+    # `v share` requires X11 on Linux, so don't build it
+    mv "cmd/tools/vshare.v", "vshare.v.orig" if OS.linux?
 
     resource("vc").stage do
       system ENV.cc, "-std=gnu99", "-w", "-o", buildpath/"v1", "v.c", "-lm"
     end
     system "./v1", "-no-parallel", "-o", buildpath/"v2", "cmd/v"
-    system "./v2", "-o", buildpath/"v", "cmd/v"
+    system "./v2", "-prod", "-d", "dynamic_boehm", "-o", buildpath/"v", "cmd/v"
     rm ["./v1", "./v2"]
+    system "./v", "-prod", "-d", "dynamic_boehm", "build-tools"
+    mv "vshare.v.orig", "cmd/tools/vshare.v" if OS.linux?
+
     libexec.install "cmd", "thirdparty", "v", "v.mod", "vlib"
     bin.install_symlink libexec/"v"
     pkgshare.install "examples"
@@ -65,10 +80,10 @@ end
 
 __END__
 diff --git a/vlib/builtin/builtin_d_gcboehm.c.v b/vlib/builtin/builtin_d_gcboehm.c.v
-index 0a13b64..23fca2b 100644
+index 161a6de..a2ee3a2 100644
 --- a/vlib/builtin/builtin_d_gcboehm.c.v
 +++ b/vlib/builtin/builtin_d_gcboehm.c.v
-@@ -31,12 +31,12 @@ $if dynamic_boehm ? {
+@@ -43,13 +43,13 @@ $if dynamic_boehm ? {
  } $else {
  	$if macos || linux {
  		#flag -DGC_BUILTIN_ATOMIC=1
@@ -79,8 +94,9 @@ index 0a13b64..23fca2b 100644
  			// TODO: replace the architecture check with a `!$exists("@VEXEROOT/thirdparty/tcc/lib/libgc.a")` comptime call
  			#flag @VEXEROOT/thirdparty/libgc/gc.o
  		} $else {
--			#flag @VEXEROOT/thirdparty/tcc/lib/libgc.a
-+			#flag @PREFIX@/lib/libgc.a
+ 			$if !use_bundled_libgc ? {
+-				#flag @VEXEROOT/thirdparty/tcc/lib/libgc.a
++				#flag @PREFIX@/lib/libgc.a
+ 			}
  		}
  		$if macos {
- 			#flag -DMPROTECT_VDB=1

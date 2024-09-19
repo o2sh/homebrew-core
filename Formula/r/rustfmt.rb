@@ -7,6 +7,7 @@ class Rustfmt < Formula
   head "https://github.com/rust-lang/rustfmt.git", branch: "master"
 
   bottle do
+    sha256 cellar: :any,                 arm64_sequoia:  "3453e109168e99adfb471b8b4742eca8a6fab9d6a8926d9f2d1dd94d09fd2edc"
     sha256 cellar: :any,                 arm64_sonoma:   "0bc41425bca0cebff19f98f92d3495022438dea06b2de92a453e9273b2dae2d1"
     sha256 cellar: :any,                 arm64_ventura:  "5f5ac9dfb767b047a324ad7d30772ea0fdf2004ea07bc3d7777db50eb477ac61"
     sha256 cellar: :any,                 arm64_monterey: "fb66b78ddb10d7e4fbedd8ceadb6bb0417bb31e6b2b31f0e3b7cf52a9ca2c729"
@@ -16,15 +17,13 @@ class Rustfmt < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "0e93863d9f42ac0ec4bda61168758d82e2164a400ea80d929433c864728977ba"
   end
 
-  depends_on "rustup-init" => :build
+  depends_on "rustup" => :build
   depends_on "rust" => :test
   uses_from_macos "zlib"
 
   def install
-    system "rustup-init", "--profile", "minimal", "-qy", "--no-modify-path", "--default-toolchain", "none"
-    ENV.prepend_path "PATH", HOMEBREW_CACHE/"cargo_cache/bin"
-
     ENV["CFG_RELEASE_CHANNEL"] = "stable"
+    system "rustup", "set", "profile", "minimal"
     system "cargo", "install", *std_cargo_args
 
     # Bundle the shared libraries used by the executables.
@@ -56,10 +55,8 @@ class Rustfmt < Formula
   end
 
   test do
-    system "cargo", "new", "hello_world", "--bin"
-    cd "hello_world" do
-      system bin/"rustfmt", "--check", "./src/main.rs"
-    end
+    system Formula["rust"].bin/"cargo", "init", "--name=brew", "--bin"
+    system bin/"rustfmt", "--check", "./src/main.rs"
 
     # Make sure all the executables work after patching.
     bin.each_child { |exe| system exe, "--help" }

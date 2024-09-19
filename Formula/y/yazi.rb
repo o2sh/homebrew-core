@@ -1,8 +1,8 @@
 class Yazi < Formula
   desc "Blazing fast terminal file manager written in Rust, based on async I/O"
   homepage "https://github.com/sxyazi/yazi"
-  url "https://github.com/sxyazi/yazi/archive/refs/tags/v0.2.5.tar.gz"
-  sha256 "aea4a6ebd7f56c5d5fe6afbea143fc98c336d4ccd7852f2e8983c23e205988c4"
+  url "https://github.com/sxyazi/yazi/archive/refs/tags/v0.3.3.tar.gz"
+  sha256 "fe2a458808334fe20eff1ab0145c78d684d8736c9715e4c51bce54038607dc4e"
   license "MIT"
   head "https://github.com/sxyazi/yazi.git", branch: "main"
 
@@ -15,20 +15,31 @@ class Yazi < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2dd1283e888475f107c48f9ec5df45d6d0263502df80c87091f6038f3cf442d7"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9b83b98aa0e9e85404e3acfc98aa5cc364f83d319b08a5aafad394275cc30d24"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "51deba176fe060e79ecae1b7bdbe12067161d4c0979421d62e67701770da7ac6"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a8a389802aaa39009b019c21591f27cd34c29eb536f92ecd61acb71cfff92b5b"
-    sha256 cellar: :any_skip_relocation, ventura:        "9467bf91431b390cb8c0c618e4900ffd2642bbb6cf0da76cd6324bfa32d04c4a"
-    sha256 cellar: :any_skip_relocation, monterey:       "105f8274fcd8cdfcc4d3433fcaa6183dd6dbd36325a9bb4efa66027edf99cd29"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d0e9cc4e06368e643617f8f54350ab3e3b486131255e5992513a31c5d780c78c"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "01246c17c55a8e1a84628bf5449bd6688e475119f2fd05e4f79cb29111502ff4"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1e084de5f54b67158697799d3acd9cefea19e4ae9f4ffcaba799a81859abf7c7"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c6a5c5c8a3e95943d5eb81317a0e49067f79b4f5456c07aea888a05ba79e3593"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "bf217fde03079cf5e098cccc87d9151e1f4cf682ea77d330a8ae76b57e387338"
+    sha256 cellar: :any_skip_relocation, sonoma:         "1d9b66561784d040c7642ae94d5251df9ea6b7d74ad6b26e4e462391751d9d71"
+    sha256 cellar: :any_skip_relocation, ventura:        "8ce84306248d65237e28ea71abef99b259c32a40787e2ed61d878665c1d1ea86"
+    sha256 cellar: :any_skip_relocation, monterey:       "769594d0ef084f3086066498968c98611b746660d6bc8d634d732e8509c07252"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b71c80ca7a280bc0594b803403217712b1b53a8f7ce2a98cbfd458342c555a19"
   end
 
   depends_on "rust" => :build
 
   def install
     ENV["VERGEN_GIT_SHA"] = tap.user
+    ENV["YAZI_GEN_COMPLETIONS"] = "1"
     system "cargo", "install", *std_cargo_args(path: "yazi-fm")
+    system "cargo", "install", *std_cargo_args(path: "yazi-cli")
+
+    bash_completion.install "yazi-boot/completions/yazi.bash" => "yazi"
+    zsh_completion.install "yazi-boot/completions/_yazi"
+    fish_completion.install "yazi-boot/completions/yazi.fish"
+
+    bash_completion.install "yazi-cli/completions/ya.bash" => "ya"
+    zsh_completion.install "yazi-cli/completions/_ya"
+    fish_completion.install "yazi-cli/completions/ya.fish"
   end
 
   test do

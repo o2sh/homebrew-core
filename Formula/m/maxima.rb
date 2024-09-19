@@ -4,7 +4,7 @@ class Maxima < Formula
   url "https://downloads.sourceforge.net/project/maxima/Maxima-source/5.47.0-source/maxima-5.47.0.tar.gz"
   sha256 "9104021b24fd53e8c03a983509cb42e937a925e8c0c85c335d7709a14fd40f7a"
   license "GPL-2.0-only"
-  revision 9
+  revision 13
 
   livecheck do
     url :stable
@@ -12,13 +12,13 @@ class Maxima < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0e6287f483d4244fc7adf19046a1b142998d59a9452a5252e9a741ab22820aca"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "255033acc8941556bb57de7a7a81f87709ce11a60842fe6e047238bed6052a78"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "6ba4af5f83e587df5180931ccabedf39e4da5f7de6cdc62352dc7f6df8c950a7"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ece358d0c7f90abfdf598f6e4f111257032237a750477b5daeef1efe675ee6d1"
-    sha256 cellar: :any_skip_relocation, ventura:        "f6581615d4c71dc66b568cb02137cf9b57bf24be4a6027f6ec458cd83a6ff2a6"
-    sha256 cellar: :any_skip_relocation, monterey:       "85e99fc3f1777429b85fa1055c674d070980a9b183038e9b4664f221e6502498"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "973d892af58487e90e612183d5d45dfbd732aa55760285d8846069af99931e59"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "27547435a5946bfd24894f45e918ea72f93cc96972b3c883cee2f201bb05737b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bf44456e3ee19d48c66d252122ae56f2446f1075c0087a03dd82c62c81230e69"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "d25115b1fff7fece24f30563f3c663da7db54ca05d8c5b45da570d51236963fb"
+    sha256 cellar: :any_skip_relocation, sonoma:         "ed79594d0832e6d7e7610c65db2caba4c72c241b64a034b862fecff54921f7ab"
+    sha256 cellar: :any_skip_relocation, ventura:        "f721524a9c09dc6457960de1c802d062aece44ecadda8f22f85b56bd3feea23e"
+    sha256 cellar: :any_skip_relocation, monterey:       "b3168150ee0b2289671049089e54551bf16497c67084d0fa5939546b9fea0eb0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "df28315c027ab0783ceae7e3060f2c2796e9365c104caa7d3f50d08d763f40dd"
   end
 
   depends_on "gawk" => :build
@@ -45,6 +45,6 @@ class Maxima < Formula
   end
 
   test do
-    system "#{bin}/maxima", "--batch-string=run_testsuite(); quit();"
+    system bin/"maxima", "--batch-string=run_testsuite(); quit();"
   end
 end

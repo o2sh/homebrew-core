@@ -3,26 +3,20 @@ class Regipy < Formula
 
   desc "Offline registry hive parsing tool"
   homepage "https://github.com/mkorman90/regipy"
-  url "https://files.pythonhosted.org/packages/ab/69/59864fb77359018a16170be2ace82de8d40b547029bdc2dda4e8421f3971/regipy-4.2.0.tar.gz"
-  sha256 "b60ab02132e3b6111c368945917cccea08988e5618e64d20e83af98fe3b5630b"
+  url "https://files.pythonhosted.org/packages/99/03/e54da3d86e833d728322ffcf8d13d7af8aa1bc81c9b5f072e9496897628b/regipy-5.0.0.tar.gz"
+  sha256 "386470a3d4187e69bafbbfef6476aea439b5fd58d1e825df921d95ee81cc849a"
   license "MIT"
   head "https://github.com/mkorman90/regipy.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f65ec806ab7206d3a1d92caefa2ef7cb2358676558c15042d86d2210a4924d7c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f65ec806ab7206d3a1d92caefa2ef7cb2358676558c15042d86d2210a4924d7c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f65ec806ab7206d3a1d92caefa2ef7cb2358676558c15042d86d2210a4924d7c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f65ec806ab7206d3a1d92caefa2ef7cb2358676558c15042d86d2210a4924d7c"
-    sha256 cellar: :any_skip_relocation, ventura:        "f65ec806ab7206d3a1d92caefa2ef7cb2358676558c15042d86d2210a4924d7c"
-    sha256 cellar: :any_skip_relocation, monterey:       "f65ec806ab7206d3a1d92caefa2ef7cb2358676558c15042d86d2210a4924d7c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4ff186429e064ae619369d178980eaef353c8bf8b1ba2b007c8bf255966d04ed"
+    sha256 cellar: :any_skip_relocation, all: "0d46a9f6669c11fdb20a6cabd09d9469778dbfdaf606e33ae41cf97e427c1cde"
   end
 
   depends_on "python@3.12"
 
   resource "attrs" do
-    url "https://files.pythonhosted.org/packages/e3/fc/f800d51204003fa8ae392c4e8278f256206e7a919b708eef054f5f4b650d/attrs-23.2.0.tar.gz"
-    sha256 "935dc3b529c262f6cf76e50877d35a4bd3c1de194fd41f47a2b7ae8f19971f30"
+    url "https://files.pythonhosted.org/packages/fc/0f/aafca9af9315aee06a89ffde799a10a582fe8de76c563ee80bbcdc08b3fb/attrs-24.2.0.tar.gz"
+    sha256 "5cfb1b9148b5b086569baec03f20d7b6bf3bcacc9a42bebf87ffaaca362f6346"
   end
 
   resource "click" do

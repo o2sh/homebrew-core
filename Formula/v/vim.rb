@@ -2,8 +2,8 @@ class Vim < Formula
   desc "Vi 'workalike' with many additional features"
   homepage "https://www.vim.org/"
   # vim should only be updated every 50 releases on multiples of 50
-  url "https://github.com/vim/vim/archive/refs/tags/v9.1.0350.tar.gz"
-  sha256 "61340cdab24082776bfddb31b410773dead8a00194ab56610b71a75623b62319"
+  url "https://github.com/vim/vim/archive/refs/tags/v9.1.0700.tar.gz"
+  sha256 "497dcbc529144d48ba0f4d26c62e37c483ee4a7a811213ee67b8ad248955b186"
   license "Vim"
   head "https://github.com/vim/vim.git", branch: "master"
 
@@ -25,22 +25,25 @@ class Vim < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "4a6bba75010972e062c1c430dbd691142b9eeab31e8b7e0b66b33aab9ce3bd74"
-    sha256 arm64_ventura:  "245513ee064d00bb5df2ed61043326a22a29e8cb8876ec4e8b948333229c92e3"
-    sha256 arm64_monterey: "d23505d3fdae0e4e8dc6b33adc990bd20cb41bd096383820a91020bfba54849e"
-    sha256 sonoma:         "a06fd29857d6fcdc5dfefeba827e2ad4dd8b9d07be8181ee2e7a5ea5de878e1c"
-    sha256 ventura:        "2c5676437e92d52accec7f3dca796cd28640c1bbf40398d799a02aa3f24a93fc"
-    sha256 monterey:       "f2b20f5cd8d1c1a87a5e0400a21cb4eb695cce81cda9eb05ff4c40a9cf9c814c"
-    sha256 x86_64_linux:   "ff110b45d18cdab07ee4815397cef3bdc7dc58c3cc061707f834b7ea8623918e"
+    rebuild 1
+    sha256 arm64_sequoia:  "74c67d358d4fcc799e636022fccc4395045db8056b2a1f7027097df862f9ffc0"
+    sha256 arm64_sonoma:   "0a6dd05df895c9ad1b06cefdeddc5979111da656fb210883fde404d7fcb69f92"
+    sha256 arm64_ventura:  "20cb42029a549f52f0cc6ae230fd40c8a01e794d8403ef3bba7cad2f0e4c8e0f"
+    sha256 arm64_monterey: "f6b9bcf81acee6d920d3e18cea818168c2ded92a202439b6795a40bcff18d29e"
+    sha256 sonoma:         "6c6eda6e7124c881d16cc72493068f30da159995e5e02ce9134c400243d51453"
+    sha256 ventura:        "b2b35049f62ea367e9e8c330c82ea1c95bc4747147ea88bee29ec2c99dd60c3b"
+    sha256 monterey:       "99906bde6c53a757d7d7a41e7292dfe50cc678ee28e3876276fc27cd23bf5fc0"
+    sha256 x86_64_linux:   "0592e4cfbe4687b32c9d5c48cdf5963fb4d84a53f63461c411f968b8fd46a8ab"
   end
 
   depends_on "gettext"
   depends_on "libsodium"
   depends_on "lua"
   depends_on "ncurses"
-  depends_on "perl"
   depends_on "python@3.12"
   depends_on "ruby"
+
+  uses_from_macos "perl"
 
   on_linux do
     depends_on "acl"

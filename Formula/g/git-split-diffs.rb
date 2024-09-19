@@ -1,20 +1,19 @@
-require "language/node"
-
 class GitSplitDiffs < Formula
   desc "Syntax highlighted side-by-side diffs in your terminal"
   homepage "https://github.com/banga/git-split-diffs"
-  url "https://registry.npmjs.org/git-split-diffs/-/git-split-diffs-1.1.0.tgz"
-  sha256 "124709db0b14ba1543553e8774d44c0c2361f4d4765f71df5d9d6d345cc104ed"
+  url "https://registry.npmjs.org/git-split-diffs/-/git-split-diffs-2.1.0.tgz"
+  sha256 "4d49a8d4fd4e674ecd639cd9057cd3e04a503af5322b61c62b82a8221fc60729"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "5b348302822608e4fe122591d8b0d89cffa0a1687b79c6d49bab09fbbc9dc22b"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, all: "f559a54e0dc235620aba00b442ab45d6b750ec24bf1570ac257fadc850a0323a"
   end
 
   depends_on "node"
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
+    system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
   end
 

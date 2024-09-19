@@ -1,8 +1,8 @@
 class Gromacs < Formula
   desc "Versatile package for molecular dynamics calculations"
   homepage "https://www.gromacs.org/"
-  url "https://ftp.gromacs.org/pub/gromacs/gromacs-2024.1.tar.gz"
-  sha256 "937d8f12a36fffbf2af7add71adbb5aa5c5537892d46c9a76afbecab1aa0aac7"
+  url "https://ftp.gromacs.org/pub/gromacs/gromacs-2024.3.tar.gz"
+  sha256 "bbda056ee59390be7d58d84c13a9ec0d4e3635617adf2eb747034922cba1f029"
   license "LGPL-2.1-or-later"
 
   livecheck do
@@ -11,13 +11,14 @@ class Gromacs < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "15a2b50d7f51a6ba3d9ffe9fe5a3e461e4f1b5180333917c91837899b3f78b43"
-    sha256 arm64_ventura:  "028cc96dab2cd643a0a026c0f4220e61951ef73930fa04602f227ae8eeba0563"
-    sha256 arm64_monterey: "a3d5f3b5a002a1b1af4f5bbe89243c12ee62d2a81d8eb6fb997eaa6e717f0644"
-    sha256 sonoma:         "bce1f692285674cbd52c0561e752eea2ddbcc54f302569ad914fd8f3b388c884"
-    sha256 ventura:        "9149b55e12bc13ec30515abef9e04f17d78df1d6c0c2b16a11b4c77bd6cf9702"
-    sha256 monterey:       "46d72eed54b781426a83898f8c11b0ff0d959bcded8661fd7c9d51a7f2cd1a6d"
-    sha256 x86_64_linux:   "43ee015d261736087b1155907f9d0a5794ede7492c0e8d7bb3c18fd0353b0d04"
+    sha256 arm64_sequoia:  "6501170e70a351073c617f89ed1f75f60deb6f29f2acf6f84b59e7bc9801efa0"
+    sha256 arm64_sonoma:   "5d3ed8797fa7be5ed3f453007abb9ad771a6ed1ae6a5f0f69117133b1cd958e9"
+    sha256 arm64_ventura:  "a97d299639a99915be3df4944b5a6ab55c3c1b05fa88ebfc2e8345ee23e8fd0d"
+    sha256 arm64_monterey: "31462aeb578caf83faf95225bda79c241eac37c687c881a4b1be24ee41bf4a87"
+    sha256 sonoma:         "c1b1b9fb2bf40d609f3642b356dc24699bbcbb6345b16bf52812d77b32f554cc"
+    sha256 ventura:        "3699cdc6a4a31afd83cd71e7e84f40f313b20b1600fbc6b6cb236ca260af0d38"
+    sha256 monterey:       "4b2d622905ab50fbf8163d9e284d4fdc4998f612d426a09261ee4b05ed2e1b04"
+    sha256 x86_64_linux:   "a2d8685bc64e9315f821fe1492f39316b0609f15d658204897ea31af3b723bca"
   end
 
   depends_on "cmake" => :build
@@ -85,6 +86,6 @@ class Gromacs < Formula
   end
 
   test do
-    system "#{bin}/gmx", "help"
+    system bin/"gmx", "help"
   end
 end

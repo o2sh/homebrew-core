@@ -1,20 +1,19 @@
-require "language/node"
-
 class BashLanguageServer < Formula
   desc "Language Server for Bash"
   homepage "https://github.com/bash-lsp/bash-language-server"
-  url "https://registry.npmjs.org/bash-language-server/-/bash-language-server-5.2.0.tgz"
-  sha256 "83739f35eb6c8232927535be3bcec9dcdfb619bb390bb75661b7412d2cf6832a"
+  url "https://registry.npmjs.org/bash-language-server/-/bash-language-server-5.4.0.tgz"
+  sha256 "398971fee90b72014d72ca63b163e8f19d3c7db9528de8e43075c2ffa579b7b2"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "2bb7e5fa5cfcf1c3847a24a1b896fb920c6d8afcfda213af2b909f70715d7b5e"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, all: "10c27a8921363f70f037d1400912de1ec9addef631a5cc1d3cab2ab45d684368"
   end
 
   depends_on "node"
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
+    system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
   end
 

@@ -1,8 +1,8 @@
 class DjlServing < Formula
   desc "This module contains an universal model serving implementation"
   homepage "https://github.com/deepjavalibrary/djl-serving"
-  url "https://publish.djl.ai/djl-serving/serving-0.27.0.tar"
-  sha256 "04af04f673aff49a50ce808f8c62645c91f409c9f4e4ce156438a5e173de58a7"
+  url "https://publish.djl.ai/djl-serving/serving-0.29.0.tar"
+  sha256 "69b77dbb50e8c672e7a6bd477aeb0e47a0b5f9d66983563e93cb9742bb8c5f08"
   license "Apache-2.0"
 
   # `djl-serving` versions aren't considered released until a corresponding
@@ -13,14 +13,15 @@ class DjlServing < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "5f06ceecb3070a25eff54738ede1e56a184158614f68c25dcd7a70b2dd17d6c6"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, all: "bc72e64ae3ce5bfd466043690f54a5834348ed8ab3b45d1599e32a5ac26c2642"
   end
 
   depends_on "openjdk"
 
   def install
     # Install files
-    rm_rf Dir["bin/*.bat"]
+    rm_r(Dir["bin/*.bat"])
     mv "bin/serving", "bin/djl-serving"
     libexec.install Dir["*"]
     env = { MODEL_SERVER_HOME: "${MODEL_SERVER_HOME:-#{var}}" }

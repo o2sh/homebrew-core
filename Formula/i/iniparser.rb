@@ -1,27 +1,60 @@
 class Iniparser < Formula
   desc "Library for parsing ini files"
-  homepage "https://github.com/ndevilla/iniparser"
-  url "https://github.com/ndevilla/iniparser/archive/refs/tags/v4.2.tar.gz"
-  sha256 "dbcbaf3aedb4f88a9fc0df4b315737ddd10e6c37918e3d89f0ecc475333bde4d"
+  homepage "https://gitlab.com/iniparser/iniparser"
+  url "https://gitlab.com/iniparser/iniparser/-/archive/v4.2.4/iniparser-v4.2.4.tar.bz2"
+  sha256 "767963cff69aa7b0c7e48b74954886d5e498835056727fce25aecb19ff551d43"
   license "MIT"
-  head "https://github.com/ndevilla/iniparser.git", branch: "master"
+  head "https://gitlab.com/iniparser/iniparser.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "753beea9006c031482f9438c896d2113ec957977436a556a7ddda278e519bc12"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b6587bb8045a7680ca5b9388c25b026d5d8409cc4cb949ce9d3f090882ca7ec3"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "00a0f764ffc134ffe9f757c38ca6f2c4033ba487ef2cee93769c6d0efbfbe1aa"
-    sha256 cellar: :any_skip_relocation, sonoma:         "24e1b7716bfd58338f232bb5d3df1d77cdd51b5e5cfcb0cd19b6a42981bc96d8"
-    sha256 cellar: :any_skip_relocation, ventura:        "59d0194ace1f55d5e84e5cc814834b753045ccb7008c8b37164481fe7b98b9e8"
-    sha256 cellar: :any_skip_relocation, monterey:       "4ca47d04de8b746554aace33f226574133c971eb9d631e6a2d6afd13b208cfcd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "461f631dd414684e21666e4965990cc9ebd71b04e59e9b739cc291eac5195f72"
+    sha256 cellar: :any,                 arm64_sequoia:  "0c73018cec15ab4fe46af32c13a436c6c1cd0af280351aca183c4381692cf3d9"
+    sha256 cellar: :any,                 arm64_sonoma:   "4716c32b4218b5094b0a19479b1e8b65cd94dc04a40bf41b40799dd243191abb"
+    sha256 cellar: :any,                 arm64_ventura:  "a3c4368ddedd5810ef7db6e6a2d704d3d5a4fadff279bcabd32e5362144f2f01"
+    sha256 cellar: :any,                 arm64_monterey: "21e6754ad6276fd4ece5ea82b85c5fffe8f110d47892fbce03ad85e6b27cf83d"
+    sha256 cellar: :any,                 sonoma:         "301b365695b0e63861f07840b57804de9ff2d5b58991fb6abcf5fcad48d56c23"
+    sha256 cellar: :any,                 ventura:        "915fab6620a440294d3a357053e2f23d7cb3709e1fc5c2950acc0d976442d187"
+    sha256 cellar: :any,                 monterey:       "db5b501e6789c181018def30a06c00968be958b6e41c87ccdc15c451e1e66216"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "969c5952f004e0c00e5b845c76d7c060c023028c0d6a39b0bc87faf038db3308"
   end
+
+  depends_on "cmake" => :build
+  depends_on "doxygen" => :build
 
   conflicts_with "fastbit", because: "both install `include/dictionary.h`"
 
   def install
-    # Only make the *.a file; the *.so target is useless (and fails).
-    system "make", "libiniparser.a", "CC=#{ENV.cc}", "RANLIB=ranlib"
-    lib.install "libiniparser.a"
-    include.install Dir["src/*.h"]
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
+  end
+
+  test do
+    test_config = testpath/"test.ini"
+    test_config.write <<~EOS
+      [section]
+      key = value
+    EOS
+
+    (testpath/"test.c").write <<~EOS
+      #include <stdio.h>
+      #include <string.h>
+      #include <iniparser/iniparser.h>
+
+      int main() {
+        dictionary *ini;
+        ini = iniparser_load("#{test_config}");
+        const char *value = iniparser_getstring(ini, "section:key", NULL);
+        if (value == NULL || strcmp(value, "value") != 0) {
+          fprintf(stderr, "value not found or incorrect\\n");
+          return 1;
+        }
+        printf("Parsed value: %s", value);
+        iniparser_freedict(ini);
+        return 0;
+      }
+    EOS
+
+    system ENV.cc, "test.c", "-o", "test", "-L#{lib}", "-liniparser"
+    assert_equal "Parsed value: value", shell_output("./test")
   end
 end

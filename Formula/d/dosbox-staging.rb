@@ -5,8 +5,8 @@ class DosboxStaging < Formula
   head "https://github.com/dosbox-staging/dosbox-staging.git", branch: "main"
 
   stable do
-    url "https://github.com/dosbox-staging/dosbox-staging/archive/refs/tags/v0.81.0.tar.gz"
-    sha256 "211cbd2fb781bee1e92963f57e8111e22bcaf17a3a6dc11189982a0eea311e9b"
+    url "https://github.com/dosbox-staging/dosbox-staging/archive/refs/tags/v0.81.2.tar.gz"
+    sha256 "6676a3b6957c144a80ca8c3ffec2a0bec0320274382f23af9c57dd1c20b2eb1b"
 
     # Backport fix to bypass SDL wraps on macOS
     patch do
@@ -23,13 +23,14 @@ class DosboxStaging < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "5efb7dd68cacf7b99cd6c7806e91cd72a933839880bfe726fdb9ec9312f99f45"
-    sha256 arm64_ventura:  "40b37eb2976c6ceb7b5620550e2bac211282423427aa0e87bdd0cae543ac44d8"
-    sha256 arm64_monterey: "667fbbba6c06cea8245fff7686654d0f3c1c687b4cdcadf79bcb3d94b06f5e33"
-    sha256 sonoma:         "9a9689f7fac4c2fdfc521491d18c9bad32127302d3b751b9b28c25af06c805c4"
-    sha256 ventura:        "2d605146c48edd4b0bb9bc61080c0ab3852b4fe12644a856cd60d3a6b91db68f"
-    sha256 monterey:       "9ee63a8cdd9f459c829d567f519192942cd15856e7cfb2b69eaf5b9ac869b2af"
-    sha256 x86_64_linux:   "5f58569ee83bcd0748f2cfad9d2910300648ad624a84a9cb07ae6e097a1d8bf4"
+    sha256 arm64_sequoia:  "48aa9079f0008e0c3e9f841f3d91ae891a27021f592918b95da2afa35b642c49"
+    sha256 arm64_sonoma:   "d9c7de5c2c373cbd38b42779d5af89ca1c3efc2a236e2d1be1885db9c17404a4"
+    sha256 arm64_ventura:  "b253f715e507d4a1231a11ebc5cecd3f47efea1c6d5f70ff31047bdeb9e93677"
+    sha256 arm64_monterey: "9ec95a30a281c9aad5be2661f76ae7dbb931da3f9459ccc105769beb829e260c"
+    sha256 sonoma:         "76a1633bbde50f79c9f5d93ddc1c90706b9b145d792aba00d0c1ec78e002cab5"
+    sha256 ventura:        "eef0af318fbd3fcc85fc8285ebe8308e9385a18c49beba38eb0d2d7bbc7aa1fb"
+    sha256 monterey:       "b94ee1b1cca29f8bf00be43aeff3eeacf93bbf77da4ab710b1ded3c53ebb3f84"
+    sha256 x86_64_linux:   "dda24c081c9437844203c3624888ab07298f74c0b29f5dca250c9e071b764a7f"
   end
 
   depends_on "meson" => :build
@@ -46,6 +47,7 @@ class DosboxStaging < Formula
   depends_on "sdl2_image"
   depends_on "sdl2_net"
   depends_on "speexdsp"
+
   uses_from_macos "zlib"
 
   on_linux do
@@ -57,7 +59,7 @@ class DosboxStaging < Formula
   fails_with gcc: "5"
 
   def install
-    (buildpath/"subprojects").rmtree # Ensure we don't use vendored dependencies
+    rm_r(buildpath/"subprojects") # Ensure we don't use vendored dependencies
     args = %w[-Ddefault_library=shared -Db_lto=true -Dtracy=false]
 
     system "meson", "setup", "build", *args, *std_meson_args

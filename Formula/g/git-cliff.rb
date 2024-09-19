@@ -1,18 +1,19 @@
 class GitCliff < Formula
   desc "Highly customizable changelog generator"
   homepage "https://github.com/orhun/git-cliff"
-  url "https://github.com/orhun/git-cliff/archive/refs/tags/v2.2.1.tar.gz"
-  sha256 "8573c4dc28fd6d6c1e9be7156193c13d177af093a060ae9e3bd4cd60ff3e05c4"
+  url "https://github.com/orhun/git-cliff/archive/refs/tags/v2.5.0.tar.gz"
+  sha256 "87b424657f5843fc08b544e5beb1f97c6b86ef6e90465b570ed41a343e90f135"
   license all_of: ["Apache-2.0", "MIT"]
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "6a167776f5ccc36bae83ad0af38f248016f4a8bafd251e95e40c5dcb53fc05d6"
-    sha256 cellar: :any,                 arm64_ventura:  "c1d0f4bdb2c8325a89a6ec7c6ead01da68f1deb9fbeb65efb57ab81c7d81a9be"
-    sha256 cellar: :any,                 arm64_monterey: "a21010cb27c62069e20b7f4411ac02cf757b4764db9c9d2e102a163681d267b2"
-    sha256 cellar: :any,                 sonoma:         "9420f7cda3825cf4fb9adbb5f7b126e6424cb812255106c3ad0443dbf3f5ef9a"
-    sha256 cellar: :any,                 ventura:        "4dfcbe6b74f2a970c5efd21a627338d31fa323dabf4c33730829bafeb4512ba6"
-    sha256 cellar: :any,                 monterey:       "b5a1415db305155a4213cb5f41a22d08d3f6dcc73102b2757268923e77215e59"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "73e675977d7383c4faf364a0b8b31beaec3c1324489bb49b088ab76888af5d02"
+    sha256 cellar: :any,                 arm64_sequoia:  "b32a5328db6de812ae1a45ad8b32fdfedd66d17138dd0de890a40f2a93830361"
+    sha256 cellar: :any,                 arm64_sonoma:   "3d4f051b451ddf6dced4a64a2327aedb068e84f42b775e181ed648a294ce5b88"
+    sha256 cellar: :any,                 arm64_ventura:  "d1a92c088bb3424b89199b53ae893317e246f677877d7903bf7d79ea6b96be7d"
+    sha256 cellar: :any,                 arm64_monterey: "2db35980e5c9582b6589c26175274ea5733d85e17293f5dd9d5f74d4b1a172e1"
+    sha256 cellar: :any,                 sonoma:         "877c4631bbcaddf36fb42648562fd9da56305d15901fcb0bb69b395df7b573d2"
+    sha256 cellar: :any,                 ventura:        "3d032e82ea2f97e26d9990ed589e2b3a6fa33e35f9468e63bae19f3e9288dcec"
+    sha256 cellar: :any,                 monterey:       "53e989b00dd041a673710dc1aec613dfe6dc014d3256635ec8e02e4e1ea01fd8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8312f53514bc6b22e01b131d0f26f8a6fb1cf2c5a76bc690cdaeb29701af9454"
   end
 
   depends_on "pkg-config" => :build

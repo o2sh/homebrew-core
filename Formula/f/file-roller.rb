@@ -1,18 +1,19 @@
 class FileRoller < Formula
   desc "GNOME archive manager"
   homepage "https://wiki.gnome.org/Apps/FileRoller"
-  url "https://download.gnome.org/sources/file-roller/44/file-roller-44.1.tar.xz"
-  sha256 "250cf551cfcb12a670ca8adf953e0681f1c9b76ee09d9458b20203c62602c487"
+  url "https://download.gnome.org/sources/file-roller/44/file-roller-44.3.tar.xz"
+  sha256 "04c8a74625fec84267fdec40306afb4104bd332d85061e0d36d4ab0533adfa4a"
   license "GPL-2.0-or-later"
 
   bottle do
-    sha256 arm64_sonoma:   "bdb3ad526e6181e53ba5ec77a68a1f10891f0956f11058a48ec67ba92d949d88"
-    sha256 arm64_ventura:  "88a963b595a6b12fe6555af2093747c8873ce9d099df3a4ae2b6da922b05de75"
-    sha256 arm64_monterey: "69bee0c4657e5ff50463024ee0e2f836e5093b65c845a738339527bcb395a33b"
-    sha256 sonoma:         "6cf8f0e86a3c046aa6604616e70f7dc88fd9b11fd91dcfd586eee1b63a879bfd"
-    sha256 ventura:        "30ccb91666291f330248e0f1bc8258d01a30e3e2c0687f9680def9589b7c4fef"
-    sha256 monterey:       "ed667e36a92ff470351c3ea782a288d55ddd2d289f582f7f54c047be6688ec80"
-    sha256 x86_64_linux:   "5a201002563516c566f398e0a44fe6a1377de4f5eabd986bc776219ef5f48c36"
+    sha256 arm64_sequoia:  "945e78d5be86e9e13fa0fdfbf8d7d860c254396c12cc741c8ca715e839494edf"
+    sha256 arm64_sonoma:   "60b36504d219e315c40a1d02a87695a9a7d07969af197c3828fcdfd6ccd9812c"
+    sha256 arm64_ventura:  "115a0a2c78fa688329b1d84faa06859c174f56bead3f8028e4657ee442e11c63"
+    sha256 arm64_monterey: "db73bc657ca7657bad19d95a662faa67314bcb27496abb6696168931f58f1663"
+    sha256 sonoma:         "56aa134dc0e94fd4a5ef6f0a40bd52f5c7a7910f9eb4132d4217f3273295dc54"
+    sha256 ventura:        "4c584885bf6027515a50a08c0bec615126612b8f42f2b46f2e941a1c0e49c33e"
+    sha256 monterey:       "2d15c4f88082ca31090bfa71ed2fc15de4d8ac613c67e832741228da03c697e5"
+    sha256 x86_64_linux:   "93441fcbc955bde70980558e9bafca1ee1808b688cebe7ae4bc024d73f4d0214"
   end
 
   depends_on "gettext" => :build
@@ -21,12 +22,18 @@ class FileRoller < Formula
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
   depends_on "adwaita-icon-theme"
+  depends_on "glib"
   depends_on "gtk4"
   depends_on "hicolor-icon-theme"
   depends_on "json-glib"
   depends_on "libadwaita"
   depends_on "libarchive"
   depends_on "libmagic"
+  depends_on "pango"
+
+  on_macos do
+    depends_on "gettext"
+  end
 
   def install
     # Patch out gnome.post_install to avoid failing when unused commands are missing.

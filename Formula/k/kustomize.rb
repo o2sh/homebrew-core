@@ -1,8 +1,8 @@
 class Kustomize < Formula
   desc "Template-free customization of Kubernetes YAML manifests"
   homepage "https://github.com/kubernetes-sigs/kustomize"
-  url "https://github.com/kubernetes-sigs/kustomize/archive/refs/tags/kustomize/v5.4.1.tar.gz"
-  sha256 "dfdab5d0a22cfb5825ecfeee8ca96816d55a2989f015354b970ada743956a023"
+  url "https://github.com/kubernetes-sigs/kustomize/archive/refs/tags/kustomize/v5.4.3.tar.gz"
+  sha256 "911e749de8d33a35ebeff50f65d0c3d79e5d1c9ff7eb9b73e29192d99b5f2444"
   license "Apache-2.0"
   head "https://github.com/kubernetes-sigs/kustomize.git", branch: "master"
 
@@ -12,13 +12,14 @@ class Kustomize < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "652879953496fac4c135191b94e5dae5bcbffd88fcd61901785f2b7ec702295e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "90222aa38bc81c54e4282c440a522a3207206f75df04efb30ea196a5c0f907ef"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e7b65d8f5b7be0bd60cba0fa8dce52f0f15f75f0d16a66a06917bb302de9ca95"
-    sha256 cellar: :any_skip_relocation, sonoma:         "14bc86fbb4538c6eca77c98c301b8eeacc13b1de72a1ab2d8cbd3f705805363b"
-    sha256 cellar: :any_skip_relocation, ventura:        "b434e99b6cc2552d1292689501aa8ba15f0911e020bb65cef8c930c85e03ee15"
-    sha256 cellar: :any_skip_relocation, monterey:       "e60675b52c947ed499f6de4c2a67be82f3fed62cb9aa6b2185669f2e2bc37e9f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6a8309251bc9b8b77c79f896d2e155544a4ac2902b10e5532fc5a7f1b2424558"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "3d1a81fdff68e971f4a7e45945008e702c8397b86c1a5f390c8c063bc1bf5fe8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "89e6d222e8a5e9bd13ae418db39804da9a84a21fcb291683d5223abe70e9f4d3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "38f0377cccfda2718997ac62aa1e7c727e7ad979717d54a1cef793547fc15a23"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c2f682df029c1aa5c463951322c80020b0ba75c1414044af032842b3618c826a"
+    sha256 cellar: :any_skip_relocation, sonoma:         "488be64e3439c71b80eecafa30728c79e71287cb0acc3ab7474020656cf954a2"
+    sha256 cellar: :any_skip_relocation, ventura:        "d615f46ca90a431045476fb26a555ad77807fd347033165f146567d445b9b70c"
+    sha256 cellar: :any_skip_relocation, monterey:       "c4649044fed586e0a8a58ae4add96b9d0cfc99a64ab73134f18b749f847fce69"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4c71cc051fa36e9fa7abd46ad8076e07dfc0cb8b102cb7e048bca437c885c6ac"
   end
 
   depends_on "go" => :build

@@ -1,30 +1,24 @@
 class Autobrr < Formula
   desc "Modern, easy to use download automation for torrents and usenet"
   homepage "https://autobrr.com/"
-  url "https://github.com/autobrr/autobrr/archive/refs/tags/v1.41.0.tar.gz"
-  sha256 "096159986b73cc5f2550f61e94f6a7d7314718c0545642c2034836005648c258"
+  url "https://github.com/autobrr/autobrr/archive/refs/tags/v1.46.1.tar.gz"
+  sha256 "0b96dbb6d48f5063c36dc3a39d6baeabeb6ccf5974ab9bb38268be86a438fb89"
   license "GPL-2.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7430b1131e2639848a3d04b6fc9e40fe42f4da2169bbc05925d365a9fad03739"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "dee5eaf50a7f4839dfe3fadfecccec903bccb0314c0e5998ba08b9d5a93468a6"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "35b723c1f53bb3c976c755ed0e8f06c97e2367d569332c569380fb6cdc43d0e7"
-    sha256 cellar: :any_skip_relocation, sonoma:         "b95aa3d8f701772fa495c1d4df8bba1958cfced5be7f6cf798fcd9317d6beb52"
-    sha256 cellar: :any_skip_relocation, ventura:        "bdb3ff2c78c6c26754f1b90ef3389adf7c5e208ca396525107f31ce876da78a9"
-    sha256 cellar: :any_skip_relocation, monterey:       "1efb640eeb1fbba0d72c4960b05a6d33500577f5bb8906ddcc2149146d848755"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fb724af5e8882ad4ee6d07cadd94c638bc1055a542a5577ae3b97086afdf0f47"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "f36d0ae1a1bcca5f0ed81d6b71b410597a01fcf9f7a6c652d0928bba861a5d45"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f36d0ae1a1bcca5f0ed81d6b71b410597a01fcf9f7a6c652d0928bba861a5d45"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f36d0ae1a1bcca5f0ed81d6b71b410597a01fcf9f7a6c652d0928bba861a5d45"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f36d0ae1a1bcca5f0ed81d6b71b410597a01fcf9f7a6c652d0928bba861a5d45"
+    sha256 cellar: :any_skip_relocation, sonoma:         "203222f1cfeab9981ec989cf7fb086b83442cf8fdc365ba8002507e8fb865140"
+    sha256 cellar: :any_skip_relocation, ventura:        "203222f1cfeab9981ec989cf7fb086b83442cf8fdc365ba8002507e8fb865140"
+    sha256 cellar: :any_skip_relocation, monterey:       "203222f1cfeab9981ec989cf7fb086b83442cf8fdc365ba8002507e8fb865140"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3e3d17e202a7d6b5f8bd4f7ea3140db0aa427ba1d36faad0b65218ca4f9e163d"
   end
 
   depends_on "go" => :build
   depends_on "node" => :build
   depends_on "pnpm" => :build
-
-  # Update pnpm and dependency lockfile
-  # upstream PR patch, https://github.com/autobrr/autobrr/pull/1515
-  patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/9ac9588f76a579c2cceac9d7665031d0766268c6/autobrr/autobrr-1.41.0-pnpm.patch"
-    sha256 "08d07758290377ad76f11bcff33a84c6e33d188554801039e647c142905802d3"
-  end
 
   def install
     system "pnpm", "install", "--dir", "web"
@@ -60,7 +54,7 @@ class Autobrr < Formula
     EOS
 
     pid = fork do
-      exec "#{bin}/autobrr", "--config", "#{testpath}/"
+      exec bin/"autobrr", "--config", "#{testpath}/"
     end
     sleep 4
 

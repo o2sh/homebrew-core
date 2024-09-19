@@ -1,20 +1,19 @@
 class PowermanDockerize < Formula
   desc "Utility to simplify running applications in docker containers"
   homepage "https://github.com/powerman/dockerize"
-  url "https://github.com/powerman/dockerize/archive/refs/tags/v0.19.0.tar.gz"
-  sha256 "192c142ab25893c7a1e8a135280d8e72f05f12b56c1e2b5d932946707ec68c6b"
+  url "https://github.com/powerman/dockerize/archive/refs/tags/v0.20.0.tar.gz"
+  sha256 "7ae6ed0389419ceef9a942e6bf33b5b6ac787b420e0731b09fba41397bfe2e0f"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ebb68f8d4e6be6dcfe52f81c0742d9064ab3d2de324b42131c5093aec71cf40f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "22a49e6780e8e00a054aaa35c6749d21095d374eac84c5c773ff549b38adae4a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "22a49e6780e8e00a054aaa35c6749d21095d374eac84c5c773ff549b38adae4a"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "22a49e6780e8e00a054aaa35c6749d21095d374eac84c5c773ff549b38adae4a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "4849868b3b65e767fe10d224cb1198eb1348aebdca5a58a8128cf3b706133490"
-    sha256 cellar: :any_skip_relocation, ventura:        "8ab1eff297eb25f14338b89b7bd198978b3541e619203fa92ef2450b0045e098"
-    sha256 cellar: :any_skip_relocation, monterey:       "8ab1eff297eb25f14338b89b7bd198978b3541e619203fa92ef2450b0045e098"
-    sha256 cellar: :any_skip_relocation, big_sur:        "8ab1eff297eb25f14338b89b7bd198978b3541e619203fa92ef2450b0045e098"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "02c820b472202d7146338d7c94989edf2ce8f8c6223abf57f688224a9f92cc0e"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "b320bc5c69164a66bfcd303e6aa1f3f687ef857e6c012d8cd5fff199b1897cf8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a5cf9d95f93951910dff994ca4cc17e2c6d1d190b7ae4667115e98f88edd7aa2"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a5cf9d95f93951910dff994ca4cc17e2c6d1d190b7ae4667115e98f88edd7aa2"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a5cf9d95f93951910dff994ca4cc17e2c6d1d190b7ae4667115e98f88edd7aa2"
+    sha256 cellar: :any_skip_relocation, sonoma:         "ffeb190c33c4d3764af99d706c0a2efe1bf1eddeccaef476eebc660c1447c215"
+    sha256 cellar: :any_skip_relocation, ventura:        "ffeb190c33c4d3764af99d706c0a2efe1bf1eddeccaef476eebc660c1447c215"
+    sha256 cellar: :any_skip_relocation, monterey:       "ffeb190c33c4d3764af99d706c0a2efe1bf1eddeccaef476eebc660c1447c215"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ee3cc921ecfb75d746a9db61a20b5cd6c0be7853e943a3024e688274de78ed3c"
   end
 
   depends_on "go" => :build
@@ -26,6 +25,6 @@ class PowermanDockerize < Formula
 
   test do
     assert_match version.to_s, shell_output("#{bin}/dockerize --version")
-    system "#{bin}/dockerize", "-wait", "https://www.google.com/", "-wait-retry-interval=1s", "-timeout", "5s"
+    system bin/"dockerize", "-wait", "https://www.google.com/", "-wait-retry-interval=1s", "-timeout", "5s"
   end
 end

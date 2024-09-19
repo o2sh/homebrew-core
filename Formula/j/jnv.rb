@@ -1,19 +1,20 @@
 class Jnv < Formula
   desc "Interactive JSON filter using jq"
   homepage "https://github.com/ynqa/jnv"
-  url "https://github.com/ynqa/jnv/archive/refs/tags/v0.2.2.tar.gz"
-  sha256 "10304d81f31056a456c00e638ea80ca6506d414b56bb87c8294394de7d31edfb"
+  url "https://github.com/ynqa/jnv/archive/refs/tags/v0.4.0.tar.gz"
+  sha256 "88462d1a8dbb2a362a594d09c75b52d5798124981c9924ae7cff704e213b24f4"
   license "MIT"
   head "https://github.com/ynqa/jnv.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ebd2400a4bc12eeed2e20326f7bc10c772f25d6e1f955de7ff4792de5cb8570e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9f8aeb48ada8a345d27ca1dcd3ad833682e27badb3f196506d2ae54fe1253d35"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b756b33b93a4a4b5ad212c6e58b984a7b2f53de0acdaf269ca09c498ce29d68d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "dcb1fd4466c42c53e5346c6dcbf69c39c3429e9a7048ee23f445c46915c13541"
-    sha256 cellar: :any_skip_relocation, ventura:        "d06cba5dc0905ba33a05b2a1bfd2835a8ac6961a4936d192e1843d2e3dca692b"
-    sha256 cellar: :any_skip_relocation, monterey:       "c95c5605e8f7c250a03b8aa514d13c97f31780bb705d27009bb754943ccf17f2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e500fff8dbdb9bf34c0968ca962846afd173a62aedde23e74a1a926d02054d32"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "cc9146afaa0cbde07b721f1a26da405a40fc5b741a12fd158d195fe6f2b236ea"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e15f5c54af7a1adb674d21e6fedf227aed2120749b7220f3bf04c5af66b4ee3f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2a5848f6388855039fac36451406ccfe402e8b366c1e51e218f9bd9a679440d9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c9a287a8a7fa860dc6229cb2284a549266c426c874e459ea2808e15dc21568f1"
+    sha256 cellar: :any_skip_relocation, sonoma:         "27676c6754ba27df10748d59700582513f4bf42a1842a309eb76f3820b434d33"
+    sha256 cellar: :any_skip_relocation, ventura:        "520081042e5315dac739fc8cfbb89178474d4f7c12a37f896637cdcf12516475"
+    sha256 cellar: :any_skip_relocation, monterey:       "6106bb0500fc2de37af637e4d4438bc3e6dc402c34c4f29e8bf28e6c942fcb03"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5aca9c959f02aa0e6e1457bba747e59de193014e7be626d65bc924df3cc79e71"
   end
 
   depends_on "autoconf" => :build

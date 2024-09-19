@@ -3,19 +3,20 @@ class Vineyard < Formula
 
   desc "In-memory immutable data manager. (Project under CNCF)"
   homepage "https://v6d.io"
-  url "https://github.com/v6d-io/v6d/releases/download/v0.22.1/v6d-0.22.1.tar.gz"
-  sha256 "16aea4dc63830925c2d8cd89dc36580ff80dd7610793d56ae5d0d09972cf2fcc"
+  url "https://github.com/v6d-io/v6d/releases/download/v0.23.2/v6d-0.23.2.tar.gz"
+  sha256 "2a2788ed77b9459477b3e90767a910e77e2035a34f33c29c25b9876568683fd4"
   license "Apache-2.0"
   revision 2
 
   bottle do
-    sha256                               arm64_sonoma:   "a4f8b5541f33cb0a9a5bd1f41b5d81c7a8a8590b8a3cbbcef0cbcf6307615490"
-    sha256                               arm64_ventura:  "96f2f8f3b86bce950c28a2c0f948fb98bfcab1c0459495d1d5e421e97eb2c939"
-    sha256                               arm64_monterey: "9965f4fdef2f105ca748848c39449e28a67c9e42e51427dedd71b83b778729da"
-    sha256                               sonoma:         "dfbd0bb4fa61088e35d18328ba3912f03467a7aa55dea52f6242117d7d3a287b"
-    sha256                               ventura:        "fe0c0add7804dc4f3fd0aa373017335e694ff588be5dd033312ecac2d052ce7e"
-    sha256                               monterey:       "6e178815c0381a4599f02bff432b81bd748db76edb2681c58ff56c2a284915be"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "21687a67cea86a289a735e17bd524f9901d8eb423e51437461f4eabcc32950d2"
+    sha256                               arm64_sequoia:  "f7da4bc49b09e9ace96bf3568fe5c69e3991c38e67d724edfb82097178503e72"
+    sha256                               arm64_sonoma:   "b8e3536263aa443e1470e32f30a9ca7256b551e104689e0a265dfac22d0e1821"
+    sha256                               arm64_ventura:  "52bbe6e043bbb75dd8d5e70a964012045d75c5e60218cd41f1db38869b0799ea"
+    sha256                               arm64_monterey: "5b441eb66d81bc59736933a5953c0eaebdbb6337f18b1d6e298cd57ed14ce562"
+    sha256                               sonoma:         "f2f82b33cc4ed6a4b224332f58907265397ac695bd02a4a46f0b3b7b0ecccc16"
+    sha256                               ventura:        "d5eb9d7a6e858e2cebced5e26d7980d907cab9a83b8802cee23fff783c1422f0"
+    sha256                               monterey:       "30c5104aaf7425e92de4c9871e1b057b4d6c15165061b99555d1c712117e8169"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "458712fa6edc1cb5a6f58dbcaea6872872018d8aedf0d3e3d2c5ec0595b228eb"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -23,6 +24,7 @@ class Vineyard < Formula
   depends_on "python@3.12" => :build
   depends_on "apache-arrow"
   depends_on "boost"
+  depends_on "cpprestsdk"
   depends_on "etcd"
   depends_on "etcd-cpp-apiv3"
   depends_on "gflags"
@@ -35,17 +37,17 @@ class Vineyard < Formula
   depends_on "protobuf"
   depends_on "redis"
 
+  on_macos do
+    depends_on "abseil"
+    depends_on "c-ares"
+    depends_on "re2"
+  end
+
   fails_with gcc: "5"
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/d6/4f/b10f707e14ef7de524fe1f8988a294fb262a29c9b5b12275c7e188864aed/setuptools-69.5.1.tar.gz"
-    sha256 "6c1fccdac05a97e598fb0ae3bbed5904ccb317337a51139dcd51453611bbb987"
-  end
-
-  # Backport fix for API changes in `apache-arrow` 16+.
-  patch do
-    url "https://github.com/v6d-io/v6d/commit/e8b8c828f54e16163c98a9b91068f3344608431a.patch?full_index=1"
-    sha256 "b105216ad518dc581a9b9eb45398d7f87f63ba9728b3e3690aaef172a33ff3d2"
+    url "https://files.pythonhosted.org/packages/1c/1c/8a56622f2fc9ebb0df743373ef1a96c8e20410350d12f44ef03c588318c3/setuptools-70.1.0.tar.gz"
+    sha256 "01a1e793faa5bd89abc851fa15d0a0db26f160890c7102cd8dce643e886b47f5"
   end
 
   def install
@@ -70,6 +72,7 @@ class Vineyard < Formula
                     "-DUSE_LIBUNWIND=OFF",
                     "-DLIBGRAPELITE_INCLUDE_DIRS=#{Formula["libgrape-lite"].opt_include}",
                     "-DOPENSSL_ROOT_DIR=#{Formula["openssl@3"].opt_prefix}",
+                    "-DBUILD_VINEYARD_SERVER_ETCD=OFF", # Fails with protobuf 27
                     *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"

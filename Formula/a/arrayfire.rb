@@ -4,16 +4,16 @@ class Arrayfire < Formula
   url "https://github.com/arrayfire/arrayfire/releases/download/v3.9.0/arrayfire-full-3.9.0.tar.bz2"
   sha256 "8356c52bf3b5243e28297f4b56822191355216f002f3e301d83c9310a4b22348"
   license "BSD-3-Clause"
-  revision 1
+  revision 3
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "865c6f979a09926528424dd8000734307b6312e684b8a7d71f0de9ee1f2fc1ce"
-    sha256 cellar: :any,                 arm64_ventura:  "49e2ddc39ff3e3823e62c535a601bc0e137a9ec637050d981315b653166680d1"
-    sha256 cellar: :any,                 arm64_monterey: "2459d0bf29599dd214224e2e7163d443057473c14b2d69fd1a2f11d3c5d8a040"
-    sha256 cellar: :any,                 sonoma:         "499980917ef26007d417c08b3791030705291cc8e7cc99c060ef09c4747ed03a"
-    sha256 cellar: :any,                 ventura:        "96f19e2b71e4c4c62763c8c5d3ae7295495368378b67b01eba06f70cb1e4d7be"
-    sha256 cellar: :any,                 monterey:       "2fd4620360c08ada0b4df6c3ee90242a698672a391dbd1fbf67b69826e59381e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "823212b946aabd15bc03686fa64bb6be37b733322613c479bab570177eab882a"
+    sha256 cellar: :any, arm64_sequoia:  "62c059c02e2c6680c7c3fd3a9006243389ec2a2f272596f2c1c77f7826a6e0dd"
+    sha256 cellar: :any, arm64_sonoma:   "aef59074ff5628ef41c629de9af481140971fb67d0dd952cf2624ad6add73f70"
+    sha256 cellar: :any, arm64_ventura:  "e206b29e0790322ed14a06082e80a4ab2b804c79e3a98db0a134e71aa5f74ebe"
+    sha256 cellar: :any, arm64_monterey: "2e1b6dcef1a94a00aface53d21cb5ded7977d9f9f9db74606250f47f82ec6f59"
+    sha256 cellar: :any, sonoma:         "0347b552c78ae2da175819625d20bdc8de8cba7b6eb800f713a43b1690dbe3bd"
+    sha256 cellar: :any, ventura:        "f0e961ea63dc30a6b72b23afcbd9181d94d43c7a24c0f75d9add33cb9420ffdd"
+    sha256 cellar: :any, monterey:       "e0cdfa9839ea984d846c2fd7c9df45c337ae7159d07a590256896b1934d9670e"
   end
 
   depends_on "boost" => :build
@@ -32,6 +32,10 @@ class Arrayfire < Formula
   end
 
   fails_with gcc: "5"
+
+  # fmt 11 compatibility
+  # https://github.com/arrayfire/arrayfire/issues/3596
+  patch :DATA
 
   def install
     # Fix for: `ArrayFire couldn't locate any backends.`
@@ -60,12 +64,6 @@ class Arrayfire < Formula
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
-    # Remove debug info. These files make patchelf fail.
-    rm_f [
-      lib/"libaf.debug",
-      lib/"libafcpu.debug",
-      lib/"libafopencl.debug",
-    ]
     pkgshare.install "examples"
   end
 
@@ -78,3 +76,88 @@ class Arrayfire < Formula
     assert_match "ArrayFire v#{version}", shell_output("./test")
   end
 end
+
+__END__
+diff --git a/src/backend/common/jit/NodeIO.hpp b/src/backend/common/jit/NodeIO.hpp
+index ac149d9..edffdfa 100644
+--- a/src/backend/common/jit/NodeIO.hpp
++++ b/src/backend/common/jit/NodeIO.hpp
+@@ -16,7 +16,7 @@
+ template<>
+ struct fmt::formatter<af::dtype> : fmt::formatter<char> {
+     template<typename FormatContext>
+-    auto format(const af::dtype& p, FormatContext& ctx) -> decltype(ctx.out()) {
++    auto format(const af::dtype& p, FormatContext& ctx) const -> decltype(ctx.out()) {
+         format_to(ctx.out(), "{}", arrayfire::common::getName(p));
+         return ctx.out();
+     }
+@@ -58,7 +58,7 @@ struct fmt::formatter<arrayfire::common::Node> {
+     // Formats the point p using the parsed format specification (presentation)
+     // stored in this formatter.
+     template<typename FormatContext>
+-    auto format(const arrayfire::common::Node& node, FormatContext& ctx)
++    auto format(const arrayfire::common::Node& node, FormatContext& ctx) const
+         -> decltype(ctx.out()) {
+         // ctx.out() is an output iterator to write to.
+ 
+diff --git a/src/backend/common/ArrayFireTypesIO.hpp b/src/backend/common/ArrayFireTypesIO.hpp
+index e7a2e08..5da74a9 100644
+--- a/src/backend/common/ArrayFireTypesIO.hpp
++++ b/src/backend/common/ArrayFireTypesIO.hpp
+@@ -21,7 +21,7 @@ struct fmt::formatter<af_seq> {
+     }
+ 
+     template<typename FormatContext>
+-    auto format(const af_seq& p, FormatContext& ctx) -> decltype(ctx.out()) {
++    auto format(const af_seq& p, FormatContext& ctx) const -> decltype(ctx.out()) {
+         // ctx.out() is an output iterator to write to.
+         if (p.begin == af_span.begin && p.end == af_span.end &&
+             p.step == af_span.step) {
+@@ -73,18 +73,16 @@ struct fmt::formatter<arrayfire::common::Version> {
+     }
+ 
+     template<typename FormatContext>
+-    auto format(const arrayfire::common::Version& ver, FormatContext& ctx)
++    auto format(const arrayfire::common::Version& ver, FormatContext& ctx) const
+         -> decltype(ctx.out()) {
+         if (ver.major() == -1) return format_to(ctx.out(), "N/A");
+-        if (ver.minor() == -1) show_minor = false;
+-        if (ver.patch() == -1) show_patch = false;
+-        if (show_major && !show_minor && !show_patch) {
++        if (show_major && (ver.minor() == -1) && (ver.patch() == -1)) {
+             return format_to(ctx.out(), "{}", ver.major());
+         }
+-        if (show_major && show_minor && !show_patch) {
++        if (show_major && (ver.minor() != -1) && (ver.patch() == -1)) {
+             return format_to(ctx.out(), "{}.{}", ver.major(), ver.minor());
+         }
+-        if (show_major && show_minor && show_patch) {
++        if (show_major && (ver.minor() != -1) && (ver.patch() != -1)) {
+             return format_to(ctx.out(), "{}.{}.{}", ver.major(), ver.minor(),
+                              ver.patch());
+         }
+diff --git a/src/backend/common/debug.hpp b/src/backend/common/debug.hpp
+index 54e74a2..07fa589 100644
+--- a/src/backend/common/debug.hpp
++++ b/src/backend/common/debug.hpp
+@@ -12,6 +12,7 @@
+ #include <boost/stacktrace.hpp>
+ #include <common/ArrayFireTypesIO.hpp>
+ #include <common/jit/NodeIO.hpp>
++#include <fmt/ranges.h>
+ #include <spdlog/fmt/bundled/format.h>
+ #include <iostream>
+ 
+diff --git a/src/backend/opencl/compile_module.cpp b/src/backend/opencl/compile_module.cpp
+index 89d382c..2c979fd 100644
+--- a/src/backend/opencl/compile_module.cpp
++++ b/src/backend/opencl/compile_module.cpp
+@@ -22,6 +22,8 @@
+ #include <platform.hpp>
+ #include <traits.hpp>
+ 
++#include <fmt/ranges.h>
++
+ #include <algorithm>
+ #include <cctype>
+ #include <cstdio>

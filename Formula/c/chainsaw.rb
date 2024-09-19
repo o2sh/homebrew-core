@@ -1,19 +1,20 @@
 class Chainsaw < Formula
   desc "Rapidly Search and Hunt through Windows Forensic Artefacts"
   homepage "https://github.com/WithSecureLabs/chainsaw"
-  url "https://github.com/WithSecureLabs/chainsaw/archive/refs/tags/v2.9.0.tar.gz"
-  sha256 "babe48ef1d6c7129299b1a3696aec12fbd4938a7e2b77006ec0c9f76e6e8dc4e"
+  url "https://github.com/WithSecureLabs/chainsaw/archive/refs/tags/v2.10.0.tar.gz"
+  sha256 "d43625f154c40a61e0253a300b1623c3e19c90ea0d6036d8190d3d854492962a"
   license "GPL-3.0-only"
   head "https://github.com/WithSecureLabs/chainsaw.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1589f04a8868129087cb8df65a5e6055cb8c1951fd68dc3e06c20f7dba249205"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b995a19240d8ed9aceb7002cadb47b20fe87036c5faf95548c68c545cd2d94da"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "605b064889a35ef4f5081985cab840a1f291d7264acf039b23fa57233a5ada30"
-    sha256 cellar: :any_skip_relocation, sonoma:         "9c2c667caca65d9451dd9f390853d8d2df9080916369b6c2275c8f97c72af02b"
-    sha256 cellar: :any_skip_relocation, ventura:        "f812ade11f9406c58a5f5c22f93d08f645e811e9a528cc447b423548c8ca412f"
-    sha256 cellar: :any_skip_relocation, monterey:       "8c350c6f326c84ec8c2c1570052906324f3690fc69771bd23b59510c4dc7c9b3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0bcdce98ea84aabf7c0bb2638ff534373049c63e4516ab55ff1816f09528a60b"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "e7165bfdec06fd79a8fb58bfb7089b269eedba95b8cfe64dc5ceb0099da8bd3b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f955ab08021e1bf3d8f9be4962fcbfaa21ad3f52eebff1d57bd03d8e0aebb150"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1ed9867258ffcd9afc6f510f9db0e05209ec162c284e62b6dd84f7df1e4e1ad9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ff5ae553ce404df31971c7a6b1b88574d711be6bb1365a78e52267f903b12fae"
+    sha256 cellar: :any_skip_relocation, sonoma:         "f080ea6fd02cfd70608831f8c51577ed84c14d3f74bd7ba985adedf5c0e5e6fa"
+    sha256 cellar: :any_skip_relocation, ventura:        "a8b686f9f2f2826b15ba6b0ccbbb5bf6121723ad6c7207775ca5459bcb434021"
+    sha256 cellar: :any_skip_relocation, monterey:       "b7eab7f09afd4ec1c50f81285b787bdd9291808d4e2056c17ca09a22e984b897"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "83609bd624a4b434beca7ddad9f79a44a53d43a7400f467174b0885a26a4526e"
   end
 
   depends_on "rust" => :build
@@ -27,7 +28,7 @@ class Chainsaw < Formula
       output = shell_output("#{bin}/chainsaw lint --kind chainsaw . 2>&1")
       assert_match "Validated 0 detection rules out of 0", output
 
-      output = shell_output("#{bin}/chainsaw dump --json . 2>&1")
+      output = shell_output("#{bin}/chainsaw dump --json . 2>&1", 1)
       assert_match "Dumping the contents of forensic artefact", output
     end
 

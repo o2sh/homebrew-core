@@ -1,18 +1,18 @@
 class Freerdp < Formula
   desc "X11 implementation of the Remote Desktop Protocol (RDP)"
   homepage "https://www.freerdp.com/"
-  url "https://github.com/FreeRDP/FreeRDP/archive/refs/tags/3.5.1.tar.gz"
-  sha256 "bb40028c90c156799bc26a8b5837754a62805ee371e988efc61903c7263843b1"
+  url "https://github.com/FreeRDP/FreeRDP/archive/refs/tags/3.8.0.tar.gz"
+  sha256 "e313934a77a0bcca3af803455dd9ea1aa2f657c598e3397325aa48e6effd450d"
   license "Apache-2.0"
 
   bottle do
-    sha256 arm64_sonoma:   "36551f5b54e91f3c661241b3f30d5ecdabcc609ad974a5a20413ff8382e492f9"
-    sha256 arm64_ventura:  "4e1fd912e4f90968ff3beba4bed06b8ed360075ed93d7a05ed2c210dbb650ce7"
-    sha256 arm64_monterey: "3a8907647bc0eab8c95cb6edc6b788b82a6c61c4ed7b73bd05d946bbda2b8200"
-    sha256 sonoma:         "07b36d5ed9531b8dff435029ce6dfb2766b0488a1a5e73956f8d2d8a513befb7"
-    sha256 ventura:        "2e8f9e7bc9e08b364e106b02ae8f89f743b3a72e5a200b583a07d299324715b3"
-    sha256 monterey:       "884baf5b6a3ae44b0bbc94f14e0760de1dd82f9db1b021e76a8dcf7154df7280"
-    sha256 x86_64_linux:   "564eda660acc1c0e5302531cd67d95eefb8f2eb767774ba5c36e1c964da99ee1"
+    sha256 arm64_sonoma:   "ab64c73394aae736fdf575a169283b260db94726ecbe5921df314b40c0abff0b"
+    sha256 arm64_ventura:  "6e3001bdf3d9ba1b0f4aeff85d5de61788b783d3caa1966b5614017bb5226a4c"
+    sha256 arm64_monterey: "0a0d69d918188f2c83be63fb9fd24709b04c250510acff2c01b1975a4c49718f"
+    sha256 sonoma:         "fd7cc10c98ae3ff4c651108025c4ed7ea92982e9938a583dae56d1b139deb996"
+    sha256 ventura:        "85553e50f0512985443267b36a78f584d1afab0fbdeca1cebf0177e90fa5ea67"
+    sha256 monterey:       "b27c7d522042220ff01e3889d1f0f2984d986ec1b336ef7596142b02dfacd57c"
+    sha256 x86_64_linux:   "5a123ca4fbf5981e4e86cf2a488464d70739c0940960f222bf3b34a47270c42d"
   end
 
   head do
@@ -39,14 +39,23 @@ class Freerdp < Formula
   depends_on "pkcs11-helper"
 
   uses_from_macos "cups"
+  uses_from_macos "zlib"
 
   on_linux do
     depends_on "alsa-lib"
     depends_on "ffmpeg"
     depends_on "glib"
+    depends_on "icu4c"
+    depends_on "krb5"
     depends_on "libfuse"
     depends_on "systemd"
     depends_on "wayland"
+  end
+
+  # fix type conversion issue with `_Unwind_GetLanguageSpecificData`, upstream pr ref, https://github.com/FreeRDP/FreeRDP/pull/10542
+  patch do
+    url "https://github.com/FreeRDP/FreeRDP/commit/06d8164d5669c02759894d024f285e028c2023de.patch?full_index=1"
+    sha256 "484407240002837cf9a32c6f1250c040710cdf1b78f8455565dca936c078d6c5"
   end
 
   def install

@@ -1,22 +1,29 @@
 class Valkey < Formula
   desc "High-performance data structure server that primarily serves key/value workloads"
   homepage "https://valkey.io"
-  url "https://github.com/valkey-io/valkey/archive/refs/tags/7.2.5.tar.gz"
-  sha256 "c7c7a758edabe7693b3692db58fe5328130036b06224df64ab1f0c12fe265a76"
-  license "BSD-3-Clause"
+  url "https://github.com/valkey-io/valkey/archive/refs/tags/8.0.0.tar.gz"
+  sha256 "f87fef2ba81ae4bce891b874fba58cfde2d19370a3bcac20f0e17498b33c33c0"
+  license all_of: [
+    "BSD-3-Clause",
+    "BSD-2-Clause", # deps/jemalloc, deps/linenoise, src/lzf*
+    "BSL-1.0", # deps/fpconv
+    "MIT", # deps/lua
+    any_of: ["CC0-1.0", "BSD-2-Clause"], # deps/hdr_histogram
+  ]
   head "https://github.com/valkey-io/valkey.git", branch: "unstable"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "a40c337f18bad2ae274199b35ee1e261b18ed3521a67bc61a0a4cf4169eaa893"
-    sha256 cellar: :any,                 arm64_ventura:  "cb62ce022ad11d6c12424a028df11ca21b4c8479c7731124536ab62f9a055522"
-    sha256 cellar: :any,                 arm64_monterey: "fffd8f00b86e2c5cf2140c3d178c5834857a77416a043f3427ce9a9b35acf8cc"
-    sha256 cellar: :any,                 sonoma:         "9e1451cda196df3bc62b82832ba613af06bca50d3ef4c93450b0ca320244d699"
-    sha256 cellar: :any,                 ventura:        "3aec084610e710f07c16a6861a45b0bc539e02ef3b815cc8da9267f5b02a5bfe"
-    sha256 cellar: :any,                 monterey:       "4a55fb259562e56eb8df25e92c0fa1fe33eead6ca06c6908e61969173924f62b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "508f9fbd61b282abc3278a4dc015b69c6bcc1c3cf84d0969a3281cab820e6e15"
+    sha256 cellar: :any,                 arm64_sequoia: "cae8005dbf1d79a0821fe1b83af8fc60f4a69234758463a554202c593e14b745"
+    sha256 cellar: :any,                 arm64_sonoma:  "1ab613c14c0635595ec2e41e77391c341fa15f3b0660be45a166c758018d970a"
+    sha256 cellar: :any,                 arm64_ventura: "19be366faa4a5130cb4e00e4a764645f1ebfc7a49d854889676d8597e054d65c"
+    sha256 cellar: :any,                 sonoma:        "a767da82905be5a2736b4390cde2f7916632747ac80a37ab6beca70e9b18ce39"
+    sha256 cellar: :any,                 ventura:       "21be39a3eac33c660db7ee2b3134b949d69e7109248d277ac4a21b86b1bc8f49"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5df273423a0741c10ec55306fa044ee6a1cf3e66cb3791d4571ff83d0ba9162e"
   end
 
   depends_on "openssl@3"
+
+  conflicts_with "redis", because: "both install `redis-*` binaries"
 
   def install
     system "make", "install", "PREFIX=#{prefix}", "CC=#{ENV.cc}", "BUILD_TLS=yes"

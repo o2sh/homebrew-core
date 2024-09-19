@@ -1,19 +1,19 @@
 class Saml2aws < Formula
   desc "Login and retrieve AWS temporary credentials using a SAML IDP"
   homepage "https://github.com/Versent/saml2aws"
-  url "https://github.com/Versent/saml2aws.git",
-      tag:      "v2.36.15",
-      revision: "8988caca5e3f597028ddaaccdb8ff71a92fe9bc4"
+  url "https://github.com/Versent/saml2aws/archive/refs/tags/v2.36.17.tar.gz"
+  sha256 "b0c4cb7f24f7aa1b49efa62c3eb6d176e1aec195ff76ff7138dde90ff089f188"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "24ede64b83fa4823a974123478a8df54c064bd8e43ba4a31107d754aefe632dd"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e0e3a1b04a820a68584674c05049aef756f4ad42ea7fffd1d20938f62bc3fe8c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a5e161d3bdf2b4d405ede6947d14c8fd7578815ec131509f524345b1afd62eee"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8dc1a3e9b5bf3363df3e03ba8b116c81c1c46cf4210e35b3724bdae92b641a62"
-    sha256 cellar: :any_skip_relocation, ventura:        "0372ae26e5d7571a3866a689eaa211b3a1ce68c3333dcb8c199b44dc74391b6f"
-    sha256 cellar: :any_skip_relocation, monterey:       "9bbc901956babe5f2c0838ad1f38eb3769dc804693a5ecc1d877321492b87e49"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "36eee967c5028cf5776558abcd17cdd9f33df1e1436cdabf5f96a3430939538b"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "80940b2e973766bfbfd5ccfc5ae8c3812269e2d3d9559cd74e9e1097f7172d7f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "87fe1f852e97a27df7094e2aeef86346cb0d05b2365c669f7d173bd8759a5b7d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5b0c1ce1057db657731aec64e070fd9270809ba482885a0ea8913da4c68f47f6"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "df320aecc313f3eccfcd1802c40585a30dd8ce4710e6eab446ba941280f14c96"
+    sha256 cellar: :any_skip_relocation, sonoma:         "a44c09975b626ea05e1a56809404bc3ac90bf33bf7bba90b93572667eaa0ab0f"
+    sha256 cellar: :any_skip_relocation, ventura:        "17cbb83765d3aed1320c9072c0ee62bbdc02acd3292189b806f7e1af06674bb9"
+    sha256 cellar: :any_skip_relocation, monterey:       "1f258e7baa6289c4fda8e7db48ec5a3614e79efe0ffd4d1d7c1616a53844ce85"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6e867ded478efb9fa4a12dcc89d62af1e5c4b530d0b14a42efd1d425d6ef2dd1"
   end
 
   depends_on "go" => :build
@@ -39,5 +39,7 @@ class Saml2aws < Formula
   test do
     assert_match "error building login details: Failed to validate account.: URL empty in idp account",
       shell_output("#{bin}/saml2aws script 2>&1", 1)
+
+    assert_match version.to_s, shell_output("#{bin}/saml2aws --version 2>&1")
   end
 end

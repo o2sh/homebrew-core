@@ -1,9 +1,9 @@
 class Quictls < Formula
   desc "TLS/SSL and crypto library with QUIC APIs"
   homepage "https://github.com/quictls/openssl"
-  url "https://github.com/quictls/openssl/archive/refs/tags/openssl-3.1.5-quic1.tar.gz"
-  version "3.1.5-quic1"
-  sha256 "928a0c484fca5a5b9ae484e7b14e6691e946220d77d86ac4031cbb408655b644"
+  url "https://github.com/quictls/openssl/archive/refs/tags/openssl-3.1.7-quic1.tar.gz"
+  version "3.1.7-quic1"
+  sha256 "e7e514ea033c290f09c7250dd43a845bc1e08066b793274f3ad3fe04c76a5206"
   license "Apache-2.0"
 
   livecheck do
@@ -12,13 +12,14 @@ class Quictls < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "08beb28e31675db80511b2b696cf68449b213ac987563ee3375ab1aad920e48d"
-    sha256 arm64_ventura:  "b33b84c2685bcffc0e842ee5c759d7d0bbde83609d8f85ea3f7c96d2ef39c66a"
-    sha256 arm64_monterey: "15fef5e6c9c440c9d247845902723cce3ab285bf977441e2762b4f972611f66f"
-    sha256 sonoma:         "37515eb8535ec78718c285f85b4e00d48200169e06a47989510d2ca4d4a2f3b2"
-    sha256 ventura:        "c44036f24d7f2b57f823b484b0c31d7686f9f213b3acab040b231097f72bb8ef"
-    sha256 monterey:       "22ae5e6a9455b9a4ec03566f8bcf74d8b62f35d87ca00a94b5696defb902056a"
-    sha256 x86_64_linux:   "163a9a537be0d3df35db03097596b0761184852ed0b3cd1f2810d1edaf1746e2"
+    sha256 arm64_sequoia:  "98c6083da11677530ffead197c3874fa6a279628a73adb964179f04e7a776cb1"
+    sha256 arm64_sonoma:   "73ddf68c9960767751d2c35c0e880fa2ceeeb4f54b3fc9b23bcc0acf423d249f"
+    sha256 arm64_ventura:  "d3078ce0ffe8788999f7d8544c2a87c636fdd2e179c9c43c48a5621bd0b72173"
+    sha256 arm64_monterey: "2106c4a0c2355ce50521e2e4f5f310944ae80368b415c79c7c965fdfd603d9fc"
+    sha256 sonoma:         "dd3116df5fe47c4d55cc7c51df5becbca99942f587cb97b26f246a468f69e8d6"
+    sha256 ventura:        "3882bfe6a6745e400edf6483ffb629095a1e239176b5d53830ed4c2e8b2697d4"
+    sha256 monterey:       "76595d8637073ff8c6757c9d958a0b0256a677d4ded70e98f8b78ee44e0b1b33"
+    sha256 x86_64_linux:   "d087162e7c966ef053b5f6f3fb4b1186c2aa0bb482259041a37a9a166419ec76"
   end
 
   keg_only "it conflicts with OpenSSL"
@@ -27,13 +28,13 @@ class Quictls < Formula
 
   on_linux do
     resource "Test::Harness" do
-      url "https://cpan.metacpan.org/authors/id/L/LE/LEONT/Test-Harness-3.48.tar.gz"
-      sha256 "e73ff89c81c1a53f6baeef6816841b89d3384403ad97422a7da9d1eeb20ef9c5"
+      url "https://cpan.metacpan.org/authors/id/L/LE/LEONT/Test-Harness-3.50.tar.gz"
+      sha256 "79b6acdc444f1924cd4c2e9ed868bdc6e09580021aca8ff078ede2ffef8a6f54"
     end
 
     resource "Test::More" do
-      url "https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test-Simple-1.302198.tar.gz"
-      sha256 "1dc07bcffd23e49983433c948de3e3f377e6e849ad7fe3432c717fa782024faa"
+      url "https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test-Simple-1.302201.tar.gz"
+      sha256 "956185dc96c1f2942f310a549a2b206cc5dd1487558f4e36d87af7a8aacbc87c"
     end
 
     resource "ExtUtils::MakeMaker" do
@@ -102,7 +103,7 @@ class Quictls < Formula
   end
 
   def post_install
-    rm_f quictlsdir/"cert.pem"
+    rm(quictlsdir/"cert.pem") if (quictlsdir/"cert.pem").exist?
     quictlsdir.install_symlink Formula["ca-certificates"].pkgetc/"cert.pem"
   end
 

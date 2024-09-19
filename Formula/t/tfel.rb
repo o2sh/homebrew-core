@@ -1,20 +1,21 @@
 class Tfel < Formula
   desc "Code generation tool dedicated to material knowledge for numerical mechanics"
   homepage "https://thelfer.github.io/tfel/web/index.html"
-  url "https://github.com/thelfer/tfel/archive/refs/tags/TFEL-4.2.0.tar.gz"
-  sha256 "cf8a309c4d19a8e36232f8540ff28aa0d6285645f8dfb1ac57dd481ba3453e02"
+  url "https://github.com/thelfer/tfel/archive/refs/tags/TFEL-4.2.1.tar.gz"
+  sha256 "14f27257014a992a4e511f35390e4b9a086f6a5ed74087f891f8c00306f1758f"
   license "GPL-1.0-or-later"
-  revision 2
+  revision 1
   head "https://github.com/thelfer/tfel.git", using: :git, branch: "master"
 
   bottle do
-    sha256 arm64_sonoma:   "07fa908c948d7e6b6b27927a358672a996051c41521d1a7381fa25ea399c92fb"
-    sha256 arm64_ventura:  "e0c694d2556c639aa9847d339941a1a0c1bcd7328613dace99bfcb4a9fa12299"
-    sha256 arm64_monterey: "2b89eda277467ab1397de5d13a22a5cd517856d3fde218799d911a721adbaae3"
-    sha256 sonoma:         "0d0c0eb2b704620c228df17fc1a7c0f504c5b7185a9bb94a87373a572ba6190a"
-    sha256 ventura:        "bffcaee3219aa1331c491011b524d54efe63fdc94cd00604c146c15fc3819c1d"
-    sha256 monterey:       "fba62321bc77dc57db5f25dcdf98be55330233534c91024b5f74ed3647b209f1"
-    sha256 x86_64_linux:   "78e3bad40dd06b04b3683c26810c30949733d6015dd688220badd17c846a4788"
+    sha256 arm64_sequoia:  "a1dbd6aedfae723113d626035fc3c0dd826006b409f4a0e02bbe844fc377ec43"
+    sha256 arm64_sonoma:   "2c83f17aafe4803c5dcb76e75a1f0e065ddeb0c2a98cdde5284307c762850b73"
+    sha256 arm64_ventura:  "e151a64d0af704275ff311cfef7d56d653d9ede613dc8f66b5ab44cf471d9afa"
+    sha256 arm64_monterey: "349346beb4bc75a8275d72fc334d5788cf722d28675018259b61edebc9bd40e1"
+    sha256 sonoma:         "8622ce53d1eba3091833e9d490ef783d28ff79a880cd7b067d3de70e3f6fcd00"
+    sha256 ventura:        "f67f8d672f2eed887c9fb27db78f61bb5dfa6ae5275b9de38543e77c5d01e92c"
+    sha256 monterey:       "b372fb99af0111007958b9bd88687e5cb9b67efb131888bd8b3ff55964974cb1"
+    sha256 x86_64_linux:   "2d188e271109fa6cac8ef90708b3f3d4a83f20ec2d56b5d0fd99d14f7bad14c9"
   end
 
   depends_on "cmake" => :build

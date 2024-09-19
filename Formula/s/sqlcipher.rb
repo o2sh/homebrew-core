@@ -1,19 +1,20 @@
 class Sqlcipher < Formula
   desc "SQLite extension providing 256-bit AES encryption"
   homepage "https://www.zetetic.net/sqlcipher/"
-  url "https://github.com/sqlcipher/sqlcipher/archive/refs/tags/v4.5.7.tar.gz"
-  sha256 "b670845f28da0a3c717e991e9f18a334e08f6bc977190bbce6be864ca229f96d"
+  url "https://github.com/sqlcipher/sqlcipher/archive/refs/tags/v4.6.1.tar.gz"
+  sha256 "d8f9afcbc2f4b55e316ca4ada4425daf3d0b4aab25f45e11a802ae422b9f53a3"
   license "BSD-3-Clause"
   head "https://github.com/sqlcipher/sqlcipher.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "e7eba25afbc75a74c0b19654b54f8676042ec1c79f661a04cce1766631b46a53"
-    sha256 cellar: :any,                 arm64_ventura:  "0284a513ca90ce57383aa82c464f9a8d538d3bbf649705ce6255eec640e55087"
-    sha256 cellar: :any,                 arm64_monterey: "5aa411eca16ea061b7d6ce1b8d76be198d3e651b314349682ebb025f07888b4d"
-    sha256 cellar: :any,                 sonoma:         "7ee3f9a4743e58d5d59413a0089173a3b3bc1f49c77da88dfc0bde4d93a9ae75"
-    sha256 cellar: :any,                 ventura:        "e8edb9c3132e6bbcc7e15b587411b957bb2192a8d6a304243024ad80b95a6b40"
-    sha256 cellar: :any,                 monterey:       "54189020cfce9af7bc8d2b2507bfc7627fece8e21997a04fd0be505df879c45f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3ff8d01a84d2d59626937676ef8a2a01de01a7af4cb719a98fefe12dc0af5e5a"
+    sha256 cellar: :any,                 arm64_sequoia:  "2bce86a48eb9ce4e89f10638971fe3e3d338e410c41432f4480866dccc8b8a25"
+    sha256 cellar: :any,                 arm64_sonoma:   "ce9815c45580388609c3c3523f8cca865a4a38b809f08a31a786fdefd8829e63"
+    sha256 cellar: :any,                 arm64_ventura:  "f52dbcc2f74a793f58fadd7309c2ebe5619aa47ebaedc9285331f5f3c9afd7df"
+    sha256 cellar: :any,                 arm64_monterey: "99ceb412afb90b295aa64a1d9ba6bf25bbfb7887b50825154fc8baba3e879874"
+    sha256 cellar: :any,                 sonoma:         "14842c50c9074b36748f2d8f8c3e3ba51b6b8dafa4d6c939462ec5d96c0ef5d1"
+    sha256 cellar: :any,                 ventura:        "69bdd462ec7b165dfc656e05b206c43b0115754e9a49b3f5a2b3d3e2fa6718d9"
+    sha256 cellar: :any,                 monterey:       "69a4c545f99bdd3dee89090c3a264f33d333d4b41be5a368c6a078ea1234fe1f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1b698c95084d0ec890fc103429bb615a8c13c87bd13b6a29b246579feb5a0763"
   end
 
   depends_on "openssl@3"
@@ -21,6 +22,7 @@ class Sqlcipher < Formula
   # Build scripts require tclsh. `--disable-tcl` only skips building extension
   uses_from_macos "tcl-tk" => :build
   uses_from_macos "sqlite"
+  uses_from_macos "zlib"
 
   def install
     args = %W[

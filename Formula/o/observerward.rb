@@ -1,18 +1,19 @@
 class Observerward < Formula
-  desc "Cross platform community web fingerprint identification tool"
-  homepage "https://0x727.github.io/ObserverWard/"
-  url "https://github.com/0x727/ObserverWard/archive/refs/tags/v2024.3.22.tar.gz"
-  sha256 "6236a93c4672da1f18d6484a61316665ef125c34219db1845361eb2941c667e1"
-  license "MIT"
+  desc "Web application and service fingerprint identification tool"
+  homepage "https://emo-crab.github.io/observer_ward/"
+  url "https://github.com/emo-crab/observer_ward/archive/refs/tags/v2024.8.16.tar.gz"
+  sha256 "000bde80f9e78c40897a59672d892286b384610279fae9d7ef5092b71b2cbbdf"
+  license "GPL-3.0-only"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "4d0b03063faec535754a6f2fac094ec810795fe21e561446201af1bc80ad7a64"
-    sha256 cellar: :any,                 arm64_ventura:  "03ba84187c6094cd32fd3eef6f103414e490fc2c47a8c1e292d6a34b5d510076"
-    sha256 cellar: :any,                 arm64_monterey: "182966b554fc88782c90901a04e1874c3d875c349831aed709f0265bd03334d5"
-    sha256 cellar: :any,                 sonoma:         "5095f0a97fa6b40179dac4fda5ea4034e8f3557511d609a1f8c1d2b927823d56"
-    sha256 cellar: :any,                 ventura:        "573b505134078d6fdcfe6397dd3026cc58cdde9b155e18400933245554348a40"
-    sha256 cellar: :any,                 monterey:       "cf611a9741288581bb12b464ed0590833c027cafbd1f2a0708c326abb61067df"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "868f14053776664346d0452b718a88b90b825a069312a69b3ebfde054747cab1"
+    sha256 cellar: :any,                 arm64_sequoia:  "9f71a8dfe39f31c99a53d9cc3e07a3ee567fa7b972cfa5be18b4770ba2790557"
+    sha256 cellar: :any,                 arm64_sonoma:   "22532a0b8b89f49b91b22b068e34a69fd357c50d02008ac8d36e135f3b1f4a10"
+    sha256 cellar: :any,                 arm64_ventura:  "9a805d24872f20119bb0b8d8db90f657b197060a76f2d154ace486dad2e454dc"
+    sha256 cellar: :any,                 arm64_monterey: "f81e04be72623bdba4147303f8ce382f78c562477d4d40d7bc01c36ebe213c72"
+    sha256 cellar: :any,                 sonoma:         "a18f1d8be27d3984ebe196c8c7b2025498f5d7b7cd98108722e612ecca027f6a"
+    sha256 cellar: :any,                 ventura:        "7da0bd2dfa7cbe10d1f900f4b24d96a0be45574823e700c90576cf809745989b"
+    sha256 cellar: :any,                 monterey:       "8710451a2a1acb069095b455b3bdae127446df53e1c5c012834a35e31e993748"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e66f47fd0d5c622490d9396c2d3e2872b5146c489ef799323e2abfcae2546b14"
   end
 
   depends_on "rust" => :build

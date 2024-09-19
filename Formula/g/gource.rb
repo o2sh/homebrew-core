@@ -1,19 +1,20 @@
 class Gource < Formula
   desc "Version Control Visualization Tool"
   homepage "https://github.com/acaudwell/Gource"
-  url "https://github.com/acaudwell/Gource/releases/download/gource-0.54/gource-0.54.tar.gz"
-  sha256 "1dcbcedf65d2cf4d69fe0b633e54c202926c08b829bcad0b73eaf9e29cd6fae5"
+  url "https://github.com/acaudwell/Gource/releases/download/gource-0.55/gource-0.55.tar.gz"
+  sha256 "c8239212d28b07508d9e477619976802681628fc25eb3e04f6671177013c0142"
   license "GPL-3.0-or-later"
-  revision 4
+  revision 1
 
   bottle do
-    sha256 arm64_sonoma:   "0a22e1eeb613eeeb43e82650c78058db8f9be241ca52588f235267f0137aff8e"
-    sha256 arm64_ventura:  "bfb3df79badebd7b21308e65225c1ca9026c40cf75faf1d5b924149195766004"
-    sha256 arm64_monterey: "6d038b9f738420539f7cc32362a9c1074afa26a0f46880dfb6e623f27d51998f"
-    sha256 sonoma:         "e5c26a4251e5975fd8301c01299b6a8a5a4d2a848843086e2c8f415ee5d6ccac"
-    sha256 ventura:        "af0c1dae247b7069be63625b50fb95e1aa598855a344da4aeac5060a3f156d82"
-    sha256 monterey:       "c1012016e7b681774b17458008744399dcb61b551b3b6c5876b6ad54db22c03f"
-    sha256 x86_64_linux:   "54663e308e0755e3e7b992985d36b91f859d2bfb2b0dbc82a2690d836569c851"
+    sha256 arm64_sequoia:  "c735cd51d9e849ddae9f6fe7fee81279a997eed45faee857806e0f3fc0f7d560"
+    sha256 arm64_sonoma:   "0e04c59ea31bcac42b276ddb55c793c3965c7c95863ee93980321a20768ba82b"
+    sha256 arm64_ventura:  "f0c75e3218b79997ea769dc36701f78cd9c3471184f984b60ffb5d0dbec86268"
+    sha256 arm64_monterey: "bd2bad94832bbc7e1a668c70b97dd7a2c432a43cdf316d753c29c5c739c04319"
+    sha256 sonoma:         "e5b2f41f0a965a3dd857ff701ba535b85fe08719e395b1ddcb4aea54f81f3d63"
+    sha256 ventura:        "99b2e09613f40fe201663c5e72d2688214358dc97373cfce90d8f73232eb61d5"
+    sha256 monterey:       "bcbe2dbfcb48406b6f28a3579dc45a9c8a1c0c60cc8a6563301e1b52c2c9d73a"
+    sha256 x86_64_linux:   "164916b7277e4beb805bd690735a859475dcd5d83690f5daff348eebb62d0374"
   end
 
   head do
@@ -26,6 +27,7 @@ class Gource < Formula
 
   depends_on "glm" => :build
   depends_on "pkg-config" => :build
+
   depends_on "boost"
   depends_on "freetype"
   depends_on "glew"
@@ -34,11 +36,9 @@ class Gource < Formula
   depends_on "sdl2"
   depends_on "sdl2_image"
 
-  # Fix build with `boost` 1.85.0 using open PR.
-  # PR ref: https://github.com/acaudwell/Gource/pull/326
-  patch do
-    url "https://github.com/acaudwell/Gource/commit/4357df0e3cf3a5f2c8bcff74bf562e5f346c930a.patch?full_index=1"
-    sha256 "8c566c312e18ee293eb1cf14864b6c3658cfcc971eaf887ee0d308b67572c3e6"
+  on_linux do
+    depends_on "mesa"
+    depends_on "mesa-glu"
   end
 
   def install
@@ -59,6 +59,6 @@ class Gource < Formula
   end
 
   test do
-    system "#{bin}/gource", "--help"
+    system bin/"gource", "--help"
   end
 end

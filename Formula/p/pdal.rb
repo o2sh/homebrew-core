@@ -1,10 +1,9 @@
 class Pdal < Formula
   desc "Point data abstraction library"
   homepage "https://www.pdal.io/"
-  url "https://github.com/PDAL/PDAL/releases/download/2.7.1/PDAL-2.7.1-src.tar.bz2"
-  sha256 "7769aaacfc26daeb559b511c73c241a5e9a2f31e26ef3a736204b83e791c5453"
+  url "https://github.com/PDAL/PDAL/releases/download/2.7.2/PDAL-2.7.2-src.tar.bz2"
+  sha256 "f6ae0f3dc012b19c70dde2361799ecac0cdcbeb9cad5cfd96313c9fdc8608f32"
   license "BSD-3-Clause"
-  revision 1
   head "https://github.com/PDAL/PDAL.git", branch: "master"
 
   # The upstream GitHub repository sometimes creates tags that only include a
@@ -18,13 +17,14 @@ class Pdal < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "fc02eeb18ed45aa01bba3d7e3790e5366fad46411ec5567a403776f073278b61"
-    sha256 cellar: :any,                 arm64_ventura:  "17a0eabf12aa1273f7dd6c57241625c1d0bd71ec7999aa2dbb3194d928efbd63"
-    sha256 cellar: :any,                 arm64_monterey: "2f1d3589fc26a09f11462ae563794c4389c086b02390dc4902a1f8cfbc6ee4d5"
-    sha256 cellar: :any,                 sonoma:         "24e0d4e078d82544ad90dec4c614e095867a545200ae186dff6cb89295715185"
-    sha256 cellar: :any,                 ventura:        "5437a20f313b43183dbfe8f4303f596b286ace6bc4dfb8749d0355147b508e23"
-    sha256 cellar: :any,                 monterey:       "c5b967deec6e8850d8799538ccd95aca17bb959fb0b6b40f008c4c59493f07b6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "98e852b34a7ea83c966887b9b461c7ec4af931650f02e2ec25e3962f3f4e1eac"
+    sha256 cellar: :any,                 arm64_sequoia:  "67418c06c2d2c07ea36872cc6373b41c58d79e5776a2f1c751b2527b0c3fd2d2"
+    sha256 cellar: :any,                 arm64_sonoma:   "21d4f2320e136d8c7d87d299d0984feb8f6aab0f6dab4e7a676d2b21ba593959"
+    sha256 cellar: :any,                 arm64_ventura:  "ac56d6c29ebf15e1712aea4e32a556b9990176495e499403066537cab2b2ece5"
+    sha256 cellar: :any,                 arm64_monterey: "043b657f0abf3e90d8fe5f6a9ceebfc0a2cb34b7b5d533b9dae9526528e0b5dd"
+    sha256 cellar: :any,                 sonoma:         "75c2fecb49a5d8029a38a0f2c2872acd540a27a3aef6da7ef33589ea7179fe96"
+    sha256 cellar: :any,                 ventura:        "27b9308832346b0ce1d59ec1658883e4cd9f76d12b20010e689f297e3b2b276e"
+    sha256 cellar: :any,                 monterey:       "9d7f89d8ee77abb37ff4dc86e105671c094b22651cfe3de2bb92f310a0d568fe"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d46e3c1ec5dbca3550598e86b7d25f49f36749bc303f09ae1c7771eddf9628b7"
   end
 
   depends_on "cmake" => :build
@@ -32,9 +32,16 @@ class Pdal < Formula
   depends_on "gdal"
   depends_on "hdf5"
   depends_on "laszip"
+  depends_on "libgeotiff"
   depends_on "libpq"
+  depends_on "libxml2"
   depends_on "numpy"
   depends_on "openssl@3"
+  depends_on "proj"
+  depends_on "zstd"
+
+  uses_from_macos "curl"
+  uses_from_macos "zlib"
 
   on_linux do
     depends_on "libunwind"
@@ -72,7 +79,7 @@ class Pdal < Formula
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
-    rm_rf "test/unit"
+    rm_r("test/unit")
     doc.install "examples", "test"
   end
 

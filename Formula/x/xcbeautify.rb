@@ -1,17 +1,18 @@
 class Xcbeautify < Formula
   desc "Little beautifier tool for xcodebuild"
   homepage "https://github.com/cpisciotta/xcbeautify"
-  url "https://github.com/cpisciotta/xcbeautify/archive/refs/tags/2.3.0.tar.gz"
-  sha256 "337e00885596279cd4b11fee995513e285b38f26c6dc4aaa353ad5fee9651cfe"
+  url "https://github.com/cpisciotta/xcbeautify/archive/refs/tags/2.11.0.tar.gz"
+  sha256 "a64c0bfe9dfb384305e68f043bdda787251dd251e7f40719f7ac997788d0b236"
   license "MIT"
   head "https://github.com/cpisciotta/xcbeautify.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1df22ce106883975ae30272fde0b264c06d5b6c422d2c3640bd02c1640ef52be"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "4f62540be8f6e6bf6782ab73e89202fbfbe42462bae44c884fd5b02d24aebf59"
-    sha256 cellar: :any_skip_relocation, sonoma:        "a96aca8328b40e6020d77d678b841eb6116d007811bb08e54e61a9bd2b14200e"
-    sha256 cellar: :any_skip_relocation, ventura:       "3c2ae58f8bc7eede4ca33401ffb77e3ba7593e7d10009919c2eddbd4dc2a33bb"
-    sha256                               x86_64_linux:  "30ee758074c65759b6be80995eeb47626e77a862e7587708ebf6e56ec3a3cd49"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9f41d8a052f642e6b1e1edede3dcf42bd0f1a349a3660c05e8876a4267f44910"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "697d50f9544c2daa242d7787e43fda4460ece2c3440cd7b9baff4ba051fbaa6c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "f58c2e7342577a7b274bf5be5a9c0915aa3f3ba5b4a05674c6417c8d03637cfb"
+    sha256 cellar: :any_skip_relocation, sonoma:        "629341e7c0add869ed6ec0d3a78d6f69e2e53ccf765296981be5677da789df6c"
+    sha256 cellar: :any_skip_relocation, ventura:       "bb72929872a1b86e7e9ae523e87a738d940667f482d45cfdf7d8888ffc0efc3a"
+    sha256                               x86_64_linux:  "e9d0709beee07adcc9be5137fcb117191c6d908817223ea9bbcd427127f3e642"
   end
 
   # needs Swift tools version 5.9.0

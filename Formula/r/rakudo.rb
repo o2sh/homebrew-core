@@ -1,8 +1,8 @@
 class Rakudo < Formula
   desc "Mature, production-ready implementation of the Raku language"
   homepage "https://rakudo.org"
-  url "https://github.com/rakudo/rakudo/releases/download/2024.04/rakudo-2024.04.tar.gz"
-  sha256 "c9a8e470c2d203e42ba7115a2c0a0ee8006f0377993de8ec34d2dfa1359c6a89"
+  url "https://github.com/rakudo/rakudo/releases/download/2024.08/rakudo-2024.08.tar.gz"
+  sha256 "1d93afafd289683676a17ab61b4b02bb7e358391d30e4f29a9a045baec868b71"
   license "Artistic-2.0"
 
   livecheck do
@@ -11,17 +11,19 @@ class Rakudo < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "fb18c607f8965d2a62c23c1370d5aaf39a794b1a615c63fb6cce5526831a1496"
-    sha256 arm64_ventura:  "6e8cd98bd2bdc9dc666b82176118360cc89dc0cd28b9b05e9aa781d782690202"
-    sha256 arm64_monterey: "d78bb1aff173b9068431e1d53fdc0e60271b5f4a32ff63ed5d2a43ebc1c0b5d5"
-    sha256 sonoma:         "b7136dc88c334309f4d590aef4bf49ea55bafd9934ff4d641cc1b2839174b283"
-    sha256 ventura:        "3a219133ac628ee76925953eb95305fb5b63888ae1f39ee353e7f8e66f39378e"
-    sha256 monterey:       "1cac8c140fb4a1be3624285ef83d1b3ceed9f550276986f3fb81d843434b0ec8"
-    sha256 x86_64_linux:   "1ae9e21cba59835c3e921bc4f303a0143cb02cd7209c9fa36fb7c802a8eed62e"
+    sha256 arm64_sequoia:  "6fb5627d08ff7d53d35bfdb4dbc7bd1ab29fb1533c0c7e5f29c937e504cd0469"
+    sha256 arm64_sonoma:   "4ddefcd1291cac711ced2ae7d5ee8995bea2afc5a9387405fc0238429bd64340"
+    sha256 arm64_ventura:  "1e90e8fdfdc06e0d39bf4f2d92de22f86603b2394b1582e6e38c23335478a937"
+    sha256 arm64_monterey: "870676e74fa6d3d319ec4b3567b0a3784d54c6639fe95f7bda9b2a9fe2ad543b"
+    sha256 sonoma:         "7468192b0359754d67b2e78a11fe53745c09643bb666414db03c6b7c30d81516"
+    sha256 ventura:        "e9b1f4cf28e5317a25f1de612157c640ac04faf34a6c9416557538e8c94a8a51"
+    sha256 monterey:       "1d01d6876ff64bf18589d280334aa3bd3fdba78f8a4387bf1c700d2c3ebb3841"
+    sha256 x86_64_linux:   "4da26095cd1e282d0093d100bc00086a8b10da3782751e2821f4dc9dbcc8229a"
   end
 
   depends_on "libtommath"
   depends_on "libuv"
+  depends_on "moarvm"
   depends_on "nqp"
   depends_on "zstd"
 

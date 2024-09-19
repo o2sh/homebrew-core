@@ -1,12 +1,11 @@
 class FfmpegAT5 < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-5.1.4.tar.xz"
-  sha256 "54383bb890a1cd62580e9f1eaa8081203196ed53bde9e98fb6b0004423f49063"
+  url "https://ffmpeg.org/releases/ffmpeg-5.1.6.tar.xz"
+  sha256 "f4fa066278f7a47feab316fef905f4db0d5e9b589451949740f83972b30901bd"
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
   license "GPL-2.0-or-later"
-  revision 6
 
   livecheck do
     url "https://ffmpeg.org/download.html"
@@ -14,13 +13,14 @@ class FfmpegAT5 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "1b6da7b962f04eede13df34e0339b192d254be510d4ec6e03073c60f2adc21fa"
-    sha256 arm64_ventura:  "971ed70aad1d8858aa48fc4e9e6e9f7e15ddd8bd9d64ac5a844bf067aaa88eb8"
-    sha256 arm64_monterey: "1f149b78150ea5bf07a8fcfeabd13459ce47a92def7bd6157dd9f77fde28acbb"
-    sha256 sonoma:         "9a63b95ea3b80d76ecc528be12dc310fbdbc910f2ddf9a034c5699be62e5c699"
-    sha256 ventura:        "8d2648c8d57fd4709e256ca0804f86aaa37996bbbb896774fd054f127c0b628e"
-    sha256 monterey:       "8fb5cc3b03c7d1be287f537da993bccc8e88fca31346813cadb8182bfeed213a"
-    sha256 x86_64_linux:   "4c5d62459eba686525d82105a7976a79eb3ea62276beb816d6541203ef061b81"
+    sha256 arm64_sequoia:  "8e3c1af3a58f7dd7f14361ebf58870c2d4d4e8d23b3c066db626cea7e3fbdbf3"
+    sha256 arm64_sonoma:   "6b1695f829782ac37f42084d77b963344b2b112957acdaa53ebf4ff25882b7a1"
+    sha256 arm64_ventura:  "25c4f21de2beb17b0811dd4c6b3535c4573ff4f498f58e67de35cc8fff1eecc7"
+    sha256 arm64_monterey: "d60ae1aef709e961ef85f4d71c10e6d63c60ff7e5233ca3a4b54d6754280bed4"
+    sha256 sonoma:         "0e9adda40572d6c86d582cf958084ec0d4627b4d3312f88145ea02d0968dd1c1"
+    sha256 ventura:        "8d3fe574496a95f4c717fb2eea29be32b9cb68d043bd9432b027fb8d86122852"
+    sha256 monterey:       "c597627acda5a9bdce0ff50dee1213dd38b38be17f21ec4d380008d7b257839a"
+    sha256 x86_64_linux:   "53cd9c93078f6a47f56e932956b6987be3bcf759a905723832a312d486a5d686"
   end
 
   keg_only :versioned_formula
@@ -42,6 +42,8 @@ class FfmpegAT5 < Formula
   depends_on "libvmaf"
   depends_on "libvorbis"
   depends_on "libvpx"
+  depends_on "libx11"
+  depends_on "libxcb"
   depends_on "opencore-amr"
   depends_on "openjpeg"
   depends_on "opus"
@@ -66,8 +68,15 @@ class FfmpegAT5 < Formula
   uses_from_macos "libxml2"
   uses_from_macos "zlib"
 
+  on_macos do
+    depends_on "libarchive"
+    depends_on "libogg"
+    depends_on "libsamplerate"
+  end
+
   on_linux do
     depends_on "alsa-lib"
+    depends_on "libxext"
     depends_on "libxv"
   end
 

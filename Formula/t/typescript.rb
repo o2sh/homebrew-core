@@ -1,21 +1,19 @@
-require "language/node"
-
 class Typescript < Formula
   desc "Language for application scale JavaScript development"
   homepage "https://www.typescriptlang.org/"
-  url "https://registry.npmjs.org/typescript/-/typescript-5.4.5.tgz"
-  sha256 "154fae77169f04155ac52d521ac59abb07c9be29ea3744732adbf9f14abb2440"
+  url "https://registry.npmjs.org/typescript/-/typescript-5.6.2.tgz"
+  sha256 "6e954963e7689a13573927021cf1fe2d7f85d7808eba49f03f84cb5d77cdd6bf"
   license "Apache-2.0"
   head "https://github.com/Microsoft/TypeScript.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "e9a93bf3035058ebe45cfe31be63616aec6d16f772144e50c6284051846b1686"
+    sha256 cellar: :any_skip_relocation, all: "3feac3ae0f700e709d667b2171ec99b05a50064970f0151cdb2762299b0776d4"
   end
 
   depends_on "node"
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
+    system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
   end
 

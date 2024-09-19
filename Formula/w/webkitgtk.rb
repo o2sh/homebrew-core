@@ -1,9 +1,10 @@
 class Webkitgtk < Formula
   desc "GTK interface to WebKit"
   homepage "https://webkitgtk.org"
-  url "https://webkitgtk.org/releases/webkitgtk-2.44.1.tar.xz"
-  sha256 "425b1459b0f04d0600c78d1abb5e7edfa3c060a420f8b231e9a6a2d5d29c5561"
+  url "https://webkitgtk.org/releases/webkitgtk-2.44.4.tar.xz"
+  sha256 "2ce4ec1b78413035037aba8326b31ed72696626b7bea7bace5e46ac0d8cbe796"
   license "GPL-3.0-or-later"
+  revision 1
 
   livecheck do
     url "https://webkitgtk.org/releases/"
@@ -11,10 +12,11 @@ class Webkitgtk < Formula
   end
 
   bottle do
-    sha256 x86_64_linux: "12f27454bf4206e515b0768fba6a12f8369396f2cc5460c5928e87d8f83986ff"
+    sha256 x86_64_linux: "ba3d668e754e52184b06f1dd75b38cc2447c1cb73f7c9df243bf25ccd8ee537b"
   end
 
   depends_on "cmake" => :build
+  depends_on "gettext" => :build
   depends_on "gobject-introspection" => :build
   depends_on "gperf" => :build
   depends_on "perl" => :build
@@ -22,10 +24,12 @@ class Webkitgtk < Formula
   depends_on "python@3.12" => :build
   depends_on "ruby" => :build
   depends_on "unifdef" => :build
+  depends_on "at-spi2-core"
   depends_on "cairo"
   depends_on "enchant"
   depends_on "fontconfig"
   depends_on "freetype"
+  depends_on "gdk-pixbuf"
   depends_on "glib"
   depends_on "gstreamer"
   depends_on "gtk+3"
@@ -34,12 +38,16 @@ class Webkitgtk < Formula
   depends_on "jpeg-turbo"
   depends_on "jpeg-xl"
   depends_on "libavif"
+  depends_on "libdrm"
+  depends_on "libepoxy"
   depends_on "libgcrypt"
   depends_on "libnotify"
   depends_on "libpng"
   depends_on "libsecret"
   depends_on "libsoup"
+  depends_on "libtasn1"
   depends_on "libwpe"
+  depends_on "libx11"
   depends_on "libxcomposite"
   depends_on "libxml2"
   depends_on "libxslt"
@@ -48,8 +56,10 @@ class Webkitgtk < Formula
   depends_on "little-cms2"
   depends_on "mesa"
   depends_on "openjpeg"
+  depends_on "pango"
   depends_on "sqlite"
   depends_on "systemd"
+  depends_on "wayland"
   depends_on "webp"
   depends_on "woff2"
   depends_on "wpebackend-fdo"
@@ -106,7 +116,7 @@ class Webkitgtk < Formula
           g_signal_connect(webView, "close", G_CALLBACK(closeWebViewCb), main_window);
 
           // Load a web page into the browser instance
-          webkit_web_view_load_uri(webView, "http://www.webkitgtk.org/");
+          webkit_web_view_load_uri(webView, "https://www.webkitgtk.org/");
 
           // Make sure that when the browser area becomes visible, it will get mouse
           // and keyboard events

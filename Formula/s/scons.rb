@@ -3,18 +3,19 @@ class Scons < Formula
 
   desc "Substitute for classic 'make' tool with autoconf/automake functionality"
   homepage "https://www.scons.org/"
-  url "https://files.pythonhosted.org/packages/7b/68/6895065c86c65a9388eb760a43ea695ec5b9b1c98a9675a3bcd682dbe9c0/SCons-4.7.0.tar.gz"
-  sha256 "d8b617f6610a73e46509de70dcf82f76861b79762ff602d546f4e80918ec81f3"
+  url "https://files.pythonhosted.org/packages/b9/76/a2c1293642f9a448f2d012cabf525be69ca5abf4af289bc0935ac1554ee8/scons-4.8.1.tar.gz"
+  sha256 "5b641357904d2f56f7bfdbb37e165ab996b6143c948b9df0efc7305f54949daa"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "95120f2bfed80d992a7f8f8b24e3b30461f5174a6b9a7c24a5722c6dc34eb760"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "95120f2bfed80d992a7f8f8b24e3b30461f5174a6b9a7c24a5722c6dc34eb760"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "95120f2bfed80d992a7f8f8b24e3b30461f5174a6b9a7c24a5722c6dc34eb760"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a896b0c7638102ad279bc7f80b0e533e5fa00bf458f7913dc534d7450b454222"
-    sha256 cellar: :any_skip_relocation, ventura:        "a896b0c7638102ad279bc7f80b0e533e5fa00bf458f7913dc534d7450b454222"
-    sha256 cellar: :any_skip_relocation, monterey:       "a896b0c7638102ad279bc7f80b0e533e5fa00bf458f7913dc534d7450b454222"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "653548364415711953a4bb8283cd09bf087b2d46ed9ed2aa298eeaf3b62d3ae9"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "a328faf40ed543b4d70c679a181ab9aca15cf3c69cd4fd49f404a4f57c675825"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "633b90cf71e96dd4958f27ec2dc6d38fea979e317edacf5d7423717957cc506a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "633b90cf71e96dd4958f27ec2dc6d38fea979e317edacf5d7423717957cc506a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "633b90cf71e96dd4958f27ec2dc6d38fea979e317edacf5d7423717957cc506a"
+    sha256 cellar: :any_skip_relocation, sonoma:         "3a6fd9a6e51f29a80a45e60a7f85c750424fdf2e1f00627d2f3b416e8cd4b8a6"
+    sha256 cellar: :any_skip_relocation, ventura:        "3a6fd9a6e51f29a80a45e60a7f85c750424fdf2e1f00627d2f3b416e8cd4b8a6"
+    sha256 cellar: :any_skip_relocation, monterey:       "3a6fd9a6e51f29a80a45e60a7f85c750424fdf2e1f00627d2f3b416e8cd4b8a6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "633b90cf71e96dd4958f27ec2dc6d38fea979e317edacf5d7423717957cc506a"
   end
 
   depends_on "python@3.12"

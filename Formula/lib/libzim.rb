@@ -1,18 +1,19 @@
 class Libzim < Formula
   desc "Reference implementation of the ZIM specification"
   homepage "https://github.com/openzim/libzim"
-  url "https://github.com/openzim/libzim/archive/refs/tags/9.2.1.tar.gz"
-  sha256 "4d1579cbb902aef46e561c3cd4cf2ed74148d84e1c79d9e42b4892c882fce88b"
+  url "https://github.com/openzim/libzim/archive/refs/tags/9.2.3.tar.gz"
+  sha256 "7c6e7fcaf5bc82447edb12c6c573779af6d77b3b79227da57586e81c4e13f1bf"
   license "GPL-2.0-or-later"
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "38900f62ca1c3c4fd7c1f72dbcaf9a84e62de1ab83a29596082e4d97fc1f6373"
-    sha256 cellar: :any, arm64_ventura:  "ebd39e65fbe4f2766d89d0ce446046c37c1b9512de74e1b5499538c5141bf22e"
-    sha256 cellar: :any, arm64_monterey: "66dc4702753c800f10cd4d5c3211ab40e5962e513d6866c99227d77fb00131de"
-    sha256 cellar: :any, sonoma:         "e65ca74708e0d1fcaf32f8124076ac54f0441282915eb6b459b40d2414d39b58"
-    sha256 cellar: :any, ventura:        "c04df34f2a0d287fbeb38343e388f839b773181a583b8b98ac8e350f807547d4"
-    sha256 cellar: :any, monterey:       "726aa4a9ee929e6628920c8d71599652fe6686b9baed71d7f9f526d066d36edf"
-    sha256               x86_64_linux:   "646387692490e899b515ea4fa89df71e5db44a4c5f16cd2dac26362e2e3165bc"
+    sha256 cellar: :any, arm64_sequoia:  "679cd93009e9c5e0f0ae21ddc4b39487cf6beb02417e720b6e837f77d56b1331"
+    sha256 cellar: :any, arm64_sonoma:   "7568b83f08fc94270166a38329dfddce78683ec39f95fadbe58e435c07ced45e"
+    sha256 cellar: :any, arm64_ventura:  "37b642fca20f63876f6680c50f572c8b6174f35f40431c82a37c7f6de3bca1af"
+    sha256 cellar: :any, arm64_monterey: "2ef8b0cdc82668c43535df80f76baeb012c130fab6883f83e9eb0eaeca486200"
+    sha256 cellar: :any, sonoma:         "19018c8f6d7aeb22a6ef3087644fdb063efbf7479f03b37563b9fa01f4362f0b"
+    sha256 cellar: :any, ventura:        "a818dc7a2119af90bd80e0e74be039da19c4e8b1009bdf0762652ee659455fb1"
+    sha256 cellar: :any, monterey:       "a6207d366c82707f233e0bd6edc7c4b295a24fd9cca8d679868159dcb47eecb0"
+    sha256               x86_64_linux:   "c6fa0ec03e44ffed7d5d83d8c97ecbcfa41b6306dcda0f41c2b86920eb4ce45e"
   end
 
   depends_on "meson" => :build

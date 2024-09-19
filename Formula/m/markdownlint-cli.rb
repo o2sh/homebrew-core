@@ -1,26 +1,26 @@
-require "language/node"
-
 class MarkdownlintCli < Formula
   desc "CLI for Node.js style checker and lint tool for Markdown files"
   homepage "https://github.com/igorshubovych/markdownlint-cli"
-  url "https://registry.npmjs.org/markdownlint-cli/-/markdownlint-cli-0.40.0.tgz"
-  sha256 "2919296cbdbce0de23dea9177d7da930db3b818026dbaa9f3f0d263c6675930a"
+  url "https://registry.npmjs.org/markdownlint-cli/-/markdownlint-cli-0.41.0.tgz"
+  sha256 "1014bdf5901d5e41388722547bb64d596a8d456f08699f61e32ed6d22476f213"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5a940bef0f51bb1ed0150943bc654ae24f9285bb5c5e98bca6669cebd80506e4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5a940bef0f51bb1ed0150943bc654ae24f9285bb5c5e98bca6669cebd80506e4"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "5a940bef0f51bb1ed0150943bc654ae24f9285bb5c5e98bca6669cebd80506e4"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3f7767a0811719a2a97f8f51eaac58b2e1cdca470c91f94477c5215f1aaf42ed"
-    sha256 cellar: :any_skip_relocation, ventura:        "3f7767a0811719a2a97f8f51eaac58b2e1cdca470c91f94477c5215f1aaf42ed"
-    sha256 cellar: :any_skip_relocation, monterey:       "3f7767a0811719a2a97f8f51eaac58b2e1cdca470c91f94477c5215f1aaf42ed"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5a940bef0f51bb1ed0150943bc654ae24f9285bb5c5e98bca6669cebd80506e4"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "85da8f36470c0b6bc4df52b75553e0f0b3634cbf04fb16c6241a315dae056f3e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c414c02b11e76ee418773ada20614178eafc99d22b4166565ab5acfa768360c6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c414c02b11e76ee418773ada20614178eafc99d22b4166565ab5acfa768360c6"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "c414c02b11e76ee418773ada20614178eafc99d22b4166565ab5acfa768360c6"
+    sha256 cellar: :any_skip_relocation, sonoma:         "131b5d2abb4e8b7c4f34a89ad9fea8c93b6becc15460b4709c4c3e35d2b1bf52"
+    sha256 cellar: :any_skip_relocation, ventura:        "131b5d2abb4e8b7c4f34a89ad9fea8c93b6becc15460b4709c4c3e35d2b1bf52"
+    sha256 cellar: :any_skip_relocation, monterey:       "131b5d2abb4e8b7c4f34a89ad9fea8c93b6becc15460b4709c4c3e35d2b1bf52"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ed1b404f35203311f4a4bf0b444f488c2ecfa1886a4486e2930a99c8e14c1570"
   end
 
   depends_on "node"
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
+    system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
   end
 

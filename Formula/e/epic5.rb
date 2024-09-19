@@ -1,12 +1,11 @@
 class Epic5 < Formula
   desc "Enhanced, programmable IRC client"
-  homepage "http://www.epicsol.org/"
-  url "https://ftp.epicsol.org/pub/epic/EPIC5-PRODUCTION/epic5-2.1.12.tar.xz"
-  mirror "https://www.mirrorservice.org/sites/distfiles.macports.org/epic5/epic5-2.1.12.tar.xz"
-  sha256 "c89ae4fc014ddcf0084b748e22f47b46a85ab1ac9bf0b22560360ba8626b6da6"
+  homepage "https://www.epicsol.org/"
+  url "https://ftp.epicsol.org/pub/epic/EPIC5-PRODUCTION/epic5-3.0.tar.xz"
+  mirror "https://www.mirrorservice.org/sites/distfiles.macports.org/epic5/epic5-3.0.tar.xz"
+  sha256 "96d47350c13a3d99019da0e6a04b0c7f80dab6ddba590bcc679dbb8acc1779a1"
   license "BSD-3-Clause"
-  revision 1
-  head "http://git.epicsol.org/epic5.git", branch: "master"
+  head "https://git.epicsol.org/epic5.git", branch: "master"
 
   livecheck do
     url "https://ftp.epicsol.org/pub/epic/EPIC5-PRODUCTION/"
@@ -14,14 +13,14 @@ class Epic5 < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "5209a0e6fb595e179556ec87ecb8ba080fe8802b6ff9d829775177fda5aab632"
-    sha256 arm64_monterey: "a79602d8312fd7f4d9ed1cd5943ebf896900b33217e9d22e186644b8d434dd65"
-    sha256 arm64_big_sur:  "59f284a1e7e852f151c02ac16a64ac23fff0a8018736e9db42108dfe4481c515"
-    sha256 ventura:        "bae652c9a1a9dfa1e428fdba9b6e6c87f3d32669220be7b27989710129292cda"
-    sha256 monterey:       "0eb4696dd63599841100cb9dc9d3d3c7da7535d53d576efb787e72accb73180e"
-    sha256 big_sur:        "bd772ddbdb174d0b6e9b469c05f2ae6ed356ef05239dd81becc7b3f46600d2d3"
-    sha256 catalina:       "946b9c949126dc8a77f6d3ac1e79a03873b71bcb00d561684c9af8c29ecdd12b"
-    sha256 x86_64_linux:   "625c386a734ca3cdae4366ac6745633642aa130af22773050320202f1804c4e3"
+    sha256 arm64_sequoia:  "7967cdc3e555432aac46d1c4a868e325c0b49db4b68ec6f05fdac66cd6881548"
+    sha256 arm64_sonoma:   "728f124c2b5f362e4bbe8d6e3baecb2d5879b15c72bef7cd95e183efcbdbc243"
+    sha256 arm64_ventura:  "5bcc0fb914418bc0d0dbac3930c8c7e6b93140d60c8d99f15ca2ceee67a1131b"
+    sha256 arm64_monterey: "6aa3584946b99c7f84015cc7dc2d981cf7e2975a0198724377e0627c8bfd1089"
+    sha256 sonoma:         "6f4d3a6a16ed04870bd2078510fc609371175ae7fea48b059cf2579d611f317c"
+    sha256 ventura:        "204221a2c3f2c493ed7d3dd5ecc69ee3f3ea5bfda516dc39d7368b571d5e8303"
+    sha256 monterey:       "7eb33143e21bb1629c667ff5e2a6792598311b142c1ac052fae55402a869ef05"
+    sha256 x86_64_linux:   "304123953262a1054e6d0830b1f690f052deb6e3d4023aa7b02d601af6dedad3"
   end
 
   depends_on "openssl@3"

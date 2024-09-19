@@ -1,19 +1,18 @@
 class Gosec < Formula
   desc "Golang security checker"
   homepage "https://securego.io/"
-  url "https://github.com/securego/gosec/archive/refs/tags/v2.19.0.tar.gz"
-  sha256 "5c781c7c3df89d0edf11b45bea9c1ea966c68521316d68e5e49ad895c2278f69"
+  url "https://github.com/securego/gosec/archive/refs/tags/v2.21.3.tar.gz"
+  sha256 "a055288d34dde54efcf6d3bdc1492d8384d661bf934b345d6db9cd8fc376472d"
   license "Apache-2.0"
   head "https://github.com/securego/gosec.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c6f5da4e3126c8bfc296acb58df5ca0e05b711f724501c0494bb488343a4c1eb"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "cb5fa7c79734e23962a43a6c490dde69c19fe74023e480b9f6eafa609d3bd774"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7c5ac4ae17425663d803b873a0d85716e5becc94dfdd408a6d838c03279f4fda"
-    sha256 cellar: :any_skip_relocation, sonoma:         "0e26ca2bbeaccab215bc320adaad8124dcaaf40468ba031bcedae956c56ba997"
-    sha256 cellar: :any_skip_relocation, ventura:        "261c071ab69f0f5963891e48f864e0b1589a125dc604b543c737eb0b578dce6c"
-    sha256 cellar: :any_skip_relocation, monterey:       "0e8fe3597ea1bacd9b0b9b07f4a98bf84b46c08b1f4d6de7c579a5b6851e92cc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1c0e45b6a9db34e024326a832f45c9d20fdb98b2c0c8b8b5c9dab6094d220248"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6149e9fa5db0b21d3620217c0a350ebc1579569e1f474eeb4a37bf652da0bdd2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6149e9fa5db0b21d3620217c0a350ebc1579569e1f474eeb4a37bf652da0bdd2"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "6149e9fa5db0b21d3620217c0a350ebc1579569e1f474eeb4a37bf652da0bdd2"
+    sha256 cellar: :any_skip_relocation, sonoma:        "12584b86db4e00885a8a3b88a34bb18e37b3828d5efa93784165fd750b9c0c6d"
+    sha256 cellar: :any_skip_relocation, ventura:       "12584b86db4e00885a8a3b88a34bb18e37b3828d5efa93784165fd750b9c0c6d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "16c5dd2be89f15e85064e0a20e108f4a76fd6adfaa8b950c694fa956b901fe80"
   end
 
   depends_on "go"

@@ -3,9 +3,11 @@ class Pioneers < Formula
   homepage "https://pio.sourceforge.net/"
   url "https://downloads.sourceforge.net/project/pio/Source/pioneers-15.6.tar.gz"
   sha256 "9a358d88548e3866e14c46c2707f66c98f8040a7857d47965e1ed9805aeb631d"
+  license "GPL-2.0-or-later"
   revision 1
 
   bottle do
+    sha256 arm64_sequoia:  "f8818813a32e582cfe48b07fea5acb1f9796fb529586e2b1d73eded630f64eb4"
     sha256 arm64_sonoma:   "322552b3012b80d29fbb86bd7986a9819857e34f37a4e25d5787ba891318f17f"
     sha256 arm64_ventura:  "e4593b8a69cf0aa9ce87ffe07240f877ec2462d6f2956d7757bc35656e7946d2"
     sha256 arm64_monterey: "9dc75e65f88e84ce1354958dab915fc80436b07ea720239479e1d82ead6fbd8c"
@@ -46,9 +48,9 @@ class Pioneers < Formula
   end
 
   test do
-    system "#{bin}/pioneers-editor", "--help"
+    system bin/"pioneers-editor", "--help"
     server = fork do
-      system "#{bin}/pioneers-server-console"
+      system bin/"pioneers-server-console"
     end
     sleep 5
     Process.kill("TERM", server)

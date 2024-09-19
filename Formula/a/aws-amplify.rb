@@ -1,31 +1,30 @@
-require "language/node"
-
 class AwsAmplify < Formula
   desc "Build full-stack web and mobile apps in hours. Easy to start, easy to scale"
   homepage "https://aws.amazon.com/amplify"
-  url "https://registry.npmjs.org/@aws-amplify/cli-internal/-/cli-internal-12.12.0.tgz"
-  sha256 "74e2ec4eb09a6db0a0b6a37927f5ca8efd6a7bdf5420fb52a76f1cf64be136d9"
+  url "https://registry.npmjs.org/@aws-amplify/cli-internal/-/cli-internal-12.12.6.tgz"
+  sha256 "f6773f0f4ffe1c25a8c023a03d37921f907c401fd1e776a950c26b31b2acf98d"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6edecb90b98a3721512752772ed86408c7124771efad7f7844a6fc13e3354525"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "78d7fb93e88d312e03e1fc83bbc57536d984ea4e3f64cb2710b19ea6dfc53f71"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1c993945c0b09293a95b6b23ea14cae6a9182570b734f259dcd45f8ed0d1cc4d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c69549169ec4c4960f4b0334ea8e7850f8ebed5e2eb5c9d4f1fb574153371286"
-    sha256 cellar: :any_skip_relocation, ventura:        "4cb65a6d186caac97d757ccfba908ca8035659986417f1acdbf75f060a4090cb"
-    sha256 cellar: :any_skip_relocation, monterey:       "558153ae9ae957dbfb8ecad5186be905e4e3e38ffe1cd444d2dcb0939dd934af"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c962a77c8894bcf5c6eb63635ad44906a410c88914896cf5a5302c9f9a793e4f"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "1b2beeefe485e5142050b6bba3270a83d3e8af3548c6d4e037363706723cd006"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "841db0d134a9cbaaed707558d4dfe9dab8b38edb01b87f815f276e8b0016f5d1"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "841db0d134a9cbaaed707558d4dfe9dab8b38edb01b87f815f276e8b0016f5d1"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "841db0d134a9cbaaed707558d4dfe9dab8b38edb01b87f815f276e8b0016f5d1"
+    sha256 cellar: :any_skip_relocation, sonoma:         "bbf9f9280e9971482c6cdfdb9f8a1eb45b975e8583a76ee6a6420e7ad135a8dd"
+    sha256 cellar: :any_skip_relocation, ventura:        "bbf9f9280e9971482c6cdfdb9f8a1eb45b975e8583a76ee6a6420e7ad135a8dd"
+    sha256 cellar: :any_skip_relocation, monterey:       "bbf9f9280e9971482c6cdfdb9f8a1eb45b975e8583a76ee6a6420e7ad135a8dd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b02b0856bdbcc0dad7eb21e8e8c245a54ab11dff471cad117510f060ad47ae79"
   end
 
   depends_on "node"
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
-    bin.install_symlink Dir["#{libexec}/bin/*"]
+    system "npm", "install", *std_npm_args
+    bin.install_symlink libexec.glob("bin/*")
 
     unless Hardware::CPU.intel?
-      rm_rf "#{libexec}/lib/node_modules/@aws-amplify/cli-internal/node_modules" \
-            "/@aws-amplify/amplify-frontend-ios/resources/amplify-xcode"
+      rm_r "#{libexec}/lib/node_modules/@aws-amplify/cli-internal/node_modules" \
+           "/@aws-amplify/amplify-frontend-ios/resources/amplify-xcode"
     end
 
     # Remove non-native libsqlite4java files

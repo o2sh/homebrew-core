@@ -1,19 +1,19 @@
 class SonarScanner < Formula
   desc "Launcher to analyze a project with SonarQube"
   homepage "https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/"
-  url "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006.zip"
-  sha256 "817802ab3a476f739192d6c10504285e24e9224a0fbe2a518bb938ff88b7ea81"
+  url "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.2.0.4584.zip"
+  sha256 "6f3ddd5e273a65cfc9df88ef1e5991bc5aa984533edbc3880cb045b73e62bce8"
   license "LGPL-3.0-or-later"
   head "https://github.com/SonarSource/sonar-scanner-cli.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "13fadfccf23d8bffe46a1dfac508917900a967c558ba1e5970109967f404b7ae"
+    sha256 cellar: :any_skip_relocation, all: "220d6a45b4827b17901d6dfd08651cb03eecb6947a6ccaa967c3258e8fc9d678"
   end
 
   depends_on "openjdk"
 
   def install
-    rm_rf Dir["bin/*.bat"]
+    rm_r(Dir["bin/*.bat"])
     libexec.install Dir["*"]
     bin.install libexec/"bin/sonar-scanner"
     etc.install libexec/"conf/sonar-scanner.properties"

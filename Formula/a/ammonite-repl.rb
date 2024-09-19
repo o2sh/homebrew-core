@@ -1,9 +1,9 @@
 class AmmoniteRepl < Formula
   desc "Ammonite is a cleanroom re-implementation of the Scala REPL"
   homepage "https://ammonite.io/"
-  url "https://github.com/com-lihaoyi/Ammonite/releases/download/3.0.0-M1/3.3-3.0.0-M1"
-  version "3.0.0-M1"
-  sha256 "10bf264d499b71eb552153878ddfc9bcef0db179dbdc4b582b6fa2b59c0eb032"
+  url "https://github.com/com-lihaoyi/Ammonite/releases/download/3.0.0-M2/3.3-3.0.0-M2"
+  version "3.0.0-M2"
+  sha256 "57b4e3812123861e2acf339c9999f6c23fe2fc4dbfd2c87dc5c52c31bdc37d73"
   license "MIT"
 
   livecheck do
@@ -13,7 +13,8 @@ class AmmoniteRepl < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "37fb4a5e267505d134a88a6d0fa3ddc92f014d3178a9a61eb814d46b8b1407d5"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, all: "6b8e2cf8e1bf5d08e9161c5b67bc205d8b8d93d955e1fc32ba60171df8395863"
   end
 
   depends_on "openjdk"

@@ -1,9 +1,8 @@
 class FaasCli < Formula
   desc "CLI for templating and/or deploying FaaS functions"
   homepage "https://www.openfaas.com/"
-  url "https://github.com/openfaas/faas-cli.git",
-      tag:      "0.16.26",
-      revision: "a9a775760ba88f37820e2939f5c5f24311f5d45c"
+  url "https://github.com/openfaas/faas-cli/archive/refs/tags/0.16.34.tar.gz"
+  sha256 "3b19c635be5ea76249d85eac0e362271080808716585823d91681904b98d970b"
   license "MIT"
   head "https://github.com/openfaas/faas-cli.git", branch: "master"
 
@@ -13,13 +12,14 @@ class FaasCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "fa914359651d6cbbe60a97042dc5dbca648df722ce7faa8a46bf049d2a94518b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "66c5ba0689e749e0ab775cee4af1d2679ac37d50c2866312a3a86702e0e871b3"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0e8b517c9cc513dbcd979f5c706fced8f877bd465944e596c4170b3d81191548"
-    sha256 cellar: :any_skip_relocation, sonoma:         "6e6be1bdd76d285bed61083d9d2c5047ed70e9bf392080a91509ee5449d6e1b9"
-    sha256 cellar: :any_skip_relocation, ventura:        "5d7e87391a9f475ed86d2d7e203d2a16b81af4a49acb28d375709a850548e522"
-    sha256 cellar: :any_skip_relocation, monterey:       "3840ea4867020d5c617e3c70f9f632f98d92697bfb993a1c06c5608fdc7877d7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "99c55786f7142958c892c7d8c49be17633f0d53a13e0e45a772aae29e27d3cea"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "e8e09f9af76d10e8ccbb77dda8ccb972c5dd9ef3b481fdf1a0bc066eee91d82f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8234e965101a47564c00ad9b5d90e9ae02bf74540940c45aa4d787edbb051552"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b5707ba58d74c4cd5231b88bee90c6bbb728be7f08e718a425e281eea3514d35"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "90e7106cff20ed0ab1c81f8a8778e358c0f041d57521b16ec7ffad3f3abecad6"
+    sha256 cellar: :any_skip_relocation, sonoma:         "c417bab8b1bc59d082f1149a878cf931bdea0f471f48264e19aa669085e7b360"
+    sha256 cellar: :any_skip_relocation, ventura:        "d2ef4e17e5f723330162e80f21789a6f177ba6bb47d9d862b1ecee75442cad41"
+    sha256 cellar: :any_skip_relocation, monterey:       "267020a604ea344bad40c8794719473db3679b244163cd690065524eaa9efbb6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7bbba2623de5d143f57540648433afe33f98fc7912b3eb40724eb2a2893dd015"
   end
 
   depends_on "go" => :build
@@ -30,7 +30,7 @@ class FaasCli < Formula
     project = "github.com/openfaas/faas-cli"
     ldflags = %W[
       -s -w
-      -X #{project}/version.GitCommit=#{Utils.git_head}
+      -X #{project}/version.GitCommit=
       -X #{project}/version.Version=#{version}
     ]
     system "go", "build", *std_go_args(ldflags:), "-a", "-installsuffix", "cgo"
@@ -82,9 +82,7 @@ class FaasCli < Formula
       output = shell_output("#{bin}/faas-cli deploy --tls-no-verify -yaml test.yml", 1)
       assert_match "Deploying: dummy_function.", output
 
-      commit_regex = /[a-f0-9]{40}/
       faas_cli_version = shell_output("#{bin}/faas-cli version")
-      assert_match commit_regex, faas_cli_version
       assert_match version.to_s, faas_cli_version
     ensure
       Process.kill("TERM", pid)

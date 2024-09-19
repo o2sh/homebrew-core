@@ -1,23 +1,24 @@
 class CargoUdeps < Formula
   desc "Find unused dependencies in Cargo.toml"
   homepage "https://github.com/est31/cargo-udeps"
-  url "https://github.com/est31/cargo-udeps/archive/refs/tags/v0.1.47.tar.gz"
-  sha256 "8794b480ab6dd166617711345116be5958def42679c1a5948d41850ecb9cb806"
+  url "https://github.com/est31/cargo-udeps/archive/refs/tags/v0.1.50.tar.gz"
+  sha256 "e06e0f735e4d966693be51abe3421ce3fd05459002e03ba85f474f1f5be24823"
   license any_of: ["Apache-2.0", "MIT"]
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "b00bdb45cf491c545641ec5f5b0ea3ebf72827cb05619071b3b4ebd930b2894f"
-    sha256 cellar: :any,                 arm64_ventura:  "55eb71de7dc712e5b9f6392fee924890fb8de957b31acb12ca012875947312cd"
-    sha256 cellar: :any,                 arm64_monterey: "a650e624f353e9a555e373001422f9a412404db753a4d407a548f792c5b89ae1"
-    sha256 cellar: :any,                 sonoma:         "d62863728dacaa6f8ca039a70c4c65a318829170fb56f707cbf5ad6a0c722fad"
-    sha256 cellar: :any,                 ventura:        "452b6ee1631ca2555b39a4cfe66a674a9ae61058e03afe7df0de90ac5def7980"
-    sha256 cellar: :any,                 monterey:       "30ab935ed8e8bc4a4892b42a2465363d53014b63e495cfaeec7949746a54dfca"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "285966a31c6a1a441bf1696b00a172ce64f87301d1708517f0afb16ad396a6f8"
+    sha256 cellar: :any,                 arm64_sequoia:  "39e4fdee0996d01225194b344dd7f8985a1a61fe3e5064bcb2395c4716227b14"
+    sha256 cellar: :any,                 arm64_sonoma:   "ff6fe7b0b7dd42ba7242cbb656cb0a30c0dbe7fe08c632c2f3ef7e5635c219d2"
+    sha256 cellar: :any,                 arm64_ventura:  "22ee1a8517c86e233eb581a246a1dddee5382bc18f58b70d23d0a57115268e9c"
+    sha256 cellar: :any,                 arm64_monterey: "ab599874702f48a34cf64b05b573a0b8ed5264526ba29291db6d9f119ccb9712"
+    sha256 cellar: :any,                 sonoma:         "7a72b74218eeb222426c56ed52ccf1efa6c7250fa19ea408002fe23ab06c93d4"
+    sha256 cellar: :any,                 ventura:        "98466772166292d1c0327c8b9b1712b4f5b97d57383bf37b6149a19d549ce384"
+    sha256 cellar: :any,                 monterey:       "815c4d0d59392b5fb469617706b3e81b013b08fd378fc9e69b980660a3a36ffd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bfbc1ac3a110359a52a4ac5968633547c765582adcee37ce485ba21ae62c32a9"
   end
 
   depends_on "rust" => :build
-  depends_on "rustup-init" => :test
-  depends_on "libgit2"
+  depends_on "rustup" => :test
+  depends_on "libgit2@1.7"
   depends_on "libssh2"
   depends_on "openssl@3"
 
@@ -46,10 +47,9 @@ class CargoUdeps < Formula
   test do
     # Show that we can use a different toolchain than the one provided by the `rust` formula.
     # https://github.com/Homebrew/homebrew-core/pull/134074#pullrequestreview-1484979359
-    ENV["RUSTUP_INIT_SKIP_PATH_CHECK"] = "yes"
-    rustup_init = Formula["rustup-init"].bin/"rustup-init"
-    system rustup_init, "-y", "--profile", "minimal", "--default-toolchain", "beta", "--no-modify-path"
-    ENV.prepend_path "PATH", HOMEBREW_CACHE/"cargo_cache/bin"
+    ENV.prepend_path "PATH", Formula["rustup"].bin
+    system "rustup", "default", "beta"
+    system "rustup", "set", "profile", "minimal"
 
     crate = testpath/"demo-crate"
     mkdir crate do
@@ -69,7 +69,7 @@ class CargoUdeps < Formula
     end
 
     [
-      Formula["libgit2"].opt_lib/shared_library("libgit2"),
+      Formula["libgit2@1.7"].opt_lib/shared_library("libgit2"),
       Formula["libssh2"].opt_lib/shared_library("libssh2"),
       Formula["openssl@3"].opt_lib/shared_library("libssl"),
       Formula["openssl@3"].opt_lib/shared_library("libcrypto"),

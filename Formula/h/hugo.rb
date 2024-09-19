@@ -1,19 +1,23 @@
 class Hugo < Formula
   desc "Configurable static site generator"
   homepage "https://gohugo.io/"
-  url "https://github.com/gohugoio/hugo/archive/refs/tags/v0.125.6.tar.gz"
-  sha256 "c50df060b9c760fc12c503a9ca53ca1daa428766715ae9dda74d6ee1f53bd0e4"
+  url "https://github.com/gohugoio/hugo/archive/refs/tags/v0.134.3.tar.gz"
+  sha256 "9975498a69df214dce634802d14c6a8746966692084c9e99ef1c799b9b55b66b"
   license "Apache-2.0"
   head "https://github.com/gohugoio/hugo.git", branch: "master"
 
+  livecheck do
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
+
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "19ea37382476cf2d5a3e67121c1d27a4f68ca6f71313d5d4d800d6c6573e38a8"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ef43cf5bfdc2b50a1fe548512f6d2556f9363b119cc631ea9ffc8d31fc4bab2d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "36122c51bd20bd7adc540c75642770f18a06fa13b8bb1ab956324d2e8ab2b314"
-    sha256 cellar: :any_skip_relocation, sonoma:         "2b0fc1abd0221ba3f5acb1622a4ef9ac5890c8649ca64858e5b2879be0c84a40"
-    sha256 cellar: :any_skip_relocation, ventura:        "31224d8a3c0a7810a88d13630887213394f13431090c7a0d2ad089bc76b2b572"
-    sha256 cellar: :any_skip_relocation, monterey:       "e0596e3a3edefd8c776b3fb5865f024cc3ff12ea53724ff51cbb3dd952ee8005"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8dcb2ce8bf9fd9696986fc2138225463cdc5b9b425421fae6b910373856d9ee7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2ca8337a8b1ce152b26ea01b497b184b20ddc6acbaad792d3ce5a06504b8431a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "aeb3679053306b36a1ac0fd66d4e9d4a37a691f8c25be423bc21439ebeb1d33d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "f830ad8188d296cca2cefb37996fe47e91db92ea863c0c531333e142e4b0e1dc"
+    sha256 cellar: :any_skip_relocation, sonoma:        "fb64f8a42c484022ee423a5f75701b3439741270d47c2d49493f753a0028860a"
+    sha256 cellar: :any_skip_relocation, ventura:       "1482ea1ad9e87302ff279d369fb99af4c31256b11c6e568c2d9a9d61368ef440"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9caf931d113947724d16c7d6e7e895d0002ec989958b016e96c8ddefd64933c2"
   end
 
   depends_on "go" => :build

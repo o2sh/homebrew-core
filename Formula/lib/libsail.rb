@@ -1,24 +1,25 @@
 class Libsail < Formula
   desc "Missing small and fast image decoding library for humans (not for machines)"
   homepage "https://github.com/HappySeaFox/sail"
-  url "https://github.com/HappySeaFox/sail/archive/refs/tags/v0.9.4.tar.gz"
-  sha256 "9a8b93c15c4a1afe07c760d2087895a18626034f55917f333aaabe9c9704438f"
+  url "https://github.com/HappySeaFox/sail/archive/refs/tags/v0.9.5.tar.gz"
+  sha256 "28c601c0399be1940710afc150b5836f8b3f5f6a35b98d7ac1467e62bc568e20"
   license "MIT"
+  revision 1
 
   bottle do
-    sha256 arm64_sonoma:   "06af4232cf0664b0f70346822b5ad41cd73aa40ab427e2023416b11a8f39b3ce"
-    sha256 arm64_ventura:  "1ac6b47a86abd99cdca0b4436a4709361fdbc2b855b2d0765f437c4a5fe9b2ee"
-    sha256 arm64_monterey: "d6a3f51c67d4cf6dffa62ba5df2ebd80fe40d0258572473c5d0f65672e6f8b38"
-    sha256 sonoma:         "04ccfdd2b34f2a53fe56187d16864edc3ca1c50e14d7ccabf41cd3983f08585d"
-    sha256 ventura:        "e1160d699fb68e44d953fd2fee135e91eb0ff9982f17f4a817c93cca2735442f"
-    sha256 monterey:       "ba4679b8f1224d78b7b605da210eb4d412c698ae6efc0fc045b9d7a342de4647"
-    sha256 x86_64_linux:   "833439de055562b6a419822a7fefbc6b42930e535f5a01ae7a75748fd9c4feee"
+    sha256 arm64_sequoia: "9d63be7127fd7b253c2a2cb62ee3170fa44d14f5aa42ac30d490e6925110f2bc"
+    sha256 arm64_sonoma:  "2b5e1cf61ac93541c9cc88dc541fcc5efc2bdf845ee2dcd11b6dcf9b9fe075e4"
+    sha256 arm64_ventura: "336e94e6f697c0f57cf748b258e0031be67f45d0d3b5b43e996c968928046639"
+    sha256 sonoma:        "348914ec9947ac27567a5279a417854081cde40abadb36c8b63f6d488dc690a3"
+    sha256 ventura:       "f9bfc91f552a24e6aa4f3f8bcb0115b57c7070a6fd829c6ebeacfa26980b891a"
+    sha256 x86_64_linux:  "b3c59cbf10e596d7c118ed25bac52298105e2d5f6e280e6867bf72b123442de2"
   end
 
   depends_on "cmake"      => :build
   depends_on "pkg-config" => [:build, :test]
-
+  depends_on "brotli"
   depends_on "giflib"
+  depends_on "highway"
   depends_on "jasper"
   depends_on "jpeg-turbo"
   depends_on "jpeg-xl"
@@ -42,7 +43,7 @@ class Libsail < Formula
   end
 
   test do
-    system "#{bin}/sail-imaging", "decode", test_fixtures("test.png")
+    system bin/"sail-imaging", "decode", test_fixtures("test.png")
 
     (testpath/"test.c").write <<~EOS
       #include <sail/sail.h>

@@ -1,8 +1,8 @@
 class Scip < Formula
   desc "Solver for mixed integer programming and mixed integer nonlinear programming"
   homepage "https://scipopt.org"
-  url "https://scipopt.org/download/release/scip-9.0.0.tgz"
-  sha256 "b117a27cd4b62d3aa97a4bd0eaf06cbbd19a33a203b776599173a539085ed19f"
+  url "https://scipopt.org/download/release/scip-9.1.1.tgz"
+  sha256 "fd68a7ecc3c9086a68ef7ed0421381e811130f4c7dcb2c13ae69744577abd5cf"
   license "Apache-2.0"
 
   livecheck do
@@ -11,31 +11,35 @@ class Scip < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "1613e0e61fad7535fa99ffcd84d8fcc50cc0129f199eec4694677f69bcfb9207"
-    sha256 cellar: :any,                 arm64_ventura:  "c9b790b5a808f51d69aae738acf14ce1ffd8d21a38d6bb0e9a673dc6680b0ca6"
-    sha256 cellar: :any,                 arm64_monterey: "991c0d33f2c999cb6331eee5790ef69a66792f3ca1cd71cc4944b8dbf9ef6c5d"
-    sha256 cellar: :any,                 sonoma:         "bd989a806ad39acbb796f9f31d9ad9e0a8a8d95be5f378565818f91c3286e029"
-    sha256 cellar: :any,                 ventura:        "da8e83d1efedfba851ab678f2ab9ab0c046a874438cedafc6e9fff5cfdee01a8"
-    sha256 cellar: :any,                 monterey:       "5a5c8cb550e57e5eed5e78c4bb3cce5a8ac612cbd91e3f0d3de327235d24af7e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ed6b8ea13434faec0fa43aadece6838dd2b8c293355ddde883fbb8c787f86d01"
+    sha256 cellar: :any,                 arm64_sequoia: "c423a30bee48e5284391a79873d16b96ca882db083453fb6447c580fc43b56d5"
+    sha256 cellar: :any,                 arm64_sonoma:  "8266df90b7d371ff4c19e22e86889bc1077557c2614321a519df874da2e8d3e2"
+    sha256 cellar: :any,                 arm64_ventura: "d9110e241635f0f7931bcc420a2609a986f2dc75b047bed89d38410de169f781"
+    sha256 cellar: :any,                 sonoma:        "d5c77cc3b140064843a11d9b46a8eafdc632f442faac6ba9949ec4d3531d2906"
+    sha256 cellar: :any,                 ventura:       "041816294d0ef034027386f9e7f947c60fb3d5714b7499350af605750ef8c71e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fe8b303f263ba6898325423fdd354a00d4d565652f2b51b4a84eea7f3ecee0be"
   end
 
   depends_on "cmake" => :build
   depends_on "cppad"
   depends_on "gmp"
   depends_on "ipopt"
+  depends_on "openblas"
   depends_on "papilo"
   depends_on "readline"
   depends_on "soplex"
+  depends_on "tbb"
+
   uses_from_macos "zlib"
 
+  on_macos do
+    depends_on "gcc"
+  end
+
   def install
-    cmake_args = %w[
-      -DZIMPL=OFF
-    ]
-    system "cmake", "-S", ".", "-B", "build", *cmake_args, *std_cmake_args
+    system "cmake", "-S", ".", "-B", "build", "-DZIMPL=OFF", *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
+
     pkgshare.install "check/instances/MIP/enigma.mps"
     pkgshare.install "check/instances/MINLP/gastrans.nl"
   end

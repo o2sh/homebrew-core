@@ -1,21 +1,24 @@
 class Atmos < Formula
   desc "Universal Tool for DevOps and Cloud Automation"
   homepage "https://github.com/cloudposse/atmos"
-  url "https://github.com/cloudposse/atmos/archive/refs/tags/v1.71.0.tar.gz"
-  sha256 "1fbd3125f4acb17fe61f7011e67a11123d8a152367bab4ab84776c2f0467a92f"
+  url "https://github.com/cloudposse/atmos/archive/refs/tags/v1.88.1.tar.gz"
+  sha256 "90f2be90c10efdda0b12c2bc24c12c8eabf35e8526351131e44c07c28af3dd0e"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c6b2b542fd63981fa069c9c6572049c7d6b2ebc61b0f656355a106648c344545"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7af53595aa23f7b4e09e95795ce693ee43779eff884c5d96472dfba14e362347"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "96b6e6e7d5a9add20e661f5fabd23164ad63b3e72b45249c44722e7ad5b5fa1b"
-    sha256 cellar: :any_skip_relocation, sonoma:         "49b89c7e066b9963362194b535ee2f167c2649b97fd1c1b645e54bc49db68e47"
-    sha256 cellar: :any_skip_relocation, ventura:        "12acbe08663b70dcf323ee430352736a5f7a62527396d5f48d987fd60a848050"
-    sha256 cellar: :any_skip_relocation, monterey:       "45cb3ad3fd2e9d14d7858586396283bb8b9b2afb94989328fd1e523162135f63"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "06e87c1d71732b610e528cede85065ace12069832d3f5f58a685f8d64972fcd7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "13bf6d78a5c9f7ea9c17fc9ed650de20e5f9afff936ca1b703063c04d1d20fc7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "719616c26f38d051ce0c570fbe20cb6708d2fb8a3d7788340b395e60f0c6921c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "719616c26f38d051ce0c570fbe20cb6708d2fb8a3d7788340b395e60f0c6921c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "719616c26f38d051ce0c570fbe20cb6708d2fb8a3d7788340b395e60f0c6921c"
+    sha256 cellar: :any_skip_relocation, sonoma:         "557b7cb8b61c937ddeda45531f2c07add156bf707949f4f641d47ab6b298ae38"
+    sha256 cellar: :any_skip_relocation, ventura:        "557b7cb8b61c937ddeda45531f2c07add156bf707949f4f641d47ab6b298ae38"
+    sha256 cellar: :any_skip_relocation, monterey:       "557b7cb8b61c937ddeda45531f2c07add156bf707949f4f641d47ab6b298ae38"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3331de9ae79d1ae7b64b64f7447ae292ebb528838bfae7e700061174998a6e7a"
   end
 
   depends_on "go" => :build
+
+  conflicts_with "tenv", because: "tenv symlinks atmos binaries"
 
   def install
     system "go", "build", *std_go_args(ldflags: "-s -w -X 'github.com/cloudposse/atmos/cmd.Version=#{version}'")

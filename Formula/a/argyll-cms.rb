@@ -12,6 +12,7 @@ class ArgyllCms < Formula
 
   bottle do
     rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia:  "ee4c08bc9d76016042e678807530113461988c06c3ef6e47ece36ea5d4776fbe"
     sha256 cellar: :any,                 arm64_sonoma:   "9416d935216f5054e63c9baa53364c28d96d678c70abaf4d697c41bcc9bed185"
     sha256 cellar: :any,                 arm64_ventura:  "6954dce83aba27dfa337eca3141fe1506bfcd72ffcc79d63040ba329d236a658"
     sha256 cellar: :any,                 arm64_monterey: "9862c45da43e3cca13c78e82081c1dcaa5806dac6583c00f8eba95fe6ac298ed"
@@ -30,6 +31,7 @@ class ArgyllCms < Formula
 
   on_linux do
     depends_on "libx11"
+    depends_on "libxext"
     depends_on "libxinerama"
     depends_on "libxrandr"
     depends_on "libxscrnsaver"
@@ -70,7 +72,7 @@ class ArgyllCms < Formula
     end
 
     # Remove bundled libraries to prevent fallback
-    %w[jpeg png tiff zlib].each { |l| (buildpath/l).rmtree }
+    %w[jpeg png tiff zlib].each { |l| rm_r(buildpath/l) }
 
     inreplace "Jamtop" do |s|
       openssl = Formula["openssl@3"]
@@ -97,6 +99,7 @@ class ArgyllCms < Formula
     end
 
     ENV["NUMBER_OF_PROCESSORS"] = ENV.make_jobs.to_s
+
     inreplace "makeall.sh", "jam", libexec/"jam"
     inreplace "makeinstall.sh", "jam", libexec/"jam"
     system "sh", "makeall.sh"
@@ -110,6 +113,7 @@ class ArgyllCms < Formula
   test do
     system bin/"targen", "-d", "0", "test.ti1"
     system bin/"printtarg", testpath/"test.ti1"
+
     %w[test.ti1.ps test.ti1.ti1 test.ti1.ti2].each do |f|
       assert_predicate testpath/f, :exist?
     end

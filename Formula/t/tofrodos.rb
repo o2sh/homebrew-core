@@ -3,10 +3,10 @@ class Tofrodos < Formula
   homepage "https://www.thefreecountry.com/tofrodos/"
   # Upstream url does not work anymore
   # url "https://tofrodos.sourceforge.io/download/tofrodos-1.7.13.tar.gz"
-  url "http://deb.debian.org/debian/pool/main/t/tofrodos/tofrodos_1.7.13+ds.orig.tar.xz"
+  url "https://deb.debian.org/debian/pool/main/t/tofrodos/tofrodos_1.7.13+ds.orig.tar.xz"
   version "1.7.13"
   sha256 "c1c33f3f0b9e8152aa5790d233e8f1e8de14510433a6143ec582eba0fb6cbfaa"
-  license "GPL-2.0"
+  license "GPL-2.0-only"
 
   livecheck do
     url :homepage
@@ -14,6 +14,7 @@ class Tofrodos < Formula
   end
 
   bottle do
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "f76dac14399d806521baf63f37eb50d571fe75fd01b1e81d0cd2101e7bad3c44"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0d43491486f1234740ab2ef86ade227755187108410addb1e81e30f7ca64ce80"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "eeda32e08e9d8dca0de25bd428f85dd99c61a4fccf5ce0375558ed8cdf6f402b"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "14175b3d27a7498f9efd5d9b1f582d0d961cc59ce8507a555f8cf2d24916c821"

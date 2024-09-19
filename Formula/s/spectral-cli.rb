@@ -1,26 +1,23 @@
-require "language/node"
-
 class SpectralCli < Formula
   desc "JSON/YAML linter and support OpenAPI v3.1/v3.0/v2.0, and AsyncAPI v2.x"
   homepage "https://stoplight.io/open-source/spectral"
-  url "https://registry.npmjs.org/@stoplight/spectral-cli/-/spectral-cli-6.11.1.tgz"
-  sha256 "def3583f144cb7ba6d03d6814167ab3d6a8a27fff7f575b2c2ec72f0b133cc0e"
+  url "https://registry.npmjs.org/@stoplight/spectral-cli/-/spectral-cli-6.13.0.tgz"
+  sha256 "a12e329935462f0e94a86f82a51ea9c63e324a9ba7f7d57a4e1b80f1e6d84276"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e08c2b1224176536f59c282b2cf22437bdd90fc3658074939509c2b16129c47f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e08c2b1224176536f59c282b2cf22437bdd90fc3658074939509c2b16129c47f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e08c2b1224176536f59c282b2cf22437bdd90fc3658074939509c2b16129c47f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "143cec713103b5cf1b550eb8764f063c0e936706080a984388346c4d2a2c2492"
-    sha256 cellar: :any_skip_relocation, ventura:        "143cec713103b5cf1b550eb8764f063c0e936706080a984388346c4d2a2c2492"
-    sha256 cellar: :any_skip_relocation, monterey:       "143cec713103b5cf1b550eb8764f063c0e936706080a984388346c4d2a2c2492"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e08c2b1224176536f59c282b2cf22437bdd90fc3658074939509c2b16129c47f"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "804713977b4fb21da63a3c64d3d2932478d40c1434ccb9a963b381325fa23aa0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "804713977b4fb21da63a3c64d3d2932478d40c1434ccb9a963b381325fa23aa0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "804713977b4fb21da63a3c64d3d2932478d40c1434ccb9a963b381325fa23aa0"
+    sha256 cellar: :any_skip_relocation, sonoma:        "714b7cbf1099e777e3720e25869de2e60e2f3fff57ea8bbb95d3cb4b114f6031"
+    sha256 cellar: :any_skip_relocation, ventura:       "714b7cbf1099e777e3720e25869de2e60e2f3fff57ea8bbb95d3cb4b114f6031"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "804713977b4fb21da63a3c64d3d2932478d40c1434ccb9a963b381325fa23aa0"
   end
 
   depends_on "node"
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
+    system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
   end
 

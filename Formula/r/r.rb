@@ -1,8 +1,8 @@
 class R < Formula
   desc "Software environment for statistical computing"
   homepage "https://www.r-project.org/"
-  url "https://cran.r-project.org/src/base/R-4/R-4.4.0.tar.gz"
-  sha256 "ace4125f9b976d2c53bcc5fca30c75e30d4edc401584859cbadb080e72b5f030"
+  url "https://cran.r-project.org/src/base/R-4/R-4.4.1.tar.gz"
+  sha256 "b4cb675deaaeb7299d3b265d218cde43f192951ce5b89b7bb1a5148a36b2d94d"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -11,13 +11,14 @@ class R < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "6ef5544f55a78ba964340254086ff579752999a1d1d5eb07888da3c95eb005a2"
-    sha256 arm64_ventura:  "7bcecc09486cb5b0c233ee32bc81334883ad295b6d88d314b9f8b1b313844125"
-    sha256 arm64_monterey: "db87b9fabfc58d18afc600244ba0f0a7fd2b19679d79f1d5b19b7221aa4caaae"
-    sha256 sonoma:         "5c9f30fa98d66ed4f9251649b0a04dabedadecd6895efb50c62cd9b99ae9a537"
-    sha256 ventura:        "328a569fae5a385c7cdf0eb34883fab3a5ae2dfc1ba7bf75d3fba1bea74caea5"
-    sha256 monterey:       "bcd3efa59b7ddef89636f3f4a050f1b3adbaffd4bb0f36b08ff06701431be71a"
-    sha256 x86_64_linux:   "aa20140c7b667ea6c5ea139024a99671b54762b4cdfd14260b2a787586c9c094"
+    sha256 arm64_sequoia:  "7f675736071affe0f4ebfdab80e61e2ebd1f7bd2c82140586774230ad4746f72"
+    sha256 arm64_sonoma:   "a9e3b6d8ce9d2606b9f182d30145c530dfdd52803359729465b616f8dcae0847"
+    sha256 arm64_ventura:  "31534a8b13f93bbd484c6392792736ca9fdc91fe6a9e428747e9291fe49b6778"
+    sha256 arm64_monterey: "781dc303ccb6041cbee79a17a1dc3ae5ffbacd59b5d52a04983751256dd68ae4"
+    sha256 sonoma:         "2a65df982cbc7a23f7f69b6853dc402461fc99cb2d31b7771e50a4f3995ab7dc"
+    sha256 ventura:        "3f1da54c8747815a8047de3d393c7957fd3d58b411c6a00b2dab1d64a19be7d9"
+    sha256 monterey:       "8b7216892a5d60604fe4a909c2f096ce2ef78bec581fa00177eb7600451aa159"
+    sha256 x86_64_linux:   "3405da8715d5f8069e3c12842a2a3b2e22d554541a91bcd756802ed0f9cfaa3a"
   end
 
   depends_on "pkg-config" => :build
@@ -26,18 +27,35 @@ class R < Formula
   depends_on "gettext"
   depends_on "jpeg-turbo"
   depends_on "libpng"
+  depends_on "libxext"
   depends_on "openblas"
   depends_on "pcre2"
   depends_on "readline"
   depends_on "tcl-tk"
   depends_on "xz"
 
+  uses_from_macos "bzip2"
   uses_from_macos "curl"
   uses_from_macos "icu4c"
   uses_from_macos "libffi", since: :catalina
+  uses_from_macos "zlib"
+
+  on_macos do
+    depends_on "fontconfig"
+    depends_on "freetype"
+    depends_on "libx11"
+    depends_on "libxau"
+    depends_on "libxcb"
+    depends_on "libxdmcp"
+    depends_on "libxrender"
+    depends_on "pixman"
+  end
 
   on_linux do
+    depends_on "glib"
+    depends_on "harfbuzz"
     depends_on "libice"
+    depends_on "libsm"
     depends_on "libtirpc"
     depends_on "libx11"
     depends_on "libxt"

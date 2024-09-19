@@ -1,24 +1,31 @@
 class Chainhook < Formula
   desc "Reorg-aware indexing engine for the Stacks & Bitcoin blockchains"
   homepage "https://github.com/hirosystems/chainhook"
-  url "https://github.com/hirosystems/chainhook/archive/refs/tags/v1.5.1.tar.gz"
-  sha256 "ccea19c9e81672ddb58cfda84cdd5d923cc26af422c2c1b81d9424125d85ba2d"
+  url "https://github.com/hirosystems/chainhook/archive/refs/tags/v1.8.0.tar.gz"
+  sha256 "5d1ea1ad91585d440cf56d0293541593294b70cbf59172957ff53b5598be874d"
   license "GPL-3.0-only"
   head "https://github.com/hirosystems/chainhook.git", branch: "develop"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7f551cacdd63479948f8b36fa48cae52b96680546e2b5e87d8e0349376ec71c1"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8c31c59a5db5007c71d6394e9ded740a8d0bda28612f4c2cfb585254204ab4a5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "210ac9359833c4b141918f812fe445422a93ddb076f0d7c41740e86136b83ff3"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8b4be0c1b6d63e79957abf7a080a81ff187fbba804c5fe61efb5370f227744b3"
-    sha256 cellar: :any_skip_relocation, ventura:        "ba645f597535377f1212acc2df5d4b70294997a1d7ac4908c4a374ba755ca466"
-    sha256 cellar: :any_skip_relocation, monterey:       "2689119ac8dd1834df7d10606b584e9978f9d5e782370b413e43ac4110481fbe"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "47d46aba554d3395726b42c183e0d4e7bdee45352a2b9473a9395eb81b925fd0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "ee1d70019ceef4495f0921b1344b12b092846010ba7d831cfbae5f3639e682c6"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d84022e09a8266a52686ed6c8ecda900051f13a4cc848daa0f6c518337cbb3ed"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0a30eb3a6b72c2c0cdd41d65f55f8b4317d1261b07fbcceca6363b39bef1ed7f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a0e6da7d2520a8954d52270dda75248be81de3ff667ce6489b76a75d94d20ee7"
+    sha256 cellar: :any_skip_relocation, sonoma:         "2e99210c74407049e8ea75816c0fb3b1ca111ca056c2f95ee923c8202dedb7cc"
+    sha256 cellar: :any_skip_relocation, ventura:        "2d5f0d818bd4abb96efa88b7200ea9f3532169eca622e07f61d50a9fc7e4f92a"
+    sha256 cellar: :any_skip_relocation, monterey:       "213dea4d00349141619d2682bee6191d18aaeeb5aa99340599f54dab75abb521"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1baa3948cbd9735f9249af29ff40e21d005185c70dd0f2a023cc733e298505f3"
   end
 
   depends_on "rust" => :build
 
   uses_from_macos "llvm" => :build # for libclang
+
+  # rust 1.80 build patch, upstream pr ref, https://github.com/hirosystems/chainhook/pull/631
+  patch do
+    url "https://github.com/hirosystems/chainhook/commit/e98fc6093e30c41aec55a3391b917ff92de6df1f.patch?full_index=1"
+    sha256 "9b1b48a9a5be5ae0ceb3661c7e61f08ca6806ee49fd684dd1dc29cc3a3abb242"
+  end
 
   def install
     system "cargo", "install", "--features", "cli,debug", "--no-default-features",

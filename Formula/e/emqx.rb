@@ -1,8 +1,8 @@
 class Emqx < Formula
   desc "MQTT broker for IoT"
   homepage "https://www.emqx.io/"
-  url "https://github.com/emqx/emqx/archive/refs/tags/v5.6.1.tar.gz"
-  sha256 "1896399da468b20c0637875ebfe28a9519e1c2bf85a1fdd33c90e726f72287b0"
+  url "https://github.com/emqx/emqx/archive/refs/tags/v5.7.2.tar.gz"
+  sha256 "4866630a83bb4d5415f9aa7629b79a1868ad4bcf16948f60d08af1c369250ed7"
   license "Apache-2.0"
   head "https://github.com/emqx/emqx.git", branch: "master"
 
@@ -15,13 +15,14 @@ class Emqx < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "3553ebd4aa99f89bf2107484738d955a8eb1df1ed91370420e193e020d3249e9"
-    sha256 cellar: :any,                 arm64_ventura:  "190d27b0eadc9bc94b7e6a982cccd3fa93b3b5ab8fbcf1791631bd42ca1dc520"
-    sha256 cellar: :any,                 arm64_monterey: "868c5accf082bb53564f6b091b8f7289b87b5733b26179ecedac322290d2b076"
-    sha256 cellar: :any,                 sonoma:         "f83c5764e3fff3c520f81831a5d40ecfdf33428366c1fa6ec00794baf11d8405"
-    sha256 cellar: :any,                 ventura:        "ff6b462aabd8f76e54d616f6e39dbddab44bd3400dbb65bb25f657e358ca01c1"
-    sha256 cellar: :any,                 monterey:       "97617d73f980fcabd11ec00b5d2470b1caf52bc337cbd3f9a2fb8ed708d4a27e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9a7036b24986e97851d65c49b9b7b10874e99bcc2ac5c02e554e5450db49baa4"
+    sha256 cellar: :any,                 arm64_sequoia:  "ef7bde68c80c086256b24674ff0e37bf11e0e2c598031bc6d5679532a7c9b327"
+    sha256 cellar: :any,                 arm64_sonoma:   "b53ae3b7ba69e112fedcfac7573e02b5ca706461459ab7f1c4abdf6155da74ce"
+    sha256 cellar: :any,                 arm64_ventura:  "0fb56773097600cb77e710d5eec74dc55cc2fc9067f22112a176df1f7fdaeb8c"
+    sha256 cellar: :any,                 arm64_monterey: "7eb041e7302f18ee6c19f37fa44f8c5d7eeb73414ba602e08a11d2a27e650cb2"
+    sha256 cellar: :any,                 sonoma:         "12761e56cc5f388c9b88bfad46a6b80cd56ffb613b6c86a26d9768375560f2e3"
+    sha256 cellar: :any,                 ventura:        "6cfb05c4c71a90b2cf87475d8234e2f25cb8370c46a71241a8464bda4dae3cf7"
+    sha256 cellar: :any,                 monterey:       "24d5ff27a5a6deb9fdd9c66e8fc0b421380b15a2bbde3b5d7b17826c91643125"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d3227bdc15077985fa22aab745365a0a3b395946ec69c4bf15cfc634004e3623"
   end
 
   depends_on "autoconf"  => :build
@@ -42,6 +43,8 @@ class Emqx < Formula
     depends_on "ncurses"
     depends_on "zlib"
   end
+
+  conflicts_with "cassandra", because: "both install `nodetool` binaries"
 
   def install
     ENV["PKG_VSN"] = version.to_s

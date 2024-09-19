@@ -1,18 +1,19 @@
 class Libre < Formula
   desc "Toolkit library for asynchronous network I/O with protocol stacks"
   homepage "https://github.com/baresip/re"
-  url "https://github.com/baresip/re/archive/refs/tags/v3.11.0.tar.gz"
-  sha256 "a29dbdbbacd27461b9c8e94b0e52773f3b1396a64e31e258635f18cf5f27e44e"
+  url "https://github.com/baresip/re/archive/refs/tags/v3.15.0.tar.gz"
+  sha256 "68518b1ab6ea5eba77fd481beb97b6f4d26b2bdd93d02fe0778da1f95f865c2c"
   license "BSD-3-Clause"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "f897106dd66c5ee487031d2b0e3895e72ae0bd494cb81fce5f8c508130af5fcb"
-    sha256 cellar: :any,                 arm64_ventura:  "9018d99e206b8b5fe598c9306553ba44c6ecbcf7e2d6a16182388545e3f8398e"
-    sha256 cellar: :any,                 arm64_monterey: "47b5b4ebfdb5c0da6fe3e52bcdf6efdb98b11c4c8564f34b5a50091ba8d37848"
-    sha256 cellar: :any,                 sonoma:         "2927b4e1a9420b1c9bfd6f93d058352bb975c96a0e981332653244a475e3e5b7"
-    sha256 cellar: :any,                 ventura:        "45265fe628625697e3c84f9bc7d8acd49851dd82190f4b0e4148a48a36931840"
-    sha256 cellar: :any,                 monterey:       "6b5a3349f9979a5a73174bbb8ed013658b1319b24b5ab3d0cb1707f1e7cb7040"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c3762147189472f6c2104091e36a6985a55a7c9fee56c6225bb2a99458d20c08"
+    sha256 cellar: :any,                 arm64_sequoia:  "ed99cd2dfa1e7d6b211e2e3fd48a161f6304a2558537eaba223f64a26eb19444"
+    sha256 cellar: :any,                 arm64_sonoma:   "c532b168de84d818a982b24c5e846a86fba66e91f41f210b8233503d8946bedd"
+    sha256 cellar: :any,                 arm64_ventura:  "90ea3d9fe16167fd86cf20fa44c425349edcdabc5fe5f0aa2e90c5cd284143cf"
+    sha256 cellar: :any,                 arm64_monterey: "edeb5e73abb2b12c9903a5bc303a6f4e63aede83fa548d93b937f5a0cb40c052"
+    sha256 cellar: :any,                 sonoma:         "309efdbd20b22d731547d3c00b7c8dfc5b4ac5282334a86d7ca3ca0122b8939b"
+    sha256 cellar: :any,                 ventura:        "131df52b256d90395a5c56084cc0ef728f50d7d26b03f0863d30b0c227db4a3e"
+    sha256 cellar: :any,                 monterey:       "3c50676b002d22386851403e2ec53ec4adf47c77a80b4b1e269fc74eb69ffa69"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dee32fd35817e5c57679d8c4aaa284db272433686cfa98380bfdd122ae3ca5a4"
   end
 
   depends_on "cmake" => :build

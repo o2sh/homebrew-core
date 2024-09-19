@@ -13,13 +13,13 @@ class Erlang < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "c431396f5317abe1127f09e050f09b9e95b19ba1a5182a21fc5a77699bcd7e13"
-    sha256 cellar: :any,                 arm64_ventura:  "110213139fc017f108a06e1f206a5ddf7272d5807c4764ead9dd5cf6db1e620b"
-    sha256 cellar: :any,                 arm64_monterey: "f69832dec4aaf28bbb576bf0b6d4e09365ba9ab8e5f70116f58873db576c57ce"
-    sha256 cellar: :any,                 sonoma:         "f0de0d4ee8cba0a67d9c90489fa2da82e12b2e3c4649643a8952ab88b4ec7b57"
-    sha256 cellar: :any,                 ventura:        "a339941ffc01c6eac2bc0d6ef07601466573de08cb5e9765e59a56ac9168a16c"
-    sha256 cellar: :any,                 monterey:       "0ca685f448bb8ea692a2f61d283420c29a82c674923f6ec408cc6ab879db19df"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3b2d280cd03af37844d763fb9e1c1955be8e203cc7f65271e4e65b2143b07c99"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "bac376cf4cabd3e324aab400dfdd03c8b1c99a9f14785f73b7cb56059c5dea69"
+    sha256 cellar: :any,                 arm64_sonoma:  "076a5512381aa576496bc0e3e1ebc4c937ede8eab2ed47673cecae482baa3d4c"
+    sha256 cellar: :any,                 arm64_ventura: "0cb58c48c04146ced67ee1d9f457674f34b082467d4c516fcf921647f83bda55"
+    sha256 cellar: :any,                 sonoma:        "229ad05835575a4f72e618ce552a63e23dcf0d9b50052fa1dea8028fc8106f6b"
+    sha256 cellar: :any,                 ventura:       "e4518dd0a3e65dce26d3b139c81365dfb1039a9856081f6283a537d3167e66fa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "493b0af312f3e8fa6e1c06c06b6bf639ce1157d0798221fd5a982ed318ce34c6"
   end
 
   head do
@@ -43,6 +43,8 @@ class Erlang < Formula
   end
 
   def install
+    odie "html resource needs to be updated" if version != resource("html").version
+
     # Unset these so that building wx, kernel, compiler and
     # other modules doesn't fail with an unintelligible error.
     %w[LIBS FLAGS AFLAGS ZFLAGS].each { |k| ENV.delete("ERL_#{k}") }
@@ -89,9 +91,8 @@ class Erlang < Formula
   end
 
   test do
-    assert_equal version, resource("html").version, "`html` resource needs updating!"
+    system bin/"erl", "-noshell", "-eval", "crypto:start().", "-s", "init", "stop"
 
-    system "#{bin}/erl", "-noshell", "-eval", "crypto:start().", "-s", "init", "stop"
     (testpath/"factorial").write <<~EOS
       #!#{bin}/escript
       %% -*- erlang -*-
@@ -114,6 +115,7 @@ class Erlang < Formula
       fac(0) -> 1;
       fac(N) -> N * fac(N-1).
     EOS
+
     chmod 0755, "factorial"
     assert_match "usage: factorial integer", shell_output("./factorial")
     assert_match "factorial 42 = 1405006117752879898543142606244511569936384000000000", shell_output("./factorial 42")

@@ -1,8 +1,8 @@
 class Gtksourceview5 < Formula
   desc "Text view with syntax, undo/redo, and text marks"
   homepage "https://projects.gnome.org/gtksourceview/"
-  url "https://download.gnome.org/sources/gtksourceview/5.12/gtksourceview-5.12.0.tar.xz"
-  sha256 "daf32ff5d3150d6385917d3503a85b9e047ba158b2b03079314c9c00813fa01f"
+  url "https://download.gnome.org/sources/gtksourceview/5.14/gtksourceview-5.14.0.tar.xz"
+  sha256 "c40d1f7309d111f5805fec47c1fead519c4b8d506317ce5e90013ce47d65e9c6"
   license "LGPL-2.1-or-later"
 
   livecheck do
@@ -11,13 +11,12 @@ class Gtksourceview5 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "786816bbe19bc03434ec9dd26bef024e184745fe13c60dc7424b8ce8549db61f"
-    sha256 arm64_ventura:  "bffd48ad9e36827a2791607346135c2bb46f4702736a5f085dce4b6f96b0f80f"
-    sha256 arm64_monterey: "3b54c025d8deafb5fdb5544ea129a35b6f580e7e36066c70531cfe13a8570463"
-    sha256 sonoma:         "5acbb50d1d9b0c688598043fe35e4b37b97774eab1b6039f02fa6dcdcf6eb34e"
-    sha256 ventura:        "2fdfa280b3b13397b7772e67b53b8d86397a7790021491ad8f9a23b7a4394345"
-    sha256 monterey:       "e77bf4aa1624231f5db2ecd713ac48fc8049a674a002175d6a7b69b465bb4daf"
-    sha256 x86_64_linux:   "f0912a0d3399c70d5bf674bb254c1e98e3bf0caafae3dec7dcbe7ffd2d8efcbc"
+    sha256 arm64_sequoia: "1009e77ffceb4849dad7d920bdf0111010513dfe50d45030598f6ba0349c7413"
+    sha256 arm64_sonoma:  "2eb5dcdcf1810689c7c19ee2d581a66cd1fd6f79a6b86a8ebb3b03e406aa6250"
+    sha256 arm64_ventura: "70fb65b657d878c0cf1418b87e9214c864421fc7da96124ec8c6bfa6ca9581ca"
+    sha256 sonoma:        "d14deeb02a29fdc05a3c973e9de19c81445fe541dc6e5736ef7e8c9dd0b7c61c"
+    sha256 ventura:       "5ad59964c36d4a9f43290fa7a70ce85ab28b466caf551025c77ec670c759c950"
+    sha256 x86_64_linux:  "d9ca6c7f87088f3c50c22259fb07ba1fc5d5271a5797506c27ee9eb972165955"
   end
 
   depends_on "gobject-introspection" => :build
@@ -25,8 +24,21 @@ class Gtksourceview5 < Formula
   depends_on "ninja" => :build
   depends_on "pkg-config" => [:build, :test]
   depends_on "vala" => :build
+
+  depends_on "cairo"
+  depends_on "fontconfig"
+  depends_on "fribidi"
+  depends_on "gdk-pixbuf"
+  depends_on "glib"
   depends_on "gtk4"
+  depends_on "pango"
   depends_on "pcre2"
+
+  uses_from_macos "libxml2"
+
+  on_macos do
+    depends_on "gettext"
+  end
 
   def install
     args = %w[

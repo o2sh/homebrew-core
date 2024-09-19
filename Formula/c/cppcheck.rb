@@ -1,8 +1,8 @@
 class Cppcheck < Formula
   desc "Static analysis of C and C++ code"
   homepage "https://sourceforge.net/projects/cppcheck/"
-  url "https://github.com/danmar/cppcheck/archive/refs/tags/2.14.0.tar.gz"
-  sha256 "2d2ead75db10c5993d77c8dfe854dc42b00fac65953611bb6c83e25fc74b9d50"
+  url "https://github.com/danmar/cppcheck/archive/refs/tags/2.15.0.tar.gz"
+  sha256 "98bcc40ac8062635b492fb096d7815376a176ae26749d6c708083f4637f7c0bb"
   license "GPL-3.0-or-later"
   head "https://github.com/danmar/cppcheck.git", branch: "main"
 
@@ -15,13 +15,14 @@ class Cppcheck < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "0d4b726983f05eb990f30e4aa285cc3b4d9444c327798553d0b7cf02267c2e89"
-    sha256 arm64_ventura:  "08eae5aa56c75c38df768d30fb8fac4f5e494d743669636cb15a2d243f5c9c4d"
-    sha256 arm64_monterey: "bacbb33f05357e865db8a74255c3ce153c7e1c16e511f25e938e6ddc6751e073"
-    sha256 sonoma:         "481931f500be52b62f6937cb38a3bdd0b1c62ab94851e62a661a817dbea46256"
-    sha256 ventura:        "01e105caf9dc56d1bc77ff6bd2be6ca6460e044a319d6ad5f0206a830e3648f9"
-    sha256 monterey:       "9a7a31fbb278e840cec674853d880d8ec54fcd43dfbd518d842c6aee12f151d6"
-    sha256 x86_64_linux:   "2b0c930521c61e2d91524e2b7c1b74afb1ede77159eff6f0dfe386cd345d9095"
+    sha256 arm64_sequoia:  "3ea489375f8c4c924b50ccbe0a87d6483f11cc05eac21c6bf72cb8759587b97f"
+    sha256 arm64_sonoma:   "9f5ec5154d362414f230ad9b94567fc43472e654282b2d9a70a0a33d5153ab36"
+    sha256 arm64_ventura:  "0d3c433850bed501f2c819024ea16065acbec6111ca28141a5afe77704df2945"
+    sha256 arm64_monterey: "3a5d4211496ee5c5980725b239a6a896aaa5053415992764a82711679c23bcaa"
+    sha256 sonoma:         "bdfc1329eed78facd99a182463bc342d7e6a58bf679492a6a19758fac778c63c"
+    sha256 ventura:        "1207bb2fe229239e94c194ee7c7bc8b80ada5e23eebc29145c7ccbb786374e47"
+    sha256 monterey:       "fa7dc521b729821186cf9b6a0b846ed7559c03e27533108edc3447de33a0d393"
+    sha256 x86_64_linux:   "64be07e02d9965a951e708fc8e3463eb9ab7dca8e27c79e58a72e7e67b76e024"
   end
 
   depends_on "cmake" => :build
@@ -36,18 +37,17 @@ class Cppcheck < Formula
   end
 
   def install
-    args = std_cmake_args + %W[
+    args = %W[
       -DHAVE_RULES=ON
       -DUSE_BUNDLED_TINYXML2=OFF
       -DENABLE_OSS_FUZZ=OFF
       -DPYTHON_EXECUTABLE=#{python3}
+      -DFILESDIR=#{pkgshare}
     ]
-    system "cmake", "-S", ".", "-B", "build", *args
+
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
-
-    # Move the python addons to the cppcheck pkgshare folder
-    (pkgshare/"addons").install Dir.glob("addons/*.py")
   end
 
   test do
@@ -77,16 +77,16 @@ class Cppcheck < Formula
         number = initialNumber;
       }
     EOS
-    system "#{bin}/cppcheck", test_cpp_file
+    system bin/"cppcheck", test_cpp_file
 
     # Test the "out of bounds" check
     test_cpp_file_check = testpath/"testcheck.cpp"
     test_cpp_file_check.write <<~EOS
       int main()
       {
-      char a[10];
-      a[10] = 0;
-      return 0;
+        char a[10];
+        a[10] = 0;
+        return 0;
       }
     EOS
     output = shell_output("#{bin}/cppcheck #{test_cpp_file_check} 2>&1")
@@ -125,7 +125,7 @@ class Cppcheck < Formula
           print("%s\\n%s" %(detected_functions, detected_token_count))
     EOS
 
-    system "#{bin}/cppcheck", "--dump", test_cpp_file
+    system bin/"cppcheck", "--dump", test_cpp_file
     test_cpp_file_dump = "#{test_cpp_file}.dump"
     assert_predicate testpath/test_cpp_file_dump, :exist?
     output = shell_output("#{python3} #{sample_addon_file} #{test_cpp_file_dump}")

@@ -1,21 +1,28 @@
 class Goctl < Formula
   desc "Generates server-side and client-side code for web and RPC services"
   homepage "https://go-zero.dev"
-  url "https://github.com/zeromicro/go-zero/archive/refs/tags/tools/goctl/v1.6.4.tar.gz"
-  sha256 "7cd3f6b7368efcefeae20e103dcac15b99bea1171bb22ea405c8859d0c98b762"
+  url "https://github.com/zeromicro/go-zero/archive/refs/tags/tools/goctl/v1.7.2.tar.gz"
+  sha256 "d97deb914f62baff8bb445af0d97017ce7a393d2cb01062ec419c46b6b03f8e0"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7360c157ec7e00cd9480f9f98106087ca8377d6075c959b888a81606b003c1fc"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bd7123298589a6f858d164e281294dd533ff8264a483c8d214e620c870fb44c8"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "abe9686bb5968f01d74703daffce0e339f01e95c815e87cdb6e5c5ca47d7051b"
-    sha256 cellar: :any_skip_relocation, sonoma:         "7fa5a18c6ebad2ab62b4d4bc25b03c3593e8021b7f42653e16d7623cc3012120"
-    sha256 cellar: :any_skip_relocation, ventura:        "e1193da79db82d380b30ed7fa78308d8fa0adf054d707566189e7a48ea6c3b0b"
-    sha256 cellar: :any_skip_relocation, monterey:       "e7a9fa8f0c867c70634b48423438bc0873acdbf3980e2d1de30dbfa12461559c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "608168c9f53bafb839517b45dcad39dcf4492e31ec9bc339066d00e72bd4b28c"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "f4ceba5a3bdd24fc33d330be9ab113e5a184cc679d0ad68eebd74266de20bfa0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7abf93331fdbf9819a61dfb3b2534ec5f3b1cfdc0d161cd6bdea442c64650bee"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7abf93331fdbf9819a61dfb3b2534ec5f3b1cfdc0d161cd6bdea442c64650bee"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "7abf93331fdbf9819a61dfb3b2534ec5f3b1cfdc0d161cd6bdea442c64650bee"
+    sha256 cellar: :any_skip_relocation, sonoma:         "a1e8edf1c55022d6626e71acdb0abc803e2dc5450da1ffcde22531c1b4aebdb3"
+    sha256 cellar: :any_skip_relocation, ventura:        "a1e8edf1c55022d6626e71acdb0abc803e2dc5450da1ffcde22531c1b4aebdb3"
+    sha256 cellar: :any_skip_relocation, monterey:       "a1e8edf1c55022d6626e71acdb0abc803e2dc5450da1ffcde22531c1b4aebdb3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "44a35877c7f645b271710cef0c8ebbc163c72ea5ff9d930a7d1c011f9a37c5f2"
   end
 
   depends_on "go" => :build
+
+  # bump to use go1.23, upstream patch PR, https://github.com/zeromicro/go-zero/pull/4279
+  patch do
+    url "https://github.com/zeromicro/go-zero/commit/19c5fc3c29335df2f452d0947b6740337abb94ce.patch?full_index=1"
+    sha256 "0cc51959505721b4978d90f2990c93dfb3c00dda2ffbb8416c589c277e3971fb"
+  end
 
   def install
     chdir "tools/goctl" do

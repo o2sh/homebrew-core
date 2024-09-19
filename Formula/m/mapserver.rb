@@ -1,10 +1,9 @@
 class Mapserver < Formula
   desc "Publish spatial data and interactive mapping apps to the web"
   homepage "https://mapserver.org/"
-  url "https://download.osgeo.org/mapserver/mapserver-8.0.1.tar.gz"
-  sha256 "79d23595ef95d61d3d728ae5e60850a3dbfbf58a46953b4fdc8e6e0ffe5748ba"
+  url "https://download.osgeo.org/mapserver/mapserver-8.2.2.tar.gz"
+  sha256 "47d8ee4bd12ddd2f04b24aa84c6e58f8e6990bcd5c150ba42e22f30ad30568e4"
   license "MIT"
-  revision 4
 
   livecheck do
     url "https://mapserver.org/download.html"
@@ -12,13 +11,14 @@ class Mapserver < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "252b429d4ee0456cdfe56cf9b4601262f10798f3572f2e6e9132de28d2b1b7e6"
-    sha256 cellar: :any,                 arm64_ventura:  "1e0ba7954886813fe47c42d78910fa8fa94909cdda5ed0048dd1824e2bdf35f9"
-    sha256 cellar: :any,                 arm64_monterey: "9c550c439d4532ea7ac74f1fd37816a7366244d660ee76cae7d5538669987910"
-    sha256 cellar: :any,                 sonoma:         "0fded9d4327ead0a44b58936f89cf500e26f19f5704b5f278044ed16ecb72195"
-    sha256 cellar: :any,                 ventura:        "66d4d92504b87465133acfda0014cdd8fdbb2278c6302d8f24862c7cce465a2b"
-    sha256 cellar: :any,                 monterey:       "beb66d71d4014779bc75fdd3587f84e08cbab1048101378d9156790f09739173"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0238f8c273ab240b67e00228d9c4b333ab936f1b55deea7414aa9c78da18f87d"
+    sha256 cellar: :any,                 arm64_sequoia:  "08fa6d2e815968e98cc2ea69cf5d67c4617b9ad269448fe66fd0c61353658628"
+    sha256 cellar: :any,                 arm64_sonoma:   "8156feda4d5a44c24733ed153337f2cde96f78fd9ffaf2a3e498b23fddb7e2e9"
+    sha256 cellar: :any,                 arm64_ventura:  "6a21a6a818fba2a07bb000dc9727d89da2ae6bc6ed2e2eef50a7c63667871589"
+    sha256 cellar: :any,                 arm64_monterey: "a70bac0f70e22ba880f809f7a9c3d904e1dd4b09eb568e58a997b96b5e92cf0d"
+    sha256 cellar: :any,                 sonoma:         "2da3d1923df6bb88a6aac67eabd2a3a619e28ab94895e7efdc4e4db9290f6bc3"
+    sha256 cellar: :any,                 ventura:        "e695ab2bb013dbad84505f69c172bc0b606f4b17a916175d3df8193ff1248f82"
+    sha256 cellar: :any,                 monterey:       "c9884acce9f4b57ab5371b2a47f173bc16f0e795086c2473a47d993fadbe1de2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2bde7262a28bd5f3a466f948dc6ac9fbdd8bd310ad4b5eac9d722282a3cea0d9"
   end
 
   depends_on "cmake" => :build
@@ -31,8 +31,10 @@ class Mapserver < Formula
   depends_on "gdal"
   depends_on "geos"
   depends_on "giflib"
+  depends_on "jpeg-turbo"
   depends_on "libpng"
   depends_on "libpq"
+  depends_on "libxml2"
   depends_on "proj"
   depends_on "protobuf-c"
   depends_on "python@3.12"
@@ -40,10 +42,6 @@ class Mapserver < Formula
   uses_from_macos "curl"
 
   fails_with gcc: "5"
-
-  # Backport fix for libxml2 2.12.
-  # Ref: https://github.com/MapServer/MapServer/commit/2cea5a12a35b396800296cb1c3ea08eb00b29760
-  patch :DATA
 
   def python3
     "python3.12"
@@ -70,8 +68,8 @@ class Mapserver < Formula
     if OS.mac?
       mapscript_rpath = rpath(source: prefix/Language::Python.site_packages(python3)/"mapscript")
       # Install within our sandbox and add missing RPATH due to _mapscript.so not using CMake install()
-      inreplace "mapscript/python/CMakeLists.txt", "${Python_LIBRARIES}",
-                                                   "-Wl,-undefined,dynamic_lookup,-rpath,#{mapscript_rpath}"
+      inreplace "src/mapscript/python/CMakeLists.txt", "${Python_LIBRARIES}",
+                                                       "-Wl,-undefined,dynamic_lookup,-rpath,#{mapscript_rpath}"
     end
 
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args,
@@ -95,7 +93,7 @@ class Mapserver < Formula
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
-    system python3, "-m", "pip", "install", *std_pip_args(build_isolation: true), "./build/mapscript/python"
+    system python3, "-m", "pip", "install", *std_pip_args(build_isolation: true), "./build/src/mapscript/python"
   end
 
   test do
@@ -103,44 +101,3 @@ class Mapserver < Formula
     system python3, "-c", "import mapscript"
   end
 end
-
-__END__
-diff --git a/mapows.c b/mapows.c
-index f141a7b..5a94ecb 100644
---- a/mapows.c
-+++ b/mapows.c
-@@ -168,7 +168,7 @@ static int msOWSPreParseRequest(cgiRequestObj *request,
- #endif
-     if (ows_request->document == NULL
-         || (root = xmlDocGetRootElement(ows_request->document)) == NULL) {
--      xmlErrorPtr error = xmlGetLastError();
-+      const xmlError *error = xmlGetLastError();
-       msSetError(MS_OWSERR, "XML parsing error: %s",
-                  "msOWSPreParseRequest()", error->message);
-       return MS_FAILURE;
-diff --git a/mapwcs.cpp b/mapwcs.cpp
-index 70e63b8..19afa79 100644
---- a/mapwcs.cpp
-+++ b/mapwcs.cpp
-@@ -362,7 +362,7 @@ static int msWCSParseRequest(cgiRequestObj *request, wcsParamsObj *params, mapOb
-     /* parse to DOM-Structure and get root element */
-     if((doc = xmlParseMemory(request->postrequest, strlen(request->postrequest)))
-         == NULL) {
--      xmlErrorPtr error = xmlGetLastError();
-+      const xmlError *error = xmlGetLastError();
-       msSetError(MS_WCSERR, "XML parsing error: %s",
-                  "msWCSParseRequest()", error->message);
-       return MS_FAILURE;
-diff --git a/mapwcs20.cpp b/mapwcs20.cpp
-index b35e803..2431bdc 100644
---- a/mapwcs20.cpp
-+++ b/mapwcs20.cpp
-@@ -1446,7 +1446,7 @@ int msWCSParseRequest20(mapObj *map,
-
-     /* parse to DOM-Structure and get root element */
-     if(doc == NULL) {
--      xmlErrorPtr error = xmlGetLastError();
-+      const xmlError *error = xmlGetLastError();
-       msSetError(MS_WCSERR, "XML parsing error: %s",
-                  "msWCSParseRequest20()", error->message);
-       return MS_FAILURE;

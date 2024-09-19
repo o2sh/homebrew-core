@@ -2,9 +2,9 @@ class Homebank < Formula
   desc "Manage your personal accounts at home"
   homepage "http://homebank.free.fr"
   # A mirror is used as primary URL because the official one is unstable.
-  url "https://deb.debian.org/debian/pool/main/h/homebank/homebank_5.7.4.orig.tar.gz"
-  mirror "http://homebank.free.fr/public/sources/homebank-5.7.4.tar.gz"
-  sha256 "42ce7146c875ea0ca3c93391b6a9bf4714db4621c63f4a094dcc6f8985bb54e4"
+  url "https://deb.debian.org/debian/pool/main/h/homebank/homebank_5.8.3.orig.tar.gz"
+  mirror "http://homebank.free.fr/public/sources/homebank-5.8.3.tar.gz"
+  sha256 "e4083d52301dc53e51e9c615e954fb92d6951ea7749334282c2a5f4b9ab9c4c2"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -13,27 +13,38 @@ class Homebank < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "a455ffc6c89184905ef95e86ad64f47c116d180c84403a76f3d3500c718e471e"
-    sha256 arm64_ventura:  "a87b644ca8699ef4066056c4dd69249fd683b5640d8a5ba9845a520634fcd8e8"
-    sha256 arm64_monterey: "bf68a6601ec1121d9819b36287ce21a14d60a4707989a1d57b9f85c6bde2c4ce"
-    sha256 sonoma:         "86d67b8c23582998b26e6e2650e8f5ef126411786eb7166d784d94569702c8b3"
-    sha256 ventura:        "c8ddf2d9b781aa06334e444a694f4b497cd12ebdc8a85b5e75c1b6c998c66939"
-    sha256 monterey:       "43ecddb5048909cf26d9c51b8b1383d54bede58fbe582ef5ae0c548c1e1505dd"
-    sha256 x86_64_linux:   "00ea39896f9ff78d82d92f7019aea04faa8a2d0575e66e76f711fd95831da772"
+    sha256 arm64_sequoia:  "b9f9017af9b13173b952a07e6538d3cbb8fc4ba2b2ed98cc2a98a9ea139be313"
+    sha256 arm64_sonoma:   "e961cfe48ebf93c3e5c5e2deaa6fe761305c193e3c8b7707dbc620b6510942c5"
+    sha256 arm64_ventura:  "126a1b4ca0f09b41aed111d9c89c99b963949e737b3208f66034c29cd1c06e75"
+    sha256 arm64_monterey: "b2e8f7420cec8ff10c1a62ab8c74204ca525cae582489dce406a882cdc579ff0"
+    sha256 sonoma:         "ea5bf6af665aeb808b6524d55fb39c8405cc5c6278b2fdd57bd6f0d744c362f4"
+    sha256 ventura:        "c4ec13b9d8189eab84778738670fe04b95b7c1d950da05ab99d65ac9670723c8"
+    sha256 monterey:       "cb5f99a78ce0db4fa87907bd4bcc819fbb6b383ebd6b7a9a6ca9130151966973"
+    sha256 x86_64_linux:   "53c819aae13bd17d02d26d64ddc15792169ed08d50ce9b9d4e2e668dc83c0ffb"
   end
 
   depends_on "intltool" => :build
   depends_on "pkg-config" => :build
+
   depends_on "adwaita-icon-theme"
+  depends_on "cairo"
   depends_on "fontconfig"
   depends_on "freetype"
-  depends_on "gettext"
+  depends_on "gdk-pixbuf"
+  depends_on "glib"
   depends_on "gtk+3"
   depends_on "hicolor-icon-theme"
   depends_on "libofx"
   depends_on "libsoup"
+  depends_on "pango"
 
   uses_from_macos "perl"
+
+  on_macos do
+    depends_on "at-spi2-core"
+    depends_on "gettext"
+    depends_on "harfbuzz"
+  end
 
   on_linux do
     depends_on "perl-xml-parser" => :build
@@ -45,13 +56,13 @@ class Homebank < Formula
       ENV["INTLTOOL_PERL"] = Formula["perl"].bin/"perl"
     end
 
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}", "--with-ofx"
+    system "./configure", "--with-ofx", *std_configure_args.reject { |s| s["--disable-debug"] }
     chmod 0755, "./install-sh"
     system "make", "install"
   end
 
   test do
-    system "#{bin}/homebank", "--version"
+    # homebank is a GUI application
+    system bin/"homebank", "--help"
   end
 end

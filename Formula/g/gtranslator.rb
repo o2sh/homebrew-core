@@ -6,6 +6,7 @@ class Gtranslator < Formula
   license "GPL-3.0-or-later"
 
   bottle do
+    sha256 arm64_sequoia:  "484e8fd20d4dac7aecc25b2eee41ad73b2d05d36607391a3c9de16efdb6683ea"
     sha256 arm64_sonoma:   "fbb4c4aaa2d292c41f7b9026a336581b861fd665f98955c14576a3638bd63aa1"
     sha256 arm64_ventura:  "98b7deff1b67b1ef789a461669cc008629e27f2338f1629539e9d29a6ecf1841"
     sha256 arm64_monterey: "013ac98c2e2d0b73d8505e8037dbd46c7046df35e320ab66580fbf757f65930d"
@@ -20,7 +21,9 @@ class Gtranslator < Formula
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
+
   depends_on "adwaita-icon-theme"
+  depends_on "cairo"
   depends_on "gettext"
   depends_on "glib"
   depends_on "gspell"
@@ -31,6 +34,7 @@ class Gtranslator < Formula
   depends_on "libgda"
   depends_on "libsoup"
   depends_on "libspelling"
+  depends_on "pango"
 
   uses_from_macos "libxml2"
 
@@ -49,6 +53,6 @@ class Gtranslator < Formula
   end
 
   test do
-    system "#{bin}/gtranslator", "-h"
+    system bin/"gtranslator", "-h"
   end
 end

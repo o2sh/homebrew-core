@@ -3,19 +3,20 @@ class Sqlmap < Formula
 
   desc "Penetration testing for SQL injection and database servers"
   homepage "https://sqlmap.org"
-  url "https://github.com/sqlmapproject/sqlmap/archive/refs/tags/1.8.4.tar.gz"
-  sha256 "6871a869dc3e785a4a20679b040a91628d851b4a019857303277c743d12d0914"
+  url "https://github.com/sqlmapproject/sqlmap/archive/refs/tags/1.8.9.tar.gz"
+  sha256 "3ae9969bec583d21790c5282aa3e586bf8fa822ad5d267afb7ea19db07ac434c"
   license "GPL-2.0-or-later"
   head "https://github.com/sqlmapproject/sqlmap.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "761f7e47d68ff257050f455d4e7110cdd3827c68e8cf04bfb5e4576cdc2c72be"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "761f7e47d68ff257050f455d4e7110cdd3827c68e8cf04bfb5e4576cdc2c72be"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "761f7e47d68ff257050f455d4e7110cdd3827c68e8cf04bfb5e4576cdc2c72be"
-    sha256 cellar: :any_skip_relocation, sonoma:         "b13faaba6e1665b893608391bdfa2adaa4d7be43565a7b5f37a57b64506330a0"
-    sha256 cellar: :any_skip_relocation, ventura:        "b13faaba6e1665b893608391bdfa2adaa4d7be43565a7b5f37a57b64506330a0"
-    sha256 cellar: :any_skip_relocation, monterey:       "b13faaba6e1665b893608391bdfa2adaa4d7be43565a7b5f37a57b64506330a0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "089956126e540badb12d1562ac12749b626b96b1a4dba56fcc9a15dc2c082996"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "4ff43f4471f18c62e28b93dfc9d9da66cefa3fad83251c3819c5c3a736cdf6f4"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4ff43f4471f18c62e28b93dfc9d9da66cefa3fad83251c3819c5c3a736cdf6f4"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4ff43f4471f18c62e28b93dfc9d9da66cefa3fad83251c3819c5c3a736cdf6f4"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4ff43f4471f18c62e28b93dfc9d9da66cefa3fad83251c3819c5c3a736cdf6f4"
+    sha256 cellar: :any_skip_relocation, sonoma:         "79e8fa29f56e9134c35ec67407febdb7e5a369d6699127c448c23f20fbb678a4"
+    sha256 cellar: :any_skip_relocation, ventura:        "79e8fa29f56e9134c35ec67407febdb7e5a369d6699127c448c23f20fbb678a4"
+    sha256 cellar: :any_skip_relocation, monterey:       "79e8fa29f56e9134c35ec67407febdb7e5a369d6699127c448c23f20fbb678a4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7eb774f28e6e51f3d4e8d5ff1f17c4914a961ed1bf2add2156b53967716eed80"
   end
 
   depends_on "python@3.12"

@@ -12,6 +12,7 @@ class CargoWatch < Formula
   end
 
   bottle do
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "285a8ab744b40f440b477dcf6bde9e864cff915ee1c4b25c158172f820bb8e43"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "3318da9407a905cf94551b8812a3cf2b12e63f018dde893dba997ec4472b8246"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "e474cca8cbb79931dce5e0047737d60144ca6d1341b28cdea378ed5ba17d90be"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "1765bb6293864b0bc25827614844ec2e4fa84c0a341bf84af5991bc41e1f8185"
@@ -22,7 +23,7 @@ class CargoWatch < Formula
   end
 
   depends_on "rust" => :build
-  depends_on "rustup-init" => :test
+  depends_on "rustup" => :test
 
   def install
     system "cargo", "install", *std_cargo_args
@@ -31,10 +32,9 @@ class CargoWatch < Formula
   test do
     # Show that we can use a different toolchain than the one provided by the `rust` formula.
     # https://github.com/Homebrew/homebrew-core/pull/134074#pullrequestreview-1484979359
-    ENV["RUSTUP_INIT_SKIP_PATH_CHECK"] = "yes"
-    rustup_init = Formula["rustup-init"].bin/"rustup-init"
-    system rustup_init, "-y", "--profile", "minimal", "--default-toolchain", "beta", "--no-modify-path"
-    ENV.prepend_path "PATH", HOMEBREW_CACHE/"cargo_cache/bin"
+    ENV.prepend_path "PATH", Formula["rustup"].bin
+    system "rustup", "default", "beta"
+    system "rustup", "set", "profile", "minimal"
 
     output = shell_output("#{bin}/cargo-watch -x build 2>&1", 1)
     assert_match "error: project root does not exist", output

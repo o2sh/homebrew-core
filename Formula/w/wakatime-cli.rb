@@ -2,19 +2,18 @@ class WakatimeCli < Formula
   desc "Command-line interface to the WakaTime api"
   homepage "https://wakatime.com/"
   url "https://github.com/wakatime/wakatime-cli.git",
-    tag:      "v1.90.0",
-    revision: "cf90685bb615991d118f88cfe96b1306dae0557a"
+    tag:      "v1.102.0",
+    revision: "9a2395d7f5aacf0f8213516e312dd55f85bd932c"
   license "BSD-3-Clause"
   version_scheme 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7d0751a99e3b8d95d89bd8caeb82c2b32ffa521f760826c80d0ecdcedc754fb9"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2d7eef07edd19b9c27ecfbb9a0abe3bc2b136121a1a83b1e87477ce23055b100"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "91ea622d95c4ffa7cf125551787af5f7be3b13ab39967eb194e2a925744feac9"
-    sha256 cellar: :any_skip_relocation, sonoma:         "683d871d74566e583557b66395bd1972b9374a65ccd481c8892c021c7d00fdec"
-    sha256 cellar: :any_skip_relocation, ventura:        "7d24a356df4f8b9008ed4a247332f0c9a91794d017b764fbdef1e794c442f682"
-    sha256 cellar: :any_skip_relocation, monterey:       "7c39afe3eeb13c72ce76a5eba4342838265a6e1ff3c452020f00341f4538453f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4f762c949509e8bacf78e0cb5436ad8b27c6ead51ab53c62ae3358e84394971e"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ee54c58a80b6d581b66d03ff7526585ed146254cb81f64668c9f4f6197c4dd05"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ee54c58a80b6d581b66d03ff7526585ed146254cb81f64668c9f4f6197c4dd05"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "ee54c58a80b6d581b66d03ff7526585ed146254cb81f64668c9f4f6197c4dd05"
+    sha256 cellar: :any_skip_relocation, sonoma:        "9f7ac381abea7eb2b4de163dc33f6864ba9d15642137bf069451c11c1d943f75"
+    sha256 cellar: :any_skip_relocation, ventura:       "9f7ac381abea7eb2b4de163dc33f6864ba9d15642137bf069451c11c1d943f75"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f8b76566c080eab897f6e015728bdccfbda678da36e61b8d469b613090d3e2fd"
   end
 
   depends_on "go" => :build

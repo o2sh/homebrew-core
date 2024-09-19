@@ -1,7 +1,6 @@
 class Ircii < Formula
   desc "IRC and ICB client"
-  # notified upstream about the site issue on 2024-01-12
-  homepage "https://web.archive.org/web/20231024192652/http://eterna.com.au/ircii/"
+  homepage "http://www.eterna23.net/ircii/"
   url "https://ircii.warped.com/ircii-20240111.tar.bz2"
   mirror "https://deb.debian.org/debian/pool/main/i/ircii/ircii_20240111.orig.tar.bz2"
   sha256 "acb9351d9215c783111ad118ab2a1d3ac27f96e53db9bdc685e5dde1c14fd95d"
@@ -19,6 +18,7 @@ class Ircii < Formula
   end
 
   bottle do
+    sha256 arm64_sequoia:  "68189a41b92f4a21cc0777761f3aa07167afddff19cabb1d897d472a25ba26d1"
     sha256 arm64_sonoma:   "abb7c5038b0d96a37d249ca0dd4f64ecf76f76b85849d6a9981577ce88ea2c8e"
     sha256 arm64_ventura:  "035ffb6101cca1e95d9331d6887c70e7b15f2aeeade6572fdae30c803aa9bf7e"
     sha256 arm64_monterey: "694c2884b8beaa9c03933499fda1140f421a9527ee7017f8e5063d8feec7da36"

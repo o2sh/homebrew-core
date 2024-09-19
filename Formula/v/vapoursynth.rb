@@ -1,8 +1,8 @@
 class Vapoursynth < Formula
   desc "Video processing framework with simplicity in mind"
   homepage "https://www.vapoursynth.com"
-  url "https://github.com/vapoursynth/vapoursynth/archive/refs/tags/R67.tar.gz"
-  sha256 "0224be706a251d7936396aa83dfb21c7a7764c8bd80c29085a6415ac1453420d"
+  url "https://github.com/vapoursynth/vapoursynth/archive/refs/tags/R70.tar.gz"
+  sha256 "59c813ec36046be33812408ff00e16cae63c6843af6acf4e34595910a80e267b"
   license "LGPL-2.1-or-later"
   head "https://github.com/vapoursynth/vapoursynth.git", branch: "master"
 
@@ -12,13 +12,12 @@ class Vapoursynth < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "918c12ac7b65e032b21ff3eda5e56beedf6921592a5a9288c097ac1138999cc7"
-    sha256 cellar: :any,                 arm64_ventura:  "f93cc15fae89ccdab14213828f8a8f785468608619109d24c0d94d8ea0d3d7e9"
-    sha256 cellar: :any,                 arm64_monterey: "d0ac67bf4df649d300b579df2653bbe692ae116c37e3749ba00089e6c04015f7"
-    sha256 cellar: :any,                 sonoma:         "1edd7a164c36932cf481a565699b4c0f50de4240118b2e6c0f4e42516f5c46f5"
-    sha256 cellar: :any,                 ventura:        "5d07cdcc1a2f74e758e5bd3e60e2117d43291a63a77171d7a5b80a92c5b2c9d9"
-    sha256 cellar: :any,                 monterey:       "2bffa182f4ec2921af0943f177ea21542d7a9ab24e9b52f9becf3e6a80e7a085"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "931129d02c278a89dc0c9026539148abd7a078846e0d27b716f6bc581a5ff3da"
+    sha256 cellar: :any,                 arm64_sequoia: "d79f8ef83d94a4907c14c9668e624534fae85e2147686399469c278d84acd1ea"
+    sha256 cellar: :any,                 arm64_sonoma:  "2985dc4e9fadc09e1a4825b05f03991bdc79fc63ff94eab0365a6303874a2fbf"
+    sha256 cellar: :any,                 arm64_ventura: "217af49cb954058882ed4a217f60986dc8337c31376999dadd1d593f429d2ab5"
+    sha256 cellar: :any,                 sonoma:        "df39bdc45b16212157ebb877649347b095a8c91340a0595e84a130df0c727790"
+    sha256 cellar: :any,                 ventura:       "d66ea7ba907f9e2b76e81cc0d470780303159963b75da3b25a454e67e6b791d0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4601aed6b1236828233e683bc442f8b8f64adf18c26b2324e4b64e52c7255ea0"
   end
 
   depends_on "autoconf" => :build
@@ -30,9 +29,22 @@ class Vapoursynth < Formula
   depends_on "python@3.12"
   depends_on "zimg"
 
+  # std::to_chars requires at least MACOSX_DEPLOYMENT_TARGET=13.3
+  # so it is possible to avoid LLVM dependency on Ventura but the
+  # bottle would have issues if system was on macOS 13.2 or older.
+  on_ventura :or_older do
+    depends_on "llvm"
+    fails_with :clang
+  end
+
   fails_with gcc: "5"
 
   def install
+    if OS.mac? && MacOS.version <= :ventura
+      ENV.llvm_clang
+      ENV.prepend "LDFLAGS", "-L#{Formula["llvm"].opt_lib}/c++"
+    end
+
     system "./autogen.sh"
     inreplace "Makefile.in", "pkglibdir = $(libdir)", "pkglibdir = $(exec_prefix)"
     system "./configure", "--prefix=#{prefix}",

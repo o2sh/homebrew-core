@@ -2,8 +2,8 @@ class Tanka < Formula
   desc "Flexible, reusable and concise configuration for Kubernetes using Jsonnet"
   homepage "https://tanka.dev"
   url "https://github.com/grafana/tanka.git",
-      tag:      "v0.26.0",
-      revision: "965612cecec8466a6f10c1ec1930b59d276b1766"
+      tag:      "v0.28.2",
+      revision: "b9c7d9f12b3a85b5bd1e788a8fb7be9787af91af"
   license "Apache-2.0"
   head "https://github.com/grafana/tanka.git", branch: "main"
 
@@ -13,15 +13,14 @@ class Tanka < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a50bc71017db17989917b760914e4585165e64af59cebd266e64c99425c36282"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8da41dcf8db15e3310276bcc50d768c7ec9b713c252b93218df870e92b026408"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8da41dcf8db15e3310276bcc50d768c7ec9b713c252b93218df870e92b026408"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "8da41dcf8db15e3310276bcc50d768c7ec9b713c252b93218df870e92b026408"
-    sha256 cellar: :any_skip_relocation, sonoma:         "b338f96629c701bb993cc4d6726d9a75694097f12930005a23bd5f88ace42c36"
-    sha256 cellar: :any_skip_relocation, ventura:        "4e00f16ba757b0ea0b557df690b8dc697c8444374a255760ead06b73dac33663"
-    sha256 cellar: :any_skip_relocation, monterey:       "4e00f16ba757b0ea0b557df690b8dc697c8444374a255760ead06b73dac33663"
-    sha256 cellar: :any_skip_relocation, big_sur:        "4e00f16ba757b0ea0b557df690b8dc697c8444374a255760ead06b73dac33663"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "86d09905c668f7a125068761df3f4370b0fda3d7b824c63d477263df282cc214"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "aa3674fd0f36d6c6601167a3219dd428dafc960033fac2ae5ef8a8f9e955ab70"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "aa3674fd0f36d6c6601167a3219dd428dafc960033fac2ae5ef8a8f9e955ab70"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "aa3674fd0f36d6c6601167a3219dd428dafc960033fac2ae5ef8a8f9e955ab70"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "aa3674fd0f36d6c6601167a3219dd428dafc960033fac2ae5ef8a8f9e955ab70"
+    sha256 cellar: :any_skip_relocation, sonoma:         "7f571eb9ed4577d690eb30797c7ce6a2befb422b69d3e7e94344203dd76792c1"
+    sha256 cellar: :any_skip_relocation, ventura:        "7f571eb9ed4577d690eb30797c7ce6a2befb422b69d3e7e94344203dd76792c1"
+    sha256 cellar: :any_skip_relocation, monterey:       "7f571eb9ed4577d690eb30797c7ce6a2befb422b69d3e7e94344203dd76792c1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ac030e886e01c43c867e1c05e4f713f04102ab6a6227b37a25cfe39733cb3314"
   end
 
   depends_on "go" => :build
@@ -33,11 +32,11 @@ class Tanka < Formula
       -s -w
       -X github.com/grafana/tanka/pkg/tanka.CurrentVersion=#{version}
     ]
-    system "go", "build", *std_go_args(ldflags: ldflags.join(" "), output: bin/"tk"), "./cmd/tk"
+    system "go", "build", *std_go_args(ldflags:, output: bin/"tk"), "./cmd/tk"
   end
 
   test do
     system "git", "clone", "https://github.com/sh0rez/grafana.libsonnet"
-    system "#{bin}/tk", "show", "--dangerous-allow-redirect", "grafana.libsonnet/environments/default"
+    system bin/"tk", "show", "--dangerous-allow-redirect", "grafana.libsonnet/environments/default"
   end
 end

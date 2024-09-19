@@ -1,10 +1,10 @@
 class Qca < Formula
   desc "Qt Cryptographic Architecture (QCA)"
   homepage "https://userbase.kde.org/QCA"
-  url "https://download.kde.org/stable/qca/2.3.8/qca-2.3.8.tar.xz"
-  sha256 "48759ca86a0202461d908ba66134380cc3bb7d20fed3c031b9fc0289796a8264"
+  url "https://download.kde.org/stable/qca/2.3.9/qca-2.3.9.tar.xz"
+  sha256 "c555d5298cdd7b6bafe2b1f96106f30cfa543a23d459d50c8a91eac33c476e4e"
   license "LGPL-2.1-or-later"
-  revision 2
+  revision 1
   head "https://invent.kde.org/libraries/qca.git", branch: "master"
 
   livecheck do
@@ -13,13 +13,13 @@ class Qca < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "8ac1bdc66f6ac4c7153b91cdf1dd6526f8a0da87d3c2b9239dd88619d6f77077"
-    sha256 cellar: :any,                 arm64_ventura:  "1af6acb759656c3c345c9d54a3c395474b899762bd6f0a1cbd4b3e36db4d8ed8"
-    sha256 cellar: :any,                 arm64_monterey: "4fd1f850b3d5ceb078245f0a10c67cc50e5053ac04ef0c49f39fe67d0395f463"
-    sha256 cellar: :any,                 sonoma:         "e97e6bb95d11830711d17e1fad1191421daaf691d640ffea3d88d8b8b520f4da"
-    sha256 cellar: :any,                 ventura:        "e919ef19be9690235db663071744edc8ef441169d224982ad475f9835e910c59"
-    sha256 cellar: :any,                 monterey:       "160a221433d2bf2e86b21ce168812ceb240ae9b2d12801114c13ba8d7842b293"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3ed3a4bc1916583872a4c8915ec8ab669082cd3e425ac2a3318a2017ea62384a"
+    sha256 cellar: :any,                 arm64_sonoma:   "adf75807ab0a7ce48899abf875761a9feac73ffffaef48cd45472ba6c560ff3b"
+    sha256 cellar: :any,                 arm64_ventura:  "324d59553ffe39978d6e26e0da9670c1586eec9f514f184414b46c1e427395e5"
+    sha256 cellar: :any,                 arm64_monterey: "0d2f18ad7e80e54f5a85ff998d67182b361ad2bbe30d7c669034e18f05ad6bb8"
+    sha256 cellar: :any,                 sonoma:         "95632a1e2ec25ac1a130a9a1a2048e23a516bfa78a6141a509579e40e0cacacc"
+    sha256 cellar: :any,                 ventura:        "9afce1a3de7f842cc8702e8ec15aa3e341be5f722d80589a2db5b6e7da7cea6c"
+    sha256 cellar: :any,                 monterey:       "e301832afda20aa57a79543422443102652d54ce16fec8282576b09c39787307"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4b0b4c7ca31b657540b83f7679ccac9c81016386148a1134a5f71387d16dcbb3"
   end
 
   depends_on "cmake" => :build
@@ -36,7 +36,8 @@ class Qca < Formula
   uses_from_macos "cyrus-sasl"
 
   on_macos do
-    depends_on "llvm" => :build if DevelopmentTools.clang_build_version <= 1400
+    depends_on "llvm" if DevelopmentTools.clang_build_version <= 1400
+    depends_on "nspr"
   end
 
   fails_with :clang do
@@ -47,7 +48,10 @@ class Qca < Formula
   fails_with gcc: "5"
 
   def install
-    ENV.llvm_clang if OS.mac? && DevelopmentTools.clang_build_version <= 1400
+    if OS.mac? && DevelopmentTools.clang_build_version <= 1400
+      ENV.llvm_clang
+      ENV.append "LDFLAGS", "-L#{Formula["llvm"].opt_lib}/c++ -L#{Formula["llvm"].opt_lib} -lunwind"
+    end
 
     ENV["QC_CERTSTORE_PATH"] = Formula["ca-certificates"].pkgetc/"cert.pem"
 

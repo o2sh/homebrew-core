@@ -1,8 +1,8 @@
 class Chafa < Formula
   desc "Versatile and fast Unicode/ASCII/ANSI graphics renderer"
   homepage "https://hpjansson.org/chafa/"
-  url "https://hpjansson.org/chafa/releases/chafa-1.14.0.tar.xz"
-  sha256 "670e55c28b5ecd4c8187bd97f0898762712a480ec8ea439dae4a4836b178e084"
+  url "https://hpjansson.org/chafa/releases/chafa-1.14.4.tar.xz"
+  sha256 "d0708a63f05b79269dae862a42671e38aece47fbd4fc852904bca51a65954454"
   license "LGPL-3.0-or-later"
 
   livecheck do
@@ -11,16 +11,18 @@ class Chafa < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "a2938cf2d5fa6a13ebb9306ccfb80bcf8d36c1cc6315a23875651b1674677eb3"
-    sha256 cellar: :any,                 arm64_ventura:  "03aa1de31ce7759d8dd946b261ca787ca87becef5b8c0e540e6734ab8d7de277"
-    sha256 cellar: :any,                 arm64_monterey: "92115c2d0ae46d235e0b0d1eecf8b5c391a42a9954f313144b3292787c75c4d8"
-    sha256 cellar: :any,                 sonoma:         "2a7249b0be19eb4ec0521f678cfeba4b722d08233f7bc8e6bf60c8a4c082d99d"
-    sha256 cellar: :any,                 ventura:        "d560ead52b64026144a1c399ed2f0309ade43b707ecc8bbd30af39c8f9863df0"
-    sha256 cellar: :any,                 monterey:       "3bc01c8ba9af6d7096b915d8d326983a7bc61fd8de9b301e7f003a36062a6aba"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2c2178cf3b4f3c75e3d964455172c9ad2eef8f07f6997848ca6b265919b5fa2a"
+    sha256 cellar: :any,                 arm64_sequoia:  "4088a5399d141f648698c3b92236fa58d2596e784004ae8c79972a973698cb40"
+    sha256 cellar: :any,                 arm64_sonoma:   "4b6496dea9a09c8e11facaaedcd7e4900d7ff74304032e89755930b15ceb2f1a"
+    sha256 cellar: :any,                 arm64_ventura:  "ad976beba9aab5ce79b64e1c86be92b6098a1ca95687e644630ef28b5a39be2f"
+    sha256 cellar: :any,                 arm64_monterey: "d198bfeabc561f979e4e40a304374098008cc3b054ffcf90ee108b1dc13370ac"
+    sha256 cellar: :any,                 sonoma:         "9de0cf619fbfbf15a68c43674e130e75e049c974c92e13b3e2d091ca89657e47"
+    sha256 cellar: :any,                 ventura:        "3ac89af501682d724878ead0fc7306958207f4a97f351a9dedd6b7937d953009"
+    sha256 cellar: :any,                 monterey:       "509de37d41c8b7383beec276a0a59cd5755935c05d7af53890e16a8cb9c6f0bc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5934a8cd7f811ec13d46cb490b218624498cc528b7ea403d3bfc0891427531b5"
   end
 
   depends_on "pkg-config" => :build
+  depends_on "cairo"
   depends_on "freetype"
   depends_on "glib"
   depends_on "jpeg-turbo"
@@ -28,9 +30,13 @@ class Chafa < Formula
   depends_on "libtiff"
   depends_on "webp"
 
+  on_macos do
+    depends_on "gdk-pixbuf"
+    depends_on "gettext"
+  end
+
   def install
-    system "./configure", *std_configure_args,
-                          "--disable-silent-rules"
+    system "./configure", "--disable-silent-rules", *std_configure_args
     system "make", "install"
     man1.install "docs/chafa.1"
   end

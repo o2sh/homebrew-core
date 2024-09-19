@@ -1,19 +1,18 @@
 class ChainloopCli < Formula
   desc "CLI for interacting with Chainloop"
   homepage "https://docs.chainloop.dev"
-  url "https://github.com/chainloop-dev/chainloop/archive/refs/tags/v0.85.1.tar.gz"
-  sha256 "257847ce13e05022dabd942a70829b45aef7f1ebc19f662dc471e9049c847a42"
+  url "https://github.com/chainloop-dev/chainloop/archive/refs/tags/v0.96.11.tar.gz"
+  sha256 "44b24c2989b07915e3ece92c37f9d221305a0558095608e26c893dff84c8161e"
   license "Apache-2.0"
   head "https://github.com/chainloop-dev/chainloop.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "44cf7f31fd5924650b3d8e0c5aa895bf0a81912aa92eb28de28958ef3218319e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5569a983006e9fd05ebb8da586782f776b14a235d40c768db7a41a2ff8203014"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "96b9ea10cd95a1f2a18f8801b2ddb15fe82de2d87c6e006e7cc686a9249e2d88"
-    sha256 cellar: :any_skip_relocation, sonoma:         "26956bb91a8854e969803945026c65e4dfd4ae3dc3bbc99089d6480cb044957f"
-    sha256 cellar: :any_skip_relocation, ventura:        "af0b24d17666add08ff00c42195fbbab38f13f7f770940a3529d9f88f94ac156"
-    sha256 cellar: :any_skip_relocation, monterey:       "28e6a85b0482b9c0bf116a5e65aad87655e50c39fb47071afbc21e5914e939d2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "689fd7b11a601963cb805d91017698daed2a6e9bb32c5ad2857ccfec09cf48e1"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "830ac3423ed9be4784773594439ab58bfd179c7b998c2abc452485685b8f47d7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "830ac3423ed9be4784773594439ab58bfd179c7b998c2abc452485685b8f47d7"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "830ac3423ed9be4784773594439ab58bfd179c7b998c2abc452485685b8f47d7"
+    sha256 cellar: :any_skip_relocation, sonoma:        "3fbc10be5720669bd9bf9237fde1411b25172929fe7cf2858d9e7cba347cc708"
+    sha256 cellar: :any_skip_relocation, ventura:       "5bf0e129777fe5aa54fc8e09368ef67611bb6dbb0e11225f75f9332fdf6d824a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "93363a1b6932f83b1e9a79a21cf7c99cdea5dee9e5c1ca77ee4dcd93c2645114"
   end
 
   depends_on "go" => :build
@@ -24,7 +23,7 @@ class ChainloopCli < Formula
       -X github.com/chainloop-dev/chainloop/app/cli/cmd.Version=#{version}
     ]
 
-    system "go", "build", *std_go_args(output: bin/"chainloop", ldflags:), "./app/cli"
+    system "go", "build", *std_go_args(ldflags:, output: bin/"chainloop"), "./app/cli"
 
     generate_completions_from_executable(bin/"chainloop", "completion", base_name: "chainloop")
   end

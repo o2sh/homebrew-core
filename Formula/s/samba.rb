@@ -4,8 +4,8 @@ class Samba < Formula
   # option. The shared folder appears in the guest as "\\10.0.2.4\qemu".
   desc "SMB/CIFS file, print, and login server for UNIX"
   homepage "https://www.samba.org/"
-  url "https://download.samba.org/pub/samba/stable/samba-4.20.0.tar.gz"
-  sha256 "02672542510ac6e5d0c91c0c14d90ab4e6ec397c709e952c6da3a6e0b4d5a42f"
+  url "https://download.samba.org/pub/samba/stable/samba-4.21.0.tar.gz"
+  sha256 "09bb56db4ce003cafdbebe9bad368c4f4ff1945f732d18077d52f36ab20cef88"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -14,13 +14,14 @@ class Samba < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "f0f495011cfe5fee55b623777ed603177a26828c8e99c336fb7513bc47af4019"
-    sha256 arm64_ventura:  "977eb2b23722a05b3a425159494102436046f0630af76a241d826e43119ab80f"
-    sha256 arm64_monterey: "d64e85b429ab5db0738a335fe26d54842f74bfeeb0e6a4560a4ec288e67d5eb1"
-    sha256 sonoma:         "2e3809b9a75c5e8e4636d30a756f4104d457c5e60a1dcbfc10ccd380a828ed78"
-    sha256 ventura:        "1ae22014935d909d508a8a0ea484419a1370c0eb2cc5ef392f9d8e58d78012a2"
-    sha256 monterey:       "0fd96b96f0bd951cbef433ac1cdb729c40924dbabf58159345016edefa9f071c"
-    sha256 x86_64_linux:   "3fc2a47086bcea9031a614a37879aa2ba21dc6f8fac5f450a6273ffac9ce25bb"
+    sha256 arm64_sequoia:  "65248677905982cf95884cd3ae76c29d309e96ef85962d06f4d8748174448a11"
+    sha256 arm64_sonoma:   "1313554b2cea443140277e014635f42b24f4ad327ed76a54abab98e0328ce50f"
+    sha256 arm64_ventura:  "52ba8d7910f9ef238b2bbf1d98fcc438deb7de2da727e31b0fe3641d21d9fd30"
+    sha256 arm64_monterey: "353d457204f8de6214fc10632b7af2946e2299cd050b3a2cb480ed3ab5a1b590"
+    sha256 sonoma:         "4e32f0d36741ef7ed0e84fb171938e15d33c6f8a3cf14b73a02a5df39f272bbc"
+    sha256 ventura:        "a6bd43a549aded7a993e9f64e0072cc1142ac3ef4cf18d6c7bf42c8207065c61"
+    sha256 monterey:       "e01579d1da7e89347842cacee7b673bb721fc93ddaa547db720dd91bed4facf9"
+    sha256 x86_64_linux:   "00fcc92aaf20aca13f869d84a999545a0bfa2a6059d97425928f31fa7faa6e87"
   end
 
   depends_on "bison" => :build
@@ -35,6 +36,8 @@ class Samba < Formula
   depends_on "popt"
   depends_on "readline"
   depends_on "talloc"
+  depends_on "tdb"
+  depends_on "tevent"
 
   uses_from_macos "flex" => :build
   uses_from_macos "perl" => :build
@@ -43,6 +46,7 @@ class Samba < Formula
   uses_from_macos "zlib"
 
   on_macos do
+    depends_on "gettext"
     depends_on "openssl@3"
   end
 
@@ -59,6 +63,9 @@ class Samba < Formula
   end
 
   def install
+    # Skip building test that fails on ARM with error: initializer element is not a compile-time constant
+    inreplace "lib/ldb/wscript", /\('test_ldb_comparison_fold',$/, "\\0 enabled=False," if Hardware::CPU.arm?
+
     # avoid `perl module "Parse::Yapp::Driver" not found` error on macOS 10.xx (not required on 11)
     if !OS.mac? || MacOS.version < :big_sur
       ENV.prepend_create_path "PERL5LIB", buildpath/"lib/perl5"
@@ -71,7 +78,8 @@ class Samba < Formula
     end
     ENV.append "LDFLAGS", "-Wl,-rpath,#{lib}/private" if OS.linux?
     system "./configure",
-           "--bundled-libraries=NONE,ldb,tdb,tevent",
+           "--bundled-libraries=NONE",
+           "--private-libraries=!ldb",
            "--disable-cephfs",
            "--disable-cups",
            "--disable-iprint",
@@ -95,13 +103,13 @@ class Samba < Formula
            "--localstatedir=#{var}"
     system "make"
     system "make", "install"
-    if OS.mac?
-      # macOS has its own SMB daemon as /usr/sbin/smbd, so rename our smbd to samba-dot-org-smbd to avoid conflict.
-      # samba-dot-org-smbd is used by qemu.rb .
-      # Rename profiles as well to avoid conflicting with /usr/bin/profiles
-      mv sbin/"smbd", sbin/"samba-dot-org-smbd"
-      mv bin/"profiles", bin/"samba-dot-org-profiles"
-    end
+    return unless OS.mac?
+
+    # macOS has its own SMB daemon as /usr/sbin/smbd, so rename our smbd to samba-dot-org-smbd to avoid conflict.
+    # samba-dot-org-smbd is used by qemu.rb .
+    # Rename profiles as well to avoid conflicting with /usr/bin/profiles
+    mv sbin/"smbd", sbin/"samba-dot-org-smbd"
+    mv bin/"profiles", bin/"samba-dot-org-profiles"
   end
 
   def caveats

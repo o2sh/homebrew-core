@@ -1,24 +1,25 @@
 class Pdns < Formula
   desc "Authoritative nameserver"
   homepage "https://www.powerdns.com"
-  url "https://downloads.powerdns.com/releases/pdns-4.9.0.tar.bz2"
-  sha256 "fe1d5433c88446ed70d931605c6ec377da99839c4e151b90b71aa211bd6eea92"
+  url "https://downloads.powerdns.com/releases/pdns-4.9.1.tar.bz2"
+  sha256 "30d9671b8f084774dbcba20f5a53a3134d0822ab2edc3ef968da030e630dd09a"
   license "GPL-2.0-or-later"
   revision 1
 
   livecheck do
-    url "https://downloads.powerdns.com/releases/"
+    url "https://www.powerdns.com/downloads"
     regex(/href=.*?pdns[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
   bottle do
-    sha256 arm64_sonoma:   "a747fb5e8f00c5121ba417788a7967657ba5931818f5583c5988566dd1210d81"
-    sha256 arm64_ventura:  "118b0087c1d795e315a9c7772216aa7a127ab2ec42df32264faacab2fcbcfaff"
-    sha256 arm64_monterey: "792902ee608dd15d590327b3a376c93f4c723168dfdcc973468319eacd02fe3e"
-    sha256 sonoma:         "292ab43cc6d0347dae1d01658b5741be35b01a427259f2e585abea959fcf3d4f"
-    sha256 ventura:        "c5f44848979cfec46827e0352c28b15c3d537095b5869215451bdc3e1ec9a7ea"
-    sha256 monterey:       "c5fa65482165902e2dfb6d696202883a8898f1ae01c987ae2fa9719c26237bf2"
-    sha256 x86_64_linux:   "5a1583a3059b7512b5c8630c72cda1485fedaff69a8db14ab92dc334234ac3ab"
+    sha256 arm64_sequoia:  "5b61fa3f8184ad351bef1f2276b26c886f8d2a814925b37c536d2f735ee1f44f"
+    sha256 arm64_sonoma:   "660e48a419366a19a97f2f05bd5abffdd16fc0e5ae0e1f29cc76923e8d98784a"
+    sha256 arm64_ventura:  "1d36e9e6ffeba02de5e6bad5d320f9ad23f0e7bfc36cab5a1a7c6743a9f5300f"
+    sha256 arm64_monterey: "8dbfe8340a87dc4306b88abeb60bcc2cf1eff2459c48adf5bd456d56df696963"
+    sha256 sonoma:         "10e5ea6461ddddc7f7ecbdcf144566ca7466468d6f8fbd027f45e4625dfaeccf"
+    sha256 ventura:        "20dfdf4113f1804649620d1ae313d62a497cc5ca91b1f353bd69480113da9bdb"
+    sha256 monterey:       "ee59a163a5150373a16dde3346072919c542ac040451ac9d78ad179e41611323"
+    sha256 x86_64_linux:   "391591c9b46eb4e441496ca6923e04529a137ab3734537cede69ac29f26b1c65"
   end
 
   head do
@@ -39,6 +40,13 @@ class Pdns < Formula
   uses_from_macos "curl"
 
   fails_with gcc: "5" # for C++17
+
+  # Fix build with boost 1.86.0. Remove if PR is merged and in a release.
+  # PR ref: https://github.com/PowerDNS/pdns/pull/14562
+  patch do
+    url "https://github.com/PowerDNS/pdns/commit/eed56000b1d68ac083b8e8bea4ff0ea30a1579c4.patch?full_index=1"
+    sha256 "c21a8677c048f3ce023f2e09c5204602031a78c441904567a4da2b7870dc29ad"
+  end
 
   def install
     args = %W[

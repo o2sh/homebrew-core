@@ -1,10 +1,19 @@
 class Tmux < Formula
   desc "Terminal multiplexer"
   homepage "https://tmux.github.io/"
-  url "https://github.com/tmux/tmux/releases/download/3.4/tmux-3.4.tar.gz"
-  sha256 "551ab8dea0bf505c0ad6b7bb35ef567cdde0ccb84357df142c254f35a23e19aa"
   license "ISC"
   revision 1
+
+  stable do
+    url "https://github.com/tmux/tmux/releases/download/3.4/tmux-3.4.tar.gz"
+    sha256 "551ab8dea0bf505c0ad6b7bb35ef567cdde0ccb84357df142c254f35a23e19aa"
+
+    # Upstream fix for macOS 15 headers, remove in next version
+    patch do
+      url "https://github.com/tmux/tmux/commit/775789fbd5c4f3aa93061480cd64e61daf7fb689.patch?full_index=1"
+      sha256 "c1b61a1244f758480578888d3f89cac470271c376ea0879996b81e10b397cad0"
+    end
+  end
 
   livecheck do
     url :stable
@@ -13,13 +22,15 @@ class Tmux < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "6da34fb21fe425bf6837454e1f3e093a82eacd10bc7d0a4ed71126b7ff937042"
-    sha256 cellar: :any,                 arm64_ventura:  "0081a403f6e2d1aba9a2368e4777e7287546e82549c2bf47d38ae790e93ec123"
-    sha256 cellar: :any,                 arm64_monterey: "62af5e96316f67de165b4b737a350935044cf70ddc6fcb1b52673bbcbd590da0"
-    sha256 cellar: :any,                 sonoma:         "41ac427046afc0e8081a580ee18f3262775e23bc9f90230f670dacb5a264e2ee"
-    sha256 cellar: :any,                 ventura:        "f5326994b833cc0836b25885a0ec4355fca2f77a9fb7dcfff4d8b8fdf176dc24"
-    sha256 cellar: :any,                 monterey:       "64026baf4f5452836d465a405125f7a62a33c32b5ac99b8e9ab03c1decdd73db"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4e89c9d35311117bcf7838363e16c480d4512456c87f5f5e75fad3e769a503a9"
+    rebuild 2
+    sha256 cellar: :any,                 arm64_sequoia:  "79da3c04d1147057cbe3ecf344bae3126b61ff18f4d0cf7d5470b01b6b30948c"
+    sha256 cellar: :any,                 arm64_sonoma:   "6b407b3351b79919c482d46134c9e83552f3e848f1c482a7deec65c36cf16d37"
+    sha256 cellar: :any,                 arm64_ventura:  "a5a47403c75e2d14370ff07641294bd361eceb8ca2dc65925e5eb7e41453d727"
+    sha256 cellar: :any,                 arm64_monterey: "2233d5fd7333fdf3da6dbe48157735c276f27cd7dd274d0e704985c9105e77b0"
+    sha256 cellar: :any,                 sonoma:         "2a085e0752332536a198aac71cd6b24a10f6feb0bf1825f90551cd6ef5e8c890"
+    sha256 cellar: :any,                 ventura:        "0648a51759f9c37ab98ff9b2558d30aa7ec07a7c7979a4107263e080382d0c0c"
+    sha256 cellar: :any,                 monterey:       "ec64b5ad6daf6bf6cb99cd2580fdf6cfee9830fcedc4971fa9be033710d1774a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "05e737d00a0f331d48468c8f7f96f70e8879c5e9ffb9fcae9fb1fdae4f71bcd4"
   end
 
   head do
@@ -43,8 +54,8 @@ class Tmux < Formula
   end
 
   resource "completion" do
-    url "https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/f5d53239f7658f8e8fbaf02535cc369009c436d6/completions/tmux"
-    sha256 "b5f7bbd78f9790026bbff16fc6e3fe4070d067f58f943e156bd1a8c3c99f6a6f"
+    url "https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/8da7f797245970659b259b85e5409f197b8afddd/completions/tmux"
+    sha256 "4e2179053376f4194b342249d75c243c1573c82c185bfbea008be1739048e709"
   end
 
   def install
@@ -60,7 +71,7 @@ class Tmux < Formula
       # and uses that as the default `TERM`, but this causes issues for
       # tools that link with the very old ncurses provided by macOS.
       # https://github.com/Homebrew/homebrew-core/issues/102748
-      args << "--with-TERM=screen-256color"
+      args << "--with-TERM=screen-256color" if MacOS.version < :sonoma
       args << "--enable-utf8proc" if MacOS.version >= :high_sierra
     else
       args << "--enable-utf8proc"

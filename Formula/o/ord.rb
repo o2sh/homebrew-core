@@ -1,19 +1,20 @@
 class Ord < Formula
   desc "Index, block explorer, and command-line wallet"
   homepage "https://ordinals.com/"
-  url "https://github.com/ordinals/ord/archive/refs/tags/0.18.4.tar.gz"
-  sha256 "fff991609a16392162d98907bdc62121574fc2ccfaf61becebb19ad5ce4f4b8d"
+  url "https://github.com/ordinals/ord/archive/refs/tags/0.20.0.tar.gz"
+  sha256 "6d0c61e7657b1a76717a7c93109bbc5de0e11c27733098a3ee972d3b7b407d72"
   license "CC0-1.0"
   head "https://github.com/ordinals/ord.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2037721b7bcd43cf37d99b80058ab1a54dcca8dbcf02e24c127e61e5ba9a3643"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6a5de0e6565b8116258e89aebc5a017921f204aa8280fe7809e8a79f4d859ce1"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e3cdbb35c2b827b7fe6b9cb1ff3610cd6156cda511a0fadcb06b0927b7bd50be"
-    sha256 cellar: :any_skip_relocation, sonoma:         "eadeae02dd636c4c2e6e1b851a16beeb6ac8f5c4987a951e5db5b79759c08792"
-    sha256 cellar: :any_skip_relocation, ventura:        "a3f37380e6a87fc679be9d16aab9f31718ffe831d72e7356d757f3f50a35e298"
-    sha256 cellar: :any_skip_relocation, monterey:       "58de416deb191ae29f15480edd21a41fd52007ed0f3ba2b85bbe1bf9c23bf274"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9c26ca90dcca5243eb24082fa65f140bc868ef9a6bc2bb872100b602c0271624"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "a2cf7be4bd716b58e1a83b42bdd0316774a17b7f44176e1e602de476e2c61944"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e5c25a2646af6cfd11773436d95a4924850b03c6d9c97420f9679e4125648e75"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "70a702d1f1db605cc5c661b89d658a6a2bfb0f981ff35947aac2631b4f97c8c3"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "241cf0c83aa50d199e723cfb9669324ba4e1490e9ba7c30683d015d4a6fd0904"
+    sha256 cellar: :any_skip_relocation, sonoma:         "1edf24dd01838d5bdebb5b2360008db2b7ec5be35d3c15ddd9abcc31f29f24e5"
+    sha256 cellar: :any_skip_relocation, ventura:        "1e7030adf86d6b58695947b8efe9517288b152d6925e87bfa16b23d8c8dc520d"
+    sha256 cellar: :any_skip_relocation, monterey:       "10a9282b42ebfa6e08610a510d05614a67909b92932a3270d72db9ba09cc911b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "17096fd535dd5ed2f999fcaa63f543d9189026f606a77de755b233b5d451ccea"
   end
 
   depends_on "pkg-config" => :build

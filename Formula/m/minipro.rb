@@ -1,19 +1,20 @@
 class Minipro < Formula
   desc "Open controller for the MiniPRO TL866xx series of chip programmers"
   homepage "https://gitlab.com/DavidGriffith/minipro/"
-  url "https://gitlab.com/DavidGriffith/minipro/-/archive/0.7/minipro-0.7.tar.gz"
-  sha256 "febd2aa1a7e8d7d5b2c4de62503f37e562633a1d2b2bf78b788e49ac06847ab4"
+  url "https://gitlab.com/DavidGriffith/minipro/-/archive/0.7.1/minipro-0.7.1.tar.gz"
+  sha256 "dbabd96b377ebf988b093658aeda658ed2a8a6b2097d491d2c620a01993860fc"
   license "GPL-3.0-or-later"
   head "https://gitlab.com/DavidGriffith/minipro.git", branch: "master"
 
   bottle do
-    sha256 arm64_sonoma:   "7683f032c841d97795fc78c53bf54eb1001158ff4629ffb8b2bc71a4f8d53206"
-    sha256 arm64_ventura:  "9c24b204d138e6ae6f700f605377fb3b2e79c41598ec4cda73bfb3bc199e81a5"
-    sha256 arm64_monterey: "042ef3b0b0a7a518ae05e9550272397efb42ea7988646812591c14bf86dc486f"
-    sha256 sonoma:         "c693bc5fc151bb8ae485d32fde83a33c37bfc983ae6a0cb5e0b475d1cfae840e"
-    sha256 ventura:        "e554d7dff64cd94861d766390371770ca570f223543cc6080084b0c4fd4a4d74"
-    sha256 monterey:       "a582c896da5a80544e9b6af4729ffc300cbd4d85a41f10b6c1f15327686686a6"
-    sha256 x86_64_linux:   "ea50165c90c5e75b67e01f5911564c96e52742fd14fa822743955472f04a5123"
+    sha256 arm64_sequoia:  "8a24b7aefbe704caa97c6d015e14490fa4f2675ae109fae891266ab9bc0b05fb"
+    sha256 arm64_sonoma:   "d4af1c31e635397d647001119015cfc8d006fa148ae1b7f5aaa8ae84afa3f091"
+    sha256 arm64_ventura:  "fd250a5ac187f8870397dbc5eeb87b9f80fc44edcd6075328faaf2fa83cfe5d7"
+    sha256 arm64_monterey: "41a8d933c4cd33bc6d23d9604cce0dd5d69e6e95c2e2e9b2e289086ebb7d4360"
+    sha256 sonoma:         "12e590dc45db3ac34e57f6e05bdb691041b351c1a7b8cbbd8e99fbe0d00c34ed"
+    sha256 ventura:        "e0ee05b22915caa7be6d52faab93af667ed9bc61dfe5834a7c4ad75654d93524"
+    sha256 monterey:       "cceb3726189c6b5eadb8cb3582bc407eb5868ecc79c4b86d7218c4b8e55fab69"
+    sha256 x86_64_linux:   "14a6130f02cf3adbd99526aabe59fdaa2f946074d30f9afadda5cbf9f271911f"
   end
 
   depends_on "pkg-config" => :build

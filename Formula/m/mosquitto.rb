@@ -14,6 +14,7 @@ class Mosquitto < Formula
   end
 
   bottle do
+    sha256 arm64_sequoia:  "049b824619543666afb4162d0498a37c2d47698a07ce58f72b92f7590e73feeb"
     sha256 arm64_sonoma:   "ed6fa66f74bb88539a0ed66d32ebf20d58d099ab6fc2131703d2cb6c26f053e1"
     sha256 arm64_ventura:  "f7946b65c41657ea97975c9ce2a2d1e2c63f6dd2f55a5ad048fe9afdbff00d29"
     sha256 arm64_monterey: "96990068f0968e20dbef5b553804855046bc332e66a144f792e0a668a383ce38"
@@ -62,11 +63,11 @@ class Mosquitto < Formula
   end
 
   test do
-    quiet_system "#{sbin}/mosquitto", "-h"
+    quiet_system sbin/"mosquitto", "-h"
     assert_equal 3, $CHILD_STATUS.exitstatus
-    quiet_system "#{bin}/mosquitto_ctrl", "dynsec", "help"
+    quiet_system bin/"mosquitto_ctrl", "dynsec", "help"
     assert_equal 0, $CHILD_STATUS.exitstatus
-    quiet_system "#{bin}/mosquitto_passwd", "-c", "-b", "/tmp/mosquitto.pass", "foo", "bar"
+    quiet_system bin/"mosquitto_passwd", "-c", "-b", "/tmp/mosquitto.pass", "foo", "bar"
     assert_equal 0, $CHILD_STATUS.exitstatus
   end
 end

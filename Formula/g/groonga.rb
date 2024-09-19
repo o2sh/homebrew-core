@@ -1,8 +1,8 @@
 class Groonga < Formula
   desc "Fulltext search engine and column store"
   homepage "https://groonga.org/"
-  url "https://github.com/groonga/groonga/releases/download/v14.0.2/groonga-14.0.2.tar.gz"
-  sha256 "a3d0ba94f38f91bd8a09b1780aa2f22ad5c77ce741de3008bf93fa4a34c90097"
+  url "https://github.com/groonga/groonga/releases/download/v14.0.7/groonga-14.0.7.tar.gz"
+  sha256 "97428e49adb3542cbc0545279b66c53fcd825176be5f231feba8951096ce4095"
   license "LGPL-2.1-or-later"
 
   livecheck do
@@ -11,13 +11,14 @@ class Groonga < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "d0ec626d99d16195167ce4300553913c06e880b3be01eeb13c7ba6775ebfa039"
-    sha256 arm64_ventura:  "462ed9ac89447742d4d4d75cd21f91a62f5679dc6f2c3842732ca08a23f5a379"
-    sha256 arm64_monterey: "fd9d5430b932f251ad4ddc5b67f7c4583a71e570b1e3a14e77972ea224530263"
-    sha256 sonoma:         "bca241abf271a3fa48a6517289e27259672e14a3e1731b3a467a7706f6ba02f3"
-    sha256 ventura:        "99d94ddcb431032c5e8048d8540decba356380056198c23346ce28dce4f8e8d4"
-    sha256 monterey:       "0c480905b3abb0c05fce8ca6bbead6c6abf5faf20ee414a301d9a3ec99415104"
-    sha256 x86_64_linux:   "2e2206a222c279b82e08db192a9fb069099a28ab1bd357351007c194b09c8ffe"
+    sha256 arm64_sequoia:  "87a527ab33e7e801b267a47e9d3309a6078cdae410c50b983e8a78198a6a94e1"
+    sha256 arm64_sonoma:   "1939364b135a0ceddca4d16d07544c1dba11e2153994915bd3ab9ae07c445197"
+    sha256 arm64_ventura:  "124dd63c68b9038c3bf4d16eb336a5ad7ba829bdf5b6998cf590eb72eae53cdf"
+    sha256 arm64_monterey: "45c38aff0067a6ce9a0725d62feab3bf381f2614e7a8e980b865992264ea8f5a"
+    sha256 sonoma:         "76f8a668729df1d6a37ada70f335f229f42a932793197871cbc5a212c6742d65"
+    sha256 ventura:        "24b5bd40c496195e11646ed8a339b3b56d60a110e6e549d82d1c2be978be4965"
+    sha256 monterey:       "f4f31ae7a7f4e26d9ef29d881589957a6254c54b89584476163aa4e68e89beff"
+    sha256 x86_64_linux:   "13602a74b5529f8e02fe4ecd112bc48f06fd23c6b12eb8a665dd7e79daa4fe3b"
   end
 
   head do
@@ -34,6 +35,7 @@ class Groonga < Formula
   depends_on "openssl@3"
 
   uses_from_macos "libxcrypt"
+  uses_from_macos "zlib"
 
   on_linux do
     depends_on "glib"

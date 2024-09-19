@@ -1,8 +1,8 @@
 class Bcftools < Formula
   desc "Tools for BCF/VCF files and variant calling from samtools"
   homepage "https://www.htslib.org/"
-  url "https://github.com/samtools/bcftools/releases/download/1.20/bcftools-1.20.tar.bz2"
-  sha256 "312b8329de5130dd3a37678c712951e61e5771557c7129a70a327a300fda8620"
+  url "https://github.com/samtools/bcftools/releases/download/1.21/bcftools-1.21.tar.bz2"
+  sha256 "528a4cc1d3555368db75a700b22a3c95da893fd1827f6d304716dfd45ea4e282"
   # The bcftools source code is MIT/Expat-licensed, but when it is configured
   # with --enable-libgsl the resulting executable is GPL-licensed.
   license "GPL-3.0-or-later"
@@ -13,13 +13,14 @@ class Bcftools < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "a378684c1b71b544c76cd3189ebafe358aad27aba97998b9954807bb65443e3f"
-    sha256 arm64_ventura:  "ee2d762bd2f6841aa212f97e8789cb55b70da179f858d7525fa34002d20a6b77"
-    sha256 arm64_monterey: "618464643a867483b584004a647a795cd3ab82f04d4099d7db7b897138c3295a"
-    sha256 sonoma:         "947419ff302a6d111c15aea9a78ea654d8a70f5e0474cce2e9cb5edff4b342aa"
-    sha256 ventura:        "4563f25f24c54910f12137f736691c3f06148847e8b283e3841810b33d7504e3"
-    sha256 monterey:       "9ba8b88890f7d92add261950bca77e32638d4597e2a82191598944fd42efff39"
-    sha256 x86_64_linux:   "b6a25d85a1a9db04e6636c213fb47428f3f2c0fbbf55e6b46b80fb822099a2a7"
+    sha256 arm64_sequoia:  "24923a0c1f5695cebd051f338ae43f532183f086afb5be6284a2a28b26aa3296"
+    sha256 arm64_sonoma:   "c3f336afc9026b9b782a955e4105d208bab0ec6f8f1701171d3093bff70487e0"
+    sha256 arm64_ventura:  "f380f5a44355aa36e14234551ef6cadd5c8cae4889af33acaa12f3759309e04b"
+    sha256 arm64_monterey: "a59a1531f579d313e6d4650a47e75d93b5a978758a67b0dd417aabd507994e00"
+    sha256 sonoma:         "ed2ea3659a829947e39e6a9fc8c295f483052a7e54f7b369682a1dc4574d52cf"
+    sha256 ventura:        "a0dea566d19deacb5b1d6886c2f7b21a49a01cfb554efbe2d4462e1a0edbfc81"
+    sha256 monterey:       "49ed253ef4ddfeaa96b1a96c4b51c60992cf1248f087ab8bd534c82facdb6a44"
+    sha256 x86_64_linux:   "d0b13624d5d87f0b28715e7ce74b3c78daf2f6a3db7f025a6b9fd434f0aff2f8"
   end
 
   depends_on "gsl"

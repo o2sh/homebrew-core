@@ -1,9 +1,10 @@
 class Dnsdist < Formula
   desc "Highly DNS-, DoS- and abuse-aware loadbalancer"
   homepage "https://www.dnsdist.org/"
-  url "https://downloads.powerdns.com/releases/dnsdist-1.9.3.tar.bz2"
-  sha256 "f05b68806dc6c4d207b1fadb7ec715c3e0d28d893a8b3b92d58297c4ceb56c3f"
+  url "https://downloads.powerdns.com/releases/dnsdist-1.9.6.tar.bz2"
+  sha256 "f6c48d95525693fea6bd9422f3fdf69a77c75b06f02ed14ff0f42072f72082c9"
   license "GPL-2.0-only"
+  revision 1
 
   livecheck do
     url "https://downloads.powerdns.com/releases/"
@@ -11,31 +12,35 @@ class Dnsdist < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "20e6987aec8bfaa55b2b776fccf5672dbdb0d91de79a10ee4025608fc1f2db17"
-    sha256 cellar: :any,                 arm64_ventura:  "93c4d5018b5dac723c27d9e0ef49739e6d60ae33e2d83245b656872cd4c099d7"
-    sha256 cellar: :any,                 arm64_monterey: "d1120439da992fa8b6a93ced426ba8c96134efd3714871584559812f67cafbe8"
-    sha256 cellar: :any,                 sonoma:         "c4b69412449af4e07c00392f612e5aa1745ec4f06b4d9272dd70c3b37c99979d"
-    sha256 cellar: :any,                 ventura:        "86b17ca4d74e5eb944941832fadaa6484b9edf911ff66bba370bb8d0f730c510"
-    sha256 cellar: :any,                 monterey:       "27e917beb812ac1162598acbe8660f93b697d6d7df0e156718b45da43b1add5d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cf452f424e6187463af07b5955ec0eaf757d85925df8f7282644169f820b0c0e"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "ccb35078f29e90eb19b7fc128861ed883291c38b7f714a1c5c95dae5268d2af3"
+    sha256 cellar: :any,                 arm64_sonoma:  "e893a3ef8e07c8ada4afd24f1e2b456cd70d7fdffcb8f23bafb173e0098f441e"
+    sha256 cellar: :any,                 arm64_ventura: "eaef182437926870e9cf03be54d9c6d59d248d67747e63e3dd69da25a11359b5"
+    sha256 cellar: :any,                 sonoma:        "5bd99ac15d85fcc7927412108ba844c132285c27bc017584a6617b08eff7147c"
+    sha256 cellar: :any,                 ventura:       "6a14fbefe30439b1db6155564f625c939a87cf36ebc0eaa7601367f89d3a282c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "32770e8c9fbbcf3267ccb182dfcce8e99c20cc19afb4c036a048abbfa5f992e4"
   end
 
   depends_on "boost" => :build
   depends_on "pkg-config" => :build
   depends_on "abseil"
-  depends_on "cdb"
   depends_on "fstrm"
-  depends_on "h2o"
   depends_on "libnghttp2"
   depends_on "libsodium"
   depends_on "luajit"
   depends_on "openssl@3"
-  depends_on "protobuf"
   depends_on "re2"
+  depends_on "tinycdb"
 
   uses_from_macos "libedit"
 
   fails_with gcc: "5"
+
+  # Fix build with boost 1.86.0. Remove in next release
+  patch :p2 do
+    url "https://github.com/PowerDNS/pdns/commit/a1026f0c6db7b077d1180096a84f48a85a606d59.patch?full_index=1"
+    sha256 "8c8e4dd81af366fdd08182b5f242a054188d46c8ab955ae19843ac64c2f2044f"
+  end
 
   def install
     system "./configure", "--disable-silent-rules",

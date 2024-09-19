@@ -11,6 +11,7 @@ class Opentsdb < Formula
   end
 
   bottle do
+    sha256 cellar: :any_skip_relocation, sonoma:   "3679873487a1086a93faff26d0e11d60073452bba842535113f618c7cc8f6ce4"
     sha256 cellar: :any_skip_relocation, ventura:  "64369af5327cbbbed6c3f3845e6e60f399a9876cacef624682e8d7cfc9d804b9"
     sha256 cellar: :any_skip_relocation, monterey: "98c4251b26aaa0d592c976615aa53d4d4ff0a464b342421e91354a4138dcd208"
     sha256 cellar: :any_skip_relocation, big_sur:  "e29c00cec680bfc711c31d40aa5f04e5c62ebf9219c3adddcc84dff74b1922cc"
@@ -26,6 +27,10 @@ class Opentsdb < Formula
   depends_on "lzo"
   depends_on "openjdk@11"
 
+  on_macos do
+    depends_on arch: :x86_64 # openjdk@8 (needed to build) is not supported on ARM
+  end
+
   def install
     with_env(JAVA_HOME: Language::Java.java_home("1.8")) do
       ENV.prepend_path "PATH", Formula["python@3.12"].opt_libexec/"bin"
@@ -38,14 +43,14 @@ class Opentsdb < Formula
       system "make"
       bin.mkpath
       (pkgshare/"static/gwt/opentsdb/images/ie6").mkpath
-      system "make", "install"
+      ENV.deparallelize { system "make", "install" }
     end
 
     env = Language::Java.java_home_env("11")
     env["PATH"] = "$JAVA_HOME/bin:$PATH"
     env["HBASE_HOME"] = Formula["hbase"].opt_libexec
     # We weren't able to get HBase native LZO compression working in Monterey
-    env["COMPRESSION"] = (MacOS.version >= :monterey) ? "NONE" : "LZO"
+    env["COMPRESSION"] = (OS.mac? && MacOS.version >= :monterey) ? "NONE" : "LZO"
 
     create_table = pkgshare/"tools/create_table_with_env.sh"
     create_table.write_env_script pkgshare/"tools/create_table.sh", env
@@ -105,12 +110,12 @@ class Opentsdb < Formula
 
     system "#{Formula["hbase"].opt_bin}/start-hbase.sh"
     begin
-      sleep 2
+      sleep 10
 
-      system "#{pkgshare}/tools/create_table_with_env.sh"
+      system pkgshare/"tools/create_table_with_env.sh"
 
-      tsdb_err = "#{testpath}/tsdb.err"
-      tsdb_out = "#{testpath}/tsdb.out"
+      tsdb_err = testpath/"tsdb.err"
+      tsdb_out = testpath/"tsdb.out"
       fork do
         $stderr.reopen(tsdb_err, "w")
         $stdout.reopen(tsdb_out, "w")
@@ -120,7 +125,7 @@ class Opentsdb < Formula
 
       pipe_output("nc localhost 4242 2>&1", "put homebrew.install.test 1356998400 42.5 host=webserver01 cpu=0\n")
 
-      system "#{bin}/tsdb", "query", "1356998000", "1356999000", "sum",
+      system bin/"tsdb", "query", "1356998000", "1356999000", "sum",
              "homebrew.install.test", "host=webserver01", "cpu=0"
     ensure
       system "#{Formula["hbase"].opt_bin}/stop-hbase.sh"

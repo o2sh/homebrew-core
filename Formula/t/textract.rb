@@ -9,6 +9,7 @@ class Textract < Formula
 
   bottle do
     rebuild 3
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "9d99fe84d6451dad89f286e0fd1b66279c5f33da07e712f51f6ab3cc51d7e719"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "28dc3b359e04b6aef1709e193f9d9f9ae624e036ceaf0b346f398286b9e6d8af"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "6ba581b23948e522b8b98ef0fd8347ae001157a6e2bfe179c53abc7f4a58c88f"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "7e6d5d68ae37d5b7ddc85e6a4c0120e4275e16d834deb34c19bf9ed247c1e846"
@@ -17,6 +18,9 @@ class Textract < Formula
     sha256 cellar: :any_skip_relocation, monterey:       "52d8d47213610e4a4b5f7e946ed9c8996b5b8690abe87fbdca439ff459ed7f0d"
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "c586d18c8d63831319b36c7e0904037b363f6fa74ce0c71f15237e9f98fa7a54"
   end
+
+  # https://github.com/deanmalmgren/textract/issues/498
+  deprecate! date: "2024-06-18", because: :unmaintained
 
   depends_on "antiword"
   depends_on "flac"

@@ -2,8 +2,8 @@ class OperatorSdk < Formula
   desc "SDK for building Kubernetes applications"
   homepage "https://sdk.operatorframework.io/"
   url "https://github.com/operator-framework/operator-sdk.git",
-      tag:      "v1.34.1",
-      revision: "edaed1e5057db0349568e0b02df3743051b54e68"
+      tag:      "v1.37.0",
+      revision: "819984d4c1a51c8ff2ef6c23944554148ace0752"
   license "Apache-2.0"
   head "https://github.com/operator-framework/operator-sdk.git", branch: "master"
 
@@ -13,17 +13,15 @@ class OperatorSdk < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ee180a4e583804440cb95f410b9eb164becfb9396ce5b1f8514610432a76b6af"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0355eb6ffabcc0b00d8fc44337c574b7617b17ef6dd06e8dd7ba4d75b2be9241"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4b84f2c2b5c1f37c8c9aaedbdd6d81e57010c9c64e6318a9d4b7f335f76dc15b"
-    sha256 cellar: :any_skip_relocation, sonoma:         "10588a890073b8adba6341f0989b74ed973a715bea7db99dc276eb5d78c366d1"
-    sha256 cellar: :any_skip_relocation, ventura:        "b47bbcd9346383a75c08e7435f2c70221c6cd69f5f39f7ad7bc1d21a547597e5"
-    sha256 cellar: :any_skip_relocation, monterey:       "78c2b7e7d97e57956eeee393414de573fa018fc967191bb6c34f089b5043a98b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5e8d51713b7d920b6a536ec87ef6f84cbc02fba4b3af2ddafbe120b8adbcc316"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0429387f695927eba3b7863d0408896dc2d0f8ae50a0a436fc3b68bdabfa6539"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2c4bd3816aee903cc552aa878b85afd0e9884faf42601177ccd122000a2a7e4e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "1508f9de26a4a4115a8b86b7559cfdb2694ce1448d0c51dbfd2f0480bff43e01"
+    sha256 cellar: :any_skip_relocation, sonoma:        "8d2a2a4c571e4aeddeeec164867970e79472edf4e17e0c1fca6fcdd1f3fbd6e7"
+    sha256 cellar: :any_skip_relocation, ventura:       "92e4fd0e3124c1d326620f2c2273935af036fbcaff097e54d7356fffd64b482d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f28dbb6b9367e1ded3dc60637a4c29d758ea1c42901f8aec445d627d39142b16"
   end
 
-  # use "go" again when https://github.com/operator-framework/operator-sdk/issues/6644 is resolved and released
-  depends_on "go@1.21"
+  depends_on "go"
 
   def install
     ENV["GOBIN"] = bin
@@ -33,16 +31,13 @@ class OperatorSdk < Formula
   end
 
   test do
-    ENV.prepend_path "PATH", Formula["go@1.21"].bin
+    output = shell_output("#{bin}/operator-sdk version")
+    assert_match "version: \"v#{version}\"", output
+    assert_match stable.specs[:revision], output
 
-    if build.stable?
-      version_output = shell_output("#{bin}/operator-sdk version")
-      assert_match "version: \"v#{version}\"", version_output
-      commit_regex = /[a-f0-9]{40}/
-      assert_match commit_regex, version_output
-    end
+    mkdir "brewtest" do
+      system "go", "mod", "init", "brewtest"
 
-    mkdir "test" do
       output = shell_output("#{bin}/operator-sdk init --domain=example.com --repo=github.com/example/memcached")
       assert_match "$ operator-sdk create api", output
 

@@ -1,24 +1,25 @@
 class Libpulsar < Formula
   desc "Apache Pulsar C++ library"
   homepage "https://pulsar.apache.org/"
-  url "https://dlcdn.apache.org/pulsar/pulsar-client-cpp-3.5.1/apache-pulsar-client-cpp-3.5.1.tar.gz"
-  mirror "https://archive.apache.org/dist/pulsar/pulsar-client-cpp-3.5.1/apache-pulsar-client-cpp-3.5.1.tar.gz"
-  sha256 "d24990757319dfa9c9e5d3263f60105dd9e12ddeaf1396d6b397f87dab2fd7d1"
+  url "https://dlcdn.apache.org/pulsar/pulsar-client-cpp-3.6.0/apache-pulsar-client-cpp-3.6.0.tar.gz"
+  mirror "https://archive.apache.org/dist/pulsar/pulsar-client-cpp-3.6.0/apache-pulsar-client-cpp-3.6.0.tar.gz"
+  sha256 "522ca67bc911fcd4c0c9e4278628c9167b614a887c63fb04b04370156254d3b3"
   license "Apache-2.0"
   revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "3fff111a7b587706434cab7912abad51ce873fa2ea2dda118f5935b244cd4963"
-    sha256 cellar: :any,                 arm64_ventura:  "d269e47fe644c6610b7f889dbc0349a52eae2a4539498dac248b73050bc73195"
-    sha256 cellar: :any,                 arm64_monterey: "b17867e7525e48fc192dd2405daa135d35c70fec6e13e50953fb77355cd2cdc5"
-    sha256 cellar: :any,                 sonoma:         "ae47fbc2f5e85f1fcfc53d9f7334663230b8e5188b144b480e83c7dbed8a0d92"
-    sha256 cellar: :any,                 ventura:        "d159bf901ff1d4855d7bda034b744462751543d138f1da83feb0e1fdeef04223"
-    sha256 cellar: :any,                 monterey:       "e0337b7fc58357c45f72843a2767c5e96f60704614545d71dfc77f8c3102b7bf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4bf3f1bd4618b31ed18a970964638271218d00f302d87dd9d8ededff297af0d0"
+    sha256 cellar: :any,                 arm64_sequoia: "acb18afe36302ed87cedd1527f8fd8136041ef6a6c739543c844869ec8c19c30"
+    sha256 cellar: :any,                 arm64_sonoma:  "02b2efb614507e949025a6cd790dc59e6d037ae4fb845d9bc519b560f6bb4db9"
+    sha256 cellar: :any,                 arm64_ventura: "dd04c9f7a04707d1bd3edf31be9585b447e30798138a15afc2d87ed47c4f5b16"
+    sha256 cellar: :any,                 sonoma:        "d7f71129697cf7127d45324074eeac2dc07f60dff7985e876046cc6aeab4124f"
+    sha256 cellar: :any,                 ventura:       "46473d2024cb838f50c0ed3ce58d50849ec0840a0171189eb13c8f7f250c73ca"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5498a1d28d3e2f99b51056e2a88dd8289aee8b961b88cf182abe8b4cc434c250"
   end
 
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
+
+  depends_on "abseil"
   depends_on "boost"
   depends_on "openssl@3"
   depends_on "protobuf"
@@ -26,6 +27,7 @@ class Libpulsar < Formula
   depends_on "zstd"
 
   uses_from_macos "curl"
+  uses_from_macos "zlib"
 
   def install
     args = %W[

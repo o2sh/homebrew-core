@@ -2,18 +2,25 @@ class Julia < Formula
   desc "Fast, Dynamic Programming Language"
   homepage "https://julialang.org/"
   # Use the `-full` tarball to avoid having to download during the build.
-  url "https://github.com/JuliaLang/julia/releases/download/v1.10.3/julia-1.10.3-full.tar.gz"
-  sha256 "d892b2123be64dacf9d05e4ccbad7f1797f6bf87c397a74804b011c8750f6c8f"
+  url "https://github.com/JuliaLang/julia/releases/download/v1.10.5/julia-1.10.5-full.tar.gz"
+  sha256 "5fc94159b87f34d18bf44a1a940e59f40cbeab931bfdc0c4763203bbb6995260"
   license all_of: ["MIT", "BSD-3-Clause", "Apache-2.0", "BSL-1.0"]
   head "https://github.com/JuliaLang/julia.git", branch: "master"
 
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "0a8b83039393127d87643d5c1c6d0dd4ff3c5c841fc5c6402dcc766e202e3ffe"
-    sha256 cellar: :any, arm64_ventura:  "3e7ced7e54e0334de39a02cae2523d6a8f0eb9fa445a700e19cec4025c074706"
-    sha256 cellar: :any, arm64_monterey: "fb3c582697f581866333540f97ca1b18f99f70e08894f4742a6dfa3a8bbef0d2"
-    sha256 cellar: :any, sonoma:         "e4ac104b223adf1d0ace2f7dbc3ddf06b768a892310fb4e3978dcb5f73305b82"
-    sha256 cellar: :any, ventura:        "08378de1faea86cf9cb04e884ac06c54466d95052a16ed0b70dbcad57da1c9b1"
-    sha256 cellar: :any, monterey:       "70a8a5b4e3de05f5d1502ef8ee480fc6ffa3d860955b9cfbf70429f4fb3d707b"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sonoma:   "5f01f35877de5721c8f174fe5ae627c253e5ea2d45604ae72920f2b0b3b481e9"
+    sha256 cellar: :any,                 arm64_ventura:  "2e234231324e6e0cc9ae47b16e7b1a0bd8b5a9319f44cafb3b337aee3d85209b"
+    sha256 cellar: :any,                 arm64_monterey: "5a3fae7b49784b9405f1f87717619bf8c4fde0439621b64fcd3db1aac4e1173c"
+    sha256 cellar: :any,                 sonoma:         "23f33a6156a3af65691f1428cf54ef7924a9c1537c5ae7dad1d5deee62b57803"
+    sha256 cellar: :any,                 ventura:        "88f0b35e9074d68bea5fc42dcc224539991a963018572716ad22d930da932b75"
+    sha256 cellar: :any,                 monterey:       "9704cb40bea57fed436fd5d81eed710114d81f241c3984b0279e16fc13febcb0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "858a1193f9b765a1992c3680ead5f39501cdaa1e75df81da8b2916b6ace57b03"
   end
 
   depends_on "cmake" => :build # Needed to build LLVM
@@ -24,6 +31,7 @@ class Julia < Formula
   depends_on "ca-certificates"
   depends_on "curl"
   depends_on "gmp"
+  depends_on "libblastrampoline"
   depends_on "libgit2"
   depends_on "libnghttp2"
   depends_on "libssh2"
@@ -68,6 +76,7 @@ class Julia < Formula
       USE_SYSTEM_CURL=1
       USE_SYSTEM_GMP=1
       USE_SYSTEM_LAPACK=1
+      USE_SYSTEM_LIBBLASTRAMPOLINE=1
       USE_SYSTEM_LIBGIT2=1
       USE_SYSTEM_LIBSSH2=1
       USE_SYSTEM_LIBSUITESPARSE=0
@@ -130,6 +139,7 @@ class Julia < Formula
       # List these two last, since we want keg-only libraries to be found first
       ENV.append "LDFLAGS", "-Wl,-rpath,#{HOMEBREW_PREFIX}/lib"
       ENV.append "LDFLAGS", "-Wl,-rpath,/usr/lib" # Needed to find macOS zlib.
+      ENV["SDKROOT"] = MacOS.sdk_path
     else
       ENV.append "LDFLAGS", "-Wl,-rpath,#{lib}"
     end
@@ -186,7 +196,11 @@ class Julia < Formula
     ]
 
     assert_equal "4", shell_output("#{bin}/julia #{args.join(" ")} --print '2 + 2'").chomp
-    system bin/"julia", *args, "--eval", 'Base.runtests("core")'
+
+    if OS.linux? || Hardware::CPU.arm? || MacOS.version > :monterey
+      # This test times out on 12-x86_64.
+      system bin/"julia", *args, "--eval", 'Base.runtests("core")'
+    end
 
     # Check that installing packages works.
     # https://github.com/orgs/Homebrew/discussions/2749

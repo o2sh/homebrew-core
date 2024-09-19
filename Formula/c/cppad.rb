@@ -1,8 +1,8 @@
 class Cppad < Formula
   desc "Differentiation of C++ Algorithms"
   homepage "https://www.coin-or.org/CppAD"
-  url "https://github.com/coin-or/CppAD/archive/refs/tags/20240000.4.tar.gz"
-  sha256 "0dfc1e30b32d5dd3086ee3adb6d2746a019e9d670b644c4d5ec1df3c35dd1fe5"
+  url "https://github.com/coin-or/CppAD/archive/refs/tags/20240000.7.tar.gz"
+  sha256 "b3cdc7e18fe3cb2bd427be4abb264c3c58bbb3bd5f88a4244a92c34f893dbab7"
   license "EPL-2.0"
   version_scheme 1
   head "https://github.com/coin-or/CppAD.git", branch: "master"
@@ -13,13 +13,14 @@ class Cppad < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "f81c9a4c3dea26bbf00bad06c6be44ea4081b3ca0fbc500fd4ef449d21841856"
-    sha256 cellar: :any,                 arm64_ventura:  "917736ef1144c421b043332b57ec8adae536cd21514c375411e3b44295f1c159"
-    sha256 cellar: :any,                 arm64_monterey: "c99a64bdb006dcb16aa4a486cbd96e47846d32eb8f1cbaeb53d1232c0e93f71b"
-    sha256 cellar: :any,                 sonoma:         "a846194fbced623c0212a95bb228eaff0040d56a132acff770d6a1d9bb8cf491"
-    sha256 cellar: :any,                 ventura:        "ae729f2b25f440dbc2b8c536bf7de096e69f7b6e98b69b21d5c209fb2d285e02"
-    sha256 cellar: :any,                 monterey:       "dc9bc39f08016b94b65d461db4bbfb371d6831749441f9ea9f4360bc15237d21"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "770166b758af6083740b28d5b0acbd6a78c22683476388d0ed7eeb60dc5e95c4"
+    sha256 cellar: :any,                 arm64_sequoia:  "064ecb73b9e964dc90975ddeee044abc6332a504db0a5d0c6c91ceb820093430"
+    sha256 cellar: :any,                 arm64_sonoma:   "2171e4a246f635764d9c2cc6ad8b9e824663936e5d386a7192d10053b5369fcd"
+    sha256 cellar: :any,                 arm64_ventura:  "0c2874c5f894132c3649a063c79353ee24e8315b0eaebe7ac7d20b84b118b539"
+    sha256 cellar: :any,                 arm64_monterey: "470f08381f65088d4f6fda2a43ce88e2ad23c4bc9f2758fb544e3c21238de0c8"
+    sha256 cellar: :any,                 sonoma:         "9b8f7074ced7fcf5c9f614ed10cb2494c9c685b159d84731def99206faac702b"
+    sha256 cellar: :any,                 ventura:        "ac19314d1517c4f64a467f8480c3c6027759b603d52134efdc068d3d65900fba"
+    sha256 cellar: :any,                 monterey:       "b71b28b4282d79c0ebbef0be6006d8d492fdb6275e2d2ee0f3a2f14e4edbbd6b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "eb2745b5dff3a622335c8f55a45326c9e791d59c512b1a38a99ad474ee7d7289"
   end
 
   depends_on "cmake" => :build

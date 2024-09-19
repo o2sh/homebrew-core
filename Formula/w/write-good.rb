@@ -1,5 +1,3 @@
-require "language/node"
-
 class WriteGood < Formula
   desc "Naive linter for English prose"
   homepage "https://github.com/btford/write-good"
@@ -8,6 +6,7 @@ class WriteGood < Formula
   license "MIT"
 
   bottle do
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "ce08c97d8a8666ed1721ab835d166e1ff865e2ee2ab23c58018021baf89cf360"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "3f919d6545b2ec2edebf3501d9eb7531687b3247f2b4fbf8a082bcca34f49405"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "3c0ae187140e31156c039234b5c38df8a326125edcd1ca45a3ef661c620002e1"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "0d7f61673e4bf3404da929427c3ac1003ba259f9d781248d1cfde01da6780d6c"
@@ -24,7 +23,7 @@ class WriteGood < Formula
   depends_on "node"
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
+    system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
   end
 

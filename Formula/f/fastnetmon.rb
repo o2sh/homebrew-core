@@ -1,19 +1,17 @@
 class Fastnetmon < Formula
   desc "DDoS detection tool with sFlow, Netflow, IPFIX and port mirror support"
   homepage "https://github.com/pavel-odintsov/fastnetmon/"
-  url "https://github.com/pavel-odintsov/fastnetmon/archive/refs/tags/v1.2.6.tar.gz"
-  sha256 "b6a7d1e9ba98c1c042d774bff82ea3e8bbf03085e0be43a2676e41d590f668cf"
+  url "https://github.com/pavel-odintsov/fastnetmon/archive/refs/tags/v1.2.7.tar.gz"
+  sha256 "c21fcbf970214dd48ee8aa11e6294e16bea86495085315e7b370a84b316d0af9"
   license "GPL-2.0-only"
-  revision 11
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "45c13a5b00ab30daf9c077593df9f788e5d990e405c0b340d61ecfdaa6248162"
-    sha256 cellar: :any,                 arm64_ventura:  "cf407d27c358ffa2131e7379f073f9ace08d2e42e9eb2316d09d097b21607156"
-    sha256 cellar: :any,                 arm64_monterey: "dca5f20e5560f06820042fa244f3e5fa084c6683022bb15077d15bcd66b77bad"
-    sha256 cellar: :any,                 sonoma:         "663e90de3938d9e9706a464230365926a37f2dc2579b365ca4398d15721deb06"
-    sha256 cellar: :any,                 ventura:        "a1e3cae0e7cd44899dfaae3d9f40a74350454d170e153448945b7355f3653c55"
-    sha256 cellar: :any,                 monterey:       "47b92fa909554a0318de56213a2088ef0a2659773fe45cfd42af2001a54d585e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0db06c9a5a962f7b306e5815b82f3de0a630aaed43b8ad8432dcdab185f139bc"
+    sha256 cellar: :any,                 arm64_sequoia: "a236d73d50acdb76d566b71cf49b3699c4a5c41e7d5a9bd89eb4a2008075b37e"
+    sha256 cellar: :any,                 arm64_sonoma:  "e1e434f0f9900ffb3ad4c9fd4d1604c21f0d91bc4c63a404ebbaa11d2fcb075d"
+    sha256 cellar: :any,                 arm64_ventura: "59df08cc9cde588ffb7928316cb0e49de6f9ead0e58f0d720e73c003719306b3"
+    sha256 cellar: :any,                 sonoma:        "5361c5f6b3551d101a0c4285551166bb6b099f2f3750b083bd08840a61b1c217"
+    sha256 cellar: :any,                 ventura:       "5334b64428ad1b65b204bcfa193bdb8d12723a0cb815919af647fa8516a0ed4a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4c586516c49208fa490c84d210ce64b28a51bbe46aba78993228021c0676070f"
   end
 
   depends_on "cmake" => :build
@@ -36,13 +34,6 @@ class Fastnetmon < Formula
   end
 
   fails_with gcc: "5"
-
-  # Fix build with newer `protobuf` using open PR.
-  # PR ref: https://github.com/pavel-odintsov/fastnetmon/pull/997
-  patch do
-    url "https://github.com/pavel-odintsov/fastnetmon/commit/fad8757b8986226024d549a6dfb40abbab01643e.patch?full_index=1"
-    sha256 "2da8dbdf9dc63df9f17067aef20d198123ce1338559d394f29461761e6b85f85"
-  end
 
   def install
     system "cmake", "-S", "src", "-B", "build",
@@ -81,7 +72,7 @@ class Fastnetmon < Formula
            "--log_to_console"
     end
 
-    sleep 15
+    sleep 30
 
     assert_path_exists testpath/"fastnetmon.dat"
 

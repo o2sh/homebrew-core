@@ -1,18 +1,17 @@
 class Feroxbuster < Formula
   desc "Fast, simple, recursive content discovery tool written in Rust"
   homepage "https://epi052.github.io/feroxbuster"
-  url "https://github.com/epi052/feroxbuster/archive/refs/tags/v2.10.3.tar.gz"
-  sha256 "ce4eae833118456a575f1b2839639b901632d33c5cc18085dfc47e8f68749618"
+  url "https://github.com/epi052/feroxbuster/archive/refs/tags/v2.11.0.tar.gz"
+  sha256 "61aa0a5654584c015ff58df69091ec40919b38235b20862975a8ab0649467a83"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6fad313e245481eae84454f276b0403be4bfabbc37d7aae4cf639697556ff9cf"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bf1a6df8ab0a625fe3750035ff75ec8a4165fa1a91688aeeb4b32bc81cbbd53c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0ce200b5940bb04e615bd8360e7c400bfad24143afe85d8ce73e518192641427"
-    sha256 cellar: :any_skip_relocation, sonoma:         "bf2c0c56cd6d2d852227c77b3c23cb786c9f46e6a08307b2849d020a2b0b1c1a"
-    sha256 cellar: :any_skip_relocation, ventura:        "25751ed6b39b5feee4398cd20bcd0107fc973387dd96a7a054f1300cc39ed9e3"
-    sha256 cellar: :any_skip_relocation, monterey:       "3c66d46fe048bb6a52983aa17c53e3c290cc6e5cd2be68e3b70065721af146f6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dc3a0c3ec7bad7ddadbf1dab84d0ca4742cad8f826ab663d6dd766cf906b0fb7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "51c6011f5593b6dd2012fc7632e03443382dc34366b49fc197bd85c72ac84c14"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b289fbd75851dcf2c824f86931ff583a106797ed7c4aa092461227b9c574d9cb"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "2983e54b04f2de0b30938fcee493c5786dbadc4a6383191c8feb1433b0d96eaa"
+    sha256 cellar: :any_skip_relocation, sonoma:        "fda99a1eb698b711a85c1ca4ff35afc21e42d840c7dab87c5cbc73eb0a62acfc"
+    sha256 cellar: :any_skip_relocation, ventura:       "a95cc0009963be0131251e81639164187a31c869ae4f11c76f033045cc30a33f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c31b3b1589aa43597612d07fcb4c1c2386473f82dcd91ef6e64ebe05338209e3"
   end
 
   depends_on "pkg-config" => :build

@@ -9,6 +9,7 @@ class Couchdb < Formula
   revision 1
 
   bottle do
+    sha256 cellar: :any,                 arm64_sequoia:  "a36e27000f29a596cd7b04405626a65b4114a6aacb5e8996d854f6d615064d81"
     sha256 cellar: :any,                 arm64_sonoma:   "d58fc777fa9ff9f6de43919dfa9c024d5ce850b71f2ca085b6168375ffbfdd80"
     sha256 cellar: :any,                 arm64_ventura:  "82fd98b83ab7a1e703036c448d49b79b0d39e52656905b909e4ba75f043cb452"
     sha256 cellar: :any,                 arm64_monterey: "efcb725d281accb0b97617543a9a0deade589ad9fa9e44b00a7a718f732f96ee"
@@ -58,7 +59,7 @@ class Couchdb < Formula
     # setting new database dir
     inreplace "rel/couchdb/etc/default.ini", "./data", "#{var}/couchdb/data"
     # remove windows startup script
-    rm_rf("rel/couchdb/bin/couchdb.cmd")
+    rm_r("rel/couchdb/bin/couchdb.cmd")
     # install files
     prefix.install Dir["rel/couchdb/*"]
     if File.exist?(prefix/"Library/LaunchDaemons/org.apache.couchdb.plist")

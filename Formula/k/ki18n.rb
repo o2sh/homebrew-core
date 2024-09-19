@@ -1,8 +1,8 @@
 class Ki18n < Formula
   desc "KDE Gettext-based UI text internationalization"
   homepage "https://api.kde.org/frameworks/ki18n/html/index.html"
-  url "https://download.kde.org/stable/frameworks/6.1/ki18n-6.1.0.tar.xz"
-  sha256 "163219f1b5c9dea7aaea6ddc4a0d28a8b9e1884d239cf5633e684c2148517648"
+  url "https://download.kde.org/stable/frameworks/6.6/ki18n-6.6.0.tar.xz"
+  sha256 "582b4c58bb69803412322d3db656fd4f5fde154eac1ac89b2c6bc905c5b61e6e"
   license all_of: [
     "BSD-3-Clause",
     "LGPL-2.0-or-later",
@@ -16,13 +16,11 @@ class Ki18n < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "8132d6f65182775f5ce99354349d6c166d6afebe2893c44099fd511d0ad21595"
-    sha256 arm64_ventura:  "1cf0e5f300bb27d5684aacd5662f9a04e23f8f38ac99713fc6773ea23628ca8a"
-    sha256 arm64_monterey: "9f16633e2f7de7ddd1582f25f166d67487abacec7dfa4437a279ad569ac8dd12"
-    sha256 sonoma:         "3099a976168544404be008e5d1b51ca59e80fa692337fd936140f746686e23f5"
-    sha256 ventura:        "8693c92aff5868a7c91a0326f71bb3d1c44f1a1260b62632639d0a47d268f422"
-    sha256 monterey:       "e5411249266ba459e97f743ba863221dc68364a225174a60ac61429c0cb4f1fc"
-    sha256 x86_64_linux:   "ad70d99d661c7cb358d717b703805930d96e45a4d09bd6f267e3ae8ddfd49a0a"
+    sha256 arm64_sonoma:  "e454feb1202c4de0227ae4fe5c6a17c775277f091f3d65d2a79375a26befe1cd"
+    sha256 arm64_ventura: "e8d89772ec435e0018ce753c4e083ae1b30f7e63d08cbf887e94302a9dfc5299"
+    sha256 sonoma:        "903196ed6e2e7203bb00220c4f95d57ed20b34ebb2609b1c9c9f5219a7e76997"
+    sha256 ventura:       "0b30e11ba6dcef13dd024549ec289684e75ff39d331d1cc0cdb40bf41c738461"
+    sha256 x86_64_linux:  "a44239505effe33e5fa2c869aa14b4f08e46e18bc19a3262c38d52be8ce58b3a"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -59,7 +57,7 @@ class Ki18n < Formula
     (testpath/"CMakeLists.txt").write <<~EOS
       cmake_minimum_required(VERSION 3.5)
       include(FeatureSummary)
-      find_package(ECM #{version unless build.head?} NO_MODULE)
+      find_package(ECM #{version} NO_MODULE)
       set_package_properties(ECM PROPERTIES TYPE REQUIRED)
       set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} "#{pkgshare}/cmake")
       set(CMAKE_CXX_STANDARD 17)

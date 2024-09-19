@@ -1,27 +1,26 @@
-require "language/node"
-
 class Ungit < Formula
   desc "Easiest way to use Git. On any platform. Anywhere"
   homepage "https://github.com/FredrikNoren/ungit"
-  url "https://registry.npmjs.org/ungit/-/ungit-1.5.26.tgz"
-  sha256 "3a5640949faecab900c2fa82b662d42aa66596c2e24352814684407d0cf518b4"
+  url "https://registry.npmjs.org/ungit/-/ungit-1.5.27.tgz"
+  sha256 "daea92ea66ac52f8359c9964f68779dea7ba1583621bf87473e719395992364c"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e65bc0c2b45f341c3c749e76f962073ba1d9bcdcaf62b1d312f0d52078ee3038"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e65bc0c2b45f341c3c749e76f962073ba1d9bcdcaf62b1d312f0d52078ee3038"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e65bc0c2b45f341c3c749e76f962073ba1d9bcdcaf62b1d312f0d52078ee3038"
-    sha256 cellar: :any_skip_relocation, sonoma:         "def35d1320fab5ec25c27c8b768d03a82b37124feafcbaab28f2b34acc88d115"
-    sha256 cellar: :any_skip_relocation, ventura:        "def35d1320fab5ec25c27c8b768d03a82b37124feafcbaab28f2b34acc88d115"
-    sha256 cellar: :any_skip_relocation, monterey:       "def35d1320fab5ec25c27c8b768d03a82b37124feafcbaab28f2b34acc88d115"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e65bc0c2b45f341c3c749e76f962073ba1d9bcdcaf62b1d312f0d52078ee3038"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "599562a33e44c9ebb1f7633a03fa3311a85591b1253d95a2143ee70495b046a6"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4c22aea3141d38c78f0f4cebf19854018dd9caae6716ccbbc82cdc2f39610d8f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4c22aea3141d38c78f0f4cebf19854018dd9caae6716ccbbc82cdc2f39610d8f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4c22aea3141d38c78f0f4cebf19854018dd9caae6716ccbbc82cdc2f39610d8f"
+    sha256 cellar: :any_skip_relocation, sonoma:         "bd82657cc4c87b3a4c8caa8999da6348813a0120f9dde36737ff778b4e45f20f"
+    sha256 cellar: :any_skip_relocation, ventura:        "bd82657cc4c87b3a4c8caa8999da6348813a0120f9dde36737ff778b4e45f20f"
+    sha256 cellar: :any_skip_relocation, monterey:       "bd82657cc4c87b3a4c8caa8999da6348813a0120f9dde36737ff778b4e45f20f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4c22aea3141d38c78f0f4cebf19854018dd9caae6716ccbbc82cdc2f39610d8f"
   end
 
   depends_on "node"
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
-    bin.install_symlink Dir["#{libexec}/bin/*"]
+    system "npm", "install", *std_npm_args
+    bin.install_symlink libexec.glob("bin/*")
   end
 
   test do
@@ -30,7 +29,7 @@ class Ungit < Formula
     fork do
       exec bin/"ungit", "--no-launchBrowser", "--port=#{port}"
     end
-    sleep 8
+    sleep 15
 
     assert_includes shell_output("curl -s 127.0.0.1:#{port}/"), "<title>ungit</title>"
   end

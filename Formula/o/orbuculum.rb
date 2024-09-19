@@ -5,8 +5,14 @@ class Orbuculum < Formula
   sha256 "ccdd86130094001a0ab61e5501a6636e12c82b0b44690795a2911c65c5618c46"
   license "BSD-3-Clause"
 
+  livecheck do
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
+
   bottle do
     rebuild 1
+    sha256 cellar: :any, arm64_sequoia:  "27d1b87814615def4e1e009108a6c331401f96b68e87ee90942c2560ca5b6c19"
     sha256 cellar: :any, arm64_sonoma:   "460ce4bce5f532fe8534d480b717419b56bba21b7a00a3702322e2fd1f3722cc"
     sha256 cellar: :any, arm64_ventura:  "58a8a18573c584ab9c2f1cf66acf6008dd0925b4e574fbdd2fc059594033fedd"
     sha256 cellar: :any, arm64_monterey: "13099ad1fce7ca98c85ef6d35707e7a9963a5c6dc81ed27434acb5db65b78d7a"

@@ -1,19 +1,19 @@
 class Libass < Formula
   desc "Subtitle renderer for the ASS/SSA subtitle format"
   homepage "https://github.com/libass/libass"
-  url "https://github.com/libass/libass/releases/download/0.17.1/libass-0.17.1.tar.xz"
-  sha256 "f0da0bbfba476c16ae3e1cfd862256d30915911f7abaa1b16ce62ee653192784"
+  url "https://github.com/libass/libass/releases/download/0.17.3/libass-0.17.3.tar.xz"
+  sha256 "eae425da50f0015c21f7b3a9c7262a910f0218af469e22e2931462fed3c50959"
   license "ISC"
-  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "6316d110d55eade88304bb723fd2c7bc24e814e7b976daf1ddd5d7b48bf99c47"
-    sha256 cellar: :any,                 arm64_ventura:  "24f870fbdb8d65e224467e4c4b590618c4a3c5404767240f8c74ab31bd57288f"
-    sha256 cellar: :any,                 arm64_monterey: "7a7ea07e614eb28673572af37c5b2d4022964cf1f4e38cb7bdcb960caac7154f"
-    sha256 cellar: :any,                 sonoma:         "5c3afdb76ec87f33eaea1bb92dd0bfcac08676f280cc2abb554336e01b839b41"
-    sha256 cellar: :any,                 ventura:        "2bb745a9cf3044cc4008e427299d1d5e32d02947fdb7d07d44894cac732fe5d4"
-    sha256 cellar: :any,                 monterey:       "8e338c76dd27cab9c9c0439dc9580c4f0094906a1d46eaf542360db4cc06ec9b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f63d3a08e07e8b5e29a67b200ac2ec45cb11f7e19399b95240178c7ccab3b6ae"
+    sha256 cellar: :any,                 arm64_sequoia:  "2c948ddd9b7a94dd267cdc24cd684903b292d26d6ce92e6d2d7c68136b071e4d"
+    sha256 cellar: :any,                 arm64_sonoma:   "9e8889c7d434e4a56a0f9abbb1fded340dae984d05121ad5413715e3abb03fd3"
+    sha256 cellar: :any,                 arm64_ventura:  "d0724c2ba6a6aa6f1ffb604a5cde5bf341e835369e72216042bbb2587acb83cf"
+    sha256 cellar: :any,                 arm64_monterey: "f16d796553df4b3ae94c458ae687ce824ea8e66a75bd66ff6df2f0bfe4202ab7"
+    sha256 cellar: :any,                 sonoma:         "4db6c9473a71166cd6cc5d95b5fab7da9432e081855aad495fe2eb7c0b51bf31"
+    sha256 cellar: :any,                 ventura:        "1284a21e45e033cf6df87e7fc01e3d9fb3204e24ba5580bdfac941fff69e9a63"
+    sha256 cellar: :any,                 monterey:       "07a27068fd1c52b021d39b0cd9daa99b2fd6f0ac8f70e05b20b9116c5d848507"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "45ef7e90470c2f9a0304b343b6216b9632be26599ca0cbadd3705d5cbf11851b"
   end
 
   head do

@@ -1,22 +1,22 @@
-require "language/node"
 require "json"
 
 class Babel < Formula
   desc "Compiler for writing next generation JavaScript"
   homepage "https://babeljs.io/"
-  url "https://registry.npmjs.org/@babel/core/-/core-7.24.5.tgz"
-  sha256 "61d6fa7b2633d5c6c39aaddd7ea62e7e80e0d34b78633385294f3c6b7234012d"
+  url "https://registry.npmjs.org/@babel/core/-/core-7.25.2.tgz"
+  sha256 "6873c15a448a1ad6cd7a5b845d20e2348e04abc1a2261354ad3c702689a4ad0a"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "35d35560c68bc39802530952a30a5deb233909b19561070df1252e48d2fb262f"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, all: "c90ab7b09ade29acbcde75132a9ef979302719671711f8e99b2bf78f921fa837"
   end
 
   depends_on "node"
 
   resource "babel-cli" do
-    url "https://registry.npmjs.org/@babel/cli/-/cli-7.24.5.tgz"
-    sha256 "bf1baf99b310455a79108f0beb774ae1c9d900b9f128be6475fd71e35359489e"
+    url "https://registry.npmjs.org/@babel/cli/-/cli-7.24.8.tgz"
+    sha256 "989e83a3bc6786ae13b6f7dee71c4cfc1c7abbbaa2afb915c3f8ef4041dc2434"
   end
 
   def install
@@ -24,10 +24,10 @@ class Babel < Formula
     buildpath.install resource("babel-cli")
 
     cd buildpath/"node_modules/@babel/core" do
-      system "npm", "install", *Language::Node.local_npm_install_args, "--production"
+      system "npm", "install", *std_npm_args(prefix: false), "--production"
     end
 
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
+    system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
   end
 

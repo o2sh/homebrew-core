@@ -14,6 +14,7 @@ class Slashem < Formula
   end
 
   bottle do
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "f3489647fb5f38f4016ef73e262df24407525bb01f076463c21f5b8340e47c27"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "3cc225b937c53aa8a9121eb03ffcfd067a338a050df4b348cac6e8ea36c1cf19"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "fbc49014eb4afffa42419df08cb98337389fb1d87b76c2c900553e0c3739f069"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "07334e0d163f5aef7e77cd2047374806fccca1071f0e8e6057e3f740746cc139"
@@ -49,7 +50,7 @@ class Slashem < Formula
   end
 
   # Fixes user check on older versions of OS X: https://sourceforge.net/p/slashem/bugs/895/
-  # Fixed upstream: http://slashem.cvs.sourceforge.net/viewvc/slashem/slashem/configure?r1=1.13&r2=1.14&view=patch
+  # Fixed upstream: https://slashem.cvs.sourceforge.net/viewvc/slashem/slashem/configure?r1=1.13&r2=1.14&view=patch
   patch :p0 do
     url "https://gist.githubusercontent.com/mistydemeo/76dd291c77a509216418/raw/65a41804b7d7e1ae6ab6030bde88f7d969c955c3/slashem-configure.patch"
     sha256 "c91ac045f942d2ee1ac6af381f91327e03ee0650a547bbe913a3bf35fbd18665"

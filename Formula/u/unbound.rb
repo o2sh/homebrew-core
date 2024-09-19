@@ -1,8 +1,8 @@
 class Unbound < Formula
   desc "Validating, recursive, caching DNS resolver"
   homepage "https://www.unbound.net"
-  url "https://nlnetlabs.nl/downloads/unbound/unbound-1.19.3.tar.gz"
-  sha256 "3ae322be7dc2f831603e4b0391435533ad5861c2322e34a76006a9fb65eb56b9"
+  url "https://nlnetlabs.nl/downloads/unbound/unbound-1.21.0.tar.gz"
+  sha256 "e7dca7d6b0f81bdfa6fa64ebf1053b5a999a5ae9278a87ef182425067ea14521"
   license "BSD-3-Clause"
   head "https://github.com/NLnetLabs/unbound.git", branch: "master"
 
@@ -15,13 +15,14 @@ class Unbound < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "1c74328fd710de4ca59b32cfa8c904efbfb3a957cfc9b73a4add78b30b007a55"
-    sha256 arm64_ventura:  "1aeeb206335ddba2eb5ccf68532642f6b373d81b2b112ab42dd5bb9e439542bc"
-    sha256 arm64_monterey: "80dc56f3f7642cb3245e26e3a5a2a7e28e04cce6c6843ba58a63bd352f884deb"
-    sha256 sonoma:         "c9a62474cf15b79fe6d47fc07fb07dec66940e3a914c8116a996eae14bd9bd9f"
-    sha256 ventura:        "1bd4e20b1948c795a5798ba108229887b6f6bdde8349d2bdc140ca29ab5ac418"
-    sha256 monterey:       "7a927aec89f5cf471bed32ee99d6fba005af1f5ab3c8870a8dc156ffa1ffcfeb"
-    sha256 x86_64_linux:   "c7d900fcfab9b7c6ddc3521560a46a7fb5f13ccbc9a0794292a6acf069fd61e2"
+    sha256 arm64_sequoia:  "6a94d87593b391a86be0ab3bdf0079897ec185f1e6418c5137dafa87597a5ea7"
+    sha256 arm64_sonoma:   "7d736a54f65236d835cb7d8b5c57389fedf36f0d8e73d3d0d2c3571132a36b7b"
+    sha256 arm64_ventura:  "f515fa33570a24ff6859f9949f37f9379606817bb65ea0c518dc8ca337c32c1f"
+    sha256 arm64_monterey: "d3e32be6d1541200ba20a268bed52a5b886ecea5ca3c306165afea5ba1903da5"
+    sha256 sonoma:         "46a49b789601d39ead61ee71bd125022adc336888c176e40d8645a7d808a5bdf"
+    sha256 ventura:        "f8fbc79f1cf3c1660690c4905ad09ab20224ff03238bae6f10a4f9b616f863cf"
+    sha256 monterey:       "9b0aa7a9a3191c06d80987e458f91a9b1dd492887d0eaab344786db025029e4b"
+    sha256 x86_64_linux:   "a478cbac763f0265715231766b1d6e5dd06cf1a02148492ea040b644d16d807a"
   end
 
   depends_on "libevent"

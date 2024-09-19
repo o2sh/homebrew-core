@@ -1,8 +1,8 @@
 class Groovysdk < Formula
   desc "SDK for Groovy: a Java-based scripting language"
   homepage "https://www.groovy-lang.org/"
-  url "https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-sdk-4.0.21.zip"
-  sha256 "983dd01aae4380a3d9fb28a691755418a39b4763d71cbe8447c9d253cb5f1134"
+  url "https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-sdk-4.0.23.zip"
+  sha256 "3ebc981ae4ed3b89cc920119ce4cbefb1936594e09f2ad55a47d238638701645"
   license "Apache-2.0"
 
   livecheck do
@@ -11,13 +11,14 @@ class Groovysdk < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bd987cc9cac8b93ac9d72f6e07cded1e6ec901a9bebd6398f91e9f21939d6777"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bd987cc9cac8b93ac9d72f6e07cded1e6ec901a9bebd6398f91e9f21939d6777"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "bd987cc9cac8b93ac9d72f6e07cded1e6ec901a9bebd6398f91e9f21939d6777"
-    sha256 cellar: :any_skip_relocation, sonoma:         "afccdf36e666147a6387bc9850367e006856c1b6490fbe8dd91347cba1750f4b"
-    sha256 cellar: :any_skip_relocation, ventura:        "afccdf36e666147a6387bc9850367e006856c1b6490fbe8dd91347cba1750f4b"
-    sha256 cellar: :any_skip_relocation, monterey:       "afccdf36e666147a6387bc9850367e006856c1b6490fbe8dd91347cba1750f4b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bd987cc9cac8b93ac9d72f6e07cded1e6ec901a9bebd6398f91e9f21939d6777"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "1e0f74ad33dda9d9efaa30523055b7b9f2e1b71fa78aa53079bd35d36429c8f5"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1e0f74ad33dda9d9efaa30523055b7b9f2e1b71fa78aa53079bd35d36429c8f5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1e0f74ad33dda9d9efaa30523055b7b9f2e1b71fa78aa53079bd35d36429c8f5"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "1e0f74ad33dda9d9efaa30523055b7b9f2e1b71fa78aa53079bd35d36429c8f5"
+    sha256 cellar: :any_skip_relocation, sonoma:         "c4f7ab0a26faa7ce5848994bc7eb72696bef1df31319949eb3e9331938c28d9c"
+    sha256 cellar: :any_skip_relocation, ventura:        "c4f7ab0a26faa7ce5848994bc7eb72696bef1df31319949eb3e9331938c28d9c"
+    sha256 cellar: :any_skip_relocation, monterey:       "c4f7ab0a26faa7ce5848994bc7eb72696bef1df31319949eb3e9331938c28d9c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1e0f74ad33dda9d9efaa30523055b7b9f2e1b71fa78aa53079bd35d36429c8f5"
   end
 
   depends_on "openjdk"
@@ -26,9 +27,8 @@ class Groovysdk < Formula
 
   def install
     # We don't need Windows' files.
-    rm_f Dir["bin/*.bat"]
+    rm(Dir["bin/*.bat"])
 
-    prefix.install_metafiles
     bin.install Dir["bin/*"]
     libexec.install "conf", "lib", "src", "doc"
     bin.env_script_all_files libexec/"bin",
@@ -37,6 +37,6 @@ class Groovysdk < Formula
   end
 
   test do
-    system "#{bin}/grape", "install", "org.activiti", "activiti-engine", "5.16.4"
+    system bin/"grape", "install", "org.activiti", "activiti-engine", "5.16.4"
   end
 end

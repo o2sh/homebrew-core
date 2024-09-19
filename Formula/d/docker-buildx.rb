@@ -1,19 +1,18 @@
 class DockerBuildx < Formula
   desc "Docker CLI plugin for extended build capabilities with BuildKit"
   homepage "https://docs.docker.com/buildx/working-with-buildx/"
-  url "https://github.com/docker/buildx/archive/refs/tags/v0.14.0.tar.gz"
-  sha256 "9ed27d47b728288500ba2535366792d9b006354e02178688360919663f92b63e"
+  url "https://github.com/docker/buildx/archive/refs/tags/v0.17.1.tar.gz"
+  sha256 "a1c81f386142908d4984836fae75b5aa37e1921e7186ec8a548c54be62fece43"
   license "Apache-2.0"
   head "https://github.com/docker/buildx.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "fc4f578cb72ac9316dc8a4bfb169c04cc07a41a34029a14dcbbdbdd588f5b023"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5f45d15f0f5ebd9c6842b5274f9538836290f8325f61ee2e3847c50b0ef3f7a2"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "bc0e6f21cc744b773abed00732a83a017720895177b6d5ef60043a92dde260aa"
-    sha256 cellar: :any_skip_relocation, sonoma:         "efbbd5d38ccc3fd2b17cd3ff2ee5908495bbabed5daaa5133ea048d3b3312e70"
-    sha256 cellar: :any_skip_relocation, ventura:        "3b4538a21f886cda0cfea32212d8eed92ed2ca439da1f3929b3aa19fd2ddeb8b"
-    sha256 cellar: :any_skip_relocation, monterey:       "d592a49e2479a13056f5562cb5d0aa0f0419b564289d36cd11db1c447973105e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2bc248ed7d4276f454767ca3f328b5fd82f372e4e05866cfd73022a72ed0ca11"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "609f730177ff2dcd1dbb7275d0f0f3c888627c6bfb20cee8d66c7e8645c6a4a4"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "609f730177ff2dcd1dbb7275d0f0f3c888627c6bfb20cee8d66c7e8645c6a4a4"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "609f730177ff2dcd1dbb7275d0f0f3c888627c6bfb20cee8d66c7e8645c6a4a4"
+    sha256 cellar: :any_skip_relocation, sonoma:        "cde1988c799527007adc481e3daa5d3012a7140073585dff7a069e5d46587cc0"
+    sha256 cellar: :any_skip_relocation, ventura:       "cde1988c799527007adc481e3daa5d3012a7140073585dff7a069e5d46587cc0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "89c893e48e4996d48439218e4b59d67b0b238e5f86a961d802c437cd5f50cdb1"
   end
 
   depends_on "go" => :build

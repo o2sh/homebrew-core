@@ -8,6 +8,7 @@ class Soapyrtlsdr < Formula
   head "https://github.com/pothosware/SoapyRTLSDR.git", branch: "master"
 
   bottle do
+    sha256 cellar: :any,                 arm64_sequoia:  "76b22eaf2c71839e2f26068ed671fd7652ed7aac92b582cbc267159d0fb851ca"
     sha256 cellar: :any,                 arm64_sonoma:   "3b758a501acd8918eddee8cd29669fdbfecb4bfb1c0a1363290ff2534dce9ffe"
     sha256 cellar: :any,                 arm64_ventura:  "a2deb76bc7882fd8cdc38c11408c0228a99ae91e8e2165ccd27c4fc1aaa908ff"
     sha256 cellar: :any,                 arm64_monterey: "2968a2967fc49780b5c5a7f0278bb38f7f13f424413389e05a42e807682e27db"
@@ -22,14 +23,13 @@ class Soapyrtlsdr < Formula
   depends_on "soapysdr"
 
   def install
-    mkdir "build" do
-      system "cmake", "..", *std_cmake_args
-      system "make", "install"
-    end
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
-    assert_match "Checking driver 'rtlsdr'... PRESENT",
-                 shell_output("#{Formula["soapysdr"].bin}/SoapySDRUtil --check=rtlsdr")
+    output = shell_output("#{Formula["soapysdr"].bin}/SoapySDRUtil --check=rtlsdr")
+    assert_match "Checking driver 'rtlsdr'... PRESENT", output
   end
 end

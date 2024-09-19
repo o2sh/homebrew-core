@@ -1,30 +1,32 @@
 class C3c < Formula
   desc "Compiler for the C3 language"
   homepage "https://github.com/c3lang/c3c"
-  url "https://github.com/c3lang/c3c/archive/refs/tags/v0.5.5.tar.gz"
-  sha256 "ddd58fd47e8dd93e26876ddfcee68452bf316705c8a8f7e9888f189276a97ad6"
+  url "https://github.com/c3lang/c3c/archive/refs/tags/v0.6.2.tar.gz"
+  sha256 "e39f98d5a78f9d3aa8da4ce07062b4ca93d25b88107961cbd3af2b3f6bcf8e78"
   license "LGPL-3.0-only"
-  revision 1
   head "https://github.com/c3lang/c3c.git", branch: "master"
 
+  # Upstream creates releases that use a stable tag (e.g., `v1.2.3`) but are
+  # labeled as "pre-release" on GitHub before the version is released, so it's
+  # necessary to use the `GithubLatest` strategy.
   livecheck do
     url :stable
-    regex(/^v?(\d+(?:\.\d+)+)$/i)
+    strategy :github_latest
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "a77004e70884a4349b254f93f4e1d62540c324db2529f8c963c397d04fc2a277"
-    sha256 cellar: :any,                 arm64_ventura:  "1c6e08be1094c3cd7ce49d9843c29ce7385dfa1ffd89233af79ff37ced053012"
-    sha256 cellar: :any,                 arm64_monterey: "f1eba6d851f89a8c95e9aec69add604da9e0689f3784fc37b81c798bb78e0423"
-    sha256 cellar: :any,                 sonoma:         "e1ccb43aae344db294cb8b246688ee0c7d0831c7c9e8a17f41516793dcc554f0"
-    sha256 cellar: :any,                 ventura:        "b3de2bf58e3af77f89aa0f2e6c7ea9f53d9d318d3f3471d0ef856acc2e3c186d"
-    sha256 cellar: :any,                 monterey:       "412bfde4a57752a14456717b13f59256161ddfbd1fa6c37e9aa5b31963de0173"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "90b971c5f5fecbf62dc3c26b1ecb0d1356648971b4c0379d4df88358ee379ac9"
+    sha256 cellar: :any,                 arm64_sequoia:  "b38dac4258f1e9081225a61fdb0e5a27bae4d5edd00807f46c2ba5e2ac39ad0f"
+    sha256 cellar: :any,                 arm64_sonoma:   "cb180a4f2deaeb13edf804482822f8c5288ef438b23f66c4827de1915dde40df"
+    sha256 cellar: :any,                 arm64_ventura:  "93acc32a9a02ebbe234321dd4637646a706070bdee7890d42e6c27b662b5f36f"
+    sha256 cellar: :any,                 arm64_monterey: "72557fa0d509682eae2d080bca8805965d13346f4315bd0caa1fdb52ac12fc75"
+    sha256 cellar: :any,                 sonoma:         "dfe32cca70fa147b8dc5939f237302293b9193db44508ee4271ca2fe0af9a052"
+    sha256 cellar: :any,                 ventura:        "92f0cd5376894a8952ef89d28b2be048f1e558faa258226e6663b07d72b44626"
+    sha256 cellar: :any,                 monterey:       "31b0c19166a07d5898b0178c129d2c8a484b127936f62d82ce28fa0a9135c6fc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f5f5d45917d84b6db9d75d00b32473bde36bb4b9d99e6cef363031a77e444394"
   end
 
   depends_on "cmake" => :build
-  depends_on "llvm"
-  depends_on "z3"
+  depends_on "llvm" => :build
   depends_on "zstd"
 
   uses_from_macos "curl"
@@ -33,10 +35,36 @@ class C3c < Formula
   uses_from_macos "ncurses"
   uses_from_macos "zlib"
 
+  on_macos do
+    depends_on "llvm"
+  end
+
   def install
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    # Link dynamically to our libLLVM. We can't do the same for liblld*,
+    # since we only ship static libraries.
+    inreplace "CMakeLists.txt" do |s|
+      s.gsub!("libLLVM.so", "libLLVM.dylib") if OS.mac?
+      s.gsub!(/(liblld[A-Za-z]+)\.so/, "\\1.a")
+    end
+
+    ENV.append "LDFLAGS", "-lzstd -lz" if OS.mac?
+    system "cmake", "-S", ".", "-B", "build",
+                    "-DC3_LINK_DYNAMIC=#{OS.mac? ? "ON" : "OFF"}", # FIXME: dynamic linking fails the Linux build.
+                    "-DC3_USE_MIMALLOC=OFF",
+                    "-DC3_USE_TB=OFF",
+                    *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
+
+    return unless OS.mac?
+
+    # The build copies LLVM runtime libraries into its `bin` directory.
+    # Let's replace those copies with a symlink instead.
+    libexec.install bin.children
+    bin.install_symlink libexec.children.select { |child| child.file? && child.executable? }
+    rm_r libexec/"c3c_rt"
+    llvm = Formula["llvm"]
+    libexec.install_symlink llvm.opt_lib/"clang"/llvm.version.major/"lib/darwin" => "c3c_rt"
   end
 
   test do

@@ -1,8 +1,8 @@
 class Vips < Formula
   desc "Image processing library"
   homepage "https://github.com/libvips/libvips"
-  url "https://github.com/libvips/libvips/releases/download/v8.15.2/vips-8.15.2.tar.xz"
-  sha256 "a2ab15946776ca7721d11cae3215f20f1f097b370ff580cd44fc0f19387aee84"
+  url "https://github.com/libvips/libvips/releases/download/v8.15.3/vips-8.15.3.tar.xz"
+  sha256 "3e27d9f536eafad64013958fe9e8a1964c90b564c731d49db7c1a1c11b1052a0"
   license "LGPL-2.1-or-later"
   revision 1
 
@@ -12,13 +12,12 @@ class Vips < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "50c8d330fae9dd68f6949d9076cc9383a258988bc7539b1822e84419655b39c4"
-    sha256 arm64_ventura:  "6d370076f82459111c781a4f0d986d4a98a53e45938e5aedcf0d3553603dd6ff"
-    sha256 arm64_monterey: "9203d37040f877adc69533d06aa797d6d495b2a280759c6e5f88839b161836d5"
-    sha256 sonoma:         "2e9c8b59f7c6085466b6ca3262b38784ca20b010e1603acac2ddcb7bb55dbb1d"
-    sha256 ventura:        "9e36a24bcaec2528d5bec1b7cd432315dccbb95a5f0b054be85f59eef407cf7b"
-    sha256 monterey:       "58cb16ffcc869c425fe28da42e9e047e369f53dc00b4843d58e8093585096fc2"
-    sha256 x86_64_linux:   "0210e24b2f4c93ac6786d44dcb539fad4710343f0f23281f35deb7aaccb1842c"
+    sha256 arm64_sequoia: "63d87a11ba1ed739d22bf8600ac959cd3d2068f389a7961f1cf2610996c6a7dc"
+    sha256 arm64_sonoma:  "905f0644cc01ad562d1e082a4a227f606c49df187ec19a7616f7553f74210b69"
+    sha256 arm64_ventura: "bbe601b62e6f568eb32d387598577ca09bd3fbb7d26f2454abe3187271ee19cc"
+    sha256 sonoma:        "7503374b5dc2f18ce503ecb9cf963cf354ced5495bb5929019fe28d4ac46628e"
+    sha256 ventura:       "146404ff95bb8af629c6e07a68ead9a857ffeedbefbed02d506804074dd0a5ce"
+    sha256 x86_64_linux:  "113ec87c1af39982075266e5082dd1eacb5802348051b0575889bfb33077ed39"
   end
 
   depends_on "gobject-introspection" => :build
@@ -79,7 +78,7 @@ class Vips < Formula
   end
 
   test do
-    system "#{bin}/vips", "-l"
+    system bin/"vips", "-l"
     cmd = "#{bin}/vipsheader -f width #{test_fixtures("test.png")}"
     assert_equal "8", shell_output(cmd).chomp
 

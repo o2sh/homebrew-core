@@ -1,19 +1,18 @@
 class PhylumCli < Formula
   desc "Command-line interface for the Phylum API"
   homepage "https://www.phylum.io"
-  url "https://github.com/phylum-dev/cli/archive/refs/tags/v6.3.0.tar.gz"
-  sha256 "b9425ced21347e4abba3cc0855cbed1d58ed4f9530141d44b4ff6c150d0dd646"
+  url "https://github.com/phylum-dev/cli/archive/refs/tags/v7.0.0.tar.gz"
+  sha256 "42565684950ac90c6197eaffe406d6e890811204c76122d536678e7dee2be83e"
   license "GPL-3.0-or-later"
   head "https://github.com/phylum-dev/cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "908b371fa615216fa1ce1293ebe8beac22c66db26fad77bc835a017abc4af7bb"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "508b5d278f5ab340a75045a7d1974c09d0c99ced60dd32fff4b5a42f25864edf"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f1568dc5014b88fe574e7ce2fca94fa524579709b5ff641c82e6cfb12cbeb35c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "9f55a2234cc61a7088a4f74dc8f7ff17f4b1428782a68f9bdd39246dcb4414ad"
-    sha256 cellar: :any_skip_relocation, ventura:        "bc770dc08797a0f348b797a4d6d3ebbbde561a7c01d8e971eaf6ce5e2c2a5453"
-    sha256 cellar: :any_skip_relocation, monterey:       "90c9bc1ea7978021ef597727735f041a4342191bd64e34864fce478630fd9e02"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c6b5850edf5b74e004645d9b1ec5c9036b399bad37f6fac709050370bf206dd0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f59e4ddd2fa4c65f03e34bb88675bc0e00e1d0fca7ac5009b93ea8c01245de45"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "421ab48f73091ea53b1fa0d1c2466b11e5f740e1c324e09a2d46bd363e4959f5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "53ee2906b2083c34b55af61485ca89726ab36b86b4060df056cbc34a929b79d9"
+    sha256 cellar: :any_skip_relocation, sonoma:        "fb795d6eb2b37a16863134a9d11b77c6ae013530c699e34abd9c29c37d4967f0"
+    sha256 cellar: :any_skip_relocation, ventura:       "88a871c912ddc008f11676ba071af5805622469b8abbe0a01a7bbe044ed88e77"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "25c0026b398be339e8a78a5975bcb70488bee32059119a1548880ac9820bce38"
   end
 
   depends_on "protobuf" => :build
@@ -40,7 +39,11 @@ class PhylumCli < Formula
   test do
     assert_match version.to_s, shell_output("#{bin}/phylum --version")
 
-    output = shell_output("#{bin}/phylum extension")
-    assert_match "No extensions are currently installed.", output
+    assert_match <<~EOS, shell_output("#{bin}/phylum status")
+      Project: null
+      Group: null
+      Project Root: null
+      Dependency Files: null
+    EOS
   end
 end

@@ -3,18 +3,13 @@ class Hy < Formula
 
   desc "Dialect of Lisp that's embedded in Python"
   homepage "https://github.com/hylang/hy"
-  url "https://files.pythonhosted.org/packages/51/f2/e34dd8cdf4ca4918dc4bc6f11021ed5f6aacef9ff22db1191577ed85ab3e/hy-0.28.0.tar.gz"
-  sha256 "ae202f0b5e9094489af2a41b2cee9e0f776d0572da69cb108db2935a7224e17a"
+  url "https://files.pythonhosted.org/packages/88/53/e92bfd8a36dc4a62e0922d409f703299eac8a0a74ed4db2106acad4f00a0/hy-0.29.0.tar.gz"
+  sha256 "1f985c92fddfb09989dd2a2ad75bf661efcbad571352eb5ee48c8b8e08f666fa"
   license "MIT"
+  revision 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a5f265d4db441fb9c3c21f3cd09c6774a2d47cdce3b458242665549e7e0f981d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "051ccb3d93bf866cc6f57a577b5bd9075849f770468eb9ef4c1d391023fe29da"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e8674dc76a1ee9bb08754372e00b41d7084ae1e25ba2185f0633de809400b0b5"
-    sha256 cellar: :any_skip_relocation, sonoma:         "dfcf0c7a6c0ae82297994412816125054d2a4c5c083d7c27ab2c3e3200253f6f"
-    sha256 cellar: :any_skip_relocation, ventura:        "35783286f088eab5dc036cf13ae75782339c909c7c6c7c47ac4aa272478e6f9c"
-    sha256 cellar: :any_skip_relocation, monterey:       "4c2a9ffc3f4e43428ae4b3baad55d45e3c3316e3505ba469860159d929158287"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "863743f916eda9c288a61b22316b6d60335b50b1dd9c4b9b0376bce7eda7b40b"
+    sha256 cellar: :any_skip_relocation, all: "f2c93fbd996b0bd4d2c4eaf52ec56a8559d657478bd6b79934d3e344b109477c"
   end
 
   depends_on "python@3.12"
@@ -24,17 +19,33 @@ class Hy < Formula
     sha256 "a2c4a0d7942f7a0e7635c369d921066c8d4cae7f8b5bf7914466bec3c69837f4"
   end
 
+  # Fix crash on python 3.12.6: https://github.com/hylang/hy/pull/2599
+  patch :DATA
+
   def install
     virtualenv_install_with_resources
   end
 
   test do
-    python3 = "python3.12"
-    ENV.prepend_path "PYTHONPATH", libexec/Language::Python.site_packages(python3)
-
     (testpath/"test.hy").write "(print (+ 2 2))"
     assert_match "4", shell_output("#{bin}/hy test.hy")
+
     (testpath/"test.py").write shell_output("#{bin}/hy2py test.hy")
-    assert_match "4", shell_output("#{python3} test.py")
+    assert_match "4", shell_output("#{libexec}/bin/python test.py")
   end
 end
+
+__END__
+diff --git a/hy/importer.py b/hy/importer.py
+index 554281e..f6087c3 100644
+--- a/hy/importer.py
++++ b/hy/importer.py
+@@ -99,7 +99,7 @@ def _get_code_from_file(run_name, fname=None, hy_src_check=lambda x: x.endswith(
+                 source = f.read().decode("utf-8")
+             code = compile(source, fname, "exec")
+
+-    return (code, fname)
++    return code if sys.version_info >= (3, 12, 6) else (code, fname)
+
+
+ importlib.machinery.SOURCE_SUFFIXES.insert(0, ".hy")

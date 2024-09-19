@@ -2,33 +2,27 @@ class Pc6001vx < Formula
   desc "PC-6001 emulator"
   # http://eighttails.seesaa.net/ gives 405 error
   homepage "https://github.com/eighttails/PC6001VX"
+  url "https://eighttails.up.seesaa.net/bin/PC6001VX_4.2.9_src.tar.gz"
+  sha256 "6819cbf3a883a5b613c3b7f29255aa935afdb0c2dcb14c04e644d5b24be117c1"
   license "LGPL-2.1-or-later"
   revision 2
   head "https://github.com/eighttails/PC6001VX.git", branch: "master"
 
-  stable do
-    url "https://eighttails.up.seesaa.net/bin/PC6001VX_4.2.5_src.tar.gz"
-    sha256 "4f44df8940db6d412bf4d316c950c540f03c5ab543b028b793998bfeeaac64ac"
-
-    # backport a fix for incorrectly handling SIGTERM
-    patch do
-      url "https://github.com/eighttails/PC6001VX/commit/93f2a366d1944237d4712a6de4290ac1bda15771.patch?full_index=1"
-      sha256 "f4e9d7f23ec7d0f87d869cfcef84de80f1371cc703600313a00970f84d77c632"
-    end
-  end
-
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "d9f0c85994080637e87e46e657c1fa0a585d69d74548a2305654dd9a1f545e08"
-    sha256 cellar: :any, arm64_ventura:  "1e8a92b9a880400821197103bb6571997b468e1bc2777c80d6b7a4c0d8233370"
-    sha256 cellar: :any, arm64_monterey: "6931561bcb1b2bf2b3f56cc24867458dc96bb79e7dd1305fa3f4becf77088b9d"
-    sha256 cellar: :any, sonoma:         "c86a325c279e134b003bfac3483aac49d8d7202ec90e774bcacc4cede9fc8d93"
-    sha256 cellar: :any, ventura:        "5f87fb22702196d38f976a764a970ae4bfee3b394a3b5090e0aaacf2500985ba"
-    sha256 cellar: :any, monterey:       "dc8fdc3a168a600b1f98a40c03d8b2032a3f3cee6eb18974cd9c738ce55838ce"
+    sha256 cellar: :any, arm64_sonoma:  "f637d73fb2b4cc282009ec31ff733b3c2a387743acd93dc8a07c589bf913be70"
+    sha256 cellar: :any, arm64_ventura: "c382fb9d7d83f11567071fe8a8f9992efb7b05b945d6c0316ec65a142cee6f8f"
+    sha256 cellar: :any, sonoma:        "b1f76365c1fd422dd0a7ea60d38c3c62a12e4a66bedb8dd5592c0905d20ddba4"
+    sha256 cellar: :any, ventura:       "ebc9b5019ca6e11e1dded702b91d39630b8e1d6f04c30c3ec6f0312251953c98"
   end
 
   depends_on "pkg-config" => :build
-  depends_on "ffmpeg@6"
+  depends_on "ffmpeg"
   depends_on "qt"
+  depends_on "sdl2"
+
+  on_macos do
+    depends_on "gettext"
+  end
 
   fails_with gcc: "5" # ffmpeg is compiled with GCC
 
@@ -54,6 +48,7 @@ class Pc6001vx < Formula
       exec bin/"PC6001VX"
     end
     sleep 30
+    sleep 30 if Hardware::CPU.intel?
     assert_predicate user_config_dir/"rom",
                      :exist?, "User config directory should exist"
   ensure

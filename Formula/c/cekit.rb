@@ -3,19 +3,19 @@ class Cekit < Formula
 
   desc "Container Evolution Kit"
   homepage "https://cekit.io"
-  url "https://files.pythonhosted.org/packages/2b/e8/f6f756156e26ee85221306123f60b2f1162a0d988a0e59f195d0631ed21f/cekit-4.11.0.tar.gz"
-  sha256 "5dc7ce15f903c2de20b119a18086c042a28ed0c72ef7f1d5956fa20cef2cfc32"
+  url "https://files.pythonhosted.org/packages/45/68/5adda4ed0c9f5443110ac7b3c41f5492f09d34d939c39fccba6b0a5a00e9/cekit-4.13.0.tar.gz"
+  sha256 "be38d96435c645504698afbc55b73c5737f7b79b574d3e796e19301012e91318"
   license "MIT"
-  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "b8235b830c8e7dd338bfb42addb9d3179c7c4c5e0d0bc824848c6737fcecde19"
-    sha256 cellar: :any,                 arm64_ventura:  "4d642b65175a079ec2fbbbe6995b36c20d88e7d0f1eb08e3ab5f46a1de1091db"
-    sha256 cellar: :any,                 arm64_monterey: "7c62ef670fcb1882b695ca3bfe512bed8b93d53e83028f178cf722146fef0d7a"
-    sha256 cellar: :any,                 sonoma:         "c51087d0cfdebdc15940a74e4b7e9029702ce5fad7c7b66726fb3ebee0e7705b"
-    sha256 cellar: :any,                 ventura:        "2df927b4342a7beb27459be00101679edb3e8312a22f05589f604657f99869f6"
-    sha256 cellar: :any,                 monterey:       "23c0e0e1b0b26aabf17bbf9a6b13763f354b56663e87acff67f2b548e8ce07f9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0be4586c211fa17bd04756b6ee38e730a8f0dfbe59786e748494fa148c0a24ec"
+    sha256 cellar: :any,                 arm64_sequoia:  "871f306a86e56cc8df7383dac1a1987fe6bc85982cc3c12613707f682742b742"
+    sha256 cellar: :any,                 arm64_sonoma:   "fb0a95631a856938106488e9a6d23cbe53b8b36dc0782cb932b0a3cf5a6420d3"
+    sha256 cellar: :any,                 arm64_ventura:  "9f8c0f38b03c397767ce0cba8579f94ecd19d254aa71a849af983cfe351cfdfc"
+    sha256 cellar: :any,                 arm64_monterey: "e490ba9b58d640414d7977df4b80049f0d67c0749985ae3da52f16385428f266"
+    sha256 cellar: :any,                 sonoma:         "5cc6fddf2a194819e118839705788373cdf8522cc1c527a6e1265d37d3525b5b"
+    sha256 cellar: :any,                 ventura:        "aee9f1d7194d2abcfdb96a7cc490bd5c2f769d889b2d8806233674201542ddf5"
+    sha256 cellar: :any,                 monterey:       "4f9b79d9101aa3e7d2955ed99723a179edfbfbae96f7f1178ee4000cbd6be881"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d6ceaba47f98eaff881e69d124e2302d94433a2496443188eda8b1baf63c5327"
   end
 
   depends_on "libyaml"
@@ -47,8 +47,8 @@ class Cekit < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/ee/b5/b43a27ac7472e1818c4bafd44430e69605baefe1f34440593e0332ec8b4d/packaging-24.0.tar.gz"
-    sha256 "eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"
+    url "https://files.pythonhosted.org/packages/51/65/50db4dda066951078f0a96cf12f4b9ada6e4b811516bf0262c0f4f7064d4/packaging-24.1.tar.gz"
+    sha256 "026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002"
   end
 
   resource "pykwalify" do
@@ -62,8 +62,8 @@ class Cekit < Formula
   end
 
   resource "pyyaml" do
-    url "https://files.pythonhosted.org/packages/cd/e5/af35f7ea75cf72f2cd079c95ee16797de7cd71f29ea7c68ae5ce7be1eda0/PyYAML-6.0.1.tar.gz"
-    sha256 "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
+    url "https://files.pythonhosted.org/packages/54/ed/79a089b6be93607fa5cdaedf301d7dfb23af5f25c398d5ead2525b063e17/pyyaml-6.0.2.tar.gz"
+    sha256 "d584d9ec91ad65861cc08d42e834324ef890a082e591037abe114850ff7bbc3e"
   end
 
   resource "ruamel-yaml" do
@@ -102,7 +102,7 @@ class Cekit < Formula
     EOS
     assert_match "INFO  Finished!",
 shell_output("#{bin}/cekit --descriptor #{testpath}/test.yml build --dry-run docker 2>&1")
-    system "#{bin}/cekit", "--descriptor", "#{testpath}/test.yml", "build", "--dry-run", "docker"
+    system bin/"cekit", "--descriptor", "#{testpath}/test.yml", "build", "--dry-run", "docker"
     assert_predicate testpath/"target/image/Dockerfile", :exist?
     assert_match "FROM scratch", File.read(testpath/"target/image/Dockerfile")
   end

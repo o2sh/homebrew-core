@@ -1,8 +1,8 @@
 class Payara < Formula
   desc "Java EE application server forked from GlassFish"
   homepage "https://www.payara.fish"
-  url "https://search.maven.org/remotecontent?filepath=fish/payara/distributions/payara/6.2024.4/payara-6.2024.4.zip"
-  sha256 "98e68ab9cc1c5bceb4710427cc474a3571a7f4c10605532521ad76fcb6787b17"
+  url "https://search.maven.org/remotecontent?filepath=fish/payara/distributions/payara/6.2024.9/payara-6.2024.9.zip"
+  sha256 "757ec476e8c94e321ce64b9b50609ba1abc40891a039f3ff6b0e22623f799c4a"
   license any_of: [
     "CDDL-1.1",
     { "GPL-2.0-only" => { with: "Classpath-exception-2.0" } },
@@ -14,7 +14,7 @@ class Payara < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "890936c7b02e40f193d7b75793b56d5af1f776a1f4397cc7fb92210e0c3395f0"
+    sha256 cellar: :any_skip_relocation, all: "f83c255681ddca86c56e020033907b2a84cc649b6f81613a7e29c363999f5382"
   end
 
   depends_on :macos # The test fails on Linux.
@@ -24,7 +24,7 @@ class Payara < Formula
 
   def install
     # Remove Windows scripts
-    rm_f Dir["**/*.{bat,exe}"]
+    rm(Dir["**/*.{bat,exe}"])
 
     inreplace "bin/asadmin", /AS_INSTALL=.*/,
                              "AS_INSTALL=#{libexec}/glassfish"

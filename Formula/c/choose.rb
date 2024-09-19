@@ -11,6 +11,7 @@ class Choose < Formula
 
   bottle do
     rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "7ded96eb3bb8c2136e454b15bd92eba7a701c79b5d6fdeda61af960b99ab4020"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f5c4fa56df4043797b8afd5d16f09ba833cb31c6623311e93f666cd658128d84"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "591ec66da1ed275c857cf18501b239665db4b24e8e75a31ccd436a753ca2f4bd"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "7d70433ad746562e57937e4420e86c2fa8e4bb725b7a795fe96f7025ad8f9cc2"
@@ -20,7 +21,8 @@ class Choose < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "6d41eb1ad4084eab5d86a808d208009b196ead914a9ed5e497f06b04eb7071a8"
   end
 
-  depends_on "python-setuptools" => :build
+  deprecate! date: "2024-05-19", because: :unmaintained
+
   depends_on "python@3.12"
 
   conflicts_with "choose-gui", because: "both install a `choose` binary"
@@ -36,7 +38,7 @@ class Choose < Formula
     ENV.prepend_create_path "PYTHONPATH", libexec/Language::Python.site_packages(python3)
 
     resource("urwid").stage do
-      system python3, "-m", "pip", "install", *std_pip_args(prefix: libexec), "."
+      system python3, "-m", "pip", "install", *std_pip_args(prefix: libexec, build_isolation: true), "."
     end
 
     bin.install "choose"
@@ -50,6 +52,6 @@ class Choose < Formula
     # [Errno 6] No such device or address: '/dev/tty'
     return if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]
 
-    assert_equal "homebrew-test", pipe_output("#{bin}/choose", "homebrew-test\n").strip
+    assert_equal "homebrew-test", pipe_output(bin/"choose", "homebrew-test\n").strip
   end
 end

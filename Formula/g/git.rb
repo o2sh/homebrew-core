@@ -1,9 +1,8 @@
 class Git < Formula
   desc "Distributed revision control system"
   homepage "https://git-scm.com"
-  # Don't forget to update the documentation resources along with the url!
-  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.45.0.tar.xz"
-  sha256 "0aac200bd06476e7df1ff026eb123c6827bc10fe69d2823b4bf2ebebe5953429"
+  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.46.1.tar.xz"
+  sha256 "888cafb8bd6ab4cbbebc168040a8850eb088f81dc3ac2617195cfc0877f0f543"
   license "GPL-2.0-only"
   head "https://github.com/git/git.git", branch: "master"
 
@@ -13,13 +12,12 @@ class Git < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "82197686774fad715fbd2a3f332b5ca34ccdc1e30e342f2435c80f5505f0fc46"
-    sha256 arm64_ventura:  "b06ae310e494222de3810da12457e0f23d84bbab8cd2be6fa431b1f851acf2e8"
-    sha256 arm64_monterey: "6ffe0ceb6733472048bdcc58ab501c9865dfbb980dc9b7c6256479e7c95dd6a3"
-    sha256 sonoma:         "4871314d2c6eff247f82c3d792487b69d66398f34e022cee96d8feca6031889b"
-    sha256 ventura:        "6616aa136befc16efc939c91feae1826fb1e374dce317e7fcc2cfab5f930b014"
-    sha256 monterey:       "fa17dc6be611c71f2ac8a203b241be83db46289e5c176446d4ac7fe9551f6097"
-    sha256 x86_64_linux:   "37924e1d7fdf3215941063b80d6eb3b96019a6c849dbe8616cb278216d97bc52"
+    sha256 arm64_sequoia: "98fd71e5baeaab408b580bcd765b18299d97935b55d1437cd85d4576020819fd"
+    sha256 arm64_sonoma:  "18874888f0d79b49befe12ccc1c7bd57e7d9e0c5527716ce12212d780755223a"
+    sha256 arm64_ventura: "70ccbdc52815dfb31ebd0dda1184b223cda10f3ab81ea9292d2867fae36e575b"
+    sha256 sonoma:        "54b10f3d16b8a468894cfa162e09ba015faa5f6422ba37b35c7f53773877c0e5"
+    sha256 ventura:       "db7bc15e0419cd59a01abd9b80fb2d578cf1f9b121f7d81f29c42356619d609e"
+    sha256 x86_64_linux:  "5dd424f323934a60c6e012db56709ae19f185b6e42ecebb29c816b811502c188"
   end
 
   depends_on "gettext"
@@ -35,13 +33,13 @@ class Git < Formula
   end
 
   resource "html" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.45.0.tar.xz"
-    sha256 "53b6117470c1aa2b7c8ef387944dcb220ed1c303407bda2ff7727818b7569af1"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.46.1.tar.xz"
+    sha256 "35243bb8c7a9b71e598cadb200789c67d7900a17012b93f3c5c2a89c8b90ec75"
   end
 
   resource "man" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.45.0.tar.xz"
-    sha256 "44b34e9a1f244c2d184afa6de5d93f226fc449f046d05869d980f6203397a7f4"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.46.1.tar.xz"
+    sha256 "3c52e4bae0a737e9c8061afdb45f0a6f24ebc6368dac01aec89fdde63c11bf6a"
   end
 
   resource "Net::SMTP::SSL" do
@@ -161,7 +159,8 @@ class Git < Formula
     # purged by Homebrew's post-install cleaner because that doesn't check
     # "Library" directories. It is however pointless to keep around as it
     # only contains the perllocal.pod installation file.
-    rm_rf prefix/"Library/Perl"
+    perl_dir = prefix/"Library/Perl"
+    rm_r perl_dir if perl_dir.exist?
 
     # Set the macOS keychain credential helper by default
     # (as Apple's CLT's git also does this).

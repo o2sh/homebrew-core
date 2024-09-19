@@ -1,8 +1,8 @@
 class Pypy < Formula
   desc "Highly performant implementation of Python 2 in Python"
   homepage "https://pypy.org/"
-  url "https://downloads.python.org/pypy/pypy2.7-v7.3.16-src.tar.bz2"
-  sha256 "43721cc0c397f0f3560b325c20c70b11f7c76c27910d3df09f8418cec4f9c2ad"
+  url "https://downloads.python.org/pypy/pypy2.7-v7.3.17-src.tar.bz2"
+  sha256 "50e06840f4bbde91448080a4118068a89b8fbcae25ff8da1e2bb1402dc9a0346"
   license "MIT"
   head "https://github.com/pypy/pypy.git", branch: "main"
 
@@ -12,13 +12,14 @@ class Pypy < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "2f05891ca68f1426ddd467af7123c887705613ce7f7b93ba4df0a95f9177f8c4"
-    sha256 cellar: :any,                 arm64_ventura:  "3a6f24b8a5b1b20af38fbc3c28259e22a7ca4568d355c36815012294de97d52a"
-    sha256 cellar: :any,                 arm64_monterey: "33af05a2d3afa44b27d8349e530a33ba9213eb40dd2575339ada69b3c9db94f7"
-    sha256 cellar: :any,                 sonoma:         "b731fe0f0717793955d52ec921f28458192f519b3f77dcae15972953253476e2"
-    sha256 cellar: :any,                 ventura:        "acb05f5ff3b8a7e121c47cdc3fe413d6689032d5b39b2415b6eeb32662f0d63a"
-    sha256 cellar: :any,                 monterey:       "512f4fca3ed3cf0a33251a5f07c312f6f9478bcbab28fc34dbf673265bac23bc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e07a55df23aa198f34998cc4768555200a50ed2e09b68417edd3b3b62ec441f6"
+    sha256 cellar: :any,                 arm64_sequoia:  "b2301fc69139f089a77227a002b737b14afa0c99619dfa7d6200d38e6ca831e0"
+    sha256 cellar: :any,                 arm64_sonoma:   "e9e1692654a5a54459c12935d7d76db83e7989e1e0053060352568c463186f41"
+    sha256 cellar: :any,                 arm64_ventura:  "257f74a40fdcab7bb8e7108e8194b7fa9a88b365679a3c7fa45966a6874612c3"
+    sha256 cellar: :any,                 arm64_monterey: "64714ae5428b2af013f92ce9f4480de7a71dbfa670a2913bb2fc7f08bb50cf8b"
+    sha256 cellar: :any,                 sonoma:         "6627476c297b9029617c8cb58c813c486f75a992971996a49e4aef963acf3243"
+    sha256 cellar: :any,                 ventura:        "e2d4ff49951bf76f28213309cded300c955787c8563ffa4789ea71ff315f8674"
+    sha256 cellar: :any,                 monterey:       "a0309fa68cbbf79b6daab43676f848d9ff2a83222e7a6d72c9f2577715b94d3c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f6c8401527975c32039611ee2f7f54ef68cb3317e56df56f64dde5c73232dbc5"
   end
 
   depends_on "pkg-config" => :build
@@ -81,6 +82,17 @@ class Pypy < Formula
       s.gsub! "/include'", "/include/tcl-tk'"
     end
 
+    if OS.mac?
+      # Allow python modules to use ctypes.find_library to find homebrew's stuff
+      # even if homebrew is not a /usr/local/lib. Try this with:
+      # `brew install enchant && pip install pyenchant`
+      inreplace "lib-python/2.7/ctypes/macholib/dyld.py" do |f|
+        f.gsub! "DEFAULT_LIBRARY_FALLBACK = [",
+                "DEFAULT_LIBRARY_FALLBACK = [ '#{HOMEBREW_PREFIX}/lib',"
+        f.gsub! "DEFAULT_FRAMEWORK_FALLBACK = [", "DEFAULT_FRAMEWORK_FALLBACK = [ '#{HOMEBREW_PREFIX}/Frameworks',"
+      end
+    end
+
     # See https://github.com/Homebrew/homebrew/issues/24364
     ENV["PYTHONPATH"] = ""
     ENV["PYPY_USESSION_DIR"] = buildpath
@@ -123,9 +135,9 @@ class Pypy < Formula
     # Symlink the prefix site-packages into the cellar.
     unless (libexec/"site-packages").symlink?
       # fix the case where libexec/site-packages/site-packages was installed
-      rm_rf libexec/"site-packages/site-packages"
+      rm_r(libexec/"site-packages/site-packages") if (libexec/"site-packages/site-packages").exist?
       mv Dir[libexec/"site-packages/*"], prefix_site_packages
-      rm_rf libexec/"site-packages"
+      rm_r(libexec/"site-packages")
     end
     libexec.install_symlink prefix_site_packages
 

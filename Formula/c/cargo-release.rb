@@ -1,25 +1,26 @@
 class CargoRelease < Formula
   desc "Cargo subcommand `release`: everything about releasing a rust crate"
   homepage "https://github.com/crate-ci/cargo-release"
-  url "https://github.com/crate-ci/cargo-release/archive/refs/tags/v0.25.7.tar.gz"
-  sha256 "f6991b128ddb248064f5fcbe29ea9ae714387d5ebf82645f36d0d9c87710a2e4"
+  url "https://github.com/crate-ci/cargo-release/archive/refs/tags/v0.25.11.tar.gz"
+  sha256 "806e57856df05a4d70a628b4d6a5e5a08cfe25148aa4d42800042b045067d182"
   license any_of: ["Apache-2.0", "MIT"]
   head "https://github.com/crate-ci/cargo-release.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "2e26ea2e659007e2d9c18d8b1a70a1c7d6be2626ec75b354cf3f6b320dc228e0"
-    sha256 cellar: :any,                 arm64_ventura:  "31386b7b858469be5fcb1a1651b2649e6e5b3fccadfd81d228c84e4b3fbbcb9c"
-    sha256 cellar: :any,                 arm64_monterey: "896d0f56a2c0381caa2e753d904477e0f379c2ba3fb0d89d4894e5bdfb58fb86"
-    sha256 cellar: :any,                 sonoma:         "1c2de6a1922d779700ef2ed9b891b236a624fa4649b5f1a861dc122ee91b33ea"
-    sha256 cellar: :any,                 ventura:        "3f52817fbf094799700bdc0fc1f8c01c47c32a89026214616f4ae4ff6276eef4"
-    sha256 cellar: :any,                 monterey:       "e4c721b8d8acff07b7f1369dace91e2ed927c80524fdb0bf14b039ca893fddb7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "93e8a06574f628078010f8dc94f87e817ac9468797d20d65e78a6277fcc6b05d"
+    sha256 cellar: :any,                 arm64_sequoia:  "4fa51f848efcc765df7e1e9608d5800d5afd7844b8fe21e150935b6c1e368a7d"
+    sha256 cellar: :any,                 arm64_sonoma:   "0cb90de97c4fe82aaabf6c435af345d6cbc5400f5f3f3e679c1f37725473b82c"
+    sha256 cellar: :any,                 arm64_ventura:  "ef226d68c47d06412bf0e47116baf300f1de4f433b2f0920d1795faf7b2d5e39"
+    sha256 cellar: :any,                 arm64_monterey: "f0bfd9926ceddc368d3bb73836c678b6ba01e459579af0fc95f7d00be386c22f"
+    sha256 cellar: :any,                 sonoma:         "b5cb604525c7f4e2a6d6b76e7758333559bf0d1f38aa9c977df6bdbaaefec9d5"
+    sha256 cellar: :any,                 ventura:        "6de8b69a0a8058769280d9ce7d32049de1906f08a9a82e647a887419818068ea"
+    sha256 cellar: :any,                 monterey:       "eb9c9d3eac3074f87761506f002799deb2650657ae43fd0309b7d72eec58d068"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "651b323252f1992597fc9bca1d26bda4adebd22e69886b7185fb6646ca4d2cb9"
   end
 
   depends_on "pkg-config" => :build
   depends_on "rust" => :build
-  depends_on "rustup-init" => :test
-  depends_on "libgit2"
+  depends_on "rustup" => :test
+  depends_on "libgit2@1.7"
 
   def install
     ENV["LIBGIT2_NO_VENDOR"] = "1"
@@ -38,10 +39,9 @@ class CargoRelease < Formula
   test do
     # Show that we can use a different toolchain than the one provided by the `rust` formula.
     # https://github.com/Homebrew/homebrew-core/pull/134074#pullrequestreview-1484979359
-    ENV["RUSTUP_INIT_SKIP_PATH_CHECK"] = "yes"
-    rustup_init = Formula["rustup-init"].bin/"rustup-init"
-    system rustup_init, "-y", "--profile", "minimal", "--default-toolchain", "beta", "--no-modify-path"
-    ENV.prepend_path "PATH", HOMEBREW_CACHE/"cargo_cache/bin"
+    ENV.prepend_path "PATH", Formula["rustup"].bin
+    system "rustup", "default", "beta"
+    system "rustup", "set", "profile", "minimal"
 
     system "cargo", "new", "hello_world", "--bin"
     cd "hello_world" do
@@ -49,7 +49,7 @@ class CargoRelease < Formula
     end
 
     [
-      Formula["libgit2"].opt_lib/shared_library("libgit2"),
+      Formula["libgit2@1.7"].opt_lib/shared_library("libgit2"),
     ].each do |library|
       assert check_binary_linkage(bin/"cargo-release", library),
              "No linkage with #{library.basename}! Cargo is likely using a vendored version."

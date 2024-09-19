@@ -1,8 +1,8 @@
 class RattlerBuild < Formula
   desc "Universal conda package builder"
   homepage "https://github.com/prefix-dev/rattler-build"
-  url "https://github.com/prefix-dev/rattler-build/archive/refs/tags/v0.16.0.tar.gz"
-  sha256 "d2dd608e0eab32756a7d30320f713e7cb497ef4b1374ce5fcf9bf8b97234c6f3"
+  url "https://github.com/prefix-dev/rattler-build/archive/refs/tags/v0.20.0.tar.gz"
+  sha256 "7e0b5d4e0aa77a8887d7441249d40f378261d74337c4e36fb3dd9340e8c365fb"
   license "BSD-3-Clause"
   head "https://github.com/prefix-dev/rattler-build.git", branch: "main"
 
@@ -15,13 +15,14 @@ class RattlerBuild < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "9aaf6382f0a108105ecbb6b7c40c7b97b77c932b35e9f1c22f51b5c821b5b930"
-    sha256 cellar: :any,                 arm64_ventura:  "bf377f0619005937e2772d8828df979512b3ce3a91f08a05cf7b8bcc218e7155"
-    sha256 cellar: :any,                 arm64_monterey: "0cba9ed9f79c9a970a684c3a8be297898d161d1116bbce4a03218fed39c002d0"
-    sha256 cellar: :any,                 sonoma:         "2aa41e20e3295bf203e390be668458ab86325214e1a289aceee0ef67dc7962de"
-    sha256 cellar: :any,                 ventura:        "0c5ce5a3293e742102835dc19539bb3f3c3e210deb8c72b1735c6e0435d81cb8"
-    sha256 cellar: :any,                 monterey:       "2499831aea122be92eea28486d169b8d1b3185cd49c090e0f0f93e49a58370db"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "da826d333bc41a2240e16fb097df83b6a0990176a5ce29f479eaf8589ba673a3"
+    sha256 cellar: :any,                 arm64_sequoia:  "5683219f2715055f52688b4fd75c2584f2dc899b6db645189ac8497b67bb01f2"
+    sha256 cellar: :any,                 arm64_sonoma:   "420f1ade3e49423277acba49bebd6ca56a77e498504428c3094cfbb271390bad"
+    sha256 cellar: :any,                 arm64_ventura:  "0a54a85e7376a78933a2136031e943a36b3743f2c94c68bc5c87bf2cbb47cec8"
+    sha256 cellar: :any,                 arm64_monterey: "79ed5cdb4ae28c68f89524337b44f1d49c79a7915d555706218773accea0c955"
+    sha256 cellar: :any,                 sonoma:         "d64e31d6e19b3329cdae8da1cbccca10a429414e9c3fc4d4711bdbe53564a4d0"
+    sha256 cellar: :any,                 ventura:        "2ecb0433626e38ec597c2831a85b8b2f79da2560a5b6491c628fa63d3909bcf8"
+    sha256 cellar: :any,                 monterey:       "1191eb2f1dbbed49dc2fbbc4387f60626d849f1450ac17d0d29c40dab478ea08"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b72ecb25882979d8163e752d369361516a6c6fcdfaeba7052d8bd2ea47c32b15"
   end
 
   depends_on "pkg-config" => :build
@@ -33,7 +34,7 @@ class RattlerBuild < Formula
   uses_from_macos "zlib"
 
   def install
-    system "cargo", "install", *std_cargo_args
+    system "cargo", "install", "--features", "tui", *std_cargo_args
 
     generate_completions_from_executable(bin/"rattler-build", "completion", "--shell")
   end

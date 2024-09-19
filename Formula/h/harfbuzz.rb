@@ -1,19 +1,20 @@
 class Harfbuzz < Formula
   desc "OpenType text shaping engine"
   homepage "https://github.com/harfbuzz/harfbuzz"
-  url "https://github.com/harfbuzz/harfbuzz/archive/refs/tags/8.4.0.tar.gz"
-  sha256 "9f1ca089813b05944ad1ce8c7e018213026d35dc9bab480a21eb876838396556"
+  url "https://github.com/harfbuzz/harfbuzz/archive/refs/tags/9.0.0.tar.gz"
+  sha256 "b7e481b109d19aefdba31e9f5888aa0cdfbe7608fed9a43494c060ce1f8a34d2"
   license "MIT"
   head "https://github.com/harfbuzz/harfbuzz.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "b74301ad74f8d0647b49ed72156895d0c598d7cf206d331d79aeab415eb72e8e"
-    sha256 cellar: :any, arm64_ventura:  "dee14c98e92282e71af1487682ac7121db23ad88f9d7e5e2a358ec84ab3812a4"
-    sha256 cellar: :any, arm64_monterey: "38c193a00a70eaf5893961353b12f356e3ca92eb1ba52d1dc8153c56a3c21184"
-    sha256 cellar: :any, sonoma:         "2be9787ee914184a146b99eaf28fd3367ce487a5ff685b7cb6266022d8badd51"
-    sha256 cellar: :any, ventura:        "c347ae63119c1d8484f7711a17d8973f50194c215970b3ecccbfba186f70cce8"
-    sha256 cellar: :any, monterey:       "f2827c339eb5fbcfdcd3846e955a3b5dbebdeb36ec8b9f30c1bd2476df0fc69c"
-    sha256               x86_64_linux:   "9bfb3b0736a1b4bb904f742b72abccdcc74a90c9b4344d44a314714b8a8ae51d"
+    sha256 cellar: :any, arm64_sequoia:  "3d5aa379c18b483b88d142f9318d2ca58d4b20935ec3040fa7b4b48a1aeea272"
+    sha256 cellar: :any, arm64_sonoma:   "9b683aa2fa183d1b26a5a2758663bebc1d45042be4c90cd3a5ab9de9c5d77d42"
+    sha256 cellar: :any, arm64_ventura:  "c565c041c5acf667970844755cfb9ed546607a0027fcefce6e2f055201212823"
+    sha256 cellar: :any, arm64_monterey: "b877274a0347b535bd526fc2b95b9aaabb3758b5bea76344adc71aabfd9e45ba"
+    sha256 cellar: :any, sonoma:         "748d0382c160b1501bc1e3020a7963b794d6afed4239f1baa4c01b7bd0f3b760"
+    sha256 cellar: :any, ventura:        "90cd2b6049560e6b719f666bf62c2a2a5ef4ee71717c249792d61ddf5433168e"
+    sha256 cellar: :any, monterey:       "0ae8564fad4510b9987eb42529b8b550d1b80834648d5a23d4f3b6f164e79d15"
+    sha256               x86_64_linux:   "3e2dc2ca41c19053edbef4c19808943597e6eda7530dd894021e1b3e4178c508"
   end
 
   depends_on "gobject-introspection" => :build

@@ -1,8 +1,8 @@
 class Ooniprobe < Formula
   desc "Network interference detection tool"
   homepage "https://ooni.org/"
-  url "https://github.com/ooni/probe-cli/archive/refs/tags/v3.21.1.tar.gz"
-  sha256 "30aeb00da6b2d1217cea3409c7f47b60765a6b1df96aa59474649a54c6d3edf6"
+  url "https://github.com/ooni/probe-cli/archive/refs/tags/v3.23.0.tar.gz"
+  sha256 "ff4717e8fd0075bcb011d738e12a47a5be17deaa0b23346f354ddd6d95fed728"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -11,13 +11,14 @@ class Ooniprobe < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "422530e5ec4e21a31537702e93aa60ffbf822fbb4ec8ab8cb5eb15f602891ab8"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4d5b652dba0ad79d8190b1d84b1f60ebb65980267f5bef3b386f435a905bc870"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "961a58e6bd5830c505240be4fba4e843902442985759f0a73d24e0f5f91c48e4"
-    sha256 cellar: :any_skip_relocation, sonoma:         "cb1c39f8f79246714a9c7ccea31581f621302364c4f6f07d09a52f519ad12643"
-    sha256 cellar: :any_skip_relocation, ventura:        "a7c352390a7b065d12646d51ec3737d84776eae655f5ce88f27c024c321275bd"
-    sha256 cellar: :any_skip_relocation, monterey:       "5377a44c8266d1f90f11db5ece9307b858828c9653adde753b8740b45500f356"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1c19d5c35adad5fbe569a967df40dc9ef4185ce65cd35e5bdb7e2338f0ca9cdb"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "b03c68f62cdc53f336c8176f81f5b8e107cf317a3b79ee9d9083aff4ecd353f8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "113d42d4783092e36169acf440ac6cd8d041a182d7909fd7ecc86afb6c55c3b0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7c4247526d2395b129b4d670badedc7fad394035980ff9268a2105b502d49693"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "db583fd8073b3bc8347768758909b9e98516e6e0cd160e40590bdfd5ba425cee"
+    sha256 cellar: :any_skip_relocation, sonoma:         "f93a68b4ea2bbea9b508800550cb0f97f798bd94c38fad34bbbbbb75c3cabc20"
+    sha256 cellar: :any_skip_relocation, ventura:        "157806bdb6f5e50a2915bd3711fb5287a0f9f90d4862fcfc992252ff48cd389d"
+    sha256 cellar: :any_skip_relocation, monterey:       "aa5eb7017a42cedc5b3317b49d07e45182ceb03641404bc6e3133e5ca44a2225"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a3c0eea0d5b13174c5086f46bf340372f39e9d00cd00deb9e43fc9f5df6d040d"
   end
 
   depends_on "go" => :build

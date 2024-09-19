@@ -1,19 +1,20 @@
 class Kotlin < Formula
   desc "Statically typed programming language for the JVM"
   homepage "https://kotlinlang.org/"
-  url "https://github.com/JetBrains/kotlin/releases/download/v1.9.24/kotlin-compiler-1.9.24.zip"
-  sha256 "eb7b68e01029fa67bc8d060ee54c12018f2c60ddc438cf21db14517229aa693b"
+  url "https://github.com/JetBrains/kotlin/releases/download/v2.0.20/kotlin-compiler-2.0.20.zip"
+  sha256 "5f5d2a8ad6a718a002acd0775b67a9e27035872fdbd4b0791e3cb3ea00095931"
   license "Apache-2.0"
 
-  # This repository has thousands of development tags, so the `GithubLatest`
-  # strategy is used to minimize data transfer in this extreme case.
+  # Upstream maintains multiple major/minor versions and the "latest" release
+  # may be for a lower version, so we have to check multiple releases to
+  # identify the highest version.
   livecheck do
     url :stable
-    strategy :github_latest
+    strategy :github_releases
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "3850b4e4a3954f200ca8dc058d2f46d9f23cf8ca8837ad4e155e6c2cdff1d3b5"
+    sha256 cellar: :any_skip_relocation, all: "20fc8fd68c8f1237bb3d3b13c1f820b0614275384958e36fca3f2b7a7e965e96"
   end
 
   depends_on "openjdk"

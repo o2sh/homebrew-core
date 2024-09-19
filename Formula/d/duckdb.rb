@@ -2,18 +2,19 @@ class Duckdb < Formula
   desc "Embeddable SQL OLAP Database Management System"
   homepage "https://www.duckdb.org"
   url "https://github.com/duckdb/duckdb.git",
-      tag:      "v0.10.2",
-      revision: "1601d94f94a7e0d2eb805a94803eb1e3afbbe4ed"
+      tag:      "v1.1.0",
+      revision: "fa5c2fe15f3da5f32397b009196c0895fce60820"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "78ac19d61f3e987dd62ff410fff2a8538d1f7a7872097ed04e1b0783232fc79f"
-    sha256 cellar: :any,                 arm64_ventura:  "34878da351d28f3a2d16620b315fbed1b15277cea2074e3bf42279e2d215bea3"
-    sha256 cellar: :any,                 arm64_monterey: "8fdd40597ae92745e6393747050881231fb1525fe7c0238cb7f18bcf4c66f6e3"
-    sha256 cellar: :any,                 sonoma:         "b3199306567c564d620f5530f7c1647449e00a6a6d34f4bb69209211ac275c55"
-    sha256 cellar: :any,                 ventura:        "2313efdfe9376a39a13d83e8a08b1ecdfb870b1b6b0dab6119d171ae8ae67f60"
-    sha256 cellar: :any,                 monterey:       "8a66f5ff68b0bcfd7cbd92bccea9edc4ff20a5fd7fa3759b950053a9c3e86939"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e3afe1f9acd784aa6f12123436e3648d5d6a33abfd5c368cd8619e42b4db6d2c"
+    sha256 cellar: :any,                 arm64_sequoia:  "47d151c2267a001a305fb84db8b72d8c272b12bab12728dc326191ec54585522"
+    sha256 cellar: :any,                 arm64_sonoma:   "64809434767d707995f88a531052d0a7e87ab994dfd1a5290a6693549f8dd810"
+    sha256 cellar: :any,                 arm64_ventura:  "0aa06f44102a9555591af2652c0acdfa2b6fdc86ab0282d3f35fe3dff1074423"
+    sha256 cellar: :any,                 arm64_monterey: "c6954cec4f2375776ff7dbbd540939b167773c28c7302a3f290e4370e460ca50"
+    sha256 cellar: :any,                 sonoma:         "59b4ba0bc0d0bbdfbf0063c86b575bca2163e5b093d9a1b7f6e04f6cf94e9661"
+    sha256 cellar: :any,                 ventura:        "22f42b7030e34ca7fa638396e2a4e00d5a5697b1fb7934d367dcce74f5890f63"
+    sha256 cellar: :any,                 monterey:       "fd3398c4cb5feb442b523dbb249befe1fc75045bf24cf02125ea92b4745d51c7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0ffa5ecaffab080e827990da3fba0724b5c5ca62fc8b5ed476cf022ef561e744"
   end
 
   depends_on "cmake" => :build

@@ -1,20 +1,23 @@
 class CrunchyCli < Formula
   desc "Command-line downloader for Crunchyroll"
   homepage "https://github.com/crunchy-labs/crunchy-cli"
-  url "https://github.com/crunchy-labs/crunchy-cli/archive/refs/tags/v3.6.1.tar.gz"
-  sha256 "3219493204e7e34fa14240007ea905ec397db75624ea6c0570a2fdfb6a6366ad"
+  url "https://github.com/crunchy-labs/crunchy-cli/archive/refs/tags/v3.6.7.tar.gz"
+  sha256 "743c2d5dd603ee14e63af8ac8cbae1cd80acce6bfa87934571e379bcf01949e6"
   license "MIT"
   head "https://github.com/crunchy-labs/crunchy-cli.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6d2664371de1eb0220a79ee2a927cd776a7b615051b19507cb0df31703a15794"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "87fcbe6bd5c275ba1d6d3b666a412947089ce8b62b13a737a8d9bdc95c5a9ea9"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "43b5b006b103b6c95908554031dd6d637155175b60484af9b687eab0c6536219"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c5d078a2d9bf465a08e31a5693bbb108e4575349955754b1bc28cf2e8774a039"
-    sha256 cellar: :any_skip_relocation, ventura:        "8c68686bbb9309ec503ab1c91bc9e8c471130747887cd1bce1659828a05838ce"
-    sha256 cellar: :any_skip_relocation, monterey:       "597444a784f1ae70fa3eff2b38217d66b7bce755eaf2480301b0e9e3f39183cf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2e74a4e7466b90948ac5e8bdf4800025a14fd2785eb0f2b3529dea1b1ed963c5"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "a1e9883dac18b6296214f9145e6ff940b68cdb9fba356cb1437081956a92f0d7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "eff25dab580ce0fab83a7bd145c4135f60bc7a33ea7dc2beff2ff1dcec221238"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ab6f53c667b82494a40e421fcc8f708e2443e19903991e2352acc4412911ae4c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "26658e2958c936ebb325748349492bab65d7c85c3d7e8b26f6e954661dbfb299"
+    sha256 cellar: :any_skip_relocation, sonoma:         "fcd5a79d345f349e356ce9dcb3946a9bc3285e05fd1dac90d10480639afa7e05"
+    sha256 cellar: :any_skip_relocation, ventura:        "e22153bc82c7d620d0b974c7028a3600730146ec5cd001dbca81267a38ad7199"
+    sha256 cellar: :any_skip_relocation, monterey:       "2da874bb0fa697266a2575eae4f75602575f9e3a6137719dd535ec5fd72c28a2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2bfb8108c92d7926879b6c3067632692db81b020f9d52166f17e788a6b64b391"
   end
+
+  deprecate! date: "2024-07-16", because: :repo_archived
 
   depends_on "pkg-config" => :build
   depends_on "rust" => :build

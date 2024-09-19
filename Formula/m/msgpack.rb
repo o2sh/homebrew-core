@@ -1,24 +1,28 @@
 class Msgpack < Formula
   desc "Library for a binary-based efficient data interchange format"
   homepage "https://msgpack.org/"
-  url "https://github.com/msgpack/msgpack-c/releases/download/c-6.0.1/msgpack-c-6.0.1.tar.gz"
-  sha256 "a349cd9af28add2334c7009e331335af4a5b97d8558b2e9804d05f3b33d97925"
+  url "https://github.com/msgpack/msgpack-c/releases/download/c-6.1.0/msgpack-c-6.1.0.tar.gz"
+  sha256 "674119f1a85b5f2ecc4c7d5c2859edf50c0b05e0c10aa0df85eefa2c8c14b796"
   license "BSL-1.0"
   head "https://github.com/msgpack/msgpack-c.git", branch: "c_master"
 
+  # Upstream creates releases that use a stable tag (e.g., `v1.2.3`) but are
+  # labeled as "pre-release" on GitHub before the version is released, so it's
+  # necessary to use the `GithubLatest` strategy.
   livecheck do
     url :stable
-    regex(/^c[._-]v?(\d+(?:\.\d+)+)$/i)
+    strategy :github_latest
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "b7e5117cdadb73ce58b278a96b99d11fe2380280b8a0f79c06cf89a6c82f6a25"
-    sha256 cellar: :any,                 arm64_ventura:  "9666b5d9ac86ec85fdfc9195aa1064bf8604d9c283a44c217a74762f4bc0cd0c"
-    sha256 cellar: :any,                 arm64_monterey: "92fdc6ce888b36f23e1a8768e562c03caeb523bda509a9ba8794548fc6d54f39"
-    sha256 cellar: :any,                 sonoma:         "6281f5d270814c2bfc4a68430f546737160cd10434819b0c117774c51b46a509"
-    sha256 cellar: :any,                 ventura:        "844bf1facb3017cd8e1f19801c3d1f4750e72887f0b2de175b75bda6eb45c8a0"
-    sha256 cellar: :any,                 monterey:       "3d8dee34a712fd1f29731060d65f0a927c91370f4b24759a935144aadc5a2b6f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bcd2a3799c88a200f8326838ef2ff2014a951b5e493a23a403426c43b59e6754"
+    sha256 cellar: :any,                 arm64_sequoia:  "fef7b080476f8c2ea5d3478775fb8ba7861cb2c5b25a5c06a575eabf303d6085"
+    sha256 cellar: :any,                 arm64_sonoma:   "7a4291f35809d557ff65bdec687fc12468b557d8c27499fad634b84fc27c6a65"
+    sha256 cellar: :any,                 arm64_ventura:  "9798f9eb15c335c663271387feedb42a24953c8a869d657e1b3d58868fb97177"
+    sha256 cellar: :any,                 arm64_monterey: "eb59d97db589ebe5afa0c0ae7f8ac4f07ae39433c323e6d90532301ff19a6c69"
+    sha256 cellar: :any,                 sonoma:         "f8a10c653f0e071f725866c790eebef4161f4c172315388aefdada07682c46bd"
+    sha256 cellar: :any,                 ventura:        "c7e8c2eddc2b55a71e6e6a6a3f63c90cb66369727b990cc553470b7b91ceb599"
+    sha256 cellar: :any,                 monterey:       "0c0c337dad512678ec60426c448aded9965daef3b4ee89eec9f98faad1789012"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "95d7d9a41f1c13c5ce0e1a2ec77f119a3b55e2ad88f0f98d3e5a04d323896171"
   end
 
   depends_on "cmake" => :build

@@ -1,8 +1,8 @@
 class CypherShell < Formula
   desc "Command-line shell where you can execute Cypher against Neo4j"
   homepage "https://neo4j.com"
-  url "https://dist.neo4j.org/cypher-shell/cypher-shell-5.19.0.zip"
-  sha256 "6b458f48bb571cef86c28eba2ac38c6142df9cd7f8a2617b81ed0d02fd6fa55a"
+  url "https://dist.neo4j.org/cypher-shell/cypher-shell-5.23.0.zip"
+  sha256 "bc2d512c888f450c1cde6ba50f20f36ffdee7e875fe0995f8d1a6c615121a9bc"
   license "GPL-3.0-only"
   version_scheme 1
 
@@ -12,17 +12,18 @@ class CypherShell < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "3d3063f698049b5a7caf4adf641aef431929e29420a5e3f6e49c0b9c993a6d0c"
+    sha256 cellar: :any_skip_relocation, all: "c2bab014ac31b47ecde81f1b289f27fbab8ae880473ce85d016c23f98b774400"
   end
 
-  depends_on "openjdk"
+  depends_on "openjdk@21"
 
   def install
     libexec.install Dir["*"]
-    (bin/"cypher-shell").write_env_script libexec/"bin/cypher-shell", Language::Java.overridable_java_home_env
+    (bin/"cypher-shell").write_env_script libexec/"bin/cypher-shell", Language::Java.overridable_java_home_env("21")
   end
 
   test do
+    refute_match "unsupported version of the Java runtime", shell_output("#{bin}/cypher-shell -h 2>&1", 1)
     # The connection will fail and print the name of the host
     assert_match "doesntexist", shell_output("#{bin}/cypher-shell -a bolt://doesntexist 2>&1", 1)
   end

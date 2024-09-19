@@ -1,18 +1,18 @@
 class Libtensorflow < Formula
   desc "C interface for Google's OS library for Machine Intelligence"
   homepage "https://www.tensorflow.org/"
-  url "https://github.com/tensorflow/tensorflow/archive/refs/tags/v2.15.0.tar.gz"
-  sha256 "9cec5acb0ecf2d47b16891f8bc5bc6fbfdffe1700bdadc0d9ebe27ea34f0c220"
+  url "https://github.com/tensorflow/tensorflow/archive/refs/tags/v2.17.0.tar.gz"
+  sha256 "9cc4d5773b8ee910079baaecb4086d0c28939f024dd74b33fc5e64779b6533dc"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "a578b220f6e0d08ca977109535f4dfe7666f0777726bc5e4212d530e6fbd53ab"
-    sha256 cellar: :any,                 arm64_ventura:  "9310ad58328895e82600a09f0be0a9b7bca1cbd72dcbbf013ce47675d4513d14"
-    sha256 cellar: :any,                 arm64_monterey: "12593cd369fa2b9ad2f2e04ea6cf2adb9a55661bc04b9bda90c90d6b718e608a"
-    sha256 cellar: :any,                 sonoma:         "5efbfbb5c8ec5d5f4fb6d6a982860e871a888389cb887f825f38d157d442324b"
-    sha256 cellar: :any,                 ventura:        "7c57f0f00d496ca7f25f732c3d0c5aeef140d6370f5030686b3da7dd8820af74"
-    sha256 cellar: :any,                 monterey:       "144b2e738e475f7904a3123bb6e5aab8c305d1ca6188d6d986ba43c2572cb01b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "040f988c820a84f21a2c1f952a9f94da9fc844dbf2f34944a458a9675dd858e3"
+    sha256 cellar: :any,                 arm64_sonoma:   "8e4a82146a74aa096d1be11656c92759e830fb83313e6d2bb5719e8fcbe3dde8"
+    sha256 cellar: :any,                 arm64_ventura:  "40ce21dfab8a35c13f70085321879d099ce7e73d12079f9fe2290d4d59928212"
+    sha256 cellar: :any,                 arm64_monterey: "0c8b7bfa030bc4f473a031b439d867fbcb0d50665f70d710722eb243a97c26f0"
+    sha256 cellar: :any,                 sonoma:         "80185f9442e34c44f22050d45e240ac18b3b8a9ecdaceac88e59226735570608"
+    sha256 cellar: :any,                 ventura:        "62bcbe8e635620043db0ffbf8c325af8abb6af956f04789f5ffe38e270b42527"
+    sha256 cellar: :any,                 monterey:       "2d0cab07fa85225d28caf185aed68819793645515c731c2b253136dbdb6b6dc4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "159e6c5e1f543cb01ab3dae0019e6a8211aec0985ec8273cb5e4b34832cdfae1"
   end
 
   depends_on "bazelisk" => :build
@@ -26,6 +26,12 @@ class Libtensorflow < Formula
   resource "homebrew-test-model" do
     url "https://github.com/tensorflow/models/raw/v1.13.0/samples/languages/java/training/model/graph.pb"
     sha256 "147fab50ddc945972818516418942157de5e7053d4b67e7fca0b0ada16733ecb"
+  end
+
+  # Backport fix for installation of some headers
+  patch do
+    url "https://github.com/tensorflow/tensorflow/commit/364b0cae088b7199a479899ef7bd99ddb9441728.patch?full_index=1"
+    sha256 "86a225177dcee2965a1d2aa7cd5df3179365cf8ba637ba94d7fd61693f9a9fbb"
   end
 
   def install

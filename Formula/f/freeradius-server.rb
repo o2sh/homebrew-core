@@ -2,12 +2,11 @@ class FreeradiusServer < Formula
   desc "High-performance and highly configurable RADIUS server"
   homepage "https://freeradius.org/"
   license all_of: ["GPL-2.0-or-later", "LGPL-2.1-or-later"]
-  revision 4
   head "https://github.com/FreeRADIUS/freeradius-server.git", branch: "master"
 
   stable do
-    url "https://github.com/FreeRADIUS/freeradius-server/archive/refs/tags/release_3_2_3.tar.gz"
-    sha256 "65cdb744471895ea1da49069454a9a73cc0851fba97251f96b40673d3d54bd8f"
+    url "https://github.com/FreeRADIUS/freeradius-server/archive/refs/tags/release_3_2_6.tar.gz"
+    sha256 "65e099edf5d72ac2f9f7198c800cf0199544f974aae13c93908ab739815b9625"
 
     # Fix -flat_namespace being used
     patch do
@@ -22,16 +21,18 @@ class FreeradiusServer < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "813a586b28502bb65ecf7b219b8c4f453c2be602c4d22ae9e6acedcbe7dba261"
-    sha256 arm64_ventura:  "a3b350ba4693c8ef7c569181b838335087db6c0f2e202eb35252afa041e9069a"
-    sha256 arm64_monterey: "4701828525754c3696bbc2aad476c4791170d932b222ee7fec84beaa34159bdb"
-    sha256 sonoma:         "3f70ad4001df9d13fa3de810e21b960cffc81d583da437faeb3de1f1fd6bbbbe"
-    sha256 ventura:        "23847bbd5bd1d05407bb4776683658d39a0b5f277dfab68de056044b1edfebe7"
-    sha256 monterey:       "e3d590372d756cd494628c5c57144c4a6c10c5bfd693de68aee6fd821dd202e8"
-    sha256 x86_64_linux:   "c25868df8d318a2662d3fe296120cf226eb282f4d1a2667b64f206d7a57d667b"
+    sha256 arm64_sequoia:  "b57698488a0307b2f51fe141e52c4da6126901ce43516cc0bbf66bff100907d1"
+    sha256 arm64_sonoma:   "03ac0c2ee9d93ae9bc4b7f28b35d67eeba3b699078eaa782155a5c7355424dc4"
+    sha256 arm64_ventura:  "42af2bf53bd21966d2a2048881f5b6773c935d1db77227f2d42d96c074b93734"
+    sha256 arm64_monterey: "baf53a6faa43f12e55bdd0ad39ad7b1bd00e90db782bab615c261c165ea764f9"
+    sha256 sonoma:         "1c647250256f77554efdd419b2757e959ad0123ca8ac7ca342f26384c70ae88e"
+    sha256 ventura:        "da61e1b705d1af4903ce70f2d94e85b7abcc34ca4db039eaccdde4d0ba72e7d8"
+    sha256 monterey:       "677823159554422189b154388db1ac27c4300a911220e6135a8e9eb06b9571c5"
+    sha256 x86_64_linux:   "b2a0d3866dfdb56a732021856ce0dd4250f32adf595dc0353905eab037143877"
   end
 
   depends_on "collectd"
+  depends_on "json-c"
   depends_on "openssl@3"
   depends_on "python@3.12"
   depends_on "talloc"
@@ -43,6 +44,7 @@ class FreeradiusServer < Formula
   uses_from_macos "sqlite"
 
   on_linux do
+    depends_on "gdbm"
     depends_on "readline"
   end
 

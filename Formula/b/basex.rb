@@ -1,9 +1,9 @@
 class Basex < Formula
   desc "Light-weight XML database and XPath/XQuery processor"
   homepage "https://basex.org"
-  url "https://files.basex.org/releases/10.7/BaseX107.zip"
-  version "10.7"
-  sha256 "26bef7528c897e1b572e762038f87e8ea29cdd766cf9633025a3b99ee0fe566c"
+  url "https://files.basex.org/releases/11.3/BaseX113.zip"
+  version "11.3"
+  sha256 "db9f283803b3bba2a16898e37a4d524525c209119a698a9946f58ca072d441a0"
   license "BSD-3-Clause"
 
   livecheck do
@@ -12,17 +12,17 @@ class Basex < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "932422309af72014640130059125d0868fd24a8e31db181e47aa4ee12cdb0989"
+    sha256 cellar: :any_skip_relocation, all: "7f5fc3d43937ac97e12edf862cbe8ede4081c6f383c8f3e58395544a56648390"
   end
 
   depends_on "openjdk"
 
   def install
     rm Dir["bin/*.bat"]
-    rm_rf "repo"
-    rm_rf "data"
-    rm_rf "etc"
-    prefix.install_metafiles
+    rm_r("repo")
+    rm_r("data")
+    rm_r("etc")
+
     libexec.install Dir["*"]
     bin.install Dir["#{libexec}/bin/*"]
     bin.env_script_all_files libexec/"bin", JAVA_HOME: Formula["openjdk"].opt_prefix

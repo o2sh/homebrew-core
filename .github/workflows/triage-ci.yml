@@ -51,8 +51,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR: ${{ steps.pr.outputs.number }}
-          PIP_AUDIT_MESSAGE: >
-            Ping @woodruffw @alex
           NEW_CONTRIBUTOR_MESSAGE: >
             Thanks for contributing to Homebrew! :tada: It looks like you're having trouble
             with a CI failure. See our [contribution guide](${{ github.event.repository.html_url }}/blob/HEAD/CONTRIBUTING.md)
@@ -68,7 +66,7 @@ jobs:
             gh api \
               --header 'Accept: application/vnd.github+json' \
               --header 'X-GitHub-Api-Version: 2022-11-28' \
-              "repos/{owner}/{repo}/pulls/$PR"
+              "repos/$GITHUB_REPOSITORY/pulls/$PR"
           )"
           comments_api_url="$(jq --raw-output '.comments_url' <<< "$response")"
 
@@ -94,10 +92,6 @@ jobs:
           }
 
           post_comment_if_not_posted \
-            '.body | contains("brew-pip-audit")' \
-            "$PIP_AUDIT_MESSAGE"
-
-          post_comment_if_not_posted \
             '.author_association == "FIRST_TIME_CONTRIBUTOR" or .author_association == "NONE"' \
             "$NEW_CONTRIBUTOR_MESSAGE"
 
@@ -110,7 +104,7 @@ jobs:
 
       - name: Post comment
         if: fromJson(steps.check.outputs.comment)
-        run: gh pr comment "$PR" --body-file "$COMMENT_BODY_FILE"
+        run: gh pr comment "$PR" --body-file "$COMMENT_BODY_FILE" --repo "$GITHUB_REPOSITORY"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR: ${{ steps.pr.outputs.number }}

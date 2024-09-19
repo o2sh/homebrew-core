@@ -2,18 +2,19 @@ class Aom < Formula
   desc "Codec library for encoding and decoding AV1 video streams"
   homepage "https://aomedia.googlesource.com/aom"
   url "https://aomedia.googlesource.com/aom.git",
-      tag:      "v3.9.0",
-      revision: "6cab58c3925e0f4138e15a4ed510161ea83b6db1"
+      tag:      "v3.10.0",
+      revision: "c2fe6bf370f7c14fbaf12884b76244a3cfd7c5fc"
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "f51bfcb816a8ee87de0ca4cfee475e2e835e7f5908149d953da3d53d4e2ee254"
-    sha256 cellar: :any,                 arm64_ventura:  "379497d6ad6f8e9723211e301524cf5cb927cef358b2790cd409551415a71d82"
-    sha256 cellar: :any,                 arm64_monterey: "3dad44a10bb050869563dc3e485f7c033bae7dd19f9627c1e744756098f7d3f1"
-    sha256 cellar: :any,                 sonoma:         "e009e72b577e5f9bcb820d226b8fdc494fe1fe9e31b1102d1e97932f27b92297"
-    sha256 cellar: :any,                 ventura:        "27922a50d571a4e91f33f6880f787ec9b37009afe0996dfd8c4b21b614ce82cb"
-    sha256 cellar: :any,                 monterey:       "1f6670b67d4916c879579adfaceafe92d8b9d983f3cbdad666088d4bf0ac9ca5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0e28cd906492ddf3e6b06b4b282bb4dc7549b5e0b51e669560c472ce56721df5"
+    sha256 cellar: :any,                 arm64_sequoia:  "8ab0ca54bc4adb96a43fefa315e92c391855b1d9eeaa44f17d4cdb3421aebd08"
+    sha256 cellar: :any,                 arm64_sonoma:   "64ae34cc94bd038a3c2072757a794b5eb04084a937fba9caf522c8a752454c14"
+    sha256 cellar: :any,                 arm64_ventura:  "3c9b27fc4d94f24bde45494301863ee458a04cb8784889b8232b43ae9e56ccde"
+    sha256 cellar: :any,                 arm64_monterey: "ab03b82135121d0d4ab152e931756a9d729e0505b4de4c0b05ab0a0c4105d1ed"
+    sha256 cellar: :any,                 sonoma:         "4afef28e07f9cc1d2699e7ae07c119c4976426319f45ca793cfcee7f4385913e"
+    sha256 cellar: :any,                 ventura:        "50b74c67ec12634418b728d8512319f25faa0a3b1de843493e62dc227ce09f83"
+    sha256 cellar: :any,                 monterey:       "18d2b34abcb8f422e92b865d9f19a933cf0404ea60de00223764077132a4657f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9c56432707c34c7e475827872031754611aece7ad575c957e5b96f732580778c"
   end
 
   depends_on "cmake" => :build

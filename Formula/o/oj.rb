@@ -1,19 +1,18 @@
 class Oj < Formula
   desc "JSON parser and visualization tool"
   homepage "https://github.com/ohler55/ojg"
-  url "https://github.com/ohler55/ojg/archive/refs/tags/v1.22.0.tar.gz"
-  sha256 "7eb05d237333b1fd1e860ac837caff01396ac31493ac406584c522fdf5e530ad"
+  url "https://github.com/ohler55/ojg/archive/refs/tags/v1.24.1.tar.gz"
+  sha256 "60956fcfcd0cf1d2a75c40621f67ff483010d9aa904b4fe49e7ed7a27eab7e74"
   license "MIT"
   head "https://github.com/ohler55/ojg.git", branch: "develop"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2db70feafeec01d0e075dc067428c19a7a617b27d92960a840937c96b312e35e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2db70feafeec01d0e075dc067428c19a7a617b27d92960a840937c96b312e35e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2db70feafeec01d0e075dc067428c19a7a617b27d92960a840937c96b312e35e"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f9b79ed419f211663765cfe4ae1410d3ed391b1fee5faa36e9f089fc9826116e"
-    sha256 cellar: :any_skip_relocation, ventura:        "f9b79ed419f211663765cfe4ae1410d3ed391b1fee5faa36e9f089fc9826116e"
-    sha256 cellar: :any_skip_relocation, monterey:       "f9b79ed419f211663765cfe4ae1410d3ed391b1fee5faa36e9f089fc9826116e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1204c541c180df8fb4661314d54e1de4d734543026db2ea4fab083501060def2"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5fc015e522924a14ff6a237b51e8c3490425badb6185f3e9764e8762e113bca0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5fc015e522924a14ff6a237b51e8c3490425badb6185f3e9764e8762e113bca0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "5fc015e522924a14ff6a237b51e8c3490425badb6185f3e9764e8762e113bca0"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a3ab3a6a38183581b972bc578d0f1b8a2a215db6323bb1197815c837192860ad"
+    sha256 cellar: :any_skip_relocation, ventura:       "a3ab3a6a38183581b972bc578d0f1b8a2a215db6323bb1197815c837192860ad"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0be3f18f053ce8ef90cfca16a254ca828b087fa57bac2d185db8a205b208d23e"
   end
 
   depends_on "go" => :build

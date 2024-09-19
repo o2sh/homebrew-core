@@ -2,10 +2,9 @@ class Monero < Formula
   desc "Official Monero wallet and CPU miner"
   homepage "https://www.getmonero.org/"
   url "https://github.com/monero-project/monero.git",
-      tag:      "v0.18.3.3",
-      revision: "81d4db08eb75ce5392c65ca6571e7b08e41b7c95"
+      tag:      "v0.18.3.4",
+      revision: "b089f9ee69924882c5d14dd1a6991deb05d9d1cd"
   license "BSD-3-Clause"
-  revision 1
 
   livecheck do
     url :stable
@@ -13,18 +12,19 @@ class Monero < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "cb39ced3e963a69194a95171d84bc44055606cc3c53c66598eef89427908df80"
-    sha256 cellar: :any,                 arm64_ventura:  "c313a080c3596b65f383712ff5fdff7b534f289467179fdcc92e497a3e1467e8"
-    sha256 cellar: :any,                 arm64_monterey: "b6d9f4ba1795bc9c8bce32c8388b528ed78b159ad1c85e2cdf8de386cd44dc7e"
-    sha256 cellar: :any,                 sonoma:         "4c8e1ad2262fabd0176b130a36c9aa367879c3cf5df6e399080f41a8f4a37d84"
-    sha256 cellar: :any,                 ventura:        "f7bf5addea65f6f713efe8075e4ce4527782f22d120a627ba95856873d668492"
-    sha256 cellar: :any,                 monterey:       "375c6ef36ae4fd34831177d6300bfa4f3e357959570be71b84ab816797800285"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3e348d14f790b457f9624b9b3805e22f3538bccaf2f3a528f480c1e04e1e115b"
+    sha256 cellar: :any,                 arm64_sequoia:  "94918e427866d89324b910d6d321ea111c08c4d216ba972a0f3dafcb0d1c920c"
+    sha256 cellar: :any,                 arm64_sonoma:   "eeca3a8cd0a413a37165bf9b1534043bc3a7de27ceb3a2da218a5e4c8cd69c8c"
+    sha256 cellar: :any,                 arm64_ventura:  "793f709451ab5f541d19ace5709d24eba53da6776ad99634d16b84b0e3af22b1"
+    sha256 cellar: :any,                 arm64_monterey: "4f8f11e019d08e94dfb67b09f71b7bbf544fd5d6291e18d1f9b3b01d3a74dd4c"
+    sha256 cellar: :any,                 sonoma:         "41430b038afff312bf9940478ed205d256229584f94a50e0061f512164f1710a"
+    sha256 cellar: :any,                 ventura:        "5164d5a74ddb315555225b3c794a003f11c78c990d4b29e2d77c819bdf087e2d"
+    sha256 cellar: :any,                 monterey:       "8515f6ecfc5c68d760edfdb87093a9f15191162f5872e65e1993e56d8393a46b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9066d4d2012600da453f2238eb0f1de978cfc8d8cefa6548f0ef27fa6162347d"
   end
 
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
-  depends_on "boost"
+  depends_on "boost@1.85"
   depends_on "hidapi"
   depends_on "libsodium"
   depends_on "libusb"
@@ -37,17 +37,6 @@ class Monero < Formula
   conflicts_with "wownero", because: "both install a wallet2_api.h header"
 
   def install
-    # Work around build error with Boost 1.85.0
-    # Issue ref: https://github.com/monero-project/monero/issues/9304
-    ENV.append "CXXFLAGS", "-include boost/numeric/conversion/bounds.hpp"
-    copy_option_files = %w[
-      src/common/boost_serialization_helper.h
-      src/p2p/net_peerlist.cpp
-      src/wallet/wallet2.cpp
-    ]
-    inreplace copy_option_files, "boost::filesystem::copy_option::overwrite_if_exists",
-                                 "boost::filesystem::copy_options::overwrite_existing"
-
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"

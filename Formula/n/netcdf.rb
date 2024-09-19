@@ -13,6 +13,7 @@ class Netcdf < Formula
   end
 
   bottle do
+    sha256 cellar: :any,                 arm64_sequoia:  "a055e1aefdcd737a2d87f344a92fa8102e66c8f851db2a5d58c280cd12bce1aa"
     sha256 cellar: :any,                 arm64_sonoma:   "0a1d427355953eb8813e807e5e4fca3768e406b7f5da08da04aa32da35630250"
     sha256 cellar: :any,                 arm64_ventura:  "cbb92b7e255f0e91be5a329c3dc512841003d4246b4d390850ce24ecd782aab3"
     sha256 cellar: :any,                 arm64_monterey: "785772ae3a29c723c9c574794dd33eff744ce91e22ea212183b299a5083e442c"
@@ -31,7 +32,10 @@ class Netcdf < Formula
   uses_from_macos "bzip2"
   uses_from_macos "curl"
   uses_from_macos "libxml2"
-  uses_from_macos "zlib"
+
+  on_macos do
+    depends_on "zstd"
+  end
 
   def install
     args = %w[-DENABLE_TESTS=OFF -DENABLE_NETCDF_4=ON -DENABLE_DOXYGEN=OFF]
@@ -62,10 +66,6 @@ class Netcdf < Formula
     EOS
     system ENV.cc, "test.c", "-L#{lib}", "-I#{include}", "-lnetcdf",
                    "-o", "test"
-    if head?
-      assert_match(/^\d+(?:\.\d+)+/, `./test`)
-    else
-      assert_equal version.to_s, `./test`
-    end
+    assert_equal version.to_s, `./test`
   end
 end

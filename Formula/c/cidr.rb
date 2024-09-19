@@ -1,19 +1,20 @@
 class Cidr < Formula
   desc "CLI to perform various actions on CIDR ranges"
   homepage "https://github.com/bschaatsbergen/cidr"
-  url "https://github.com/bschaatsbergen/cidr/archive/refs/tags/v2.0.0.tar.gz"
-  sha256 "ce3d0bd65ba9b74c3c56646f1a6b58a712ad622ace1cb8c1b72bf9f6b6d44bba"
+  url "https://github.com/bschaatsbergen/cidr/archive/refs/tags/v2.2.0.tar.gz"
+  sha256 "caee614f119ec7383bc9a9dc04a688b4b058d15106f70f523d04c8773d2fa086"
   license "MIT"
   head "https://github.com/bschaatsbergen/cidr.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ae215e663006801d31126fe27f48837684ad6b1b64ee4d26695face667bed495"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3670db621c237ce9040a5bfcef371cbadb18bdaab15cb4d2f39ec17f79b6e2ea"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7f443e1ab26996941cbff63b7f9c940a2482604870702bfab14d70c7eaaed336"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ff90244ebada45a81ae12bc461f1c4b2c0e88a09fccad9b3a7d5c45718e52c9a"
-    sha256 cellar: :any_skip_relocation, ventura:        "166fe35bf94f2484fee8246d15977a11e4660426d533a4ab63ffb309f8bf6377"
-    sha256 cellar: :any_skip_relocation, monterey:       "769be268a5d810daed3c4211f1eef872b35180321ce3730f8090a7ac3c908c75"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "47fc7c12caef7ec7ed404fdb794bbdf8bd0d9b37a9b7a53fd51a621ba268a2d2"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "f92c6bdc12d20451f4b3d33a119c6d446945034759e752fa265594b92b8a3c0e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "eab28e7e3430c08a756a465845307c350e54665c082faef4d0cfcc9d1718537c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "09b43bb3087a8b2967efeb81e55e589054bf9d72b9418816db0491399d1baf5a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8a052f10efcf19df9e0a41c035a0c9af03a908d515ba713f3c978da1e9c5daf9"
+    sha256 cellar: :any_skip_relocation, sonoma:         "3f2df01b413b882817f5b975553fd0043f7fd6e48167ea2ae680ebb905562006"
+    sha256 cellar: :any_skip_relocation, ventura:        "58cc2209eb5323798a67011f41433ce5f4641b2b4f2cdb2013b5ec1eb7d873f8"
+    sha256 cellar: :any_skip_relocation, monterey:       "63c22da52ab9c5b7e7ffc35821ad1cb76596e071f1e412971a4efa60a0f9e9ff"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bebb8b71e94081655b343967ec6d56e78daeee550a60dd75bbcbc50d45a3f9ee"
   end
 
   depends_on "go" => :build

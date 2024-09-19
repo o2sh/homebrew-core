@@ -1,27 +1,23 @@
-require "language/node"
-
 class Zx < Formula
   desc "Tool for writing better scripts"
   homepage "https://github.com/google/zx"
-  url "https://registry.npmjs.org/zx/-/zx-8.0.2.tgz"
-  sha256 "ed4f770208f5e0e0c47f710f0b4f4e6ae3f54e59ac8efcfc960b4208b3d8a20b"
+  url "https://registry.npmjs.org/zx/-/zx-8.1.8.tgz"
+  sha256 "aa4b5d186dcd64ddbf7da95741d402145d4f726c7de696b55e4be0ad39e9ff24"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0b1533b0a268b7ab5090092aff674bec862967caea8f52d0b67d087d7f197edb"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0b1533b0a268b7ab5090092aff674bec862967caea8f52d0b67d087d7f197edb"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0b1533b0a268b7ab5090092aff674bec862967caea8f52d0b67d087d7f197edb"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ed0368ee944b7c21d4447eaf81a94057e504557ca750f792aec1bf8f08422ec5"
-    sha256 cellar: :any_skip_relocation, ventura:        "ed0368ee944b7c21d4447eaf81a94057e504557ca750f792aec1bf8f08422ec5"
-    sha256 cellar: :any_skip_relocation, monterey:       "ed0368ee944b7c21d4447eaf81a94057e504557ca750f792aec1bf8f08422ec5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0b1533b0a268b7ab5090092aff674bec862967caea8f52d0b67d087d7f197edb"
+    sha256 cellar: :any_skip_relocation, all: "0c36ac86ee82e62ccaa4d0a568df8c9d38151a3c4e6a7570d6a3bab635ed4439"
   end
 
   depends_on "node"
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
+    system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
+
+    # Make the bottles uniform
+    inreplace_file = libexec/"lib/node_modules/zx/node_modules/@types/node/process.d.ts"
+    inreplace inreplace_file, "/usr/local/bin", "#{HOMEBREW_PREFIX}/bin"
   end
 
   test do

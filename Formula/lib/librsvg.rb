@@ -1,8 +1,8 @@
 class Librsvg < Formula
   desc "Library to render SVG files using Cairo"
   homepage "https://wiki.gnome.org/Projects/LibRsvg"
-  url "https://download.gnome.org/sources/librsvg/2.58/librsvg-2.58.0.tar.xz"
-  sha256 "d7c444a926406b59790be0deae196e18ed26059da573fa1aa9ec9ca7658a559c"
+  url "https://download.gnome.org/sources/librsvg/2.58/librsvg-2.58.4.tar.xz"
+  sha256 "296e3760d2347d0767c3e291dec962ab36baecd25c4898c6e8150a731f967c7b"
   license "LGPL-2.1-or-later"
 
   # librsvg doesn't use GNOME's "even-numbered minor is stable" version scheme.
@@ -14,13 +14,14 @@ class Librsvg < Formula
   end
 
   bottle do
-    sha256                               arm64_sonoma:   "102ea16956bbe698c8503838b3d2b01342b68c564e2e6bd8617c52e1abe274a9"
-    sha256                               arm64_ventura:  "97b04cdfe1896d883afd505e72dd761a396b205f972d7133fd1a1e6def6e4a59"
-    sha256                               arm64_monterey: "4d494c61c2806759f18f0eeb674acadb10f8dd6688a77fee4ba3ad4620e5244a"
-    sha256                               sonoma:         "948f9eda469cedc01813af75f981a1315b37fd010ee8af85d58745b34f441d2e"
-    sha256                               ventura:        "8b30ecc1378e8e4f791a8d3e8e6473963f6ae3346a1bc3aa199d019b30f291b2"
-    sha256                               monterey:       "a073849ad3c4db81eed711fc685a011203cf410ea69dae832dfc1172f24af4ca"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8824b210cc30fbb689894fa3936accbb818a84738d347d3191f3780398800fa1"
+    sha256                               arm64_sequoia:  "62c2bd6cd94b22a8231b423b1a1fc9084c8496e2ffd08fda39df2a11af3b668f"
+    sha256                               arm64_sonoma:   "12c692788acb39a1b01ab52ec3a9042a590449dc4c1ca3a37f6dfb8de1ade404"
+    sha256                               arm64_ventura:  "42eeef26afba840075b5a42b644a2ee369c280dbd955eff559edad4c5e310edd"
+    sha256                               arm64_monterey: "fcb9205a1cf574f392c5188e85f90f3a96d36d9bd65cbde98b3481ad02c23887"
+    sha256                               sonoma:         "593325eefc9b94aeb1c1b3186add9d4b980e195c617a7e736ee9498b177fae85"
+    sha256                               ventura:        "67f803506a82f16b08461005382dbabfce218ec9dca90f2159fa467e6e5cdaeb"
+    sha256                               monterey:       "eb49065b7846d1f7fa4a1cab3baa0048f689288eb8512e09ea7a5d64fbe47290"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2c71dffd85fd7b3553766305adf685a59fc00b87d3120f0e96b199f079ac0fda"
   end
 
   depends_on "gobject-introspection" => :build
@@ -30,6 +31,16 @@ class Librsvg < Formula
   depends_on "gdk-pixbuf"
   depends_on "glib"
   depends_on "pango"
+
+  uses_from_macos "libxml2"
+
+  on_macos do
+    depends_on "fontconfig"
+    depends_on "freetype"
+    depends_on "gettext"
+    depends_on "harfbuzz"
+    depends_on "libpng"
+  end
 
   def install
     args = %W[

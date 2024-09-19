@@ -1,10 +1,9 @@
 class Ldns < Formula
   desc "DNS library written in C"
   homepage "https://nlnetlabs.nl/projects/ldns/"
-  url "https://nlnetlabs.nl/downloads/ldns/ldns-1.8.3.tar.gz"
-  sha256 "c3f72dd1036b2907e3a56e6acf9dfb2e551256b3c1bbd9787942deeeb70e7860"
+  url "https://nlnetlabs.nl/downloads/ldns/ldns-1.8.4.tar.gz"
+  sha256 "838b907594baaff1cd767e95466a7745998ae64bc74be038dccc62e2de2e4247"
   license "BSD-3-Clause"
-  revision 1
 
   # https://nlnetlabs.nl/downloads/ldns/ since the first-party site has a
   # tendency to lead to an `execution expired` error.
@@ -14,14 +13,14 @@ class Ldns < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "716f3b03d4364ba0f0a395171c145b704f8ad0739e174a5c73a4423e8f7c8d51"
-    sha256 cellar: :any,                 arm64_ventura:  "27be30c5d63b1dc9d03c7dee714380ce4f8dfaec2ad3952224b85aa1dba22505"
-    sha256 cellar: :any,                 arm64_monterey: "b5af9a98dedc6b4861b8506d516e351fedeb17b4643f1da2feeb5da4392d4426"
-    sha256 cellar: :any,                 sonoma:         "60022d90fbf3c4c4c8e33d23eacf14066c5c5d9ec0ca522a5f02c44972f2efb1"
-    sha256 cellar: :any,                 ventura:        "7a534bf6bebe3780ef463aeba00aaf9e32becbe880343ef71b5a20f99c8a93c9"
-    sha256 cellar: :any,                 monterey:       "64d0687086091f591eceb9a81473016ea26f7aa7f5e94322154159de537d24f7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4d5164fde8111e360025df90d3bcd0cf0fb8b735fc5c9c5a854504d63ed928c3"
+    sha256 cellar: :any,                 arm64_sequoia:  "1ab882f529bbd6505a781395684a45e9fe251ddc3ec1cf771f2e467c6e2f735f"
+    sha256 cellar: :any,                 arm64_sonoma:   "7dfc3b636d9b41f1697678de47415fee711f497f9e837708027b8e401435e006"
+    sha256 cellar: :any,                 arm64_ventura:  "741fa5c80857655f1df62a4016591b17ec8d6cbff9aac4bdf28d4ffc6e0c8d93"
+    sha256 cellar: :any,                 arm64_monterey: "dc37a2cbf234ba5d639dd7bde6fba7768a8cd27dca2e7e253706fef90df732e4"
+    sha256 cellar: :any,                 sonoma:         "c14da9be67894ff294e802e10415237300b92f970afcd223113c9e066a27c155"
+    sha256 cellar: :any,                 ventura:        "e51669bed782dd848c7f66af9c13ce1b580b33b0dea3797fa42721bb28ca871d"
+    sha256 cellar: :any,                 monterey:       "6541a7aeae1dc75afe6a9a7e41e63a57b8eb13713e13c2f97b203f1d44d85a0a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "18e17dee3c78315e4b42f3aa15d8cb2b1f2efbc21b3fb444f373e3afa119ff84"
   end
 
   depends_on "python-setuptools" => :build
@@ -33,12 +32,13 @@ class Ldns < Formula
 
   def install
     python3 = "python3.12"
-    args = *std_configure_args + %W[
+    args = %W[
       --with-drill
       --with-examples
       --with-ssl=#{Formula["openssl@3"].opt_prefix}
       --with-pyldns
-      PYTHON_SITE_PKG=#{prefix/Language::Python.site_packages(python3)}
+      PYTHON_PLATFORM_SITE_PKG=#{prefix/Language::Python.site_packages(python3)}
+      top_builddir=#{buildpath}
       --disable-dane-verify
       --without-xcode-sdk
     ]
@@ -47,6 +47,10 @@ class Ldns < Formula
     inreplace "contrib/python/ldns.i", "#include \"ldns.h\"", "#include <ldns/ldns.h>"
 
     ENV["PYTHON"] = which(python3)
+
+    # Exclude unrecognized options
+    args += std_configure_args.reject { |s| s["--disable-debug"] || s["--disable-dependency-tracking"] }
+
     system "./configure", *args
 
     if OS.mac?
@@ -83,7 +87,7 @@ class Ldns < Formula
       powerdns.com.   10773 IN  DNSKEY  257 3 8  #{l2.tr!("\n", " ")}
     EOS
 
-    system "#{bin}/ldns-key2ds", "powerdns.com.dnskey"
+    system bin/"ldns-key2ds", "powerdns.com.dnskey"
 
     match = "d4c3d5552b8679faeebc317e5f048b614b2e5f607dc57f1553182d49ab2179f7"
     assert_match match, File.read("Kpowerdns.com.+008+44030.ds")

@@ -1,8 +1,8 @@
 class Astyle < Formula
   desc "Source code beautifier for C, C++, C#, and Java"
   homepage "https://astyle.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/astyle/astyle/astyle%203.4/astyle-3.4.14.tar.bz2"
-  sha256 "606a83f39146733185f6763059d292433c40f393eb6f52042e163f8df4e16a3e"
+  url "https://downloads.sourceforge.net/project/astyle/astyle/astyle%203.6/astyle-3.6.2.tar.bz2"
+  sha256 "f7e8e1ac4aa314a6645fa7016d882da381a8e1020c83462a2ca26cb25d8f3cbb"
   license "MIT"
   head "https://svn.code.sf.net/p/astyle/code/trunk/AStyle"
 
@@ -12,13 +12,14 @@ class Astyle < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e1f6d79cb1cdc6af7c6df8f7aadbe9c6793b61c5b4172817a6c6f58e28bf42ff"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d9f46ba46d47b9f3534554cda6d07725cab54b65143d632c3608e06649648e54"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a4850a7e8d0f9894087893153528bcc80258f8cceb4131cb3156030ab9c94d0c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c8802d27b7a53a488912ea6697bec11931e6b9606b1a508275da4ffbffd5272a"
-    sha256 cellar: :any_skip_relocation, ventura:        "907dfefce040a024533e60f5a3ccb87a8b3d3f648da0692e40ed23ee501ad532"
-    sha256 cellar: :any_skip_relocation, monterey:       "b440b0ae21e0cf7f8a61d8b25594e988f5804be7df60db381f498570959735a5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2ba73cbd773ae8bfd0724850a90606efe8f190b09fb75afabacc5abc01388408"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "51f6bf9f370aa1df90b75786854b2c259bd44a0c1232036629619f4b9ed4f78c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ed781ce723abfeb78d363a125024a8feb42c8ff753680c128bb19b3b004239e9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e28fdab307ff15f08fa7974be9b96d6468513d8ba155e268310546a03fa3f35a"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "0cc94cb50944600554149d9eea162f4f69e581440b269548519b0181f2e03c03"
+    sha256 cellar: :any_skip_relocation, sonoma:         "bf41c7fac4c187d8cbcf6809ec48dac025d3da1119d4b3404c9d079d6544bc9d"
+    sha256 cellar: :any_skip_relocation, ventura:        "657ee1deda8b7edfed3b2839e6253cbbd07a73b368702c96545cb5f22e933623"
+    sha256 cellar: :any_skip_relocation, monterey:       "b9cb9bde8b99a290e870e05392e081cdff26fcaf9ac55151ae79a0511d3fdd43"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "09006c65f29de4f9fa6800b54b74c679ca3c30770138cd1b6f945f7d55a2e15e"
   end
 
   depends_on "cmake" => :build
@@ -32,7 +33,7 @@ class Astyle < Formula
 
   test do
     (testpath/"test.c").write("int main(){return 0;}\n")
-    system "#{bin}/astyle", "--style=gnu", "--indent=spaces=4",
+    system bin/"astyle", "--style=gnu", "--indent=spaces=4",
            "--lineend=linux", "#{testpath}/test.c"
     assert_equal File.read("test.c"), <<~EOS
       int main()

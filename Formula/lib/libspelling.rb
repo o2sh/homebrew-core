@@ -1,11 +1,12 @@
 class Libspelling < Formula
   desc "Spellcheck library for GTK 4"
-  homepage "https://gitlab.gnome.org/chergert/libspelling"
-  url "https://gitlab.gnome.org/chergert/libspelling/-/archive/0.2.1/libspelling-0.2.1.tar.bz2"
+  homepage "https://gitlab.gnome.org/GNOME/libspelling"
+  url "https://gitlab.gnome.org/GNOME/libspelling/-/archive/0.2.1/libspelling-0.2.1.tar.bz2"
   sha256 "5393a9b93fda445598348a47c42d1ad13586c0bcf35dfd257afd613fd31812c1"
   license "LGPL-2.1-or-later"
 
   bottle do
+    sha256 cellar: :any, arm64_sequoia:  "2c4271f43d13aea74b7c4d582489b7c442efd19cc71bcc7d27c741e5069b4794"
     sha256 cellar: :any, arm64_sonoma:   "0b67d9b2b9d9b93e5a71cd91c413444c656e8a30f6477f18f4386bdf30fb9187"
     sha256 cellar: :any, arm64_ventura:  "b66212b63da3b6f4b08f43c0aa91867c6519264bfef080a64213397910f457b4"
     sha256 cellar: :any, arm64_monterey: "fa750d80d38e7dcf30ec59ffaf63e0fbe2d13f0586c28732072e5b1a6836a663"
@@ -20,10 +21,21 @@ class Libspelling < Formula
   depends_on "ninja" => :build
   depends_on "pkg-config" => [:build, :test]
   depends_on "vala" => :build
+
   depends_on "enchant"
   depends_on "glib"
   depends_on "gtk4"
   depends_on "gtksourceview5"
+  depends_on "icu4c"
+  depends_on "pango"
+
+  on_macos do
+    depends_on "cairo"
+    depends_on "gdk-pixbuf"
+    depends_on "gettext"
+    depends_on "graphene"
+    depends_on "harfbuzz"
+  end
 
   def install
     system "meson", "setup", "build", "-Ddocs=false", *std_meson_args

@@ -1,8 +1,8 @@
 class Freetds < Formula
   desc "Libraries to talk to Microsoft SQL Server and Sybase databases"
   homepage "https://www.freetds.org/"
-  url "https://www.freetds.org/files/stable/freetds-1.4.12.tar.bz2", using: :homebrew_curl
-  sha256 "a2cb8993a46417e0503e7b8488463d91b8c5d9a4601d6ee2484d28f56d3a7075"
+  url "https://www.freetds.org/files/stable/freetds-1.4.22.tar.bz2", using: :homebrew_curl
+  sha256 "a9a7f24f0a7a871617e76e8cc6e6556ae788042f1c006195665505499b2334b1"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -11,13 +11,14 @@ class Freetds < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "d31e8435849a2561f563e1cdd7caa662cbc578cb7f3065ca2c945bd2340ea5ff"
-    sha256 arm64_ventura:  "91058a48b75e31b3e6939a3245c03eabb0f0516b6009e3d5f20e690fec0d279a"
-    sha256 arm64_monterey: "3d915c16d61e9628775896f4d0a89cd0b27ad06c454e3922fdf58e38a0e5c80a"
-    sha256 sonoma:         "2b835fb842393e9f5ea4f4c4cca47706b8030f47627b487e6e6f965d882cb25d"
-    sha256 ventura:        "26dcf9e0686ab2b10b0a398dbc966b576fd34d1308978f94d029959f8c670102"
-    sha256 monterey:       "98c882db155f157003c97e40ce3cf8a37cd29500ca130e359277f602a526fa53"
-    sha256 x86_64_linux:   "bea817203d99b5870f3b181edce1fc0aa651cf21529660e292e4e158c6afa3d0"
+    sha256 arm64_sequoia:  "02317138d5c5d5980ba4ee236a52665b6729ea72d109760a67bcced7537e36bc"
+    sha256 arm64_sonoma:   "6b0ba395d6481eaee3b7d22c9ba75a8acfad011574d38fb3cc7114c7703a0a31"
+    sha256 arm64_ventura:  "6a3f546650f661ee8a9fbf795059331b520d79ca9b71501d40976eac02018484"
+    sha256 arm64_monterey: "71626b498421c3a2fff405fabcf719cc281ee741e04015859a10d8d9b4e27903"
+    sha256 sonoma:         "fec7dbfceeac7e55026304016043527306e60c3aa436568e847578bc5e58ec5b"
+    sha256 ventura:        "9ee8c1be602a1a03e6bb2c9ca73301d6caf7b143cbed5a781ddce959085c6afb"
+    sha256 monterey:       "8d6b2f8553ee5946b9d14a0ff3218789498233d28cc44982ef8981c3b708866c"
+    sha256 x86_64_linux:   "95016e2d906b036cabeae6b4d56cd048cc02c39645d0029bec74ef0afcc55e0a"
   end
 
   head do
@@ -63,6 +64,6 @@ class Freetds < Formula
   end
 
   test do
-    system "#{bin}/tsql", "-C"
+    system bin/"tsql", "-C"
   end
 end

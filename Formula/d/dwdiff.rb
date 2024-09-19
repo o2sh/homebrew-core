@@ -12,6 +12,7 @@ class Dwdiff < Formula
   end
 
   bottle do
+    sha256 arm64_sequoia:  "f440a8c2be059583d2da83fdc36309b25b47177c94cb96c654b6c9f9a507b196"
     sha256 arm64_sonoma:   "4ecea415e9ce886fbc53a585d4b55234dfbfce34ff47a2cbae47f4a10665d8c7"
     sha256 arm64_ventura:  "9101edfc5fa160b947b6559afb793a8fff4c104fea7986dbb8f87df87e14732b"
     sha256 arm64_monterey: "a174992f4aa3ca4e50c472fddc8104e1cef39795b4cca874827c490adbbd4f37"
@@ -21,24 +22,27 @@ class Dwdiff < Formula
     sha256 x86_64_linux:   "ed0a917b98a26ca0217e9e22fafa289fbc6f5092db481c10115811475d29007e"
   end
 
+  depends_on "gettext" => :build
   depends_on "pkg-config" => :build
-  depends_on "gettext"
   depends_on "icu4c"
 
+  on_macos do
+    depends_on "gettext"
+  end
+
   def install
-    gettext = Formula["gettext"]
-    icu4c = Formula["icu4c"]
-    ENV.append "CFLAGS", "-I#{gettext.include} -I#{icu4c.include}"
-    ENV.append "LDFLAGS", "-L#{gettext.lib} -L#{icu4c.lib}"
-    ENV.append "LDFLAGS", "-lintl" if OS.mac?
+    if OS.mac?
+      ENV.append "LDFLAGS", "-L#{Formula["gettext"].opt_lib}"
+      ENV.append "LDLIBS", "-lintl"
+    end
 
     system "./configure", "--prefix=#{prefix}"
     system "make", "install"
 
     # Remove non-English man pages
-    (man/"nl").rmtree
-    (man/"nl.UTF-8").rmtree
-    (share/"locale/nl").rmtree
+    rm_r(man/"nl")
+    rm_r(man/"nl.UTF-8")
+    rm_r(share/"locale/nl")
   end
 
   test do

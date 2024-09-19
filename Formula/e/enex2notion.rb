@@ -6,16 +6,17 @@ class Enex2notion < Formula
   url "https://files.pythonhosted.org/packages/de/5c/c0ce22d810226345411b03177f9b43c35b82c3a671d5d73f56fc43b0858e/enex2notion-0.3.1.tar.gz"
   sha256 "f11d8a7b6c135b4d08c63e1256279d56b3798cdd48ad3b6e39c0770dc3bd82e6"
   license "MIT"
-  revision 6
+  revision 9
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1c0e66e84d2fd1141fdb55b2d9af772183b0bdcd221aab622cb0f977b130ffa5"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "72e05aab9fcbe20331782c352a8f707f6db3d617b03bd1bf5712329b071a26d8"
-    sha256 cellar: :any,                 arm64_monterey: "1250cc44cee877c7e347d74b90253aeeba9af170c95568de6fc3397cdceefeb9"
-    sha256 cellar: :any_skip_relocation, sonoma:         "01c19b60ce7ea7fb5714f4c4fac20103f30ed8ddd91effef2ef13a07c2704d5b"
-    sha256 cellar: :any_skip_relocation, ventura:        "e4b151c7e05f78243eca78f969657d0c7c6ad2fc5064097ddd142130eec753e7"
-    sha256 cellar: :any,                 monterey:       "83ed949e1ce4c7c4c14ed831bb470122092e191ee450fcc67f8c8c151c39bf99"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "47e23f27f32b5a4d695c16e6d858a1598cc33b12f9557eb2b1600fd25c3ad4d0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "8b49be01fa12ba5bebef8f552da44d0fddc4e1c54ce368f77b8be6eca443a573"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a3c5237e24e296d5a095a38b29ac40da52de6829073c6694743a298766aac9cd"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bb147ed68b9452b4eaa389b3b84c179d8739527ea11cca8057f4c57cfed298ae"
+    sha256 cellar: :any,                 arm64_monterey: "e0a81a94bebda956c6727ca9e6d279a791ca96f91d78a2c9bd8a87886c6573ae"
+    sha256 cellar: :any_skip_relocation, sonoma:         "d747513219169beaba36bab945a18163640739b527322333f2baed06f8307569"
+    sha256 cellar: :any_skip_relocation, ventura:        "276773ba23dc70efb356e006d05b1687250c26412544aa3e96796debc266eabb"
+    sha256 cellar: :any,                 monterey:       "1c3f7b10dc5a49b167696f24e6e95dbae360ff11ffde89ad3f7956b99af55e1e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "728550959ef8743a4a9dc08a0b1be1722559a0f876895de1dffbd78c0dd244f9"
   end
 
   depends_on "certifi"
@@ -96,8 +97,8 @@ class Enex2notion < Formula
   end
 
   resource "requests" do
-    url "https://files.pythonhosted.org/packages/9d/be/10918a2eac4ae9f02f6cfe6414b7a155ccd8f7f9d4380d62fd5b955065c3/requests-2.31.0.tar.gz"
-    sha256 "942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"
+    url "https://files.pythonhosted.org/packages/63/70/2bf7780ad2d390a8d301ad0b550f1581eadbd9a20f896afe06353c2a2913/requests-2.32.3.tar.gz"
+    sha256 "55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760"
   end
 
   resource "six" do
@@ -136,24 +137,18 @@ class Enex2notion < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/7a/50/7fd50a27caa0652cd4caf224aa87741ea41d3265ad13f010886167cfcc79/urllib3-2.2.1.tar.gz"
-    sha256 "d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"
+    url "https://files.pythonhosted.org/packages/43/6d/fa469ae21497ddc8bc93e5877702dca7cb8f911e337aca7452b5724f1bb6/urllib3-2.2.2.tar.gz"
+    sha256 "dd505485549a7a552833da5e6063639d0d177c04f23bc3864e41e5dc5f612168"
   end
 
   resource "w3lib" do
-    url "https://files.pythonhosted.org/packages/47/79/0c62d246fcc9e6fe520c196fe4dad2070db64692bde49c15c4f71fe7d1cb/w3lib-2.1.2.tar.gz"
-    sha256 "ed5b74e997eea2abe3c1321f916e344144ee8e9072a6f33463ee8e57f858a4b1"
+    url "https://files.pythonhosted.org/packages/cc/dd/8d080c3bf19f4e853433193e0ffd894d9f5c5a55c11d7283038ee822a0db/w3lib-2.2.1.tar.gz"
+    sha256 "756ff2d94c64e41c8d7c0c59fea12a5d0bc55e33a531c7988b4a163deb9b07dd"
   end
 
   resource "webencodings" do
     url "https://files.pythonhosted.org/packages/0b/02/ae6ceac1baeda530866a85075641cec12989bd8d31af6d5ab4a3e8c92f47/webencodings-0.5.1.tar.gz"
     sha256 "b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923"
-  end
-
-  # build patch to support pymupdf 1.23.15, https://github.com/vzhd1701/enex2notion/pull/108
-  patch do
-    url "https://github.com/vzhd1701/enex2notion/commit/2d05d856c73030b340f0a6326ba3725bece23c2b.patch?full_index=1"
-    sha256 "e5c2d013fcc083370cbc1d458ecffa6a6d9ad44cb3781e8629aa57bda4b25ff5"
   end
 
   def install

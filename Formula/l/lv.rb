@@ -7,14 +7,8 @@ class Lv < Formula
   license "GPL-2.0-or-later"
   revision 1
 
-  # The first-party website is no longer available (as of 2016) and there are no
-  # alternatives. The current release of this software is from 2004-01-16, so
-  # it's safe to say this is no longer actively developed or maintained.
-  livecheck do
-    skip "No available sources to check for versions"
-  end
-
   bottle do
+    sha256                               arm64_sequoia:  "ac1682fd11e3bc9f5bb6ceefdcd060057aa066ebd58e95195c9bcfd4cffb1826"
     sha256                               arm64_sonoma:   "c831cf8f33a699f5176df7115c4d0918133782a78b610bae3a1d6952af562649"
     sha256                               arm64_ventura:  "40b16905a4cdbe254c41f5cec691b7363b8fefc543226fb5d0ca5f1b073510ed"
     sha256                               arm64_monterey: "8567f1d743b65f76bfebc80dc8a27e4604b283a07ee5e11ffd1173227c683946"
@@ -29,6 +23,8 @@ class Lv < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "16aa28d4dfb99fbffc482973e91282d1b7a4986f3cdc2638805228962143d949"
   end
 
+  deprecate! date: "2024-07-02", because: :repo_removed
+
   uses_from_macos "ncurses"
 
   on_linux do
@@ -40,6 +36,9 @@ class Lv < Formula
   patch :DATA
 
   def install
+    # Work around for newer Clang
+    ENV.append_to_cflags "-Wno-implicit-int" if DevelopmentTools.clang_build_version >= 1403
+
     if OS.mac?
       # zcat doesn't handle gzip'd data on OSX.
       # Reported upstream to nrt@ff.iij4u.or.jp

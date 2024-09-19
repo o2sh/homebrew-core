@@ -1,9 +1,9 @@
 class Openvpn < Formula
   desc "SSL/TLS VPN implementing OSI layer 2 or 3 secure network extension"
   homepage "https://openvpn.net/community/"
-  url "https://swupdate.openvpn.org/community/releases/openvpn-2.6.10.tar.gz"
-  mirror "https://build.openvpn.net/downloads/releases/openvpn-2.6.10.tar.gz"
-  sha256 "1993bbb7b9edb430626eaa24573f881fd3df642f427fcb824b1aed1fca1bcc9b"
+  url "https://swupdate.openvpn.org/community/releases/openvpn-2.6.12.tar.gz"
+  mirror "https://build.openvpn.net/downloads/releases/openvpn-2.6.12.tar.gz"
+  sha256 "1c610fddeb686e34f1367c347e027e418e07523a10f4d8ce4a2c2af2f61a1929"
   license "GPL-2.0-only" => { with: "openvpn-openssl-exception" }
 
   livecheck do
@@ -12,13 +12,14 @@ class Openvpn < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "1ca7a2b9a8170749aaef335e33acb6ae79c7da896c4f49d5dbd3a514baeb30bb"
-    sha256 arm64_ventura:  "59990e5cb668e7eb5651446aaefb6e94032e1c3255091f209cdf722f8157ebf6"
-    sha256 arm64_monterey: "e06a5b65e071f0830b0411814b863fcb84afd2bc7209faacdcd61bcbac8a7bfb"
-    sha256 sonoma:         "b0a588a489299b5457df0a54d086612003f7d02688cb8fdd52e4b9ec8ca211c3"
-    sha256 ventura:        "58059792f2b18785ddbf582019d7e7a0b7935468efb51b95020caff10f39bb28"
-    sha256 monterey:       "42f1a85ea488dfba8edbb303f9b561046fe27f59115748f2dae90dcca81092b9"
-    sha256 x86_64_linux:   "173596ce931cc44c733ac10a75cb21d3b30644c3105d1d61f2da02e4b5c05fee"
+    sha256 arm64_sequoia:  "8282b3a36803bef68a01a98cfa1c9f7b823ffe34ee3b95d6e34b0e029a6005ed"
+    sha256 arm64_sonoma:   "ec2cc2ff01475426a9d140a04f480750dea45ddb77ff60803c027cc69d356109"
+    sha256 arm64_ventura:  "a9972bf495e2ab0540046e2d08cd38d03c0f05dd56cc6506aabccbe8d0ed696e"
+    sha256 arm64_monterey: "804b5bea4a96975bbe81828bb95a4163d848549360a795d12360784b2a745ca2"
+    sha256 sonoma:         "dd0244cc7150e8c75ce1077fa8c02abee0aac9cf6f6da4007971dffa189470a7"
+    sha256 ventura:        "a76b76a20e5fd17a75b65610643158287b2c663df626878cb305c7881713a865"
+    sha256 monterey:       "3eeb589dcfdc1d9d14b9b6f2ad1a49285a66454f7b87f376b283e4f950254e4c"
+    sha256 x86_64_linux:   "eb42fbd2153609daa6953f0772fef04980198877eb4af8699ca7381a3f8e2bd0"
   end
 
   depends_on "pkg-config" => :build

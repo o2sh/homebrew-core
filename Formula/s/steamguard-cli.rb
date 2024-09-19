@@ -1,18 +1,19 @@
 class SteamguardCli < Formula
   desc "CLI for steamguard"
   homepage "https://github.com/dyc3/steamguard-cli"
-  url "https://github.com/dyc3/steamguard-cli/archive/refs/tags/v0.13.0.tar.gz"
-  sha256 "3df79d0263a6c60c0cdde09c341d994776d7236216e460ebf958d6285c4ab0b6"
+  url "https://github.com/dyc3/steamguard-cli/archive/refs/tags/v0.14.2.tar.gz"
+  sha256 "cc0c52bb3dd0a325d11575475e54bb959a3cbdc346e5545052e1b0a21de7f16f"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "905e0bbc74de46482bee72f08fd25206f09db4e7341f1a015ff1d0a154394d71"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d659e54a97bb33c52098b70b751967ea07fbdd8f6efd859dc35f692049c7c954"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f5116432f9e920cdf2c13578e9ab96d62e5ef17455ec44382160eb75d6a46389"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ed24b5d6447d90e352f06f6d26472828196a624336509d3b748f20da99c59bba"
-    sha256 cellar: :any_skip_relocation, ventura:        "68a28833aee6dccb02eb523a611685546ba58806ab66f6b1937338e81ebbf863"
-    sha256 cellar: :any_skip_relocation, monterey:       "dd4f1ffc51b2ae41330bc56af79bf2933bedb0ef8bf2595f8581db586309d664"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "012a61bf518d24a2274a194edfd91015883da85923080f3aa2c469e0dd5c77d4"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "bd61f6325f83181d7419eeb04eeb4cae8939b0b68515602fa726afe94945f20a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5a8c60208bc0aa1284cf16fe3fff855526e37b72aea0e567cb660ba0ca055f3b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "013543ca85a7661ba9e8bda15f761c297e3e43d4055e74895cee12174ce61bab"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e7b7007cf9de36c9e105bbf34bafbf24b3ef7a373081ebf8b28096ed5c13817c"
+    sha256 cellar: :any_skip_relocation, sonoma:         "33854f4084e1ec4c8d70f9e8f0c9e77a9979d1eaa97e30821d348b96c851cfa7"
+    sha256 cellar: :any_skip_relocation, ventura:        "ef85b88ca1f677a0ebd452b001957413f2ff1bfdd3de11e6be294d96cf5fe0e9"
+    sha256 cellar: :any_skip_relocation, monterey:       "e19c7d3f838cdc5a09d6ca8f0e50452f110967ee78ae375ae008bb8f6d0f0844"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3a4f909c214af20ed9a0e8e08886e901c573d10629348220850bfb3204f7251d"
   end
 
   depends_on "rust" => :build

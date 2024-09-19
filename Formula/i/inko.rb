@@ -1,28 +1,35 @@
 class Inko < Formula
   desc "Safe and concurrent object-oriented programming language"
   homepage "https://inko-lang.org/"
-  url "https://releases.inko-lang.org/0.14.0.tar.gz"
-  sha256 "4e2c82911d6026f76c42ccc164dc45b1b5e331db2e9557460d9319d682668e65"
+  url "https://releases.inko-lang.org/0.16.0.tar.gz"
+  sha256 "7850dc9b0f6e544977a6eb3854022131f30e49e43b99f47cc5aefb77e0b97c32"
   license "MPL-2.0"
   head "https://github.com/inko-lang/inko.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "f6ff66fdfb3aac69263c32a8a29d13e9d28a80ae33807f34460e55d8c1b228c6"
-    sha256 cellar: :any,                 arm64_ventura:  "be59d916d29d85bb8bc4474eb1c7d42a56236835c3c21b0e36fb9e9df0a25e6e"
-    sha256 cellar: :any,                 arm64_monterey: "9522c1f89b997dedaa3167ce4dbfa4a2d8c660acddecd32a99a515922e851b52"
-    sha256 cellar: :any,                 sonoma:         "8e32d823ce9712ae2d5a2b9cbe0c9b727223098b3e66b003da087032be9f6818"
-    sha256 cellar: :any,                 ventura:        "178865db1e2b60b4085a2465e8a3879794030a6d22c99b58c95e4bdf5418ef1b"
-    sha256 cellar: :any,                 monterey:       "6ef924939c42d7bb2ec4e0d65cf293147a593f829619928d2580b419ec19b26c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "14a02c119990d6a17062290439ac74e6667b41dcb90b18cd90b36d2a09715e10"
+    sha256 cellar: :any,                 arm64_sequoia:  "1aab8f7ef3328bf5b88bc9060fe0f36c7e8fa6ba31df2497a89dc16b83d499f1"
+    sha256 cellar: :any,                 arm64_sonoma:   "124068300521f4cd528f4c5c52ed90793e2e87d96584ad7b6e113a39bc868053"
+    sha256 cellar: :any,                 arm64_ventura:  "5a0a458153eed98bb9abcb55b330566895303fa97e47d9602a4dd9a0a7fe542c"
+    sha256 cellar: :any,                 arm64_monterey: "e39be7fa100cbf341c629d63c27a2852b5185996f4182d07948c5fe053815f28"
+    sha256 cellar: :any,                 sonoma:         "5496e292a1a0c997d4dc9b2186fad744477f6a099e4a2cef5af26fbffba62952"
+    sha256 cellar: :any,                 ventura:        "2946c18386aa5b8580ba3090bcb04ddf1aa83897b0dd3aa9c640e0d63ab45440"
+    sha256 cellar: :any,                 monterey:       "f59fd21bf0a37707ab4e4449426120fc117bcaf98a533291356c078891f19cc7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c7523e21bcda9eb359d1a208a4e9a71a147b6b3984c5e125a109c739ff8f7721"
   end
 
   depends_on "coreutils" => :build
   depends_on "rust" => :build
-  depends_on "llvm@15"
+  depends_on "llvm"
   depends_on "zstd"
 
   uses_from_macos "libffi", since: :catalina
+  uses_from_macos "ncurses"
   uses_from_macos "ruby", since: :sierra
+  uses_from_macos "zlib"
+
+  on_macos do
+    depends_on "z3"
+  end
 
   def install
     ENV.prepend_path "PATH", Formula["coreutils"].opt_libexec/"gnubin"
@@ -32,7 +39,7 @@ class Inko < Formula
 
   test do
     (testpath/"hello.inko").write <<~EOS
-      import std.stdio.STDOUT
+      import std.stdio (STDOUT)
 
       class async Main {
         fn async main {

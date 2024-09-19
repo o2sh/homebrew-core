@@ -1,8 +1,8 @@
 class JpegXl < Formula
   desc "New file format for still image compression"
   homepage "https://jpeg.org/jpegxl/index.html"
-  url "https://github.com/libjxl/libjxl/archive/refs/tags/v0.10.2.tar.gz"
-  sha256 "95e807f63143856dc4d161c071cca01115d2c6405b3d3209854ac6989dc6bb91"
+  url "https://github.com/libjxl/libjxl/archive/refs/tags/v0.11.0.tar.gz"
+  sha256 "7ce4ec8bb37a435a73ac18c4c9ff56c2dc6c98892bf3f53a328e3eca42efb9cf"
   license "BSD-3-Clause"
 
   livecheck do
@@ -11,14 +11,12 @@ class JpegXl < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "436eb06c81b1c2d812b571570a91e546f002e213c8b00badbf717e366cd68e4e"
-    sha256 cellar: :any,                 arm64_ventura:  "834b2ded08dd0df929eb26802da73d7a1566872450122db6da53098b5899d3b8"
-    sha256 cellar: :any,                 arm64_monterey: "f57984afc191c960b52714bac03ce5ddb4c7f6f34d9a390083560208c1511ced"
-    sha256 cellar: :any,                 sonoma:         "ac73a83204e84ffa4fea0bc1f4822c28e5790f0212ff14f23200b016a951c507"
-    sha256 cellar: :any,                 ventura:        "6b22ba67bfcafe41e5d82e41d62d41b7b18598d97b9593e4ffb0b9465a1676b9"
-    sha256 cellar: :any,                 monterey:       "d0e69905eb08fc5a9db6b233eb4261b99b4329f5ec486500b3f2321fecfc95eb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "770513514db0021af965aefe191926cd144134df3af32c2774e6bcbbd61706ce"
+    sha256 cellar: :any,                 arm64_sequoia: "1b2259f4a8de0738dd4fd7372cde4c27d7b88ffd05b3d4332f0a26f198bdb66d"
+    sha256 cellar: :any,                 arm64_sonoma:  "d3c74c5e1251537f657139d522c679101aa27ef9adcc502b67a2c65d4e566cd1"
+    sha256 cellar: :any,                 arm64_ventura: "acdf147b1d55d1d2a5b70966359a8dc109daa4267e7573bc5f44816e2fd15170"
+    sha256 cellar: :any,                 sonoma:        "73232fde73828823576c61b2377b719add934499e2932aefa1b610ed07fe82ca"
+    sha256 cellar: :any,                 ventura:       "a44ff4d24ef1c099f979c8f96af5b541f9df54e11ba9db68cd7adbc690729bfb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c3010ddddc0ad684240ff63ef3a7e9dc84e2022cdda4f53c63b3c7243334ef67"
   end
 
   depends_on "asciidoc" => :build
@@ -74,7 +72,7 @@ class JpegXl < Formula
   end
 
   test do
-    system "#{bin}/cjxl", test_fixtures("test.jpg"), "test.jxl"
+    system bin/"cjxl", test_fixtures("test.jpg"), "test.jxl"
     assert_predicate testpath/"test.jxl", :exist?
 
     (testpath/"jxl_test.c").write <<~EOS

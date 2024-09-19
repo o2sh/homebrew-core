@@ -1,20 +1,20 @@
-require "language/node"
-
 class Monika < Formula
   desc "Synthetic monitoring made easy"
   homepage "https://monika.hyperjump.tech"
-  url "https://registry.npmjs.org/@hyperjumptech/monika/-/monika-1.20.1.tgz"
-  sha256 "93b0e0a76e5eee464d56f8f578db1851c4985a50de2b4c189ba4ee21c1ce03ad"
+  url "https://registry.npmjs.org/@hyperjumptech/monika/-/monika-1.21.0.tgz"
+  sha256 "b265ffce61fde24aaf51e6c84e30d158e3555474683598809d1174e768d61752"
   license "MIT"
 
   bottle do
-    sha256                               arm64_sonoma:   "964e7777028e713b9b9b2a71a8b325bfbb594e965637b3d279a5d4a97f39c530"
-    sha256                               arm64_ventura:  "4283f9c2f7e268c2ae69c054eb764b9b62a11c52fe6ae06960062c01fdb17406"
-    sha256                               arm64_monterey: "457107c2ad71876d3cc598ed016b4aebbfc96c38df1cee39c10ef6d09cc879f8"
-    sha256                               sonoma:         "c2af6850ff8dc7c972aca624b87a8ef265e69b6fedf30eaf8ab446a096d623e5"
-    sha256                               ventura:        "2242b0dd6b66745e175f619f838f30250ac39fa0842cb28134a748b894868799"
-    sha256                               monterey:       "86e21db45a9d0b8222b867895705c07937698fb415388bbbbcf5ddff681c2e9b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2639ed8f2d67ce836fc28451392208456440365a66721ace4bc7c1d8ff37125d"
+    rebuild 1
+    sha256                               arm64_sequoia:  "7479124ad18ecf3c9ed273cae783fc4c3a7ffa9077418fa218b29c365820e4c2"
+    sha256                               arm64_sonoma:   "8d3b69446254d8e0d9667e7b08c6815357804538de8e91f3010829a3fde152e3"
+    sha256                               arm64_ventura:  "df4846dbe84f5ec928764cad0f39a02c01ed08cb914a34e03d0a511e914c4868"
+    sha256                               arm64_monterey: "191f1690fa6e465e29be220ca4ddc6da8edca36207e833ee77de90de725475d5"
+    sha256                               sonoma:         "138479415075dfac8741f4c153b4b3627715a436568746cb565bbbbab2f4f850"
+    sha256                               ventura:        "4a9ca5e23f852102f51d0c8850fa251d100674683aaafb4ee557cc5a287b8a66"
+    sha256                               monterey:       "70805c46425cfa7e0db73f712477f510f093e8f0cb3d435f83480a2c32786060"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3a71a527a6c518e829349b096c452213f5d4c41596c3ae28ffba0f94e9a5187b"
   end
 
   depends_on "node"
@@ -26,7 +26,7 @@ class Monika < Formula
   end
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
+    system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
 
     # Remove incompatible pre-built binaries
@@ -34,7 +34,7 @@ class Monika < Formula
     arch = Hardware::CPU.intel? ? "x64" : Hardware::CPU.arch.to_s
     node_modules = libexec/"lib/node_modules/@hyperjumptech/monika/node_modules"
     node_modules.glob("nice-napi/prebuilds/*")
-                .each { |dir| dir.rmtree if dir.basename.to_s != "#{os}-#{arch}" }
+                .each { |dir| rm_r(dir) if dir.basename.to_s != "#{os}-#{arch}" }
 
     # Replace universal binaries with native slices.
     deuniversalize_machos
@@ -59,7 +59,7 @@ class Monika < Formula
       $stdout.reopen(monika_stdout)
       exec bin/"monika", "-r", "1", "-c", testpath/"config.yml"
     end
-    sleep 10
+    sleep 14
 
     assert_match "Starting Monika. Probes: 1. Notifications: 1", monika_stdout.read
   end

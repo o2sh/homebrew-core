@@ -1,18 +1,17 @@
 class Bfs < Formula
   desc "Breadth-first version of find"
   homepage "https://tavianator.com/projects/bfs.html"
-  url "https://github.com/tavianator/bfs/archive/refs/tags/3.2.tar.gz"
-  sha256 "86b17cab7b213f36e93639eceba3ffa86e1556d12a1db8955c8c7e53b2e94140"
+  url "https://github.com/tavianator/bfs/archive/refs/tags/4.0.2.tar.gz"
+  sha256 "26ee5bf5a35cfbb589bf33df49ca05b8964e017b45faf16e520322c0e0ffad3b"
   license "0BSD"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d2f56d120c55ba35033a677f7393ed2290c2e7a88dd68bda94b937bf5efa4731"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "212d2a66124c4df5b1f925247a43f44f3a378f1a50cf47cf99c4c01dbca9353b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8a9d266bd7012284fda1278042ce001d153c0491e29f1f14ba96f6a2b4fc0502"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ba54e91c9862916cb262c708a4e07f2bab7eb39a4d24e64983fecb1cd4cd1a55"
-    sha256 cellar: :any_skip_relocation, ventura:        "cde9065b0bdad7cd486a0a7137070703a8ee8df84775c2aa8fc5c5ddc71aa130"
-    sha256 cellar: :any_skip_relocation, monterey:       "c91ec4f9d75db95b62edf55d43cba954c004cbfbcb8d2999a28a5049a893156a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "da6b11e3fd7203b900b0871b1a6d30898ff3935d1ce06e213d9aa13eeeeb49f1"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d669af8d7e55974136ab5c720992b0d6b05e1673dab97148efcece18839dc88c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "17236cce2be60931029d5ba9ff2394a0aefdb9a64fb9ca39d5ecbf70029e4562"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "f734ac0b70cf848147e5e5cdb741ea1d0e9ab45555df9ee2586e82928d8d83e0"
+    sha256 cellar: :any_skip_relocation, sonoma:        "51a3b3a3ff6342652e58dcfbed78909db2649fa125c4c4bb3ecbfa55a4709344"
+    sha256 cellar: :any_skip_relocation, ventura:       "acbc09521674531442125184ddaec20177dc4f4f3127aebb8dc10f37db8e113c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dac57e6473e18ea0097cf2592894f925923a08aae3ca5a1f46e3fbb9253943bb"
   end
 
   depends_on "oniguruma"

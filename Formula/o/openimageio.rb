@@ -1,8 +1,8 @@
 class Openimageio < Formula
   desc "Library for reading, processing and writing images"
   homepage "https://openimageio.readthedocs.io/en/stable/"
-  url "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.5.11.0.tar.gz"
-  sha256 "ebf1945e36679be55519d9f42a8f029c4a53d4efb4aaee3b10af6cdc93fb614b"
+  url "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v2.5.15.0.tar.gz"
+  sha256 "7779ef2c3d03c5ed95e13ff292de85c3f8cee301cd46baad0d2dc83c93bfe85c"
   license "Apache-2.0"
   head "https://github.com/AcademySoftwareFoundation/OpenImageIO.git", branch: "master"
 
@@ -13,13 +13,14 @@ class Openimageio < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "2d63e784a6e2868051f0d89283d332baf0c55bdfb8ff9fd13d43c10562125ea2"
-    sha256 cellar: :any,                 arm64_ventura:  "193eb359d25f322dc6f7c8ad706b9496e42798a7c738d71680375fa2753f9928"
-    sha256 cellar: :any,                 arm64_monterey: "f90f0bac0829917b9553f32c67cf923204398b74d2d5f5e737c037dfd25fbed5"
-    sha256 cellar: :any,                 sonoma:         "5ef462752f613f54fb19feb70fce426728a068aaa15d31945512562aef47a862"
-    sha256 cellar: :any,                 ventura:        "c577d269cd25f11b785268dd17db8fa637afc01e8943bc98b8c626f879c31cc9"
-    sha256 cellar: :any,                 monterey:       "bf691366d0ea84b6559404618eb4ba65ba9cf504e46f2e76cde68bdd12a8ee5b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f834e54ebf8316bc35df8cfe7255fe22671847bd5b7c954665785857a6a80009"
+    sha256 cellar: :any,                 arm64_sequoia:  "e293b398f1d7761f4ff968988ce083c913faec6ceea85b45a3962f063dc76733"
+    sha256 cellar: :any,                 arm64_sonoma:   "e6dbe73cd667dfbc5ff87b04bce6463bc2d9c1633374892569c613db5e908db0"
+    sha256 cellar: :any,                 arm64_ventura:  "cc1317d985be9f07fac2fb9dd296c4eefe57fe3f6494bb26559be204653a5045"
+    sha256 cellar: :any,                 arm64_monterey: "a9101552d8996f967154a54bf3e5b590679aa00de2649a2668848039489d459d"
+    sha256 cellar: :any,                 sonoma:         "d8c9d3f62a572311fde2e700feba9ba14a38df143c41b2517cebd3d2fab416cd"
+    sha256 cellar: :any,                 ventura:        "d49cdd4d3af3349dae3ac94cff880d128101fac36883ba05fba93d4a1b97215e"
+    sha256 cellar: :any,                 monterey:       "752642c7bf7b0abeaf41eab8cedd87e4aa45f033c92f5151006e2ec08e774128"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1d7e10634178f728050119a3a68cf838b19e718303db5759cd9b4992c165116a"
   end
 
   depends_on "cmake" => :build
@@ -41,7 +42,10 @@ class Openimageio < Formula
   depends_on "pugixml"
   depends_on "pybind11"
   depends_on "python@3.12"
+  depends_on "tbb"
   depends_on "webp"
+
+  uses_from_macos "zlib"
 
   # https://github.com/AcademySoftwareFoundation/OpenImageIO/blob/master/INSTALL.md
   fails_with :gcc do

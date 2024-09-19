@@ -3,8 +3,8 @@ class Trino < Formula
 
   desc "Distributed SQL query engine for big data"
   homepage "https://trino.io"
-  url "https://search.maven.org/remotecontent?filepath=io/trino/trino-server/446/trino-server-446.tar.gz", using: :nounzip
-  sha256 "eceff0f52e750f72b5372f382e098a6a52ef0bfe49beabda7fe264d841f49ac1"
+  url "https://search.maven.org/remotecontent?filepath=io/trino/trino-server/457/trino-server-457.tar.gz", using: :nounzip
+  sha256 "36dee17e88084d88a8a1899011b71dcb880411cbfcb5351a3df14d3f45d943d8"
   license "Apache-2.0"
 
   livecheck do
@@ -13,7 +13,7 @@ class Trino < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "0ffc333f552044cd8c123c1c963bfc2dbc53a5a6801c4f14b9792c1d6607a362"
+    sha256 cellar: :any_skip_relocation, all: "601bcdc7443c993260b179ce3e7b0a101b8d40755a432dcdfd3a45c510e5fe9c"
   end
 
   depends_on "gnu-tar" => :build
@@ -21,13 +21,13 @@ class Trino < Formula
   depends_on "python@3.12"
 
   resource "trino-src" do
-    url "https://github.com/trinodb/trino/archive/refs/tags/446.tar.gz", using: :nounzip
-    sha256 "72daf9082b88663b57fdf75a21a92a8d3d6e3dc0993b3d46e1479b1f0cecdabd"
+    url "https://github.com/trinodb/trino/archive/refs/tags/457.tar.gz", using: :nounzip
+    sha256 "bd98ab1d2c58211a42f731b5fd7fd13b37154b76d5bf27288c72ae3857a30408"
   end
 
   resource "trino-cli" do
-    url "https://search.maven.org/remotecontent?filepath=io/trino/trino-cli/446/trino-cli-446-executable.jar"
-    sha256 "e850204f2584e05f853def31ef3066bc655e587608af7765b14e57ab83b4bf2d"
+    url "https://search.maven.org/remotecontent?filepath=io/trino/trino-cli/457/trino-cli-457-executable.jar"
+    sha256 "2dc0b0c6ba16cb79f7ebb78e0eb532b54e5bf766933a37c04135960b47cdb758"
   end
 
   def install
@@ -65,7 +65,7 @@ class Trino < Formula
     # Keep the Linux-x86_64 directory to make bottles identical
     libprocname_dirs.reject! { |dir| dir.basename.to_s == "Linux-x86_64" } if build.bottle?
     libprocname_dirs.reject! { |dir| dir.basename.to_s == "#{OS.kernel_name}-#{Hardware::CPU.arch}" }
-    libprocname_dirs.map(&:rmtree)
+    rm_r libprocname_dirs
   end
 
   def post_install
@@ -83,6 +83,6 @@ class Trino < Formula
     # https://github.com/Homebrew/homebrew-core/pull/153348
     # You can add it back when the following issue is fixed:
     # https://github.com/trinodb/trino/issues/18983#issuecomment-1794206475
-    # https://bugs.openjdk.org/browse/CODETOOLS-7903447
+    # https://bugs.openjdk.org/browse/CODETOOLS-7903448
   end
 end

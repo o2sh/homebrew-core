@@ -1,8 +1,8 @@
 class ScmManager < Formula
   desc "Manage Git, Mercurial, and Subversion repos over HTTP"
   homepage "https://www.scm-manager.org"
-  url "https://packages.scm-manager.org/repository/releases/sonia/scm/packaging/unix/3.1.0/unix-3.1.0.tar.gz"
-  sha256 "889ffe03642de0cc543e36aa8449ab58104b1d0d5521dbc055209c019e4922b5"
+  url "https://packages.scm-manager.org/repository/releases/sonia/scm/packaging/unix/3.4.1/unix-3.4.1.tar.gz"
+  sha256 "0951d1492f37acd9636e00d873a19814774ea13b09209b5bc2a972415b6df177"
   license all_of: ["Apache-2.0", "MIT"]
 
   livecheck do
@@ -11,11 +11,11 @@ class ScmManager < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "e65447c4e4afb2e0e1b8cc7505ace578fe20b9a7df450711e069bada2e42a0e2"
+    sha256 cellar: :any_skip_relocation, all: "ffb5d509247575bdc516d4e1d3442cdcba0580d94fa0f788ddf6417cd81ccc67"
   end
 
   depends_on "jsvc"
-  depends_on "openjdk"
+  depends_on "openjdk@21"
 
   def install
     # Replace pre-built `jsvc` with formula to add Apple Silicon support
@@ -23,7 +23,7 @@ class ScmManager < Formula
     rm Dir["libexec/jsvc-*"]
     libexec.install Dir["*"]
 
-    env = Language::Java.overridable_java_home_env
+    env = Language::Java.overridable_java_home_env("21")
     env["BASEDIR"] = libexec
     env["REPO"] = libexec/"lib"
     (bin/"scm-server").write_env_script libexec/"bin/scm-server", env

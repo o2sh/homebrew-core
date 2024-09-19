@@ -1,27 +1,41 @@
 class Qxmpp < Formula
   desc "Cross-platform C++ XMPP client and server library"
   homepage "https://github.com/qxmpp-project/qxmpp/"
-  url "https://github.com/qxmpp-project/qxmpp/archive/refs/tags/v1.6.0.tar.gz"
-  sha256 "af19b8644ff92f3b38d3e75b89ce4632501c102f17f32b09d7dcde0b27e1c16e"
+  url "https://github.com/qxmpp-project/qxmpp/archive/refs/tags/v1.8.1.tar.gz"
+  sha256 "f307dde71dbaf9e17dc0472fafe68cabe2572b22ae759b6af24f8e1183b8db71"
   license "LGPL-2.1-or-later"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "0983399df2798c7d5688b57679608f558bd90373e840f3dc1656ba53d6ebad41"
-    sha256 cellar: :any,                 arm64_ventura:  "ab54710564e207a8ad5e7e04e99f26a76976f4923c7e0f15b4dfd2ba835473dd"
-    sha256 cellar: :any,                 arm64_monterey: "29b1419f44424f70ae15ce2e550ab57229f97504b16e9f24e6ccc753f064f8db"
-    sha256 cellar: :any,                 sonoma:         "f4590bbe048849532d321ce65bd9e149df4338521a8a582e2cd9e5ba3691f3e6"
-    sha256 cellar: :any,                 ventura:        "380905be46ecd5e75d0b22cc1b26afe0d0c4ff6668ab0edb4f2467f9ed96580a"
-    sha256 cellar: :any,                 monterey:       "78469bdffbe5cd7dd08fb14df66c19ed568c5f1af25b2459fc3cbbab6a188533"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6010b3d859f8725ea0da5e3ec9bd05003288e25b917ab0bd40bf40783eac4f56"
+    sha256 cellar: :any,                 arm64_sonoma:   "35ecf017c6e3831bfde3214cd3e3494640487ded3181aae0b976633fbd4b8357"
+    sha256 cellar: :any,                 arm64_ventura:  "9552066925505dfbe08a5cf08047612e591b3df2e3ee5004f0bb582dd7d0e029"
+    sha256 cellar: :any,                 arm64_monterey: "9154b994b01159d648d18cdfabc70f262905d6b34dbc8d65eaf5c2bdd86f6b13"
+    sha256 cellar: :any,                 sonoma:         "f3a50a20f603418572d79ecb09ea82a3b0f7288358ef349fbca4a91c2ea8704f"
+    sha256 cellar: :any,                 ventura:        "c2b5b8702dbd5705c238bd7ce83fb69515c81b265ea5298590ca5fa363125444"
+    sha256 cellar: :any,                 monterey:       "a71c28054571afc618796c9b9b0193a9be622a94ea7dc8a1024ee6f58fac75a4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "29bd2b35ecf089919a9938af9fbeb2d582a364e3a53d14a3e21b60043be42fd1"
   end
 
   depends_on "cmake" => :build
   depends_on xcode: :build
   depends_on "qt"
 
-  fails_with gcc: "5"
+  on_macos do
+    depends_on "llvm" => :build if DevelopmentTools.clang_build_version <= 1400
+  end
+
+  fails_with :clang do
+    build 1400
+    cause "Requires C++20"
+  end
+
+  fails_with :gcc do
+    version "9"
+    cause "Requires C++20"
+  end
 
   def install
+    ENV.llvm_clang if OS.mac? && DevelopmentTools.clang_build_version <= 1400
+
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"

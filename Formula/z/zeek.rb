@@ -2,8 +2,8 @@ class Zeek < Formula
   desc "Network security monitor"
   homepage "https://www.zeek.org"
   url "https://github.com/zeek/zeek.git",
-      tag:      "v6.2.0",
-      revision: "e90c6e4d0bd6a60af0c5cea9f89b8ce6afff9827"
+      tag:      "v7.0.1",
+      revision: "3bf8bfaac6784105d0c3cbbc18cf1d27952da81f"
   license "BSD-3-Clause"
   head "https://github.com/zeek/zeek.git", branch: "master"
 
@@ -13,13 +13,14 @@ class Zeek < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "a4fe1e0c29d37e29409fbdaf76006e6f2a5a3f59b50e6ee189b5c38933a36f76"
-    sha256 arm64_ventura:  "ddc90c194bf7312fc41effb57beefc3abc94beb36badf735c849b968e6a7f5c3"
-    sha256 arm64_monterey: "487d2add970f8f5736e0b93f5144deb3ccb7841b97bae2bd93eeab397e0cb83a"
-    sha256 sonoma:         "d84fdfcaa30b026b7ca0e2256a52100c0563ee72b305a972a7173e41a4a989ce"
-    sha256 ventura:        "ab23d66f22d056a807f7faa23b975b2b037666918014cd845cd3e1d73c71eda6"
-    sha256 monterey:       "1ea3ab15c0b9376ad6866e4040643c3e47121045a29e87c6957551cdcde19701"
-    sha256 x86_64_linux:   "3e4ec1678b96f46a8567e4926f19fa55f887e0dcca1c5a418edbe075130dbb76"
+    sha256 arm64_sequoia:  "ab9ce42301f74319053bd8d80e5b8f5ee283478feeba01513d210382836bc004"
+    sha256 arm64_sonoma:   "1807de1c81ebd99fe8e17c411749aa8ebf72d3c8bc944bb4bff07215c79121f7"
+    sha256 arm64_ventura:  "fc94b9a0b216e9e36b668eee160a0ab19d267c53cdfdd8e65cd06b3d9fbfe551"
+    sha256 arm64_monterey: "fd11db326585c93393ca80a60d4c05d1a7552638ac3b09177fe322c6b79aeb45"
+    sha256 sonoma:         "341adc40d8bd1a5bc0f29f46e17d99c93b72a95721f918f4fb0016245f51a193"
+    sha256 ventura:        "988145faf592a7cad81170443c5d0577b617bcf03e2093fb280315215e995612"
+    sha256 monterey:       "d917ffbda1f02c30439c524281f7c8454d02585d32b9295c301f5d4f0b24c614"
+    sha256 x86_64_linux:   "ff5c95a832385a6dac24809e8d17fe978c2634b34cb3f4bfbedcad01d36a0529"
   end
 
   depends_on "bison" => :build
@@ -32,6 +33,7 @@ class Zeek < Formula
   depends_on "openssl@3"
   depends_on "python@3.12"
 
+  uses_from_macos "krb5"
   uses_from_macos "libpcap"
   uses_from_macos "libxcrypt"
   uses_from_macos "zlib"

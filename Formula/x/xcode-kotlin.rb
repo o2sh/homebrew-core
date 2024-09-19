@@ -2,18 +2,19 @@ class XcodeKotlin < Formula
   desc "Kotlin Native Xcode Plugin"
   homepage "https://github.com/touchlab/xcode-kotlin"
   url "https://github.com/touchlab/xcode-kotlin.git",
-    tag:      "1.3.1",
-    revision: "595d5b0bca5e56362abbb2e0ca11de4020392f4f"
+    tag:      "2.0.0",
+    revision: "8c775c45071beb96baa86dcafc11c5fe44987750"
   license "Apache-2.0"
   head "https://github.com/touchlab/xcode-kotlin.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5bb02ca24ea211322ab73a829dd82056ab51045ce86241239a6bd8b6f7147b38"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "10a1bef60f5bff99f07eac8f8f638ece20a70be8997d890779d2c1049f675a1a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9cb99bff69b8d12c35c30e5363bc39586cc502c05e76c25e8eebc87249c54ba3"
-    sha256 cellar: :any_skip_relocation, sonoma:         "65fd44b5c04141239380d8e0f203f0ddb99b63fce499879cffa512336bfd5111"
-    sha256 cellar: :any_skip_relocation, ventura:        "09121f1f8f89b5be892f2a04300d4368dcbd8b15a820291c3922bfeb846eaf96"
-    sha256 cellar: :any_skip_relocation, monterey:       "cfdb490e0cc99f0e9b0c447ac2e3987ce7d388a3a0a2ec5680c69f0d12666f6e"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "ef75f3102ac004ff31ac564b25d29d8c42f900b7879af9ec89389f5de07bf42d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "cd8a6748627084b0beeef05aaeb7776adba872990e8a7bdba89d763638db96f3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2c1ee6826b0c5c38bbe8cbd90473c7fdf8d667213cacc1ddcf892a55e5e6ec31"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "802f0d2b7827e4234dd8088bae91598794cc7c0059f496a309d57f696089097b"
+    sha256 cellar: :any_skip_relocation, sonoma:         "380cc1c8851372658c2e73e2b5d2c64544c47ed9ed6e192313b3d57c3b904d01"
+    sha256 cellar: :any_skip_relocation, ventura:        "b44b3a7ff866d6b6914395241810c12a4616e463173ac8bf5247ade71f5d1daa"
+    sha256 cellar: :any_skip_relocation, monterey:       "b5a51fbb58816599e22e9efb6b2a11172ce28457e13b6c20601398d175d33254"
   end
 
   depends_on "gradle" => :build

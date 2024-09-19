@@ -1,6 +1,6 @@
 class Genometools < Formula
   desc "Versatile open source genome analysis software"
-  homepage "http://genometools.org/"
+  homepage "https://genometools.org/"
   # genometools does not have source code on par with their binary dist on their website
   url "https://github.com/genometools/genometools/archive/refs/tags/v1.6.5.tar.gz"
   sha256 "f71b95c84761847223cd52a17d30ad9e6d55854448c2139fcd0aac437f73fbbe"
@@ -8,6 +8,7 @@ class Genometools < Formula
   head "https://github.com/genometools/genometools.git", branch: "master"
 
   bottle do
+    sha256 cellar: :any,                 arm64_sequoia:  "bd860c933e3158b691757af5aef7a545663460f0f826606ec3f8b6f77e11c9a7"
     sha256 cellar: :any,                 arm64_sonoma:   "b77af810fa9096b084bb34232bb09883a7237ddac28d7fc35957793892a516eb"
     sha256 cellar: :any,                 arm64_ventura:  "c079e91767b29ab5b0379cc09e4ca0960717c9cfa5e580d3527696edb59a6680"
     sha256 cellar: :any,                 arm64_monterey: "fb27b879e1e52641f42f05e8ce408583e17722bddfe0e1c3f6cd677001eabc6d"
@@ -20,11 +21,13 @@ class Genometools < Formula
   depends_on "pkg-config" => :build
   depends_on "python-setuptools" => :build
   depends_on "cairo"
+  depends_on "glib"
   depends_on "pango"
   depends_on "python@3.12"
 
-  on_linux do
-    depends_on "libpthread-stubs" => :build
+  on_macos do
+    depends_on "gettext"
+    depends_on "harfbuzz"
   end
 
   conflicts_with "libslax", because: "both install `bin/gt`"

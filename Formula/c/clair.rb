@@ -11,6 +11,7 @@ class Clair < Formula
   end
 
   bottle do
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "8aa90aca78e40b5e8bbd7a4b8e9d3e317d461671c36befb08782b487542943c5"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4dd2ce5f51c312e3c330c4abd4294f86914c10301de0b2c0e2bae0937b03b833"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "915eee0782e5b51a6a7ba29787f2634f943bf35d811eb96f031986422987acee"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "4b18882823c8aec9ac677cdee87b5a21dca1b5b313cbd3ffe8e5dfb20caf5747"
@@ -20,14 +21,10 @@ class Clair < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "9dd538221ff3cbefec3bc0320d76d06efc4471fbdf8694d696535640fde60b57"
   end
 
-  depends_on "go@1.21" => :build # use "go" again when https://github.com/quay/clair/pull/1942 is released
+  depends_on "go" => :build
 
   def install
-    ldflags = %W[
-      -s -w
-      -X main.Version=#{version}
-    ]
-
+    ldflags = "-s -w -X main.Version=#{version}"
     system "go", "build", *std_go_args(ldflags:), "./cmd/clair"
     (etc/"clair").install "config.yaml.sample"
   end

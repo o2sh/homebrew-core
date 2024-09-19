@@ -1,18 +1,19 @@
 class PodmanTui < Formula
   desc "Podman Terminal User Interface"
   homepage "https://github.com/containers/podman-tui"
-  url "https://github.com/containers/podman-tui/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "d67d883381de8d105a2cddd38d5d61f0420a770f533844c59192640d6b5dafed"
+  url "https://github.com/containers/podman-tui/archive/refs/tags/v1.2.1.tar.gz"
+  sha256 "e97fb24ded58d5dccb71fd21221cc2cae25853797ca44e1710baeaf3d5d77b6f"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5714067156d3eb4a1ac3060486c90d9b67f31417d857cb141307fbaa6c045600"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "459d6d09f7237995ec9fb3968b4b3d90a67fa841ca4ffac8d8ac59b2f4994550"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b7483f65ac12a43ad33deb23a5fefc9dbe12c8e7b568b7712ddc82b4d54c2a8c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "58643414148e1e298db0bf83a84c0871b014766574f74ef83c9aeea9ed7c5c89"
-    sha256 cellar: :any_skip_relocation, ventura:        "dab4633ddf82a178c02c5ff8ed5ee0b21117d1455acb20dd4bbaf6584bd8730a"
-    sha256 cellar: :any_skip_relocation, monterey:       "aa469c5d4e6b5cca2dd9ed11cd4990e2af10d0592fe256c18bcbb04744b5b883"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0ca1a0f1356a1cb3404d4361729ff12c92440e435b61e144b15b7383dfc76143"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "bed1336b8d923658966a7b8da70a96a7118918169d6b8e441e08069882ff6735"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "22b51f4ad020fcd26e2d9113f68d71f808a6c38adeef43e5d31183ec259e048c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b080011ec15e72a680852c2f00e85fbf5af6964ec2eab9e5a7dc04688a83a2d4"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "dc6f26e4ad78af5ab56b0c06a1579178984ca25cdb83789cd40ecfde4944af81"
+    sha256 cellar: :any_skip_relocation, sonoma:         "a451e2ff380fda64303c71ea2bbaac185cfc8153274fdb0919be05a4ea5f61e7"
+    sha256 cellar: :any_skip_relocation, ventura:        "8ab896ac2f1fc91de1238d5133e31ae659ff503f7b38da5bfd1d51707d5e9648"
+    sha256 cellar: :any_skip_relocation, monterey:       "f44bf41d04c48f83b569d944316996fe142b6d8cc7ade31d0814b19e5b219210"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "aa2123af363e4c473022471b36547c9bd6da8d82dd39201a50d5635c4439ebd7"
   end
 
   depends_on "go" => :build
@@ -32,7 +33,7 @@ class PodmanTui < Formula
     ENV["TERM"] = "xterm"
 
     PTY.spawn(bin/"podman-tui") do |r, w, _pid|
-      sleep 1
+      sleep 4
       w.write "\cC"
       begin
         output = r.read

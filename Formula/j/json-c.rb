@@ -13,6 +13,7 @@ class JsonC < Formula
   end
 
   bottle do
+    sha256 cellar: :any,                 arm64_sequoia:  "24f100e147c1d8ac5e929b07dc42b6977c4a785011fe1c0ba1fa9c1045050cb5"
     sha256 cellar: :any,                 arm64_sonoma:   "ba640ce5ab085d32c4a1dd2f631ba8940899f77c9d798ecc6ccc304598cc6ceb"
     sha256 cellar: :any,                 arm64_ventura:  "f06d21bf49bb8378ef1648221ed367e7ead751b84925b255ef0b62f14d1824dc"
     sha256 cellar: :any,                 arm64_monterey: "61480b16756199897acf340e53625706814566dcf89ecf546e267a08397a9f22"
@@ -27,10 +28,9 @@ class JsonC < Formula
   depends_on "cmake" => :build
 
   def install
-    mkdir "build" do
-      system "cmake", "..", *std_cmake_args
-      system "make", "install"
-    end
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
@@ -46,6 +46,7 @@ class JsonC < Formula
         return 0;
       }
     EOS
+
     system ENV.cc, "-I#{include}", "test.c", "-L#{lib}", "-ljson-c", "-o", "test"
     assert_equal '{ "key": "value" }', shell_output("./test").chomp
   end

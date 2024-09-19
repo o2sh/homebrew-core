@@ -1,8 +1,9 @@
 class Singular < Formula
   desc "Computer algebra system for polynomial computations"
   homepage "https://www.singular.uni-kl.de/"
-  url "https://www.singular.uni-kl.de/ftp/pub/Math/Singular/SOURCES/4-4-0/singular-4.4.0.tar.gz"
-  sha256 "c269abbd24c84fe33edc0af1e78b8fec53d8e94338410ac06c2666cfd40d43f2"
+  url "https://www.singular.uni-kl.de/ftp/pub/Math/Singular/SOURCES/4-4-0/singular-4.4.0p5.tar.gz"
+  version "4.4.0p5"
+  sha256 "f240c210d2f5a7ba30a35f43ffb3c926decb103f3b9ff4a35ad4baee093a41df"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -35,13 +36,14 @@ class Singular < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "27981ca3142ace51582e088ffd260cb392c59b3d57bbcc077f0e462da81f5e1b"
-    sha256 arm64_ventura:  "6fc3a702ab9649c27183312a9723f89b269bd68940959d5d5893bfc6b6e5e32e"
-    sha256 arm64_monterey: "489f1752265b21938dbdf0e35677ab47f9fb4a25f98c61554c3e4a18d6fef534"
-    sha256 sonoma:         "7d8835a5c15aa151f3b3e27115f80656201714ca49e5b11f78fdbb6d42ffa9f4"
-    sha256 ventura:        "faaf92384014885c55a79b6f27a5a6f8ffa13416b67bcf671d8be9419f46fefc"
-    sha256 monterey:       "8391ba8c8033ce2cbc8bbebc2078a1f9e5bc4224d6b05a8595ccb35292196c3c"
-    sha256 x86_64_linux:   "0243865988a3e1fc899ec2fb6cc61b8fc01160b81fd72f978c4f03bbada58534"
+    sha256 arm64_sequoia:  "8ccd35d05eefb84d0f0d7d4701c1e68cef4547d4c45c93a1e2fb24934b2ec253"
+    sha256 arm64_sonoma:   "213c26d2539833cec4b70570e7bc35b5c7f18b478030fd2c645a120f31f9900d"
+    sha256 arm64_ventura:  "1899af2cbde7043f6bc04832a856bb93a3845cd308f03c7d122d12f8e82cdce3"
+    sha256 arm64_monterey: "064ea698eeeb50c06ccea50856bd0ef4fba7ca3981024b5dfed6265fdcdc7020"
+    sha256 sonoma:         "6e83032edb0986907ac2958c14f5bf33d6a0e8d29a8628756949b291a314cd0c"
+    sha256 ventura:        "6ca2b2b9fa561c9ba85d99983cab8b22d7c307296b42eefbe65126bd80e48d0c"
+    sha256 monterey:       "ec9cbb4300fd88c4499fd406d389a4107b9a1f46f934078ba8ebedb84021f7e6"
+    sha256 x86_64_linux:   "e2ee20821ab2b0b03a8bffefad953f7e45b8cc0a83a098b717dcb1ab599ce5c7"
   end
 
   head do
@@ -56,6 +58,7 @@ class Singular < Formula
   depends_on "mpfr"
   depends_on "ntl"
   depends_on "python@3.12"
+  depends_on "readline"
 
   def install
     system "./autogen.sh" if build.head?

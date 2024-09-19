@@ -8,6 +8,7 @@ class Ly < Formula
 
   bottle do
     rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "81763511048275d8efb47c85352c47523494515246a2e946ca118490770439c2"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "df85e596fb8395cd8c575119c06782cc810f2c0eb6e56346405abafa27261049"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "e3534a360741817550ae8894d2c66dbdf10cff8686d31af9356f8f340a3bba7f"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "19729d3a97e1e59649bbb87cbb1bfd3e229b49a272ddd9ac3326f3fa418acbcc"
@@ -17,7 +18,6 @@ class Ly < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "58025ba773b81b7d22e72c002f9ce7ed7691bf6f51d10ed8d60bf065ac330ff8"
   end
 
-  depends_on "python-setuptools" => :build
   depends_on "python@3.12"
 
   def python3
@@ -25,7 +25,7 @@ class Ly < Formula
   end
 
   def install
-    system python3, "-m", "pip", "install", *std_pip_args, "."
+    system python3, "-m", "pip", "install", *std_pip_args(build_isolation: true), "."
   end
 
   test do

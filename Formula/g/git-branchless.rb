@@ -1,20 +1,11 @@
 class GitBranchless < Formula
   desc "High-velocity, monorepo-scale workflow for Git"
   homepage "https://github.com/arxanas/git-branchless"
+  url "https://github.com/arxanas/git-branchless/archive/refs/tags/v0.9.0.tar.gz"
+  sha256 "fa64dc92ec522520a6407ff61241fc1819a3093337b4e3d0f80248ae76938d43"
   license any_of: ["Apache-2.0", "MIT"]
   revision 1
   head "https://github.com/arxanas/git-branchless.git", branch: "master"
-
-  stable do
-    url "https://github.com/arxanas/git-branchless/archive/refs/tags/v0.8.0.tar.gz"
-    sha256 "f9e13d9a3de960b32fb684a59492defd812bb0785df48facc964478f675f0355"
-
-    # Backport support for libgit2 1.7
-    patch do
-      url "https://github.com/arxanas/git-branchless/commit/5b3d67b20e7fb910be46ea3ee9d0642d11932681.patch?full_index=1"
-      sha256 "ff81ca9c921fc6b8254a75fecec3fc606f168215f66eb658803097b6bb2fcdb8"
-    end
-  end
 
   # Upstream appears to use GitHub releases to indicate that a version is
   # released (and some tagged versions don't end up as a release), so it's
@@ -25,19 +16,19 @@ class GitBranchless < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sonoma:   "723cd94950543af845b21543d1f0d2a99ae17fd6241add0403b1a7e0a8f0fbd4"
-    sha256 cellar: :any,                 arm64_ventura:  "5550d80acfcb4818b8f5f92c95e64294d4a3b6b8bba34761e1854c71251cb957"
-    sha256 cellar: :any,                 arm64_monterey: "01fe75552c47f9500cc47a9cfc5f16cae879b27ff77a864d6c50bb617e56851d"
-    sha256 cellar: :any,                 sonoma:         "42aaf6d763b559bcf1a2ef8e083d01edfc25163857572441b9721cd1d2fd7c0c"
-    sha256 cellar: :any,                 ventura:        "704d3ba94268d57a36c9c5e65a1dd72e4184a8c38e21138565eb082fa6b545de"
-    sha256 cellar: :any,                 monterey:       "d19937979850141ad61000f9e71c4234316c9fb838f20ce5ff5710bfb7feb1c6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "28b8360a364a810027705d3adce5d06e2580e4ddc626a91460068c8a181c0681"
+    sha256 cellar: :any,                 arm64_sequoia:  "31c9a297b2edcb5cf217248a6e4c48e36cb0899fd38ea12d17f224758bf81989"
+    sha256 cellar: :any,                 arm64_sonoma:   "47147ac474e471683944e538c51247e38cdbf0807490538de8e29df3f7f6bbf3"
+    sha256 cellar: :any,                 arm64_ventura:  "326b1e0ee09e7adcfc272ad867949d3a6a24887a4f1964c18d9515ea8426d067"
+    sha256 cellar: :any,                 arm64_monterey: "c477b93819d928cf1f49809da31fa435f0200502ca72082a12b63a7e33cb8cd5"
+    sha256 cellar: :any,                 sonoma:         "9d9b8cbdbb39e63c00d2422f04b61f7b96be8f1e5928a7a5431b26f64bddb8fa"
+    sha256 cellar: :any,                 ventura:        "9284601e4244db3daa85285f70718265ff6eb3182d7e15fcdbb37efa20ba6b88"
+    sha256 cellar: :any,                 monterey:       "8724ef70c232f56c1ac3d543acb54cf85b8a49f426b81bb8b530550ab3dede69"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b22cae8643755fa4b87dd7cafa858a5a456a85fb39569a55afa0125ef42083fb"
   end
 
   depends_on "pkg-config" => :build
   depends_on "rust" => :build
-  depends_on "libgit2"
+  depends_on "libgit2@1.7"
 
   def install
     ENV["LIBGIT2_NO_VENDOR"] = "1"
@@ -61,7 +52,7 @@ class GitBranchless < Formula
     linkage_with_libgit2 = (bin/"git-branchless").dynamically_linked_libraries.any? do |dll|
       next false unless dll.start_with?(HOMEBREW_PREFIX.to_s)
 
-      File.realpath(dll) == (Formula["libgit2"].opt_lib/shared_library("libgit2")).realpath.to_s
+      File.realpath(dll) == (Formula["libgit2@1.7"].opt_lib/shared_library("libgit2")).realpath.to_s
     end
 
     assert linkage_with_libgit2, "No linkage with libgit2! Cargo is likely using a vendored version."

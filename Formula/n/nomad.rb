@@ -10,6 +10,7 @@ class Nomad < Formula
   head "https://github.com/hashicorp/nomad.git", branch: "main"
 
   bottle do
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "31470c7ad52709c0483c07b31d915d1247759b9d7b900aeba8e909d892bd54a7"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "57af75515a8706b2bf7229d144870f017890bf41f11dd908af028e18dabc75a3"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "ed444abdde4adcbf77a5c91ebbe57cd40de9f9275b57772b7a5d2abc42c3ba1e"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "e85355b125037326086493552b1af5c8b6079b92e5ab272d38949ee756315ca4"
@@ -50,11 +51,11 @@ class Nomad < Formula
 
   test do
     pid = fork do
-      exec "#{bin}/nomad", "agent", "-dev"
+      exec bin/"nomad", "agent", "-dev"
     end
     sleep 10
     ENV.append "NOMAD_ADDR", "http://127.0.0.1:4646"
-    system "#{bin}/nomad", "node-status"
+    system bin/"nomad", "node-status"
   ensure
     Process.kill("TERM", pid)
   end

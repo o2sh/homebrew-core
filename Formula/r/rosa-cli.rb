@@ -1,8 +1,8 @@
 class RosaCli < Formula
   desc "RedHat OpenShift Service on AWS (ROSA) command-line interface"
   homepage "https://www.openshift.com/products/amazon-openshift"
-  url "https://github.com/openshift/rosa/archive/refs/tags/v1.2.38.tar.gz"
-  sha256 "8d335317c4220f1c0982e68727a1c7ed666c3429c606bc0fcc7d35507ea78bb6"
+  url "https://github.com/openshift/rosa/archive/refs/tags/v1.2.45.tar.gz"
+  sha256 "6a335204824e359d2b89eee7f2f532f5f58c92d5a15f7e858c926cde144c8008"
   license "Apache-2.0"
   head "https://github.com/openshift/rosa.git", branch: "master"
 
@@ -12,13 +12,12 @@ class RosaCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0bf96699cadff4ac70340073265518a0467b1ec0181591fefe80c10a47f5c2b3"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "cca0e4eabd1e3cbd5397582f05a379789b3c1df0f01c56a675f8e41a48af74ab"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8ea1c1aec38df9ab31fbf569897e1f26693403757d5798ced38dbbd328591649"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8797e5ca843697feb8b0ddb439e6ff9a28086f9324ccc14b488cae7f531cdeb5"
-    sha256 cellar: :any_skip_relocation, ventura:        "71d62b91b076d4064859988ea9d13a935b3da284938d274a552f9967350d2959"
-    sha256 cellar: :any_skip_relocation, monterey:       "162ff66e453a4394d256c3ca72544f626e11c3ba96fc8f4f94c6722021a00a70"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "65b6ab3b9d04c85295248f08ee82cf81ce1fc5a76c979cca5cc856caa8a83653"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "3ce9309bfbe6e16435b8599145380fac2c3224488c651658f47f9f02f706ec0a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "09a57e75d216a9ab72863519c1cbf0f2f248f8282c71b02a4103dd5df1f2f135"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "9de3f5a31fa5eecd07c6a5abdf99b0f90417f5b50ae76df2db3422d00406165d"
+    sha256 cellar: :any_skip_relocation, sonoma:        "1507df61259ff7e71fb881deb595482e2e990a63df81371e852597adf1200c38"
+    sha256 cellar: :any_skip_relocation, ventura:       "a75e481fa8c080037beca62861e49062e491b12c1f7208414082994e2a116bf8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "75645e0b8174de8ea95b78d0be9619b628592197ae7615151dd2ad671b62414b"
   end
 
   depends_on "go" => :build

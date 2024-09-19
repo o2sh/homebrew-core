@@ -1,8 +1,8 @@
 class Apt < Formula
   desc "Advanced Package Tool"
   homepage "https://wiki.debian.org/Apt"
-  url "https://deb.debian.org/debian/pool/main/a/apt/apt_2.9.2.tar.xz"
-  sha256 "80aa74466b132e50ed8d0159f10e64a448b6a6c64723d62c42b83a5199ca03a7"
+  url "https://deb.debian.org/debian/pool/main/a/apt/apt_2.9.8.tar.xz"
+  sha256 "54fb7b34bdb93ea2081123ab35f893c26fe0f3e800a54e8e9eccb5f3e2ec9710"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -11,7 +11,7 @@ class Apt < Formula
   end
 
   bottle do
-    sha256 x86_64_linux: "2826c71ef02a6398c61282ffb803059bf89bbc7c4ffa93d841906777df4f427d"
+    sha256 x86_64_linux: "849a80b983668551d0007ecd09a2a8c95b28d2f461f2b9a31fbe2b52c23a2e04"
   end
 
   keg_only "not linked to prevent conflicts with system apt"
@@ -20,7 +20,7 @@ class Apt < Formula
   depends_on "docbook" => :build
   depends_on "docbook-xsl" => :build
   depends_on "doxygen" => :build
-  depends_on "googletest" => :build
+  depends_on "gettext" => :build
   depends_on "libxslt" => :build
   depends_on "po4a" => :build
   depends_on "w3m" => :build
@@ -28,14 +28,17 @@ class Apt < Formula
   depends_on "berkeley-db@5" # keep berkeley-db < 6 to avoid AGPL-3.0 restrictions
   depends_on "bzip2"
   depends_on "dpkg"
-  depends_on "gettext"
   depends_on "gnupg"
   depends_on "gnutls"
+  depends_on "libgcrypt"
   depends_on :linux
   depends_on "lz4"
   depends_on "perl"
+  depends_on "systemd"
   depends_on "xxhash"
+  depends_on "xz"
   depends_on "zlib"
+  depends_on "zstd"
 
   fails_with gcc: "5"
 
@@ -91,8 +94,8 @@ class Apt < Formula
   end
 
   resource "XS::Parse::Keyword::Builder" do
-    url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/XS-Parse-Keyword-0.39.tar.gz"
-    sha256 "b4e775becc8a5d9b52cb5d569b9d3230eea451c134735845e77f89fa6a6c23d8"
+    url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/XS-Parse-Keyword-0.42.tar.gz"
+    sha256 "7e498879e7813c9a7ecf4296c74774a32e40131e3a64efcc63c8010c0eb11382"
   end
 
   resource "Syntax::Keyword::Try" do
@@ -132,6 +135,7 @@ class Apt < Formula
                     "-DDPKG_DATADIR=#{Formula["dpkg"].opt_libexec}/share/dpkg",
                     "-DDOCBOOK_XSL=#{Formula["docbook-xsl"].opt_prefix}/docbook-xsl",
                     "-DBERKELEY_INCLUDE_DIRS=#{Formula["berkeley-db@5"].opt_include}",
+                    "-DWITH_TESTS=OFF",
                     *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"

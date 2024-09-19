@@ -2,8 +2,8 @@ class AwsSdkCpp < Formula
   desc "AWS SDK for C++"
   homepage "https://github.com/aws/aws-sdk-cpp"
   url "https://github.com/aws/aws-sdk-cpp.git",
-      tag:      "1.11.285",
-      revision: "8213a588808acf5148b0f739e0b558879955310f"
+      tag:      "1.11.405",
+      revision: "cc33599af2d81eb1c65a78ae19f8314ddc0cfa38"
   license "Apache-2.0"
   head "https://github.com/aws/aws-sdk-cpp.git", branch: "main"
 
@@ -12,17 +12,22 @@ class AwsSdkCpp < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "00d6ed4a1d44cf57cec6dfe90a45c731e77fbd89bc2e7e10b118a5c09091a772"
-    sha256 cellar: :any,                 arm64_ventura:  "300751fb3130117e188b6eedcd416e0bfacc3279c49ec78cc5cba53d5ed13f64"
-    sha256 cellar: :any,                 arm64_monterey: "15b77d6dd0416a02a6301595d2e38464501ef507016bd85cfe68d0f30e131a88"
-    sha256 cellar: :any,                 sonoma:         "56e7646d49ac546468abc6502b7c8e90181219264a1e7486d25e642c97d82b19"
-    sha256 cellar: :any,                 ventura:        "d1d389171862492aeef7a1dc91dea4a0607438a8dfa98b4a92ac3c844e22a269"
-    sha256 cellar: :any,                 monterey:       "8f2939227d817fae7741d3cb70f8ae055d7219f535e14a67c9c03aa0e6ba85c3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ae7fbc1fd17179ab2b41aaa0d95f809b2918642ec51b80f89e7f57944ad9a961"
+    sha256 cellar: :any,                 arm64_sequoia: "f47c49fa29e55ad9feed19a90001bd41bab69baf6b213949cbb98839c004e7de"
+    sha256 cellar: :any,                 arm64_sonoma:  "9d91ee4ab934c18a0942584007dc8d6bd647b9dbe1d7fd1d93c988d17913d350"
+    sha256 cellar: :any,                 arm64_ventura: "600f6dd6c7ae8d89b71108ed1da44d72cca16d893a75f8292c9936bd125749cb"
+    sha256 cellar: :any,                 sonoma:        "8ddbf21d2db50afa9049ddc920ccd2800727821cb5433104081e60b7f8628b8d"
+    sha256 cellar: :any,                 ventura:       "403f6707a15c7179ed17db85cdb86467c3e298e7979781b095c84d826994fdcc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f3f9a5090fbfe84629412a104767b5ccd300504b291bab4900c2dce0a2451425"
   end
 
   depends_on "cmake" => :build
+
   uses_from_macos "curl"
+  uses_from_macos "zlib"
+
+  on_linux do
+    depends_on "openssl@3"
+  end
 
   conflicts_with "s2n", because: "both install s2n/unstable/crl.h"
 

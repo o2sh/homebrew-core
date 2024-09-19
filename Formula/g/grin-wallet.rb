@@ -1,18 +1,17 @@
 class GrinWallet < Formula
   desc "Official wallet for the cryptocurrency Grin"
   homepage "https://grin.mw"
-  url "https://github.com/mimblewimble/grin-wallet/archive/refs/tags/v5.3.0.tar.gz"
-  sha256 "433bd59512e2b2bf598682f5fcb2d89c2c97c729b58def8c0bb720c31738c264"
+  url "https://github.com/mimblewimble/grin-wallet/archive/refs/tags/v5.3.3.tar.gz"
+  sha256 "defe25b5e8e8c6f94a57792cd197e9d753710cb91a6e82dfc25177cea16bde24"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6bc010d504d0ac7b43ffe2cddb361259a560345dbd71f1917934d9e802f0bf41"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9851105e1cd32ade5a0eeaaa87859976cfb4b89595637f4554e482c96ae88db9"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b72a2de234878c98b25390c79019c98383676cd0ad184cc902d33e110412a91f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f230c6239a8c23b6def966b7f000b87685b1b9e3663b2f555b3512344fc4d4bc"
-    sha256 cellar: :any_skip_relocation, ventura:        "22c1d1ee5029840bea97990ee692a158864bf9f38648bfd2d66b3edde7d977f8"
-    sha256 cellar: :any_skip_relocation, monterey:       "1b7a2ca6da85563012317ed1286580dd112114170bbceb333f170f1883f58575"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1876d013e472222e9d9ae333ded6e740610d67b67b9fe3185e3ec523c8b34dc0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d54049d62d5a0b36292b2d21e5563848aac9d460780bd4bf454f7327e53a05d7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "634ac3133c50339f68b98c0c3c2079af681802427a81ad7bd9ead796b06bd231"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "f4dfcada1df61633644eb26265f31587ed1476b2662f167c5952b36308633861"
+    sha256 cellar: :any_skip_relocation, sonoma:        "edf969535683ee653d73a8ec8e3e7e5f5034d138afaeb1e73d7e6d002e1aa0fa"
+    sha256 cellar: :any_skip_relocation, ventura:       "bcbcc92456ae39aa8503324872f30820719cfc5629252f5f6775aac15dac3032"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fb8c9ea2d9d49a06a26ca2fd622921b83ae9144e496829f0c52d451a4fbe7286"
   end
 
   depends_on "rust" => :build
