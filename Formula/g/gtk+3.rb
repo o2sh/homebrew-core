@@ -27,7 +27,7 @@ class Gtkx3 < Formula
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
 
   depends_on "at-spi2-core"
   depends_on "cairo"
@@ -97,16 +97,16 @@ class Gtkx3 < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <gtk/gtk.h>
 
       int main(int argc, char *argv[]) {
         gtk_disable_setlocale();
         return 0;
       }
-    EOS
+    C
 
-    flags = shell_output("pkg-config --cflags --libs gtk+-3.0").chomp.split
+    flags = shell_output("pkgconf --cflags --libs gtk+-3.0").chomp.split
     system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
     # include a version check for the pkg-config files

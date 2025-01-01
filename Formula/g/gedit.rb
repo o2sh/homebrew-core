@@ -1,10 +1,9 @@
 class Gedit < Formula
   desc "GNOME text editor"
   homepage "https://gedit-technology.github.io/apps/gedit/"
-  url "https://download.gnome.org/sources/gedit/47/gedit-47.0.tar.xz"
-  sha256 "fa4a597e34c76d4ac91431b5ae6e191c96c6b0af1702e0899ab35199edfa1bfa"
+  url "https://download.gnome.org/sources/gedit/48/gedit-48.1.tar.xz"
+  sha256 "971e7ac26bc0a3a3ded27a7563772415687db0e5a092b4547e5b10a55858b30a"
   license "GPL-2.0-or-later"
-  revision 1
 
   # gedit doesn't seem to follow the typical GNOME version scheme, so we
   # provide a regex to disable the `Gnome` strategy's version filtering.
@@ -14,12 +13,12 @@ class Gedit < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "51674638d4d00e8edcbc9c8b8115928b3e287b19ec892b61a3cc926e01817567"
-    sha256 arm64_sonoma:  "1f3f0dc5ce63acb38e3e8bc5592b0c6dc16b2903382f20728f0b259204f3cc7b"
-    sha256 arm64_ventura: "b0a5bc3892329acc7c1db2524d08e727f1f9afe29829ef90c3c28dadd9ce0ee1"
-    sha256 sonoma:        "c46c1555392987486442205f6e7f9ccf818bf51dd84ad7262e9793ce781056f8"
-    sha256 ventura:       "723cb638df5de674615401a6da3f2a7c29e2c457dccc0acb0d7cc4af05281b10"
-    sha256 x86_64_linux:  "c247d18996475e1246d5ba269b0b51d85cffb542cb73acd630b5d09199a9e8cb"
+    sha256 arm64_sequoia: "c56219ceeca6186e1eda6f84cc0632daef82e2e7d549c9a43458a312244d55c7"
+    sha256 arm64_sonoma:  "4643660abd81faf4742a8f8908859608f880418e2c5123273cbfb9473bb8ff1a"
+    sha256 arm64_ventura: "27f852e41786564f958ab4881401dc415d496db5aa1fbb90fe218103b644b353"
+    sha256 sonoma:        "2af39526ede2a28be4a955939e78f4e19ac0653beaddadf24aa191ce5483f056"
+    sha256 ventura:       "72178fa14372fc15c1b3ea09ec379791cc4f92836a74fc3446e20a1b38174e59"
+    sha256 x86_64_linux:  "98a23f2abe91a44750e1174dd7d27ec9ac8ce4bca331b571562ef477b7605817"
   end
 
   depends_on "desktop-file-utils" => :build # for update-desktop-database
@@ -29,7 +28,7 @@ class Gedit < Formula
   depends_on "itstool" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
 
   depends_on "adwaita-icon-theme"
   depends_on "cairo"
@@ -74,16 +73,16 @@ class Gedit < Formula
     # main executable test
     system bin/"gedit", "--version"
     # API test
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <gedit/gedit-debug.h>
 
       int main(int argc, char *argv[]) {
         gedit_debug_init();
         return 0;
       }
-    EOS
+    C
 
-    flags = shell_output("pkg-config --cflags --libs gedit").chomp.split
+    flags = shell_output("pkgconf --cflags --libs gedit").chomp.split
     flags << "-Wl,-rpath,#{lib}/gedit" if OS.linux?
     system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"

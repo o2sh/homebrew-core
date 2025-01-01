@@ -18,10 +18,10 @@ class Condure < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "00527a59f46952f13cb4a1af03af0dcf3d894dd1582828bcb3152ab5b070ac93"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
   depends_on "cython" => :test # use brew cython as building it in test can cause time out
-  depends_on "python@3.12" => :test
+  depends_on "python@3.13" => :test
   depends_on "openssl@3"
   depends_on "zeromq"
 
@@ -53,13 +53,13 @@ class Condure < Formula
     ipcfile = testpath/"client"
     runfile = testpath/"test.py"
 
-    python3 = "python3.12"
+    python3 = "python3.13"
     ENV.append_path "PYTHONPATH", Formula["cython"].opt_libexec/Language::Python.site_packages(python3)
     venv = virtualenv_create(testpath/"vendor", python3)
     venv.pip_install resources.reject { |r| r.name == "pyzmq" }
     venv.pip_install(resource("pyzmq"), build_isolation: false)
 
-    runfile.write <<~EOS
+    runfile.write <<~PYTHON
       import threading
       from urllib.request import urlopen
       import tnetstring
@@ -91,7 +91,7 @@ class Condure < Formula
       with urlopen('http://localhost:10000/test') as f:
         body = f.read()
         assert(body == b'test response\\n')
-    EOS
+    PYTHON
 
     pid = fork do
       exec bin/"condure", "--listen", "10000,req", "--zclient-req", "ipc://#{ipcfile}"

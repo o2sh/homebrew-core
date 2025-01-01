@@ -1,37 +1,37 @@
 class ApacheArrow < Formula
   desc "Columnar in-memory analytics layer designed to accelerate big data"
   homepage "https://arrow.apache.org/"
-  url "https://www.apache.org/dyn/closer.lua?path=arrow/arrow-17.0.0/apache-arrow-17.0.0.tar.gz"
-  mirror "https://archive.apache.org/dist/arrow/arrow-17.0.0/apache-arrow-17.0.0.tar.gz"
-  sha256 "9d280d8042e7cf526f8c28d170d93bfab65e50f94569f6a790982a878d8d898d"
+  url "https://www.apache.org/dyn/closer.lua?path=arrow/arrow-18.1.0/apache-arrow-18.1.0.tar.gz"
+  mirror "https://archive.apache.org/dist/arrow/arrow-18.1.0/apache-arrow-18.1.0.tar.gz"
+  sha256 "2dc8da5f8796afe213ecc5e5aba85bb82d91520eff3cf315784a52d0fa61d7fc"
   license "Apache-2.0"
   revision 4
   head "https://github.com/apache/arrow.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "2966504797cf0e9213d4d46bf49c7648a4f11f248b3b9e16f9a2e63bf16b7993"
-    sha256 cellar: :any,                 arm64_sonoma:  "7b6a3c22a210c64dbfa6714eaf39e1af777a3e89647128d2337712b8fd8ef999"
-    sha256 cellar: :any,                 arm64_ventura: "950b16ab769bafc1295ccca886ff956bf93498c3ca160b4dda44d03f9a18c132"
-    sha256 cellar: :any,                 sonoma:        "aa9dca74f90e7c61bd4676e6a98baddbaaaa6a0c04371f0d73ecf9685d53efb0"
-    sha256 cellar: :any,                 ventura:       "8c77ca0e8d6b747bf75edf84bfd49fa6754598bccf4284c95d58fbe8308befcb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fc11875ec70969549970725a0cf6ea4bb08d680ef4e2fa2b51cbc808b2aff258"
+    sha256 cellar: :any,                 arm64_sequoia: "365dbe9722456dbb3c41c13c8c939ae519008d60fd48a57d6e581290a540a83b"
+    sha256 cellar: :any,                 arm64_sonoma:  "37c4d21830e414964627268e60d558340bb4e84a236bd5559e00f742ecd4e170"
+    sha256 cellar: :any,                 arm64_ventura: "2ed61140c2acd7c800868228c7681403754cf3ce8b043feedc3bea8ff74ab433"
+    sha256 cellar: :any,                 sonoma:        "d5f91bce2a00954bcc433bcf2a63a46f77a62b454258e1fbabcaec3d3295a7fa"
+    sha256 cellar: :any,                 ventura:       "aa065ac9d32ada2f3017d8b0795a69d04fae9d3ca9a113442979089e290b6631"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a6d92852cdcbbdef86b35753634735d2d4c0abfd55628ad7b97dfe4d9c63cc2f"
   end
 
   depends_on "boost" => :build
   depends_on "cmake" => :build
+  depends_on "gflags" => :build
   depends_on "ninja" => :build
+  depends_on "rapidjson" => :build
+  depends_on "xsimd" => :build
   depends_on "abseil"
   depends_on "aws-sdk-cpp"
   depends_on "brotli"
-  depends_on "bzip2"
   depends_on "c-ares"
-  depends_on "glog"
   depends_on "grpc"
   depends_on "llvm"
   depends_on "lz4"
   depends_on "openssl@3"
   depends_on "protobuf"
-  depends_on "rapidjson"
   depends_on "re2"
   depends_on "snappy"
   depends_on "thrift"
@@ -39,20 +39,23 @@ class ApacheArrow < Formula
   depends_on "zstd"
 
   uses_from_macos "python" => :build
+  uses_from_macos "bzip2"
   uses_from_macos "zlib"
 
-  fails_with gcc: "5"
+  # Issue ref: https://github.com/protocolbuffers/protobuf/issues/19447
+  fails_with :gcc do
+    version "12"
+    cause "Protobuf 29+ generated code with visibility and deprecated attributes needs GCC 13+"
+  end
 
   def install
-    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
-    # libunwind due to it being present in a library search path.
-    llvm = Formula["llvm"]
-    ENV.remove "HOMEBREW_LIBRARY_PATHS", llvm.opt_lib if DevelopmentTools.clang_build_version >= 1500
+    ENV.llvm_clang if OS.linux?
 
     # We set `ARROW_ORC=OFF` because it fails to build with Protobuf 27.0
     args = %W[
       -DCMAKE_INSTALL_RPATH=#{rpath}
-      -DLLVM_ROOT=#{llvm.opt_prefix}
+      -DLLVM_ROOT=#{Formula["llvm"].opt_prefix}
+      -DARROW_DEPENDENCY_SOURCE=SYSTEM
       -DARROW_ACERO=ON
       -DARROW_COMPUTE=ON
       -DARROW_CSV=ON
@@ -87,13 +90,15 @@ class ApacheArrow < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    ENV.method(DevelopmentTools.default_compiler).call if OS.linux?
+
+    (testpath/"test.cpp").write <<~CPP
       #include "arrow/api.h"
       int main(void) {
         arrow::int64();
         return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "test.cpp", "-std=c++17", "-I#{include}", "-L#{lib}", "-larrow", "-o", "test"
     system "./test"
   end

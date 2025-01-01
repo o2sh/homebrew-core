@@ -1,19 +1,17 @@
 class CargoMake < Formula
   desc "Rust task runner and build tool"
   homepage "https://github.com/sagiegurari/cargo-make"
-  url "https://github.com/sagiegurari/cargo-make/archive/refs/tags/0.37.16.tar.gz"
-  sha256 "bf3e46b94416f8c426fd3af41c37dcb015d2b593886bb2eceba8cc0def39f1fb"
+  url "https://github.com/sagiegurari/cargo-make/archive/refs/tags/0.37.23.tar.gz"
+  sha256 "10fd79354d28e87e579bbd294fd8770c9515f496982452117801ce2799d09247"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "b9049737e1ef91bac22d9ccc3cc266177515607718a28550a9e15a3c8380354c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6dfe95fa630b7e6e21ec9ddb0442f96420cc385170ab50f101069ba962bec328"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bfb436f9360c89158122188bf95f8ea44aef81bb6b086dad7edb2fabaf7508c8"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2c57b1110b8a7b3d13e9422724cd6b8895d4591c0761bd996f75417700993ff3"
-    sha256 cellar: :any_skip_relocation, sonoma:         "1b5a2d2783faa25916916710c3765869b9dec3e4212b77c552a5c0bebd152a12"
-    sha256 cellar: :any_skip_relocation, ventura:        "2fb182684e7cd31ead508eb283a01d89eb637fd87d87fec901ed938357bb6eff"
-    sha256 cellar: :any_skip_relocation, monterey:       "20ee8d085af2b62c6895265ece1b0796d39a33542cf9b901be3f207e834008ff"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8d35c8302a3b7b94a32eee6d592ea4d2592a9cc891b8e942b483e8492a11a955"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9ac6066ab4e4709e261a722aa3bf0de9d1ddf0361d795b2132eee1b4f323f443"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0a473d2c5cbad534be22e3b6052d446d455c81600f288fcb2f2a817e63724e1c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "8c6519f708ad5db91d72180732ef1bbe791aada8656ac747815fae76d44febbd"
+    sha256 cellar: :any_skip_relocation, sonoma:        "99ccf9c285425753e4a6d610a365b8d6fabe8a25f887f83861e1345456a974fe"
+    sha256 cellar: :any_skip_relocation, ventura:       "6f966e07a312cc4618de1b030ea002fd753a03c167ecc2c68425d228b247b964"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8792d91b502aca03ab9551f6d3f2fe65af542a0d6702b7de4531a130fe7795d5"
   end
 
   depends_on "rust" => :build
@@ -31,11 +29,11 @@ class CargoMake < Formula
     system "rustup", "set", "profile", "minimal"
 
     text = "it's working!"
-    (testpath/"Makefile.toml").write <<~EOF
+    (testpath/"Makefile.toml").write <<~TOML
       [tasks.is_working]
       command = "echo"
       args = ["#{text}"]
-    EOF
+    TOML
 
     assert_match text, shell_output("cargo make is_working")
     assert_match text, shell_output("#{bin}/cargo-make make is_working")

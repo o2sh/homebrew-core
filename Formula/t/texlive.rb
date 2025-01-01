@@ -8,7 +8,7 @@ class Texlive < Formula
   mirror "https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive/2024/texlive-20240312-source.tar.xz"
   sha256 "7b6d87cf01661670fac45c93126bed97b9843139ed510f975d047ea938b6fe96"
   license :cannot_represent
-  revision 1
+  revision 3
   head "https://github.com/TeX-Live/texlive-source.git", branch: "trunk"
 
   livecheck do
@@ -34,17 +34,15 @@ class Texlive < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "94a2f611a38724fbc8dc21aaecb445a3f2bb61fffd5a7bc2ed13291716fac2b7"
-    sha256 arm64_sonoma:   "36f2ac1e40afea99ec819132bf2efcb5d47e4490c02729ed24444e6884b1fbd6"
-    sha256 arm64_ventura:  "903ac239e9213bbf89ec733589406a5c060d7f35ad2e53c3ca0d1d2db39cebd0"
-    sha256 arm64_monterey: "258165d99a101ca6ec8afac14aa3a4006cab92bb26b2ab3e87d39a342ad0f95e"
-    sha256 sonoma:         "b649f37b6ed625cf602c1218aea9f2bec68ec5deb8bc6b6a455f43dd7120df7b"
-    sha256 ventura:        "060e5ae8e5760b73a48b738aa214a4434b2987c5c9224658c718257f2fde3796"
-    sha256 monterey:       "8c26b5f1eb681a43adad972a79d97302f66f5be8d6ec72f807cf24ad583f2c64"
-    sha256 x86_64_linux:   "b7847a9f7f3da040504204b65eb3f4a7c7c5f3ab9be13b7a8919d85949aaa265"
+    sha256 arm64_sequoia: "d48b45c0eec8b09a66346f83935bec59db4fffc386189e990101fef3698f967c"
+    sha256 arm64_sonoma:  "8da78aea8a3984ee945484459267bde9a981ec3aea1ddaf65486c009e21014b4"
+    sha256 arm64_ventura: "c377511a9a069e926864b84da29ec1b947e4f9d55fcb0e32732d2222f344e023"
+    sha256 sonoma:        "d3a6f5fc610f32ee5438a836a248e5b72cefdf09cc6d7a7b514ef019ba07cc79"
+    sha256 ventura:       "fa109f6a8813e1cf08dedefd4a66f3204f427b57cb25ca6f0f0ad1784c2b7bc4"
+    sha256 x86_64_linux:  "75296912aab28aad7c0669d9f9f37a95dfc14b826d10c3b6e96af92d904781bb"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "cairo"
   depends_on "clisp"
   depends_on "fontconfig"
@@ -54,7 +52,7 @@ class Texlive < Formula
   depends_on "gmp"
   depends_on "graphite2"
   depends_on "harfbuzz"
-  depends_on "icu4c"
+  depends_on "icu4c@76"
   depends_on "jpeg-turbo"
   depends_on "libpng"
   depends_on "libx11"
@@ -69,6 +67,7 @@ class Texlive < Formula
   depends_on "potrace"
   depends_on "pstoedit"
   depends_on "python@3.12"
+
   uses_from_macos "ncurses"
   uses_from_macos "ruby"
   uses_from_macos "tcl-tk"
@@ -91,8 +90,6 @@ class Texlive < Formula
   conflicts_with "lcdf-typetools", because: "both install a `cfftot1` executable"
   conflicts_with "ht", because: "both install `ht` binaries"
   conflicts_with "opendetex", because: "both install `detex` binaries"
-
-  fails_with gcc: "5"
 
   # biber 2.20 requires BibLaTeX 3.20, but TeX Live 2024 ships BibLaTeX 3.19
   # (https://github.com/Homebrew/homebrew-core/issues/172769). Install BibLaTeX 3.20
@@ -411,7 +408,15 @@ class Texlive < Formula
     inreplace share/"texmf-dist/web2c/texmfcnf.lua",
               "selfautoparent:texmf", "selfautodir:share/texmf"
 
-    args = std_configure_args + [
+    # icu4c 75+ needs C++17
+    # TODO: Remove in 2025 release
+    ENV.append "CXXFLAGS", "-std=gnu++17"
+
+    # Work around build failure on Intel Sonoma after updating to Xcode 16
+    # sh: line 1: 27478 Segmentation fault: 11  luajittex -ini -jobname=luajittex -progname=luajittex luatex.ini ...
+    ENV.O1 if DevelopmentTools.clang_build_version == 1600 && Hardware::CPU.intel?
+
+    args = [
       "--disable-dvisvgm", # needs its own formula
       "--disable-missing",
       "--disable-native-texlive-build", # needed when doing a distro build
@@ -422,7 +427,6 @@ class Texlive < Formula
       "--enable-build-in-source-tree",
       "--enable-shared",
       "--enable-compiler-warnings=yes",
-      "--with-banner-add=/#{tap.user}",
       "--with-system-clisp-runtime=system",
       "--with-system-cairo",
       "--with-system-freetype2",
@@ -438,6 +442,7 @@ class Texlive < Formula
       "--with-system-potrace",
       "--with-system-zlib",
     ]
+    args << "--with-banner-add=/#{tap.user}" if tap
 
     args << if OS.mac?
       "--without-x"
@@ -446,7 +451,7 @@ class Texlive < Formula
       "--with-xdvi-x-toolkit=xaw"
     end
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
     system "make", "texlinks"
@@ -464,9 +469,21 @@ class Texlive < Formula
     # Create tlmgr config file.  This file limits the actions that the user
     # can perform in 'system' mode, which would write to the cellar.  'tlmgr' should
     # be used with --usermode whenever possible.
-    (share/"texmf-config/tlmgr/config").write <<~EOS
-      allowed-actions=candidates,check,dump-tlpdb,help,info,list,print-platform,print-platform-info,search,show,version,init-usertree
-    EOS
+    actions = %w[
+      candidates
+      check
+      dump-tlpdb
+      help
+      info
+      init-usertree
+      list
+      print-platform
+      print-platform-info
+      search
+      show
+      version
+    ]
+    (share/"texmf-config/tlmgr/config").write "allowed-actions=#{actions.join(",")}\n"
 
     # Delete some Perl scripts that are provided by existing formulae as newer versions.
     rm bin/"latexindent" # provided by latexindent formula
@@ -559,39 +576,39 @@ class Texlive < Formula
     assert_match "revision", shell_output("#{bin}/tlmgr --version")
     assert_match "AMS mathematical facilities for LaTeX", shell_output("#{bin}/tlmgr info amsmath")
 
-    (testpath/"test.latex").write <<~EOS
-      \\documentclass[12pt]{article}
-      \\usepackage[utf8]{inputenc}
-      \\usepackage{amsmath}
-      \\usepackage{lipsum}
+    (testpath/"test.latex").write <<~'LATEX'
+      \documentclass[12pt]{article}
+      \usepackage[utf8]{inputenc}
+      \usepackage{amsmath}
+      \usepackage{lipsum}
 
-      \\title{\\LaTeX\\ test}
-      \\author{\\TeX\\ Team}
-      \\date{September 2021}
+      \title{\LaTeX\ test}
+      \author{\TeX\ Team}
+      \date{September 2021}
 
-      \\begin{document}
+      \begin{document}
 
-      \\maketitle
+      \maketitle
 
-      \\section*{An equation with amsmath}
-      \\begin{equation} \\label{eu_eqn}
-      e^{\\pi i} + 1 = 0
-      \\end{equation}
-      The beautiful equation \\ref{eu_eqn} is known as Euler's identity.
+      \section*{An equation with amsmath}
+      \begin{equation} \label{eu_eqn}
+      e^{\pi i} + 1 = 0
+      \end{equation}
+      The beautiful equation \ref{eu_eqn} is known as Euler's identity.
 
-      \\section*{Lorem Ipsum}
-      \\lipsum[3]
+      \section*{Lorem Ipsum}
+      \lipsum[3]
 
-      \\lipsum[5]
+      \lipsum[5]
 
-      \\end{document}
-    EOS
+      \end{document}
+    LATEX
 
     assert_match "Output written on test.dvi", shell_output("#{bin}/latex #{testpath}/test.latex")
-    assert_predicate testpath/"test.dvi", :exist?
+    assert_path_exists testpath/"test.dvi"
     assert_match "Output written on test.pdf", shell_output("#{bin}/pdflatex #{testpath}/test.latex")
-    assert_predicate testpath/"test.pdf", :exist?
+    assert_path_exists testpath/"test.pdf"
     assert_match "This is dvips", shell_output("#{bin}/dvips #{testpath}/test.dvi 2>&1")
-    assert_predicate testpath/"test.ps", :exist?
+    assert_path_exists testpath/"test.ps"
   end
 end

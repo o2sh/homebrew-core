@@ -1,44 +1,11 @@
 class Cherrytree < Formula
   desc "Hierarchical note taking application featuring rich text and syntax highlighting"
   homepage "https://www.giuspen.com/cherrytree/"
+  url "https://www.giuspen.com/software/cherrytree_1.2.0.tar.xz"
+  sha256 "b9d9c9a0d7853e846657ceccdf74730f79190e19af296eeb955e5f4b54425ec2"
   license "GPL-3.0-or-later"
-  revision 2
+  revision 1
   head "https://github.com/giuspen/cherrytree.git", branch: "master"
-
-  stable do
-    url "https://www.giuspen.com/software/cherrytree_1.1.4.tar.xz"
-    sha256 "46cb974efe050584c2ec7bcc36eb6bb52b1360288c9da1b00746762e3bc823d8"
-
-    # fmt 11 compatibility
-    patch do
-      url "https://github.com/giuspen/cherrytree/commit/ccc2d101f24a409efddb2f29e8c14002c9836a85.patch?full_index=1"
-      sha256 "6f1ee0baf40f536aae4820fcb4d51f108ed21e4168f5164e69fe190416366a36"
-    end
-
-    # fmt 11 compatibility
-    patch do
-      url "https://github.com/giuspen/cherrytree/commit/76f0030e2e2b6e1488148d3828baeb8f5911eb8d.patch?full_index=1"
-      sha256 "6def501a9c094a989d5ee9cd79bda730476f4669cdcda6b03fdda096ecdf62c7"
-    end
-
-    # fmt 11 compatibility
-    patch do
-      url "https://github.com/giuspen/cherrytree/commit/22142f3b44fef81e67c9bfbcdaed2f80ab2ff5de.patch?full_index=1"
-      sha256 "48f08ad7a6ef1b63656cb1a8eb5621c586f926c84bdc5178b8da566c7ca534c9"
-    end
-
-    # fmt 11 compatibility
-    patch do
-      url "https://github.com/giuspen/cherrytree/commit/05233db2b25977037c7520a8316183636a262130.patch?full_index=1"
-      sha256 "53b6dbcd7b7c07bb222cad3e02567ee0978815689beb9c32f007000f0a3412b4"
-    end
-
-    # fmt 11 compatibility
-    patch do
-      url "https://github.com/giuspen/cherrytree/commit/fc1d7499067b9db9841175b5a2d6934dc65e4522.patch?full_index=1"
-      sha256 "9b8c09e1fa82bf646fe9bd884223bb1ba4b94171a9077bb8d6af9bdc2e99b810"
-    end
-  end
 
   livecheck do
     url :homepage
@@ -46,17 +13,17 @@ class Cherrytree < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "cb6ba13c2e9f7f0cecfc136b6362954806d6bcb51f867ec937a6ef4dece26972"
-    sha256 arm64_sonoma:  "147f4c9debde1218a0325a756b964efd7f63477788490aecd1ecfc3ee89876d3"
-    sha256 arm64_ventura: "920fc2aadb3cb80a003097cd2bddb3d38c643a6009a644d8d933cab019876136"
-    sha256 sonoma:        "0b613b2e775eca96ce4b59028078ddf511a14ec187c62183f8182237f1447ec9"
-    sha256 ventura:       "0e17dc6f1043e8fc8e61513524af2af4a00f14dc4ad66ec1356eb1dc417b8eaa"
-    sha256 x86_64_linux:  "d008e7f2e16f003c8249026194beb3245d1d2edf8a55951955e39e13cbc71075"
+    sha256 arm64_sequoia: "f3876c40c8ce23942721414871f91de6f5923c4d291e09bdcb3bbd8b6dac50d0"
+    sha256 arm64_sonoma:  "e7beb83cd769765c49866dec5157d3d91abe89dd76aa5a70b4537e7ce17907f1"
+    sha256 arm64_ventura: "8fe04de9ad5a41b54eac69ad39d204ee4369c6f15dd80c3d1e595d1c68d1091b"
+    sha256 sonoma:        "af90c242b21ca2bf9859deecdd461f97d1617170948804564378849acd588ead"
+    sha256 ventura:       "fced9c8a668436bea65ecae91d794d0c8850c1045dac00801299c9b840df8322"
+    sha256 x86_64_linux:  "bab50a450df78f7839faa8b08bce999163d4eee8fbf905f3f05afd77e98f1d71"
   end
 
   depends_on "cmake" => :build
   depends_on "gettext" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "adwaita-icon-theme"
   depends_on "atkmm@2.28"
   depends_on "cairo"
@@ -68,8 +35,7 @@ class Cherrytree < Formula
   depends_on "gspell"
   depends_on "gtk+3"
   depends_on "gtkmm3"
-  depends_on "gtksourceview3"
-  depends_on "gtksourceviewmm3"
+  depends_on "gtksourceview4"
   depends_on "libsigc++@2"
   depends_on "libxml++"
   depends_on "pango"
@@ -91,8 +57,6 @@ class Cherrytree < Formula
     depends_on "harfbuzz"
   end
 
-  fails_with gcc: "5" # Needs std::optional
-
   def install
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args
     system "cmake", "--build", "build"
@@ -103,7 +67,7 @@ class Cherrytree < Formula
     # (cherrytree:46081): Gtk-WARNING **: 17:33:48.386: cannot open display
     return if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]
 
-    (testpath/"homebrew.ctd").write <<~EOS
+    (testpath/"homebrew.ctd").write <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
       <cherrytree>
         <bookmarks list=""/>
@@ -123,7 +87,8 @@ class Cherrytree < Formula
           <rich_text>print('hello world')</rich_text>
         </node>
       </cherrytree>
-    EOS
+    XML
+
     system bin/"cherrytree", testpath/"homebrew.ctd", "--export_to_txt_dir", testpath, "--export_single_file"
     assert_predicate testpath/"homebrew.ctd.txt", :exist?
     assert_match "rich text", (testpath/"homebrew.ctd.txt").read

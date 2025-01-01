@@ -1,19 +1,18 @@
 class Ncnn < Formula
   desc "High-performance neural network inference framework"
   homepage "https://github.com/Tencent/ncnn"
-  url "https://github.com/Tencent/ncnn/archive/refs/tags/20240820.tar.gz"
-  sha256 "21e7897c7a332894934800a15189915b5131dddc84b2c8d5669ff53de8c5efa4"
+  url "https://github.com/Tencent/ncnn/archive/refs/tags/20241226.tar.gz"
+  sha256 "2a9f224aab5f016ce790d0bb4f90c495ce4ed5620a9617e4ca522cbc5ca331d1"
   license "BSD-3-Clause"
-  revision 2
   head "https://github.com/Tencent/ncnn.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "4f40dce62661e5e3582d51dccc4c595102fdeacd9b9ceffa4e5644101b75cf77"
-    sha256 cellar: :any,                 arm64_sonoma:  "05178f5ea36342bc0dff74ea9fd538655434aaa756ae2355ef5c655fae804fe9"
-    sha256 cellar: :any,                 arm64_ventura: "bc2e76d85ab6ddaa993e546a2e73e61e06f6fe3325940e916e81349471b3a375"
-    sha256 cellar: :any,                 sonoma:        "93646ad25ee50bf3eb763801af1b58160e9c3170c76f9e70bfe7b84221bc7d2f"
-    sha256 cellar: :any,                 ventura:       "048aa9867816ab7e91ef9fba377e342b1c5becee68f74e41ecd6160c98d456ba"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "334761f9e17e03f90a61a8b5d5bcd4476ce638d12cf964dd3a08969045613ca6"
+    sha256 cellar: :any,                 arm64_sequoia: "731c86cc2ae64a543ca8c4e50787aa67f8d6777abc5494e4b1d2a522e7426c9f"
+    sha256 cellar: :any,                 arm64_sonoma:  "004b65f6a28a2463abbe3c373a537621c74aa8188a4e2b66677ea11457c6a822"
+    sha256 cellar: :any,                 arm64_ventura: "ef6c36b31e7f177c535869e2113badc762dccb0d77d4ebd3f61476bad6204d15"
+    sha256 cellar: :any,                 sonoma:        "f64b4b7a1d015514f3737e7edc902c4abd882cf156185683630f5ed723831fe9"
+    sha256 cellar: :any,                 ventura:       "cb62c3375e3b2ce327e6a200cc8f7fca75e3af2ef74cf3a6b46011f0c628ed22"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4f5dafdb5b5d51e69997a683d79c35aa6481354ece1ceba8cf6bf138e29cb090"
   end
 
   depends_on "cmake" => :build
@@ -71,7 +70,7 @@ class Ncnn < Formula
       vulkan = 0
     end
 
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <cassert>
       #include <ncnn/gpu.h>
       #include <ncnn/mat.h>
@@ -91,7 +90,7 @@ class Ncnn < Formula
 
           return 0;
       }
-    EOS
+    CPP
 
     system ENV.cxx, "test.cpp", "-std=c++11",
                     "-I#{include}", "-L#{lib}", "-lncnn",

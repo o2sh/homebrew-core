@@ -29,18 +29,19 @@ class CassandraCppDriver < Formula
   uses_from_macos "zlib"
 
   on_linux do
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
   end
 
   def install
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args,
-                    "-DLIBUV_ROOT_DIR=#{Formula["libuv"].opt_prefix}"
+    system "cmake", "-S", ".", "-B", "build",
+                    "-DLIBUV_ROOT_DIR=#{Formula["libuv"].opt_prefix}",
+                    *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <cassandra.h>
 
@@ -64,7 +65,7 @@ class CassandraCppDriver < Formula
 
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-lcassandra", "-o", "test"
     assert_equal "connection failed", shell_output("./test")
   end

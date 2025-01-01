@@ -16,7 +16,7 @@ class Libxi < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "6839d93e4dc8d53688515849ec4ec2d830946d6d26f6cfcca6402390bc0f1867"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libx11"
   depends_on "libxext"
   depends_on "libxfixes"
@@ -26,29 +26,27 @@ class Libxi < Formula
 
   def install
     args = %W[
-      --prefix=#{prefix}
       --sysconfdir=#{etc}
       --localstatedir=#{var}
-      --disable-dependency-tracking
       --disable-silent-rules
       --enable-docs=no
       --enable-specs=no
     ]
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include "X11/extensions/XInput.h"
 
       int main(int argc, char* argv[]) {
         XDeviceButtonEvent event;
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c"
     assert_equal 0, $CHILD_STATUS.exitstatus
   end

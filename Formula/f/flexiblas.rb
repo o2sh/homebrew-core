@@ -10,6 +10,11 @@ class Flexiblas < Formula
   ]
   head "https://gitlab.mpi-magdeburg.mpg.de/software/flexiblas-release.git", branch: "master"
 
+  livecheck do
+    url :homepage
+    regex(/href=.*?flexiblas[._-]v?(\d+(?:\.\d+)+)\.t/i)
+  end
+
   bottle do
     sha256 arm64_sequoia:  "85c5e7cc7cb883d37d387adb373ff940259e07e71e5d3dde745aee51b657ec8d"
     sha256 arm64_sonoma:   "144a287222ffe00ffc4c12190a63b3da143f4f1392de28a00caf3386ead4d3d8"
@@ -89,7 +94,7 @@ class Flexiblas < Formula
   test do
     assert_match "Active Default: #{blas_backends.first} (System)", shell_output("#{bin}/flexiblas print")
 
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <stdlib.h>
       #include <math.h>
@@ -114,7 +119,7 @@ class Flexiblas < Formula
         if (fabs(C[4]-21) > 1.e-5) abort();
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-I#{include}/flexiblas", "-L#{lib}", "-lflexiblas", "-o", "test"
 
     blas_backends.each do |backend|

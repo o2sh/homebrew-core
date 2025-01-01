@@ -1,11 +1,10 @@
 class PerconaXtrabackup < Formula
   desc "Open source hot backup tool for InnoDB and XtraDB databases"
   homepage "https://www.percona.com/software/mysql-database/percona-xtrabackup"
-  # TODO: Check if we can use unversioned `protobuf` at version bump
   url "https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-8.0.35-31/source/tarball/percona-xtrabackup-8.0.35-31.tar.gz"
   sha256 "c6bda1e7f983e5a667bff22d1d67d33404db4e741676d03c9c60bbd4b263cabf"
   license "GPL-2.0-only"
-  revision 2
+  revision 10
 
   livecheck do
     url "https://docs.percona.com/percona-xtrabackup/latest/"
@@ -20,21 +19,21 @@ class PerconaXtrabackup < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "61f9d428a004b5e63a6605f5d06a31791ce61644489161ec187bbf4e6061722e"
-    sha256 arm64_sonoma:  "fd27721b01aeadb935a2544d5999221399d244160fcbe53246605d1a8324ec1d"
-    sha256 arm64_ventura: "4d24af87d61b3c9786f4a1de63c33b0943799e7e2a2231ef451f5a542616b93d"
-    sha256 sonoma:        "09f8ff12ba6b61fe85d3b00e7f4d94e639d746d5e4acb2ca2cec8fba8e53a8ca"
-    sha256 ventura:       "a86822570ffe68c6eb0b722a50bf715d4ae6423ffeaebf078025003002afbc57"
-    sha256 x86_64_linux:  "895b32b23b4191f3461bf9c28e352274a614a7a9a6ac6497b9e49e7c2e136972"
+    sha256 arm64_sequoia: "dcbfa284b06d4e13b0257572b48e4439e399634fa5ec386ebc3441aa1e40bd61"
+    sha256 arm64_sonoma:  "0267922c3ab1bb13088ee69d0f1e193eb6bb51802498faa25d4e743b1303df05"
+    sha256 arm64_ventura: "e3159c40d946ab1d835796752ac8cf58d747be6cba870542f80516c31a653943"
+    sha256 sonoma:        "96bc0828e36471db3a53b7467552b2d454afb6233bc28594c9b45977e3499387"
+    sha256 ventura:       "ac7403309b0a8cdde899985001922fa589e204ff110409c0f65e7cdd2867a94d"
+    sha256 x86_64_linux:  "8dbc24960ca95f9361d0174cc68b38f35192ca13c0ba19237c2f91301461e0bf"
   end
 
   depends_on "bison" => :build # needs bison >= 3.0.4
   depends_on "cmake" => :build
   depends_on "libevent" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "sphinx-doc" => :build
   depends_on "abseil"
-  depends_on "icu4c"
+  depends_on "icu4c@76"
   depends_on "libev"
   depends_on "libgcrypt"
   depends_on "lz4"
@@ -58,11 +57,6 @@ class PerconaXtrabackup < Formula
     depends_on "patchelf" => :build
     depends_on "libaio"
     depends_on "procps"
-  end
-
-  fails_with :gcc do
-    version "6"
-    cause "The build requires GCC 7.1 or later."
   end
 
   # Should be installed before DBD::mysql
@@ -114,6 +108,7 @@ class PerconaXtrabackup < Formula
       end
     end
 
+    icu4c = deps.map(&:to_formula).find { |f| f.name.match?(/^icu4c@\d+$/) }
     # -DWITH_FIDO=system isn't set as feature isn't enabled and bundled copy was removed.
     # Formula paths are set to avoid HOMEBREW_HOME logic in CMake scripts
     cmake_args = %W[
@@ -125,7 +120,7 @@ class PerconaXtrabackup < Formula
       -DINSTALL_MYSQLTESTDIR=
       -DBISON_EXECUTABLE=#{Formula["bison"].opt_bin}/bison
       -DOPENSSL_ROOT_DIR=#{Formula["openssl@3"].opt_prefix}
-      -DWITH_ICU=#{Formula["icu4c"].opt_prefix}
+      -DWITH_ICU=#{icu4c.opt_prefix}
       -DWITH_SYSTEM_LIBS=ON
       -DWITH_BOOST=#{buildpath}/boost
       -DWITH_EDITLINE=system
@@ -197,7 +192,7 @@ index 42e63d0..5d21cc3 100644
 @@ -1942,31 +1942,6 @@ MYSQL_CHECK_RAPIDJSON()
  MYSQL_CHECK_FIDO()
  MYSQL_CHECK_FIDO_DLLS()
- 
+
 -IF(APPLE)
 -  GET_FILENAME_COMPONENT(HOMEBREW_BASE ${HOMEBREW_HOME} DIRECTORY)
 -  IF(EXISTS ${HOMEBREW_BASE}/include/boost)

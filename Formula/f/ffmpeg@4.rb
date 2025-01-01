@@ -6,6 +6,7 @@ class FfmpegAT4 < Formula
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
   license "GPL-2.0-or-later"
+  revision 4
 
   livecheck do
     url "https://ffmpeg.org/download.html"
@@ -13,21 +14,18 @@ class FfmpegAT4 < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_sequoia:  "8decf6e0c5089d1274cf5018fa9cefe1bb45d9cfb7babcce2820713004ba2106"
-    sha256 arm64_sonoma:   "900f278bfd188297cebb2c3f7139c518ca00369c9b2e1c5b1fd10ad0f9d9bcdd"
-    sha256 arm64_ventura:  "28664131f7d21c16b18f8857b796c2d4a9ddb6e2c543844bebad85a77deeda64"
-    sha256 arm64_monterey: "846b9b2157d497f519411126166503b6227a463ce526f5e538185977402b9532"
-    sha256 sonoma:         "1a4db28b8d1bf1fcf0a47cb646fc78c581fe2c3bc69d03b3f3dffc6d3eeaa351"
-    sha256 ventura:        "66b707a4cd387e01fdd92ca66e46ba575bb25b8932dbd78fee746828b45ce3b4"
-    sha256 monterey:       "69d201503b3e29ad4842ba044786360258d5929d23e40e287a61beb199c0cad7"
-    sha256 x86_64_linux:   "b290118efecb94b72600d14677ca5ec69f660cddbbf53e92eb7162cd1b74fd81"
+    sha256 arm64_sequoia: "176bdcbc35f859759fb93895cf1742c1ca6b947683df7922e915099f54ef2ad7"
+    sha256 arm64_sonoma:  "bb894fc98e89a5bde31903343ff6962569f8bcc5077955831565b500f1b24654"
+    sha256 arm64_ventura: "e1ad835f4e8355a676f69d4345c4aaf4f67850770013ffff27bec40f83778754"
+    sha256 sonoma:        "82fefc6e34e94db26092c8dc58e3e297416020fb9b505c5d08fadf6d0100c54e"
+    sha256 ventura:       "1a2bef60d43e5739f283586d708231a1b12e0672f7229d776664857e11985a63"
+    sha256 x86_64_linux:  "f59d477cfd55fc3292c50f69aba2810660ae8cac426315788570196ea9115ecb"
   end
 
   keg_only :versioned_formula
 
   depends_on "nasm" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "aom"
   depends_on "dav1d"
@@ -80,8 +78,6 @@ class FfmpegAT4 < Formula
     depends_on "libxext"
     depends_on "libxv"
   end
-
-  fails_with gcc: "5"
 
   def install
     args = %W[
@@ -153,6 +149,6 @@ class FfmpegAT4 < Formula
     # Create an example mp4 file
     mp4out = testpath/"video.mp4"
     system bin/"ffmpeg", "-filter_complex", "testsrc=rate=1:duration=1", mp4out
-    assert_predicate mp4out, :exist?
+    assert_path_exists mp4out
   end
 end

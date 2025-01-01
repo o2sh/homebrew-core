@@ -19,7 +19,7 @@ class Glfw < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   on_linux do
     depends_on "freeglut"
@@ -45,7 +45,7 @@ class Glfw < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #define GLFW_INCLUDE_GLU
       #include <GLFW/glfw3.h>
       #include <stdlib.h>
@@ -56,7 +56,7 @@ class Glfw < Formula
         glfwTerminate();
         return 0;
       }
-    EOS
+    C
 
     system ENV.cc, "test.c", "-o", "test",
                    "-I#{include}", "-L#{lib}", "-lglfw"

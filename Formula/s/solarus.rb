@@ -7,6 +7,11 @@ class Solarus < Formula
   license "GPL-3.0-or-later"
   revision 2
 
+  livecheck do
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
+
   bottle do
     rebuild 1
     sha256 cellar: :any,                 arm64_sequoia:  "7a1ba3cba1fb09278c607e4a5864dcd8d71d7ec44b43835661185195d3b23c24"
@@ -37,8 +42,6 @@ class Solarus < Formula
     depends_on "mesa"
     depends_on "openal-soft"
   end
-
-  fails_with gcc: "5" # needs same GLIBCXX as mesa at runtime
 
   # Backport fix for error: GLM: GLM_GTX_matrix_transform_2d is an experimental extension
   patch do

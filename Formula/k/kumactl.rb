@@ -1,8 +1,8 @@
 class Kumactl < Formula
   desc "Kuma control plane command-line utility"
   homepage "https://kuma.io/"
-  url "https://github.com/kumahq/kuma/archive/refs/tags/2.8.3.tar.gz"
-  sha256 "4327a2b3017dfe0648b01387b05fedcc49a2141d35b91bcc588c09cc1cbc3b11"
+  url "https://github.com/kumahq/kuma/archive/refs/tags/2.9.2.tar.gz"
+  sha256 "fef179d27d161638f757912ef3d965f2fb30bc2ca45bc849ca0b4c0d970c9b37"
   license "Apache-2.0"
 
   livecheck do
@@ -11,14 +11,12 @@ class Kumactl < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "fda86515680067986014c9e62f4275bda8727f9ea272f7d125f5755ad967c239"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1a6ca3721e882c706bbd974d6ab21b8c5287f72164d8fb3381d4f577d5bbe4b7"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1a6ca3721e882c706bbd974d6ab21b8c5287f72164d8fb3381d4f577d5bbe4b7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1a6ca3721e882c706bbd974d6ab21b8c5287f72164d8fb3381d4f577d5bbe4b7"
-    sha256 cellar: :any_skip_relocation, sonoma:         "2b544c04428257db9cf591771ad7ed63f142153eeddcff864f47ad13a10bdc0f"
-    sha256 cellar: :any_skip_relocation, ventura:        "2b544c04428257db9cf591771ad7ed63f142153eeddcff864f47ad13a10bdc0f"
-    sha256 cellar: :any_skip_relocation, monterey:       "2b544c04428257db9cf591771ad7ed63f142153eeddcff864f47ad13a10bdc0f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "03384283c7913ab17ca80b44745b37c01e25a54bdf67403b6e4289d3edf0abbd"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "52afa082cd2e4a63c8e87364003a5b484c73f67b575090d18e9d378d9f2107fa"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "52afa082cd2e4a63c8e87364003a5b484c73f67b575090d18e9d378d9f2107fa"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "52afa082cd2e4a63c8e87364003a5b484c73f67b575090d18e9d378d9f2107fa"
+    sha256 cellar: :any_skip_relocation, sonoma:        "86a1e17ca9fb789c9377ec93fe48917ab12a0bb32a546c72e19f03d2067bfe71"
+    sha256 cellar: :any_skip_relocation, ventura:       "86a1e17ca9fb789c9377ec93fe48917ab12a0bb32a546c72e19f03d2067bfe71"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "756f7d0017e34fb00381d19bea38ad38005f9cd8a5ab34cd1cd19779f436ab50"
   end
 
   depends_on "go" => :build

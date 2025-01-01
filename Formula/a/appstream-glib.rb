@@ -21,7 +21,7 @@ class AppstreamGlib < Formula
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "gdk-pixbuf"
   depends_on "glib"
   depends_on "json-glib"
@@ -51,7 +51,7 @@ class AppstreamGlib < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <appstream-glib.h>
 
       int main(int argc, char *argv[]) {
@@ -59,7 +59,7 @@ class AppstreamGlib < Formula
         g_assert_nonnull(screen_shot);
         return 0;
       }
-    EOS
+    C
     gdk_pixbuf = Formula["gdk-pixbuf"]
     gettext = Formula["gettext"]
     glib = Formula["glib"]

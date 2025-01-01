@@ -18,15 +18,20 @@ class Twm < Formula
     sha256 x86_64_linux:   "11f8a44432789065dda5ccfabf83be674ca7cf37232a47005e75033fdb54a130"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
+  depends_on "libice"
+  depends_on "libsm"
+  depends_on "libx11"
+  depends_on "libxext"
   depends_on "libxmu"
   depends_on "libxrandr"
+  depends_on "libxt"
 
   uses_from_macos "bison" => :build
 
   def install
-    system "./configure", *std_configure_args
+    system "./configure", "--disable-silent-rules", *std_configure_args
     system "make"
     system "make", "install"
   end

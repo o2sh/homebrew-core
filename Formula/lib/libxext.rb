@@ -16,34 +16,32 @@ class Libxext < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "c62be32e864f64fc9ed3392a2f6eae085350c5b929b52306ac5e26c07b38bd3f"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libx11"
   depends_on "xorgproto"
 
   def install
     args = %W[
-      --prefix=#{prefix}
       --sysconfdir=#{etc}
       --localstatedir=#{var}
-      --disable-dependency-tracking
       --disable-silent-rules
       --enable-specs=no
     ]
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include "X11/extensions/shape.h"
 
       int main(int argc, char* argv[]) {
         XShapeEvent event;
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c"
     assert_equal 0, $CHILD_STATUS.exitstatus
   end

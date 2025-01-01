@@ -44,7 +44,7 @@ class Libcanberra < Formula
     depends_on "gtk-doc"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libtool"
   depends_on "libvorbis"
 
@@ -61,7 +61,7 @@ class Libcanberra < Formula
   end
 
   test do
-    (testpath/"lc.c").write <<~EOS
+    (testpath/"lc.c").write <<~C
       #include <canberra.h>
       int main()
       {
@@ -69,7 +69,7 @@ class Libcanberra < Formula
         (void) ca_context_create(&ctx);
         return (ctx == NULL);
       }
-    EOS
+    C
     system ENV.cc, "lc.c", "-I#{include}", "-L#{lib}", "-lcanberra", "-o", "lc"
     system "./lc"
   end

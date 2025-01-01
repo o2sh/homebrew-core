@@ -4,7 +4,7 @@ class Rtabmap < Formula
   url "https://github.com/introlab/rtabmap/archive/refs/tags/0.21.4.tar.gz"
   sha256 "242f8da7c5d20f86a0399d6cfdd1a755e64e9117a9fa250ed591c12f38209157"
   license "BSD-3-Clause"
-  revision 5
+  revision 8
   head "https://github.com/introlab/rtabmap.git", branch: "master"
 
   # Upstream doesn't create releases for all tagged versions, so we use the
@@ -15,13 +15,11 @@ class Rtabmap < Formula
   end
 
   bottle do
-    sha256                               arm64_sonoma:   "66472e8c3097335ee0bd8636ac80a31e6bb7cd104e0baf009f80b6e8f9ec13a6"
-    sha256                               arm64_ventura:  "693c3999f1b8372b6fb740bfe12b2995279307299d2d312f21f0ca63096089f6"
-    sha256                               arm64_monterey: "d045352baa053e9fa267e5dc07348046ed0b535257535bbddec1cf000bb02800"
-    sha256                               sonoma:         "2ea7d9f0acac166234ae94ed6e90b2156b6867165717281eaca82037fbe3a6d2"
-    sha256                               ventura:        "d55b3d2d30cee78028c91a0be5b94bbd6e75020bc770ae6b3803a06e73999841"
-    sha256                               monterey:       "30fec17d83d4f197fc6c82057978842273c2bbca4e8882995e3d03d2f0e196d0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "edc391d3a84c02ce62dd54f7c4e8c1d93b911e5c73be85281ab73752766bb78d"
+    sha256                               arm64_sonoma:  "3ab35d0f76835659984b70183d57a20588d9569187523261be461cc6e19cfe99"
+    sha256                               arm64_ventura: "00f968f349ee73d0d29a0b72f85b54ee5436a6b80b94508bfdce8b77afdb0677"
+    sha256                               sonoma:        "8d84b6e2b4575ad988f4d3126120fa3b5feab4e5a96d81fee3d242c1ca79f539"
+    sha256                               ventura:       "6793f08bbcec9446a2320776517c09e2dfd121c5f295938bd423f9c7ee15b88e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e122a1f417172e0e432ae9122748cb065262245a58fd83acb57f3ed756257ab5"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -85,14 +83,14 @@ class Rtabmap < Formula
     ENV.delete "CPATH" if OS.mac? && MacOS::CLT.installed?
 
     rtabmap_dir = lib/"rtabmap-#{version.major_minor}"
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 3.10)
       project(test)
       find_package(RTABMap REQUIRED COMPONENTS core)
       add_executable(test test.cpp)
       target_link_libraries(test rtabmap::core)
-    EOS
-    (testpath/"test.cpp").write <<~EOS
+    CMAKE
+    (testpath/"test.cpp").write <<~CPP
       #include <rtabmap/core/Rtabmap.h>
       #include <stdio.h>
       int main()
@@ -101,7 +99,7 @@ class Rtabmap < Formula
         printf(RTABMAP_VERSION);
         return 0;
       }
-    EOS
+    CPP
 
     args = std_cmake_args
     args << "-DCMAKE_BUILD_RPATH=#{lib}" if OS.linux?

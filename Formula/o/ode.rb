@@ -21,7 +21,7 @@ class Ode < Formula
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libccd"
 
   # Fix -flat_namespace being used on Big Sur and later.
@@ -43,14 +43,14 @@ class Ode < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <ode/ode.h>
       int main() {
         dInitODE();
         dCloseODE();
         return 0;
       }
-    EOS
+    CPP
     system ENV.cc, "test.cpp", "-I#{include}/ode", "-L#{lib}", "-lode",
                    "-L#{Formula["libccd"].opt_lib}", "-lccd", "-lm", "-lpthread",
                    "-o", "test"

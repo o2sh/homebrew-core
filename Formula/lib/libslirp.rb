@@ -18,7 +18,7 @@ class Libslirp < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "glib"
 
   def install
@@ -28,7 +28,7 @@ class Libslirp < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <string.h>
       #include <stddef.h>
@@ -42,7 +42,7 @@ class Libslirp < Formula
         Slirp* ctx = slirp_new(&cfg, NULL, NULL);
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-lslirp", "-o", "test"
     system "./test"
   end

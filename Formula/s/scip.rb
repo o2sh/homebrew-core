@@ -1,9 +1,10 @@
 class Scip < Formula
   desc "Solver for mixed integer programming and mixed integer nonlinear programming"
   homepage "https://scipopt.org"
-  url "https://scipopt.org/download/release/scip-9.1.1.tgz"
-  sha256 "fd68a7ecc3c9086a68ef7ed0421381e811130f4c7dcb2c13ae69744577abd5cf"
+  url "https://scipopt.org/download/release/scip-9.2.0.tgz"
+  sha256 "f2a1d568ba0801742df062df17b5a1ced9aec8647057050899e9017807280ff3"
   license "Apache-2.0"
+  revision 1
 
   livecheck do
     url "https://scipopt.org/scipdata.js"
@@ -11,12 +12,12 @@ class Scip < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "c423a30bee48e5284391a79873d16b96ca882db083453fb6447c580fc43b56d5"
-    sha256 cellar: :any,                 arm64_sonoma:  "8266df90b7d371ff4c19e22e86889bc1077557c2614321a519df874da2e8d3e2"
-    sha256 cellar: :any,                 arm64_ventura: "d9110e241635f0f7931bcc420a2609a986f2dc75b047bed89d38410de169f781"
-    sha256 cellar: :any,                 sonoma:        "d5c77cc3b140064843a11d9b46a8eafdc632f442faac6ba9949ec4d3531d2906"
-    sha256 cellar: :any,                 ventura:       "041816294d0ef034027386f9e7f947c60fb3d5714b7499350af605750ef8c71e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fe8b303f263ba6898325423fdd354a00d4d565652f2b51b4a84eea7f3ecee0be"
+    sha256 cellar: :any,                 arm64_sequoia: "b128fc2aeee92841095026ec503ff6f6419a7645750e487fc50068bfea2136ed"
+    sha256 cellar: :any,                 arm64_sonoma:  "6946432bc33d1fb4cfdff48a76b8ba7c12ad3ed2b8c9e7cbb40824e20c985797"
+    sha256 cellar: :any,                 arm64_ventura: "38229ab3998ef741a3d39436899dd3aa7c3293db0940364b4401f6d0e83663a3"
+    sha256 cellar: :any,                 sonoma:        "a275e4ce98a8101c3ed082bca23ce6933f1e0ac211acd8e77843a026cbd873ae"
+    sha256 cellar: :any,                 ventura:       "fc242b06983f141adf96a2b0f70c13fbcf719cdb8e462fd57f2c34e137be3c33"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cad8f33f370b808688512b5e2db33811c937f6d480ffe1474efd190527fd8545"
   end
 
   depends_on "cmake" => :build

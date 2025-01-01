@@ -2,9 +2,9 @@ class PhpAT82 < Formula
   desc "General-purpose scripting language"
   homepage "https://www.php.net/"
   # Should only be updated if the new version is announced on the homepage, https://www.php.net/
-  url "https://www.php.net/distributions/php-8.2.23.tar.xz"
-  mirror "https://fossies.org/linux/www/php-8.2.23.tar.xz"
-  sha256 "81c5ae6ba44e262a076349ee54a2e468638a4571085d80bff37f6fd308e1d8d5"
+  url "https://www.php.net/distributions/php-8.2.27.tar.xz"
+  mirror "https://fossies.org/linux/www/php-8.2.27.tar.xz"
+  sha256 "3eec91294d8c09b3df80b39ec36d574ed9b05de4c8afcb25fa215d48f9ecbc6b"
   license "PHP-3.01"
 
   livecheck do
@@ -13,14 +13,12 @@ class PhpAT82 < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "203b9b32460f23fa3007282997abbe3ce7ef5415622d6627c87a3a8c3e14e40f"
-    sha256 arm64_sonoma:   "b4ffb93de47ac00e233b2a7e32dc40448df1455f635e5b2b2e4d33a52503fd97"
-    sha256 arm64_ventura:  "fe72c30421c49a2a09b35300490e63683128d658b74785c992d2499e787dbbab"
-    sha256 arm64_monterey: "4d4b334ead061ac33d3dd357b822ac295275ff1963e6badd380c92552af3db2a"
-    sha256 sonoma:         "2d5478b755965e5c184844054db9d77b63693ce61597879d000037c5e72521d3"
-    sha256 ventura:        "0333964a5cd32aecf2791c2a681dcf82001fab1b63f26d19bfe78ad1ae065c2c"
-    sha256 monterey:       "1642d242f537464fcca77ba9503ae3fc74691718fb80f7aa1d7175ca6cc1c8e9"
-    sha256 x86_64_linux:   "9a1bf4557907ee4ba438b3cd3410a022d1ce8ee381e0d0aff874e7fc31449af6"
+    sha256 arm64_sequoia: "852a432d874662ce4fcbaea8a776b57234f8c88846f4a028b286fe2bdf11f674"
+    sha256 arm64_sonoma:  "c472f30e848d5a0691d42bdc52e8492842f5d902ee864463b50445a23e3a6ed4"
+    sha256 arm64_ventura: "298ca30a9044eab32a76e09b8b40a4d55d0680fa66c08e9e331fd4dfcb48bef4"
+    sha256 sonoma:        "29ca7a96057f4c598e63b79e89806addf7a6f48ad7746e1859f440f269a39a53"
+    sha256 ventura:       "fa8782917d3e510390469eebe92149a16f8024f56e4c124a63ccb53c47dbcc3c"
+    sha256 x86_64_linux:  "ac74b3be0f519752cd179b9c3cd2ac928cb4ef7baf80c94095354eb09db5f1e9"
   end
 
   keg_only :versioned_formula
@@ -30,7 +28,7 @@ class PhpAT82 < Formula
   deprecate! date: "2026-12-31", because: :unsupported
 
   depends_on "httpd" => [:build, :test]
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "apr"
   depends_on "apr-util"
   depends_on "argon2"
@@ -41,7 +39,7 @@ class PhpAT82 < Formula
   depends_on "gd"
   depends_on "gettext"
   depends_on "gmp"
-  depends_on "icu4c"
+  depends_on "icu4c@76"
   depends_on "krb5"
   depends_on "libpq"
   depends_on "libsodium"
@@ -351,11 +349,11 @@ class PhpAT82 < Formula
       port_fpm = free_port
 
       expected_output = /^Hello world!$/
-      (testpath/"index.php").write <<~EOS
+      (testpath/"index.php").write <<~PHP
         <?php
         echo 'Hello world!' . PHP_EOL;
         var_dump(ldap_connect());
-      EOS
+      PHP
       main_config = <<~EOS
         Listen #{port}
         ServerName localhost:#{port}
@@ -403,7 +401,7 @@ class PhpAT82 < Formula
       pid = fork do
         exec Formula["httpd"].opt_bin/"httpd", "-X", "-f", "#{testpath}/httpd.conf"
       end
-      sleep 3
+      sleep 10
 
       assert_match expected_output, shell_output("curl -s 127.0.0.1:#{port}")
 
@@ -416,7 +414,7 @@ class PhpAT82 < Formula
       pid = fork do
         exec Formula["httpd"].opt_bin/"httpd", "-X", "-f", "#{testpath}/httpd-fpm.conf"
       end
-      sleep 3
+      sleep 10
 
       assert_match expected_output, shell_output("curl -s 127.0.0.1:#{port}")
     ensure

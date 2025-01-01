@@ -1,10 +1,11 @@
 class Logtalk < Formula
   desc "Declarative object-oriented logic programming language"
   homepage "https://logtalk.org/"
-  url "https://github.com/LogtalkDotOrg/logtalk3/archive/refs/tags/lgt3820stable.tar.gz"
-  version "3.82.0"
-  sha256 "e1371373fe44c58b4192b8cf09ed202cba14a8e83de1137a2c3921c329eb9ef0"
+  url "https://github.com/LogtalkDotOrg/logtalk3/archive/refs/tags/lgt3860stable.tar.gz"
+  version "3.86.0"
+  sha256 "e148b618e29e02c5b089947fe17b0d33ed0f7811503f02aae0615034059c2dd3"
   license "Apache-2.0"
+  head "https://github.com/LogtalkDotOrg/logtalk3.git", branch: "master"
 
   livecheck do
     url "https://logtalk.org/download.html"
@@ -12,19 +13,43 @@ class Logtalk < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "02fddc03fb6fbc0d7f4a88cfc877bf4da5c39a2074a93ffd1d782294a486da39"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a0cce920d64c406dd3f4148bf5edb51c7c4ef735306252f562814a5841e9787f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e400e66ac05b2f8c3eaa5a6f1aa320f67e36d97886cf4b2587c81ce294aedcda"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "069b4668a120d8591c1de55f1988b6dbe629b4b60c5f5e72c1f82bda8b9cdcce"
-    sha256 cellar: :any_skip_relocation, sonoma:         "9360fb2bfd6947c025842c485c055b2dbf792a88e8900faa7253741d494586a2"
-    sha256 cellar: :any_skip_relocation, ventura:        "1eb49b107c8e03f9ed62d6c697e206e56d7006fcfb3d21aba3c97d1ad6a1c092"
-    sha256 cellar: :any_skip_relocation, monterey:       "f9fb44b530e66510a3e448ab6334961bc13ad1adb427cc273844298bbc7857cf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "17d985c05feb62fb8778aa646ec56397c80038e89fdbdd808cfa3a53933febb8"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c3d2ff8e80dc5c78c149080683999669d9d03bad57dc9c82a3c473e5b21a22ed"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "62e1211196484a7076cc58d99ccd9d2f1dc806bf9a54104b9aebb31774de1325"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "35bb980b6d1b5a7f3fc3209109ca77d641cbbd04e0c69bd3530c2e3b0335f2be"
+    sha256 cellar: :any_skip_relocation, sonoma:        "2bc207677ff22b8199965bb3121fef82fbf2bd3cabe6be28091bef8044e4850c"
+    sha256 cellar: :any_skip_relocation, ventura:       "d77f21958798328b662fba2f945a357c771cc9816e225216ae82530f868c57f1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "16824737bb87f86f034d047ebba947148e7c44d43a5e72e69efb77191ffca477"
   end
 
   depends_on "gnu-prolog"
 
   def install
-    cd("scripts") { system "./install.sh", "-p", prefix }
+    system "./scripts/install.sh", "-p", prefix
+
+    # Resolve relative symlinks for env script
+    bin.each_child do |f|
+      next unless f.symlink?
+
+      realpath = f.realpath
+      f.unlink
+      ln_s realpath, f
+    end
+    bin.env_script_all_files libexec/"bin", LOGTALKHOME: HOMEBREW_PREFIX/"share/logtalk",
+                                            LOGTALKUSER: "${LOGTALKUSER:-$HOME/logtalk}"
+  end
+
+  def caveats
+    <<~EOS
+      Logtalk has been configured with the following environment variables:
+        LOGTALKHOME=#{HOMEBREW_PREFIX}/share/logtalk
+        LOGTALKUSER=$HOME/logtalk
+    EOS
+  end
+
+  test do
+    output = pipe_output("#{bin}/gplgt 2>&1", "logtalk_load(hello_world(loader)).")
+    assert_match "Hello World!", output
+    refute_match "LOGTALKUSER should be defined first", output
   end
 end

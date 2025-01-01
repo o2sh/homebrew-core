@@ -6,11 +6,6 @@ class MesalibGlw < Formula
   license "SGI-OpenGL"
   revision 1
 
-  livecheck do
-    url "https://archive.mesa3d.org/glw/"
-    regex(/href=.*?glw[._-]v?(\d+(?:\.\d+)+)\.t/i)
-  end
-
   bottle do
     sha256 cellar: :any,                 arm64_sequoia:  "b127d5bb8ec7caceb1de9e05a28bf845242e04886ad39357558704b9ffd51e9b"
     sha256 cellar: :any,                 arm64_sonoma:   "e36a490fd422b17fc371870a0da3c657520cc1e90bb01a865c1356a6bb466acd"
@@ -27,16 +22,19 @@ class MesalibGlw < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "f7ca035e7cb0fb4bb11fc7978a33f619b1adfb06678260f70df6b79f6dfcd91a"
   end
 
-  depends_on "pkg-config" => :build
+  # Official[^1] git repository has been archived[^2]
+  #
+  # [^1]: https://docs.mesa3d.org/faq.html?highlight=glw#where-is-the-glw-library
+  # [^2]: https://gitlab.freedesktop.org/mesa/glw
+  deprecate! date: "2024-10-09", because: :repo_archived
+
+  depends_on "pkgconf" => :build
   depends_on "libx11"
   depends_on "libxt"
   depends_on "mesa"
 
   def install
-    system "./configure", "--disable-debug",
-                          "--disable-dependency-tracking",
-                          "--prefix=#{prefix}"
-
+    system "./configure", *std_configure_args
     system "make", "install"
   end
 end

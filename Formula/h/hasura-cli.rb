@@ -1,8 +1,8 @@
 class HasuraCli < Formula
   desc "Command-Line Interface for Hasura GraphQL Engine"
   homepage "https://hasura.io"
-  url "https://github.com/hasura/graphql-engine/archive/refs/tags/v2.43.0.tar.gz"
-  sha256 "c4dd6c1184dd8165eaa2d0eb0037aa2f283d01220921bba381d4397c61c3e40e"
+  url "https://github.com/hasura/graphql-engine/archive/refs/tags/v2.45.1.tar.gz"
+  sha256 "7f8a7c74bc6cf00b2cf5d4c738622976400c9577cd4a9d8c1aa9daa4707c674c"
   license "Apache-2.0"
   head "https://github.com/hasura/graphql-engine.git", branch: "master"
 
@@ -15,15 +15,15 @@ class HasuraCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "5a81b14816baad7eea5d1d55b5298d3f7bcab9cd4547536c7897b9f2136ef1f2"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b31755ecaec474866f113ccdf2db023d7b5fb6ee9795be0842d76db978f34ca1"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b31755ecaec474866f113ccdf2db023d7b5fb6ee9795be0842d76db978f34ca1"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b31755ecaec474866f113ccdf2db023d7b5fb6ee9795be0842d76db978f34ca1"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8993aa09f66e924cb88f4e65bca8804fc9d5f085ff9181c1bced62fbffbeb769"
-    sha256 cellar: :any_skip_relocation, ventura:        "8993aa09f66e924cb88f4e65bca8804fc9d5f085ff9181c1bced62fbffbeb769"
-    sha256 cellar: :any_skip_relocation, monterey:       "8993aa09f66e924cb88f4e65bca8804fc9d5f085ff9181c1bced62fbffbeb769"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "33956978aedd6f2a7a937d0b7ace0b94875ded24a45dc02f28018fd76873d042"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "49604b94ee609871da668a4b566d11ae72e625dfb2b615af548ecf94c0366a9c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "49604b94ee609871da668a4b566d11ae72e625dfb2b615af548ecf94c0366a9c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "49604b94ee609871da668a4b566d11ae72e625dfb2b615af548ecf94c0366a9c"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a40a74089296d7f9e95ced1bf7c1156d7879ef6cf1c64be7725468e9642a10ef"
+    sha256 cellar: :any_skip_relocation, ventura:       "a40a74089296d7f9e95ced1bf7c1156d7879ef6cf1c64be7725468e9642a10ef"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "747873ab215b0e7908f373f5cbbfc076619d798fe188f9a47875065bd7768370"
   end
+
+  deprecate! date: "2024-10-29", because: "uses `node@18`, which is deprecated"
 
   depends_on "go" => :build
   depends_on "node@18" => :build
@@ -51,7 +51,7 @@ class HasuraCli < Formula
       system "go", "build", *std_go_args(output: bin/"hasura", ldflags:), "./cmd/hasura/"
     end
 
-    generate_completions_from_executable(bin/"hasura", "completion", base_name: "hasura", shells: [:bash, :zsh])
+    generate_completions_from_executable(bin/"hasura", "completion", shells: [:bash, :zsh])
   end
 
   test do

@@ -24,7 +24,7 @@ class Libbs2b < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "1d6af3a009939d61fdec9ddd863c4c6e8b51d4f3bd5bc73f55dfc76ac2f48231"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libsndfile"
 
   on_macos do
@@ -47,7 +47,7 @@ class Libbs2b < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <bs2b/bs2b.h>
 
       int main()
@@ -59,7 +59,7 @@ class Libbs2b < Formula
         }
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-lbs2b", "-o", "test"
     system "./test"
   end

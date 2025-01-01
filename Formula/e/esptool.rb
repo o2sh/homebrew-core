@@ -3,31 +3,32 @@ class Esptool < Formula
 
   desc "ESP8266 and ESP32 serial bootloader utility"
   homepage "https://docs.espressif.com/projects/esptool/en/latest/esp32/"
-  url "https://files.pythonhosted.org/packages/d4/c7/b7e4b96a0e7d9b94fe953e1b55b3573bec498bac05f72e61e5a0e979e2c7/esptool-4.8.0.tar.gz"
-  sha256 "f933150b5753e7501024e4d237fe078a77913a0cb7e2f08197ef8d70306b1b53"
+  url "https://files.pythonhosted.org/packages/5c/6b/3ce9bb7f36bdef3d6ae71646a1d3b7d59826a478f3ed8a783a93a2f8f537/esptool-4.8.1.tar.gz"
+  sha256 "dc4ef26b659e1a8dcb019147c0ea6d94980b34de99fbe09121c7941c8b254531"
   license "GPL-2.0-or-later"
+  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "d8ab4a992cdb45c3cf813267b05e573dd42437c5605f0e8bb458155e5ead008d"
-    sha256 cellar: :any,                 arm64_sonoma:  "1befe86009f2dc70cc8d4423414eab75060b3a902c1e3f0ce3f083df20bf76a4"
-    sha256 cellar: :any,                 arm64_ventura: "35ac746d4fb7d398bc3bfb7a629684d6c38a75dad7d97fbd94de34e79e6479fe"
-    sha256 cellar: :any,                 sonoma:        "e315dd083e58423179467ac095aa1b9c17b424ba6252a735c2b8506fa2578257"
-    sha256 cellar: :any,                 ventura:       "25acc5e5731a8bd3e75de8d2b3705f16bfbc7718c10609dfd12b5b3e1b6e6233"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6851b97200b94de7c4bad9bb8d86234258d1071a38e054e84de6b8b8ea83675d"
+    sha256 cellar: :any,                 arm64_sequoia: "11062defdb3e0e64afc4d86f61474e6fa0cdf0646a4335c991a09563a90c9ff3"
+    sha256 cellar: :any,                 arm64_sonoma:  "4373c938b5e538847006da6c7ed1edf93a5ff7b9dd1f5a76b1abcb68898fdec3"
+    sha256 cellar: :any,                 arm64_ventura: "495e3a8f36f37f4cd6d807d89aadb44ba8c0e5f829c7f5a7901e28876e492553"
+    sha256 cellar: :any,                 sonoma:        "70a8cc11e7bd50d039f5686149c32bffb65f877115663543ccb3fecf1c1b9e9c"
+    sha256 cellar: :any,                 ventura:       "df06b71d185a18aff7dc694a21287bf71699a4097e88a8a08dbc8668065f68ee"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "586a583e0380e748419d35f39283d6d1e2df28b4befb05275c43af51a9a643c6"
   end
 
   depends_on "cryptography"
   depends_on "libyaml"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   resource "argcomplete" do
-    url "https://files.pythonhosted.org/packages/75/33/a3d23a2e9ac78f9eaf1fce7490fee430d43ca7d42c65adabbb36a2b28ff6/argcomplete-3.5.0.tar.gz"
-    sha256 "4349400469dccfb7950bb60334a680c58d88699bff6159df61251878dc6bf74b"
+    url "https://files.pythonhosted.org/packages/7f/03/581b1c29d88fffaa08abbced2e628c34dd92d32f1adaed7e42fc416938b0/argcomplete-3.5.2.tar.gz"
+    sha256 "23146ed7ac4403b70bd6026402468942ceba34a6732255b9edf5b7354f68a6bb"
   end
 
   resource "bitarray" do
-    url "https://files.pythonhosted.org/packages/c7/bf/25cf92a83e1fe4948d7935ae3c02f4c9ff9cb9c13e977fba8af11a5f642c/bitarray-2.9.2.tar.gz"
-    sha256 "a8f286a51a32323715d77755ed959f94bef13972e9a2fe71b609e40e6d27957e"
+    url "https://files.pythonhosted.org/packages/0d/c7/a85f206e6b2fddb93964efe53685ad8da7d856e6975b005ed6a88f25b010/bitarray-2.9.3.tar.gz"
+    sha256 "9eff55cf189b0c37ba97156a00d640eb7392db58a8049be6f26ff2712b93fa89"
   end
 
   resource "bitstring" do

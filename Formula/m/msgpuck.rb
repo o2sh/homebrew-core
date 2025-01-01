@@ -29,12 +29,13 @@ class Msgpuck < Formula
   depends_on "cmake" => :build
 
   def install
-    system "cmake", ".", *std_cmake_args
-    system "make", "install"
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       /* Encode and decode an array */
       #include <assert.h>
       #include <msgpuck.h>
@@ -65,7 +66,8 @@ class Msgpuck < Formula
 
         return 0;
       }
-    EOS
+    C
+
     system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lmsgpuck", "-o", "test"
     system "#{testpath}/test"
   end

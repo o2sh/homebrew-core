@@ -2,15 +2,16 @@ class Gstreamer < Formula
   desc "Development framework for multimedia applications"
   homepage "https://gstreamer.freedesktop.org/"
   license all_of: ["LGPL-2.0-or-later", "LGPL-2.1-or-later", "MIT"]
+  revision 1
 
   stable do
-    url "https://gitlab.freedesktop.org/gstreamer/gstreamer/-/archive/1.24.7/gstreamer-1.24.7.tar.bz2"
-    sha256 "72b4454664dac0a0816dcddf673206296ad3b974afcbdb9a8cecddcc14312aa6"
+    url "https://gitlab.freedesktop.org/gstreamer/gstreamer/-/archive/1.24.10/gstreamer-1.24.10.tar.bz2"
+    sha256 "51cdac6eb2b4368cb3c2ed3ce4679281a7028de0f80f218dc39e7629be07e100"
 
     # When updating this resource, use the tag that matches the GStreamer version.
     resource "rs" do
-      url "https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/archive/gstreamer-1.24.7/gst-plugins-rs-gstreamer-1.24.7.tar.bz2"
-      sha256 "0d499a6854920c31034587bbbabbddbf8b3949387ceb615749a80998da9d440f"
+      url "https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/archive/gstreamer-1.24.10/gst-plugins-rs-gstreamer-1.24.10.tar.bz2"
+      sha256 "7c0109bf7a89a9436b31cbb4bf467cee995b882f5bc83b84fe3f15e3ccf9fb83"
 
       # Backport support for newer `dav1d`
       # upstream commit ref, https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/commit/7e1ab086de00125bc0d596f9ec5d74c9b82b2cc0
@@ -18,12 +19,6 @@ class Gstreamer < Formula
         url "https://raw.githubusercontent.com/Homebrew/formula-patches/6fff2c4c62f1fb32b5ade46ec9246fc239935d7a/gstreamer/gst-plugins-rs-dav1d.patch"
         sha256 "d17677a523af021b226969937550f19151b8042f6962eae9fa39ee0e0fc0fe3a"
       end
-    end
-
-    # Backport fix for build of gst-plugins-rs when using uninstalled pkgconfig files
-    patch do
-      url "https://gitlab.freedesktop.org/gstreamer/gstreamer/-/commit/6ce72488face35277643d3781d3da7c4f95d5e1e.diff"
-      sha256 "e8526ba4da7a92904a0e55608bacb3ca823f60c398a922877b5945f65c5ddbfb"
     end
   end
 
@@ -33,14 +28,12 @@ class Gstreamer < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "31db92e94215659739a7340e68ff40f81cca067ff758b0c4eaeeb19210e62092"
-    sha256 arm64_sonoma:   "9d246b779b36a42346004b290306cfc47e7d5ededc0d9d999579fd6d6d61d04a"
-    sha256 arm64_ventura:  "70ef869e83ab51ab6ce41ad6dc0e25e45feb35212a1d1be8824452f719d26ba9"
-    sha256 arm64_monterey: "cd4f6f35e5c7106882f96a1b77c89ad5a80da324845bc097ce454cb68b2b3797"
-    sha256 sonoma:         "d2340cb25e37bf8ae84711ed43371bbfa26d7c703e0a4f49db339e9407a54c31"
-    sha256 ventura:        "1f2cb4177eaa2ac93b3e587a6a4ccc8436caf2c6eb39dd002bc69200b29fac6a"
-    sha256 monterey:       "66efa6fbcfff8e0411e68c451b4273ae735e5f03686a854cb4650df0206f8a88"
-    sha256 x86_64_linux:   "6c8884c463bc4e9cdb5cc0e3cadbd2695ea24df7beeddd65a7d4284213c0230e"
+    sha256 arm64_sequoia: "07fc6ea3d3c366dce076ab96ec46f9284056871a25808619d7a85218a1f8f355"
+    sha256 arm64_sonoma:  "4458ab73bf215081aa7672cadc08a7985f6275153b64f3c501a7ef444cd7b384"
+    sha256 arm64_ventura: "271df8f612d7bf61ccfef4e7f2a1451bdd12424fb4d59d831d2b6260ad1d89dd"
+    sha256 sonoma:        "c59674477a91ef90e368586f1ca3ccf62b3b483d19ecae90525e7ecf169394c4"
+    sha256 ventura:       "79ed3a361c6689b7c9d1c131156f7486ce9e9dc4e42e5e21e311378e18b0cadd"
+    sha256 x86_64_linux:  "74489ddff9b31c9626e7496e69824f3697a0b4acd10097822205b51617aed3a5"
   end
 
   head do
@@ -58,7 +51,7 @@ class Gstreamer < Formula
   depends_on "meson" => :build
   depends_on "nasm" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
   depends_on "aom"
   depends_on "cairo"
@@ -78,6 +71,7 @@ class Gstreamer < Formula
   depends_on "json-glib"
   depends_on "lame"
   depends_on "libass"
+  depends_on "libnice"
   depends_on "libogg"
   depends_on "libpng"
   depends_on "libshout"
@@ -104,7 +98,7 @@ class Gstreamer < Formula
   depends_on "orc"
   depends_on "pango"
   depends_on "pygobject3"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
   depends_on "rtmpdump"
   depends_on "speex"
   depends_on "srt"
@@ -142,13 +136,13 @@ class Gstreamer < Formula
   end
 
   def python3
-    which("python3.12")
+    which("python3.13")
   end
 
   # These paths used to live in various `gst-*` formulae.
   link_overwrite "bin/gst-*", "lib/ligst*", "lib/libges*", "lib/girepository-1.0/Gst*-1.0.typelib"
   link_overwrite "lib/girepository-1.0/GES-1.0.typelib", "lib/gst-validate-launcher/*", "lib/gstreamer-1.0/*"
-  link_overwrite "lib/pkgconfig/gst*.pc", "lib/python3.12/site-packages/gi/overrides/*", "include/gstreamer-1.0/*"
+  link_overwrite "lib/pkgconfig/gst*.pc", "lib/python3.13/site-packages/gi/overrides/*", "include/gstreamer-1.0/*"
   link_overwrite "share/gir-1.0/Gst*.gir", "share/gir-1.0/GES-1.0.gir", "share/gstreamer-1.0/*"
   link_overwrite "share/locale/*/LC_MESSAGES/gst-*.mo", "share/man/man1/g*"
 
@@ -223,7 +217,7 @@ class Gstreamer < Formula
     # https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/issues/279
     plugin_dir = lib/"gstreamer-1.0"
     rpath_args = [loader_path, rpath(source: plugin_dir)].map { |path| "-rpath,#{path}" }
-    ENV["RUSTFLAGS"] = "--codegen link-args=-Wl,#{rpath_args.join(",")}"
+    ENV.append "RUSTFLAGS", "--codegen link-args=-Wl,#{rpath_args.join(",")}"
     inreplace "subprojects/gst-plugins-rs/cargo_wrapper.py",
               "env['RUSTFLAGS'] = shlex_join(rust_flags)",
               "env['RUSTFLAGS'] = ' '.join(rust_flags)"
@@ -235,6 +229,14 @@ class Gstreamer < Formula
     system "meson", "setup", "build", *args, *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"
     system "meson", "install", "-C", "build"
+  end
+
+  def post_install
+    # Support finding the `libnice` plugin, which is in a separate formula.
+    # Needs to be done in `post_install`, since bottling prunes this symlink.
+    libnice_gst_plugin = Formula["libnice-gstreamer"].opt_libexec/"gstreamer-1.0"/shared_library("libgstnice")
+    gst_plugin_dir = lib/"gstreamer-1.0"
+    ln_sf libnice_gst_plugin.relative_path_from(gst_plugin_dir), gst_plugin_dir
   end
 
   def caveats
@@ -254,12 +256,12 @@ class Gstreamer < Formula
     #   https://github.com/orgs/Homebrew/discussions/3740
     system bin/"gst-validate-launcher", "--usage"
 
-    system python3, "-c", <<~EOS
+    system python3, "-c", <<~PYTHON
       import gi
       gi.require_version('Gst', '1.0')
       from gi.repository import Gst
       print (Gst.Fraction(num=3, denom=5))
-    EOS
+    PYTHON
 
     # FIXME: The initial plugin load takes a long time without extra permissions on
     # macOS, which frequently causes the slower Intel macOS runners to time out.

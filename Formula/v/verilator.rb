@@ -1,20 +1,18 @@
 class Verilator < Formula
   desc "Verilog simulator"
   homepage "https://www.veripool.org/wiki/verilator"
-  url "https://github.com/verilator/verilator/archive/refs/tags/v5.028.tar.gz"
-  sha256 "02d4b6f34754b46a97cfd70f5fcbc9b730bd1f0a24c3fc37223397778fcb142c"
+  url "https://github.com/verilator/verilator/archive/refs/tags/v5.032.tar.gz"
+  sha256 "5a262564b10be8bdb31ff4fb67d77bcf5f52fc1b4e6c88d5ca3264fb481f1e41"
   license any_of: ["LGPL-3.0-only", "Artistic-2.0"]
   head "https://github.com/verilator/verilator.git", branch: "master"
 
   bottle do
-    sha256 arm64_sequoia:  "86d5089dbc7b6fda7be55c3660990ab0e735ca5236fe2eb9df3382d1d86ed299"
-    sha256 arm64_sonoma:   "3c10f1aae874605da7c4a4c0ec14796ee5b6777b063cd8a0f48822d7009a721b"
-    sha256 arm64_ventura:  "5f9002c993fe84421f2a4c571b4fab5d39de309adcea37d3871fb6376e2f6dcc"
-    sha256 arm64_monterey: "19fb0e165de3619a24042e6b0f65e95f431a419f4998fd94920d5662e1179e60"
-    sha256 sonoma:         "9743a9f0330921a39d8998d53c035c321f61546984b3c0b31923d359fc26d6e1"
-    sha256 ventura:        "feef2a655441433628976ea8b67e8ab95f37d63c492ee3ed61f72f44388ac625"
-    sha256 monterey:       "b3e4ed2ad6fbe4e1e8719533fc0e12031c16e59a3ce2e0bb5f7e49993077fb47"
-    sha256 x86_64_linux:   "6b2f9b5dee679f685b6f7e858a09e56a8ed521859aeaddd2550f563c84a8473f"
+    sha256 arm64_sequoia: "3612fb39c7d25cf350f8f2007bce3f364630e6e571eabe258b7abc8633236452"
+    sha256 arm64_sonoma:  "cba576313468ff895ba287014dd54db630fdc6b82fa1c1f61e3eecede07bb806"
+    sha256 arm64_ventura: "64a7a891493f91a770195675ef00411f9851fab5c38091b88947ee33a91a9578"
+    sha256 sonoma:        "0fea2b55dbd9861c8e4ecf48b6594c1b3e66de6c01d088a5d20e59eda83a13f6"
+    sha256 ventura:       "13b177e4a33d40d0edb8795546d20ec50529c3825bffddc176ab4f8f942cccb1"
+    sha256 x86_64_linux:  "ef4f88f802756b5a40507fcfd44c69a63dcdf0ca49a5ce0147075281202685c6"
   end
 
   depends_on "autoconf" => :build
@@ -27,9 +25,6 @@ class Verilator < Formula
   uses_from_macos "python", since: :catalina
 
   skip_clean "bin" # Allows perl scripts to keep their executable flag
-
-  # error: specialization of 'template<class _Tp> struct std::hash' in different namespace
-  fails_with gcc: "5"
 
   def install
     system "autoconf"
@@ -49,12 +44,12 @@ class Verilator < Formula
   end
 
   test do
-    (testpath/"test.v").write <<~EOS
+    (testpath/"test.v").write <<~VERILOG
       module test;
          initial begin $display("Hello World"); $finish; end
       endmodule
-    EOS
-    (testpath/"test.cpp").write <<~EOS
+    VERILOG
+    (testpath/"test.cpp").write <<~CPP
       #include "Vtest.h"
       #include "verilated.h"
       int main(int argc, char **argv, char **env) {
@@ -64,7 +59,7 @@ class Verilator < Formula
           delete top;
           exit(0);
       }
-    EOS
+    CPP
     system bin/"verilator", "-Wall", "--cc", "test.v", "--exe", "test.cpp"
     cd "obj_dir" do
       system "make", "-j", "-f", "Vtest.mk", "Vtest"

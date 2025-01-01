@@ -1,17 +1,17 @@
 class SafCli < Formula
   desc "CLI for the MITRE Security Automation Framework (SAF)"
   homepage "https://saf-cli.mitre.org"
-  url "https://registry.npmjs.org/@mitre/saf/-/saf-1.4.14.tgz"
-  sha256 "cd98ffe341f620e2f5317b85fb1d7374bbc8c9ec11709505ba01c02346aa23f6"
+  url "https://registry.npmjs.org/@mitre/saf/-/saf-1.4.17.tgz"
+  sha256 "ca003e6453efac1b4c40e3ac63709cad76d9b6fe04269dacf14b2310373c5cc4"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0c0b4dc5d09f43668c1f3c62c1db507f5dc67cf513ad758cb1cc89d8e3768d48"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0c0b4dc5d09f43668c1f3c62c1db507f5dc67cf513ad758cb1cc89d8e3768d48"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "0c0b4dc5d09f43668c1f3c62c1db507f5dc67cf513ad758cb1cc89d8e3768d48"
-    sha256 cellar: :any_skip_relocation, sonoma:        "f4f3bbe4291650d7fda251ca26db428c2944913d7dc9392c704b35cccfd7764e"
-    sha256 cellar: :any_skip_relocation, ventura:       "f4f3bbe4291650d7fda251ca26db428c2944913d7dc9392c704b35cccfd7764e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0c0b4dc5d09f43668c1f3c62c1db507f5dc67cf513ad758cb1cc89d8e3768d48"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "be19818c032a7ecc50f0b895ffbb421fb7c2dd4f6d84e02523f09ef433b2c51e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "be19818c032a7ecc50f0b895ffbb421fb7c2dd4f6d84e02523f09ef433b2c51e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "be19818c032a7ecc50f0b895ffbb421fb7c2dd4f6d84e02523f09ef433b2c51e"
+    sha256 cellar: :any_skip_relocation, sonoma:        "16dd13059f2ba1cf35528788552a8d2e455ae591c8ea543ff0f2532579017c95"
+    sha256 cellar: :any_skip_relocation, ventura:       "16dd13059f2ba1cf35528788552a8d2e455ae591c8ea543ff0f2532579017c95"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "be19818c032a7ecc50f0b895ffbb421fb7c2dd4f6d84e02523f09ef433b2c51e"
   end
 
   depends_on "node"
@@ -19,9 +19,6 @@ class SafCli < Formula
   def install
     system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
-
-    # Replace universal binaries with their native slices
-    deuniversalize_machos
   end
 
   test do

@@ -18,7 +18,7 @@ class Libxft < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "5279042fda36daaee45abd6bbe34b5eb675fe34a745755e8b1cae29b299830e3"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "fontconfig"
   depends_on "libxrender"
 
@@ -27,27 +27,25 @@ class Libxft < Formula
 
   def install
     args = %W[
-      --prefix=#{prefix}
       --sysconfdir=#{etc}
       --localstatedir=#{var}
-      --disable-dependency-tracking
       --disable-silent-rules
     ]
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include "X11/Xft/Xft.h"
 
       int main(int argc, char* argv[]) {
         XftFont font;
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "-I#{Formula["freetype"].opt_include}/freetype2", "test.c"
     assert_equal 0, $CHILD_STATUS.exitstatus
   end

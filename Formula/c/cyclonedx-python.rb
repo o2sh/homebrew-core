@@ -3,22 +3,22 @@ class CyclonedxPython < Formula
 
   desc "Creates CycloneDX Software Bill of Materials (SBOM) from Python projects"
   homepage "https://cyclonedx.org/"
-  url "https://files.pythonhosted.org/packages/92/8f/eeff1e00cc2bca1091d2a92c0d75bb9b4f3bb235f862d4c748513a88b809/cyclonedx_bom-4.5.1.tar.gz"
-  sha256 "d4db99b61ac7a7bf3d0621c9188227412406206529c32c6d463caf97424f020f"
+  url "https://files.pythonhosted.org/packages/4b/5d/bddd478934cb829af007ce5b2db5a411651daa7aab1529591498ff0a501f/cyclonedx_bom-5.1.1.tar.gz"
+  sha256 "32b3686a879700e3cebf8a177187d1c10b5f3fbbb2803ba3011e5f4af3b9d131"
   license "Apache-2.0"
   head "https://github.com/CycloneDX/cyclonedx-python.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "3fc363cf691bcfc3eff41823e84c86e55de95ddb0095a68fe1c2490d4d2b9849"
-    sha256 cellar: :any,                 arm64_sonoma:  "9eb5ea71b3c600c654d127b706df1c88fc59aad1f640fb699a4d35f4cd2f1f86"
-    sha256 cellar: :any,                 arm64_ventura: "8b252dfe4907fbc63aebd1bcfc5359719c0fb02bfb19bf0dd7a67002da2cec7f"
-    sha256 cellar: :any,                 sonoma:        "61e655c6ae2c73d1b529f9d0d2693d7f8ce15130371decc99ad545f2f36a40e4"
-    sha256 cellar: :any,                 ventura:       "92ff91e8baf33ed2b6610a8b113e7dc2155c31d0438707a79369fb96167471ae"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9b32a84e59ee443100e595580719cb9d6c04015cbe251794615c7e802aa85398"
+    sha256 cellar: :any,                 arm64_sequoia: "aa260059b52b444ae76713f27cee125dd90aa33004ae3061942f7c9963b5b031"
+    sha256 cellar: :any,                 arm64_sonoma:  "45717e4f70cc123574905197f83730c2bfa71b015de047ed63e8e580a81b3b4c"
+    sha256 cellar: :any,                 arm64_ventura: "d9a31e07ea102a00af9c4f795f9a244de019a247172d1786d2b4dfd41b85346e"
+    sha256 cellar: :any,                 sonoma:        "1b0b519642b7082f7ccc7de382fe4280fa278b45bff54b79affd2203713cb97d"
+    sha256 cellar: :any,                 ventura:       "21910cf6d07c8a486e7640a01e9061977ac5595be3ff172081854ae4fa543863"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7c37c57bb1f0757fba2edf0eaee1f6fa4ed039fe5a8d3fc676f08f686c236df5"
   end
 
   depends_on "rust" => :build # for rpds-py
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   uses_from_macos "libxml2", since: :ventura
   uses_from_macos "libxslt"
@@ -44,8 +44,8 @@ class CyclonedxPython < Formula
   end
 
   resource "cyclonedx-python-lib" do
-    url "https://files.pythonhosted.org/packages/5b/56/c25ea3b800379cbf89583ce3c7700464be510842845c1652a8f765bc2abb/cyclonedx_python_lib-7.6.1.tar.gz"
-    sha256 "42e510e957c2ce9c71dd33020e43ce53fe6d0c854cfdc3c56e854e9461e846eb"
+    url "https://files.pythonhosted.org/packages/5f/5e/92fbc03f1ab980ccd2b942e3b3cda0c60a5828a673837b4ee1eaceb924a0/cyclonedx_python_lib-8.4.0.tar.gz"
+    sha256 "1d86efc1e81c0fd01141658b8aed5248c4f4d8d300d7ced9e1dfc39abeafc0a9"
   end
 
   resource "defusedxml" do
@@ -79,13 +79,13 @@ class CyclonedxPython < Formula
   end
 
   resource "jsonschema-specifications" do
-    url "https://files.pythonhosted.org/packages/f8/b9/cc0cc592e7c195fb8a650c1d5990b10175cf13b4c97465c72ec841de9e4b/jsonschema_specifications-2023.12.1.tar.gz"
-    sha256 "48a76787b3e70f5ed53f1160d2b81f586e4ca6d1548c5de7085d1682674764cc"
+    url "https://files.pythonhosted.org/packages/10/db/58f950c996c793472e336ff3655b13fbcf1e3b359dcf52dcf3ed3b52c352/jsonschema_specifications-2024.10.1.tar.gz"
+    sha256 "0f38b83639958ce1152d02a7f062902c41c8fd20d558b0c34344292d417ae272"
   end
 
   resource "license-expression" do
-    url "https://files.pythonhosted.org/packages/57/8b/dbe230196eee2de208ba87dcfae69c46db9d7ed70e2f30f143bf994ee075/license_expression-30.3.1.tar.gz"
-    sha256 "60d5bec1f3364c256a92b9a08583d7ea933c7aa272c8d36d04144a89a3858c01"
+    url "https://files.pythonhosted.org/packages/c7/97/df5570fe2f1046bb5f6eeed55815ef11e371e9310d53bd94ec8efe4173f4/license_expression-30.4.0.tar.gz"
+    sha256 "6464397f8ed4353cc778999caec43b099f8d8d5b335f282e26a9eb9435522f05"
   end
 
   resource "lxml" do
@@ -94,13 +94,13 @@ class CyclonedxPython < Formula
   end
 
   resource "packageurl-python" do
-    url "https://files.pythonhosted.org/packages/56/c5/c0f3ac14fd44f9b344069397fbe79aad1fd2c69220d145447c6c29cb541d/packageurl_python-0.15.6.tar.gz"
-    sha256 "cbc89afd15d5f4d05db4f1b61297e5b97a43f61f28799f6d282aff467ed2ee96"
+    url "https://files.pythonhosted.org/packages/68/7d/0bd319dc94c7956b4d864e87d3dc03739f125ce174671e3128edd566a63e/packageurl_python-0.16.0.tar.gz"
+    sha256 "69e3bf8a3932fe9c2400f56aaeb9f86911ecee2f9398dbe1b58ec34340be365d"
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/51/65/50db4dda066951078f0a96cf12f4b9ada6e4b811516bf0262c0f4f7064d4/packaging-24.1.tar.gz"
-    sha256 "026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002"
+    url "https://files.pythonhosted.org/packages/d0/63/68dbb6eb2de9cb10ee4c9c14a0148804425e13c4fb20d61cce69f53106da/packaging-24.2.tar.gz"
+    sha256 "c228a6dc5e932d346bc5739379109d49e8853dd8223571c7c5b55260edc0b97f"
   end
 
   resource "pip-requirements-parser" do
@@ -109,13 +109,13 @@ class CyclonedxPython < Formula
   end
 
   resource "py-serializable" do
-    url "https://files.pythonhosted.org/packages/c6/8b/20e68984aead213310991174e858147e876bb976cf225ebd09b82709d0e4/py_serializable-1.1.1.tar.gz"
-    sha256 "f268db3afc42c8786da6dc64a8a36e33a82cf65cdcff22d1188b0927f6d4cfa9"
+    url "https://files.pythonhosted.org/packages/16/cf/6e482507764034d6c41423a19f33fdd59655052fdb2ca4358faa3b0bcfd1/py_serializable-1.1.2.tar.gz"
+    sha256 "89af30bc319047d4aa0d8708af412f6ce73835e18bacf1a080028bb9e2f42bdb"
   end
 
   resource "pyparsing" do
-    url "https://files.pythonhosted.org/packages/83/08/13f3bce01b2061f2bbd582c9df82723de943784cf719a35ac886c652043a/pyparsing-3.1.4.tar.gz"
-    sha256 "f86ec8d1a83f11977c9a6ea7598e8c27fc5cddfa5b07ea2241edbbde1d7bc032"
+    url "https://files.pythonhosted.org/packages/8c/d5/e5aeee5387091148a19e1145f63606619cb5f20b83fccb63efae6474e7b2/pyparsing-3.2.0.tar.gz"
+    sha256 "cbf74e27246d595d9a74b186b810f6fbb86726dbf3b9532efb343f6d7294fe9c"
   end
 
   resource "python-dateutil" do
@@ -139,8 +139,8 @@ class CyclonedxPython < Formula
   end
 
   resource "rpds-py" do
-    url "https://files.pythonhosted.org/packages/55/64/b693f262791b818880d17268f3f8181ef799b0d187f6f731b1772e05a29a/rpds_py-0.20.0.tar.gz"
-    sha256 "d72a210824facfdaf8768cf2d7ca25a042c30320b3020de2fa04640920d4e121"
+    url "https://files.pythonhosted.org/packages/23/80/afdf96daf9b27d61483ef05b38f282121db0e38f5fd4e89f40f5c86c2a4f/rpds_py-0.21.0.tar.gz"
+    sha256 "ed6378c9d66d0de903763e7706383d60c33829581f0adff47b6535f1802fa6db"
   end
 
   resource "six" do
@@ -154,8 +154,8 @@ class CyclonedxPython < Formula
   end
 
   resource "types-python-dateutil" do
-    url "https://files.pythonhosted.org/packages/3e/d9/9c9ec2d870af7aa9b722ce4fd5890bb55b1d18898df7f1d069cab194bb2a/types-python-dateutil-2.9.0.20240906.tar.gz"
-    sha256 "9706c3b68284c25adffc47319ecc7947e5bb86b3773f843c73906fd598bc176e"
+    url "https://files.pythonhosted.org/packages/31/f8/f6ee4c803a7beccffee21bb29a71573b39f7037c224843eff53e5308c16e/types-python-dateutil-2.9.0.20241003.tar.gz"
+    sha256 "58cb85449b2a56d6684e41aeefb4c4280631246a0da1a719bdbe6f3fb0317446"
   end
 
   resource "uri-template" do
@@ -173,9 +173,9 @@ class CyclonedxPython < Formula
   end
 
   test do
-    (testpath/"requirements.txt").write <<~EOS
+    (testpath/"requirements.txt").write <<~REQUIREMENTS
       requests==2.31.0
-    EOS
+    REQUIREMENTS
     system bin/"cyclonedx-py", "requirements", testpath/"requirements.txt", "-o", "cyclonedx.json"
     assert_match "pkg:pypi/requests@2.31.0", (testpath/"cyclonedx.json").read
   end

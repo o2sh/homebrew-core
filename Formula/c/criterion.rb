@@ -21,7 +21,7 @@ class Criterion < Formula
   depends_on "cmake" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libgit2"
   depends_on "nanomsg"
   depends_on "nanopb"
@@ -29,20 +29,20 @@ class Criterion < Formula
   uses_from_macos "libffi"
 
   def install
-    system "meson", "setup", *std_meson_args, "--force-fallback-for=boxfort,debugbreak,klib", "build"
+    system "meson", "setup", "build", "--force-fallback-for=boxfort,debugbreak,klib", *std_meson_args
     system "meson", "compile", "-C", "build"
     system "meson", "install", "--skip-subprojects", "-C", "build"
   end
 
   test do
-    (testpath/"test-criterion.c").write <<~EOS
+    (testpath/"test-criterion.c").write <<~C
       #include <criterion/criterion.h>
 
       Test(suite_name, test_name)
       {
         cr_assert(1);
       }
-    EOS
+    C
 
     system ENV.cc, "test-criterion.c", "-I#{include}", "-L#{lib}", "-lcriterion", "-o", "test-criterion"
     system "./test-criterion"

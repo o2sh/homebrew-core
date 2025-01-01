@@ -25,7 +25,7 @@ class Gtksourceview4 < Formula
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "vala" => :build
 
   depends_on "at-spi2-core"
@@ -49,17 +49,17 @@ class Gtksourceview4 < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <gtksourceview/gtksource.h>
 
       int main(int argc, char *argv[]) {
         gchar *text = gtk_source_utils_unescape_search_text("hello world");
         return 0;
       }
-    EOS
+    C
 
-    pkg_config_flags = shell_output("pkg-config --cflags --libs gtksourceview-4").chomp.split
-    system ENV.cc, "test.c", "-o", "test", *pkg_config_flags
+    flags = shell_output("pkgconf --cflags --libs gtksourceview-4").chomp.split
+    system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
   end
 end

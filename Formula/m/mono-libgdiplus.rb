@@ -24,7 +24,7 @@ class MonoLibgdiplus < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "77fcf152ac3af7197f76f21cfa77bb58b9b06c735f2626e8d1a84079f8d47063"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "cairo"
   depends_on "fontconfig"
@@ -61,11 +61,11 @@ class MonoLibgdiplus < Formula
   test do
     # Since no headers are installed, we just test that we can link with
     # libgdiplus
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       int main() {
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-lgdiplus", "-o", "test"
   end
 end

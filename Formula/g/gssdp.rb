@@ -20,7 +20,7 @@ class Gssdp < Formula
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pandoc" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "vala" => :build
   depends_on "glib"
   depends_on "libsoup"
@@ -40,14 +40,14 @@ class Gssdp < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <libgssdp/gssdp.h>
 
       int main(int argc, char *argv[]) {
         GType type = gssdp_client_get_type();
         return 0;
       }
-    EOS
+    C
     gettext = Formula["gettext"]
     glib = Formula["glib"]
     flags = %W[

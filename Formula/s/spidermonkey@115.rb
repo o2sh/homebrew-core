@@ -1,9 +1,9 @@
 class SpidermonkeyAT115 < Formula
   desc "JavaScript-C Engine"
   homepage "https://spidermonkey.dev"
-  url "https://archive.mozilla.org/pub/firefox/releases/115.15.0esr/source/firefox-115.15.0esr.source.tar.xz"
-  version "115.15.0"
-  sha256 "effed92aa0d961871614c611259dfe3eab72e5ebfe8f2405f9bc92c5e7feae81"
+  url "https://archive.mozilla.org/pub/firefox/releases/115.18.0esr/source/firefox-115.18.0esr.source.tar.xz"
+  version "115.18.0"
+  sha256 "2a79174f743caa1bffcc6f4e95e4642b0f36ab24cfa94e4dca0663e0d45c344c"
   license "MPL-2.0"
 
   # Spidermonkey versions use the same versions as Firefox, so we simply check
@@ -14,22 +14,20 @@ class SpidermonkeyAT115 < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sequoia:  "4e03384ada53f4a9cb2ca7dc2516ebfde84d687c218f1f76440e9814b7720314"
-    sha256 cellar: :any, arm64_sonoma:   "c909bdf0a237d1062f9cccbece97b90f5e2dad5c158d673ce1ce781eb6de0025"
-    sha256 cellar: :any, arm64_ventura:  "a1c77c4eef8c3b150776bb685ce88b6e321e29d633dc7841ac87d37475126293"
-    sha256 cellar: :any, arm64_monterey: "8e5ee05481498bc8ab38563e732b44b9550310d7a655c7e29721ad9121d7db8e"
-    sha256 cellar: :any, sonoma:         "f1394a2ed08e02c10e2d90a90eb823efb4df8ac23056bf51b91a7f279c1326a0"
-    sha256 cellar: :any, ventura:        "0c4664ce308ec06930173d8eb89bfc9ae9d0e08fab9a78d119b50b0baa1e032b"
-    sha256 cellar: :any, monterey:       "36ca91e39296f273d1d04433d94b6d7f569b291ca968eef81ee3a01049ed1a8c"
-    sha256               x86_64_linux:   "dfb514aca444b386ee25593865c7cb90a88fa811aa3e3e186d0fe30aa218ba69"
+    sha256 cellar: :any, arm64_sequoia: "ac5efe200d732f8698375165dd788d8030e39a62f069055966edcc50cf61d5ac"
+    sha256 cellar: :any, arm64_sonoma:  "fe7570f7aca00cad06b343a900d1c7dd36c449957394d6baa356e09bdae6237e"
+    sha256 cellar: :any, arm64_ventura: "c15376eab09e478ea144f6b2b062b61564a5fd7e24afbe8479e36cb33748fecc"
+    sha256 cellar: :any, sonoma:        "06daae4b712047cdd9f4901fb2f44d8c0773f8da60c9284e5374c26b9f3cfaa0"
+    sha256 cellar: :any, ventura:       "c6ccd1f907ac0ddfc352cb9fef18a8ea2312564b4fc66de6ec75e8ee5a46842e"
+    sha256               x86_64_linux:  "e693c7e42d1d6c034c079ac7276aae7238ccc058d12dea0223c4826ffc5698a0"
   end
 
   disable! date: "2025-07-01", because: :versioned_formula
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python@3.11" => :build # https://bugzilla.mozilla.org/show_bug.cgi?id=1857515
   depends_on "rust" => :build
-  depends_on "icu4c"
+  depends_on "icu4c@76"
   depends_on "nspr"
   depends_on "readline"
 
@@ -57,6 +55,10 @@ class SpidermonkeyAT115 < Formula
   end
 
   def install
+    # Workaround for ICU 76+
+    # Issue ref: https://bugzilla.mozilla.org/show_bug.cgi?id=1927380
+    inreplace "js/moz.configure", '"icu-i18n >= 73.1"', '"icu-i18n >= 73.1 icu-uc"'
+
     if OS.mac?
       inreplace "build/moz.configure/toolchain.configure" do |s|
         # Help the build script detect ld64 as it expects logs from LD_PRINT_OPTIONS=1 with -Wl,-version

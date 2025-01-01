@@ -3,25 +3,21 @@ class LuaLanguageServer < Formula
   homepage "https://github.com/LuaLS/lua-language-server"
   # pull from git tag to get submodules
   url "https://github.com/LuaLS/lua-language-server.git",
-      tag:      "3.10.6",
-      revision: "44b632dc0b1969d0a503dc18419731249c6ad267"
+      tag:      "3.13.5",
+      revision: "cdb1b094edf125dc537298cc408f8c751dcedf00"
   license "MIT"
   head "https://github.com/LuaLS/lua-language-server.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "13e580e0c77d8b33b0dbf9e76e0c79c6de7d9a53fcbb654f90591b997832e68b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b210b7bf351d075673660597da5093d13030ed91c9c60989bba0c8ca7c0b171a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "adb42fe53347f2c2b3679d666165abf4559095a4c5cd0a68ece83590b1ce1ec0"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f713620f4c17efed6fdcde78147b39a0ca721ab4e2eea2fe5b964f3d2d92cb32"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c44b57ab3783c5da8bee4e70304f7ef71e65041cba1cb0838027e5020cec9ab4"
-    sha256 cellar: :any_skip_relocation, ventura:        "2dc6d3e8319a07479eb1429da208dd4e5b9d187f2be2001695d49e8c81bee3b9"
-    sha256 cellar: :any_skip_relocation, monterey:       "09c9d006838c5fd10385325ffdcacde3585c8197c99a547a49e1b5780cd64953"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cb054ea6e10f392057380d86cdfffd05c36f2c022a28c6eab3d4d2faef314e05"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d124e82c3c19eb7d1c740c05e9961cfc8f16473f829fdb8500a8b50cb1d6262f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b1bacb2f7efb769e185a46dd4fe1d23d2a987cf0e4e9af0c820cb497bfcc640c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "7ad289e124bdfaced89c422fa7a946cee9088ae8816d5e9bfb6aa77f8c907d2e"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f134d6f0454d1b7336193ff52a40f260b046500c1d8aa5a985a0d65798261e70"
+    sha256 cellar: :any_skip_relocation, ventura:       "e9ef286e3252d97af9af6c3ded1e1b2d4b925f95573e05c0b9799d6df998a171"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b6eaec93f6b7de2f167885bb449bf9bb87e3ea6ef0029cb97a94419dce226412"
   end
 
   depends_on "ninja" => :build
-
-  fails_with gcc: 5 # For C++17
 
   def install
     ENV.cxx11

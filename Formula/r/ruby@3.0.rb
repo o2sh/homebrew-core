@@ -19,7 +19,8 @@ class RubyAT30 < Formula
 
   disable! date: "2025-04-23", because: :unmaintained
 
-  depends_on "pkg-config" => :build
+  depends_on maximum_macos: [:sonoma, :build]
+  depends_on "pkgconf" => :build
   depends_on "libyaml"
   depends_on "openssl@3"
   depends_on "readline"

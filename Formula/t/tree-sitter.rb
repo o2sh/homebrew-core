@@ -1,8 +1,8 @@
 class TreeSitter < Formula
   desc "Parser generator tool and incremental parsing library"
   homepage "https://tree-sitter.github.io/"
-  url "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.23.0.tar.gz"
-  sha256 "6403b361b0014999e96f61b9c84d6950d42f0c7d6e806be79382e0232e48a11b"
+  url "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.24.6.tar.gz"
+  sha256 "03c7ee1e6f9f4f3821fd4af0ae06e1da60433b304a73ff92ee9694933009121a"
   license "MIT"
   head "https://github.com/tree-sitter/tree-sitter.git", branch: "master"
 
@@ -12,14 +12,12 @@ class TreeSitter < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "4d51492f80898622c26be8d01d288c0070eaaf9958a60d2a642539d89d1501ca"
-    sha256 cellar: :any,                 arm64_sonoma:   "841e33489720a0e054818f83d9f030eaa4aba900e15c390f99c92a4b55f76a6f"
-    sha256 cellar: :any,                 arm64_ventura:  "91064f7ea239da4f4b945c5f5049803caf5f9ccc892ad12617071c5feb9858bf"
-    sha256 cellar: :any,                 arm64_monterey: "d6636df7e42af07eeaada4eebe83bf74407b861fb0c329cfa425ba107789959a"
-    sha256 cellar: :any,                 sonoma:         "c3b96caa7b63f64611036be597291823c1b1b0bf52c368d8bfadec2963377fe1"
-    sha256 cellar: :any,                 ventura:        "910354d5a86b360bba71c05dccf7cb99c63ce5cbba1133d5eb146c99c1ceb0e2"
-    sha256 cellar: :any,                 monterey:       "2f6b9e63778e0d20d6586123853cc76c64460980bb31c59bc4a2ed840123de85"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4f71caad1b9627a77924e14b804fc93be99a164164c8023df107cc63f70f188f"
+    sha256 cellar: :any,                 arm64_sequoia: "2eff05b28890b5e88a377c4de9cd927294d1eeace16f4989f960562bc7b94ce8"
+    sha256 cellar: :any,                 arm64_sonoma:  "a316c95245d58fcdbc7673b01fb4bd639d704c33bb5bd73bff97a1c990c555b5"
+    sha256 cellar: :any,                 arm64_ventura: "674670b8c2f9f14177d57b17f7f3519b8d99ae10e84ad4565ae251eaebd119b3"
+    sha256 cellar: :any,                 sonoma:        "5028678b0e8250f3bd631851a75d474fa426d70188a3cda86d0ef56601adfad4"
+    sha256 cellar: :any,                 ventura:       "cce83b2d3b83c59564e6e30a05e49fa6839302b1b7a7ac6b3909143e71f15b51"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e4038d4a7ddfe5378baaf193d5f34c5040650bffb978bb604668b9b9e1f92118"
   end
 
   depends_on "rust" => :build
@@ -35,14 +33,14 @@ class TreeSitter < Formula
     assert_equal "tree-sitter #{version}", shell_output("#{bin}/tree-sitter --version").strip
 
     # test `tree-sitter generate`
-    (testpath/"grammar.js").write <<~EOS
+    (testpath/"grammar.js").write <<~JS
       module.exports = grammar({
         name: 'YOUR_LANGUAGE_NAME',
         rules: {
           source_file: $ => 'hello'
         }
       });
-    EOS
+    JS
     system bin/"tree-sitter", "generate", "--abi=latest"
 
     # test `tree-sitter parse`
@@ -63,7 +61,7 @@ class TreeSitter < Formula
     EOS
     system bin/"tree-sitter", "test"
 
-    (testpath/"test_program.c").write <<~EOS
+    (testpath/"test_program.c").write <<~C
       #include <stdio.h>
       #include <string.h>
       #include <tree_sitter/api.h>
@@ -89,7 +87,7 @@ class TreeSitter < Formula
         ts_parser_delete(parser);
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test_program.c", "-L#{lib}", "-ltree-sitter", "-o", "test_program"
     assert_equal "tree creation failed", shell_output("./test_program")
   end

@@ -21,7 +21,7 @@ class Clp < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "3de80fe042a6689294193c7efbb4d794ee37c3e1194dcdb311b740acb6ffba09"
   end
 
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "coinutils"
   depends_on "openblas"
   depends_on "osi"
@@ -38,24 +38,21 @@ class Clp < Formula
 
     args = [
       "--datadir=#{pkgshare}",
-      "--disable-debug",
-      "--disable-dependency-tracking",
       "--disable-silent-rules",
       "--includedir=#{include}/clp",
-      "--prefix=#{prefix}",
       "--with-blas-incdir=#{Formula["openblas"].opt_include}",
       "--with-blas-lib=-L#{Formula["openblas"].opt_lib} -lopenblas",
       "--with-lapack-incdir=#{Formula["openblas"].opt_include}",
       "--with-lapack-lib=-L#{Formula["openblas"].opt_lib} -lopenblas",
     ]
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make", "install"
   end
 
   test do
     resource("coin-or-tools-data-sample-p0033-mps").stage testpath
     system bin/"clp", "-import", testpath/"p0033.mps", "-primals"
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <ClpSimplex.hpp>
       int main() {
         ClpSimplex model;
@@ -64,8 +61,8 @@ class Clp < Formula
         status = model.primal();
         return status;
       }
-    EOS
-    pkg_config_flags = `pkg-config --cflags --libs clp`.chomp.split
+    CPP
+    pkg_config_flags = shell_output("pkg-config --cflags --libs clp").chomp.split
     system ENV.cxx, "test.cpp", *pkg_config_flags
     system "./a.out"
   end

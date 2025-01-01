@@ -1,8 +1,8 @@
 class Node < Formula
   desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v22.9.0/node-v22.9.0.tar.xz"
-  sha256 "a55aeb368dee93432f610127cf94ce682aac07b93dcbbaadd856df122c9239df"
+  url "https://nodejs.org/dist/v23.5.0/node-v23.5.0.tar.xz"
+  sha256 "32e77b36c0774c68baab41bc7c2acc58663ca0a2b7c4d3e9bec6f761c15fdac0"
   license "MIT"
   head "https://github.com/nodejs/node.git", branch: "main"
 
@@ -12,19 +12,19 @@ class Node < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "0bfb1ebbf304458e9ff7c2cd0a1c410c06f51aa0fb8d458200cc274e2c66e16c"
-    sha256 arm64_sonoma:  "05299315937716d7646a7bcf911fbfd2dbafc0be73e42a126203b00b565ab657"
-    sha256 arm64_ventura: "c3eaf571f4e12eea25b74bbff5b82bd85c2117ecfc09af9bedaef238fdb94cc8"
-    sha256 sonoma:        "dfca05a3068ac014f25fe1a21c2c771d2a44cc7d04dfed556d6ca04b01033887"
-    sha256 ventura:       "538d42997595a59d7c242dc78fd4412121ae6e3ab475223a6f1b89ec3a8cad85"
-    sha256 x86_64_linux:  "ca407a117cf667d560a24f8db3de0f7675cea6f43f3832e7fbe5460501059e92"
+    sha256 arm64_sequoia: "388b766e4fdaa3f5e3ae05ffe0b6a765eea80ae9e7539fd677bfd74fa66451a5"
+    sha256 arm64_sonoma:  "7be45142d23973692d9bf1ea1d67698d312c043ffdffa1b24960cb5954ab78ff"
+    sha256 arm64_ventura: "f12ed25242b52ef7e97009334ccb07bc7e043bffe45d9511176d2fb20d31b475"
+    sha256 sonoma:        "15c169b738ad5e9e196571e6ff0c0464d4adccbef6047a435830b479a26d6583"
+    sha256 ventura:       "eff1b1fd6fe389d0cf0ff481eb6030db5c97affbd0d620c4b26594fb2a591d71"
+    sha256 x86_64_linux:  "ebcca6257af3e6673eeb0ca152be145267e664acfb61346912bcdaf0b79f7272"
   end
 
-  depends_on "pkg-config" => :build
-  depends_on "python@3.12" => :build
+  depends_on "pkgconf" => :build
+  depends_on "python@3.13" => :build
   depends_on "brotli"
   depends_on "c-ares"
-  depends_on "icu4c"
+  depends_on "icu4c@76"
   depends_on "libnghttp2"
   depends_on "libuv"
   depends_on "openssl@3"
@@ -43,13 +43,11 @@ class Node < Formula
     EOS
   end
 
-  fails_with gcc: "5"
-
   # We track major/minor from upstream Node releases.
   # We will accept *important* npm patch releases when necessary.
   resource "npm" do
-    url "https://registry.npmjs.org/npm/-/npm-10.8.3.tgz"
-    sha256 "b7dc7eb48d7479b93668e913c7ad686ab2aa71c705d4a56b5323d1bffdba2972"
+    url "https://registry.npmjs.org/npm/-/npm-10.9.2.tgz"
+    sha256 "5cd1e5ab971ea6333f910bc2d50700167c5ef4e66da279b2a3efc874c6b116e4"
   end
 
   def install
@@ -59,14 +57,13 @@ class Node < Formula
     ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
 
     # make sure subprocesses spawned by make are using our Python 3
-    ENV["PYTHON"] = which("python3.12")
+    ENV["PYTHON"] = which("python3.13")
 
     # Never install the bundled "npm", always prefer our
     # installation from tarball for better packaging control.
     args = %W[
       --prefix=#{prefix}
       --without-npm
-      --without-corepack
       --with-intl=system-icu
       --shared-libuv
       --shared-nghttp2
@@ -169,7 +166,7 @@ class Node < Formula
     assert_predicate HOMEBREW_PREFIX/"bin/npm", :executable?, "npm must be executable"
     npm_args = ["-ddd", "--cache=#{HOMEBREW_CACHE}/npm_cache", "--build-from-source"]
     system HOMEBREW_PREFIX/"bin/npm", *npm_args, "install", "npm@latest"
-    system HOMEBREW_PREFIX/"bin/npm", *npm_args, "install", "ref-napi"
+    system HOMEBREW_PREFIX/"bin/npm", *npm_args, "install", "nan"
     assert_predicate HOMEBREW_PREFIX/"bin/npx", :exist?, "npx must exist"
     assert_predicate HOMEBREW_PREFIX/"bin/npx", :executable?, "npx must be executable"
     assert_match "< hello >", shell_output("#{HOMEBREW_PREFIX}/bin/npx --yes cowsay hello")

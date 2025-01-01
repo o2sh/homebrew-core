@@ -1,20 +1,18 @@
 class Rclone < Formula
   desc "Rsync for cloud storage"
   homepage "https://rclone.org/"
-  url "https://github.com/rclone/rclone/archive/refs/tags/v1.68.0.tar.gz"
-  sha256 "6e0acbef1c9d21d7a4d53d876c374466de0966f2a1994a8ae448ea0c179ccc6a"
+  url "https://github.com/rclone/rclone/archive/refs/tags/v1.68.2.tar.gz"
+  sha256 "6c4c1a1702633c7a8f8755a9cfb951c3ae0b7bcc2e210b92e191250b6aae2e9f"
   license "MIT"
   head "https://github.com/rclone/rclone.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "9ddd7c0a9d77cd1b913c7b21cac46472e9d6ca41ec39357c166b5ba081d51355"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b11ac9e82d07d7afb1a49411d448f1a760a003e37fea2698c4436a90168676b9"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "fd82f190966aaa8b95a7d9e3e98c9177fc6ab1156dbdc6a20c96349703c53108"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "314f81b6f23deb229571b5cfccd74460ab173a1feed3eec33f8de819b930b1e2"
-    sha256 cellar: :any_skip_relocation, sonoma:         "4680f297f389c4b18067ba5267f216ff28f7cc24ed850757e160f2a131d4361a"
-    sha256 cellar: :any_skip_relocation, ventura:        "796a0548ca8c5c235ba0f95dfa7abebb6593bc55f4af698a16b6a21c823196fd"
-    sha256 cellar: :any_skip_relocation, monterey:       "c099998184d9fa6fc9a7d4d24a951a7e71ced6d980a459884d7c57d9a148de62"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "113f3f09231f9ce6dc4ab90a3bb4ac098422620f367f9e67f780f8a135c9e149"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9e204ccf9aec7bfd64af09c4a6868f0606110455e795d6223d873883d8446008"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2195cdc5687b73c927d179eec4401f132d551dafde5ae8535bcdd101840fc3d2"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "85dbce18c21843d6e17c526c6b0a0b2d46ddc47b10911069b140640976c396ff"
+    sha256 cellar: :any_skip_relocation, sonoma:        "97af4aad9c2fdaa3da04d6068870ee3152834c2bf3cdc2ac9dce1da88a1b3382"
+    sha256 cellar: :any_skip_relocation, ventura:       "11ae93e0fc603ee10e2a442bf320be22150bb789cf4756db9338c43a277040f6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "933e9ffc6c153cd1ec2d38b8d5c2ace178b493ca46e83914af1bcc4fe5d13595"
   end
 
   depends_on "go" => :build

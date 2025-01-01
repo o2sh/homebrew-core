@@ -27,20 +27,18 @@ class Libevent < Formula
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "openssl@3"
 
   def install
     system "./autogen.sh"
-    system "./configure", "--disable-dependency-tracking",
-                          "--disable-debug-mode",
-                          "--prefix=#{prefix}"
+    system "./configure", "--disable-debug-mode", *std_configure_args
     system "make"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <event2/event.h>
 
       int main()
@@ -50,7 +48,7 @@ class Libevent < Formula
         event_base_free(base);
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-levent", "-o", "test"
     system "./test"
   end

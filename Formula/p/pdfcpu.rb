@@ -1,25 +1,24 @@
 class Pdfcpu < Formula
   desc "PDF processor written in Go"
   homepage "https://pdfcpu.io"
-  url "https://github.com/pdfcpu/pdfcpu/archive/refs/tags/v0.8.1.tar.gz"
-  sha256 "965624c0d714d8ae2c3db06874ae37973d37bb7815ea4eeec7c761ffc6143a1a"
+  url "https://github.com/pdfcpu/pdfcpu/archive/refs/tags/v0.9.1.tar.gz"
+  sha256 "79572e599deddfaa72109f3e029b74b8cd6070657355e8cc9d8c7fb91da73c71"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "df52f242e09d30a14e6ec4ebc23ec2ca1d877626f0544d9a2ead02f49ae373b1"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0d845c4b5d4641e81975f4e167fd3d1a0ee3a383cdb5dbc15740143479251408"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0d845c4b5d4641e81975f4e167fd3d1a0ee3a383cdb5dbc15740143479251408"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0d845c4b5d4641e81975f4e167fd3d1a0ee3a383cdb5dbc15740143479251408"
-    sha256 cellar: :any_skip_relocation, sonoma:         "9ce2bcc28878ff73e75439f77e0b5caa4f632fff21ff3d8fcffcdc735bd406d3"
-    sha256 cellar: :any_skip_relocation, ventura:        "9ce2bcc28878ff73e75439f77e0b5caa4f632fff21ff3d8fcffcdc735bd406d3"
-    sha256 cellar: :any_skip_relocation, monterey:       "9ce2bcc28878ff73e75439f77e0b5caa4f632fff21ff3d8fcffcdc735bd406d3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "094f73fc7b36b47e08691f438d6a45a97649eccf8aa56eea7fc5a747578d63c7"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c8b00881dea2ce25ee9915ca16b8ffd072b62d6a0024e303f25af6ee9359737f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c8b00881dea2ce25ee9915ca16b8ffd072b62d6a0024e303f25af6ee9359737f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "c8b00881dea2ce25ee9915ca16b8ffd072b62d6a0024e303f25af6ee9359737f"
+    sha256 cellar: :any_skip_relocation, sonoma:        "d3b5b636b90de6b2bb44cc88cc6af4b4dadffdacdac95a0ce73ac091bbc48df0"
+    sha256 cellar: :any_skip_relocation, ventura:       "d3b5b636b90de6b2bb44cc88cc6af4b4dadffdacdac95a0ce73ac091bbc48df0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ea91e61252e6c55260c9e40ba9fde54ee4197ff73caeb153af952e6ec7b3c255"
   end
 
   depends_on "go" => :build
 
   def install
-    ldflags = "-X github.com/pdfcpu/pdfcpu/pkg/pdfcpu.VersionStr=#{version}"
+    ldflags = "-s -w -X github.com/pdfcpu/pdfcpu/pkg/pdfcpu.VersionStr=#{version}"
     system "go", "build", *std_go_args(ldflags:), "./cmd/pdfcpu"
   end
 
@@ -28,6 +27,8 @@ class Pdfcpu < Formula
     assert_match <<~EOS, info_output
       installing user font:
       Roboto-Regular
+      validating URIs..
+
       #{test_fixtures("test.pdf")}:
                     Source: #{test_fixtures("test.pdf")}
                PDF version: 1.6

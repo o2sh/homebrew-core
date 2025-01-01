@@ -2,26 +2,24 @@ class Packetbeat < Formula
   desc "Lightweight Shipper for Network Data"
   homepage "https://www.elastic.co/products/beats/packetbeat"
   url "https://github.com/elastic/beats.git",
-      tag:      "v8.15.1",
-      revision: "88cc526a2d3e52dcbfa52c9dd25eb09ed95470e4"
+      tag:      "v8.17.0",
+      revision: "092f0eae4d0d343cc3a142f671c2a0428df67840"
   license "Apache-2.0"
   head "https://github.com/elastic/beats.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "1e59ce6b0923e2866fc48eec27375d82baa201c39eaaff6661358e09f40c793f"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bc93ce3e44e5a2ff800d14dedc25d69bb124c361cd0d34a0d4426f5ee6da0465"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6237ad3de4705996a2b15ed4010db5352ca68f6e5fe4c209301107ed0f2c8994"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "5c30443f50c806152be3b078b1204478a3c41d05094fad37033167a2ecb181e7"
-    sha256 cellar: :any_skip_relocation, sonoma:         "447011f9f68e142164f09fb7381dea1d37c8f4bcc12fe6818af82135b50fea40"
-    sha256 cellar: :any_skip_relocation, ventura:        "4545b4a54b1c4ebcf7a439c70b1ccb8aef08d0aa5618a8360913ad68a4a3e286"
-    sha256 cellar: :any_skip_relocation, monterey:       "639547540dfbc660dc9268a6c4dbff992defc9eee201153f441b63b14dcfcd5a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e3147fc3131d138f939fc7e19b232ba7ba9dca6c484c623a6576868dde014d3c"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0af077bf35a81e393c9bcdf7f695e35b454e22a49b9f3689b028e6e4d5af7421"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "78d0abe95697db714020390f771bd442859144c9e523cd1e158af12115e9c6ee"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "1cc206e810f88dc72fe8f3897cf80b184bc8e601b36884135431512d534362b3"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f5b4e29eaf6ca69c774dbafc21f79599d7708b9f19c87adc6202aaf2c7da78a7"
+    sha256 cellar: :any_skip_relocation, ventura:       "d58ec19e96eb6a86df834a2f93d0186ee89157491aefc29f172de8debd3ace5e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9ac72e07b4592bf2b7e9792e6c44c6015da24bc24e59e0188e59ecab08f4b1ac"
   end
 
   depends_on "go" => :build
   depends_on "mage" => :build
+  depends_on "python@3.12" => :build
 
-  uses_from_macos "python" => :build
   uses_from_macos "libpcap"
 
   def install
@@ -42,7 +40,7 @@ class Packetbeat < Formula
       prefix.install "_meta/kibana"
     end
 
-    (bin/"packetbeat").write <<~EOS
+    (bin/"packetbeat").write <<~SH
       #!/bin/sh
       exec #{libexec}/bin/packetbeat \
         --path.config #{etc}/packetbeat \
@@ -50,7 +48,7 @@ class Packetbeat < Formula
         --path.home #{prefix} \
         --path.logs #{var}/log/packetbeat \
         "$@"
-    EOS
+    SH
 
     chmod 0555, bin/"packetbeat" # generate_completions_from_executable fails otherwise
     generate_completions_from_executable(bin/"packetbeat", "completion", shells: [:bash, :zsh])

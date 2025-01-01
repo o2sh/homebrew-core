@@ -1,20 +1,18 @@
 class Wangle < Formula
   desc "Modular, composable client/server abstractions framework"
   homepage "https://github.com/facebook/wangle"
-  url "https://github.com/facebook/wangle/archive/refs/tags/v2024.09.09.00.tar.gz"
-  sha256 "b0ffe343b622c3131f7ab6bcb89b7751c19f2da516372166f1a2591e2ff52f43"
+  url "https://github.com/facebook/wangle/archive/refs/tags/v2024.12.02.00.tar.gz"
+  sha256 "7ceef343e8cec54da0b054ddd6fa5e50cc96bfe897011ff094a5ca207ed7e672"
   license "Apache-2.0"
   head "https://github.com/facebook/wangle.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "b26b24ec1238e46b53194851bb8e6d4dc47ce0e67bcc57597f683ca5c92329f6"
-    sha256 cellar: :any,                 arm64_sonoma:   "948972ebaa15cf4ff288ed23ee66580d7df991987935816fe4532912660fee10"
-    sha256 cellar: :any,                 arm64_ventura:  "3281966d04e74bc9ae525824e4c7b86e893abe86f1fc50eb69449e2755b271ec"
-    sha256 cellar: :any,                 arm64_monterey: "1b57000bec9e903e27e810c0f4ed33481b01f28bd400f9932b7eadd7e84d0de4"
-    sha256 cellar: :any,                 sonoma:         "449666973aa61834ca8ff34128b66f3c9717659dc6b27c3c6c0bfb029e95bbd6"
-    sha256 cellar: :any,                 ventura:        "f9fe29fabe95895101ec4ea2f4b23b3fb3af74ce1188bc03829baf1b94108f5f"
-    sha256 cellar: :any,                 monterey:       "486ddce163ca6e71a6c8ec4729dabc788740af76bc820724dabf91050014a885"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ca3658ac8cf501eb7263e5e818539cb55a221a56ea2ea74f43c806866b634096"
+    sha256 cellar: :any,                 arm64_sequoia: "eec5e7efcdf8f18f4e1ccda78bb307db8226b135a2e6cd8fef8afa44a2d1b6db"
+    sha256 cellar: :any,                 arm64_sonoma:  "76655e9bfbd6d74021839f7dee53ec250544ae98199e4244f02a574135251ea2"
+    sha256 cellar: :any,                 arm64_ventura: "31b90fc997684834b2ddc1c040034d14afc2b0937c4d387ca4a11d1efc5ea1a0"
+    sha256 cellar: :any,                 sonoma:        "c4d95fd81411d4741cf8e85a31c69370654fb8a5b8379925978a95ef9fa04bad"
+    sha256 cellar: :any,                 ventura:       "77674ad33515e74141a407bcf6198bb3b0cef05cc6b10a0bc7ca32ea5324cc62"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "845b8afc4da44990a0113f714edff4a735e5fc09b4ffccc11885214a13d0b1e2"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -29,8 +27,6 @@ class Wangle < Formula
   depends_on "openssl@3"
   depends_on "zstd"
   uses_from_macos "bzip2"
-
-  fails_with gcc: "5"
 
   def install
     args = ["-DBUILD_TESTS=OFF"]
@@ -57,7 +53,7 @@ class Wangle < Formula
     end
     (testpath/"cmake").install resource("FindSodium.cmake")
 
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 3.5)
       project(Echo LANGUAGES CXX)
       set(CMAKE_CXX_STANDARD 17)
@@ -71,21 +67,21 @@ class Wangle < Formula
       target_link_libraries(EchoClient wangle::wangle)
       add_executable(EchoServer #{pkgshare}/EchoServer.cpp)
       target_link_libraries(EchoServer wangle::wangle)
-    EOS
+    CMAKE
 
     ENV.delete "CPATH"
-    system "cmake", ".", "-DCMAKE_MODULE_PATH=#{testpath}/cmake", "-Wno-dev"
-    system "cmake", "--build", "."
+    system "cmake", "-S", ".", "-B", "build", "-DCMAKE_MODULE_PATH=#{testpath}/cmake", "-Wno-dev"
+    system "cmake", "--build", "build"
 
     port = free_port
-    fork { exec testpath/"EchoServer", "-port", port.to_s }
-    sleep 10
+    fork { exec testpath/"build/EchoServer", "-port", port.to_s }
+    sleep 30
 
     require "pty"
     output = ""
-    PTY.spawn(testpath/"EchoClient", "-port", port.to_s) do |r, w, pid|
+    PTY.spawn(testpath/"build/EchoClient", "-port", port.to_s) do |r, w, pid|
       w.write "Hello from Homebrew!\nAnother test line.\n"
-      sleep 20
+      sleep 60
       Process.kill "TERM", pid
       begin
         r.each_line { |line| output += line }

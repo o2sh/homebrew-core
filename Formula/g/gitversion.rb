@@ -1,33 +1,32 @@
 class Gitversion < Formula
   desc "Easy semantic versioning for projects using Git"
   homepage "https://gitversion.net"
-  url "https://github.com/GitTools/GitVersion/archive/refs/tags/6.0.2.tar.gz"
-  sha256 "e18aa3984c057efa6c6afdb223b31c9ea31f7859498ff84c02aaf6fc91d5c3a0"
+  url "https://github.com/GitTools/GitVersion/archive/refs/tags/6.1.0.tar.gz"
+  sha256 "c4791cf3f3820606735e5cbb0bdb6bc1b2db6eedad485bab7d7ebef989228a94"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "28d46db8b669808fc430a0b958316e6faff23f150555119c7095cfd100ce334c"
-    sha256 cellar: :any,                 arm64_ventura:  "33fc7543dfcec77c67c4759dd3c59b2d65b02d89df21fc1c2fea2d3646a651a4"
-    sha256 cellar: :any,                 arm64_monterey: "36a19d0a3d5afee24bc6c503cde30201c932694dc8cfa8c29ea547621cea1490"
-    sha256 cellar: :any,                 sonoma:         "eae0f7fff24077a8151ec40d1f23fa8a1033a56c593c8a9a7c0a84ce22382597"
-    sha256 cellar: :any,                 ventura:        "b6d0372f81db453f2252977a07be5471f864697404259f2f231a7874de01b6fe"
-    sha256 cellar: :any,                 monterey:       "d97f8ebb3eb0321f43808ac3814d2e52499d38c0e937491393546ff913e73390"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "26b415bd114e91a473b65740f890722f6edc02b31d25f87547a77fbeaf7701af"
+    sha256 cellar: :any,                 arm64_sequoia: "2a26219dd186253845ca6dd7c4190c30c0184875e9de7f091757adccfb6f5428"
+    sha256 cellar: :any,                 arm64_sonoma:  "8451d1106918b8edbc6ae9d442afe9cca0b406830650c27ff010b677a8c42c28"
+    sha256 cellar: :any,                 arm64_ventura: "2e8fdd8e17785052d544cf1f165d8409da23499238c4e6bf6fcf83f7665d5c19"
+    sha256 cellar: :any,                 ventura:       "9e3ea5738e15a2a985f6251e8e6f9936d7d0aa8825caa4b1ac81eb03551eabd9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0eb1171fd507667b3452053bb02c44c647991f2557f0fcf440441892bd63d298"
   end
 
   depends_on "dotnet"
 
   def install
+    ENV["DOTNET_CLI_TELEMETRY_OPTOUT"] = "1"
+    ENV["DOTNET_SYSTEM_GLOBALIZATION_INVARIANT"] = "1"
+
     dotnet = Formula["dotnet"]
-    os = OS.mac? ? "osx" : OS.kernel_name.downcase
-    arch = Hardware::CPU.intel? ? "x64" : Hardware::CPU.arch.to_s
 
     args = %W[
       --configuration Release
       --framework net#{dotnet.version.major_minor}
       --output #{libexec}
-      --runtime #{os}-#{arch}
       --no-self-contained
+      --use-current-runtime
       -p:PublishSingleFile=true
       -p:Version=#{version}
     ]

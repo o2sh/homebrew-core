@@ -3,26 +3,24 @@ class PolicySentry < Formula
 
   desc "Generate locked-down AWS IAM Policies"
   homepage "https://policy-sentry.readthedocs.io/en/latest/"
-  url "https://files.pythonhosted.org/packages/52/4f/02922c178ca4acbe21f5d1252209ccc05bb70d515ca406925ae7e34e164f/policy_sentry-0.13.1.tar.gz"
-  sha256 "6bb0133d897a45349aed78942459b4f583542051bb181e3a64464d13af8190b0"
+  url "https://files.pythonhosted.org/packages/bc/4b/e03bbe626379bfee06c944a01ef25ad14ce30bc9dd86988dfda1cf343347/policy_sentry-0.14.0.tar.gz"
+  sha256 "5c52cebebad26e2360393f34af523c1685541d67b0dfd721b0779dbe9e327f1a"
   license "MIT"
   head "https://github.com/salesforce/policy_sentry.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "60ca9447213752ba9cd41f8ef4b5fac7f83309df998d3a2674b5ca7bd3e20052"
-    sha256 cellar: :any,                 arm64_sonoma:   "3d3b67e46bde2e7338a0165d5804dd76f5ba8f28d5a18a73e151d44d21e61c5d"
-    sha256 cellar: :any,                 arm64_ventura:  "04b8a0d17f02680cbdc9c3328b45dc34483ac6d9e9fc89fd0b6e15aed7daed3e"
-    sha256 cellar: :any,                 arm64_monterey: "28b56f86a2cd72411a7dd642f0bcc1ab6cdc829ec552aa8110af42e27bf59ba5"
-    sha256 cellar: :any,                 sonoma:         "08aaffc8c9830148c33341c3312908a2d4326d4c1a983c22dceae4c8130d72fb"
-    sha256 cellar: :any,                 ventura:        "576ef01673eb1a9e5df742566a302405ca33b06882988a22edd4e2bec6bd6566"
-    sha256 cellar: :any,                 monterey:       "7195d0717de66eee2537186bb70b2aa4209c29e00da50fb7918029a42ac3ad64"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fb66e234ebb1dfa044f306966ae0cf7b8506b270c652bdf08c373d7fb90bc554"
+    sha256 cellar: :any,                 arm64_sequoia: "f56bb99894f85216bfe076633d65a6fad4794b2a6c7b32a726da1436eea6c93d"
+    sha256 cellar: :any,                 arm64_sonoma:  "3fe5f7f60319e48531b28ac614dc9805a50219461880963d1a960a628b406b9c"
+    sha256 cellar: :any,                 arm64_ventura: "d3c9a0503ba612321de2064fd9b4be14afe10a39a88fc2501cf8cbe01f89be7f"
+    sha256 cellar: :any,                 sonoma:        "8d0385fe52aea73b6ddd043b0bab6d62e16b9a76c424c275bd645a902c633d30"
+    sha256 cellar: :any,                 ventura:       "5a0acc39d078de3f2fc685b62fb1a4c664637ab158f06aae6bbd491f39a37264"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "925ab22f519d9e3456525f36d5c1dd086ac126a8fb68799b061c29f8227de28d"
   end
 
   depends_on "rust" => :build # for orjson
   depends_on "certifi"
   depends_on "libyaml"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   resource "beautifulsoup4" do
     url "https://files.pythonhosted.org/packages/b3/ca/824b1195773ce6166d388573fc106ce56d4a805bd7427b624e063596ec58/beautifulsoup4-4.12.3.tar.gz"
@@ -30,28 +28,28 @@ class PolicySentry < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
-    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
+    url "https://files.pythonhosted.org/packages/16/b0/572805e227f01586461c80e0fd25d65a2115599cc9dad142fee4b747c357/charset_normalizer-3.4.1.tar.gz"
+    sha256 "44251f18cd68a75b56585dd00dae26183e102cd5e0f9f1466e6df5da2ed64ea3"
   end
 
   resource "click" do
-    url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"
-    sha256 "ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"
+    url "https://files.pythonhosted.org/packages/b9/2e/0090cbf739cee7d23781ad4b89a9894a41538e4fcf4c31dcdd705b78eb8b/click-8.1.8.tar.gz"
+    sha256 "ed53c9d8990d83c2a27deae68e4ee337473f6330c040a31d4225c9574d16096a"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
-    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
+    url "https://files.pythonhosted.org/packages/f1/70/7703c29685631f5a7590aa73f1f1d3fa9a380e654b86af429e0934a32f7d/idna-3.10.tar.gz"
+    sha256 "12f65c9b470abda6dc35cf8e63cc574b1c52b11df2c86030af0ac09b01b13ea9"
   end
 
   resource "orjson" do
-    url "https://files.pythonhosted.org/packages/70/24/8be1c9f6d21e3c510c441d6cbb6f3a75f2538b42a45f0c17ffb2182882f1/orjson-3.10.6.tar.gz"
-    sha256 "e54b63d0a7c6c54a5f5f726bc93a2078111ef060fec4ecbf34c5db800ca3b3a7"
+    url "https://files.pythonhosted.org/packages/45/0b/8c7eaf1e2152f1e0fb28ae7b22e2b35a6b1992953a1ebe0371ba4d41d3ad/orjson-3.10.13.tar.gz"
+    sha256 "eb9bfb14ab8f68d9d9492d4817ae497788a15fd7da72e14dfabc289c3bb088ec"
   end
 
   resource "pyyaml" do
-    url "https://files.pythonhosted.org/packages/cd/e5/af35f7ea75cf72f2cd079c95ee16797de7cd71f29ea7c68ae5ce7be1eda0/PyYAML-6.0.1.tar.gz"
-    sha256 "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
+    url "https://files.pythonhosted.org/packages/54/ed/79a089b6be93607fa5cdaedf301d7dfb23af5f25c398d5ead2525b063e17/pyyaml-6.0.2.tar.gz"
+    sha256 "d584d9ec91ad65861cc08d42e834324ef890a082e591037abe114850ff7bbc3e"
   end
 
   resource "requests" do
@@ -65,13 +63,13 @@ class PolicySentry < Formula
   end
 
   resource "soupsieve" do
-    url "https://files.pythonhosted.org/packages/ce/21/952a240de1c196c7e3fbcd4e559681f0419b1280c617db21157a0390717b/soupsieve-2.5.tar.gz"
-    sha256 "5663d5a7b3bfaeee0bc4372e7fc48f9cff4940b3eec54a6451cc5299f1097690"
+    url "https://files.pythonhosted.org/packages/d7/ce/fbaeed4f9fb8b2daa961f90591662df6a86c1abf25c548329a86920aedfb/soupsieve-2.6.tar.gz"
+    sha256 "e2e68417777af359ec65daac1057404a3c8a5455bb8abc36f1a9866ab1a51abb"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/43/6d/fa469ae21497ddc8bc93e5877702dca7cb8f911e337aca7452b5724f1bb6/urllib3-2.2.2.tar.gz"
-    sha256 "dd505485549a7a552833da5e6063639d0d177c04f23bc3864e41e5dc5f612168"
+    url "https://files.pythonhosted.org/packages/aa/63/e53da845320b757bf29ef6a9062f5c669fe997973f966045cb019c3f4b66/urllib3-2.3.0.tar.gz"
+    sha256 "f8c5449b3cf0861679ce7e0503c7b44b5ec981bec0d1d3795a07f1ba96f0204d"
   end
 
   def install

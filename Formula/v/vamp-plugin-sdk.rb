@@ -34,7 +34,7 @@ class VampPluginSdk < Formula
   end
 
   depends_on "automake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "flac"
   depends_on "libogg"
   depends_on "libsndfile"
@@ -45,7 +45,7 @@ class VampPluginSdk < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include "vamp-sdk/Plugin.h"
       #include <vamp-sdk/PluginAdapter.h>
 
@@ -53,7 +53,7 @@ class VampPluginSdk < Formula
 
       const VampPluginDescriptor *
       vampGetPluginDescriptor(unsigned int version, unsigned int index) { return NULL; }
-    EOS
+    CPP
 
     flags = if OS.mac?
       ["-Wl,-dylib"]

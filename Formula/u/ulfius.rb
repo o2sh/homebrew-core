@@ -17,7 +17,7 @@ class Ulfius < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :test
+  depends_on "pkgconf" => :test
   depends_on "gnutls"
   depends_on "jansson"
   depends_on "libmicrohttpd"
@@ -41,14 +41,14 @@ class Ulfius < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <ulfius.h>
       int main() {
         struct _u_instance instance;
         ulfius_init_instance(&instance, 8081, NULL, NULL);
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lulfius", "-o", "test"
     system "./test"
   end

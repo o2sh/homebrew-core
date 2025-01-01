@@ -19,7 +19,7 @@ class LibomemoC < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :test
+  depends_on "pkgconf" => :test
   depends_on "protobuf-c"
 
   def install
@@ -30,7 +30,7 @@ class LibomemoC < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <signal_protocol.h>
       #include <session_builder.h>
       #include <session_cipher.h>
@@ -101,9 +101,10 @@ class LibomemoC < Formula
 
         return 0;
       }
-    EOS
-    pkg_config = shell_output("pkg-config --cflags --libs libomemo-c").chomp.split
-    system ENV.cc, "test.c", *pkg_config, "-o", "test"
+    C
+
+    flags = shell_output("pkgconf --cflags --libs libomemo-c").chomp.split
+    system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
   end
 end

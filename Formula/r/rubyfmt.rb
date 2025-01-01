@@ -2,8 +2,8 @@ class Rubyfmt < Formula
   desc "Ruby autoformatter"
   homepage "https://github.com/fables-tales/rubyfmt"
   url "https://github.com/fables-tales/rubyfmt.git",
-    tag:      "v0.10.0",
-    revision: "e00d2ab89fd4b0b85a7897fac393c1ad987136de"
+      tag:      "v0.10.0",
+      revision: "e00d2ab89fd4b0b85a7897fac393c1ad987136de"
   license "MIT"
   head "https://github.com/fables-tales/rubyfmt.git", branch: "trunk"
 
@@ -46,14 +46,14 @@ class Rubyfmt < Formula
   end
 
   test do
-    (testpath/"test.rb").write <<~EOS
+    (testpath/"test.rb").write <<~RUBY
       def foo; 42; end
-    EOS
-    expected = <<~EOS
+    RUBY
+    expected = <<~RUBY
       def foo
         42
       end
-    EOS
+    RUBY
     assert_equal expected, shell_output("#{bin}/rubyfmt -- #{testpath}/test.rb")
   end
 end

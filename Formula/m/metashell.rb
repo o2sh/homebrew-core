@@ -18,8 +18,8 @@ class Metashell < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "python@3.12" => :build
 
+  uses_from_macos "python" => :build
   uses_from_macos "libedit"
   uses_from_macos "libxml2"
   uses_from_macos "zlib"
@@ -50,10 +50,10 @@ class Metashell < Formula
   end
 
   test do
-    (testpath/"test.hpp").write <<~EOS
+    (testpath/"test.hpp").write <<~CPP
       template <class T> struct add_const { using type = const T; };
       add_const<int>::type
-    EOS
+    CPP
     output = pipe_output("#{bin}/metashell -H", (testpath/"test.hpp").read)
     assert_match "const int", output
   end

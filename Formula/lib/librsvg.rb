@@ -25,7 +25,7 @@ class Librsvg < Formula
   end
 
   depends_on "gobject-introspection" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
   depends_on "cairo"
   depends_on "gdk-pixbuf"
@@ -43,16 +43,14 @@ class Librsvg < Formula
   end
 
   def install
-    args = %W[
-      --disable-dependency-tracking
-      --prefix=#{prefix}
+    args = %w[
       --disable-Bsymbolic
       --enable-tools=yes
       --enable-pixbuf-loader=yes
       --enable-introspection=yes
     ]
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
 
     # disable updating gdk-pixbuf cache, we will do this manually in post_install
     # https://github.com/Homebrew/homebrew/issues/40833
@@ -73,14 +71,14 @@ class Librsvg < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <librsvg/rsvg.h>
 
       int main(int argc, char *argv[]) {
         RsvgHandle *handle = rsvg_handle_new();
         return 0;
       }
-    EOS
+    C
     cairo = Formula["cairo"]
     fontconfig = Formula["fontconfig"]
     freetype = Formula["freetype"]

@@ -1,18 +1,18 @@
 class Benthos < Formula
   desc "Stream processor for mundane tasks written in Go"
   homepage "https://github.com/redpanda-data/benthos"
-  url "https://github.com/redpanda-data/benthos/archive/refs/tags/v4.38.0.tar.gz"
-  sha256 "afa0532f34c2c4d60e511c2f1580a496af85dd428594e1ccc3197744c71929f1"
+  url "https://github.com/redpanda-data/benthos/archive/refs/tags/v4.42.0.tar.gz"
+  sha256 "66c76065668a3ade672504a82d2ca5ff070610396909170874f4ad24eb6763a1"
   license "MIT"
   head "https://github.com/redpanda-data/benthos.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "70d7eed311ddc033c297672f380f3c706778160cc92a0b85c3a67890b94844c4"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "70d7eed311ddc033c297672f380f3c706778160cc92a0b85c3a67890b94844c4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "70d7eed311ddc033c297672f380f3c706778160cc92a0b85c3a67890b94844c4"
-    sha256 cellar: :any_skip_relocation, sonoma:        "130c7bfe92e7c0d2048c6eeeca4a23bf981e648d84d57f3dcc671f3eba0af339"
-    sha256 cellar: :any_skip_relocation, ventura:       "130c7bfe92e7c0d2048c6eeeca4a23bf981e648d84d57f3dcc671f3eba0af339"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cc56d65c99f0fa90d48f50de12b8e226950cff15b43f3f9f3b05fb766251866a"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "cc1d913ea33c427dc6235d27116dae57bf979a49aac82bb9ea746b613a1d831e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "cc1d913ea33c427dc6235d27116dae57bf979a49aac82bb9ea746b613a1d831e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "cc1d913ea33c427dc6235d27116dae57bf979a49aac82bb9ea746b613a1d831e"
+    sha256 cellar: :any_skip_relocation, sonoma:        "8c79be3a7f7a1928a6785e2b7fc59a51ec91de54142ba8ade059088c43c477a5"
+    sha256 cellar: :any_skip_relocation, ventura:       "8c79be3a7f7a1928a6785e2b7fc59a51ec91de54142ba8ade059088c43c477a5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cbea15871ce606f75353b5d788c691abdf31afe5999fea701bcaa32e2399795d"
   end
 
   depends_on "go" => :build
@@ -26,7 +26,7 @@ class Benthos < Formula
       QmVudGhvcyByb2NrcyE=
     EOS
 
-    (testpath/"test_pipeline.yaml").write <<~EOS
+    (testpath/"test_pipeline.yaml").write <<~YAML
       ---
       logger:
         level: ERROR
@@ -39,7 +39,7 @@ class Benthos < Formula
          - bloblang: 'root = content().decode("base64")'
       output:
         stdout: {}
-    EOS
+    YAML
     output = shell_output("#{bin}/benthos -c test_pipeline.yaml")
     assert_match "Benthos rocks!", output.strip
   end

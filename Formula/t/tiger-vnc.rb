@@ -1,9 +1,10 @@
 class TigerVnc < Formula
   desc "High-performance, platform-neutral implementation of VNC"
   homepage "https://tigervnc.org/"
-  url "https://github.com/TigerVNC/tigervnc/archive/refs/tags/v1.14.0.tar.gz"
-  sha256 "5700f9919802a2f0529cc058b8caded03281cdbf0335581f2dcc7df03f783419"
+  url "https://github.com/TigerVNC/tigervnc/archive/refs/tags/v1.14.1.tar.gz"
+  sha256 "579d0d04eb5b806d240e99a3c756b38936859e6f7db2f4af0d5656cc9a989d7c"
   license "GPL-2.0-or-later"
+  revision 1
 
   # Tags with a 90+ patch are unstable (e.g., the 1.9.90 tag is used for the
   # 1.10.0 beta release) and this regex should only match the stable versions.
@@ -13,18 +14,16 @@ class TigerVnc < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sequoia:  "eff90f145a651368f9bdbf5a5d1783804b615fe84589c68c569e4f40573c3860"
-    sha256 cellar: :any, arm64_sonoma:   "a4d0f2e2ee98e6026a1264f2399ceae66837b3878b48dcfe5ad666cd90ef841c"
-    sha256 cellar: :any, arm64_ventura:  "33b103c92fa1d2089d0c49f3266aa3330a7d8d7c4c1b6e1011accd1d018f8032"
-    sha256 cellar: :any, arm64_monterey: "daac790f90e2e4d612b5c0aa52e01fdcd2eae3670216babcbaffc6c492553712"
-    sha256 cellar: :any, sonoma:         "6e3950d12238592e88708071a4be97b4d50e66f3f70de8f0dbcee447aff82c79"
-    sha256 cellar: :any, ventura:        "041a1cfed4716b20799ce552a237c6ba025ce080f0b3d31d72fee8a0ec2b2028"
-    sha256 cellar: :any, monterey:       "dc869076e5e92b85fdc6f1e1075fbb7f4719091eb8157892c25a0ee495c893ef"
-    sha256               x86_64_linux:   "91194d51191ea03eea1a927148efc052dce585bdbbb0abf5a83652626285e160"
+    sha256 cellar: :any, arm64_sequoia: "7bc176a2d61c328fb349c89517136f824ba6a24e8bd1ce2742212b0a72779136"
+    sha256 cellar: :any, arm64_sonoma:  "7cf35ae52dae8555f601816857569539b6f4a4567d0430aca2069ffd064afa30"
+    sha256 cellar: :any, arm64_ventura: "d3a0850c956e85032de86105e5f41e4b9d0a284ac459325787689f9a0f1620f8"
+    sha256 cellar: :any, sonoma:        "0d423088741028380b8ac0e6afb22e83820f8551d6eeea5c46a68c4b04f62c2d"
+    sha256 cellar: :any, ventura:       "9276bf7e39d26bd7822f00b894e36a59851d201c60f478d2404636da226736d5"
+    sha256               x86_64_linux:  "7387518d8ad605dd07089fdb78ac5894aa3c9c15bd763d80458a3a907e74cba3"
   end
 
   depends_on "cmake" => :build
-  depends_on "fltk"
+  depends_on "fltk@1.3"
   depends_on "gettext"
   depends_on "gmp"
   depends_on "gnutls"
@@ -51,13 +50,13 @@ class TigerVnc < Formula
 
   def install
     turbo = Formula["jpeg-turbo"]
-    args = std_cmake_args + %W[
+    args = %W[
       -DJPEG_INCLUDE_DIR=#{turbo.include}
       -DJPEG_LIBRARY=#{turbo.lib}/#{shared_library("libjpeg")}
-      .
     ]
-    system "cmake", *args
-    system "make", "install"
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do

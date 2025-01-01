@@ -8,17 +8,12 @@ class Isort < Formula
   license "MIT"
   head "https://github.com/PyCQA/isort.git", branch: "main"
 
-  livecheck do
-    url :stable
-    regex(%r{href=.*?/packages.*?/isort[._-]v?(\d+(?:\.\d+)*(?:[a-z]\d+)?)\.t}i)
-  end
-
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, all: "a491e2da01cf99435dcf1357bf1cae158f6c57377a25ff3c4f0e3cfd60dcd189"
+    rebuild 3
+    sha256 cellar: :any_skip_relocation, all: "40e77a6599b1898f4790a9d54cea3da7662a8012941c0156762e037f8e3ea390"
   end
 
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   def install
     virtualenv_install_with_resources
@@ -26,10 +21,10 @@ class Isort < Formula
 
   test do
     ENV["LC_ALL"] = "en_US.UTF-8"
-    (testpath/"isort_test.py").write <<~EOS
+    (testpath/"isort_test.py").write <<~PYTHON
       from third_party import lib
       import os
-    EOS
+    PYTHON
     system bin/"isort", "isort_test.py"
     assert_equal "import os\n\nfrom third_party import lib\n", (testpath/"isort_test.py").read
   end

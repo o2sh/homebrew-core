@@ -3,9 +3,9 @@ class Jdtls < Formula
 
   desc "Java language specific implementation of the Language Server Protocol"
   homepage "https://github.com/eclipse-jdtls/eclipse.jdt.ls"
-  url "https://www.eclipse.org/downloads/download.php?file=/jdtls/milestones/1.39.0/jdt-language-server-1.39.0-202408291433.tar.gz"
-  version "1.39.0"
-  sha256 "f046d8f08974e6e773f2ed474266eab09889c6459f2663579f8b7d497bd34729"
+  url "https://www.eclipse.org/downloads/download.php?file=/jdtls/milestones/1.43.0/jdt-language-server-1.43.0-202412191447.tar.gz"
+  version "1.43.0"
+  sha256 "e3a33ff888aaf1d998ec0b6e0f1ecb8eeac53eef88dde22204c3cd3379e5fb98"
   license "EPL-2.0"
   version_scheme 1
 
@@ -15,11 +15,11 @@ class Jdtls < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "2b6351545fc3984ec8c311694ddbea31074cb2f745415ca6bcc0976269d16dd2"
+    sha256 cellar: :any_skip_relocation, all: "6eb6ffe785c78ceacc8d585425f6db95b79d8f1107cad47021011151572ca74c"
   end
 
   depends_on "openjdk"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   def install
     libexec.install buildpath.glob("*") - buildpath.glob("config*win*")

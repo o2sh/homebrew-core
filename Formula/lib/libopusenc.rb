@@ -30,19 +30,17 @@ class Libopusenc < Formula
     depends_on "libtool" => :build
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "opus"
 
   def install
     system "./autogen.sh" if build.head?
-    system "./configure", "--disable-dependency-tracking",
-                          "--disable-silent-rules",
-                          "--prefix=#{prefix}"
+    system "./configure", "--disable-silent-rules", *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <opusenc.h>
       #include <assert.h>
       #include <stdint.h>
@@ -70,7 +68,7 @@ class Libopusenc < Formula
 
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-o", "test", "-Wall",
                    "-I#{Formula["opus"].opt_include}/opus",
                    "-I#{include}/opus",

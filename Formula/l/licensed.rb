@@ -2,23 +2,22 @@ class Licensed < Formula
   desc "Cache and verify the licenses of dependencies"
   homepage "https://github.com/github/licensed"
   url "https://github.com/github/licensed.git",
-      tag:      "v4.5.0",
-      revision: "b83dac625d37b9e5c5151569b011be2a57816e38"
+      tag:      "v5.0.1",
+      revision: "d74f3bcf74c241eb79b9b82d7ae3d4bad22bc791"
   license "MIT"
+  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "9a31a87888b0b0db0e68f848f5b4a329a339cb08791a75aa6cbc075a63a4f7c7"
-    sha256 cellar: :any,                 arm64_sonoma:   "d4b7ad01ee7de55961e95f82b808d2bba758459c8fb79d768df1d9489941223a"
-    sha256 cellar: :any,                 arm64_ventura:  "2f4b5e92a768349a8167efc94cbe602be17c7af4899cc827c534107bf336b18c"
-    sha256 cellar: :any,                 arm64_monterey: "25fac47c545d7442c1d7b4aba19cca2b6d103ec7e09c17565ac7eaf32cfd4b17"
-    sha256 cellar: :any,                 sonoma:         "ebc8d31605c467416f0a693bb3214dff84948b0788d00f9a19c7ffb18bd89366"
-    sha256 cellar: :any,                 ventura:        "23a1d65eafe0f8902da4ebe265d9d81de979f53a0818233dad818922f95fcc94"
-    sha256 cellar: :any,                 monterey:       "d1ba0b84009f3ff750e71a2acccfd54583223b53275e991f993aca29ea1abe48"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "216517ba4f2526dc918c7c5350a068b59ceb876c7c8b4fa1eea14038976e3c43"
+    sha256 cellar: :any,                 arm64_sequoia: "ff62a265e124b6dfa61060017d0ec1c861083f2dcada89e8b08bab249575288b"
+    sha256 cellar: :any,                 arm64_sonoma:  "77d2b90ddeb1201923133997788dc353e87815d3b32f6de90ecf1e87b88d672b"
+    sha256 cellar: :any,                 arm64_ventura: "13556d3679589482caaeb4d7c3073583447a9a0123cebbaec555e4449f67d5e0"
+    sha256 cellar: :any,                 sonoma:        "46eeb6cb7f8eb7e815b2ee960608945c988e539064e866929b1541a279117804"
+    sha256 cellar: :any,                 ventura:       "0f12df0a2caf888b9b35102c87d98d4c493147c5628f7dbc9b18d4814418f119"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0ee93a8cb1c187dfbaeb94dab3ebe70157d14360a3b93f88c8187f315e3f61f9"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "ruby"
   depends_on "xz"
 
@@ -58,13 +57,12 @@ class Licensed < Formula
       gem 'licensed', '#{version}'
     EOS
 
-    (testpath/".licensed.yml").write <<~EOS
+    (testpath/".licensed.yml").write <<~YAML
       name: 'test'
       allowed:
         - mit
-    EOS
+    YAML
 
-    assert_match "Caching dependency records for test",
-                        shell_output(bin/"licensed cache")
+    assert_match "Caching dependency records for test", shell_output("#{bin}/licensed cache")
   end
 end

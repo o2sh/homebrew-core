@@ -3,23 +3,21 @@ class Sqlmap < Formula
 
   desc "Penetration testing for SQL injection and database servers"
   homepage "https://sqlmap.org"
-  url "https://github.com/sqlmapproject/sqlmap/archive/refs/tags/1.8.9.tar.gz"
-  sha256 "3ae9969bec583d21790c5282aa3e586bf8fa822ad5d267afb7ea19db07ac434c"
+  url "https://github.com/sqlmapproject/sqlmap/archive/refs/tags/1.8.12.tar.gz"
+  sha256 "3917a2a73a66dcaff76be5933e132d55e0e32f8a2b1690b9cf53eb413fd433f5"
   license "GPL-2.0-or-later"
   head "https://github.com/sqlmapproject/sqlmap.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "4ff43f4471f18c62e28b93dfc9d9da66cefa3fad83251c3819c5c3a736cdf6f4"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4ff43f4471f18c62e28b93dfc9d9da66cefa3fad83251c3819c5c3a736cdf6f4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4ff43f4471f18c62e28b93dfc9d9da66cefa3fad83251c3819c5c3a736cdf6f4"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4ff43f4471f18c62e28b93dfc9d9da66cefa3fad83251c3819c5c3a736cdf6f4"
-    sha256 cellar: :any_skip_relocation, sonoma:         "79e8fa29f56e9134c35ec67407febdb7e5a369d6699127c448c23f20fbb678a4"
-    sha256 cellar: :any_skip_relocation, ventura:        "79e8fa29f56e9134c35ec67407febdb7e5a369d6699127c448c23f20fbb678a4"
-    sha256 cellar: :any_skip_relocation, monterey:       "79e8fa29f56e9134c35ec67407febdb7e5a369d6699127c448c23f20fbb678a4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7eb774f28e6e51f3d4e8d5ff1f17c4914a961ed1bf2add2156b53967716eed80"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "68dd79394ca2e3a447beb619bfe8ed77f374a59cfa57f41fb399028b9aa45270"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "68dd79394ca2e3a447beb619bfe8ed77f374a59cfa57f41fb399028b9aa45270"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "68dd79394ca2e3a447beb619bfe8ed77f374a59cfa57f41fb399028b9aa45270"
+    sha256 cellar: :any_skip_relocation, sonoma:        "0aa1d780269e0c5b29ab952c0211caa5ed80792e665f0e532071238f77b258ab"
+    sha256 cellar: :any_skip_relocation, ventura:       "0aa1d780269e0c5b29ab952c0211caa5ed80792e665f0e532071238f77b258ab"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "87914cae7214d403699724f8943e05176ff14b564ad984115cc2a555974ea183"
   end
 
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   uses_from_macos "sqlite" => :test
 
@@ -51,6 +49,6 @@ class Sqlmap < Formula
     select = "select name, age from students order by age asc;"
     args = %W[--batch -d sqlite://school.sqlite --sql-query "#{select}"]
     output = shell_output("#{bin}/sqlmap #{args.join(" ")}")
-    data.each_slice(2) { |n, a| assert_match "#{n}, #{a}", output }
+    data.each_slice(2) { |n, a| assert_match "#{n},#{a}", output }
   end
 end

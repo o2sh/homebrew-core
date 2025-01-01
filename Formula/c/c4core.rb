@@ -18,6 +18,8 @@ class C4core < Formula
 
   depends_on "cmake" => [:build, :test]
 
+  conflicts_with "rapidyaml", because: "both install `c4core` files `include/c4`"
+
   def install
     system "cmake", "-S", ".", "-B", "build", "-DBUILD_SHARED_LIBS=ON", *std_cmake_args
     system "cmake", "--build", "build"
@@ -25,7 +27,7 @@ class C4core < Formula
   end
 
   test do
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 3.5)
       project(c4core_test)
 
@@ -33,9 +35,9 @@ class C4core < Formula
 
       add_executable(c4core_test test.cpp)
       target_link_libraries(c4core_test c4core::c4core)
-    EOS
+    CMAKE
 
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include "c4/charconv.hpp" // header file for character conversion utilities
       #include "c4/format.hpp"   // header file for formatting utilities
       #include <iostream>
@@ -58,7 +60,7 @@ class C4core < Formula
 
           return 0;
       }
-    EOS
+    CPP
 
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args
     system "cmake", "--build", "build"

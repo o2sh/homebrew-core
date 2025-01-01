@@ -21,7 +21,7 @@ class GdkPixbuf < Formula
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "glib"
   depends_on "jpeg-turbo"
   depends_on "libpng"
@@ -89,15 +89,15 @@ class GdkPixbuf < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <gdk-pixbuf/gdk-pixbuf.h>
 
       int main(int argc, char *argv[]) {
         GType type = gdk_pixbuf_get_type();
         return 0;
       }
-    EOS
-    flags = shell_output("pkg-config --cflags --libs gdk-pixbuf-#{gdk_so_ver}").chomp.split
+    C
+    flags = shell_output("pkgconf --cflags --libs gdk-pixbuf-#{gdk_so_ver}").chomp.split
     system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
   end

@@ -6,20 +6,18 @@ class AdrViewer < Formula
   url "https://files.pythonhosted.org/packages/1b/72/0f787da38d0f9d69c06b31d8f412735ed4fad383edd7f7d2286f4fc7b5b0/adr_viewer-1.4.0.tar.gz"
   sha256 "9a2f02a9feb3a6d03d055dd8599b20d34126f8e755b4b4ee1a353ecbbd590cef"
   license "MIT"
-  revision 1
+  revision 2
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "6dc5296cf3878d3e868c20beeab22c9b194e9b12f2e95dbfcc16a42f6403a004"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5318d78eabe31c1b114ca32615317b488f6d586c2bcef64af8fc420cd7fbe58e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c61f5cedde30afad943d4e11fed05a6bcd8eef1b8e8aa5b2e68e8810ad185fc5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "fba7ede4d8f7dbdccd2712460e79fe364e54c4d5c45c58d364094f1958dcd1f6"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8ee0cf976f32eb79be1b9c81912327e4c56e0ab1f66254ae7ae87069e8c273cf"
-    sha256 cellar: :any_skip_relocation, ventura:        "ebc4aa912ff8f326f96c4802c75687c4eb7406dabf0ace81d4976eda508c75ae"
-    sha256 cellar: :any_skip_relocation, monterey:       "de080d53d892580f4456233e69f165ca715d681fd89b9fcec88cfc192285bece"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "282d480f5200e1be5e355fbd64c28baca9bf64432f09ce04a8a407eb3bd78072"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fff66558a3dc0891dc960355f0f0525f80e9c06aa98e23f3aeac43dadcc5288c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0d7214417dfde8e74de0c67bf102a01ba39130c7a36b6980011b48f1b16839d9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "84f2ad61fb54d99fa10d6f09284046748dbace538a4766c655a8015083fa90f0"
+    sha256 cellar: :any_skip_relocation, sonoma:        "eb7d1b41c9e9f9c69157d4a5a7128e75fc724c41e7e55b9da434483afe026518"
+    sha256 cellar: :any_skip_relocation, ventura:       "b717a63b17499a157bf65ef88fb3ad874a455e27595d81bd1530bb6b158ba6e7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "926f71bbc769190aa84277149755a9cba09fdb10f81a6930b60b7249481cd5c9"
   end
 
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   resource "beautifulsoup4" do
     url "https://files.pythonhosted.org/packages/b3/ca/824b1195773ce6166d388573fc106ce56d4a805bd7427b624e063596ec58/beautifulsoup4-4.12.3.tar.gz"
@@ -27,8 +25,8 @@ class AdrViewer < Formula
   end
 
   resource "bottle" do
-    url "https://files.pythonhosted.org/packages/fd/04/1c09ab851a52fe6bc063fd0df758504edede5cc741bd2e807bf434a09215/bottle-0.12.25.tar.gz"
-    sha256 "e1a9c94970ae6d710b3fb4526294dfeb86f2cb4a81eff3a4b98dc40fb0e5e021"
+    url "https://files.pythonhosted.org/packages/1b/fb/97839b95c2a2ea1ca91877a846988f90f4ca16ee42c0bb79e079171c0c06/bottle-0.13.2.tar.gz"
+    sha256 "e53803b9d298c7d343d00ba7d27b0059415f04b9f6f40b8d58b5bf914ba9d348"
   end
 
   resource "bs4" do
@@ -37,18 +35,18 @@ class AdrViewer < Formula
   end
 
   resource "click" do
-    url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"
-    sha256 "ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"
+    url "https://files.pythonhosted.org/packages/b9/2e/0090cbf739cee7d23781ad4b89a9894a41538e4fcf4c31dcdd705b78eb8b/click-8.1.8.tar.gz"
+    sha256 "ed53c9d8990d83c2a27deae68e4ee337473f6330c040a31d4225c9574d16096a"
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/ed/55/39036716d19cab0747a5020fc7e907f362fbf48c984b14e62127f7e68e5d/jinja2-3.1.4.tar.gz"
-    sha256 "4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369"
+    url "https://files.pythonhosted.org/packages/af/92/b3130cbbf5591acf9ade8708c365f3238046ac7cb8ccba6e81abccb0ccff/jinja2-3.1.5.tar.gz"
+    sha256 "8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb"
   end
 
   resource "markupsafe" do
-    url "https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz"
-    sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
+    url "https://files.pythonhosted.org/packages/b2/97/5d42485e71dfc078108a86d6de8fa46db44a1a9295e89c5d6d4a06e23a62/markupsafe-3.0.2.tar.gz"
+    sha256 "ee55d3edf80167e48ea11a923c7386f4669df67d7994554387f84e7d8b0a2bf0"
   end
 
   resource "mistune" do
@@ -57,8 +55,8 @@ class AdrViewer < Formula
   end
 
   resource "soupsieve" do
-    url "https://files.pythonhosted.org/packages/ce/21/952a240de1c196c7e3fbcd4e559681f0419b1280c617db21157a0390717b/soupsieve-2.5.tar.gz"
-    sha256 "5663d5a7b3bfaeee0bc4372e7fc48f9cff4940b3eec54a6451cc5299f1097690"
+    url "https://files.pythonhosted.org/packages/d7/ce/fbaeed4f9fb8b2daa961f90591662df6a86c1abf25c548329a86920aedfb/soupsieve-2.6.tar.gz"
+    sha256 "e2e68417777af359ec65daac1057404a3c8a5455bb8abc36f1a9866ab1a51abb"
   end
 
   def install
@@ -68,7 +66,7 @@ class AdrViewer < Formula
   test do
     adr_dir = testpath/"doc"/"adr"
     mkdir_p adr_dir
-    (adr_dir/"0001-record.md").write <<~EOS
+    (adr_dir/"0001-record.md").write <<~MARKDOWN
       # 1. Record architecture decisions
       Date: 2018-09-02
       ## Status
@@ -79,7 +77,7 @@ class AdrViewer < Formula
       We will use Architecture Decision Records, as [described by Michael Nygard](https://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions).
       ## Consequences
       See Michael Nygard's article, linked above. For a lightweight ADR toolset, see Nat Pryce's [adr-tools](https://github.com/npryce/adr-tools).
-    EOS
+    MARKDOWN
     system bin/"adr-viewer", "--adr-path", adr_dir, "--output", "index.html"
     assert_predicate testpath/"index.html", :exist?
   end

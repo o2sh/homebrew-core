@@ -1,20 +1,17 @@
 class ReleaseIt < Formula
   desc "Generic CLI tool to automate versioning and package publishing related tasks"
   homepage "https://github.com/release-it/release-it"
-  url "https://registry.npmjs.org/release-it/-/release-it-17.6.0.tgz"
-  sha256 "bcdd80d759a96b8dbca3d662b5b33c3615fc82284412b6f23554e248250d1be5"
+  url "https://registry.npmjs.org/release-it/-/release-it-17.11.0.tgz"
+  sha256 "077e489ad95d3f4f0fc32ff0d1cac1c659c7a31cec5b5365b0fb31a62a142222"
   license "MIT"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "4e68e7a516e86660f041c946f9c71f06243c9f823460a4e8564b67a77ae7dfd5"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "fc2f4cb596c2505b3d46890c594e7d89f4ea22b2b01fd4a4cab39dc73e2e8c67"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "fc2f4cb596c2505b3d46890c594e7d89f4ea22b2b01fd4a4cab39dc73e2e8c67"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "fc2f4cb596c2505b3d46890c594e7d89f4ea22b2b01fd4a4cab39dc73e2e8c67"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3d79f27c7872c130817d0783eb74385360c98a400cb08f02ec0991209e340b76"
-    sha256 cellar: :any_skip_relocation, ventura:        "3d79f27c7872c130817d0783eb74385360c98a400cb08f02ec0991209e340b76"
-    sha256 cellar: :any_skip_relocation, monterey:       "3d79f27c7872c130817d0783eb74385360c98a400cb08f02ec0991209e340b76"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c450bb27a909106bf9c159317023c102c17cad776c4f947b5a435db1cae5d047"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "76829244c66709da679d59b077453f64b171cdef6ba55ad89d72389e61f526f6"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "76829244c66709da679d59b077453f64b171cdef6ba55ad89d72389e61f526f6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "76829244c66709da679d59b077453f64b171cdef6ba55ad89d72389e61f526f6"
+    sha256 cellar: :any_skip_relocation, sonoma:        "0f3201f7ac1cfe56f8fcbd4005aea26bf94b0344b1a4a755a33c74f61a5d950f"
+    sha256 cellar: :any_skip_relocation, ventura:       "0f3201f7ac1cfe56f8fcbd4005aea26bf94b0344b1a4a755a33c74f61a5d950f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "76829244c66709da679d59b077453f64b171cdef6ba55ad89d72389e61f526f6"
   end
 
   depends_on "node"

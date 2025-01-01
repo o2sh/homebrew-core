@@ -21,17 +21,18 @@ class Xnvme < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
 
   def install
     # We do not have SPDK nor libvfn on macOS, thus disabling these
     # The examples and tests are also a bit superfluous, so disable those as well
-    system "meson", "setup", "build",
-           *std_meson_args,
-           "-Dwith-spdk=disabled",
-           "-Dwith-libvfn=disabled",
-           "-Dtests=false",
-           "-Dexamples=false"
+    args = %w[
+      -Dwith-spdk=disabled
+      -Dwith-libvfn=disabled
+      -Dtests=false
+      -Dexamples=false
+    ]
+    system "meson", "setup", "build", *args, *std_meson_args
     system "meson", "compile", "-C", "build"
     system "meson", "install", "-C", "build"
   end
@@ -47,7 +48,7 @@ class Xnvme < Formula
     assert_match "tbytes: 1073741824", output
 
     # Verify library usage using a ramdisk of 1GB
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <libxnvme.h>
 
@@ -66,7 +67,7 @@ class Xnvme < Formula
 
         return 0;
       }
-    EOS
+    C
 
     # Build the example using pkg-config for build-options
     flags = shell_output("pkg-config xnvme --libs --cflags").strip

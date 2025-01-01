@@ -1,27 +1,25 @@
 class LibgeditGtksourceview < Formula
   desc "Text editor widget for code editing"
   homepage "https://gitlab.gnome.org/World/gedit/libgedit-gtksourceview"
-  url "https://gitlab.gnome.org/World/gedit/libgedit-gtksourceview/-/archive/299.2.1/libgedit-gtksourceview-299.2.1.tar.bz2"
-  sha256 "b183a816f3958df4bf5e186fef6f9a9e31d7747e6fafecc5cf1650b4807920b5"
+  url "https://gitlab.gnome.org/World/gedit/libgedit-gtksourceview/-/archive/299.4.0/libgedit-gtksourceview-299.4.0.tar.bz2"
+  sha256 "a2b4901b50fa2f7c5f968576e2d556b5e8e51ad264ab0d7b0e9aadced3b88f8a"
   license "LGPL-2.1-only"
   head "https://gitlab.gnome.org/World/gedit/libgedit-gtksourceview.git", branch: "main"
 
   bottle do
-    sha256 arm64_sequoia:  "f90702eb564b47f8de26d4e7ae85f97ec726febfd1dfb33726d4d64de813dbd5"
-    sha256 arm64_sonoma:   "5aff961bf40184a0c661fc7890f4b2be98937d7eb417ee76429a99e1e147ed76"
-    sha256 arm64_ventura:  "ea3c2abf6e495e0bb8ec265fccee3d2131de9fd210c556fa30790c610483742e"
-    sha256 arm64_monterey: "d18303d09984f7b23c1cc53aef7ed7c7171b4d7ed78eb2edf55ae1696725abe3"
-    sha256 sonoma:         "1e214228a6d3f1c415827dae97d0c9318eb1db780e0e598568cddd9759bf5a54"
-    sha256 ventura:        "616d3ed819468270727c83c8d3bd7e7d38290697e24991c366100408d10ff319"
-    sha256 monterey:       "7b81052f99056209550d3a2149280b976f03ff6f0dc4d056e060065f4d231fbf"
-    sha256 x86_64_linux:   "528ce89f65e7be3f6184df2d3e64ec16c9e733ac55a5e3722b55088d386c4d80"
+    sha256 arm64_sequoia: "51e58da55a5594fa1d73043fa7a0510d691f0c30744c127eadaba07e8663af24"
+    sha256 arm64_sonoma:  "cc63f8322b34f5502c473d4b67daeeba4d1d6c0bc2291daadf555f04d68fc583"
+    sha256 arm64_ventura: "209e7cbabf6f1b4884f89cf5aa1f7eb1c18da3b5b3b9dd1cbe786a246f8ff5ed"
+    sha256 sonoma:        "d924112a93e2fc31602bed2f22eb62e86433770b1b5a358f10c5595814fb7ab8"
+    sha256 ventura:       "786856621ac7e553e9a6a38af06d04f51d6c69e526cb9fa6260040130a34c33f"
+    sha256 x86_64_linux:  "ad02ed5c3a3d39863ff6f169819c2d0854e800a3b92edece02b9a76cbab9668d"
   end
 
   depends_on "gettext" => :build
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "cairo"
   depends_on "gdk-pixbuf"
   depends_on "glib"
@@ -40,16 +38,16 @@ class LibgeditGtksourceview < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <gtksourceview/gtksource.h>
 
       int main(int argc, char *argv[]) {
         gchar *text = gtk_source_utils_unescape_search_text("hello world");
         return 0;
       }
-    EOS
+    C
 
-    flags = shell_output("pkg-config --cflags --libs libgedit-gtksourceview-300").strip.split
+    flags = shell_output("pkgconf --cflags --libs libgedit-gtksourceview-300").strip.split
     system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
   end

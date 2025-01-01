@@ -1,8 +1,8 @@
 class Groonga < Formula
   desc "Fulltext search engine and column store"
   homepage "https://groonga.org/"
-  url "https://github.com/groonga/groonga/releases/download/v14.0.7/groonga-14.0.7.tar.gz"
-  sha256 "97428e49adb3542cbc0545279b66c53fcd825176be5f231feba8951096ce4095"
+  url "https://github.com/groonga/groonga/releases/download/v14.1.2/groonga-14.1.2.tar.gz"
+  sha256 "3da6ba0a9d64582e1b8ef5daf6f6f5b1257e8d68e401341de625b08a1cc43b09"
   license "LGPL-2.1-or-later"
 
   livecheck do
@@ -11,14 +11,12 @@ class Groonga < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "87a527ab33e7e801b267a47e9d3309a6078cdae410c50b983e8a78198a6a94e1"
-    sha256 arm64_sonoma:   "1939364b135a0ceddca4d16d07544c1dba11e2153994915bd3ab9ae07c445197"
-    sha256 arm64_ventura:  "124dd63c68b9038c3bf4d16eb336a5ad7ba829bdf5b6998cf590eb72eae53cdf"
-    sha256 arm64_monterey: "45c38aff0067a6ce9a0725d62feab3bf381f2614e7a8e980b865992264ea8f5a"
-    sha256 sonoma:         "76f8a668729df1d6a37ada70f335f229f42a932793197871cbc5a212c6742d65"
-    sha256 ventura:        "24b5bd40c496195e11646ed8a339b3b56d60a110e6e549d82d1c2be978be4965"
-    sha256 monterey:       "f4f31ae7a7f4e26d9ef29d881589957a6254c54b89584476163aa4e68e89beff"
-    sha256 x86_64_linux:   "13602a74b5529f8e02fe4ecd112bc48f06fd23c6b12eb8a665dd7e79daa4fe3b"
+    sha256 arm64_sequoia: "fa3cb8fcae55350f1ff5f6d56f2fbf13595da00edf01d7bc3c4e74c1bdfe9c02"
+    sha256 arm64_sonoma:  "3186f80fbb740d0092d10fc2b44d6ec9b5efe00675ce83239c6f4d5893645ef1"
+    sha256 arm64_ventura: "291b73754cf6e14cc7ea86007c5ec351793bcdb0b73d32a83e0d7d95f8b702eb"
+    sha256 sonoma:        "50275becaa35901e0d0befa00d8ac20c818f1f6ff3f91fad23b6007cdd7c8f73"
+    sha256 ventura:       "a89a50bad7219197f19d41bb014f7957fc81e0ac2b059e6d5408101826b1ade0"
+    sha256 x86_64_linux:  "baf0f6c7c296c236ca325d95031bb494474c9b5e8b78a7213d4c43c227021c22"
   end
 
   head do
@@ -28,7 +26,7 @@ class Groonga < Formula
     depends_on "libtool" => :build
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "mecab"
   depends_on "mecab-ipadic"
   depends_on "msgpack"

@@ -2,26 +2,22 @@ class Metricbeat < Formula
   desc "Collect metrics from your systems and services"
   homepage "https://www.elastic.co/beats/metricbeat"
   url "https://github.com/elastic/beats.git",
-      tag:      "v8.15.1",
-      revision: "88cc526a2d3e52dcbfa52c9dd25eb09ed95470e4"
+      tag:      "v8.17.0",
+      revision: "092f0eae4d0d343cc3a142f671c2a0428df67840"
   license "Apache-2.0"
   head "https://github.com/elastic/beats.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "08e8f95fb4a826cdba0fca123ea39a895eb235cd505de23a29f9134a12508402"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f2a41fe3623a15d26322c48802cd3b004f8e0e1f3ce43ee773d7a4c57ef88036"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3ad0d4b8f672e32867b6bc3728037935e4cdc01fa0a24db9b8fac8376ed3729b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e144c3f663df0660884bb0d8142db010d79610951b451cc33602f2c468f517eb"
-    sha256 cellar: :any_skip_relocation, sonoma:         "7f7eed026ac5c7d351e60b47ceb4bca5776931f0c59ced4bd439b05f287436f6"
-    sha256 cellar: :any_skip_relocation, ventura:        "49b66de8c0079183492d5618ca5d9921d8324dc63c13aa9983ce2c1aba68f232"
-    sha256 cellar: :any_skip_relocation, monterey:       "e351e4c8f35137ad10db45e0e34447608577032264c41c53dd236bcbf733496d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bd7a4b46db1323a9b7c577eb2994e4d2f0ce50d8ac71c74bb7a7008d8e920df7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "15c65fd22b9730b2d89c2de8df44a88078ade9a3de917113d11120013aa13227"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0e0e39fec849dce6010cb50a808b35936d67ef2d8cd287844a8c187b64344089"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "baf30181b014fc308553829a210bbef2e0988df2c6827073abfca60095ef11b8"
+    sha256 cellar: :any_skip_relocation, sonoma:        "934d8b2951a7e390fb4e05de27a08e2b7c0ddf15b51645c07f1cb9281053c15c"
+    sha256 cellar: :any_skip_relocation, ventura:       "4463858e153e8a0422ec71db032b1bf5037ca5303de6c960cfc75a0eeaf444dd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a942fbd0f6e6f341f5e7f44a3842308977ca0223dbcc110967b8a566463e519a"
   end
 
   depends_on "go" => :build
   depends_on "mage" => :build
-
-  uses_from_macos "python" => :build
 
   def install
     # remove non open source files
@@ -33,15 +29,14 @@ class Metricbeat < Formula
       inreplace "magefile.go", "mg.Deps(CollectDocs, FieldsDocs)", ""
 
       system "mage", "-v", "build"
-      ENV.deparallelize
       system "mage", "-v", "update"
 
-      (etc/"metricbeat").install Dir["metricbeat.*", "fields.yml", "modules.d"]
+      pkgetc.install Dir["metricbeat.*", "fields.yml", "modules.d"]
       (libexec/"bin").install "metricbeat"
       prefix.install "build/kibana"
     end
 
-    (bin/"metricbeat").write <<~EOS
+    (bin/"metricbeat").write <<~SH
       #!/bin/sh
       exec #{libexec}/bin/metricbeat \
         --path.config #{etc}/metricbeat \
@@ -49,7 +44,7 @@ class Metricbeat < Formula
         --path.home #{prefix} \
         --path.logs #{var}/log/metricbeat \
         "$@"
-    EOS
+    SH
 
     chmod 0555, bin/"metricbeat" # generate_completions_from_executable fails otherwise
     generate_completions_from_executable(bin/"metricbeat", "completion", shells: [:bash, :zsh])
@@ -60,7 +55,7 @@ class Metricbeat < Formula
   end
 
   test do
-    (testpath/"config/metricbeat.yml").write <<~EOS
+    (testpath/"config/metricbeat.yml").write <<~YAML
       metricbeat.modules:
       - module: system
         metricsets: ["load"]
@@ -69,15 +64,12 @@ class Metricbeat < Formula
         enabled: true
         path: #{testpath}/data
         filename: metricbeat
-    EOS
+    YAML
 
     (testpath/"logs").mkpath
     (testpath/"data").mkpath
 
-    fork do
-      exec bin/"metricbeat", "-path.config", testpath/"config", "-path.data",
-                             testpath/"data"
-    end
+    pid = spawn bin/"metricbeat", "--path.config", testpath/"config", "--path.data", testpath/"data"
 
     sleep 15
 
@@ -88,5 +80,8 @@ class Metricbeat < Formula
       s = JSON.parse(file.read.lines.first.chomp)
       assert_match "metricbeat", s["@metadata"]["beat"]
     end
+  ensure
+    Process.kill("TERM", pid)
+    Process.wait(pid)
   end
 end

@@ -1,7 +1,7 @@
 class Enchant < Formula
   desc "Spellchecker wrapping library"
-  homepage "https://abiword.github.io/enchant/"
-  url "https://github.com/AbiWord/enchant/releases/download/v2.8.2/enchant-2.8.2.tar.gz"
+  homepage "https://rrthomas.github.io/enchant/"
+  url "https://github.com/rrthomas/enchant/releases/download/v2.8.2/enchant-2.8.2.tar.gz"
   sha256 "8f19535adb5577b83b00e02f330fe9b9eb40dd21f19e2899636fc4d3a7696375"
   license "LGPL-2.1-or-later"
 
@@ -16,7 +16,7 @@ class Enchant < Formula
     sha256 x86_64_linux:   "d0aab4334f7a0feb7d168863bb81a4800982aacd709bee3b96146328b0a9f097"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "aspell"
   depends_on "glib"
 

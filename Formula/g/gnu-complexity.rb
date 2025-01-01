@@ -33,7 +33,7 @@ class GnuComplexity < Formula
   def install
     odie "check if autoreconf line can be removed" if version > "1.13"
     # regenerate since the files were generated using automake 1.16.1
-    system "autoreconf", "--install", "--force", "--verbose"
+    system "autoreconf", "--force", "--install", "--verbose"
 
     # Fix errors in opts.h. Borrowed from Debian:
     # https://salsa.debian.org/debian/complexity/-/blob/master/debian/rules
@@ -47,7 +47,7 @@ class GnuComplexity < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       void free_table(uint32_t *page_dir) {
           // The last entry of the page directory is reserved. It points to the page
           // table itself.
@@ -66,7 +66,7 @@ class GnuComplexity < Formula
           }
           free_frame((page_frame_t)page_dir);
       }
-    EOS
+    C
     system bin/"complexity", "-t", "3", "./test.c"
   end
 end

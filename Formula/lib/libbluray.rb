@@ -32,30 +32,30 @@ class Libbluray < Formula
     depends_on "libtool" => :build
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "fontconfig"
   depends_on "freetype"
 
   uses_from_macos "libxml2"
 
   def install
-    args = %W[--prefix=#{prefix} --disable-dependency-tracking --disable-silent-rules --disable-bdjava-jar]
+    args = %w[--disable-silent-rules --disable-bdjava-jar]
 
     system "./bootstrap" if build.head?
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <libbluray/bluray.h>
       int main(void) {
         BLURAY *bluray = bd_init();
         bd_close(bluray);
         return 0;
       }
-    EOS
+    C
 
     system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lbluray", "-o", "test"
     system "./test"

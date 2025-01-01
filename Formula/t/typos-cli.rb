@@ -1,8 +1,8 @@
 class TyposCli < Formula
   desc "Source code spell checker"
   homepage "https://github.com/crate-ci/typos"
-  url "https://github.com/crate-ci/typos/archive/refs/tags/v1.24.6.tar.gz"
-  sha256 "3ca3815e7c6efe627878e183ac90f4150fdb9c1372c27535d66eee625be8bdd0"
+  url "https://github.com/crate-ci/typos/archive/refs/tags/v1.29.0.tar.gz"
+  sha256 "6427c063b5ee5003cb7878d3c655df204574d6a3f8ea8fd618cdab67177c27d9"
   license any_of: ["Apache-2.0", "MIT"]
 
   livecheck do
@@ -11,12 +11,12 @@ class TyposCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ca602bb88b090638b1c19cfb2e349a7ec52007fa511447ea650456462a428ab5"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "bbe36e809f3d258d4dc7c8d5dbe513a49243ecf5f851e24bd91bebef7006999d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "9d8e13a41b5cc299503acef3eabf1ccd9a9cf1eb521529c953e32a6099ab9e85"
-    sha256 cellar: :any_skip_relocation, sonoma:        "160bc5fb19dec48aefae26b4ebe318f616270de1ee1fe6a1c0aeb7c8594bfd4e"
-    sha256 cellar: :any_skip_relocation, ventura:       "66ca295b35db75b2c6c0829c2fc83f65cbd5ded0c44de11e96a7847bc265c0e9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f2d8b2b631d3ed6a5bd7fc2d08fa4b481a1f766a30854e5aaa1d5f1765bfb60c"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fe4d6e366621fff058bf807c53c0742f25ce0f4d4c36d770a135dbc78b9679f4"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "07c6eb5ea45cc32cdce9d9d24d20724bc1484b08c6f1d01408af4642c693ce75"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "a25fd4c8e50ebbdc8c63d2cc383f10d94097bc91e08668f3ac5b21a780f6bbfb"
+    sha256 cellar: :any_skip_relocation, sonoma:        "ad3afd94e0e23708aa03bb671ac6bb59f8d17a4d8628db0b6954c566ce6aa2dc"
+    sha256 cellar: :any_skip_relocation, ventura:       "57f30e97567329d8c7c01b13a97632ccb18d4a0c5ff26af9acd7fab9e5e9ae07"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5f7a8c819e8596f8b9035591e9aba59fbc2bb62c40379a4f1b4f3e1b4ba59492"
   end
 
   depends_on "rust" => :build

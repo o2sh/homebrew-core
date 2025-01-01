@@ -18,7 +18,7 @@ class GsettingsDesktopSchemas < Formula
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "glib"
 
   def install
@@ -34,13 +34,13 @@ class GsettingsDesktopSchemas < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <gdesktop-enums.h>
 
       int main(int argc, char *argv[]) {
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "-I#{HOMEBREW_PREFIX}/include/gsettings-desktop-schemas", "test.c", "-o", "test"
     system "./test"
   end

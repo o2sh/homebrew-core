@@ -31,7 +31,7 @@ class Gtkx < Formula
   # NOTE: We could potentially use an older deployment target; however, `gtk+` has been EOL since 2020.
   # So rather than trying to workaround obsolete APIs, the limit is a deadline to deprecate `gtk+` and dependents.
   depends_on maximum_macos: [:sonoma, :build]
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "at-spi2-core"
   depends_on "cairo"
   depends_on "gdk-pixbuf"
@@ -115,15 +115,15 @@ class Gtkx < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <gtk/gtk.h>
 
       int main(int argc, char *argv[]) {
         GtkWidget *label = gtk_label_new("Hello World!");
         return 0;
       }
-    EOS
-    flags = shell_output("pkg-config --cflags --libs gtk+-2.0").chomp.split
+    C
+    flags = shell_output("pkgconf --cflags --libs gtk+-2.0").chomp.split
     system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
   end

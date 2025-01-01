@@ -32,8 +32,6 @@ class CeresSolver < Formula
   depends_on "suite-sparse"
   depends_on "tbb"
 
-  fails_with gcc: "5" # C++17
-
   def install
     system "cmake", "-S", ".", "-B", "homebrew-build",
                     "-DBUILD_SHARED_LIBS=ON",
@@ -47,16 +45,16 @@ class CeresSolver < Formula
 
   test do
     cp pkgshare/"examples/helloworld.cc", testpath
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 3.5)
       project(helloworld)
       find_package(Ceres REQUIRED COMPONENTS SuiteSparse)
       add_executable(helloworld helloworld.cc)
       target_link_libraries(helloworld Ceres::ceres)
-    EOS
+    CMAKE
 
-    system "cmake", "."
-    system "make"
-    assert_match "CONVERGENCE", shell_output("./helloworld")
+    system "cmake", "-S", ".", "-B", "build"
+    system "cmake", "--build", "build"
+    assert_match "CONVERGENCE", shell_output("./build/helloworld")
   end
 end

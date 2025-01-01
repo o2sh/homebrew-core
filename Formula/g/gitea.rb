@@ -1,8 +1,8 @@
 class Gitea < Formula
   desc "Painless self-hosted all-in-one software development service"
   homepage "https://about.gitea.com/"
-  url "https://dl.gitea.com/gitea/1.22.2/gitea-src-1.22.2.tar.gz"
-  sha256 "8c2f2cdac0b0403dfe99198064fcc1cd92c560e31072e550da3fc9c49a22c05d"
+  url "https://dl.gitea.com/gitea/1.22.6/gitea-src-1.22.6.tar.gz"
+  sha256 "251a3ee97e11f288764f9e15d0163116a04f2811b9d0d3c32f46a04f90f0756e"
   license "MIT"
   head "https://github.com/go-gitea/gitea.git", branch: "main"
 
@@ -14,14 +14,12 @@ class Gitea < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "1d903ee587706764e32512c64c37888d4293e73c28dfb4a0a2c0ee274f47e702"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "16cf197b131178919dcec319b1b87708ba9e59788c97027ad51de9bac166b955"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1a86c680306aa40c3f70fee172c3c5b9ef17886ddd132c6db0b8023b81780968"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1b09289b1c04a17ca817974bd2799d3a4737e97de248d870eb55ea2c66278ab1"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3c75ef5bf90ee3c2e0187d30b2c5c6ac1043f809f21af10560b5749677bd4e08"
-    sha256 cellar: :any_skip_relocation, ventura:        "834e21d8e893618a0e3a6c11dcf25be9767e29e761e8b2a8488f4098775d2277"
-    sha256 cellar: :any_skip_relocation, monterey:       "5fbc15deb88378967dc8dde6038746644a7fea06d096dea876dcebe3b2802714"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "359bb20a11ed58edfe9dfd547474e0a635bc1be63b0283b7edcc05813a183ec0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ee51a66497d65c8ec53ba33c188569d6c0f1017ec90805c19d0379089bc45cc2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8bfa1b189bb5e71953f7cdb54a83c2f25612ca5b1586df79267de77321095a9d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "d7c03923aeca85aee837a0a2135fed924c2868b5d93cb502ea52289119e82926"
+    sha256 cellar: :any_skip_relocation, sonoma:        "00a298aa8450e0aa216be345825726cf34e5c2374dcd7c940829fcc52d69d74c"
+    sha256 cellar: :any_skip_relocation, ventura:       "897e025fc8144ddd43aae32efa2eb0db627977f49df9f0735213af352e1888e5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "19745ec3e0030df2be49248edde01b4ce595d248b8f9618bedb8c0c124f1e6d2"
   end
 
   depends_on "go" => :build
@@ -51,6 +49,7 @@ class Gitea < Formula
       exec bin/"gitea", "web", "--port", port.to_s, "--install-port", port.to_s
     end
     sleep 5
+    sleep 10 if OS.mac? && Hardware::CPU.intel?
 
     output = shell_output("curl -s http://localhost:#{port}/api/settings/api")
     assert_match "Go to default page", output

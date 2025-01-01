@@ -25,7 +25,7 @@ class Libgdata < Formula
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "vala" => :build
 
   depends_on "glib"
@@ -65,18 +65,18 @@ class Libgdata < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <gdata/gdata.h>
 
       int main(int argc, char *argv[]) {
         GType type = gdata_comment_get_type();
         return 0;
       }
-    EOS
+    C
 
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["icu4c"].opt_lib/"pkgconfig" if OS.mac?
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["libsoup@2"].opt_lib/"pkgconfig"
-    flags = shell_output("pkg-config --cflags --libs libgdata").chomp.split
+    flags = shell_output("pkgconf --cflags --libs libgdata").chomp.split
     system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
   end

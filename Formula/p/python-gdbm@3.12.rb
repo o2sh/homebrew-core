@@ -1,8 +1,8 @@
 class PythonGdbmAT312 < Formula
   desc "Python interface to gdbm"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.12.6/Python-3.12.6.tgz"
-  sha256 "85a4c1be906d20e5c5a69f2466b00da769c221d6a684acfd3a514dbf5bf10a66"
+  url "https://www.python.org/ftp/python/3.12.8/Python-3.12.8.tgz"
+  sha256 "5978435c479a376648cb02854df3b892ace9ed7d32b1fead652712bee9d03a45"
   license "Python-2.0"
 
   livecheck do
@@ -10,14 +10,12 @@ class PythonGdbmAT312 < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sequoia:  "35da9ab64a4f626fd7f4d862de865e4f26094b2459132cd12d2492180e288964"
-    sha256 cellar: :any, arm64_sonoma:   "7840935d50b840a039907e356c2b19fb27b54190a7923be1b875c13156dd4258"
-    sha256 cellar: :any, arm64_ventura:  "a58e8902545870fd5e8b3181e0303fd02d63af118bf2ab590a6272616359e17f"
-    sha256 cellar: :any, arm64_monterey: "417c663088633599d2b539b77a54950a12609f31405c097b372ad87f4ee22883"
-    sha256 cellar: :any, sonoma:         "d224856bf9801734163247d920a7d3ccec2fad437aae0ec63eb64b987054b647"
-    sha256 cellar: :any, ventura:        "41df5b3e11d4a427de35451a8bc4246262e9a9d2479c059767b7a2b973cb6e06"
-    sha256 cellar: :any, monterey:       "5bd51319db598aec79aa28420cabec54306473cbbf3be720bf76dc75dcc158ec"
-    sha256               x86_64_linux:   "86e4ff50ab0402ef77777535cedcfad5f8f0c11cd0065e5572f204f7c8bb88d8"
+    sha256 cellar: :any, arm64_sequoia: "6415dc76ffa9ef22ae7586872388d9aa0c838aefa238596b987a7eafa13e5a67"
+    sha256 cellar: :any, arm64_sonoma:  "45efefd27db8bf1cc3794f73e2f0e83f60d17b3230df9966462379ce42291406"
+    sha256 cellar: :any, arm64_ventura: "aa9694de6cf795293afbac8ece63a1cf4654543c634919a1a579dc74ffbabb49"
+    sha256 cellar: :any, sonoma:        "4b49e542138844d71ca09249cab5050e3928ab22429e0e9b9e50a75af9412f5b"
+    sha256 cellar: :any, ventura:       "86eaeb03ec3f3f43c62d43ec6a32457b57b81560812ebf4d0ec013ff5b36968f"
+    sha256               x86_64_linux:  "1abf6619339d6c49a610b44741555f9d29346647d0e397d9c2df3ba65d71f91b"
   end
 
   depends_on "gdbm"
@@ -29,7 +27,7 @@ class PythonGdbmAT312 < Formula
 
   def install
     cd "Modules" do
-      (Pathname.pwd/"setup.py").write <<~EOS
+      (Pathname.pwd/"setup.py").write <<~PYTHON
         from setuptools import setup, Extension
 
         setup(name="gdbm",
@@ -42,7 +40,7 @@ class PythonGdbmAT312 < Formula
                           library_dirs=["#{Formula["gdbm"].opt_lib}"])
               ]
         )
-      EOS
+      PYTHON
       system python3, "-m", "pip", "install", *std_pip_args(prefix: false, build_isolation: true),
                                               "--target=#{libexec}", "."
       rm_r libexec.glob("*.dist-info")
@@ -51,7 +49,7 @@ class PythonGdbmAT312 < Formula
 
   test do
     testdb = testpath/"test.db"
-    system python3, "-c", <<~EOS
+    system python3, "-c", <<~PYTHON
       import dbm.gnu
 
       with dbm.gnu.open("#{testdb}", "n") as db:
@@ -59,6 +57,6 @@ class PythonGdbmAT312 < Formula
 
       with dbm.gnu.open("#{testdb}", "r") as db:
         assert db["testkey"] == b"testvalue"
-    EOS
+    PYTHON
   end
 end

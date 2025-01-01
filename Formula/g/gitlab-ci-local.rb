@@ -1,20 +1,18 @@
 class GitlabCiLocal < Formula
   desc "Run gitlab pipelines locally as shell executor or docker executor"
   homepage "https://github.com/firecow/gitlab-ci-local"
-  url "https://registry.npmjs.org/gitlab-ci-local/-/gitlab-ci-local-4.53.0.tgz"
-  sha256 "384358e3ca8b37f07412ad8ba0fefc0ac1fbccee4dc07bf7a82357bd8c76b1f0"
+  url "https://registry.npmjs.org/gitlab-ci-local/-/gitlab-ci-local-4.56.2.tgz"
+  sha256 "97895a6f81f50ac0ff6eda4c807453ac7fc4608de634d993f954743caf1a5cd9"
   license "MIT"
   head "https://github.com/firecow/gitlab-ci-local.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "5d95b55dec574950c68c22848013d0106514015689aa3f393a958a175d015147"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "3bc75dda03b0a6e43ab9b26236a3373e86c2cf9453309d262fcbf47ad8b81178"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3bc75dda03b0a6e43ab9b26236a3373e86c2cf9453309d262fcbf47ad8b81178"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3bc75dda03b0a6e43ab9b26236a3373e86c2cf9453309d262fcbf47ad8b81178"
-    sha256 cellar: :any_skip_relocation, sonoma:         "b7509352eb510578f995fe539fd183155f1e4b8027b5daaf35b877aa11ea5563"
-    sha256 cellar: :any_skip_relocation, ventura:        "b7509352eb510578f995fe539fd183155f1e4b8027b5daaf35b877aa11ea5563"
-    sha256 cellar: :any_skip_relocation, monterey:       "b7509352eb510578f995fe539fd183155f1e4b8027b5daaf35b877aa11ea5563"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3bc75dda03b0a6e43ab9b26236a3373e86c2cf9453309d262fcbf47ad8b81178"
+    sha256                               arm64_sequoia: "a9287020bc812e18eeb3bd14cb2ba59f88c4262baf37e9983d0bf26cace5ed33"
+    sha256                               arm64_sonoma:  "e51168ff943f17a8f4628920211216cdd9f663be61144fc6cc73cdaa17604856"
+    sha256                               arm64_ventura: "d5f1e2ab6f047a80245fd42f926bd2f0b8086b88312d5867907475a3d7da6194"
+    sha256                               sonoma:        "4dfed5ba030d7e9696ab35e745420ad6da7b455e5d55f53ae7c717858b5c6786"
+    sha256                               ventura:       "e5bf5865eb74a943af7ed605c2a385d6b622e4dd50839fe288c74c01491f8989"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "61e879b5e864e313ef9fa653892ac7b5840abd59cc52dcefff010cfc83511594"
   end
 
   depends_on "node"

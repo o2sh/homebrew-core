@@ -23,23 +23,23 @@ class Libwpg < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "c079bc2c2fc9c98e967d13ffa15b47ab25efc59ba66f731ce3758d1265017368"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "boost" => :build
+  depends_on "pkgconf" => :build
   depends_on "librevenge"
   depends_on "libwpd"
 
   def install
-    system "./configure", "--disable-debug", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}"
+    system "./configure", *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <libwpg/libwpg.h>
       int main() {
         return libwpg::WPG_AUTODETECT;
       }
-    EOS
+    CPP
     system ENV.cc, "test.cpp",
                    "-I#{Formula["librevenge"].opt_include}/librevenge-0.0",
                    "-I#{include}/libwpg-0.3",

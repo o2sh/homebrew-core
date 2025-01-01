@@ -1,24 +1,22 @@
 class Tt < Formula
   desc "Command-line utility to manage Tarantool applications"
   homepage "https://github.com/tarantool/tt"
-  url "https://github.com/tarantool/tt/releases/download/v2.4.0/tt-2.4.0-complete.tar.gz"
-  sha256 "9b099f4d4b376b1043759ee38c6319a9221bd2005c14d909cc7977f83a58d05e"
+  url "https://github.com/tarantool/tt/releases/download/v2.6.0/tt-2.6.0-complete.tar.gz"
+  sha256 "8e35cc01a370065173a05570ddf7f836697b6abc755b9ac97e2701ac629c3e5a"
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "ef6dfff15ed6f527dc363848f74c1ce20a9985b56ff68c610b26f83e7f3db6b7"
-    sha256 cellar: :any,                 arm64_sonoma:   "0a115329895d87dc0a1d258ec02bb76b16b9a2bc13a1814f8ca3471fbaac1fc0"
-    sha256 cellar: :any,                 arm64_ventura:  "56e548e607543f6db9108a2ad1c44ab47e3c801cb214ca8074276a3468babc91"
-    sha256 cellar: :any,                 arm64_monterey: "ff07f8f970e305a29a86aa237974e0cc6f601f3aef61f89dceb1536ec695fa3a"
-    sha256                               sonoma:         "fd99a6ee28165c128044a8f3cafa6713e2483d82f592fcd49c9f12c342b0af8c"
-    sha256                               ventura:        "27eaf4efc26d6cc10a2a06185d783000b13084d83c8c1e304e39fd7008cc98b9"
-    sha256                               monterey:       "ae61e09a62415b9257aa2cc62eb83c28ceb9ad6d40c663e9cd4dbdf15cebf27b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c7729e3f23629093a9c47c22c37a14815a957765c2c912c915859fd5a5d20890"
+    sha256 cellar: :any,                 arm64_sequoia: "2ba9e3ec5ad45259f22b7b246f2a6e8f85211af040245a42d390601e7e054f3b"
+    sha256 cellar: :any,                 arm64_sonoma:  "4ceef4b9fcd2459a09847e800b02de33b5abd1f00e69c6a05ff52322fc9b6b19"
+    sha256 cellar: :any,                 arm64_ventura: "872c56bbe437746cad541fe8e7912a1b66e35e45a842f419dc309eae356d2735"
+    sha256                               sonoma:        "220ce8467d21a9d00d9232648a592d71c41ae122603f078d12e4fb13f55309b0"
+    sha256                               ventura:       "73e309b75525c039cd1c372acef9e11205e34a331b2a69e36c0a1d292318314d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "09bfacc5a6a48be5874a659f57e116c203fa41413539530f95d5f43e485a753b"
   end
 
   depends_on "go" => :build
   depends_on "mage" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "openssl@3"
 
   uses_from_macos "curl"

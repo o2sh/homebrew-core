@@ -16,33 +16,31 @@ class Libfs < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "c17d8ae2548594b5aae02734f0c2804858754e00f2e1b2dcc38d5bc86086aa5e"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "xtrans" => :build
   depends_on "xorgproto"
 
   def install
     args = %W[
-      --prefix=#{prefix}
       --sysconfdir=#{etc}
       --localstatedir=#{var}
-      --disable-dependency-tracking
       --disable-silent-rules
     ]
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include "X11/fonts/FSlib.h"
 
       int main(int argc, char* argv[]) {
         FSExtData data;
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c"
     assert_equal 0, $CHILD_STATUS.exitstatus
   end

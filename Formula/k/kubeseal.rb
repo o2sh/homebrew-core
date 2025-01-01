@@ -2,8 +2,8 @@ class Kubeseal < Formula
   desc "Kubernetes controller and tool for one-way encrypted Secrets"
   homepage "https://github.com/bitnami-labs/sealed-secrets"
   url "https://github.com/bitnami-labs/sealed-secrets.git",
-      tag:      "v0.27.1",
-      revision: "2d119da247b0b433c4490da7163f869a9cf8aef3"
+      tag:      "v0.27.3",
+      revision: "fa9307a09c01fd8d347cba44db35f42b2ac875bb"
   license "Apache-2.0"
 
   livecheck do
@@ -12,14 +12,12 @@ class Kubeseal < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "ec10856b55d70871ed4b87181a857716b51e89265725764b16442144e10611d6"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e0006dcbccd5fadc7533560f256e14f9b727598ce138810440f59e456b2ec05e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a446b13a00ba466fdec5d5934d734c328c5d2cfb1170d3264f484ff11c30f6a7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b9bca11ad770bdf1e079e038db74fa2a9f326325ffa9edb4f337f8d9ad5c4a24"
-    sha256 cellar: :any_skip_relocation, sonoma:         "4dbd45948dfcd8310f0b7d9acf2d4bd2534ec0eb293418cd2692ae7a16dd315c"
-    sha256 cellar: :any_skip_relocation, ventura:        "8efc96792c1b46cc81c8950bdeb983c1a8feb2fec7ecff0868983f73d01128a9"
-    sha256 cellar: :any_skip_relocation, monterey:       "7cb068678c9baffe3b341289a82fdcbd7c266d0f37d7fa82d41909e36684802a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2b9063c1531ab9b6ce6472935f2f77dbc7d5f5fb887f6aee127e0cae3a404bab"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "785d2b009d47bb897650b9d77c5c060ae265fae830e986432ec0031416d4014e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "755064da7ea131f32462ecfb31b8a64e4f1fbf64b7be6693165255c40c14acc4"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "f226e28e1c707a9e8d201457c3776c9d7eb1e846b593d451c2b82d1bf659fd02"
+    sha256 cellar: :any_skip_relocation, sonoma:        "3e24a3373a855b7b3254da7d84082b2cf814d323345db366ae1cbef5a48bca13"
+    sha256 cellar: :any_skip_relocation, ventura:       "66a9379d9ef54393e8c19cd5dacfbd972844611b50ca7093d68e8801aa3ab71a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b5b90d2fa6326e2ccafb45b61790786c129982c1118c0230b0cc8c289f807457"
   end
 
   depends_on "go" => :build

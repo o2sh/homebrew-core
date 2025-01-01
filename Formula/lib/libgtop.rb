@@ -24,7 +24,7 @@ class Libgtop < Formula
 
   depends_on "gobject-introspection" => :build
   depends_on "intltool" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "gettext"
   depends_on "glib"
   depends_on "libxau"
@@ -39,14 +39,14 @@ class Libgtop < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <glibtop/sysinfo.h>
 
       int main(int argc, char *argv[]) {
         const glibtop_sysinfo *info = glibtop_get_sysinfo();
         return 0;
       }
-    EOS
+    C
     gettext = Formula["gettext"]
     glib = Formula["glib"]
     flags = %W[

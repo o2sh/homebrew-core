@@ -1,8 +1,8 @@
 class Renovate < Formula
   desc "Automated dependency updates. Flexible so you don't need to be"
   homepage "https://github.com/renovatebot/renovate"
-  url "https://registry.npmjs.org/renovate/-/renovate-38.89.0.tgz"
-  sha256 "d1459ff1828e9abd0ef44b28a938548c54ef4f527abb6ed7bef54987ce941353"
+  url "https://registry.npmjs.org/renovate/-/renovate-39.86.0.tgz"
+  sha256 "fa6b1bba708120440a547cb59fb43158904493e10392007d888ac5f2f6050c6d"
   license "AGPL-3.0-only"
 
   # There are thousands of renovate releases on npm and the page the `Npm`
@@ -17,15 +17,15 @@ class Renovate < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "44788670895f2c73aad81f9f370a29c12c113041a49c2508f1103f2932204359"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "159dc8fe5a9ad88b0bab87390ee59190bf5b9b7e8dc2c70758960a2ca2710805"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "6912ceefe3c8b0cea0c06ff0d2ca37b3556879f27894e079a7c816c4b5bd540e"
-    sha256 cellar: :any_skip_relocation, sonoma:        "89044fec9f4fa133d28e9a1af6098fc9aa28e14372bff9f21853b44aeddccc67"
-    sha256 cellar: :any_skip_relocation, ventura:       "5f6130d5c217bcd2b3c824458db2b9bb25aad85e18c2043f617600a57b9dc825"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "20695d1e27e6cfdb255ac82930ecad74ceb39de9dd215e6dcbf9c3380a2bc779"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f1c94a43138a200e867c14578b9bef2b1a54c0955d03f9134e532cb68a9d51ba"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ecd88d8da1b6ca4580831f06fb750c13a2ea478b1400820057577846af5f119e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "ed08c7554b6a5e37175575473da8454293898f2880cc9103708854fb2fe52ff0"
+    sha256 cellar: :any_skip_relocation, sonoma:        "0ffcacb9be115dc3bdddd836940837c1f0cda775c2ffd6f3886f9a2a597fb975"
+    sha256 cellar: :any_skip_relocation, ventura:       "20eb494b235ef8e0ff1270c80218efa9da34c484231bfba6d7cea34ad6080801"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2baf552b0688a8fadabcd5e9c4cd5313d688a0d6a386d94700278af36de6e7e9"
   end
 
-  depends_on "node@20"
+  depends_on "node@22"
 
   uses_from_macos "git", since: :monterey
 

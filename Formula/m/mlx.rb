@@ -3,29 +3,43 @@ class Mlx < Formula
 
   desc "Array framework for Apple silicon"
   homepage "https://github.com/ml-explore/mlx"
-  url "https://github.com/ml-explore/mlx/archive/refs/tags/v0.17.3.tar.gz"
-  sha256 "56450b242e187957feee39e47940c9d57706daabcc1e8a7d172742ea4ae1053e"
-  # Main license is MIT while `metal-cpp` resource is Apache-2.0
-  license all_of: ["MIT", "Apache-2.0"]
+  license all_of: [
+    "MIT", # main license
+    "Apache-2.0", # metal-cpp resource
+  ]
   head "https://github.com/ml-explore/mlx.git", branch: "main"
 
+  stable do
+    url "https://github.com/ml-explore/mlx/archive/refs/tags/v0.21.1.tar.gz"
+    sha256 "1ce949256c343a4a9fb1e53cc15f537ad2faceccbb3ad314cd47a198b534bcac"
+
+    # fix x86 tests, upstream pr ref, https://github.com/ml-explore/mlx/pull/1691
+    patch do
+      url "https://github.com/ml-explore/mlx/commit/f3dfa36a3aa67dfc4488996bf7f218f976bef9aa.patch?full_index=1"
+      sha256 "5b798fa17ee6fccd4b031b99d8301f9fb434545f6e4ebbbd544376403c1a4c3d"
+    end
+  end
+
   bottle do
-    sha256 cellar: :any, arm64_sequoia: "0f4ec6d88501ba15d563c9f17e2dbc56479655241c9ed42beed63c5360d7b766"
-    sha256 cellar: :any, arm64_sonoma:  "16f224806caab57a46bda23589b79ea86629fe25bf5277da46533116c3a7e7d5"
-    sha256 cellar: :any, arm64_ventura: "2d9928c9b1d82147711a34d2c3ee23e1b690f1a666bfa617564d85812ee6a662"
-    sha256 cellar: :any, sonoma:        "faa8313c3f7357be83196cd128c1786ca71a7a99db42c92866dbb2933672c617"
-    sha256 cellar: :any, ventura:       "8ab09b0468ffda96514ee79a764b8959af3af0c5b7c46c6e7907c937f9520786"
+    sha256 cellar: :any, arm64_sequoia: "575a6fdd16b8e35a74c193a8e34caace3c057e1dae8829bf8b3e5320f5c41e5a"
+    sha256 cellar: :any, arm64_sonoma:  "889879a0ab49703e93eb5ae95d973ae957b72ce7cbb4ec3ea924bd6e14dc2790"
+    sha256 cellar: :any, arm64_ventura: "a5732b975b0fa32bd286ddc3889d0a70c8cb2203ca9ed35f6822f4f106f06761"
+    sha256 cellar: :any, sonoma:        "a94154645f164f56c18c97a2e11056bdfefbc505e7f982b2562c3a52bda285b1"
+    sha256 cellar: :any, ventura:       "95d49fdef66a38e083d0380d72b6feabd6e386c01f0556a1e7b711ef30cf99e7"
   end
 
   depends_on "cmake" => :build
   depends_on "fmt" => :build
+  depends_on "nanobind" => :build
   depends_on "nlohmann-json" => :build
+  depends_on "python-setuptools" => :build
+  depends_on "robin-map" => :build
   depends_on :macos
   depends_on macos: :ventura
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   on_arm do
-    depends_on xcode: ["15.0", :build]
+    depends_on xcode: ["15.0", :build] # for metal
   end
 
   on_intel do
@@ -47,19 +61,8 @@ class Mlx < Formula
     sha256 "1ee2dde74a3f9506af9ad61d7638a5e87b5e891b5e36a5dd3d5f412a8ce8dd03"
   end
 
-  # https://github.com/ml-explore/mlx/blob/v#{version}/pyproject.toml#L4
-  resource "nanobind" do
-    url "https://files.pythonhosted.org/packages/31/48/dea3d75657366b5a75b9d57a4e4fa7b224d98e8385f72fc7762d504533df/nanobind-2.1.0-py3-none-any.whl"
-    sha256 "a613a2ce750fee63f03dc8a36593be2bdc2929cb4cea56b38fafeb74b85c3a5f"
-  end
-
-  resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/27/cb/e754933c1ca726b0d99980612dc9da2886e76c83968c246cfb50f491a96b/setuptools-74.1.1.tar.gz"
-    sha256 "2353af060c06388be1cecbf5953dcdb1f38362f87a2356c480b6b4d5fcfc8847"
-  end
-
   def python3
-    "python3.12"
+    "python3.13"
   end
 
   def install
@@ -67,14 +70,11 @@ class Mlx < Formula
     (buildpath/"gguflib").install resource("gguflib")
 
     mlx_python_dir = prefix/Language::Python.site_packages(python3)/"mlx"
-    venv = virtualenv_create(buildpath/"venv", python3)
-    venv.pip_install [resource("nanobind"), resource("setuptools")]
-    ENV.prepend_path "PYTHONPATH", venv.site_packages
 
     # We bypass brew's dependency provider to set `FETCHCONTENT_TRY_FIND_PACKAGE_MODE`
     # which redirects FetchContent_Declare() to find_package() and helps find our `fmt`.
     # To re-block fetches, we use the not-recommended `FETCHCONTENT_FULLY_DISCONNECTED`.
-    args = std_cmake_args + %W[
+    args = %W[
       -DCMAKE_MODULE_LINKER_FLAGS=-Wl,-rpath,#{rpath(source: mlx_python_dir)}
       -DHOMEBREW_ALLOW_FETCHCONTENT=ON
       -DFETCHCONTENT_FULLY_DISCONNECTED=ON
@@ -88,7 +88,7 @@ class Mlx < Formula
       "-DMLX_ENABLE_X64_MAC=ON"
     end
 
-    ENV["CMAKE_ARGS"] = args.join(" ")
+    ENV["CMAKE_ARGS"] = (args + std_cmake_args).join(" ")
     ENV[build.head? ? "DEV_RELEASE" : "PYPI_RELEASE"] = "1"
     ENV["MACOSX_DEPLOYMENT_TARGET"] = "#{MacOS.version.major}.#{MacOS.version.minor.to_i}"
 
@@ -96,7 +96,7 @@ class Mlx < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <cassert>
 
       #include <mlx/mlx.h>
@@ -114,17 +114,17 @@ class Mlx < Formula
         assert(z.data<float>()[2] == 4.0f);
         assert(z.data<float>()[3] == 5.0f);
       }
-    EOS
+    CPP
     system ENV.cxx, "test.cpp", "-std=c++17",
                     "-I#{include}", "-L#{lib}", "-lmlx",
                     "-o", "test"
     system "./test"
 
-    (testpath/"test.py").write <<~EOS
+    (testpath/"test.py").write <<~PYTHON
       import mlx.core as mx
       x = mx.array(0.0)
-      assert mx.cos(x) == 1.0
-    EOS
+      assert mx.allclose(mx.cos(x), mx.array(1.0))
+    PYTHON
     system python3, "test.py"
   end
 end

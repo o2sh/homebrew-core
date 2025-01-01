@@ -21,15 +21,13 @@ class Tlx < Formula
   depends_on "cmake" => :build
 
   def install
-    args = std_cmake_args + [".."]
-    mkdir "build" do
-      system "cmake", ".", *args
-      system "make", "install"
-    end
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <tlx/math/aggregate.hpp>
       int main()
       {
@@ -39,7 +37,7 @@ class Tlx < Formula
         }
         return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "test.cpp", "-L#{lib}", "-ltlx", "-o", "test", "-std=c++17"
     system "./test"
   end

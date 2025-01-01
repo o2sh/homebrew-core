@@ -29,7 +29,7 @@ class Librest < Formula
   end
 
   depends_on "gobject-introspection" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "glib"
   depends_on "libsoup@2"
@@ -54,7 +54,7 @@ class Librest < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdlib.h>
       #include <rest/rest-proxy.h>
 
@@ -65,7 +65,7 @@ class Librest < Formula
 
         return EXIT_SUCCESS;
       }
-    EOS
+    C
     glib = Formula["glib"]
     libsoup = Formula["libsoup@2"]
     flags = %W[

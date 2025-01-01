@@ -1,20 +1,20 @@
 class Nerdctl < Formula
   desc "ContaiNERD CTL - Docker-compatible CLI for containerd"
   homepage "https://github.com/containerd/nerdctl"
-  url "https://github.com/containerd/nerdctl/archive/refs/tags/v1.7.7.tar.gz"
-  sha256 "bcddf2ee3ad2bc84adc5e207f97157998fe973912c7d1dd9540bd4bb4a07698d"
+  url "https://github.com/containerd/nerdctl/archive/refs/tags/v2.0.2.tar.gz"
+  sha256 "fc5868087b5dccfd329935b6072f2edbf368251e8d96ec1c6170e71e832205f4"
   license "Apache-2.0"
   head "https://github.com/containerd/nerdctl.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "09d45663a7ae0661ddb4c4a28071d2da6ea00e3d8139c40dd771cc2a9816aed3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "1a7b27d7fc231717add1256eba6e43e58f5bb59c1a957677cd7948a8026db2e0"
   end
 
   depends_on "go" => :build
   depends_on :linux
 
   def install
-    ldflags = "-s -w -X github.com/containerd/nerdctl/pkg/version.Version=#{version}"
+    ldflags = "-s -w -X github.com/containerd/nerdctl/v2/pkg/version.Version=#{version}"
     system "go", "build", *std_go_args(ldflags:), "./cmd/nerdctl"
 
     generate_completions_from_executable(bin/"nerdctl", "completion")

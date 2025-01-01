@@ -1,17 +1,17 @@
 class Nanobind < Formula
   desc "Tiny and efficient C++/Python bindings"
   homepage "https://github.com/wjakob/nanobind"
-  url "https://github.com/wjakob/nanobind/archive/refs/tags/v2.1.0.tar.gz"
-  sha256 "c37c53c60ada5fe1c956e24bd4b83af669a2309bf952bd251f36a7d2fa3bacf0"
+  url "https://github.com/wjakob/nanobind/archive/refs/tags/v2.4.0.tar.gz"
+  sha256 "bb35deaed7efac5029ed1e33880a415638352f757d49207a8e6013fefb6c49a7"
   license "BSD-3-Clause"
   head "https://github.com/wjakob/nanobind.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "67d3bc9718d09845035fdb44fa3ac8e60e80bcc8170900f25a945589eeb02e9d"
+    sha256 cellar: :any_skip_relocation, all: "f401da445e36fce270c51db852523265bd14818c64899d7ccf2471df3a66d4fc"
   end
 
   depends_on "cmake" => [:build, :test]
-  depends_on "python@3.12" => [:build, :test]
+  depends_on "python@3.13" => [:build, :test]
   depends_on "robin-map" => [:build, :test]
 
   def install
@@ -33,7 +33,7 @@ class Nanobind < Formula
   end
 
   test do
-    python = "python3.12"
+    python = "python3.13"
 
     (testpath/"my_ext.cpp").write <<~CPP
       #include <nanobind/nanobind.h>

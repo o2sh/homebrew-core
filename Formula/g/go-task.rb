@@ -1,18 +1,18 @@
 class GoTask < Formula
   desc "Task is a task runner/build tool that aims to be simpler and easier to use"
   homepage "https://taskfile.dev/"
-  url "https://github.com/go-task/task/archive/refs/tags/v3.39.2.tar.gz"
-  sha256 "ab61fcbda930ef3f69ba721b3d0dcf531ad0928bbabb17650de607580382f405"
+  url "https://github.com/go-task/task/archive/refs/tags/v3.40.1.tar.gz"
+  sha256 "e80cdfa2afefa69238e5078960d50a8e703de1043740b277946629ca5f3bde85"
   license "MIT"
   head "https://github.com/go-task/task.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "98bc5533f4346774d1d0be8d4dbef3b49dcb0cd23c800c755fbf81ec54140823"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "98bc5533f4346774d1d0be8d4dbef3b49dcb0cd23c800c755fbf81ec54140823"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "98bc5533f4346774d1d0be8d4dbef3b49dcb0cd23c800c755fbf81ec54140823"
-    sha256 cellar: :any_skip_relocation, sonoma:        "88dfd524666a722fdcd71a907ed8438dff972ec892121e5f135b047f8aea4109"
-    sha256 cellar: :any_skip_relocation, ventura:       "88dfd524666a722fdcd71a907ed8438dff972ec892121e5f135b047f8aea4109"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8c4393051d36a8839dd3c35de507283db01d5dd3b44574a08026acf3c95ffceb"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "11446cbb6f0acb73b7eecac3d19ee4a5fab3cb13f5d2fee8a0f311fa0f0562f9"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "11446cbb6f0acb73b7eecac3d19ee4a5fab3cb13f5d2fee8a0f311fa0f0562f9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "11446cbb6f0acb73b7eecac3d19ee4a5fab3cb13f5d2fee8a0f311fa0f0562f9"
+    sha256 cellar: :any_skip_relocation, sonoma:        "461c2d50e15df0367f5e21d723b3b98fa83ef2b9d7d64d46928a0a8893a5db99"
+    sha256 cellar: :any_skip_relocation, ventura:       "461c2d50e15df0367f5e21d723b3b98fa83ef2b9d7d64d46928a0a8893a5db99"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bc62a119ea159200602c26fbd9c6ea8281d47dd2e1e9e038de840e92ad8c951d"
   end
 
   depends_on "go" => :build
@@ -34,14 +34,14 @@ class GoTask < Formula
     output = shell_output("#{bin}/task --version")
     assert_match "Task version: #{version}", output
 
-    (testpath/"Taskfile.yml").write <<~EOS
+    (testpath/"Taskfile.yml").write <<~YAML
       version: '3'
 
       tasks:
         test:
           cmds:
             - echo 'Testing Taskfile'
-    EOS
+    YAML
 
     output = shell_output("#{bin}/task --silent test")
     assert_match "Testing Taskfile", output

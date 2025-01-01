@@ -1,10 +1,9 @@
 class Libcdr < Formula
   desc "C++ library to parse the file format of CorelDRAW documents"
   homepage "https://wiki.documentfoundation.org/DLP/Libraries/libcdr"
-  url "https://dev-www.libreoffice.org/src/libcdr/libcdr-0.1.7.tar.xz"
-  sha256 "5666249d613466b9aa1e987ea4109c04365866e9277d80f6cd9663e86b8ecdd4"
+  url "https://dev-www.libreoffice.org/src/libcdr/libcdr-0.1.8.tar.xz"
+  sha256 "ced677c8300b29c91d3004bb1dddf0b99761bf5544991c26c2ee8f427e87193c"
   license "MPL-2.0"
-  revision 6
 
   livecheck do
     url "https://dev-www.libreoffice.org/src/"
@@ -12,24 +11,30 @@ class Libcdr < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sequoia:  "828104e9ac0396fada40357eaf5da22f3137ee7cb91eba91ad7bd1661f7428f9"
-    sha256 cellar: :any,                 arm64_sonoma:   "b4324147de4d9b3a82e0ae4239bd1306cb5e5b01d52c49e137d8002fd9999fa8"
-    sha256 cellar: :any,                 arm64_ventura:  "588bbde423941f0353de8d1079e317732c576af3b0a661aec50c83352a9047c7"
-    sha256 cellar: :any,                 arm64_monterey: "7a30b587bbba798295a3af16acff7d9974ec298d0e3b7b2f1fd92f249b140e09"
-    sha256 cellar: :any,                 sonoma:         "644cf0326dbf7d581058607b31f042e279ca25399f21d718b4d1685aa7af8017"
-    sha256 cellar: :any,                 ventura:        "f8ee293a246acd9b49b89191d8261670752a11361b536140554f7453b086e563"
-    sha256 cellar: :any,                 monterey:       "f2c5dc565e10c04952c7a9aa9233c03b10b03105b67e31150766838a10281c65"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ca8b063489f3ba6c851e69c3c6dd2677c1a1cdfea605c386507bb81840a4b74c"
+    sha256 cellar: :any,                 arm64_sequoia: "cb6eff3f4627fcc102cb45b8da2f35f82e5049d6a0875c84334484388ede2025"
+    sha256 cellar: :any,                 arm64_sonoma:  "1798c673e5c3c0c793cf9e3d5454bda00724244e189535c68ef476303d2a0405"
+    sha256 cellar: :any,                 arm64_ventura: "2ef42ae303f70cc8294e5082588f5b3c63dcffa70acba167d63b65e3b1d92798"
+    sha256 cellar: :any,                 sonoma:        "889c0540fcae08302afdd508ecf8287c41b7b8cac892cd5b834383dce1310a4c"
+    sha256 cellar: :any,                 ventura:       "9bb8d4bc98a361e1eee954a04f8ad930dcfc3958cc80ecf5c493cfdf83d74448"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a4dd30a7edf347fdb569e2d1e9a4a0f053dbce86d23f2096b8f26f542768517d"
   end
 
   depends_on "boost" => :build
-  depends_on "pkg-config" => :build
-  depends_on "icu4c"
+  depends_on "pkgconf" => :build
+  depends_on "icu4c@76"
   depends_on "librevenge"
   depends_on "little-cms2"
 
+  uses_from_macos "zlib"
+
   def install
+    # icu4c 75+ needs C++17 and icu4c 76+ needs icu-uc
+    # TODO: Remove after https://gerrit.libreoffice.org/c/libcdr/+/175709/1
+    icu4c = deps.find { |dep| dep.name.match?(/^icu4c(@\d+)?$/) }
+                .to_formula
+    ENV["ICU_LIBS"] = "-L#{icu4c.opt_lib} -licui18n -licuuc"
+    ENV.append "CXXFLAGS", "-std=gnu++17"
+
     system "./configure", "--disable-silent-rules",
                           "--disable-tests",
                           "--disable-werror",
@@ -39,12 +44,12 @@ class Libcdr < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <libcdr/libcdr.h>
       int main() {
         libcdr::CDRDocument::isSupported(0);
       }
-    EOS
+    CPP
     system ENV.cxx, "test.cpp", "-o", "test",
                                 "-I#{Formula["librevenge"].include}/librevenge-0.0",
                                 "-I#{include}/libcdr-0.1",

@@ -1,9 +1,8 @@
 class PysideAT2 < Formula
   desc "Official Python bindings for Qt"
   homepage "https://wiki.qt.io/Qt_for_Python"
-  # TODO: Check if we can use unversioned `llvm` at version bump.
-  url "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.15-src/pyside-setup-opensource-src-5.15.15.tar.xz"
-  sha256 "21d6818b064834b08501180e48890e5fd87df2fb3769f80c58143457f548c408"
+  url "https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.16-src/pyside-setup-opensource-src-5.15.16.tar.xz"
+  sha256 "6d3ed6fd17275ea74829ab56df9c2e7641bfca6b5b201cf244998fa81cf07360"
   # NOTE: We omit some licenses:
   # 1. LICENSE.COMMERCIAL is removed from "OR" options as non-free
   # 2. GFDL-1.3-only is only used by not installed docs, e.g. sources/{pyside2,shiboken2}/doc
@@ -19,18 +18,21 @@ class PysideAT2 < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "2fb5231ea5c60d393c95fbb817afbc8d5bebdc1b4ad4aae8e66e9de65bb7cc14"
-    sha256 cellar: :any, arm64_ventura:  "15e1cc87d80bf3dc621fc99c8bee665eae023787c0fb0a050c01e57b3f21ceb4"
-    sha256 cellar: :any, arm64_monterey: "dea75c16bcc8c75a9873e4a6caa2d20c9c57b7872e631e98d63bd8f6f8b9809d"
-    sha256 cellar: :any, sonoma:         "c82515db47d91c7ba4f06db606e5c2fc3c898e7cda3cab42c6e6c1682840338d"
-    sha256 cellar: :any, ventura:        "9850e91ac91f3608fccfb80b0123a1e2afc9fe5e7d68e7bf041116f5af9c6752"
-    sha256 cellar: :any, monterey:       "64a5884f604c5049759a44c36680928be652626ce7173bcd6c9bcbd04964ca49"
+    sha256 cellar: :any, arm64_sequoia: "306fed8cdc3df64383e383bc48f5a890f2097e6b9d6931df1db6f3f4db8c2ceb"
+    sha256 cellar: :any, arm64_sonoma:  "11ee1dbaa5ca85382f669e72b4cd8de39d7468c2b3634e4c324bea235d097f9e"
+    sha256 cellar: :any, arm64_ventura: "03368c735c411d97738b675829caf91040ee7c2cab0dce9ed6f59ca75ed9df74"
+    sha256 cellar: :any, sonoma:        "e7c5048a3bc60c86038cda301239cb00f5442c693b8fe6d164d55e9d9a9600bb"
+    sha256 cellar: :any, ventura:       "e7c2d3c4175db918d43d300206d628d8f2a1074e54ef5bbe36b9d80548bd64b1"
   end
 
   keg_only :versioned_formula
 
+  # Requires various patches and cannot be built with `FORCE_LIMITED_API` with Python 3.12.
+  # `qt@5` is also officially EOL on 2025-05-25.
+  disable! date: "2025-05-26", because: :versioned_formula
+
   depends_on "cmake" => :build
-  depends_on "llvm@15" # Upstream issue ref: https://bugreports.qt.io/browse/PYSIDE-2268
+  depends_on "llvm"
   depends_on "python@3.10"
   depends_on "qt@5"
 
@@ -42,12 +44,25 @@ class PysideAT2 < Formula
     depends_on "mesa"
   end
 
-  fails_with gcc: "5"
-
   # Don't copy qt@5 tools.
   patch do
     url "https://src.fedoraproject.org/rpms/python-pyside2/raw/009100c67a63972e4c5252576af1894fec2e8855/f/pyside2-tools-obsolete.patch"
     sha256 "ede69549176b7b083f2825f328ca68bd99ebf8f42d245908abd320093bac60c9"
+  end
+
+  # Apply Debian patches to support newer Clang
+  # Upstream issue ref: https://bugreports.qt.io/browse/PYSIDE-2268
+  patch do
+    url "http://deb.debian.org/debian/pool/main/p/pyside2/pyside2_5.15.14-1.debian.tar.xz"
+    sha256 "a0dae3cc101b50f4ce1cda8076d817261feaa66945f9003560a3af2c0a9a7cd8"
+    apply "patches/shiboken2-clang-Fix-clashes-between-type-name-and-enumera.patch",
+          "patches/shiboken2-clang-Fix-and-simplify-resolveType-helper.patch",
+          "patches/shiboken2-clang-Remove-typedef-expansion.patch",
+          "patches/shiboken2-clang-Fix-build-with-clang-16.patch",
+          "patches/shiboken2-clang-Record-scope-resolution-of-arguments-func.patch",
+          "patches/shiboken2-clang-Suppress-class-scope-look-up-for-paramete.patch",
+          "patches/shiboken2-clang-Write-scope-resolution-for-all-parameters.patch",
+          "patches/Modify-sendCommand-signatures.patch"
   end
 
   def python3
@@ -108,7 +123,7 @@ class PysideAT2 < Formula
     pyincludes = shell_output("#{python}-config --includes").chomp.split
     pylib = shell_output("#{python}-config --ldflags --embed").chomp.split
 
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <shiboken.h>
       int main()
       {
@@ -117,7 +132,7 @@ class PysideAT2 < Formula
         assert(!module.isNull());
         return 0;
       }
-    EOS
+    CPP
     rpaths = []
     rpaths += ["-Wl,-rpath,#{lib}", "-Wl,-rpath,#{Formula["python@3.10"].opt_lib}"] unless OS.mac?
     system ENV.cxx, "-std=c++11", "test.cpp",

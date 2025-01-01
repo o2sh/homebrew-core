@@ -19,7 +19,7 @@ class Cgrep < Formula
 
   depends_on "cabal-install" => :build
   depends_on "ghc" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "pcre"
 
   conflicts_with "aerleon", because: "both install `cgrep` binaries"
@@ -48,10 +48,10 @@ class Cgrep < Formula
   end
 
   test do
-    (testpath/"t.rb").write <<~EOS
+    (testpath/"t.rb").write <<~RUBY
       # puts test comment.
       puts "test literal."
-    EOS
+    RUBY
 
     assert_match ":1", shell_output("#{bin}/cgrep --count --comment test t.rb")
     assert_match ":1", shell_output("#{bin}/cgrep --count --literal test t.rb")

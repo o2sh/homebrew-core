@@ -22,12 +22,13 @@ class Libolm < Formula
   depends_on "cmake" => :build
 
   def install
-    system "cmake", ".", "-Bbuild", "-DCMAKE_INSTALL_PREFIX=#{prefix}"
-    system "cmake", "--build", "build", "--target", "install"
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <iostream>
       #include <vector>
       #include <stdlib.h>
@@ -46,7 +47,7 @@ class Libolm < Formula
         cout << output;
         return 0;
       }
-    EOS
+    CPP
 
     system ENV.cc, "test.cpp", "-L#{lib}", "-lolm", "-lstdc++", "-o", "test"
     assert_equal "A2daxT/5zRU1zMffzfosRYxSGDcfQY3BNvLRmsH76KU", shell_output("./test").strip

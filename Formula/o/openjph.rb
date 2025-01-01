@@ -1,20 +1,18 @@
 class Openjph < Formula
   desc "Open-source implementation of JPEG2000 Part-15 (or JPH or HTJ2K)"
   homepage "https://github.com/aous72/OpenJPH"
-  url "https://github.com/aous72/OpenJPH/archive/refs/tags/0.16.0.tar.gz"
-  sha256 "94bea4d7057f7a5dcb3f8eee3f854955ce153d98dad99602dd0ba50a560d7cf6"
+  url "https://github.com/aous72/OpenJPH/archive/refs/tags/0.18.2.tar.gz"
+  sha256 "6c1a895f5957f58b6ecebd136d4553a6baa73b1cc20432dc542312abfc0eedf1"
   license "BSD-2-Clause"
   head "https://github.com/aous72/OpenJPH.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "14515b6b4cc99afbdcda06cdd3c0aea9ab11d87690957b76f8765210b96b0414"
-    sha256 cellar: :any,                 arm64_sonoma:   "097e11d077f289f14ca5efaa0aa72333ee661ed0f192e9a9e6619a8cefda63e4"
-    sha256 cellar: :any,                 arm64_ventura:  "80eb2b437e53ad0b2671c5cd4be46bba92a0b4cbdd9ccb095c5c29ef3a0bae94"
-    sha256 cellar: :any,                 arm64_monterey: "7be65919294cda460d103fbd792eacdb854ef5404b3dc641471e24bef73d1e72"
-    sha256 cellar: :any,                 sonoma:         "bbf6627fb755a937c2fc89686614b7707cb54d8930d2c153d1e022a4829e7c6b"
-    sha256 cellar: :any,                 ventura:        "58b633ab4c25a693aa3f48f717641156ee5ba07c5187866d37fe680b2e524e95"
-    sha256 cellar: :any,                 monterey:       "4d2093f69052db31f95c48c3fbefb382ce65666d481def28ee133a0bb1596d56"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3cae0a18f415c415a3cc7c97c13461263d2392b1e1506239b2fa0ddd588e0883"
+    sha256 cellar: :any,                 arm64_sequoia: "b2e52e0b53686a8052c4c6393cf8dc8393c5ee7d378171a6b91c142e28bc345d"
+    sha256 cellar: :any,                 arm64_sonoma:  "ce8b5e69d579b87aae36adb3179d45b06d4ca6c25ee5351e64f6cb45f3f5b20a"
+    sha256 cellar: :any,                 arm64_ventura: "4dd5489c85b70cfc0f1f1b35cf2be900d1cb889aaae10629afa70e09bbb2a1dd"
+    sha256 cellar: :any,                 sonoma:        "3d2726e4725666d1dabde3592f3d367d4a860636bc63e18f03ed8132caaf8d53"
+    sha256 cellar: :any,                 ventura:       "0b20bac9fc8a25a93cdbfa1f5a9f2320549ed02c9598a95a53e04e6f0db3a6f8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1c6e1c61b9326ba4e7b6e7d9394944daf89aa407bed9cb0995ca07e816c905da"
   end
 
   depends_on "cmake" => :build

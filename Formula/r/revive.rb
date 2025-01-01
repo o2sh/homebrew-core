@@ -2,36 +2,39 @@ class Revive < Formula
   desc "Fast, configurable, extensible, flexible, and beautiful linter for Go"
   homepage "https://revive.run"
   url "https://github.com/mgechev/revive.git",
-      tag:      "v1.3.9",
-      revision: "9ec5e553e9be5cbf9efd3950d789dbd767137ea0"
+      tag:      "v1.5.1",
+      revision: "3378f7033b4c26c7fb987a539ddb4bad6e88b5d7"
   license "MIT"
   head "https://github.com/mgechev/revive.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "abf32322a428679858bcad5cd2b71e9dbfbe3d9262c1a49019e4c9dae5c63e7e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f094f3ccdc74d750af557363cd4e32cd1563dbde935179b167282db77a77805a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "45a6133d45061003ca098e365c9a8ab57a9e1da110f4a15c2d3b2f58646c7aa8"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e86eb97c91bed57ed9d857f89a43e2669ae5158413f300d327034689fbc8272b"
-    sha256 cellar: :any_skip_relocation, sonoma:         "bbe32aa80c6159a8a8610e68a412ee708729a61895414e2ace7bbdfe5dc90df6"
-    sha256 cellar: :any_skip_relocation, ventura:        "96f1c0f5715e1c78aecb45139f9891539e1790233587f0aa39a73a869653ff8b"
-    sha256 cellar: :any_skip_relocation, monterey:       "ca01b0fdd0e1e8c75e774cb3cd36db0aee66318140ea8d720ad76397469208c2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b92bf8957ed88c6895c67ab10a4c4e42f35366c690e18ff499085446af1f2be1"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e269b45094637b8e11dd11a57dcd8efae2c6d8b036f529e0b7e5d8efbb8ea7d8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e269b45094637b8e11dd11a57dcd8efae2c6d8b036f529e0b7e5d8efbb8ea7d8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "e269b45094637b8e11dd11a57dcd8efae2c6d8b036f529e0b7e5d8efbb8ea7d8"
+    sha256 cellar: :any_skip_relocation, sonoma:        "23432d2d934e2fc3ce768eb0c7cf0d8da04919a50d771aaeb4ed35b29a90ce86"
+    sha256 cellar: :any_skip_relocation, ventura:       "23432d2d934e2fc3ce768eb0c7cf0d8da04919a50d771aaeb4ed35b29a90ce86"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7654c411b10b2628d31b23f7ed265b3437cd8d9f13579d0b029a4cb3f5b9cd77"
   end
 
   depends_on "go" => [:build, :test]
 
   def install
     ldflags = %W[
-      -X main.commit=#{Utils.git_head}
-      -X main.date=#{time.iso8601}
-      -X main.builtBy=#{tap.user}
+      -s -w
+      -X github.com/mgechev/revive/cli.commit=#{Utils.git_head}
+      -X github.com/mgechev/revive/cli.date=#{time.iso8601}
+      -X github.com/mgechev/revive/cli.builtBy=#{tap.user}
     ]
-    ldflags << "-X main.version=#{version}" unless build.head?
-    system "go", "build", *std_go_args(ldflags: ldflags.join(" "))
+    ldflags << "-X github.com/mgechev/revive/cli.version=#{version}" unless build.head?
+
+    system "go", "build", *std_go_args(ldflags:)
   end
 
   test do
-    (testpath/"main.go").write <<~EOS
+    assert_match version.to_s, shell_output("#{bin}/revive -version")
+
+    (testpath/"main.go").write <<~GO
       package main
 
       import "fmt"
@@ -40,7 +43,7 @@ class Revive < Formula
         my_string := "Hello from Homebrew"
         fmt.Println(my_string)
       }
-    EOS
+    GO
 
     system "go", "mod", "init", "brewtest"
     output = shell_output("#{bin}/revive main.go")

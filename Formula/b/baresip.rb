@@ -1,23 +1,21 @@
 class Baresip < Formula
   desc "Modular SIP useragent"
   homepage "https://github.com/baresip/baresip"
-  url "https://github.com/baresip/baresip/archive/refs/tags/v3.15.0.tar.gz"
-  sha256 "8618cfbdfcf80013cb4cabff413b9ff8a5db52fdf692fbf27a53133c34039d8e"
+  url "https://github.com/baresip/baresip/archive/refs/tags/v3.18.0.tar.gz"
+  sha256 "1c51fd01aa73cab60cfbdb6c1e13c99537e1866bf06b83b5c03004a92fe2bdf0"
   license "BSD-3-Clause"
 
   bottle do
-    sha256 arm64_sequoia:  "743bcabd0ac2ef5ed30eb97c7e9a8fe560f4454935f53aee2f127b11eba0eb4f"
-    sha256 arm64_sonoma:   "64a39acdcf404375d86d58d4cc1e9d8110a4386e587cd3fc0544a45a733f45dd"
-    sha256 arm64_ventura:  "59364d7e3a8b2af467f083f9c10ff7c043eebfedc338468dc9b795f7dde19a45"
-    sha256 arm64_monterey: "b0e7396f3ef0336ef7b028489f9d233e62722b4afcf0cff9eda64316eb20a778"
-    sha256 sonoma:         "6667056046247d7fb4f1b8eb1782b44742cc105f0253260bd84fa1eb3da5ea5a"
-    sha256 ventura:        "20f82613c1d577a1a923507c443df43e2fb614bb63a66a33a750de0f47ba5289"
-    sha256 monterey:       "986e7852ef76b06fb5aadb599a661296f13c463e6e037b2936b7d40aae28c246"
-    sha256 x86_64_linux:   "2a2047e97f15d6e6342066396d2677cafa37448dbe0be2d5b3d0d652b839ba2e"
+    sha256 arm64_sequoia: "a85dc12a6af1edafac98d48d8d0c531f859f1e69fab58d2d9bc7efed17640852"
+    sha256 arm64_sonoma:  "2b5d336da2b9005ec2f68d1d1b79813f34f5ddb653fa6dfecd1fc4790ecf7384"
+    sha256 arm64_ventura: "47a256f4e1e78a6c01895e4b0cae285f0ccb0adf4dbace899fb5e0869916f814"
+    sha256 sonoma:        "4e9e52ae5feb752219bc8b4dbb731c215f44853ac12404baa999ff072dc504a0"
+    sha256 ventura:       "1b8008fae372ecaa815a98a948dd405ab34a8396721cbb5e86ef6b5523b3df0f"
+    sha256 x86_64_linux:  "8ea08bb89abf975bec8c804bfa77675a70f0aacc12f3e3b40e0f67f010a0dd8b"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libre"
 
   on_macos do
@@ -25,13 +23,12 @@ class Baresip < Formula
   end
 
   def install
-    libre = Formula["libre"]
     args = %W[
       -DCMAKE_INSTALL_RPATH=#{rpath}
-      -DRE_INCLUDE_DIR=#{libre.opt_include}/re
+      -DRE_INCLUDE_DIR=#{Formula["libre"].opt_include}/re
     ]
-    system "cmake", "-B", "build", *args, *std_cmake_args
-    system "cmake", "--build", "build", "-j"
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
+    system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end
 

@@ -1,20 +1,17 @@
 class MarkdownlintCli < Formula
   desc "CLI for Node.js style checker and lint tool for Markdown files"
   homepage "https://github.com/igorshubovych/markdownlint-cli"
-  url "https://registry.npmjs.org/markdownlint-cli/-/markdownlint-cli-0.41.0.tgz"
-  sha256 "1014bdf5901d5e41388722547bb64d596a8d456f08699f61e32ed6d22476f213"
+  url "https://registry.npmjs.org/markdownlint-cli/-/markdownlint-cli-0.43.0.tgz"
+  sha256 "75f368cda3622f32df0971f834aee6bccaa64b7d1baffce021bb962328be316b"
   license "MIT"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "85da8f36470c0b6bc4df52b75553e0f0b3634cbf04fb16c6241a315dae056f3e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c414c02b11e76ee418773ada20614178eafc99d22b4166565ab5acfa768360c6"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c414c02b11e76ee418773ada20614178eafc99d22b4166565ab5acfa768360c6"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c414c02b11e76ee418773ada20614178eafc99d22b4166565ab5acfa768360c6"
-    sha256 cellar: :any_skip_relocation, sonoma:         "131b5d2abb4e8b7c4f34a89ad9fea8c93b6becc15460b4709c4c3e35d2b1bf52"
-    sha256 cellar: :any_skip_relocation, ventura:        "131b5d2abb4e8b7c4f34a89ad9fea8c93b6becc15460b4709c4c3e35d2b1bf52"
-    sha256 cellar: :any_skip_relocation, monterey:       "131b5d2abb4e8b7c4f34a89ad9fea8c93b6becc15460b4709c4c3e35d2b1bf52"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ed1b404f35203311f4a4bf0b444f488c2ecfa1886a4486e2930a99c8e14c1570"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5b821b6668e1fb447f4be2a67ea43544913b7e17bcd2fd8d7374cd7422239704"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5b821b6668e1fb447f4be2a67ea43544913b7e17bcd2fd8d7374cd7422239704"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "5b821b6668e1fb447f4be2a67ea43544913b7e17bcd2fd8d7374cd7422239704"
+    sha256 cellar: :any_skip_relocation, sonoma:        "3c474cd8d82383adbdb5f98012721beaf18a515754dc9fd4e7affe421a5af6d5"
+    sha256 cellar: :any_skip_relocation, ventura:       "3c474cd8d82383adbdb5f98012721beaf18a515754dc9fd4e7affe421a5af6d5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5b821b6668e1fb447f4be2a67ea43544913b7e17bcd2fd8d7374cd7422239704"
   end
 
   depends_on "node"
@@ -25,15 +22,15 @@ class MarkdownlintCli < Formula
   end
 
   test do
-    (testpath/"test-bad.md").write <<~EOS
+    (testpath/"test-bad.md").write <<~MARKDOWN
       # Header 1
       body
-    EOS
-    (testpath/"test-good.md").write <<~EOS
+    MARKDOWN
+    (testpath/"test-good.md").write <<~MARKDOWN
       # Header 1
 
       body
-    EOS
+    MARKDOWN
     assert_match "MD022/blanks-around-headings Headings should be surrounded by blank lines",
                  shell_output("#{bin}/markdownlint #{testpath}/test-bad.md  2>&1", 1)
     assert_empty shell_output("#{bin}/markdownlint #{testpath}/test-good.md")

@@ -25,7 +25,7 @@ class Libexosip < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "07fe4531bd26a4c6fabb8833e55dc9b955c3f995c5c024177b9a9e3800785782"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "c-ares"
   depends_on "libosip"
   depends_on "openssl@3"
@@ -38,12 +38,12 @@ class Libexosip < Formula
       ENV.append "LDFLAGS", "-framework CoreFoundation -framework CoreServices " \
                             "-framework Security"
     end
-    system "./configure", *std_configure_args, "--disable-silent-rules"
+    system "./configure", "--disable-silent-rules", *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <netinet/in.h>
       #include <eXosip2/eXosip.h>
 
@@ -69,7 +69,7 @@ class Libexosip < Formula
 
           return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-leXosip2", "-o", "test"
     system "./test"
   end

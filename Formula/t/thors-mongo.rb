@@ -2,17 +2,18 @@ class ThorsMongo < Formula
   desc "Mongo API and Serialization library"
   homepage "https://github.com/Loki-Astari/ThorsMongo"
   url "https://github.com/Loki-Astari/ThorsMongo.git",
-      tag:      "4.0.01",
-      revision: "8befc0ec157059226fe8442cc5a0b5701eeb69b5"
+      tag:      "6.0.06",
+      revision: "9ff64c7f7d52415a9f09d764078a9d2b29b06f16"
   license "GPL-3.0-only"
+  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "e579a3c3e36c9e81e55e106101826906d897978d7082103709a45cb3175c0b8a"
-    sha256 cellar: :any,                 arm64_sonoma:  "627089734079639e262c99f6cefdf57d19909585e3994488624d162b4a36c837"
-    sha256 cellar: :any,                 arm64_ventura: "b5fd0fe62bf2dd5cd1d07584fbce8231e2e179e31785ed43931b5576bf067649"
-    sha256 cellar: :any,                 sonoma:        "f3ca54cbead2f3e1d4e604dcb3b39011eedda88a98a59610cfb5ce73773a5a2e"
-    sha256 cellar: :any,                 ventura:       "7967d41d7d92bebd840558d9a39711399b19fe567a27965f31495f3a41172987"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8c2841d0b3166ca513facfeb78c70b6b1ee8a60619658c7de2ad96582b4ba447"
+    sha256 cellar: :any,                 arm64_sequoia: "df22574c3d8d42c2acd7545936aac68e10fb01a62d468e8a37737fdf29d0d61e"
+    sha256 cellar: :any,                 arm64_sonoma:  "ba80135aa78d5bbd0bd423da47424b2f2ecf57321971e20574c91e92ea9bc299"
+    sha256 cellar: :any,                 arm64_ventura: "45f3b9efe0946ceb9b65e733276324e0627dee6935c6de01a754db430fc74ef7"
+    sha256 cellar: :any,                 sonoma:        "685f7324a917a8a8c535483572c45fdb40324be940c5ac3347792df6f43898c9"
+    sha256 cellar: :any,                 ventura:       "5f2ef80e0b25ca4b261d310ce1f4e3d555024c9681e445dc6881575f55de48e5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e075ff4433d7bfe5d4a31dc004ca0a3243e8de78d7046866174d493d90d57118"
   end
 
   depends_on "libyaml"
@@ -21,8 +22,6 @@ class ThorsMongo < Formula
   depends_on "snappy"
   uses_from_macos "bzip2"
   uses_from_macos "zlib"
-
-  fails_with gcc: "5"
 
   def install
     ENV["COV"] = "gcov"
@@ -40,7 +39,7 @@ class ThorsMongo < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include "ThorSerialize/JsonThor.h"
       #include "ThorSerialize/SerUtil.h"
       #include <sstream>
@@ -71,7 +70,7 @@ class ThorsMongo < Formula
           std::cerr << "OK";
           return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++20", "test.cpp", "-o", "test",
            "-I#{include}", "-L#{lib}", "-lThorSerialize", "-lThorsLogging", "-ldl"
     system "./test"

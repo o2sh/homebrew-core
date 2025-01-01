@@ -1,8 +1,8 @@
 class SwiProlog < Formula
   desc "ISO/Edinburgh-style Prolog interpreter"
   homepage "https://www.swi-prolog.org/"
-  url "https://www.swi-prolog.org/download/stable/src/swipl-9.2.7.tar.gz"
-  sha256 "fd4126f047e0784112741a874e2f7f8c68b5edd6426ded621df355c62d18c96f"
+  url "https://www.swi-prolog.org/download/stable/src/swipl-9.2.9.tar.gz"
+  sha256 "53f428e2d9bbdf30e53b06c9c42def9a13ff82fc36a111d410fc8b0bc889ee2d"
   license "BSD-2-Clause"
   head "https://github.com/SWI-Prolog/swipl-devel.git", branch: "master"
 
@@ -12,19 +12,17 @@ class SwiProlog < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "0256218f3dc51378aecb9c831103aef1d49bdef503556485b0e5e63a03949541"
-    sha256 arm64_sonoma:   "82389e702458b8a7f324b1d4e390ee292501e7c9e5e3b7d50f2ad09656061998"
-    sha256 arm64_ventura:  "1289209e2994b1c842d8d7b3e83255f803023742883998a25c79f884627debb2"
-    sha256 arm64_monterey: "15609488c0cd29f1b538504d48638e6af1231afd5e30f18d8b928c4d2a945079"
-    sha256 sonoma:         "0a49327bf13f589c5bb9148c6cc526c7967bd332ee499fc0aba78e22e892dcd5"
-    sha256 ventura:        "de02dd3ba44d512c9b0633c34a7cae6ac8296c587ce75c0ec76bf7051b0265f9"
-    sha256 monterey:       "3102c2046092c844dd7001ff8efff41e80cdd605109a208e654cc804b1d3a4fa"
-    sha256 x86_64_linux:   "0ef620824a06927b9e03069db15f1ec7975e42b1ba4f8a1e0347fc8188a531ae"
+    sha256 arm64_sequoia: "40236da144dd4723d91872920d988b7f52e29688745a6be1872cfc5177c965f2"
+    sha256 arm64_sonoma:  "318ffb0fb2d334b6f49ce3293aea1c2a6d93e9bf8cf0d103c1e401b55148f84f"
+    sha256 arm64_ventura: "924cd93f4e48a4026c5bc64b579e2628147aaadea3bae259d721cb8af203273b"
+    sha256 sonoma:        "e80c89d844a75e37d381df5eddbcc6c3080d1f0f8923a6e3a1697443d8354aaf"
+    sha256 ventura:       "002b9b8eb714101e13ebeaa3daee81536dd3ae299f8b5ad021abcbcdf3f3c12b"
+    sha256 x86_64_linux:  "f2afbf413d542dcaeaf05cec448d97385f4de763f56a3747250ce7908a43b36e"
   end
 
   depends_on "cmake" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "berkeley-db@5" # keep berkeley-db < 6 to avoid AGPL incompatibility
   depends_on "gmp"
   depends_on "libarchive"
@@ -63,10 +61,10 @@ class SwiProlog < Formula
   end
 
   test do
-    (testpath/"test.pl").write <<~EOS
+    (testpath/"test.pl").write <<~PROLOG
       test :-
           write('Homebrew').
-    EOS
+    PROLOG
     assert_equal "Homebrew", shell_output("#{bin}/swipl -s #{testpath}/test.pl -g test -t halt")
   end
 end

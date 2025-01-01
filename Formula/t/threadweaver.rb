@@ -1,8 +1,8 @@
 class Threadweaver < Formula
   desc "Helper for multithreaded programming"
   homepage "https://api.kde.org/frameworks/threadweaver/html/index.html"
-  url "https://download.kde.org/stable/frameworks/6.6/threadweaver-6.6.0.tar.xz"
-  sha256 "19555488abf05a9d5a1641f165a67d347e23ab7d14c6f9464ffcf8db2370317a"
+  url "https://download.kde.org/stable/frameworks/6.9/threadweaver-6.9.0.tar.xz"
+  sha256 "d249181d21aa89ad6f5108db3b188c25c9415c9834110f8d15f6bab2df39c190"
   license "LGPL-2.0-or-later"
   head "https://invent.kde.org/frameworks/threadweaver.git", branch: "master"
 
@@ -12,19 +12,17 @@ class Threadweaver < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:  "61be8c1a345cacc41e7f1c1ca87646ef7db488c38dce76258ef1709b39454f10"
-    sha256 cellar: :any,                 arm64_ventura: "0445f7a5ea6110d484498a6ff9adba4a73088daba17ec0ca558e59d05ffdc846"
-    sha256 cellar: :any,                 sonoma:        "3c7827ce581a092c0119023135a535640653c603057c81f9fb4123c25fd5ad66"
-    sha256 cellar: :any,                 ventura:       "4fa921e81a293f0980bf0c2adbd3616271f10d627b5ed8dda26001e79209847f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ec1abc9d34f3498ae5ba5ad93559513bec88752082247fa18dac10e3bb0bbbfe"
+    sha256 cellar: :any,                 arm64_sonoma:  "2a7a987b6e2ff573a671cad9a3363ed6af740d66916fd016f188b6028ce9a249"
+    sha256 cellar: :any,                 arm64_ventura: "e3e29431dc6d2f87409fe6556a91405f50f59c4f7e455b82a73a4bac1079490b"
+    sha256 cellar: :any,                 sonoma:        "095ca0b43175c17ee8f12a008ba9e78f143432af5e1d8ad5656cc4f57769d51d"
+    sha256 cellar: :any,                 ventura:       "7f9484c0b8ba85abe259ef129c2c9dbd8a36e020ecf52f1cb6e73f049ea2570e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "41abf4a91daa0c5cc9e716af715c0eb23751cecfc6ba82de32d393f04a20f333"
   end
 
   depends_on "cmake" => [:build, :test]
   depends_on "doxygen" => :build
   depends_on "extra-cmake-modules" => [:build, :test]
   depends_on "qt"
-
-  fails_with gcc: "5"
 
   def install
     system "cmake", "-S", ".", "-B", "build", "-DBUILD_QCH=ON", *std_cmake_args
@@ -39,14 +37,14 @@ class Threadweaver < Formula
 
     kf = "KF#{version.major}"
     (testpath/"CMakeLists.txt").unlink
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 3.5)
       project(HelloWorld LANGUAGES CXX)
       find_package(ECM REQUIRED NO_MODULE)
       find_package(#{kf}ThreadWeaver REQUIRED NO_MODULE)
       add_executable(ThreadWeaver_HelloWorld HelloWorld.cpp)
       target_link_libraries(ThreadWeaver_HelloWorld #{kf}::ThreadWeaver)
-    EOS
+    CMAKE
 
     system "cmake", "-S", ".", "-B", ".", *std_cmake_args
     system "cmake", "--build", "."

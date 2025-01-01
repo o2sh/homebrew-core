@@ -6,7 +6,7 @@ class Uhd < Formula
   url "https://github.com/EttusResearch/uhd/archive/refs/tags/v4.7.0.0.tar.gz"
   sha256 "afe56842587ce72d6a57535a2b15c061905f0a039abcc9d79f0106f072a00d10"
   license all_of: ["GPL-3.0-or-later", "LGPL-3.0-or-later", "MIT", "BSD-3-Clause", "Apache-2.0"]
-  revision 1
+  revision 2
   head "https://github.com/EttusResearch/uhd.git", branch: "master"
 
   livecheck do
@@ -15,28 +15,24 @@ class Uhd < Formula
   end
 
   bottle do
-    sha256                               arm64_sequoia:  "a4e1b7346637c9f8fbf7952727a34c9733046c9123803ea1ac017a83bfd9cc64"
-    sha256                               arm64_sonoma:   "0aa30be8f8741f6f033d4bdf9558499328b3f401d76da6ba5e46641a9ab22bdc"
-    sha256                               arm64_ventura:  "bba91185c57f41b0341081ec2b0d11d1eec2d20a26ef5985a7d58afd92069ba7"
-    sha256                               arm64_monterey: "908c5d7d364e45e2c76a3ac47194c7a00b012a187f7c3b06886165216f10a97d"
-    sha256                               sonoma:         "a7f8deeaf539132936b14a357ad4c4cddbd017b87d4faee35278b7dbd58eccde"
-    sha256                               ventura:        "53b7c7b837022b1097dfe6c17d55352a2fa97151f540101cdbe82664ecbca39c"
-    sha256                               monterey:       "4669b02aa5c598fabbb0143f5011b5ead0dacc6756c9024a75abd6ba2125fb88"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a0d12aca3e8dae06f8fa880a920bbf6a5f1308ccc1abb405d3395fb0229ffb02"
+    sha256                               arm64_sequoia: "4a05fe3cf7631907bef6a416e3a5e1b76ee7c9590e6c02a2194b66b7c5c79292"
+    sha256                               arm64_sonoma:  "ea007011a24d72f1f3ff2d05b1e509d6a0b4bf79fc358117c1ce02714540ebb3"
+    sha256                               arm64_ventura: "047350eee3e26cdb321be13ab062adb73d15690ccd6142456db1bc57c8296b4d"
+    sha256                               sonoma:        "7f649d23d094b511b032788e8d67ea726c4ab394a9e30b2a8c42760aee1bf004"
+    sha256                               ventura:       "aea0fe40b4c6a1a530ad5e57cf4296cdd82345b03730737852451401faea7a66"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e367b389872d8029334fad40c27e6567d17a3a2bab731c3f7a54c626af7cc617"
   end
 
   depends_on "cmake" => :build
   depends_on "doxygen" => :build
-  depends_on "pkg-config" => :build
-  depends_on "boost"
+  depends_on "pkgconf" => :build
+  depends_on "boost@1.85"
   depends_on "libusb"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   on_linux do
     depends_on "ncurses"
   end
-
-  fails_with gcc: "5"
 
   resource "mako" do
     url "https://files.pythonhosted.org/packages/67/03/fb5ba97ff65ce64f6d35b582aacffc26b693a98053fa831ab43a437cbddb/Mako-1.3.5.tar.gz"
@@ -44,12 +40,12 @@ class Uhd < Formula
   end
 
   resource "markupsafe" do
-    url "https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz"
-    sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
+    url "https://files.pythonhosted.org/packages/b4/d2/38ff920762f2247c3af5cbbbbc40756f575d9692d381d7c520f45deb9b8f/markupsafe-3.0.1.tar.gz"
+    sha256 "3e683ee4f5d0fa2dde4db77ed8dd8a876686e3fc417655c2ece9a90576905344"
   end
 
   def python3
-    "python3.12"
+    "python3.13"
   end
 
   def install

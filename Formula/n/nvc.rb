@@ -1,19 +1,17 @@
 class Nvc < Formula
   desc "VHDL compiler and simulator"
   homepage "https://github.com/nickg/nvc"
-  url "https://github.com/nickg/nvc/releases/download/r1.13.3/nvc-1.13.3.tar.gz"
-  sha256 "c657d052d8a1eeba2dd97e92330c676de0a6d4d4c2eedea25adec64405dd87c7"
+  url "https://github.com/nickg/nvc/releases/download/r1.14.2/nvc-1.14.2.tar.gz"
+  sha256 "420826dc44ed209d7346e183438a654af1816bd802d15fded2f8a9c272a47331"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 arm64_sequoia:  "9b97c2e14379bd670c4300964389c92043f69ab98cccc6440dc690c305d13b5f"
-    sha256 arm64_sonoma:   "fe46bbdeade65da8ec99e79c535c4d69dd3d46745cf4f3cda8185bea1312fad1"
-    sha256 arm64_ventura:  "e0b90c0ae68c17fd83c7f27ae1c687a84ba5c45897a33f2ef14dbd6c6d30556e"
-    sha256 arm64_monterey: "7db131cbc9501cc3975c9a0ddccaf0fdd39edca29ef0086c8649df9fe89c54e7"
-    sha256 sonoma:         "700914b4632de546cfe0130684ba6fa8859db1c67c1aa71a550ccbf770bec128"
-    sha256 ventura:        "60932cf07d654fc4850bbe007848775a0ff43a32002917aa7000105574e326ae"
-    sha256 monterey:       "8596232f85a898c1f00a87711a562604d702a198168fdd3b22fc1ce0d038e0f1"
-    sha256 x86_64_linux:   "84d8d313cfe8892e33346657105fb7b2432471489a108779f8ddc7e53885ea06"
+    sha256 arm64_sequoia: "2f4df4784c3f76d5417fb27611bd0cb0a147c85e7d0b482118dde651c217030f"
+    sha256 arm64_sonoma:  "2b0ee54b5af6f94d794b1158cf2d3f9266055cac560d8761b2de96fec58b66f5"
+    sha256 arm64_ventura: "05c517c0cc6c835c512fb50108a8e7f055ed1f6bbb45e8169394c962e0014dbe"
+    sha256 sonoma:        "0c82323f94cb9367b4f139037d5ee164a7ebcff9c1c01d79f8f67f2a17024c50"
+    sha256 ventura:       "2b949b05bd388a68c7c47099755b07b224fa5e36c9c56e132e4157e321bdab9d"
+    sha256 x86_64_linux:  "5db794ebdbfd9803be1e75133729f1aac9d89aefd1cdc19feb404c970e820666"
   end
 
   head do
@@ -24,7 +22,7 @@ class Nvc < Formula
   end
 
   depends_on "check" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "llvm"
   depends_on "zstd"
 
@@ -35,8 +33,6 @@ class Nvc < Formula
   on_linux do
     depends_on "elfutils"
   end
-
-  fails_with gcc: "5" # LLVM is built with GCC
 
   def install
     system "./autogen.sh" if build.head?

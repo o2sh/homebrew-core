@@ -20,7 +20,7 @@ class Libdazzle < Formula
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "vala" => :build
 
   depends_on "cairo"
@@ -42,14 +42,14 @@ class Libdazzle < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <dazzle.h>
 
       int main(int argc, char *argv[]) {
         g_assert_false(dzl_file_manager_show(NULL, NULL));
         return 0;
       }
-    EOS
+    C
     atk = Formula["atk"]
     cairo = Formula["cairo"]
     fontconfig = Formula["fontconfig"]

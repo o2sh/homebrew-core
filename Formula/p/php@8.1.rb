@@ -2,9 +2,9 @@ class PhpAT81 < Formula
   desc "General-purpose scripting language"
   homepage "https://www.php.net/"
   # Should only be updated if the new version is announced on the homepage, https://www.php.net/
-  url "https://www.php.net/distributions/php-8.1.29.tar.xz"
-  mirror "https://fossies.org/linux/www/php-8.1.29.tar.xz"
-  sha256 "288884af60581d4284baba2ace9ca6d646f72facbd3e3c2dd2acc7fe6f903536"
+  url "https://www.php.net/distributions/php-8.1.31.tar.xz"
+  mirror "https://fossies.org/linux/www/php-8.1.31.tar.xz"
+  sha256 "c4f244d46ba51c72f7d13d4f66ce6a9e9a8d6b669c51be35e01765ba58e7afca"
   license "PHP-3.01"
 
   livecheck do
@@ -13,14 +13,12 @@ class PhpAT81 < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "417d09206aea63569ff7e4c5e7c670f29fce5afbe48aef61f8200721b1c5fe32"
-    sha256 arm64_sonoma:   "9d16413bf0a809e34c40ee2bdf0245748a1980859ffaee4a9336b1f142854df5"
-    sha256 arm64_ventura:  "2aff1f476a667ab5149d733c12c9edbfbe7efea269d4f9692770604cf373583f"
-    sha256 arm64_monterey: "9d75391a871dc0f69fd0a8fb67d5c5c3985ca32a8f74f28d368d3a9ba007d647"
-    sha256 sonoma:         "55125769200c1fa1092e2066d9aafd71d9ccdf6081a5f77d3cf1d1ec9f2dc3fa"
-    sha256 ventura:        "2354d1821e8a948f4299a52626665799578032ed2da79417f5d2967b6236f8aa"
-    sha256 monterey:       "7fd6db41d052fac0dd11a60a297d03adb0d86d9b555b5a8a11048e6ab4581dd8"
-    sha256 x86_64_linux:   "f9b8c400b17157ad739167f0a79fafd5fdae79fad6971a13c3fac2b25cf5e945"
+    sha256 arm64_sequoia: "2fd310dfbd570b6998906d8f40bd2fd51ba66b6f28a7d8f826ff6dbeef111edc"
+    sha256 arm64_sonoma:  "d0c5eacbbc350721e5d87f301bd3e27e24c7711422bd0af976c077a14ebbff5e"
+    sha256 arm64_ventura: "69596825a94b96775a0c4904ed335d47a472d281efec950ba4aecf49acce974a"
+    sha256 sonoma:        "2585dac48ab45d53e9cf0cba573aeedab04ab133cb13f7bc4ef21856c2a94b5c"
+    sha256 ventura:       "c459e02507d84d26513063b3b8c8f2985971a077dac54b33ea4c215e79f1ae82"
+    sha256 x86_64_linux:  "ecf74cf457d6b821b6a058a01a5531f2f37711fbfe4ee3e2b9548db6e98c9629"
   end
 
   keg_only :versioned_formula
@@ -30,7 +28,7 @@ class PhpAT81 < Formula
   deprecate! date: "2025-12-31", because: :unsupported
 
   depends_on "httpd" => [:build, :test]
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "apr"
   depends_on "apr-util"
   depends_on "argon2"
@@ -41,7 +39,7 @@ class PhpAT81 < Formula
   depends_on "gd"
   depends_on "gettext"
   depends_on "gmp"
-  depends_on "icu4c"
+  depends_on "icu4c@76"
   depends_on "krb5"
   depends_on "libpq"
   depends_on "libsodium"
@@ -63,12 +61,29 @@ class PhpAT81 < Formula
   uses_from_macos "zlib"
 
   on_macos do
+    # Apply MacPorts patch for Xcode 16. Upstream fix doesn't cleanly apply
+    # Ref: https://github.com/php/php-src/commit/e2e2b3ab62686af85fb079a403b5dda75595f6dd
+    patch do
+      url "https://raw.githubusercontent.com/macports/macports-ports/f6c30c5b3a810d4154ab8c85bb23274baa020fe1/lang/php/files/patch-php81-zend_string_equal_val.diff"
+      sha256 "382b1815dda418f539799c05674c3bfc22ec7e1da7494afd9f883938b4b3a1e2"
+    end
+
     # PHP build system incorrectly links system libraries
     # see https://github.com/php/php-src/issues/10680
     patch :DATA
   end
 
   def install
+    # Backport fix for libxml2 >= 2.13
+    # Ref: https://github.com/php/php-src/commit/67259e451d5d58b4842776c5696a66d74e157609
+    inreplace "ext/xml/compat.c",
+              "!= XML_PARSER_ENTITY_VALUE && parser->parser->instate != XML_PARSER_ATTRIBUTE_VALUE)",
+              "== XML_PARSER_CONTENT)"
+
+    # Work around to support `icu4c` 75, which needs C++17.
+    # Can remove if upstream backports support into PHP 8.1
+    ENV["ICU_CXXFLAGS"] = "-std=c++17"
+
     # buildconf required due to system library linking bug patch
     system "./buildconf", "--force"
 
@@ -340,7 +355,7 @@ class PhpAT81 < Formula
     assert_includes (bin/"php").dynamically_linked_libraries,
                     (Formula["libpq"].opt_lib/shared_library("libpq", 5)).to_s
 
-    system "#{sbin}/php-fpm", "-t"
+    system sbin/"php-fpm", "-t"
     system bin/"phpdbg", "-V"
     system bin/"php-cgi", "-m"
     # Prevent SNMP extension to be added
@@ -351,11 +366,11 @@ class PhpAT81 < Formula
       port_fpm = free_port
 
       expected_output = /^Hello world!$/
-      (testpath/"index.php").write <<~EOS
+      (testpath/"index.php").write <<~PHP
         <?php
         echo 'Hello world!' . PHP_EOL;
         var_dump(ldap_connect());
-      EOS
+      PHP
       main_config = <<~EOS
         Listen #{port}
         ServerName localhost:#{port}
@@ -403,7 +418,7 @@ class PhpAT81 < Formula
       pid = fork do
         exec Formula["httpd"].opt_bin/"httpd", "-X", "-f", "#{testpath}/httpd.conf"
       end
-      sleep 3
+      sleep 10
 
       assert_match expected_output, shell_output("curl -s 127.0.0.1:#{port}")
 
@@ -416,7 +431,7 @@ class PhpAT81 < Formula
       pid = fork do
         exec Formula["httpd"].opt_bin/"httpd", "-X", "-f", "#{testpath}/httpd-fpm.conf"
       end
-      sleep 3
+      sleep 10
 
       assert_match expected_output, shell_output("curl -s 127.0.0.1:#{port}")
     ensure

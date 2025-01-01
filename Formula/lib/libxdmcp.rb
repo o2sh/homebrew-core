@@ -16,33 +16,31 @@ class Libxdmcp < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "d8b9dc2969e85e26c6d426d8865244e1416d73f7f408c9f5404a2a614a62e7d4"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "xorgproto"
 
   def install
     args = %W[
-      --prefix=#{prefix}
       --sysconfdir=#{etc}
       --localstatedir=#{var}
-      --disable-dependency-tracking
       --disable-silent-rules
       --enable-docs=no
     ]
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include "X11/Xdmcp.h"
 
       int main(int argc, char* argv[]) {
         xdmOpCode code;
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c"
     assert_equal 0, $CHILD_STATUS.exitstatus
   end

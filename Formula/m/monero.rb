@@ -5,6 +5,7 @@ class Monero < Formula
       tag:      "v0.18.3.4",
       revision: "b089f9ee69924882c5d14dd1a6991deb05d9d1cd"
   license "BSD-3-Clause"
+  revision 1
 
   livecheck do
     url :stable
@@ -12,19 +13,17 @@ class Monero < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "94918e427866d89324b910d6d321ea111c08c4d216ba972a0f3dafcb0d1c920c"
-    sha256 cellar: :any,                 arm64_sonoma:   "eeca3a8cd0a413a37165bf9b1534043bc3a7de27ceb3a2da218a5e4c8cd69c8c"
-    sha256 cellar: :any,                 arm64_ventura:  "793f709451ab5f541d19ace5709d24eba53da6776ad99634d16b84b0e3af22b1"
-    sha256 cellar: :any,                 arm64_monterey: "4f8f11e019d08e94dfb67b09f71b7bbf544fd5d6291e18d1f9b3b01d3a74dd4c"
-    sha256 cellar: :any,                 sonoma:         "41430b038afff312bf9940478ed205d256229584f94a50e0061f512164f1710a"
-    sha256 cellar: :any,                 ventura:        "5164d5a74ddb315555225b3c794a003f11c78c990d4b29e2d77c819bdf087e2d"
-    sha256 cellar: :any,                 monterey:       "8515f6ecfc5c68d760edfdb87093a9f15191162f5872e65e1993e56d8393a46b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9066d4d2012600da453f2238eb0f1de978cfc8d8cefa6548f0ef27fa6162347d"
+    sha256 cellar: :any,                 arm64_sequoia: "f64926ffcec81585860747ea20accb5a9d702bcc3cfc54d6b82088b09e67e9c1"
+    sha256 cellar: :any,                 arm64_sonoma:  "d197965c50af4b4b8b76795f86b9e04f4b1d12bbf078d28847fe84e64b134908"
+    sha256 cellar: :any,                 arm64_ventura: "af7b42d0daf0502281f49d547c7705ae52c484215fc937ea43570778ace0a3ba"
+    sha256 cellar: :any,                 sonoma:        "db50b874db8413f84d77ed19e36cbf80c91beb82102f8c180c566b02be22498c"
+    sha256 cellar: :any,                 ventura:       "70bce68c8855b46288b652b3fd608074f8cfe9533f54d728afae4f7dabf75bdb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3e39e7a8b79f8c13ba55872e5f389a76fee2ca3741e43deee0c6b21c830b8079"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
-  depends_on "boost@1.85"
+  depends_on "pkgconf" => :build
+  depends_on "boost@1.85" # Boost 1.87+ issue ref: https://github.com/monero-project/monero/issues/9596
   depends_on "hidapi"
   depends_on "libsodium"
   depends_on "libusb"
@@ -35,6 +34,12 @@ class Monero < Formula
   depends_on "zeromq"
 
   conflicts_with "wownero", because: "both install a wallet2_api.h header"
+
+  # Backport fix needed for boost 1.86.0+. Remove in the next release
+  patch do
+    url "https://github.com/monero-project/monero/commit/83dd5152e6d115426afbb57a94a832ec91b58a46.patch?full_index=1"
+    sha256 "b727fe58ff1211080141a0b14eaf451c98b9493195f0c2d356aee7709f0c5ef6"
+  end
 
   def install
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args

@@ -28,7 +28,7 @@ class Libtrace < Formula
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "openssl@3"
   depends_on "wandio"
 
@@ -49,7 +49,7 @@ class Libtrace < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <libtrace.h>
       #include <inttypes.h>
       #include <stdio.h>
@@ -256,7 +256,7 @@ class Libtrace < Formula
               }
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-ltrace", "-o", "test"
     resource("homebrew-8021x.pcap").stage testpath
     system "./test", testpath/"8021x.pcap"

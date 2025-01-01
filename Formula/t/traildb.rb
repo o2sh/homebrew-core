@@ -24,11 +24,13 @@ class Traildb < Formula
     sha256 x86_64_linux:   "eacba47e211b4e29a1a44507087e2fc1cb501f00c853ee406a0c954c8ba4c47e"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "judy"
   depends_on "libarchive"
 
-  uses_from_macos "python" => :build
+  on_linux do
+    depends_on "python@3.11" => :build
+  end
 
   # Update waf script for Python 3
   # Use resource instead of patch since applying corrupts waf
@@ -45,7 +47,7 @@ class Traildb < Formula
 
   test do
     # Check that the library has been installed correctly
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <traildb.h>
       #include <assert.h>
       int main() {
@@ -57,7 +59,7 @@ class Traildb < Formula
         tdb* t1 = tdb_init();
         assert(tdb_open(t1, path) == 0);
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-ltraildb", "-o", "test"
     system "./test"
 

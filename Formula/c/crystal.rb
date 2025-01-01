@@ -2,10 +2,11 @@ class Crystal < Formula
   desc "Fast and statically typed, compiled language with Ruby-like syntax"
   homepage "https://crystal-lang.org/"
   license "Apache-2.0"
+  revision 1
 
   stable do
-    url "https://github.com/crystal-lang/crystal/archive/refs/tags/1.13.3.tar.gz"
-    sha256 "b060a75a7c3d29424f1d16bfb42ee4a46055fa218b964556b81bd1885cb30d77"
+    url "https://github.com/crystal-lang/crystal/archive/refs/tags/1.14.0.tar.gz"
+    sha256 "85c74d8654a0e111e2eaec6de38470bc9cb6762bc5b799dd3693d18cce4bc807"
 
     resource "shards" do
       url "https://github.com/crystal-lang/shards/archive/refs/tags/v0.18.0.tar.gz"
@@ -19,12 +20,12 @@ class Crystal < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "b3222832b5ead2ec11f5cc08aab91fa6300f90f296bf5810a19bc4bbf531945d"
-    sha256 cellar: :any,                 arm64_sonoma:  "7cbdf422aedae8886f37a35de838071d1ede0cffc0a2fd5fd3050f327078678b"
-    sha256 cellar: :any,                 arm64_ventura: "dd66a14acb653fbff65f4dfce594c52e5adb861f8fa72a91c52fb65e1d7fd949"
-    sha256 cellar: :any,                 sonoma:        "929cc4e4706e07a2695bd3b70f56b71b130cfdd9b083384fbbc99035e72d5a5b"
-    sha256 cellar: :any,                 ventura:       "510d31b836f3a9e978f2247e1656e50442eecefa97fd2f60251825b842c24e51"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "05555312f31dc74b29bb8eccd14e51f7ec0ad93c2632c3f608a91fa0f3f02588"
+    sha256 cellar: :any,                 arm64_sequoia: "fb7272be811f1eabb551caec4311b46dbaeba5917748d83fd147a41756862de1"
+    sha256 cellar: :any,                 arm64_sonoma:  "325bbb0ee0956f7174440413476586ba7408eef5abffc07299d0d1f97150276a"
+    sha256 cellar: :any,                 arm64_ventura: "166764cd60dc9c7069e14996b5e12f79e64c928e83aad31c277c8e630a203e81"
+    sha256 cellar: :any,                 sonoma:        "23b3cae36e3456ce7d43f5dd07f950415d262daff9eba5f196e5fdfe54850cd7"
+    sha256 cellar: :any,                 ventura:       "fbc3f8bc752de8924efedb52d1521cb78002bae4af1adb4998a97f6f98b5c71d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "75e33889ed0b21da2aedad0649d92cb01d13cd51defacd9ebfea60e8cce49b4f"
   end
 
   head do
@@ -42,11 +43,9 @@ class Crystal < Formula
   depends_on "llvm"
   depends_on "openssl@3" # std uses it but it's not linked
   depends_on "pcre2"
-  depends_on "pkg-config" # @[Link] will use pkg-config if available
+  depends_on "pkgconf" # @[Link] will use pkg-config if available
 
   uses_from_macos "libffi" # for the interpreter
-
-  fails_with gcc: "5"
 
   # It used to be the case that every new crystal release was built from a
   # previous release, except patches. Crystal is updating its policy to
@@ -83,8 +82,7 @@ class Crystal < Formula
   def install
     llvm = deps.find { |dep| dep.name.match?(/^llvm(@\d+)?$/) }
                .to_formula
-    non_keg_only_runtime_deps = deps.reject(&:build?)
-                                    .map(&:to_formula)
+    non_keg_only_runtime_deps = deps.filter_map { |dep| dep.to_formula unless dep.build? }
                                     .reject(&:keg_only?)
 
     resource("boot").stage "boot"
@@ -99,7 +97,7 @@ class Crystal < Formula
       ENV.prepend_path "CRYSTAL_LIBRARY_PATH", dep.opt_lib
     end
 
-    crystal_install_dir = bin
+    crystal_install_dir = OS.linux? ? libexec : bin
     stdlib_install_dir = pkgshare
 
     # Avoid embedding HOMEBREW_PREFIX references in `crystal` binary.
@@ -109,7 +107,6 @@ class Crystal < Formula
     release_flags = ["release=true", "FLAGS=--no-debug"]
     crystal_build_opts = release_flags + [
       "CRYSTAL_CONFIG_LIBRARY_PATH=#{config_library_path}",
-      "CRYSTAL_CONFIG_LIBRARY_RPATH=#{config_library_path}",
       "CRYSTAL_CONFIG_PATH=#{config_path}",
       "interpreter=true",
     ]
@@ -153,6 +150,14 @@ class Crystal < Formula
     fish_completion.install "etc/completion.fish" => "crystal.fish"
 
     man1.install "man/crystal.1"
+
+    return unless OS.linux?
+
+    # Wrapper script so that Crystal can find libraries in HOMEBREW_PREFIX
+    (bin/"crystal").write_env_script(
+      crystal_install_dir/"crystal",
+      LD_RUN_PATH: "${LD_RUN_PATH:+${LD_RUN_PATH}:}#{HOMEBREW_PREFIX}/lib",
+    )
   end
 
   test do

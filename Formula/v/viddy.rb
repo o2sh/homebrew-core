@@ -1,20 +1,18 @@
 class Viddy < Formula
   desc "Modern watch command"
   homepage "https://github.com/sachaos/viddy"
-  url "https://github.com/sachaos/viddy/archive/refs/tags/v1.1.2.tar.gz"
-  sha256 "a1238f5712251cf06403b6e9cfd711115e295019cb0801b4250070aabf074233"
+  url "https://github.com/sachaos/viddy/archive/refs/tags/v1.3.0.tar.gz"
+  sha256 "59d5be862cf6b522ed069e276c28f927e5d2cea13525513959e1577a5ad6afd5"
   license "MIT"
   head "https://github.com/sachaos/viddy.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "0677281129d50c3583156ff599cd574f62298217ccf532c7045752e53f8d4056"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5cdb1ad19dee6f53d03e39d2f4f96e3dc81cdf2b2d3dd0537678b043a2a5150f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "566a66addbd733495375d893804eb72f3ed991de1ec9ad06b22da8783dda5f83"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "21f791b56838c791db7764bf60aa03d211a70e2ded0dfff10f11de9d08f612b6"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c241695a0735963bf9bffca9f00a302f5de5e6899f499a710d79a5fd548d0dcf"
-    sha256 cellar: :any_skip_relocation, ventura:        "5be54f25bbbbf59c020dfba5ad269934e43e6cad0fb25047091d75f159cb893d"
-    sha256 cellar: :any_skip_relocation, monterey:       "b45cb53f8f06f40f6f1bd82fd4a84ce8d11ba5fdc5f7ccef38902fc2776a4853"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "68d88908a20ffbded81690a4c9aa1979101fde625c7bb27c796916052059a9b3"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "618af16f6d99f7f2309e65cc33b60eea874f15ae8a0965b873c1a8ef1f9bda41"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a9475b43a3238107af27cd6d6f14621af0e5e0fd0504a3fddad1e33277f3b7af"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "5132a22bfe77049378f62158a9c2fb9e52ab6f04c426e9cfdff4e7c78a0de06f"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a635acfdd97d4fb6f785a0164db30c399430f156b8012b85ad82a3872f39b869"
+    sha256 cellar: :any_skip_relocation, ventura:       "81a7bf5985de9f5702b68665dfa75f562819d363b5d6a4c882c5ef9b778ed18d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2936c3ac0cc4092280d63ccc8ef986cfaad49c117fc763266ae435edaa1626e2"
   end
 
   depends_on "rust" => :build

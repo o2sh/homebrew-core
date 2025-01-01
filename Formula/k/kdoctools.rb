@@ -1,8 +1,8 @@
 class Kdoctools < Formula
   desc "Create documentation from DocBook"
   homepage "https://api.kde.org/frameworks/kdoctools/html/index.html"
-  url "https://download.kde.org/stable/frameworks/6.6/kdoctools-6.6.0.tar.xz"
-  sha256 "149e0b442290f8bc9d2a0c99c8e27a5735a3a83870a82de007e487529f0aad44"
+  url "https://download.kde.org/stable/frameworks/6.9/kdoctools-6.9.0.tar.xz"
+  sha256 "6cc43f7db6df703cde1c6fbb24debcfb11c3df8f176be101577e21582d0209ca"
   license all_of: [
     "BSD-3-Clause",
     "GPL-2.0-or-later",
@@ -17,11 +17,11 @@ class Kdoctools < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:  "2653e446feb7b80caf830a11dc7a2e4e234c17a099d1fd39a16f078aac0a8be8"
-    sha256 cellar: :any,                 arm64_ventura: "8a1c5f95c54d7512ca1112d8e7fd4209f4375f34008b43ee9e5fe07e8aebc32c"
-    sha256 cellar: :any,                 sonoma:        "cbc2a77f587f50f09202d576ced435c0f0134472d182446f05e323355315c1c4"
-    sha256 cellar: :any,                 ventura:       "e82357936bab9706db0884d1adfb4cb2c9c0a1708b615310e75fe9785023c8fc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0a4f5843d383b2d41c63988d36b904d92c0fd29e5857939309668047b5256a6d"
+    sha256 cellar: :any,                 arm64_sonoma:  "e924211069e60c1cbeb8f56d25b6aba235ac8f862cc2b0a25a7474396a5225f5"
+    sha256 cellar: :any,                 arm64_ventura: "49d320dbfc76329c3cd6e071209b0049c2b450db7d6258fd4d41b1d7c694b4ba"
+    sha256 cellar: :any,                 sonoma:        "bfde63301ec3c943ba57f52525211453488890ec8b71aa51dbe5004488c1443f"
+    sha256 cellar: :any,                 ventura:       "6525d9bcc6887f3d10247e2b06597c1ed241fa4a5d951108e0e7b0c4516d1cef"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6e3eb7445ab85d7d9b79e5c6b8b8d439d3c9600314d8cc93e836bbea16a3f5c0"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -36,8 +36,6 @@ class Kdoctools < Formula
   uses_from_macos "libxml2"
   uses_from_macos "libxslt"
   uses_from_macos "perl"
-
-  fails_with gcc: "5"
 
   resource "URI::Escape" do
     on_linux do
@@ -68,7 +66,7 @@ class Kdoctools < Formula
     qt = Formula["qt"]
     qt_major = qt.version.major
 
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 3.5)
       include(FeatureSummary)
       find_package(ECM #{version} NO_MODULE)
@@ -99,7 +97,7 @@ class Kdoctools < Formula
       add_subdirectory(autotests)
       add_subdirectory(tests/create-from-current-dir-test)
       add_subdirectory(tests/kdoctools_install-test)
-    EOS
+    CMAKE
 
     cp_r (pkgshare/"autotests"), testpath
     cp_r (pkgshare/"tests"), testpath

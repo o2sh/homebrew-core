@@ -1,24 +1,17 @@
 class PostgresqlAT12 < Formula
   desc "Object-relational database system"
   homepage "https://www.postgresql.org/"
-  url "https://ftp.postgresql.org/pub/source/v12.20/postgresql-12.20.tar.bz2"
-  sha256 "2d543af3009fec7fd5af35f7a70c95085d3eef6b508e517aa9493e99b15e9ea9"
+  url "https://ftp.postgresql.org/pub/source/v12.22/postgresql-12.22.tar.bz2"
+  sha256 "8df3c0474782589d3c6f374b5133b1bd14d168086edbc13c6e72e67dd4527a3b"
   license "PostgreSQL"
 
-  livecheck do
-    url "https://ftp.postgresql.org/pub/source/"
-    regex(%r{href=["']?v?(12(?:\.\d+)+)/?["' >]}i)
-  end
-
   bottle do
-    sha256 arm64_sequoia:  "b26335e33757d1c783be1f99670184b804e45b2df6b2ebb733c809f3d18f86a3"
-    sha256 arm64_sonoma:   "1860035fa32eabbaae82b4e39696282a3f8e3df7ffe8c0dab13651b88760df94"
-    sha256 arm64_ventura:  "457fcd2a462d2efe40c359886344b35a239417db3c29a8ca4227993d0691094f"
-    sha256 arm64_monterey: "72774b7fef6758e23f4ba024ebf190c2b94081b5a720935f8356ccf9ab9d8d34"
-    sha256 sonoma:         "a79bca41d1f4ba6aed93964db5b03df3fd35dc965712dac6aaa4f556fc5f6e7f"
-    sha256 ventura:        "ce639c93ee3e14d2b05e7d50bc88f243e9e734024d4e666d5574660277ef8e81"
-    sha256 monterey:       "4f941a20712c911f4a5d8086422bbb21fd890e0cba8eeb8ff14aa3b3af58d0bc"
-    sha256 x86_64_linux:   "59bbe07116abbda0667949246203d6e10c154979ffad01c75dc5610f4b2ad32e"
+    sha256 arm64_sequoia: "a5c78e7ce55f654e10a6e085189375874c1d4cbc3f9945a3af7e19649e7d5ce7"
+    sha256 arm64_sonoma:  "6f7188fb76d7f3b3d5b49cbca78710a93fb6db29e13147339f7b96938e31f233"
+    sha256 arm64_ventura: "2c2feaefff5d7ce821e0e1d4ec3f0283a2627a963bfff99b5952e901743ff3a4"
+    sha256 sonoma:        "0c6108e5234284468ee08d5421e12bfbfdd36c6261e85333533d71ad8bf21a6a"
+    sha256 ventura:       "16de899595cb443c6991899310cc159aa1efbe8a6994438ac5d204e217d9adc3"
+    sha256 x86_64_linux:  "f02f9134dbeccca31ce2649d12ac4e4ba5dffbc0f8de30b36c11b443bc51a218"
   end
 
   keg_only :versioned_formula
@@ -26,8 +19,8 @@ class PostgresqlAT12 < Formula
   # https://www.postgresql.org/support/versioning/
   deprecate! date: "2024-11-14", because: :unsupported
 
-  depends_on "pkg-config" => :build
-  depends_on "icu4c"
+  depends_on "pkgconf" => :build
+  depends_on "icu4c@76"
 
   # GSSAPI provided by Kerberos.framework crashes when forked.
   # See https://github.com/Homebrew/homebrew-core/issues/47494.
@@ -71,12 +64,7 @@ class PostgresqlAT12 < Formula
       --with-perl
       --with-uuid=e2fs
     ]
-    if OS.mac?
-      args += %w[
-        --with-bonjour
-        --with-tcl
-      ]
-    end
+    args += %w[--with-bonjour --with-tcl] if OS.mac?
 
     # PostgreSQL by default uses xcodebuild internally to determine this,
     # which does not work on CLT-only installs.
@@ -98,12 +86,11 @@ class PostgresqlAT12 < Formula
                                     "pkgincludedir=#{include}/postgresql",
                                     "includedir_server=#{include}/postgresql/server",
                                     "includedir_internal=#{include}/postgresql/internal"
+    return unless OS.linux?
 
-    if OS.linux?
-      inreplace lib/"postgresql/pgxs/src/Makefile.global",
-                "LD = #{HOMEBREW_PREFIX}/Homebrew/Library/Homebrew/shims/linux/super/ld",
-                "LD = #{HOMEBREW_PREFIX}/bin/ld"
-    end
+    inreplace lib/"postgresql/pgxs/src/Makefile.global",
+              "LD = #{Superenv.shims_path}/ld",
+              "LD = #{HOMEBREW_PREFIX}/bin/ld"
   end
 
   def post_install
@@ -161,8 +148,6 @@ class PostgresqlAT12 < Formula
     caveats += <<~EOS
       This formula has created a default database cluster with:
         initdb --locale=C -E UTF-8 #{postgresql_datadir}
-      For more details, read:
-        https://www.postgresql.org/docs/#{version.major}/app-initdb.html
     EOS
 
     caveats

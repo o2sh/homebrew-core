@@ -1,10 +1,9 @@
 class Webkitgtk < Formula
   desc "GTK interface to WebKit"
   homepage "https://webkitgtk.org"
-  url "https://webkitgtk.org/releases/webkitgtk-2.44.4.tar.xz"
-  sha256 "2ce4ec1b78413035037aba8326b31ed72696626b7bea7bace5e46ac0d8cbe796"
+  url "https://webkitgtk.org/releases/webkitgtk-2.46.5.tar.xz"
+  sha256 "bad4020bb0cfb3e740df3082c2d9cbf67cf4095596588a56aecdde6702137805"
   license "GPL-3.0-or-later"
-  revision 1
 
   livecheck do
     url "https://webkitgtk.org/releases/"
@@ -12,7 +11,7 @@ class Webkitgtk < Formula
   end
 
   bottle do
-    sha256 x86_64_linux: "ba3d668e754e52184b06f1dd75b38cc2447c1cb73f7c9df243bf25ccd8ee537b"
+    sha256 x86_64_linux: "5e91774ea2bb63e94ec2f9c05d9ed2a290fce390a108434a4e008a05dfdd1b98"
   end
 
   depends_on "cmake" => :build
@@ -20,8 +19,8 @@ class Webkitgtk < Formula
   depends_on "gobject-introspection" => :build
   depends_on "gperf" => :build
   depends_on "perl" => :build
-  depends_on "pkg-config" => [:build, :test]
-  depends_on "python@3.12" => :build
+  depends_on "pkgconf" => [:build, :test]
+  depends_on "python@3.13" => :build
   depends_on "ruby" => :build
   depends_on "unifdef" => :build
   depends_on "at-spi2-core"
@@ -34,7 +33,7 @@ class Webkitgtk < Formula
   depends_on "gstreamer"
   depends_on "gtk+3"
   depends_on "harfbuzz"
-  depends_on "icu4c"
+  depends_on "icu4c@76"
   depends_on "jpeg-turbo"
   depends_on "jpeg-xl"
   depends_on "libavif"
@@ -58,6 +57,7 @@ class Webkitgtk < Formula
   depends_on "openjpeg"
   depends_on "pango"
   depends_on "sqlite"
+  depends_on "sysprof"
   depends_on "systemd"
   depends_on "wayland"
   depends_on "webp"
@@ -65,7 +65,11 @@ class Webkitgtk < Formula
   depends_on "wpebackend-fdo"
   depends_on "zlib"
 
-  fails_with gcc: "5"
+  # Backport support for ICU 76+
+  patch do
+    url "https://github.com/WebKit/WebKit/commit/63f7badbada070ebaadd318b2801818ecf7e7ea0.patch?full_index=1"
+    sha256 "0fd1774e02d0c8c91b100aa6189da28df28a65f3d683f87e0e806a80340305dc"
+  end
 
   def install
     args = %W[
@@ -79,7 +83,7 @@ class Webkitgtk < Formula
       -DUSE_JPEGXL=ON
       -DUSE_LIBBACKTRACE=OFF
       -DUSE_LIBHYPHEN=OFF
-      -DPython_EXECUTABLE=#{which("python3.12")}
+      -DPython_EXECUTABLE=#{which("python3.13")}
     ]
 
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
@@ -88,7 +92,7 @@ class Webkitgtk < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <gtk/gtk.h>
       #include <webkit2/webkit2.h>
 
@@ -141,9 +145,9 @@ class Webkitgtk < Formula
           gtk_widget_destroy(window);
           return TRUE;
       }
-    EOS
+    C
 
-    pkg_config_flags = shell_output("pkg-config --cflags --libs gtk+-3.0 webkit2gtk-4.1").chomp.split
+    pkg_config_flags = shell_output("pkgconf --cflags --libs gtk+-3.0 webkit2gtk-4.1").chomp.split
     system ENV.cc, "test.c", *pkg_config_flags, "-o", "test"
     # While we cannot open a browser window in CI, we can make sure that the test binary runs
     # and produces the expected warning.

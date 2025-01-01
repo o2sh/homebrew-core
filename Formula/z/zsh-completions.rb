@@ -17,7 +17,8 @@ class ZshCompletions < Formula
   head "https://github.com/zsh-users/zsh-completions.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "3a9005c599c91337f5d8689ae0f725f2d204f123dcd0aef68ee4279ba27eaf94"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, all: "98d3985c4c7883eceb5136fef89f1e169067fe290eb540efeb5fec4ace5396be"
   end
 
   uses_from_macos "zsh" => :test
@@ -54,11 +55,12 @@ class ZshCompletions < Formula
   end
 
   test do
-    (testpath/"test.zsh").write <<~EOS
+    (testpath/"test.zsh").write <<~SHELL
       fpath=(#{pkgshare} $fpath)
       autoload _ack
       which _ack
-    EOS
+    SHELL
+
     assert_match(/^_ack/, shell_output("zsh test.zsh"))
   end
 end

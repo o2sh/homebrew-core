@@ -1,8 +1,8 @@
 class Oasdiff < Formula
   desc "OpenAPI Diff and Breaking Changes"
   homepage "https://www.oasdiff.com/"
-  url "https://github.com/Tufin/oasdiff/archive/refs/tags/v1.10.24.tar.gz"
-  sha256 "ff9809793626ef1909303ff89b6b2ba5cf2cfb2901c0d9dda7ed870a08a244f9"
+  url "https://github.com/Tufin/oasdiff/archive/refs/tags/v1.10.27.tar.gz"
+  sha256 "e38f326490c62eca6924208865df3516c0f5d0d22df8be2f78e7e918da7980f3"
   license "Apache-2.0"
   head "https://github.com/Tufin/oasdiff.git", branch: "main"
 
@@ -13,14 +13,12 @@ class Oasdiff < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "c62a4efbc1a388e4541f7f19c8cd8554b2bdc8c1271867f702e04cd5ce65bfd4"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c62a4efbc1a388e4541f7f19c8cd8554b2bdc8c1271867f702e04cd5ce65bfd4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "c62a4efbc1a388e4541f7f19c8cd8554b2bdc8c1271867f702e04cd5ce65bfd4"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c62a4efbc1a388e4541f7f19c8cd8554b2bdc8c1271867f702e04cd5ce65bfd4"
-    sha256 cellar: :any_skip_relocation, sonoma:         "057ad1ec180f53d52b3617883b4a9345a34053d139f8f8b931f7313ef3d16f03"
-    sha256 cellar: :any_skip_relocation, ventura:        "057ad1ec180f53d52b3617883b4a9345a34053d139f8f8b931f7313ef3d16f03"
-    sha256 cellar: :any_skip_relocation, monterey:       "057ad1ec180f53d52b3617883b4a9345a34053d139f8f8b931f7313ef3d16f03"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4c1ecbd0efc0d1e64d3458a9d52c63eee04ec7fa2f8f4be9189595e678238aa9"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9451f0c14981c9db99d5ecad79df70e8987428e1abd0fe3f5318bbaf03932060"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "9451f0c14981c9db99d5ecad79df70e8987428e1abd0fe3f5318bbaf03932060"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "9451f0c14981c9db99d5ecad79df70e8987428e1abd0fe3f5318bbaf03932060"
+    sha256 cellar: :any_skip_relocation, sonoma:        "fe7fff2691f30fbd004a826cb4e9091ca75f21179bac3a99a6f393bb5d49088d"
+    sha256 cellar: :any_skip_relocation, ventura:       "fe7fff2691f30fbd004a826cb4e9091ca75f21179bac3a99a6f393bb5d49088d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fcddebeb971e0940c50f1c146544028aff38f16629c51448a896615e5c96bcb0"
   end
 
   depends_on "go" => :build

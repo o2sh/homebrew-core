@@ -23,7 +23,7 @@ class AtkmmAT228 < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
 
   depends_on "at-spi2-core"
   depends_on "glib"
@@ -41,7 +41,7 @@ class AtkmmAT228 < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <atkmm/init.h>
 
       int main(int argc, char *argv[])
@@ -49,7 +49,7 @@ class AtkmmAT228 < Formula
          Atk::init();
          return 0;
       }
-    EOS
+    CPP
 
     flags = shell_output("pkg-config --cflags --libs atkmm-1.6").chomp.split
     system ENV.cxx, "-std=c++11", "test.cpp", "-o", "test", *flags

@@ -1,8 +1,8 @@
 class Objfw < Formula
   desc "Portable, lightweight framework for the Objective-C language"
   homepage "https://objfw.nil.im/"
-  url "https://objfw.nil.im/downloads/objfw-1.1.7.tar.gz"
-  sha256 "5107d8a0627e2270d211abf1b4f6c50fd89c8d672d2179b50daa7d3b66d68a70"
+  url "https://objfw.nil.im/downloads/objfw-1.2.3.tar.gz"
+  sha256 "8324d3b352121544f817f40f71c21005457ee0255104c7e0d5aedbd6d968bced"
   license "LGPL-3.0-only"
   head "https://objfw.nil.im/", using: :fossil
 
@@ -12,14 +12,13 @@ class Objfw < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "9de39fb90e098e9756b64aa558325ba11b6c51f4a22c80a3cf97b72635e15e4c"
-    sha256 arm64_sonoma:   "2429582a6626f85edd6bfe3d3c698735a432456e0e7fc2631d79a44635862a36"
-    sha256 arm64_ventura:  "6645218d4d7b56003e053ce67c2d0ce844faf6d575f8b406ff5c426f6cbf1715"
-    sha256 arm64_monterey: "c670b6369e866ce49a54d5a09ebcc7552a3c98b6d46ca5416201d699851359ba"
-    sha256 sonoma:         "1bf9a5a758adc3325325ac8c373adbd96e4cf1b0a96be61c16c41e837fda675d"
-    sha256 ventura:        "a2b317e20e223746d43f72caac42483f4f0a862d5f87ddd3e4799dfcf630f19c"
-    sha256 monterey:       "efa792a0c0e55e170f6a6e5bd50141a818e6446dc984cb1f7ec178922e2b4590"
-    sha256 x86_64_linux:   "2e10b17a804df5c65d77018696953951bfe7e9e880f941730219bd3c09a9b911"
+    rebuild 1
+    sha256 arm64_sequoia: "966443a0101b0f019e8262a412f7da946240e2b5bf0ad1204e00e69ec583caff"
+    sha256 arm64_sonoma:  "41177507640d9144e188db893c30bba5a4b42e4e70950a18fa26a3cefa371305"
+    sha256 arm64_ventura: "b7df0cab9a10b59be982906cbe2c8c9da0cbe13edaaf48f442050587301dab8d"
+    sha256 sonoma:        "f3c5c01bdcbb88edbeb6bcadfbc5dc59d360fa0e453fcf6f66a29f4b81f9a854"
+    sha256 ventura:       "0491d3bef0c7c449afcc2555ebef680fb884c2dfb9c1af17c89aeec2918b809c"
+    sha256 x86_64_linux:  "d13ccc8c605d43fe373327d0588ba5e877f5350866af1b458fb2cd196f66511b"
   end
 
   depends_on "autoconf" => :build
@@ -35,10 +34,15 @@ class Objfw < Formula
   patch :DATA
 
   def install
+    ENV.clang if OS.linux?
+
     system "./autogen.sh"
     system "./configure", "--prefix=#{prefix}"
     system "make", "install"
-    inreplace bin/"objfw-config", "llvm_clang", "clang" if OS.linux?
+
+    return unless OS.mac?
+
+    inreplace bin/"objfw-config", 'OBJC="clang"', 'OBJC="/usr/bin/clang"'
   end
 
   test do

@@ -22,7 +22,7 @@ class XcbUtilCursor < Formula
     depends_on "util-macros" => :build
   end
 
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "libxcb"
   depends_on "xcb-util"
   depends_on "xcb-util-image"
@@ -32,11 +32,10 @@ class XcbUtilCursor < Formula
 
   def install
     system "./autogen.sh" if build.head?
-    system "./configure", "--prefix=#{prefix}",
-                          "--sysconfdir=#{etc}",
+    system "./configure", "--disable-silent-rules",
                           "--localstatedir=#{var}",
-                          "--disable-dependency-tracking",
-                          "--disable-silent-rules"
+                          "--sysconfdir=#{etc}",
+                          *std_configure_args
     system "make"
     system "make", "install"
   end
@@ -45,7 +44,7 @@ class XcbUtilCursor < Formula
     flags = shell_output("pkg-config --cflags --libs xcb-util xcb-cursor").chomp.split
     assert_includes flags, "-I#{include}"
     assert_includes flags, "-L#{lib}"
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <xcb/xcb.h>
       #include <xcb/xcb_util.h>
       #include <xcb/xcb_cursor.h>
@@ -64,7 +63,7 @@ class XcbUtilCursor < Formula
         xcb_cursor_t cid = xcb_cursor_load_cursor(ctx, "watch");
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", *flags
   end
 end

@@ -21,7 +21,7 @@ class Osi < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "093a334ad180ed10951e23866b1d6df68087fc29aee54a749899bb8b5d629780"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "coinutils"
 
   on_macos do
@@ -38,13 +38,13 @@ class Osi < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <OsiSolverInterface.hpp>
 
       int main() {
         OsiSolverInterface *si;
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++11", "test.cpp", "-L#{lib}", "-lOsi",
                     "-I#{include}/osi/coin",
                     "-I#{Formula["coinutils"].include}/coinutils/coin",

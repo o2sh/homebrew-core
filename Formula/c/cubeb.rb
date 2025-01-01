@@ -35,7 +35,7 @@ class Cubeb < Formula
     depends_on "cmake" => :build
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   on_linux do
     depends_on "pulseaudio"
@@ -51,14 +51,14 @@ class Cubeb < Formula
       system "cmake", "--build", "build"
       system "cmake", "--install", "build"
     else
-      system "autoreconf", "--install"
+      system "autoreconf", "--force", "--install", "--verbose"
       system "./configure", "--disable-silent-rules", *std_configure_args
       system "make", "install"
     end
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <cubeb/cubeb.h>
 
@@ -107,7 +107,7 @@ class Cubeb < Formula
         cubeb_destroy(ctx);
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "-o", "test", "#{testpath}/test.c", "-L#{lib}", "-lcubeb"
     refute_match(/FAIL:.*/, shell_output("#{testpath}/test"),
                     "Basic sanity test failed.")

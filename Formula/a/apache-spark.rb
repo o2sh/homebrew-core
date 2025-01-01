@@ -1,10 +1,10 @@
 class ApacheSpark < Formula
   desc "Engine for large-scale data processing"
   homepage "https://spark.apache.org/"
-  url "https://dlcdn.apache.org/spark/spark-3.5.2/spark-3.5.2-bin-hadoop3.tgz"
-  mirror "https://archive.apache.org/dist/spark/spark-3.5.2/spark-3.5.2-bin-hadoop3.tgz"
-  version "3.5.2"
-  sha256 "8a2a07b928516e971d4c8d287b6b55d35870ed111e19f32fea9d1aa39a88f836"
+  url "https://dlcdn.apache.org/spark/spark-3.5.4/spark-3.5.4-bin-hadoop3.tgz"
+  mirror "https://archive.apache.org/dist/spark/spark-3.5.4/spark-3.5.4-bin-hadoop3.tgz"
+  version "3.5.4"
+  sha256 "d8e08877ed428bf9fcd44dbbec8cecadad34785a05513e5020ae74ffdabcbc83"
   license "Apache-2.0"
   head "https://github.com/apache/spark.git", branch: "master"
 
@@ -16,7 +16,7 @@ class ApacheSpark < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "a7f6dff737b5fcba5f36a882ef888c8d152a47b42c06e9c128bbefc4588824c4"
+    sha256 cellar: :any_skip_relocation, all: "ad48e3e85e40bbe41a8174cdd9d00ea8c2fe19dbb15bfd1dbe23c2d39dd9fe4b"
   end
 
   depends_on "openjdk@17"

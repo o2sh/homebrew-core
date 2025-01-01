@@ -3,22 +3,22 @@ class BumpMyVersion < Formula
 
   desc "Version bump your Python project"
   homepage "https://callowayproject.github.io/bump-my-version/"
-  url "https://files.pythonhosted.org/packages/64/e8/79b34e1be514aea34182a766ab9ae1fdb493ce0e36609517c3dd10adf3f7/bump_my_version-0.26.1.tar.gz"
-  sha256 "af1cada726cf6f9a723d18941c68c325d5196453a180b3a42f8e0b38567d734d"
+  url "https://files.pythonhosted.org/packages/a1/53/277e3748f0e45758210e971ed2c54c93f1f768a5bc9c66f8cb58a604a415/bump_my_version-0.29.0.tar.gz"
+  sha256 "e4149ed63b4772f5868b3fcabb8fa5e1191b8abae6d35effd0be980d4b0f55e3"
   license "MIT"
   head "https://github.com/callowayproject/bump-my-version.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "ac3f433f9fee76693e2e2cb22551ea513b9cbb1137932717b1180183effca8de"
-    sha256 cellar: :any,                 arm64_sonoma:  "e0cbd4d44808f8edf927d7661999bc24e342afd7e35088c371a274fab961a9b3"
-    sha256 cellar: :any,                 arm64_ventura: "d7bcf84c3f5813589cde8db10c9d31e413749d4ce55411de19af452c3101be97"
-    sha256 cellar: :any,                 sonoma:        "3d0ed872bbfb908e823dc937aaf77626a087e2101c3d23c3307ff05fff16114f"
-    sha256 cellar: :any,                 ventura:       "fa5ecaa580f8879e31cc8ea0adbe5ec915d8a51673c910562a50afe4b91c939c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fc45736aee4c4ce7440c10b9d3fcb5ca2e857cc8f2e38b823746f339e04a20b7"
+    sha256 cellar: :any,                 arm64_sequoia: "ffefdfc7f943d57f70e21cece284a760b7d23d2e4193c423d7dc7d357aa30c52"
+    sha256 cellar: :any,                 arm64_sonoma:  "c96e91c8266ac477e6a00712e0bf0cffd4af7caaac9b82ae6c6368f6320fb5eb"
+    sha256 cellar: :any,                 arm64_ventura: "09e6a52b9c079f2bef04fdcc63a5023c6d788fbe2c90937ee5928f0dac86e10a"
+    sha256 cellar: :any,                 sonoma:        "c5534d68e88abe40c05e383ebc33373e6118a645a0cf66c5e92b0c804efea029"
+    sha256 cellar: :any,                 ventura:       "5dbc5094fbbe5894f0675080fd7d0debd86702508032c47a165fb705a7875ebd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5a73c2f3a823a056b29abab0f572fefa6d9b1103e4337567dc2fd7d9ee9dcc31"
   end
 
   depends_on "rust" => :build # for pydantic_core
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   resource "annotated-types" do
     url "https://files.pythonhosted.org/packages/ee/67/531ea369ba64dcff5ec9c3402f9f51bf748cec26dde048a2f973a4eea7f5/annotated_types-0.7.0.tar.gz"
@@ -26,8 +26,8 @@ class BumpMyVersion < Formula
   end
 
   resource "bracex" do
-    url "https://files.pythonhosted.org/packages/ac/f1/ac657fd234f4ee61da9d90f2bae7d6078074de2f97cb911743faa8d10a91/bracex-2.5.tar.gz"
-    sha256 "0725da5045e8d37ea9592ab3614d8b561e22c3c5fde3964699be672e072ab611"
+    url "https://files.pythonhosted.org/packages/d6/6c/57418c4404cd22fe6275b8301ca2b46a8cdaa8157938017a9ae0b3edf363/bracex-2.5.post1.tar.gz"
+    sha256 "12c50952415bfa773d2d9ccb8e79651b8cdb1f31a42f6091b804f6ba2b4a66b6"
   end
 
   resource "click" do
@@ -51,18 +51,18 @@ class BumpMyVersion < Formula
   end
 
   resource "pydantic" do
-    url "https://files.pythonhosted.org/packages/14/15/3d989541b9c8128b96d532cfd2dd10131ddcc75a807330c00feb3d42a5bd/pydantic-2.9.1.tar.gz"
-    sha256 "1363c7d975c7036df0db2b4a61f2e062fbc0aa5ab5f2772e0ffc7191a4f4bce2"
+    url "https://files.pythonhosted.org/packages/70/7e/fb60e6fee04d0ef8f15e4e01ff187a196fa976eb0f0ab524af4599e5754c/pydantic-2.10.4.tar.gz"
+    sha256 "82f12e9723da6de4fe2ba888b5971157b3be7ad914267dea8f05f82b28254f06"
   end
 
   resource "pydantic-core" do
-    url "https://files.pythonhosted.org/packages/5c/cc/07bec3fb337ff80eacd6028745bd858b9642f61ee58cfdbfb64451c1def0/pydantic_core-2.23.3.tar.gz"
-    sha256 "3cb0f65d8b4121c1b015c60104a685feb929a29d7cf204387c7f2688c7974690"
+    url "https://files.pythonhosted.org/packages/fc/01/f3e5ac5e7c25833db5eb555f7b7ab24cd6f8c322d3a3ad2d67a952dc0abc/pydantic_core-2.27.2.tar.gz"
+    sha256 "eb026e5a4c1fee05726072337ff51d1efb6f59090b7da90d30ea58625b1ffb39"
   end
 
   resource "pydantic-settings" do
-    url "https://files.pythonhosted.org/packages/68/27/0bed9dd26b93328b60a1402febc780e7be72b42847fa8b5c94b7d0aeb6d1/pydantic_settings-2.5.2.tar.gz"
-    sha256 "f90b139682bee4d2065273d5185d71d37ea46cfe57e1b5ae184fc6a0b2484ca0"
+    url "https://files.pythonhosted.org/packages/86/41/19b62b99e7530cfa1d6ccd16199afd9289a12929bef1a03aa4382b22e683/pydantic_settings-2.7.0.tar.gz"
+    sha256 "ac4bfd4a36831a48dbf8b2d9325425b549a0a6f18cea118436d728eb4f1c4d66"
   end
 
   resource "pygments" do
@@ -81,13 +81,13 @@ class BumpMyVersion < Formula
   end
 
   resource "rich" do
-    url "https://files.pythonhosted.org/packages/92/76/40f084cb7db51c9d1fa29a7120717892aeda9a7711f6225692c957a93535/rich-13.8.1.tar.gz"
-    sha256 "8260cda28e3db6bf04d2d1ef4dbc03ba80a824c88b0e7668a0f23126a424844a"
+    url "https://files.pythonhosted.org/packages/ab/3a/0316b28d0761c6734d6bc14e770d85506c986c85ffb239e688eeaab2c2bc/rich-13.9.4.tar.gz"
+    sha256 "439594978a49a09530cff7ebc4b5c7103ef57baf48d5ea3184f21d9a2befa098"
   end
 
   resource "rich-click" do
-    url "https://files.pythonhosted.org/packages/3a/a9/a1f1af87e83832d794342fbc09c96cc7cd6798b8dfb8adfbe6ccbef8d70c/rich_click-1.8.3.tar.gz"
-    sha256 "6d75bdfa7aa9ed2c467789a0688bc6da23fbe3a143e19aa6ad3f8bac113d2ab3"
+    url "https://files.pythonhosted.org/packages/9a/31/103501e85e885e3e202c087fa612cfe450693210372766552ce1ab5b57b9/rich_click-1.8.5.tar.gz"
+    sha256 "a3eebe81da1c9da3c32f3810017c79bd687ff1b3fa35bfc9d8a3338797f1d1a1"
   end
 
   resource "tomlkit" do
@@ -101,8 +101,8 @@ class BumpMyVersion < Formula
   end
 
   resource "wcmatch" do
-    url "https://files.pythonhosted.org/packages/55/90/a29d5b359c128c48e32a2dc161464d6aab822df82d3bf1c1286231eda3c2/wcmatch-9.0.tar.gz"
-    sha256 "567d66b11ad74384954c8af86f607857c3bdf93682349ad32066231abd556c92"
+    url "https://files.pythonhosted.org/packages/41/ab/b3a52228538ccb983653c446c1656eddf1d5303b9cb8b9aef6a91299f862/wcmatch-10.0.tar.gz"
+    sha256 "e72f0de09bba6a04e0de70937b0cf06e55f36f37b3deb422dfaf854b867b840a"
   end
 
   resource "wcwidth" do

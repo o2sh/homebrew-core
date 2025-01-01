@@ -4,13 +4,8 @@ class Minetest < Formula
   license "LGPL-2.1-or-later"
 
   stable do
-    url "https://github.com/minetest/minetest/archive/refs/tags/5.9.1.tar.gz"
-    sha256 "aa9a6ae57445b779f57dcba5a83b0704fabd24c5eca37c6c8611e885bdf09d7c"
-
-    resource "irrlichtmt" do
-      url "https://github.com/minetest/irrlicht/archive/refs/tags/1.9.0mt15.tar.gz"
-      sha256 "12d24380a19be51cab29f54ae48fe08b327789da9c4d082ff815df60393d643f"
-    end
+    url "https://github.com/minetest/minetest/archive/refs/tags/5.10.0.tar.gz"
+    sha256 "2a3161c04e7389608006f01280eda30507f8bacfa1d6b64c2af1b820a62d2677"
 
     resource "minetest_game" do
       url "https://github.com/minetest/minetest_game/archive/refs/tags/5.8.0.tar.gz"
@@ -24,20 +19,16 @@ class Minetest < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sequoia: "883006c0b92b264f44b3be436d961c78e9cc1aad2a27e86243c566ea11657a41"
-    sha256 cellar: :any, arm64_sonoma:  "356346e62a73c3abd5aa26b938230c5522ee02642a9d91b86c6a8390f761439d"
-    sha256 cellar: :any, arm64_ventura: "79169ab7d2226e23bd877dcaac48effc607bcbcccbe9e0c7173f8fc223a7dc19"
-    sha256 cellar: :any, sonoma:        "86e5ea34a76d5d73fcb9e429a67ad464f9df73408d39e2e30a8bbeaa4a5afd9e"
-    sha256 cellar: :any, ventura:       "89629873d1fea0c717bfc6937574106c6a421e4e376428929c33cdb6cc464ab2"
-    sha256               x86_64_linux:  "6708859348bde047c9a966021a741d313c1c43eef7f34234f6dcb153ccdcd110"
+    sha256 cellar: :any, arm64_sequoia: "0cc31303d48f9c83845989868c8bc78d5132096ad3de8938dd116068773be1f1"
+    sha256 cellar: :any, arm64_sonoma:  "5cc8cd918fd8cf6887f5c9667ffb4ce576e709a0de9710a00804d7aa568c093d"
+    sha256 cellar: :any, arm64_ventura: "703c818a629e6b467e7b6228e61cdb10edea4b35352dda30549ac6b6e97a3da4"
+    sha256 cellar: :any, sonoma:        "e25ddc0f89ed707a2f5bf7611d496098340457c896e1dbca492f4f21edca6f76"
+    sha256 cellar: :any, ventura:       "5f466fa264f0817a939d9165352d9a8eee12cd20928618717d270422925abc36"
+    sha256               x86_64_linux:  "81295a377962e1212a9a1217e1284622a0d8411f7b3ec796b03493cd33607df3"
   end
 
   head do
     url "https://github.com/minetest/minetest.git", branch: "master"
-
-    resource "irrlichtmt" do
-      url "https://github.com/minetest/irrlicht.git", branch: "master"
-    end
 
     resource "minetest_game" do
       url "https://github.com/minetest/minetest_game.git", branch: "master"
@@ -78,7 +69,6 @@ class Minetest < Formula
     %w[lua gmp jsoncpp].each { |lib| rm_r(buildpath/"lib"/lib) }
 
     (buildpath/"games/minetest_game").install resource("minetest_game")
-    (buildpath/"lib/irrlichtmt").install resource("irrlichtmt")
 
     args = %W[
       -DBUILD_CLIENT=1
@@ -95,11 +85,12 @@ class Minetest < Formula
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
-    bin.write_exec_script prefix/"minetest.app/Contents/MacOS/minetest" if OS.mac?
+    bin.write_exec_script prefix/"luanti.app/Contents/MacOS/luanti" if OS.mac?
   end
 
   test do
-    output = shell_output("#{bin}/minetest --version")
+    # engine got changed from minetest to luanti with 5.10.0 release
+    output = shell_output("#{bin}/luanti --version")
     assert_match "USE_CURL=1", output
     assert_match "USE_GETTEXT=1", output
     assert_match "USE_SOUND=1", output

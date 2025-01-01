@@ -1,9 +1,9 @@
 class Libopenmpt < Formula
   desc "Software library to decode tracked music files"
   homepage "https://lib.openmpt.org/libopenmpt/"
-  url "https://lib.openmpt.org/files/libopenmpt/src/libopenmpt-0.7.9+release.autotools.tar.gz"
-  version "0.7.9"
-  sha256 "0386e918d75d797e79d5b14edd0847165d8b359e9811ef57652c0a356a2dfcf4"
+  url "https://lib.openmpt.org/files/libopenmpt/src/libopenmpt-0.7.12+release.autotools.tar.gz"
+  version "0.7.12"
+  sha256 "79ab3ce3672601e525b5cc944f026c80c03032f37d39caa84c8ca3fdd75e0c98"
   license "BSD-3-Clause"
 
   livecheck do
@@ -12,17 +12,15 @@ class Libopenmpt < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "019402f89e3b4f0d8386510b8e3af76b292083f0cb48d1d181cf909ee67c43e1"
-    sha256 cellar: :any,                 arm64_sonoma:   "2a9add55f30ad9f27363e1d9e74a2624e8cdcd54edaaf3566e831b10503d0a66"
-    sha256 cellar: :any,                 arm64_ventura:  "14d67acb17b67e2b27ac95166e159c41b9f1b88e015f80539dbeddd8edeae711"
-    sha256 cellar: :any,                 arm64_monterey: "9e8b831830d2451e2f82a3848eb11853c3fc6f8a216634017ad866f3284f1ec2"
-    sha256 cellar: :any,                 sonoma:         "90ae8aad06c3778264a4584a2ece2b3db2260039d042f4efab231de4815f83ef"
-    sha256 cellar: :any,                 ventura:        "e2a9ce934105d0114dfcc9f5761ff360650054e25c7a4a9b9be9159a33c7eeb9"
-    sha256 cellar: :any,                 monterey:       "bcf95eba8c15f1f591b698341df7cbacbd9afb9595fe837ce9ebe32fe1359309"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ab14c503704933ae4d535acd737fa6bdc4d3eac5bb706583cbb4baf509491cb9"
+    sha256 cellar: :any,                 arm64_sequoia: "18e5ebc35d5c545b94cf041f6d321b77901e360d6068188b62d0c01893c74b05"
+    sha256 cellar: :any,                 arm64_sonoma:  "2bdb83b1d858ca891a75848e877c4bfcf41f8a376a4378848d1c1df483af41ee"
+    sha256 cellar: :any,                 arm64_ventura: "26c6a3cdf2ac6fad35bcf355493295bc588e6ee6939408366a52bb1631ed054a"
+    sha256 cellar: :any,                 sonoma:        "b2e1ab4e5a031b08cd6524dfe9cba133a505f2783aa872e580eb1dbe6f6e6b0d"
+    sha256 cellar: :any,                 ventura:       "210543bb619cd7224783c68d04ab3b18d241fdc27c2bf12d5e811b7ec9db844b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "60c14b3d69bb6255f35838bde41d5017a67564844806432bf6ccf45d18aab897"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "flac"
   depends_on "libogg"
@@ -37,19 +35,15 @@ class Libopenmpt < Formula
     depends_on "pulseaudio"
   end
 
-  fails_with gcc: "5" # needs C++17
-
   resource "homebrew-mystique.s3m" do
     url "https://api.modarchive.org/downloads.php?moduleid=54144#mystique.s3m"
     sha256 "e9a3a679e1c513e1d661b3093350ae3e35b065530d6ececc0a96e98d3ffffaf4"
   end
 
   def install
-    system "./configure", "--disable-debug",
-                          "--disable-dependency-tracking",
-                          "--disable-silent-rules",
-                          "--prefix=#{prefix}",
-                          "--without-vorbisfile"
+    system "./configure", "--disable-silent-rules",
+                          "--without-vorbisfile",
+                          *std_configure_args
     system "make"
     system "make", "install"
   end

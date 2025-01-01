@@ -5,12 +5,12 @@ class Unisonlang < Formula
 
   stable do
     url "https://github.com/unisonweb/unison.git",
-        tag:      "release/0.5.26",
-        revision: "9af301da7fddfa21bb7b3b8b7b34cbbc14cb1e2a"
+        tag:      "release/0.5.29",
+        revision: "99baffd3b436d9d87254f8dbdf13a479fc63f4e3"
 
     resource "local-ui" do
-      url "https://github.com/unisonweb/unison-local-ui/archive/refs/tags/release/0.5.26.tar.gz"
-      sha256 "5562f3ff856a469182526009b2543785e7b725dd01b69f55adb0fa0ae6f00d61"
+      url "https://github.com/unisonweb/unison-local-ui/archive/refs/tags/release/0.5.29.tar.gz"
+      sha256 "1e6c2b1f299495159f15113b669bfeb13bb53bf68205203e4a30f82c2f434fe4"
     end
   end
 
@@ -20,14 +20,12 @@ class Unisonlang < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "63d5ba4e65a5588b3d888690f029befdab9f39512836782a69cdee61749e0db1"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d185b2abbfee5b7088238e9ce5ed9480d074b17e05d6727ca965d15afb501e0b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6339bf22214ddc13e99859021ef98708491a8e0bd190eccf4c6e928c9cfc4295"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c23ce3f4a38e06e4000e9edfd8a6b8a4e48bf816ef49735d1639f9fc3e4c5f6d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "d0e82fe2fa0b98a9e485333ccca3a50804d69a8e1a85630df5421621045eefff"
-    sha256 cellar: :any_skip_relocation, ventura:        "ad38c11621c4d545a347d5320fd1dd5cfe73381a0a42d2d7c0763ad3113b597b"
-    sha256 cellar: :any_skip_relocation, monterey:       "b04c66e140370e3845dea87d5156b22b598fa3d0bb39cbc3aca67dca642d1fe1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3ec8e143b4fae30f159a0e3817eb6b79bbef5ac8cfb686601f0c8c6f75fc8c1d"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ec0f527e2f8b0968ed9fa43d2fc91ea814336329cdd8be8c740acfd920920a88"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2d79afed87c658a5f72c88e83f2f38e4a5faeb81cd2733d2aa3f81faecf55693"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "fdc2e69d6f23e13e168a10b307f03b45e73aefb17f0772acd32e71a4417005ec"
+    sha256 cellar: :any_skip_relocation, sonoma:        "0718ad8212c9629c9bb528f19b68d1dd8ae9376e35f3e0530349c68f360d0ea6"
+    sha256 cellar: :any_skip_relocation, ventura:       "a4848fb4df607fbc4b86f846ceb017aef0deaa0d96e380d9eea4381488275dad"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "48db1414d3f46c92a48d4d194e94ded51a69b2506744c8f8f592a834c29d6378"
   end
 
   head do
@@ -84,14 +82,14 @@ class Unisonlang < Formula
       --local-bin-path=#{buildpath}
     ]
 
-    system "stack", "-j#{jobs}", "build", "--flag", "unison-parser-typechecker:optimized", *stack_args
+    system "stack", "-j#{jobs}", "build", *stack_args
 
     prefix.install "unison" => "ucm"
     bin.install_symlink prefix/"ucm"
   end
 
   test do
-    (testpath/"hello.u").write <<~EOS
+    (testpath/"hello.u").write <<~UNISON
       helloTo : Text ->{IO, Exception} ()
       helloTo name =
         printLine ("Hello " ++ name)
@@ -99,16 +97,16 @@ class Unisonlang < Formula
       hello : '{IO, Exception} ()
       hello _ =
         helloTo "Homebrew"
-    EOS
+    UNISON
 
-    (testpath/"hello.md").write <<~EOS
+    (testpath/"hello.md").write <<~MARKDOWN
       ```ucm
       scratch/main> project.create test
       test/main> load hello.u
       test/main> add
       test/main> run hello
       ```
-    EOS
+    MARKDOWN
 
     assert_match "Hello Homebrew", shell_output("#{bin}/ucm --codebase-create ./ transcript.fork hello.md")
   end

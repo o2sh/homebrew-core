@@ -19,8 +19,6 @@ class Mdds < Formula
   depends_on "autoconf" => :build
   depends_on "boost"
 
-  fails_with gcc: "5" # for C++17
-
   def install
     args = %W[
       --prefix=#{prefix}
@@ -42,12 +40,12 @@ class Mdds < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <mdds/flat_segment_tree.hpp>
       int main() {
         mdds::flat_segment_tree<unsigned, unsigned> fst(0, 4, 8);
       }
-    EOS
+    CPP
     system ENV.cxx, "test.cpp", "-o", "test",
                     "-std=c++17",
                     "-I#{include.children.first}"

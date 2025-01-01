@@ -2,8 +2,8 @@ class GitlabRunner < Formula
   desc "Official GitLab CI runner"
   homepage "https://gitlab.com/gitlab-org/gitlab-runner"
   url "https://gitlab.com/gitlab-org/gitlab-runner.git",
-      tag:      "v17.4.0",
-      revision: "b92ee59097e3701a887e0fc2983f5477fb164a60"
+      tag:      "v17.7.0",
+      revision: "3153ccc6dafba6dd4aef53cd2261ebcc996f5caa"
   license "MIT"
   head "https://gitlab.com/gitlab-org/gitlab-runner.git", branch: "main"
 
@@ -13,12 +13,12 @@ class GitlabRunner < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a31ee0ee3eb427e55428b8b58c2a153be563313579a796f575e0ec6e72007c3a"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a31ee0ee3eb427e55428b8b58c2a153be563313579a796f575e0ec6e72007c3a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "a31ee0ee3eb427e55428b8b58c2a153be563313579a796f575e0ec6e72007c3a"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e9c111084a6128dd45a780095b27dcefb1bc72264c8547f2fc52dba42d2bfec9"
-    sha256 cellar: :any_skip_relocation, ventura:       "e9c111084a6128dd45a780095b27dcefb1bc72264c8547f2fc52dba42d2bfec9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dd0c750ce5f49812071358527f402a5137cfe2bddcb4d50602df9b5a01d224d4"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d8227b617684e716c7d6c39a37ce4cd30161d57b0a81ef862cb5fcbbd7cbf4f0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d8227b617684e716c7d6c39a37ce4cd30161d57b0a81ef862cb5fcbbd7cbf4f0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "d8227b617684e716c7d6c39a37ce4cd30161d57b0a81ef862cb5fcbbd7cbf4f0"
+    sha256 cellar: :any_skip_relocation, sonoma:        "fbbfb8ef494d4f61a2d50aaa2b19f826b22c09d570b073fad59cc30eb9ed180c"
+    sha256 cellar: :any_skip_relocation, ventura:       "fbbfb8ef494d4f61a2d50aaa2b19f826b22c09d570b073fad59cc30eb9ed180c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "10d340873eff562542f99be51a1a765d7b1533b2988dd0cf48a4a65c1321665f"
   end
 
   depends_on "go" => :build
@@ -26,11 +26,13 @@ class GitlabRunner < Formula
   def install
     proj = "gitlab.com/gitlab-org/gitlab-runner"
     ldflags = %W[
+      -s -w
       -X #{proj}/common.NAME=gitlab-runner
       -X #{proj}/common.VERSION=#{version}
       -X #{proj}/common.REVISION=#{Utils.git_short_head(length: 8)}
       -X #{proj}/common.BRANCH=#{version.major}-#{version.minor}-stable
       -X #{proj}/common.BUILT=#{time.strftime("%Y-%m-%dT%H:%M:%S%:z")}
+      -B gobuildid
     ]
     system "go", "build", *std_go_args(ldflags:)
   end

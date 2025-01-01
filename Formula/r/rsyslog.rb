@@ -1,8 +1,8 @@
 class Rsyslog < Formula
   desc "Enhanced, multi-threaded syslogd"
   homepage "https://www.rsyslog.com/"
-  url "https://www.rsyslog.com/files/download/rsyslog/rsyslog-8.2408.0.tar.gz"
-  sha256 "8bb2f15f9bf9bb7e635182e3d3e370bfc39d08bf35a367dce9714e186f787206"
+  url "https://www.rsyslog.com/files/download/rsyslog/rsyslog-8.2412.0.tar.gz"
+  sha256 "8cdfa5a077cba576bdd6b1841cc2848b774e663b2e44a39512bb820174174802"
   license all_of: ["Apache-2.0", "GPL-3.0-or-later", "LGPL-3.0-or-later"]
 
   livecheck do
@@ -11,17 +11,15 @@ class Rsyslog < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "d282a4933466f1f307fb49ca53cbaa24de7701af10d419012feef8a7d2663cc7"
-    sha256 arm64_sonoma:   "85a2b4770bca1bd700e9155f74f7ecf475a981e1b8691bf0cdf365005326c43d"
-    sha256 arm64_ventura:  "29bca6782483abf2c44a0d2b5c2c97fe8e347b067905b23e0f2c68e51f65b9bf"
-    sha256 arm64_monterey: "25cf1ad015a6a794e76e58933582b46ce33f4e5cdd6d4e6c85394e228b98b57e"
-    sha256 sonoma:         "99bbb128bc35be80b3df66809d2440708905846435ef5a00403a4627df3ab2f0"
-    sha256 ventura:        "0fa64a8a7ba89be4be249ef0963e082b59cb1e8a7e8be0e98a283fd8dac6e449"
-    sha256 monterey:       "0b1db06fdf4e56f1de4734b210964855bdbb3a730ed433d89a88aaa7d8a7341b"
-    sha256 x86_64_linux:   "63e3ff926e2ba9f5ad35878eb8d4024a76c8dd5eeacde9a556e4ba6d5b78497e"
+    sha256 arm64_sequoia: "a6bdd3c313df1e78f07ad1c17d10ad789fcf81fe36a086e20205f5a7e776e9f0"
+    sha256 arm64_sonoma:  "354d633feb5a36805573f10f8e1c3fcc5f608ffc5026212635047b346b3e197a"
+    sha256 arm64_ventura: "7ea98249ad0dc1e7a4597e7057f5c6876242a249309b9cc49324be1e7e3e4e59"
+    sha256 sonoma:        "634fdc7ce73d23b03242f48159487efb0b5c4fc260969ecc714efde9420ba2b1"
+    sha256 ventura:       "d062e44b88e5d1b02ffab7237dac1a70fef11e1a204137ffb4a4284123ceddd1"
+    sha256 x86_64_linux:  "b0f6a768aa0755c58ca09703551430588f40df0273679bc4131bdda4bc508c73"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "gnutls"
   depends_on "libestr"
   depends_on "libfastjson"
@@ -30,13 +28,13 @@ class Rsyslog < Formula
   uses_from_macos "zlib"
 
   def install
-    system "./configure", *std_configure_args,
-                          "--enable-imfile",
+    system "./configure", "--enable-imfile",
                           "--enable-usertools",
                           "--enable-diagtools",
                           "--disable-uuid",
                           "--disable-libgcrypt",
-                          "--enable-gnutls"
+                          "--enable-gnutls",
+                          *std_configure_args
     system "make"
     system "make", "install"
 

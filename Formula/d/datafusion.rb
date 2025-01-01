@@ -1,18 +1,18 @@
 class Datafusion < Formula
   desc "Apache Arrow DataFusion and Ballista query engines"
   homepage "https://arrow.apache.org/datafusion"
-  url "https://github.com/apache/arrow-datafusion/archive/refs/tags/42.0.0.tar.gz"
-  sha256 "8c0e0346540f059a5af4facb8a05dc3b41cff7e1d6b0fdf565b3431d6ff4fca0"
+  url "https://github.com/apache/arrow-datafusion/archive/refs/tags/44.0.0.tar.gz"
+  sha256 "f3afc14c735db37525db50cb71144d895e7b0729f696ff97439590759c13afa6"
   license "Apache-2.0"
   head "https://github.com/apache/arrow-datafusion.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a365d51707c1e07568ebb704f0fd8d38a7ade58603d49dfb9df17b992d4e2bd6"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "11ecafacb0ba617dbfc650017e0c474ab0c0a4f78834f4d5d9b8c8eeb75b8880"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "65676c851ffad3be5cfee53f8c8e7235e285395aab845029f1aca75bd5f870c2"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e38861f7d6bce2cd0df8dd138c23c41c131a488f35677842a96cef88f525ae8d"
-    sha256 cellar: :any_skip_relocation, ventura:       "0190a8e92ecf160790309fb9d1feab7d8bd7317fe6376c58d602da2102f1fcab"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bbc71b11aa6956f6deeb118ccddee99b0c035e3ddf5e07f788f5233c2d713b43"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f19a572ed16a7a279dc61b0cb2e391d20d29f94e40af2f1cf117d334af185421"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "810ee05733c7945380a87ce3504b52c066ee4d2625c10e5e320ee09ea223ca44"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "9c7bd7633628893abf29ae7829a9a04754b98018ebba29622728633c72d7da94"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5df78de31c02cee7d27787a22a657607481516df41ba20d35533b657f17388ab"
+    sha256 cellar: :any_skip_relocation, ventura:       "34bea9512c5ecd959a1520c2dbbed4d2779f2d2c3d056f3a09b207e20d444490"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "79d1e6cc01adc6dce40162f00b01b1c6e98d85fcee5d678ffe475b672c735cde"
   end
 
   depends_on "rust" => :build
@@ -22,7 +22,9 @@ class Datafusion < Formula
   end
 
   test do
-    (testpath/"datafusion_test.sql").write("select 1+2 as n;")
+    (testpath/"datafusion_test.sql").write <<~SQL
+      select 1+2 as n;
+    SQL
     assert_equal "[{\"n\":3}]", shell_output("#{bin}/datafusion-cli -q --format json -f datafusion_test.sql").strip
   end
 end

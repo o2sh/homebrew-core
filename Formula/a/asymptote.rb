@@ -2,8 +2,8 @@ class Asymptote < Formula
   desc "Powerful descriptive vector graphics language"
   homepage "https://asymptote.sourceforge.io"
   # Keep version in sync with manual below
-  url "https://downloads.sourceforge.net/project/asymptote/2.91/asymptote-2.91.src.tgz"
-  sha256 "ea23b25ecbf4beb766539c821161b4d4c39edffbd8d01f3d9e3fc504a7a3c214"
+  url "https://downloads.sourceforge.net/project/asymptote/2.95/asymptote-2.95.src.tgz"
+  sha256 "15604fd02cb6ddbc5b807529d2e6fc617c825a184dd0d7b71390c567aeac78e7"
   license "LGPL-3.0-only"
 
   livecheck do
@@ -12,18 +12,16 @@ class Asymptote < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "bf6455e5b04c45e3e9a6a8b154d3ff08075076d5048dd0880058705a63840eb8"
-    sha256 arm64_sonoma:   "f82dd0a6286475861be4e698257edb2e1180fa76f6da868d18a6f19ee0ab8c81"
-    sha256 arm64_ventura:  "10777396256202f5fcf099342e3cfeca5fac8a461774b2f6ac2ae3cbde54cb93"
-    sha256 arm64_monterey: "f481e2510d0d8a36a619dada0780453ed772aa80c9877ed6b6a9133d76837980"
-    sha256 sonoma:         "6003e3c4ac83416e4f4e7c6343defd65933b558edbe697abd4d65e5aa3e8273f"
-    sha256 ventura:        "9136bcf3339ce25bf412e4b19c61bf05c8c6d26ca642e21af0ea231eadd9307b"
-    sha256 monterey:       "c1cd13b66ac63f1886e816ae943bd780cfeb2061cb3203b5529745a9a6b9cecb"
-    sha256 x86_64_linux:   "7ef4b5a522f5813e77fa140cd6ab4c6dcda4ebadddc508c6b88b51437a1f17ba"
+    sha256 arm64_sequoia: "a1c56be4c45650d2d5f83bc9542ab89835f84057dfec939c427e829c246b628a"
+    sha256 arm64_sonoma:  "eea6f4fdaa8596fa1e83aa3e160857d5a51464d88d8316c57c32c263e5ecc9e6"
+    sha256 arm64_ventura: "ca60203750f4c53fe9346318ceb5c47b543f26b42bd046b38a709433201aebe7"
+    sha256 sonoma:        "2252c4a0f709df7154cb483c5740f69d4cb7163ec9793ba68325f0bb3cb6a577"
+    sha256 ventura:       "10cf4f66bb72faed0126d9b40775c2a0927741365de994e9c4459fc8d0c6b9a9"
+    sha256 x86_64_linux:  "0f1a1c3e3e400b2e62ff63d3f461c4fc7691220b8e9facfad0729139117c330d"
   end
 
   depends_on "glm" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "fftw"
   depends_on "ghostscript"
   depends_on "gsl"
@@ -41,8 +39,8 @@ class Asymptote < Formula
   end
 
   resource "manual" do
-    url "https://downloads.sourceforge.net/project/asymptote/2.91/asymptote.pdf"
-    sha256 "d79e5c2c0b4d4dab7b7fea385cb4b8d44d324ac6cc204aeab1e14e6320887012"
+    url "https://downloads.sourceforge.net/project/asymptote/2.95/asymptote.pdf"
+    sha256 "6fa4428a78c6af413ed82173056dd6330a496c5f7e930883b16c5cbfc01394cf"
   end
 
   def install
@@ -56,6 +54,9 @@ class Asymptote < Formula
     system "make", "asy"
     system "make", "asy-keywords.el"
     system "make", "install-asy"
+
+    # https://github.com/vectorgraphics/asymptote/issues/497
+    chmod "+x", pkgshare/"GUI/xasy.py"
 
     doc.install resource("manual")
     (share/"emacs/site-lisp").install_symlink pkgshare

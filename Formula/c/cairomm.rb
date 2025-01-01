@@ -23,12 +23,10 @@ class Cairomm < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "cairo"
   depends_on "libpng"
   depends_on "libsigc++"
-
-  fails_with gcc: "5"
 
   def install
     system "meson", "setup", "build", *std_meson_args
@@ -37,7 +35,7 @@ class Cairomm < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <cairomm/cairomm.h>
 
       int main(int argc, char *argv[])
@@ -46,7 +44,7 @@ class Cairomm < Formula
          Cairo::RefPtr<Cairo::Context> cr = Cairo::Context::create(surface);
          return 0;
       }
-    EOS
+    CPP
 
     pkg_config_cflags = shell_output("pkg-config --cflags --libs cairo cairomm-1.16").chomp.split
     system ENV.cxx, "-std=c++17", "test.cpp", *pkg_config_cflags, "-o", "test"

@@ -1,14 +1,9 @@
-require "language/perl"
-
 class PerconaToolkit < Formula
-  include Language::Perl::Shebang
-
   desc "Command-line tools for MySQL, MariaDB and system tasks"
   homepage "https://www.percona.com/software/percona-toolkit/"
-  url "https://www.percona.com/downloads/percona-toolkit/3.6.0/source/tarball/percona-toolkit-3.6.0.tar.gz"
-  sha256 "48c2a0f7cfc987e683f60e9c7a29b0ca189e2f4b503f6d01c5baca403c09eb8d"
+  url "https://www.percona.com/downloads/percona-toolkit/3.7.0/source/tarball/percona-toolkit-3.7.0.tar.gz"
+  sha256 "e79f53c3227ac31c858fad061d8a000162cb5ecf8b446b90b574adde9e9ab455"
   license any_of: ["GPL-2.0-only", "Artistic-1.0-Perl"]
-  revision 1
   head "lp:percona-toolkit", using: :bzr
 
   livecheck do
@@ -17,15 +12,12 @@ class PerconaToolkit < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sequoia:  "b8b8f01e01eeda5d59a009df6f4045076123b174d50c9db1a5ccfb6d9c744530"
-    sha256 cellar: :any,                 arm64_sonoma:   "253a0ada81a5be15993314ed1d761cfdc7c88340c23a78ef2c2491a158d7bc8b"
-    sha256 cellar: :any,                 arm64_ventura:  "14f7a30244e3aadd3e155d2e3d9d61449c268fd13f90002cb67fb933ab6c795d"
-    sha256 cellar: :any,                 arm64_monterey: "dcf0182a7812e2be56d86eba45f3591bdb870205537812a7ae8ef66f11593a7a"
-    sha256 cellar: :any,                 sonoma:         "9c80e8122754a1f5f3e81470cb65bc2bb17e9cd7cd7b6f9fd533234d8ee2471c"
-    sha256 cellar: :any,                 ventura:        "337b5b24fed8ed055b48bbff8669c25ba6cb24cfa5ffd88b03b4e91d6540a326"
-    sha256 cellar: :any,                 monterey:       "3b5cb112c48f8d53f4d7c35b85072a248dbe9d8bea5d4d047aeb3052248f5253"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d300c45095b1a1f61220eed15243b8fa3aa8bb62e93837fd7be546f0dc9d6c12"
+    sha256 cellar: :any,                 arm64_sequoia: "20acd34ed6c90230cab848cc2d60244eb417bf4eb27ce69fb48a9809681e8f57"
+    sha256 cellar: :any,                 arm64_sonoma:  "9bb2cec45a90341e259b773737d409aaf0ecbb862d9578849c4740785d2d760c"
+    sha256 cellar: :any,                 arm64_ventura: "cf116bff658175721671f8c152c40e669e895ff5dd9a474167fd306fcfbc97df"
+    sha256 cellar: :any,                 sonoma:        "7bab53293a32c33c15b7764666d828125f4abdd244e2e8e1b486f2c078229116"
+    sha256 cellar: :any,                 ventura:       "05a8dc478966a2395d7d83bc1cf816e683795db19d83417a244db43b1caca830"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d8ee2ab6048715176684e52a0dcbfcd186addb7bdd791c433df9c8e0f568d291"
   end
 
   depends_on "go" => :build
@@ -40,18 +32,22 @@ class PerconaToolkit < Formula
   end
 
   resource "DBI" do
-    url "https://cpan.metacpan.org/authors/id/T/TI/TIMB/DBI-1.643.tar.gz"
-    sha256 "8a2b993db560a2c373c174ee976a51027dd780ec766ae17620c20393d2e836fa"
+    on_linux do
+      url "https://cpan.metacpan.org/authors/id/H/HM/HMBRAND/DBI-1.645.tgz"
+      sha256 "e38b7a5efee129decda12383cf894963da971ffac303f54cc1b93e40e3cf9921"
+    end
   end
 
   resource "DBD::mysql" do
-    url "https://cpan.metacpan.org/authors/id/D/DV/DVEEDEN/DBD-mysql-5.008.tar.gz"
-    sha256 "a2324566883b6538823c263ec8d7849b326414482a108e7650edc0bed55bcd89"
+    url "https://cpan.metacpan.org/authors/id/D/DV/DVEEDEN/DBD-mysql-5.010.tar.gz"
+    sha256 "2ca2ff39d93e89d4f7446e5f0faf03805e9167ee9b8a04ba7cb246e2cb46eee7"
   end
 
   resource "JSON" do
-    url "https://cpan.metacpan.org/authors/id/I/IS/ISHIGAKI/JSON-4.10.tar.gz"
-    sha256 "df8b5143d9a7de99c47b55f1a170bd1f69f711935c186a6dc0ab56dd05758e35"
+    on_linux do
+      url "https://cpan.metacpan.org/authors/id/I/IS/ISHIGAKI/JSON-4.10.tar.gz"
+      sha256 "df8b5143d9a7de99c47b55f1a170bd1f69f711935c186a6dc0ab56dd05758e35"
+    end
   end
 
   def install
@@ -67,23 +63,30 @@ class PerconaToolkit < Formula
           libexec
         end
 
-        make_args = []
-        make_args << "OTHERLDFLAGS=-Wl,-dead_strip_dylibs" if r.name == "DBD::mysql" && OS.mac?
+        # Skip installing man pages for libexec perl modules to reduce disk usage
+        system "perl", "Makefile.PL", "INSTALL_BASE=#{install_base}",
+                                      "INSTALLMAN1DIR=none", "INSTALLMAN3DIR=none",
+                                      "NO_PERLLOCAL=1", "NO_PACKLIST=1"
 
-        system "perl", "Makefile.PL", "INSTALL_BASE=#{install_base}", "NO_PERLLOCAL=1", "NO_PACKLIST=1"
+        make_args = []
+        if OS.mac? && r.name == "DBD::mysql"
+          # Reduce overlinking on macOS
+          make_args << "OTHERLDFLAGS=-Wl,-dead_strip_dylibs"
+          # Work around macOS DBI generating broken Makefile
+          inreplace "Makefile" do |s|
+            old_dbi_instarch_dir = s.get_make_var("DBI_INSTARCH_DIR")
+            new_dbi_instarch_dir = "#{MacOS.sdk_path_if_needed}#{old_dbi_instarch_dir}"
+            s.change_make_var! "DBI_INSTARCH_DIR", new_dbi_instarch_dir
+            s.gsub! " #{old_dbi_instarch_dir}/Driver_xst.h", " #{new_dbi_instarch_dir}/Driver_xst.h"
+          end
+        end
+
         system "make", "install", *make_args
       end
     end
 
-    system "perl", "Makefile.PL", "INSTALL_BASE=#{prefix}"
+    system "perl", "Makefile.PL", "INSTALL_BASE=#{prefix}", "INSTALLSITEMAN1DIR=#{man1}"
     system "make", "install"
-    share.install prefix/"man"
-
-    # Disable dynamic selection of perl which may cause segfault when an
-    # incompatible perl is picked up.
-    # https://github.com/Homebrew/homebrew-core/issues/4936
-    rewrite_shebang detected_perl_shebang, *bin.children
-
     bin.env_script_all_files(libexec/"bin", PERL5LIB: libexec/"lib/perl5")
   end
 

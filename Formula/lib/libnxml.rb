@@ -20,7 +20,7 @@ class Libnxml < Formula
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
 
   uses_from_macos "curl"
 
@@ -31,12 +31,12 @@ class Libnxml < Formula
   end
 
   test do
-    (testpath/"test.xml").write <<~EOS
+    (testpath/"test.xml").write <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
       <root>Hello world!<child>This is a child element.</child></root>
-    EOS
+    XML
 
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <nxml.h>
 
       int main(int argc, char **argv) {
@@ -69,10 +69,10 @@ class Libnxml < Formula
         nxmle_free(data);
         exit(0);
       }
-    EOS
+    C
 
-    pkg_config_flags = shell_output("pkg-config --cflags --libs nxml").chomp.split
-    system ENV.cc, "test.c", *pkg_config_flags, "-o", "test"
-    assert_equal("root: Hello world!\n", shell_output("./test"))
+    flags = shell_output("pkgconf --cflags --libs nxml").chomp.split
+    system ENV.cc, "test.c", "-o", "test", *flags
+    assert_equal "root: Hello world!\n", shell_output("./test")
   end
 end

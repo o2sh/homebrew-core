@@ -24,12 +24,13 @@ class Libccd < Formula
   depends_on "cmake" => :build
 
   def install
-    system "cmake", ".", "-DENABLE_DOUBLE_PRECISION=ON", *std_cmake_args
-    system "make", "install"
+    system "cmake", "-S", ".", "-B", "build", "-DENABLE_DOUBLE_PRECISION=ON", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <assert.h>
       #include <ccd/config.h>
       #include <ccd/vec3.h>
@@ -42,7 +43,7 @@ class Libccd < Formula
           ccd_vec3_origin, NULL);
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "-o", "test", "test.c", "-L#{lib}", "-lccd"
     system "./test"
   end

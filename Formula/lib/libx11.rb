@@ -16,7 +16,7 @@ class Libx11 < Formula
     sha256 x86_64_linux:   "12f965d5b1d09327b0040b9e0f385ca5d4db9ceb29f8c89e6fcbe6e98ecf71c6"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "util-macros" => :build
   depends_on "xtrans" => :build
   depends_on "libxcb"
@@ -37,13 +37,13 @@ class Libx11 < Formula
       --enable-specs=no
     ]
 
-    system "./configure", *std_configure_args, *args
+    system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <X11/Xlib.h>
       #include <stdio.h>
       int main() {
@@ -73,7 +73,7 @@ class Libx11 < Formula
 
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-lX11", "-o", "test", "-I#{include}"
     system "./test"
   end

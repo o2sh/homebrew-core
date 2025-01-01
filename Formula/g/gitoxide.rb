@@ -1,8 +1,8 @@
 class Gitoxide < Formula
   desc "Idiomatic, lean, fast & safe pure Rust implementation of Git"
   homepage "https://github.com/Byron/gitoxide"
-  url "https://github.com/Byron/gitoxide/archive/refs/tags/v0.37.0.tar.gz"
-  sha256 "1bdc30bafdd3605d6e278aa5562f772a9732bb07ced9321ea31893b28f950c0a"
+  url "https://github.com/Byron/gitoxide/archive/refs/tags/v0.40.0.tar.gz"
+  sha256 "fe0ed165f3325176e7e7abff1d2a819a473a332ecf48921931756c3289405e86"
   license "Apache-2.0"
   head "https://github.com/Byron/gitoxide.git", branch: "main"
 
@@ -12,17 +12,15 @@ class Gitoxide < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "4d38ace0bfddf96b73febebed8c568da676716414680b1e0a4a2e51be57d084b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5d1a313698094658289fc0a08f74598024be8b561c5918061595870438b21e68"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "325b88fbd3e300b983c3241d28b6d2ea347f6c0f5a3f43e14af759ea0dad1060"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8e8c33358ea506137433a52bd344f25787410abfe509fe9baad1e3115641f82a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f1796a56008907c6ea97777e05c11206b5ec50b26c78fec5258113aa95443ddb"
-    sha256 cellar: :any_skip_relocation, ventura:        "f0891096bf35f06324b9d6123e70da27095f313c8601407e0273562566b24888"
-    sha256 cellar: :any_skip_relocation, monterey:       "5d1052f4f559191e6ebed1ec285540421bd01c724a057b9169ab0d7c5a9be4e4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "581675565e5c35638da08093e6f272ec300201f055875ac99a947b9fa18c0c33"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "129ff38ba268b5cd8e80ac1969df204a9c2e10d4debfb9468e7d1ee22c3abc33"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "25be403a8907cda6fb5bac41b0ee5415c893a8523fb6bbbd2ff58cedb30cbd74"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "6f108003db5656bc82b63bdefd6933b8725334820b6da4a391a6d8e3718701bc"
+    sha256 cellar: :any_skip_relocation, sonoma:        "c47b6e643d5195816e9eb61b670033f7aeb02d85380d7e6332c7eb8339e8d92f"
+    sha256 cellar: :any_skip_relocation, ventura:       "808fd03a3d94c30523d3ed1fbe5ad5a195be2a60bea8976f45af309cc87dc697"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ec57c1d83b956e9ca21f75deece3407f7de0310d531fe41aa5ef50d0af11e8bb"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
   uses_from_macos "curl"
   uses_from_macos "zlib"
@@ -34,6 +32,7 @@ class Gitoxide < Formula
     features = %w[max-control gix-features/zlib-stock gitoxide-core-blocking-client http-client-curl]
     system "cargo", "install", "--no-default-features", "--features=#{features.join(",")}", *std_cargo_args
     generate_completions_from_executable(bin/"gix", "completions", "-s")
+    generate_completions_from_executable(bin/"ein", "completions", "-s")
   end
 
   test do

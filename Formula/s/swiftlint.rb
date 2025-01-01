@@ -2,28 +2,34 @@ class Swiftlint < Formula
   desc "Tool to enforce Swift style and conventions"
   homepage "https://github.com/realm/SwiftLint"
   url "https://github.com/realm/SwiftLint.git",
-      tag:      "0.57.0",
-      revision: "168fb98ed1f3e343d703ecceaf518b6cf565207b"
+      tag:      "0.57.1",
+      revision: "25f2776977e663305bee71309ea1e34d435065f1"
   license "MIT"
   head "https://github.com/realm/SwiftLint.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fd8609da0dbf8e9396f9f5697b2650c35217f6d5443310ab8b3aeb095cadc32e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "cb14bb58a7fa8e390030b9890378c097385ac0d6bd50b1003946d24feb230b72"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "52e8789623ac1ec907079762083591e1f21d90ff751da9754b3db52badfe94bc"
-    sha256 cellar: :any_skip_relocation, sonoma:        "30e8f88c492f67ce3d08181044c5849f1b9075ad00aac615551a42aa253cbed9"
-    sha256 cellar: :any_skip_relocation, ventura:       "fe9e50ce478538598d5e85875ea9c0a1d61c24d83352362de02141f1467b5262"
-    sha256                               x86_64_linux:  "dec908e0f1cd2b332bcf678edc36e10f7030cfc9414e733629e763283b0ada40"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "24fe83d074121c61eddc8e0ce97459f6cec7393a79162323f2c03125cd18044f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f95fada89bf1eac5448fb2dcbdf6f06930bbd7e64e9995fafa8127fd45a2ef39"
+    sha256 cellar: :any,                 arm64_ventura: "74e0c40b96bb5f22796b36cba94defa8574b94498844996c9f59126c16d43fab"
+    sha256 cellar: :any_skip_relocation, sonoma:        "952ac6d4f9a1b8db04522c00db594b6db8d7c705ca34f36c96b12aa3eba01e12"
+    sha256 cellar: :any,                 ventura:       "7be636e0965b85f1fac348e4842e1039e4987fb2f1c09d0d25039f9310013e6d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a969d3560456460863fcd619204207adbee2a24c1d4b9c5e3ed8055007b9aa55"
   end
 
   depends_on macos: :ventura
   depends_on xcode: "8.0"
 
   uses_from_macos "swift" => :build, since: :sonoma # swift 5.10+
-  uses_from_macos "swift"
+  uses_from_macos "curl"
+  uses_from_macos "libxml2"
 
   def install
-    system "swift", "build", "--disable-sandbox", "--configuration", "release", "--product", "swiftlint"
+    args = if OS.mac?
+      ["--disable-sandbox"]
+    else
+      ["--static-swift-stdlib"]
+    end
+    system "swift", "build", *args, "--configuration", "release", "--product", "swiftlint"
     bin.install ".build/release/swiftlint"
     generate_completions_from_executable(bin/"swiftlint", "--generate-completion-script")
   end

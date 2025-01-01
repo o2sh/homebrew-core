@@ -26,16 +26,17 @@ class Jrtplib < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "jthread"
 
   def install
-    system "cmake", ".", *std_cmake_args
-    system "make", "install"
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <jrtplib3/rtpsessionparams.h>
       using namespace jrtplib;
       int main() {
@@ -43,7 +44,7 @@ class Jrtplib < Formula
         sessionparams.SetOwnTimestampUnit(1.0/8000.0);
         return 0;
       }
-    EOS
+    CPP
 
     system ENV.cxx, "test.cpp", "-I#{include}", "-L#{lib}", "-ljrtp",
                     "-o", "test"

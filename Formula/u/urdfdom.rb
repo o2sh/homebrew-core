@@ -23,20 +23,20 @@ class Urdfdom < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :test
+  depends_on "pkgconf" => :test
   depends_on "console_bridge"
   depends_on "tinyxml2"
   depends_on "urdfdom_headers"
 
   def install
     ENV.cxx11
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-DCMAKE_INSTALL_RPATH=#{rpath}"
+    system "cmake", "-S", ".", "-B", "build", "-DCMAKE_INSTALL_RPATH=#{rpath}", *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <string>
       #include <urdf_parser/urdf_parser.h>
       int main() {
@@ -48,13 +48,13 @@ class Urdfdom < Formula
         urdf::parseURDF(xml_string);
         return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "test.cpp", *shell_output("pkg-config --cflags urdfdom").chomp.split,
                     "-L#{lib}", "-lurdfdom_world",
                     "-std=c++11", "-o", "test"
     system "./test"
 
-    (testpath/"test.xml").write <<~EOS
+    (testpath/"test.xml").write <<~XML
       <robot name="test">
         <joint name="j1" type="fixed">
           <parent link="l1"/>
@@ -89,7 +89,7 @@ class Urdfdom < Formula
           </visual>
         </link>
       </robot>
-    EOS
+    XML
 
     system bin/"check_urdf", testpath/"test.xml"
   end

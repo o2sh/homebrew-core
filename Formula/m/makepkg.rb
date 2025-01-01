@@ -20,7 +20,7 @@ class Makepkg < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "bash"
   depends_on "fakeroot"
   depends_on "libarchive"
@@ -30,7 +30,7 @@ class Makepkg < Formula
   uses_from_macos "python" => :build
   uses_from_macos "libxslt"
 
-  on_macos do
+  on_sonoma :or_older do
     depends_on "coreutils" => :test # for md5sum
   end
 
@@ -47,7 +47,6 @@ class Makepkg < Formula
       -Dlocalstatedir=#{var}
       -Ddoc=disabled
     ]
-
     args << "-Di18n=false" if OS.mac?
 
     system "meson", "setup", "build", *args, *std_meson_args

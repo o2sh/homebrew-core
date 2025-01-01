@@ -21,17 +21,19 @@ class Celero < Formula
   depends_on "cmake" => :build
 
   def install
-    cmake_args = std_cmake_args + %w[
+    args = %w[
       -DCELERO_COMPILE_DYNAMIC_LIBRARIES=ON
       -DCELERO_ENABLE_EXPERIMENTS=OFF
       -DCELERO_ENABLE_TESTS=OFF
     ]
-    system "cmake", ".", *cmake_args
-    system "make", "install"
+
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <celero/Celero.h>
       #include <chrono>
       #include <thread>
@@ -47,7 +49,7 @@ class Celero < Formula
       BENCHMARK(DemoSleep, TwiceBaseline, 60, 1) {
         std::this_thread::sleep_for(std::chrono::microseconds(20000));
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++14", "test.cpp", "-L#{lib}", "-lcelero", "-o", "test"
     system "./test"
   end

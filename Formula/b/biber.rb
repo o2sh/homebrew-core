@@ -4,20 +4,18 @@ class Biber < Formula
   url "https://github.com/plk/biber/archive/refs/tags/v2.20.tar.gz"
   sha256 "19f0312e59bf2f5711b8d69b3585a0ca894c36574f086fbb8d53ccd5c0a45ff9"
   license "Artistic-2.0"
+  revision 1
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sequoia:  "c3ea4ec23f241784f3141c50ded0bad178b9a3ed8bb1189f3279df9a56756c97"
-    sha256 cellar: :any,                 arm64_sonoma:   "f018ab37e28a17160227cd2628a212c1118e19295d0d9eb90b42ad7f0b7761bb"
-    sha256 cellar: :any,                 arm64_ventura:  "36185def50483b55f1eca670196469b4fef358ea861260bc1f40062d1535204f"
-    sha256 cellar: :any,                 arm64_monterey: "0bd8bb16155244410aaca2fe01bf11f560e6a97aa0941a3f190d26f8d911662e"
-    sha256 cellar: :any,                 sonoma:         "ecc3b942b3546d18d023cc50234c5bf2f0a14ff729cc646bd7725eaa0787b3f9"
-    sha256 cellar: :any,                 ventura:        "49f979490d7e6f2305ec6f94a364521d7d119e5e152c74d17c90c50b39e16a86"
-    sha256 cellar: :any,                 monterey:       "0413d6cce8ba9e7e936824f1e8fe7850b686bdf07614a73ecf1e446d949b922c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cb6f325f4d18b733f2e11753a7283b9f58bd3ff95852ccaf71f3d052bb679b33"
+    sha256 cellar: :any,                 arm64_sequoia: "e5ce10fe7c4cfaf687e9ceca4c47dfe981c247c8b5d06744f52ca4e403119d3c"
+    sha256 cellar: :any,                 arm64_sonoma:  "a06294eb6ba71edfb34846ec60205ad9315c5b6da2d2884da0e56b662c4ad64c"
+    sha256 cellar: :any,                 arm64_ventura: "b80c954f868b87585d8c3b91494b3a9549d58a6df88d9b7028b4091d6882c230"
+    sha256 cellar: :any,                 sonoma:        "f5667829fe7fe597422cbaf2ab17c11fc4a130c6579551908639aec9539bb15d"
+    sha256 cellar: :any,                 ventura:       "83dd4a86705a0730f1bb52cb8a0556533efdd03b673d24737c16deabc17cc5d5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4038ee28a6d598309e506acc878f6f3554e1af17ab02851282c993e51db8a0cd"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "texlive" => :test
   depends_on "openssl@3"
   depends_on "perl"
@@ -683,27 +681,27 @@ class Biber < Formula
     cp (pkgshare/"test").children, testpath
     output = shell_output("#{bin}/biber --validate-control --convert-control annotations")
     assert_match "Output to annotations.bbl", output
-    assert_predicate testpath/"annotations.bcf.html", :exist?
-    assert_predicate testpath/"annotations.blg", :exist?
-    assert_predicate testpath/"annotations.bbl", :exist?
+    assert_path_exists testpath/"annotations.bcf.html"
+    assert_path_exists testpath/"annotations.blg"
+    assert_path_exists testpath/"annotations.bbl"
 
-    (testpath/"test.bib").write <<~EOS
+    (testpath/"test.bib").write <<~BIBTEX
       @book{test,
         author = {Test},
         title = {Test}
       }
-    EOS
-    (testpath/"test.latex").write <<~EOS
-      \\documentclass{article}
-      \\usepackage[backend=biber]{biblatex}
-      \\bibliography{test}
-      \\begin{document}
-      \\cite{test}
-      \\printbibliography
-      \\end{document}
-    EOS
+    BIBTEX
+    (testpath/"test.latex").write <<~'LATEX'
+      \documentclass{article}
+      \usepackage[backend=biber]{biblatex}
+      \bibliography{test}
+      \begin{document}
+      \cite{test}
+      \printbibliography
+      \end{document}
+    LATEX
     system Formula["texlive"].bin/"pdflatex", "-interaction=errorstopmode", testpath/"test.latex"
     system bin/"biber", "test"
-    assert_predicate testpath/"test.bbl", :exist?
+    assert_path_exists testpath/"test.bbl"
   end
 end

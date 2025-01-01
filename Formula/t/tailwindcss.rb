@@ -1,17 +1,17 @@
 class Tailwindcss < Formula
   desc "Utility-first CSS framework"
   homepage "https://tailwindcss.com"
-  url "https://github.com/tailwindlabs/tailwindcss/archive/refs/tags/v3.4.12.tar.gz"
-  sha256 "6c5a032513c1cd5d7c4edaea8639c6f78e11070f8aeb7b0190acd359b0919f77"
+  url "https://github.com/tailwindlabs/tailwindcss/archive/refs/tags/v3.4.17.tar.gz"
+  sha256 "89c0a7027449cbe564f8722e84108f7bfa0224b5d9289c47cc967ffef8e1b016"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0e71071caca32f5c7680148264c2f5b1cf363de6fa2921080ea951df5498ecba"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0e71071caca32f5c7680148264c2f5b1cf363de6fa2921080ea951df5498ecba"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "5999ac9eea04f9baf03bca00bc3f5dc3ef95799c77219f741c1b4ac9bc9b7c75"
-    sha256 cellar: :any_skip_relocation, sonoma:        "1535e4d52f0074184e51332009403df09c477f7bc823ec20b86b519b30a195d5"
-    sha256 cellar: :any_skip_relocation, ventura:       "e95ba9d678f0f9c20c916bef3f4b39e695b0a5b38b28e1230e2918f970937aa0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0ea7937dd6a453c185d03ed558cc747c31f1ee57e6c12dbc8732fc0ae9a55104"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1ef1e89aab19737e3c66462f57f0f61267e4ed4fdd9967df8f41b37ef66db56a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1ef1e89aab19737e3c66462f57f0f61267e4ed4fdd9967df8f41b37ef66db56a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "8a0a4bcb9fc57504bc217357eb758034d900b5b2040198f1d65153ccbeade325"
+    sha256 cellar: :any_skip_relocation, sonoma:        "9c15b605c267dd61402165f81113bcf07296d6941ef8b574c9b039154fff9651"
+    sha256 cellar: :any_skip_relocation, ventura:       "879e7436c37cb8f65c418009e85216707354285730be1078795405d8ce9dac56"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "646671381a5cbb0a2231f3a40021fbc2790311303f5c131d0d844ef892104ca2"
   end
 
   depends_on "node" => :build

@@ -27,17 +27,17 @@ class Libdivecomputer < Formula
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libusb"
 
   def install
-    system "autoreconf", "--install" if build.head?
-    system "./configure", "--prefix=#{prefix}"
+    system "autoreconf", "--force", "--install", "--verbose" if build.head?
+    system "./configure", *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <libdivecomputer/context.h>
       #include <libdivecomputer/descriptor.h>
       #include <libdivecomputer/iterator.h>
@@ -52,7 +52,7 @@ class Libdivecomputer < Formula
         dc_iterator_free(iterator);
         return 0;
       }
-    EOS
+    C
     flags = %W[
       -I#{include}
       -L#{lib}

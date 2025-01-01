@@ -3,15 +3,15 @@ class RuffLsp < Formula
 
   desc "Language Server Protocol implementation for Ruff"
   homepage "https://github.com/astral-sh/ruff-lsp"
-  url "https://files.pythonhosted.org/packages/77/56/a1836adc11c516f75fb7f468b238cdd5d4a248fe9113176b002d09f02ecf/ruff_lsp-0.0.56.tar.gz"
-  sha256 "5d2622d22032944d54b0a0e84e16048d081d3c8716bf2bac5a155227ffe1d78a"
+  url "https://files.pythonhosted.org/packages/fa/4f/d855c6c298326384b2d8c6396f21e3ab421ea9bf089c1ead0718f0bfce36/ruff_lsp-0.0.59.tar.gz"
+  sha256 "340a9d42b6fbdbc09f6a5c6d641bd4fa1e7f51868427467109a1331955c52754"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "bb3be64e078cc24572c42d5e431dcdbc8f045aa3e94873cf897a8dfca69048d8"
+    sha256 cellar: :any_skip_relocation, all: "0ee57d863d9f0e0fe49f9af398575e3f28a6cf8637da6aa0ca33ea7c7ca0e95e"
   end
 
-  depends_on "python@3.12"
+  depends_on "python@3.13"
   depends_on "ruff"
 
   resource "attrs" do
@@ -20,8 +20,8 @@ class RuffLsp < Formula
   end
 
   resource "cattrs" do
-    url "https://files.pythonhosted.org/packages/f2/9c/22b4010404d899d7012474f1539c4163b22e77ca55f444e945c2095dbdde/cattrs-24.1.0.tar.gz"
-    sha256 "8274f18b253bf7674a43da851e3096370d67088165d23138b04a1c04c8eaf48e"
+    url "https://files.pythonhosted.org/packages/64/65/af6d57da2cb32c076319b7489ae0958f746949d407109e3ccf4d115f147c/cattrs-24.1.2.tar.gz"
+    sha256 "8028cfe1ff5382df59dd36474a86e02d817b06eaf8af84555441bac915d2ef85"
   end
 
   resource "lsprotocol" do
@@ -30,8 +30,8 @@ class RuffLsp < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/51/65/50db4dda066951078f0a96cf12f4b9ada6e4b811516bf0262c0f4f7064d4/packaging-24.1.tar.gz"
-    sha256 "026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002"
+    url "https://files.pythonhosted.org/packages/d0/63/68dbb6eb2de9cb10ee4c9c14a0148804425e13c4fb20d61cce69f53106da/packaging-24.2.tar.gz"
+    sha256 "c228a6dc5e932d346bc5739379109d49e8853dd8223571c7c5b55260edc0b97f"
   end
 
   resource "pygls" do

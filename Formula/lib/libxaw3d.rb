@@ -17,7 +17,7 @@ class Libxaw3d < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "ce52f2da8dd74a3df5d277ffeb678f86a9572b0c52a29e513aa688d37e704210"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "util-macros" => :build
   depends_on "libx11"
   depends_on "libxext"
@@ -49,11 +49,11 @@ class Libxaw3d < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <X11/Xaw3d/Label.h>
       int main() { printf("%d", sizeof(LabelWidget)); }
-    EOS
+    C
     system ENV.cc, "test.c", "-o", "test"
     output = shell_output("./test").chomp
     assert_match "8", output

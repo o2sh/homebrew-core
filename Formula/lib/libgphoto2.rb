@@ -31,7 +31,7 @@ class Libgphoto2 < Formula
     depends_on "gettext" => :build
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "gd"
   depends_on "jpeg-turbo"
@@ -54,13 +54,13 @@ class Libgphoto2 < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <gphoto2/gphoto2-camera.h>
       int main(void) {
         Camera *camera;
         return gp_camera_new(&camera);
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-lgphoto2", "-o", "test"
     system "./test"
   end

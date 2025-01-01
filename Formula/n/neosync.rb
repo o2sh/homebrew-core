@@ -1,18 +1,18 @@
 class Neosync < Formula
   desc "CLI for interfacing with Neosync"
   homepage "https://www.neosync.dev/"
-  url "https://github.com/nucleuscloud/neosync/archive/refs/tags/v0.4.69.tar.gz"
-  sha256 "aa599164eb5f78ebae0fc78482ace32e9f3f852f8af55cb3ae7f7e53c74ce39c"
+  url "https://github.com/nucleuscloud/neosync/archive/refs/tags/v0.4.99.tar.gz"
+  sha256 "eb58fefd989b0c29d86e4687d66cd7fd8c027b90271ca018bc870d03834f12bf"
   license "MIT"
   head "https://github.com/nucleuscloud/neosync.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a524ef54f97aad75281a7f0388e3327c05037a5c8aa5c2634a6e8dc34e028ba1"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e6f9bc1554da87c4c0ec174a26c6dba4255d616aaf78529b699f918f1ac5cf41"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "44399e2d8ddcf0a7de93db893e30c75db8c2a6d38e674df8e80fd1f738db8df7"
-    sha256 cellar: :any_skip_relocation, sonoma:        "9cfea96caa30aee71023c8bb9c80f88f69b637420a3792d59e4b1ec6c5745b48"
-    sha256 cellar: :any_skip_relocation, ventura:       "a11d68fe2a82fdef497b34d2d6e10a98b834d582994222fb2109473154e6385a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bc6d27963583ac1bcc67bf0a3826fe717fb319169f900fd2cc65cb54536133d4"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f7112cc71d7bdee6974f9dc717bf03bbdeb00ab916dd4a75ab322b7f558da4b4"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f7112cc71d7bdee6974f9dc717bf03bbdeb00ab916dd4a75ab322b7f558da4b4"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "f7112cc71d7bdee6974f9dc717bf03bbdeb00ab916dd4a75ab322b7f558da4b4"
+    sha256 cellar: :any_skip_relocation, sonoma:        "d885fc3570cf0a0e85bbc73dd2566e2dad79e62ba6ba4ee07e08a83eae87ce9b"
+    sha256 cellar: :any_skip_relocation, ventura:       "d885fc3570cf0a0e85bbc73dd2566e2dad79e62ba6ba4ee07e08a83eae87ce9b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8d2305d0b4443454157cdd794e410489efb8a696892374166a64c30117311f42"
   end
 
   depends_on "go" => :build
@@ -31,7 +31,7 @@ class Neosync < Formula
 
   test do
     output = shell_output("#{bin}/neosync connections list 2>&1", 1)
-    assert_match "connect: connection refused", output
+    assert_match "connection refused", output
 
     assert_match version.to_s, shell_output("#{bin}/neosync --version")
   end

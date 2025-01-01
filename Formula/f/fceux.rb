@@ -2,7 +2,7 @@ class Fceux < Formula
   desc "All-in-one NES/Famicom Emulator"
   homepage "https://fceux.com/"
   license "GPL-2.0-only"
-  revision 3
+  revision 5
   head "https://github.com/TASEmulators/fceux.git", branch: "master"
 
   stable do
@@ -18,17 +18,15 @@ class Fceux < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "f19e8cc59d907ac3461882c01b7d6a7e6b740e1bb808e131f03351f437e18137"
-    sha256 cellar: :any,                 arm64_ventura:  "ad14c19cee60ac3ff7744574efefbc5f1b79cebbecb59889610897dcdc87e02c"
-    sha256 cellar: :any,                 arm64_monterey: "feef0ae851b641755c0ff1b6183e80946bd3af2a585195e1a70b3f4062a2a361"
-    sha256 cellar: :any,                 sonoma:         "5bb45a8a6be0636d8a8ff18d5f98c3c6c4c034e4c5badd35d63ae430b61f1141"
-    sha256 cellar: :any,                 ventura:        "cf540cf08ebc5b2bd3c4b3b73f03fe993097eb9155cf94cb52acb8c34de362e2"
-    sha256 cellar: :any,                 monterey:       "b512fb7f161b6ded4ca25c81b3986777363eb7ceaf5cbabbb74bd9e18ee9bce6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "173565783554d7ddc1e65ef4bd515c2418c805a6cc093d5577bdde389c57cc2b"
+    sha256 cellar: :any,                 arm64_sonoma:  "31754b6f7207bc00a48ea084ec06084b2cab1de6e6bebf1691b6f4d64e54b31e"
+    sha256 cellar: :any,                 arm64_ventura: "896707c1bd55dee56878cde5feca245d73f8a55e8b781d5fb83c59e8989a110d"
+    sha256 cellar: :any,                 sonoma:        "010e7a4a2b114a6799d7f8ec4bd5704c49433a6e720ecddd9bff1c416854077c"
+    sha256 cellar: :any,                 ventura:       "a06a34bfe581b36a7791d93c5605cbdd6cff0af980688c09d64b97fd12e57289"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "229f39e293d88f2c0d53075fa39b5246d3987e8c5264270597f55026952da5f2"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "ffmpeg"
   depends_on "libarchive"
@@ -44,8 +42,6 @@ class Fceux < Formula
     depends_on "zlib"
   end
 
-  fails_with gcc: "5"
-
   def install
     ENV["CXXFLAGS"] = "-DPUBLIC_RELEASE=1" if build.stable?
     system "cmake", ".", *std_cmake_args, "-DQT6=ON"
@@ -54,10 +50,10 @@ class Fceux < Formula
     fceux_path = OS.mac? ? "src/fceux.app/Contents/MacOS" : "src"
     libexec.install Pathname.new(fceux_path)/"fceux"
     pkgshare.install ["output/luaScripts", "output/palettes", "output/tools"]
-    (bin/"fceux").write <<~EOS
+    (bin/"fceux").write <<~BASH
       #!/bin/bash
       LUA_PATH=#{pkgshare}/luaScripts/?.lua #{libexec}/fceux "$@"
-    EOS
+    BASH
   end
 
   test do

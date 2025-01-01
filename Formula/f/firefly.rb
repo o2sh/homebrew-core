@@ -1,8 +1,8 @@
 class Firefly < Formula
   desc "Create and manage the Hyperledger FireFly stack for blockchain interaction"
   homepage "https://hyperledger.github.io/firefly/latest/"
-  url "https://github.com/hyperledger/firefly-cli/archive/refs/tags/v1.3.1.tar.gz"
-  sha256 "d2b0420b37c1ce6195e0739b2341502e65fea23c3ddd41cd55159ea237e01f23"
+  url "https://github.com/hyperledger/firefly-cli/archive/refs/tags/v1.3.2.tar.gz"
+  sha256 "843dee9fabc787dedf5768735f353187349bb759583d5fa3c977969f3688e516"
   license "Apache-2.0"
   head "https://github.com/hyperledger/firefly-cli.git", branch: "main"
 
@@ -12,25 +12,25 @@ class Firefly < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "8df1982dfc1fe2f818e2c8762ced6b16390f1ae85a36616f9362ca18ff92abd9"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4aa882c225163110ccf449a1a35b324724cc6cfd11a1f671cd437329688a18f0"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3e777e7aac58c177aad15d9e3f174c5aaced3a6f1ea31099991eca326b47f2cc"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2024d3903e2a956ece3d20aef8c6b806829ffac3c02f261d1d0ed1ceb67cdcdd"
-    sha256 cellar: :any_skip_relocation, sonoma:         "18d5aee81d0e4941a66805680fc0d397a958029d9979586fa73428202a76c281"
-    sha256 cellar: :any_skip_relocation, ventura:        "c393d7ffe35d00d3c267908e3a4511c7189d3ffe2578cafe816db42a9c7f32e1"
-    sha256 cellar: :any_skip_relocation, monterey:       "91cc49ed362308ae1f6a691588f174aabcbeac6a92c9f9690d0428ed65ebf55d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "19c7752cc7b75887c29cd5e153340c0ee8bf984ba6c04ca6ec3a12b583f62f34"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "44628813a1cb58358500b2c8ee071d4d75744b35aae40dbed47c90899b91ccc7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "782a3f0b9cc91772c7fa488a8759035c88fea56c6be33b643976233375694c40"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "193d5ff64fa0ba56a7ed48b9b9cd8120a36a546c824a8d701c157fa9cdf9e682"
+    sha256 cellar: :any_skip_relocation, sonoma:        "70856574a48c873544469327015b3f382464deff91c5d84c0b96addeb686d127"
+    sha256 cellar: :any_skip_relocation, ventura:       "67d4e4ff32859a58003a7b99c983d3024644688c8e75ea07be39635bb6701c62"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "35a5fbde29e80405e4f9c6e47a241505b70ab03b2e51f280ba07fff976ca155b"
   end
 
   depends_on "go" => :build
 
   def install
     ldflags = %W[
+      -s -w
       -X github.com/hyperledger/firefly-cli/cmd.BuildDate=#{Time.now.utc.iso8601}
       -X github.com/hyperledger/firefly-cli/cmd.BuildCommit=#{tap.user}
       -X github.com/hyperledger/firefly-cli/cmd.BuildVersionOverride=v#{version}
     ]
-    system "go", "build", *std_go_args(ldflags:), "ff/main.go"
+    system "go", "build", *std_go_args(ldflags:), "./ff"
 
     generate_completions_from_executable(bin/"firefly", "completion")
   end

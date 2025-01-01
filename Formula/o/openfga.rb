@@ -1,20 +1,18 @@
 class Openfga < Formula
   desc "High performance and flexible authorization/permission engine"
   homepage "https://openfga.dev/"
-  url "https://github.com/openfga/openfga/archive/refs/tags/v1.6.1.tar.gz"
-  sha256 "8f6a55eeaa772c91034acc3d12d1f9627e178cfa744a69c41c16153d37283329"
+  url "https://github.com/openfga/openfga/archive/refs/tags/v1.8.2.tar.gz"
+  sha256 "47d469658ce288427cca7f52d7a04d68cf1f80012220e4f30ffa058f8f887932"
   license "Apache-2.0"
   head "https://github.com/openfga/openfga.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "e668039115bd9c7fec9205fc8f854e9c857de093c9d0722a183fd13c22daa1d5"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e668039115bd9c7fec9205fc8f854e9c857de093c9d0722a183fd13c22daa1d5"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e668039115bd9c7fec9205fc8f854e9c857de093c9d0722a183fd13c22daa1d5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e668039115bd9c7fec9205fc8f854e9c857de093c9d0722a183fd13c22daa1d5"
-    sha256 cellar: :any_skip_relocation, sonoma:         "4840d64d333148a606ee2f4d2a45d5bfc6b200ad69665422fb8798f98dfcf68c"
-    sha256 cellar: :any_skip_relocation, ventura:        "4840d64d333148a606ee2f4d2a45d5bfc6b200ad69665422fb8798f98dfcf68c"
-    sha256 cellar: :any_skip_relocation, monterey:       "4840d64d333148a606ee2f4d2a45d5bfc6b200ad69665422fb8798f98dfcf68c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0ef124f59ae21274279f2959926d8da99b22a4d031a8ebb9d3eeb75790f6def8"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f646266594e2da5039a4bc0dbaacb7b13f6e9a69a02e1f7f9c3724534441f5e8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f646266594e2da5039a4bc0dbaacb7b13f6e9a69a02e1f7f9c3724534441f5e8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "f646266594e2da5039a4bc0dbaacb7b13f6e9a69a02e1f7f9c3724534441f5e8"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f561bde394258cb44edfbcd26b01643f1b15b869b608192595aeb58fab8189e2"
+    sha256 cellar: :any_skip_relocation, ventura:       "f561bde394258cb44edfbcd26b01643f1b15b869b608192595aeb58fab8189e2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4f2f5875233b20349e38990463604bcfc687dba3b7dd809fa53968af243d8b5f"
   end
 
   depends_on "go" => :build

@@ -1,17 +1,17 @@
 class NpmCheckUpdates < Formula
   desc "Find newer versions of dependencies than what your package.json allows"
   homepage "https://github.com/raineorshine/npm-check-updates"
-  url "https://registry.npmjs.org/npm-check-updates/-/npm-check-updates-17.1.2.tgz"
-  sha256 "bc9b6b161543b4a9aa4a89c8953035769408d5246933f2fa9ae547a84fef1e34"
+  url "https://registry.npmjs.org/npm-check-updates/-/npm-check-updates-17.1.13.tgz"
+  sha256 "7ff254329165df82a27e85bc58547a500481016ed4758f7f2eaab49208385554"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "df0a47029cf64fcb6815f548b9753aa87912a7b11f1ab8eab014b36e04a16e10"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "df0a47029cf64fcb6815f548b9753aa87912a7b11f1ab8eab014b36e04a16e10"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "df0a47029cf64fcb6815f548b9753aa87912a7b11f1ab8eab014b36e04a16e10"
-    sha256 cellar: :any_skip_relocation, sonoma:        "78db67e094df8fb667e7328a6ac7b3eb4e67fe9ee317150c5376e931527aae99"
-    sha256 cellar: :any_skip_relocation, ventura:       "78db67e094df8fb667e7328a6ac7b3eb4e67fe9ee317150c5376e931527aae99"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "df0a47029cf64fcb6815f548b9753aa87912a7b11f1ab8eab014b36e04a16e10"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8d8cd56854d6ee8038eec42f86dd91a500c158e5220d50564af852b3b7c2fbbd"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8d8cd56854d6ee8038eec42f86dd91a500c158e5220d50564af852b3b7c2fbbd"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "8d8cd56854d6ee8038eec42f86dd91a500c158e5220d50564af852b3b7c2fbbd"
+    sha256 cellar: :any_skip_relocation, sonoma:        "2b3811259e687b6e8099f5f6e4b2e58ee283f3ae4b366a70fd4c0f616e63b105"
+    sha256 cellar: :any_skip_relocation, ventura:       "2b3811259e687b6e8099f5f6e4b2e58ee283f3ae4b366a70fd4c0f616e63b105"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8d8cd56854d6ee8038eec42f86dd91a500c158e5220d50564af852b3b7c2fbbd"
   end
 
   depends_on "node"
@@ -23,14 +23,14 @@ class NpmCheckUpdates < Formula
 
   test do
     test_package_json = testpath/"package.json"
-    test_package_json.write <<~EOS
+    test_package_json.write <<~JSON
       {
         "dependencies": {
           "express": "1.8.7",
           "lodash": "3.6.1"
         }
       }
-    EOS
+    JSON
 
     system bin/"ncu", "-u"
 

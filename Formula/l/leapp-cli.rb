@@ -17,13 +17,14 @@ class LeappCli < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "d9b5a0a0f4dfdef5663463397ef4b2d68d917de753f7bc0ccafeda392a1356d7"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "node"
 
   uses_from_macos "python" => :build
 
   on_linux do
     depends_on "python-setuptools" => :build
+    depends_on "glib"
     depends_on "libsecret"
   end
 
@@ -33,10 +34,12 @@ class LeappCli < Formula
   end
 
   def caveats
-    <<~EOS
-      Only the `leap` CLI is installed. For Leapp.app:
-        brew install --cask leapp
-    EOS
+    on_macos do
+      <<~EOS
+        Only the `leap` CLI is installed. For Leapp.app:
+          brew install --cask leapp
+      EOS
+    end
   end
 
   test do

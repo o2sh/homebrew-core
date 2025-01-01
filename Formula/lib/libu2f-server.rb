@@ -29,7 +29,7 @@ class Libu2fServer < Formula
   depends_on "check" => :build
   depends_on "gengetopt" => :build
   depends_on "help2man" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "json-c"
   depends_on "openssl@3"
 
@@ -42,14 +42,14 @@ class Libu2fServer < Formula
   def install
     ENV["LIBSSL_LIBS"] = "-lssl -lcrypto -lz"
     ENV["LIBCRYPTO_LIBS"] = "-lcrypto -lz"
-    ENV["PKG_CONFIG"] = "#{Formula["pkg-config"].opt_bin}/pkg-config"
+    ENV["PKG_CONFIG"] = "#{Formula["pkgconf"].opt_bin}/pkg-config"
 
-    system "./configure", *std_configure_args, "--disable-silent-rules"
+    system "./configure", "--disable-silent-rules", *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <u2f-server/u2f-server.h>
       int main()
       {
@@ -68,7 +68,7 @@ class Libu2fServer < Formula
         u2fs_global_done();
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-o", "test", "-I#{include}", "-L#{lib}", "-lu2f-server"
     system "./test"
   end

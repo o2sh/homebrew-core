@@ -29,15 +29,14 @@ class Libsass < Formula
 
   def install
     ENV.cxx11
-    system "autoreconf", "-fvi"
-    system "./configure", "--prefix=#{prefix}", "--disable-silent-rules",
-                          "--disable-dependency-tracking"
+    system "autoreconf", "--force", "--install", "--verbose"
+    system "./configure", "--disable-silent-rules", *std_configure_args
     system "make", "install"
   end
 
   test do
     # This will need to be updated when devel = stable due to API changes.
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <sass/context.h>
       #include <string.h>
 
@@ -58,7 +57,7 @@ class Libsass < Formula
           return strcmp(sass_context_get_output_string(ctx), "a {\\n  color: blue; }\\n  a:hover {\\n    color: red; }\\n") != 0;
         }
       }
-    EOS
+    C
     system ENV.cc, "-o", "test", "test.c", "-L#{lib}", "-lsass"
     system "./test"
   end

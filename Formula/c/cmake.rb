@@ -1,10 +1,10 @@
 class Cmake < Formula
   desc "Cross-platform make"
   homepage "https://www.cmake.org/"
-  url "https://github.com/Kitware/CMake/releases/download/v3.30.3/cmake-3.30.3.tar.gz"
-  mirror "http://fresh-center.net/linux/misc/cmake-3.30.3.tar.gz"
-  mirror "http://fresh-center.net/linux/misc/legacy/cmake-3.30.3.tar.gz"
-  sha256 "6d5de15b6715091df7f5441007425264bdd477809f80333fdf95f846aaff88e4"
+  url "https://github.com/Kitware/CMake/releases/download/v3.31.3/cmake-3.31.3.tar.gz"
+  mirror "http://fresh-center.net/linux/misc/cmake-3.31.3.tar.gz"
+  mirror "http://fresh-center.net/linux/misc/legacy/cmake-3.31.3.tar.gz"
+  sha256 "fac45bc6d410b49b3113ab866074888d6c9e9dc81a141874446eb239ac38cb87"
   license "BSD-3-Clause"
   head "https://gitlab.kitware.com/cmake/cmake.git", branch: "master"
 
@@ -17,15 +17,12 @@ class Cmake < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "49ea082b4fb43477f9aab332e2d1e1f9c40921d44e994f648f83a69ba33b44bb"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f1e7c136431f5c38e08f73d118374d69fc8055d8053d7d17fb0399c29a9bf2a9"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ad9ad76e14c46d5fcc727322002e230bb9fcfe71db1453defdf9875c1fd0a33b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b69067a4226484a6a3c9624dadf324987004096b7f44f88bd9b69a09d8395641"
-    sha256 cellar: :any_skip_relocation, sequoia:        "59bf79f813b7d24fb401d6a77e9ff4618230bc03d053d85ac6073b4db591446d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ddd6fc37af08738bb5d9491e73ed37be64510065278425e3726fcd1b9db87180"
-    sha256 cellar: :any_skip_relocation, ventura:        "a79c1d64879be94209752ad1ed3a298b954d6ea172202969b44dba977ce2ff82"
-    sha256 cellar: :any_skip_relocation, monterey:       "9a06bae0043b8ed7c1e5cdacce018521fa3b9d4e07d86d0085b6ad5f9d03df7e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "44350707fa4af815fc981e274eb3b40eec87db45960daaf0c74a9d34a2ac5624"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "89891f8bcbec3470764bd7d0460773d354b04f9331baaab97ba0fe2ae86e5036"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "7b6ac3e359b4e5e2534c9ab556c218ae4744fc00e9121fca7e5f91abe48f3689"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "0d3c917fec6e56e93b0eaad41f59887615efb4d4418234cc4170c2972977e4c8"
+    sha256 cellar: :any_skip_relocation, sonoma:        "4a8069852f7a0940680ca7834de9818fd661e6eeea1389054eb1b831b913025c"
+    sha256 cellar: :any_skip_relocation, ventura:       "b7a3f9483c6163bf47bab7f1cf44f19a908e6649afc426ed730763afdce34505"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e2b0e8d31bf157218a9a119675b26cc2d559d4bd7c2806f3904e689b5406d523"
   end
 
   uses_from_macos "ncurses"
@@ -33,6 +30,11 @@ class Cmake < Formula
   on_linux do
     depends_on "openssl@3"
   end
+
+  # Prevent the formula from breaking on version/revision bumps.
+  # Check if possible to remove in 3.32.0
+  # https://gitlab.kitware.com/cmake/cmake/-/merge_requests/9978
+  patch :DATA
 
   # The completions were removed because of problems with system bash
 
@@ -81,3 +83,26 @@ class Cmake < Formula
     refute_path_exists man
   end
 end
+
+__END__
+diff --git a/Source/cmSystemTools.cxx b/Source/cmSystemTools.cxx
+index 5ad0439c..161257cf 100644
+--- a/Source/cmSystemTools.cxx
++++ b/Source/cmSystemTools.cxx
+@@ -2551,7 +2551,7 @@ void cmSystemTools::FindCMakeResources(const char* argv0)
+     _NSGetExecutablePath(exe_path, &exe_path_size);
+   }
+   exe_dir =
+-    cmSystemTools::GetFilenamePath(cmSystemTools::GetRealPath(exe_path));
++    cmSystemTools::GetFilenamePath(exe_path);
+   if (exe_path != exe_path_local) {
+     free(exe_path);
+   }
+@@ -2572,7 +2572,6 @@ void cmSystemTools::FindCMakeResources(const char* argv0)
+   std::string exe;
+   if (cmSystemTools::FindProgramPath(argv0, exe, errorMsg)) {
+     // remove symlinks
+-    exe = cmSystemTools::GetRealPath(exe);
+     exe_dir = cmSystemTools::GetFilenamePath(exe);
+   } else {
+     // ???

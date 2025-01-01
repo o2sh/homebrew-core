@@ -24,8 +24,6 @@ class Libebml < Formula
 
   depends_on "cmake" => :build
 
-  fails_with gcc: "5"
-
   def install
     system "cmake", "-S", ".", "-B", "build", "-DBUILD_SHARED_LIBS=ON", *std_cmake_args
     system "cmake", "--build", "build"
@@ -33,7 +31,7 @@ class Libebml < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <ebml/EbmlVoid.h>
       #include <iostream>
 
@@ -44,7 +42,7 @@ class Libebml < Formula
         std::cout << "EbmlVoid element created with size: 1024" << std::endl;
         return 0;
       }
-    EOS
+    CPP
 
     system ENV.cxx, "-std=c++11", "test.cpp", "-o", "test", "-I#{include}", "-L#{lib}", "-lebml"
     system "./test"

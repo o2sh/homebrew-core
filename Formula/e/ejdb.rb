@@ -27,7 +27,7 @@ class Ejdb < Formula
 
   fails_with :gcc do
     version "7"
-    cause <<-EOS
+    cause <<~EOS
       build/src/extern_iwnet/src/iwnet.c: error: initializer element is not constant
       Fixed in GCC 8.1, see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=69960
     EOS
@@ -42,7 +42,7 @@ class Ejdb < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <ejdb2/ejdb2.h>
 
       #define RCHECK(rc_)          \\
@@ -114,7 +114,7 @@ class Ejdb < Formula
         RCHECK(rc);
         return 0;
       }
-    EOS
+    C
 
     system ENV.cc, "-I#{include}/ejdb2", "test.c", "-L#{lib}", "-lejdb2", "-o", testpath/"test"
     system "./test"

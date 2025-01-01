@@ -38,12 +38,13 @@ class Libsoxr < Formula
   end
 
   def install
-    system "cmake", ".", *std_cmake_args
-    system "make", "install"
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <soxr.h>
 
       int main()
@@ -56,7 +57,8 @@ class Libsoxr < Formula
         }
         return 0;
       }
-    EOS
+    C
+
     system ENV.cc, "-L#{lib}", "test.c", "-lsoxr", "-o", "test"
     system "./test"
   end

@@ -3,9 +3,10 @@ class C7n < Formula
 
   desc "Rules engine for cloud security, cost optimization, and governance"
   homepage "https://github.com/cloud-custodian/cloud-custodian"
-  url "https://github.com/cloud-custodian/cloud-custodian/archive/refs/tags/0.9.41.0.tar.gz"
-  sha256 "76a1697251245d5142ff60a8e3289461de60260bd48cc49e5e0564f83947c3b2"
+  url "https://github.com/cloud-custodian/cloud-custodian/archive/refs/tags/0.9.42.0.tar.gz"
+  sha256 "88ca170ffbb01fd6af9dbefe84768285258ae6471d7d9a6ef59800ea63a66961"
   license "Apache-2.0"
+  revision 1
 
   livecheck do
     url :stable
@@ -13,21 +14,21 @@ class C7n < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "84c3245d46829fb9ac6dab0ebcfe912d06086ceebb900dbe56c175b20af73389"
-    sha256 cellar: :any,                 arm64_sonoma:  "b45258878d2b2d89e7e7eedc6b548a957aa3e0530b73e934bf12f395c28386f0"
-    sha256 cellar: :any,                 arm64_ventura: "35c716ff3bd2f862b3ceaf5bedb246b3c1fb76404fd57b0c7982d2cdcdf49aa2"
-    sha256 cellar: :any,                 sonoma:        "1edc26cab6b179993e1bbf547f63d6dfa8117820d433be43628d0df315fa9da4"
-    sha256 cellar: :any,                 ventura:       "ac4430e4b639d9a28d8c1735d107eb426cfc1f6fe8bea058a0539fb086304208"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "70a5393f36f21cb30d1d4d0c45f0ed55e0010f3b3bd80acb7f1c2b17683760b7"
+    sha256 cellar: :any,                 arm64_sequoia: "03b4e07d75450c2640ebb0bb45098fbbfe6411db3bf60398856f10137f997c81"
+    sha256 cellar: :any,                 arm64_sonoma:  "f43cd4add052d0570ec3d1601c7ef55073d6cd338d605adbe168d0938a57ca46"
+    sha256 cellar: :any,                 arm64_ventura: "77e4b7d106a683557ddf7a12a65b48ab13bd60472838d8fc77eeda519e24dcd9"
+    sha256 cellar: :any,                 sonoma:        "0c8939e6107c61099e0ccaef6f45de8c5b43bb5ba125a84a7c628621593aca46"
+    sha256 cellar: :any,                 ventura:       "3249bf19fe561301d437a26f5335522ab5db86b51d307cdd7084367e2699ae87"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "da5e70a6b26c4e2384f031d24aa609f417a4665591bba67b3c6d8568f8b65eb6"
   end
 
   depends_on "rust" => :build # for rpds-py
   depends_on "libyaml"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   resource "argcomplete" do
-    url "https://files.pythonhosted.org/packages/75/33/a3d23a2e9ac78f9eaf1fce7490fee430d43ca7d42c65adabbb36a2b28ff6/argcomplete-3.5.0.tar.gz"
-    sha256 "4349400469dccfb7950bb60334a680c58d88699bff6159df61251878dc6bf74b"
+    url "https://files.pythonhosted.org/packages/7f/03/581b1c29d88fffaa08abbced2e628c34dd92d32f1adaed7e42fc416938b0/argcomplete-3.5.2.tar.gz"
+    sha256 "23146ed7ac4403b70bd6026402468942ceba34a6732255b9edf5b7354f68a6bb"
   end
 
   resource "attrs" do
@@ -36,13 +37,13 @@ class C7n < Formula
   end
 
   resource "boto3" do
-    url "https://files.pythonhosted.org/packages/09/8c/3894453d91d598f3ad79d065c2f8a1f450fe54ad0139450f312c8b7a1b8a/boto3-1.35.22.tar.gz"
-    sha256 "8f4f6e0860ca1b18cbb8d13f3a572a4c099577e741b10205b5604058af0e75b7"
+    url "https://files.pythonhosted.org/packages/04/30/af5b971fc103db5425c45c36b8fcfbcc4d5818fc782350a3a6e29f47d670/boto3-1.35.60.tar.gz"
+    sha256 "e573504c67c3e438fd4b0222119ed1a73b644c78eb3b6dee0b36a6c70ecf7677"
   end
 
   resource "botocore" do
-    url "https://files.pythonhosted.org/packages/2f/4f/dd808d59a44117525ae1fc73e9376106625dc66bebd94f9dcc731ed57024/botocore-1.35.22.tar.gz"
-    sha256 "18362b7ec748561d786aebf1dd5c9faf22c4732efbf89344314199f96d3bbb65"
+    url "https://files.pythonhosted.org/packages/87/46/4c10ff89b2a164863a1d5e995e6230a76fa3f636f4144b9af24ea5f92f35/botocore-1.35.60.tar.gz"
+    sha256 "378f53037d817bed2c04a006b7319745e664030182211429c924647273b29bc9"
   end
 
   resource "docutils" do
@@ -66,8 +67,8 @@ class C7n < Formula
   end
 
   resource "jsonschema-specifications" do
-    url "https://files.pythonhosted.org/packages/f8/b9/cc0cc592e7c195fb8a650c1d5990b10175cf13b4c97465c72ec841de9e4b/jsonschema_specifications-2023.12.1.tar.gz"
-    sha256 "48a76787b3e70f5ed53f1160d2b81f586e4ca6d1548c5de7085d1682674764cc"
+    url "https://files.pythonhosted.org/packages/10/db/58f950c996c793472e336ff3655b13fbcf1e3b359dcf52dcf3ed3b52c352/jsonschema_specifications-2024.10.1.tar.gz"
+    sha256 "0f38b83639958ce1152d02a7f062902c41c8fd20d558b0c34344292d417ae272"
   end
 
   resource "python-dateutil" do
@@ -86,13 +87,13 @@ class C7n < Formula
   end
 
   resource "rpds-py" do
-    url "https://files.pythonhosted.org/packages/55/64/b693f262791b818880d17268f3f8181ef799b0d187f6f731b1772e05a29a/rpds_py-0.20.0.tar.gz"
-    sha256 "d72a210824facfdaf8768cf2d7ca25a042c30320b3020de2fa04640920d4e121"
+    url "https://files.pythonhosted.org/packages/23/80/afdf96daf9b27d61483ef05b38f282121db0e38f5fd4e89f40f5c86c2a4f/rpds_py-0.21.0.tar.gz"
+    sha256 "ed6378c9d66d0de903763e7706383d60c33829581f0adff47b6535f1802fa6db"
   end
 
   resource "s3transfer" do
-    url "https://files.pythonhosted.org/packages/cb/67/94c6730ee4c34505b14d94040e2f31edf144c230b6b49e971b4f25ff8fab/s3transfer-0.10.2.tar.gz"
-    sha256 "0711534e9356d3cc692fdde846b4a1e4b0cb6519971860796e6bc4c7aea00ef6"
+    url "https://files.pythonhosted.org/packages/a0/a8/e0a98fd7bd874914f0608ef7c90ffde17e116aefad765021de0f012690a2/s3transfer-0.10.3.tar.gz"
+    sha256 "4f50ed74ab84d474ce614475e0b8d5047ff080810aac5d01ea25231cfc944b0c"
   end
 
   resource "six" do
@@ -111,8 +112,8 @@ class C7n < Formula
   end
 
   resource "zipp" do
-    url "https://files.pythonhosted.org/packages/54/bf/5c0000c44ebc80123ecbdddba1f5dcd94a5ada602a9c225d84b5aaa55e86/zipp-3.20.2.tar.gz"
-    sha256 "bc9eb26f4506fda01b81bcde0ca78103b6e62f991b381fec825435c836edbc29"
+    url "https://files.pythonhosted.org/packages/3f/50/bad581df71744867e9468ebd0bcd6505de3b275e06f202c2cb016e3ff56f/zipp-3.21.0.tar.gz"
+    sha256 "2c9958f6430a2040341a52eb608ed6dd93ef4392e02ffe219417c1b28b5dd1f4"
   end
 
   def install
@@ -123,7 +124,7 @@ class C7n < Formula
     # trim last decimal point version to match semver returned from version command
     assert_match version.major_minor_patch.to_s, shell_output("#{bin}/custodian version")
 
-    (testpath/"good-policy.yml").write <<~EOF
+    (testpath/"good-policy.yml").write <<~YAML
       policies:
       - name: ec2-auto-tag-user
         resource: ec2
@@ -141,11 +142,13 @@ class C7n < Formula
           - type: auto-tag-user
             tag: CreatorName
             principal_id_tag: CreatorId
-    EOF
+    YAML
+
     output = shell_output("#{bin}/custodian validate --verbose #{testpath}/good-policy.yml 2>&1")
     assert_match "valid", output
+
     # has invalid "action" key instead of "actions"
-    (testpath/"bad-policy.yml").write <<~EOF
+    (testpath/"bad-policy.yml").write <<~YAML
       policies:
       - name: ec2-auto-tag-user
         resource: ec2
@@ -155,7 +158,8 @@ class C7n < Formula
           - type: auto-tag-user
             tag: CreatorName
             principal_id_tag: CreatorId
-    EOF
+    YAML
+
     output = shell_output("#{bin}/custodian validate --verbose #{testpath}/bad-policy.yml 2>&1", 1)
     assert_match "invalid", output
   end

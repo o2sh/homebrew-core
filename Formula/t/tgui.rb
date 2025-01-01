@@ -1,23 +1,27 @@
 class Tgui < Formula
   desc "GUI library for use with sfml"
   homepage "https://tgui.eu"
-  url "https://github.com/texus/TGUI/archive/refs/tags/v1.5.0.tar.gz"
-  sha256 "b95595d10f84077183a86fa52efa6abbf45a96050f8019cb0966813e84431b01"
+  url "https://github.com/texus/TGUI/archive/refs/tags/v1.7.0.tar.gz"
+  sha256 "7d40359770e2f8e534a57332c99fd56c72cf79a8b59642676e01394fe05cb1fa"
   license "Zlib"
+  revision 1
+
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "e5ef2ca959866884c8fc0438a07b3802c586993484511b9a33a204a4c43b65d1"
-    sha256 cellar: :any,                 arm64_sonoma:   "c3faac1d98846f88c860ccdb7ad67eaf9a04e5084324d92b0319147e74102501"
-    sha256 cellar: :any,                 arm64_ventura:  "541b10a466a04e1df0245b63c438923282c80fe604f02faf1b4bd3b53549e824"
-    sha256 cellar: :any,                 arm64_monterey: "a711e18947f79d449ac31d05b9bc7dfaa5b8784f4d986e49ac082b80131f878a"
-    sha256 cellar: :any,                 sonoma:         "890f502405a0c8602d640abf089009f25d1c51a24abb6367036d0a79620470c8"
-    sha256 cellar: :any,                 ventura:        "3cb6ec8417100dbabb0fc3644b67cf7ffcb3007983fdefa894f46976eec15e2a"
-    sha256 cellar: :any,                 monterey:       "5db8a4e8c5aa1d25b8f7202049a1bf50315b9bbf73df871ac64e1bac4818cec9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d472361e1f07167f00c4676aa953b33a1bed24a08b2d10521a1d68f5b6745370"
+    sha256 cellar: :any,                 arm64_sequoia: "68d876aecf41558861d2e17ff3ea4aded9773977350015de1b9b0f71cf46e8fe"
+    sha256 cellar: :any,                 arm64_sonoma:  "3a24d3b020a457f65ae2dde489267629d190acf8136f330096daf341d5eace2f"
+    sha256 cellar: :any,                 arm64_ventura: "aef7806f9a2d5f54c0c052c5b5b2ae1c9447b0492b362e4d6669f0eabd6a7ab5"
+    sha256 cellar: :any,                 sonoma:        "4ad63bf9364d7d9b52674b4927448a88a287fcd9d8769fb6daee8f1cac9a3e28"
+    sha256 cellar: :any,                 ventura:       "5f96c17afffd6e3497c694e864d9202cbbac1abd3923393258ccfc5427fa524d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f46837a2ada4a9bff27b178d758b8ad2c6c78215f7c25837f64f6f7b356bc463"
   end
 
   depends_on "cmake" => :build
-  depends_on "sfml"
+  depends_on "sfml@2" # sfml 3.0 build issue report, https://github.com/texus/TGUI/issues/249
 
   def install
     args = %W[
@@ -36,7 +40,7 @@ class Tgui < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <TGUI/TGUI.hpp>
       #include <TGUI/Backend/SFML-Graphics.hpp>
       int main()
@@ -45,9 +49,11 @@ class Tgui < Formula
         text.setString("Hello World");
         return 0;
       }
-    EOS
-    system ENV.cxx, "test.cpp", "-std=c++17", "-I#{include}",
-      "-L#{lib}", "-L#{Formula["sfml"].opt_lib}",
+    CPP
+
+    ENV.append_path "LD_LIBRARY_PATH", Formula["sfml@2"].opt_lib if OS.linux?
+    system ENV.cxx, "test.cpp", "-std=c++17", "-I#{include}", "-I#{Formula["sfml@2"].opt_include}",
+      "-L#{lib}", "-L#{Formula["sfml@2"].opt_lib}",
       "-ltgui", "-lsfml-graphics", "-lsfml-system", "-lsfml-window",
       "-o", "test"
     system "./test"

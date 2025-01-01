@@ -1,6 +1,6 @@
 class AtSpi2Core < Formula
   desc "Protocol definitions and daemon for D-Bus at-spi"
-  homepage "https://www.freedesktop.org/wiki/Accessibility/AT-SPI2"
+  homepage "https://www.freedesktop.org/wiki/Accessibility/AT-SPI2/"
   url "https://download.gnome.org/sources/at-spi2-core/2.54/at-spi2-core-2.54.0.tar.xz"
   sha256 "d7eee7e75beddcc272cedc2b60535600f3aae6e481589ebc667afc437c0a6079"
   license "LGPL-2.1-or-later"
@@ -18,7 +18,7 @@ class AtSpi2Core < Formula
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
 
   depends_on "dbus"
   depends_on "glib"
@@ -40,7 +40,7 @@ class AtSpi2Core < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       /*
        * List the applications registered on at-spi.
        */
@@ -70,7 +70,7 @@ class AtSpi2Core < Formula
 
         return 1;
       }
-    EOS
+    C
 
     pkg_config_cflags = shell_output("pkg-config --cflags --libs atspi-2").chomp.split
     system ENV.cc, "test.c", *pkg_config_cflags, "-lgobject-2.0", "-o", "test"

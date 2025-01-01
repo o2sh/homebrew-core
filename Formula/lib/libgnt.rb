@@ -25,7 +25,7 @@ class Libgnt < Formula
   depends_on "gtk-doc" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "glib"
   depends_on "ncurses"
@@ -52,7 +52,7 @@ class Libgnt < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <gnt/gnt.h>
 
       int main() {
@@ -61,7 +61,7 @@ class Libgnt < Formula
 
           return 0;
       }
-    EOS
+    C
 
     flags = [
       "-I#{Formula["glib"].opt_include}/glib-2.0",

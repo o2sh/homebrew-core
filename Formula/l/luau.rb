@@ -1,8 +1,8 @@
 class Luau < Formula
   desc "Fast, safe, gradually typed embeddable scripting language derived from Lua"
   homepage "https://luau-lang.org"
-  url "https://github.com/luau-lang/luau/archive/refs/tags/0.643.tar.gz"
-  sha256 "069702be7646917728ffcddcc72dae0c4191b95dfe455c8611cc5ad943878d3d"
+  url "https://github.com/luau-lang/luau/archive/refs/tags/0.655.tar.gz"
+  sha256 "1c0ff05ce18493d6c83062a17cf6822a71ce254bfa0db41dd086d313b674ca33"
   license "MIT"
   version_scheme 1
   head "https://github.com/luau-lang/luau.git", branch: "master"
@@ -13,17 +13,15 @@ class Luau < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4552d10fb5efb2b4849f4ce088f8cb0391687c1b26d84b2e444c19a8c71142a1"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "9291a450c6754964f845e329bd9b7a16a8fad035fe3e34009b2dd187b68b9b7f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "b4794fb73ec744035c1c87f9e2a8d71ca224cb9de024acea7043eb039226c918"
-    sha256 cellar: :any_skip_relocation, sonoma:        "2e538a986a0435b0e77157e41054035dd41ab51e1c2f19bc9ba73e84164ae2bb"
-    sha256 cellar: :any_skip_relocation, ventura:       "ef5787222a9c63baa82352d4fffcd5a76273b16a0f3dc7ade0a8998522227e07"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b7b7357cede45f8fb82c81d5476a20b3fc2e46db9fca33d8f043780147d774f6"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a404ff0cb0e5f9c7242a5ccb467afadf449c21657e79923c9167c43a178a4c75"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ed9aabeb638de5ec624b20ecc9542600cbbb97329cbbdd65abb61fed39d63d64"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "7612b2aebe2b8808e34021e9660e959568610ce7c91c5a42aeaaba08c2cab1e9"
+    sha256 cellar: :any_skip_relocation, sonoma:        "6f00e4788b191d7a372455ddd0cbf8bad725d783e0a8525d2a6e87f14fec0b51"
+    sha256 cellar: :any_skip_relocation, ventura:       "7e14e7e1bd8b5c1cbd6ddf31a5ac5aaf868b934fb536d837f846af67423872d8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "be070114d07b00d4e062d73482842ed96fbfaa3015241210f78726143ea12103"
   end
 
   depends_on "cmake" => :build
-
-  fails_with gcc: "5"
 
   def install
     system "cmake", "-S", ".", "-B", "build", "-DLUAU_BUILD_TESTS=OFF", *std_cmake_args

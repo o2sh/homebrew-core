@@ -1,20 +1,18 @@
 class Gittuf < Formula
   desc "Security layer for Git repositories"
   homepage "https://gittuf.dev/"
-  url "https://github.com/gittuf/gittuf/archive/refs/tags/v0.5.2.tar.gz"
-  sha256 "0f04fd9e786b3c34599433ed972331faa3518f6be70d939e4e37d4268eaa5619"
+  url "https://github.com/gittuf/gittuf/archive/refs/tags/v0.8.1.tar.gz"
+  sha256 "3d85ecc16fe64d58805558d0f7ecfe3c38533f8d145b1b57cad23ad8e40203c5"
   license "Apache-2.0"
   head "https://github.com/gittuf/gittuf.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "9fba666ad1dce2000e98d1330b93b1bc4e91c1f2632a12c04cebf20d23af2d4b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b78d7a4639cd1a2a45b60a11fe2287ac27b16e986944009a3a2cb5e14d372ba6"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f78310dbc7aecf61b6e579eca9f02bd92b6356ee0ac989d781f1240015cedf95"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "55a9a79ba45dd46e45037b600c52c15aa44ae118b7189036ade1b6882fcd9402"
-    sha256 cellar: :any_skip_relocation, sonoma:         "731a4a6df77a7fddf2c014528d7c8da874916b168fb4b0c188be2a5d732c2ee9"
-    sha256 cellar: :any_skip_relocation, ventura:        "1314bdb21d09b6bcd79c9433009974605ce28beea2b5f71a78d01527cbc32b70"
-    sha256 cellar: :any_skip_relocation, monterey:       "fd4e266d9d123f1f8b27bfb2cac4d801ff4a18a534f3eca32e9012b947869ea0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "20ca873cdd73adab226158b8a09cfaf49b51b984d3959d81fefc7be6a609ffe9"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2eb976a15664e9e7a69eceb526742f7728952ba8fe3ec73c3c34054a3a3742f5"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2eb976a15664e9e7a69eceb526742f7728952ba8fe3ec73c3c34054a3a3742f5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "2eb976a15664e9e7a69eceb526742f7728952ba8fe3ec73c3c34054a3a3742f5"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e5d3f803dc139e2e246d4e01e85f4c68d9145a232551447cd6d14c3ff866b07b"
+    sha256 cellar: :any_skip_relocation, ventura:       "49e2360bb36366271721c7910813b52c47dfe0d67615afdaac759fa79829f247"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "104c5b69e5c6ac476e580ee00fc3fa7524de806fd08ef092d51fceaeefe67b81"
   end
 
   depends_on "go" => :build

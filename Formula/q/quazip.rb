@@ -21,10 +21,8 @@ class Quazip < Formula
   depends_on xcode: :build
   depends_on "qt"
 
-  uses_from_macos "zlib" => :test
   uses_from_macos "bzip2"
-
-  fails_with gcc: "5" # C++17
+  uses_from_macos "zlib"
 
   def install
     system "cmake", "-S", ".", "-B", "build", "-DCMAKE_PREFIX_PATH=#{Formula["qt"].opt_lib}", *std_cmake_args
@@ -50,13 +48,13 @@ class Quazip < Formula
       QMAKE_RPATHDIR += #{lib}
     EOS
 
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <quazip/quazip.h>
       int main() {
         QuaZip zip;
         return 0;
       }
-    EOS
+    CPP
 
     system Formula["qt"].bin/"qmake", "test.pro"
     system "make"

@@ -1,23 +1,21 @@
 class Cocoapods < Formula
   desc "Dependency manager for Cocoa projects"
   homepage "https://cocoapods.org/"
-  url "https://github.com/CocoaPods/CocoaPods/archive/refs/tags/1.15.2.tar.gz"
-  sha256 "324a13efb2c3461f489c275462528e9e721f83108d09d768d2049710d82d933c"
+  url "https://github.com/CocoaPods/CocoaPods/archive/refs/tags/1.16.2.tar.gz"
+  sha256 "3067f21a0025aedb5869c7080b6c4b3fa55d397b94fadc8c3037a28a6cee274c"
   license "MIT"
   revision 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "616da75efe9421f6fdc9e3b6381f84626e8763073aff72094f30add258631dc1"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "441ca48d1042282ed261390fab8dfce1a56335340a98ae579b080b3f8c4e941a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "441ca48d1042282ed261390fab8dfce1a56335340a98ae579b080b3f8c4e941a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "441ca48d1042282ed261390fab8dfce1a56335340a98ae579b080b3f8c4e941a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8961b95489c08fc5b163b09455e6172f5fdee7dcfacdad1c2bf569c28a476d8e"
-    sha256 cellar: :any_skip_relocation, ventura:        "8961b95489c08fc5b163b09455e6172f5fdee7dcfacdad1c2bf569c28a476d8e"
-    sha256 cellar: :any_skip_relocation, monterey:       "8961b95489c08fc5b163b09455e6172f5fdee7dcfacdad1c2bf569c28a476d8e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cf569151db36690ef517de97d64643d8a3425d88a214709fdc422d0494e5a5ad"
+    sha256 cellar: :any,                 arm64_sequoia: "c0bd1f8e2bdb31e76d8919d8c5181c5ffacab9aa03b9be9cd77c4fcfdd2f0527"
+    sha256 cellar: :any,                 arm64_sonoma:  "46d7033d09663c83d43346815b67d4abac9c68b2cff38a7a0eaf55fcf459f56d"
+    sha256 cellar: :any,                 arm64_ventura: "95765343247a0af19d81ab36c3ab8e379e7729f688da64ae723f49c7deba34d7"
+    sha256 cellar: :any,                 sonoma:        "783c64ac3c486bae33e11edf68a56380245d3fe783e1c60e2548a08e05adedef"
+    sha256 cellar: :any,                 ventura:       "b1358f53cd22a76793b935b5b3d4fa384cbe292d85d6a02fccf7232ea038890d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bb0ed8f654a355942ff4df4236ad181fa474aad5188cf2de73e6412b9df098b1"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "ruby"
   uses_from_macos "libffi", since: :catalina
 

@@ -4,7 +4,7 @@ class Opencv < Formula
   url "https://github.com/opencv/opencv/archive/refs/tags/4.10.0.tar.gz"
   sha256 "b2171af5be6b26f7a06b1229948bbb2bdaa74fcf5cd097e0af6378fce50a6eb9"
   license "Apache-2.0"
-  revision 6
+  revision 18
   head "https://github.com/opencv/opencv.git", branch: "4.x"
 
   livecheck do
@@ -13,15 +13,15 @@ class Opencv < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:  "8f5af4bd99e403029e136d648bb6b7d6ad0bbd046435c5758ab9c8eb51b98f19"
-    sha256 arm64_ventura: "8ef34089adfdc0c70f37312c05ce930a82a4b43c5dd39bb3715229389fd84008"
-    sha256 sonoma:        "dc58d08c3409fe20e3fa7c41531f012f298dfb9cf320602745bbad706eb61aca"
-    sha256 ventura:       "e0d58c4c7660a962a7546a8490bae4707f59281d043839a7f344288575baafc2"
-    sha256 x86_64_linux:  "552d5d89d5cdd5dabb7ed39680fa8baaf3947cce191e3cfe544e813a05c52a9a"
+    sha256 arm64_sonoma:  "bb46def11d27601dc9d1fbcf6bd9bd311dd81af1a123848c961a32945589b102"
+    sha256 arm64_ventura: "eefdda850744472177b609cc9c5e699c4737491f8e76b4b0d22e8d1c1b65ba67"
+    sha256 sonoma:        "de61c25455af862ee8229ea4b630b96c2cd0b138a0954387d62f1d281580ad09"
+    sha256 ventura:       "03fb1235f00b4379519d01e02ba566a96318a317b1dc749679e582a395005a14"
+    sha256 x86_64_linux:  "2a584366f46b875643b87030d061271daf11c1e0fec61c53b5352321b3ee60ba"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python-setuptools" => :build
   depends_on "abseil"
   depends_on "ceres-solver"
@@ -32,6 +32,7 @@ class Opencv < Formula
   depends_on "glog"
   depends_on "harfbuzz"
   depends_on "jpeg-turbo"
+  depends_on "jsoncpp"
   depends_on "libpng"
   depends_on "libtiff"
   depends_on "numpy"
@@ -51,7 +52,6 @@ class Opencv < Formula
   on_macos do
     depends_on "glew"
     depends_on "imath"
-    depends_on "jsoncpp"
     depends_on "libarchive"
   end
 
@@ -61,8 +61,6 @@ class Opencv < Formula
     depends_on "glib"
     depends_on "gtk+3"
   end
-
-  fails_with gcc: "5" # ffmpeg is compiled with GCC
 
   resource "contrib" do
     url "https://github.com/opencv/opencv_contrib/archive/refs/tags/4.10.0.tar.gz"
@@ -131,9 +129,12 @@ class Opencv < Formula
       "-Dprotobuf_MODULE_COMPATIBLE=ON", # https://github.com/protocolbuffers/protobuf/issues/1931
     ]
 
-    # Disable precompiled headers and force opencv to use brewed libraries on Linux
-    if OS.linux?
-      args += %W[
+    args += if OS.mac?
+      # Requires closed-source, pre-built Orbbec SDK on macOS
+      ["-DWITH_OBSENSOR=OFF"]
+    else
+      # Disable precompiled headers and force opencv to use brewed libraries on Linux
+      %W[
         -DENABLE_PRECOMPILED_HEADERS=OFF
         -DJPEG_LIBRARY=#{Formula["jpeg-turbo"].opt_lib}/libjpeg.so
         -DOpenBLAS_LIB=#{Formula["openblas"].opt_lib}/libopenblas.so
@@ -170,22 +171,19 @@ class Opencv < Formula
 
     # Prevent dependents from using fragile Cellar paths
     inreplace lib/"pkgconfig/opencv#{version.major}.pc", prefix, opt_prefix
-
-    # Replace universal binaries with their native slices
-    deuniversalize_machos
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <opencv2/opencv.hpp>
       #include <iostream>
       int main() {
         std::cout << CV_VERSION << std::endl;
         return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++17", "test.cpp", "-I#{include}/opencv4", "-o", "test"
-    assert_equal shell_output("./test").strip, version.to_s
+    assert_equal version.to_s, shell_output("./test").strip
 
     output = shell_output("#{python3} -c 'import cv2; print(cv2.__version__)'")
     assert_equal version.to_s, output.chomp

@@ -23,13 +23,16 @@ class GccAT9 < Formula
   pour_bottle? only_if: :clt_installed
 
   depends_on maximum_macos: [:monterey, :build]
-  depends_on arch: :x86_64
   depends_on "gmp"
   depends_on "isl"
   depends_on "libmpc"
   depends_on "mpfr"
 
   uses_from_macos "zlib"
+
+  on_macos do
+    depends_on arch: :x86_64
+  end
 
   on_linux do
     depends_on "binutils"
@@ -102,6 +105,7 @@ class GccAT9 < Formula
       # Change the default directory name for 64-bit libraries to `lib`
       # https://www.linuxfromscratch.org/lfs/view/development/chapter06/gcc-pass2.html
       inreplace "gcc/config/i386/t-linux64", "m64=../lib64", "m64="
+      inreplace "gcc/config/aarch64/t-aarch64-linux", "lp64=../lib64", "lp64="
     end
 
     mkdir "build" do
@@ -214,18 +218,18 @@ class GccAT9 < Formula
   end
 
   test do
-    (testpath/"hello-c.c").write <<~EOS
+    (testpath/"hello-c.c").write <<~C
       #include <stdio.h>
       int main()
       {
         puts("Hello, world!");
         return 0;
       }
-    EOS
+    C
     system bin/"gcc-#{version.major}", "-o", "hello-c", "hello-c.c"
     assert_equal "Hello, world!\n", `./hello-c`
 
-    (testpath/"hello-cc.cc").write <<~EOS
+    (testpath/"hello-cc.cc").write <<~CPP
       #include <iostream>
       struct exception { };
       int main()
@@ -236,11 +240,11 @@ class GccAT9 < Formula
           catch (...) { }
         return 0;
       }
-    EOS
+    CPP
     system bin/"g++-#{version.major}", "-o", "hello-cc", "hello-cc.cc"
     assert_equal "Hello, world!\n", `./hello-cc`
 
-    (testpath/"test.f90").write <<~EOS
+    (testpath/"test.f90").write <<~FORTRAN
       integer,parameter::m=10000
       real::a(m), b(m)
       real::fact=0.5
@@ -250,7 +254,7 @@ class GccAT9 < Formula
       end do
       write(*,"(A)") "Done"
       end
-    EOS
+    FORTRAN
     system bin/"gfortran-#{version.major}", "-o", "test", "test.f90"
     assert_equal "Done\n", `./test`
   end

@@ -19,7 +19,7 @@ class JsonrpcGlib < Formula
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "vala" => :build
 
   depends_on "glib"
@@ -36,15 +36,15 @@ class JsonrpcGlib < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <jsonrpc-glib.h>
 
       int main(int argc, char *argv[]) {
         JsonrpcInputStream *stream = jsonrpc_input_stream_new(NULL);
         return 0;
       }
-    EOS
-    pkg_config_cflags = shell_output("pkg-config --cflags --libs jsonrpc-glib-1.0").chomp.split
+    C
+    pkg_config_cflags = shell_output("pkgconf --cflags --libs jsonrpc-glib-1.0").chomp.split
     system ENV.cc, "test.c", "-o", "test", *pkg_config_cflags
     system "./test"
   end

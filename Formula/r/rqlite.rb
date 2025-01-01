@@ -1,18 +1,18 @@
 class Rqlite < Formula
   desc "Lightweight, distributed relational database built on SQLite"
   homepage "https://www.rqlite.io/"
-  url "https://github.com/rqlite/rqlite/archive/refs/tags/v8.30.3.tar.gz"
-  sha256 "a669de66043dc053f8fa00de0c82fb4797bb7dd75eaa3998e43d3ec3afd8b9b7"
+  url "https://github.com/rqlite/rqlite/archive/refs/tags/v8.36.3.tar.gz"
+  sha256 "c57e1499e013d69f2c0201a368546691537a67388e967c38c03948a9ea208b57"
   license "MIT"
   head "https://github.com/rqlite/rqlite.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "467f8913aa434c6353cbc206ddd4ac1e91b02339e1b37530f142700b03a3f405"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b07b54d971b86e23f0ada0eecaef27730298bb530cde4b195b7b82feb4e4f657"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "01ae1951bffabf75635553f5b91b64616668d5babeb9399bdd4e08a04d65742d"
-    sha256 cellar: :any_skip_relocation, sonoma:        "74b768cade52da2502c456214c6938ea4a047d45f327bc6c904cd9ee96b8cce4"
-    sha256 cellar: :any_skip_relocation, ventura:       "8bd780aa7bdb611abd9e60252ff938952d4a41fbdd871c9c66e4e8363a3535ea"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f3a4d3ecfb3078017b75814aa82e5a2c160e2a801e6e9df43af7b2ad8fd89f74"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b5bb190ab32e98616d12ce57015d19d47806dc6c1213e7395b41460a6c5e75da"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "fb4db206c68757b4a1319afeeb0807cc738e29d402dca3d49c706e04d82e859b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "c4fcd8c6f15bd2b1880f4172060fb6f5f06da7bdbf803193c357c5ed586df5fe"
+    sha256 cellar: :any_skip_relocation, sonoma:        "78669a1f1eba9665fcbe9ecccd89f5bf34150fa280a9ffd112dbfdb08af19d5f"
+    sha256 cellar: :any_skip_relocation, ventura:       "48ab9b622a7e2522c978155b8f702201f33c6f86ab445b9cc5987dc8c54cb53a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7e0b2af2f02b5c8548fd978563272354b81eac8f906473249cbaa213cb2bd02b"
   end
 
   depends_on "go" => :build
@@ -32,11 +32,11 @@ class Rqlite < Formula
     end
     sleep 5
 
-    (testpath/"test.sql").write <<~EOS
+    (testpath/"test.sql").write <<~SQL
       CREATE TABLE foo (id INTEGER NOT NULL PRIMARY KEY, name TEXT)
       .schema
       quit
-    EOS
+    SQL
     output = shell_output("#{bin}/rqlite -p #{port} < test.sql")
     assert_match "foo", output
 

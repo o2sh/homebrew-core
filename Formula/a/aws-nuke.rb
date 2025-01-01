@@ -1,34 +1,29 @@
 class AwsNuke < Formula
   desc "Nuke a whole AWS account and delete all its resources"
   homepage "https://github.com/ekristen/aws-nuke"
-  url "https://github.com/ekristen/aws-nuke.git",
-      tag:      "v3.22.0",
-      revision: "d76d6ef250a93df89721201fbc17eca71ff4f5db"
+  url "https://github.com/ekristen/aws-nuke/archive/refs/tags/v3.39.0.tar.gz"
+  sha256 "cb4f09d4e319e511c9926bba47141271d5ce21c2f57d8776a253543020a2249e"
   license "MIT"
   head "https://github.com/ekristen/aws-nuke.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "80f165c84a462b0a0c8b868e02f5d278210a62532961f638132a593b94f2f913"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "80f165c84a462b0a0c8b868e02f5d278210a62532961f638132a593b94f2f913"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "80f165c84a462b0a0c8b868e02f5d278210a62532961f638132a593b94f2f913"
-    sha256 cellar: :any_skip_relocation, sonoma:        "3919647ca45fe85feae26f88e26cbd31b64ddff533a9e22458a9ca7a810c5ad9"
-    sha256 cellar: :any_skip_relocation, ventura:       "3919647ca45fe85feae26f88e26cbd31b64ddff533a9e22458a9ca7a810c5ad9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a5b1cce32d7208b9bd414de2c5509985e1d1c58d13502afd3d5bb7973085bedc"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d9655f9fe3f71cb485ed65dc1ab20d4ff352a956adf593a2f9ab20573f005240"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d9655f9fe3f71cb485ed65dc1ab20d4ff352a956adf593a2f9ab20573f005240"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "d9655f9fe3f71cb485ed65dc1ab20d4ff352a956adf593a2f9ab20573f005240"
+    sha256 cellar: :any_skip_relocation, sonoma:        "955479f9acaabece7ffc92b932546db2dbdaee81ac6e751829d7258f8cafddb2"
+    sha256 cellar: :any_skip_relocation, ventura:       "955479f9acaabece7ffc92b932546db2dbdaee81ac6e751829d7258f8cafddb2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3b14a796683057247fcf0c1376e7dea31c3d8e9d8d0f8fe695999a226ab95854"
   end
 
   depends_on "go" => :build
 
   def install
-    build_xdst="github.com/ekristen/aws-nuke/v#{version.major}/pkg/common"
     ldflags = %W[
       -s -w
-      -X #{build_xdst}.SUMMARY=#{version}
+      -X github.com/ekristen/aws-nuke/v#{version.major}/pkg/common.SUMMARY=#{version}
     ]
-    with_env(
-      "CGO_ENABLED" => "0",
-    ) do
-      system "go", "build", *std_go_args(ldflags:)
-    end
+    ENV["CGO_ENABLED"] = "0"
+    system "go", "build", *std_go_args(ldflags:)
 
     pkgshare.install "pkg/config"
 

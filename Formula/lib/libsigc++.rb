@@ -22,8 +22,6 @@ class Libsigcxx < Formula
 
   uses_from_macos "m4" => :build
 
-  fails_with gcc: "5"
-
   def install
     system "meson", "setup", "build", "-Dbuild-examples=false", "-Dbuild-tests=false", *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"
@@ -31,7 +29,7 @@ class Libsigcxx < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <iostream>
       #include <string>
       #include <sigc++/sigc++.h>
@@ -48,7 +46,7 @@ class Libsigcxx < Formula
         signal_print.emit("hello world\\n");
         return 0;
       }
-    EOS
+    CPP
 
     system ENV.cxx, "-std=c++17", "test.cpp",
                    "-L#{lib}", "-lsigc-3.0", "-I#{include}/sigc++-3.0", "-I#{lib}/sigc++-3.0/include", "-o", "test"

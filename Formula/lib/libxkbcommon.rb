@@ -25,7 +25,7 @@ class Libxkbcommon < Formula
   depends_on "bison" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "libxcb"
   depends_on "xkeyboardconfig"
@@ -48,7 +48,7 @@ class Libxkbcommon < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdlib.h>
       #include <xkbcommon/xkbcommon.h>
       int main() {
@@ -56,7 +56,7 @@ class Libxkbcommon < Formula
           ? EXIT_FAILURE
           : EXIT_SUCCESS;
       }
-    EOS
+    C
 
     system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lxkbcommon",
                    "-o", "test"

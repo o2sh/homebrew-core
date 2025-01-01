@@ -1,19 +1,17 @@
 class VideoCompare < Formula
   desc "Split screen video comparison tool using FFmpeg and SDL2"
   homepage "https://github.com/pixop/video-compare"
-  url "https://github.com/pixop/video-compare/archive/refs/tags/20240818.tar.gz"
-  sha256 "29155c67c90307153e2b3c4a909083c9a7def710e3c0c4c9a7ffaa50398195d4"
+  url "https://github.com/pixop/video-compare/archive/refs/tags/20241221.tar.gz"
+  sha256 "7ce3bd2f56ea72d6d9fecd27ea09670aacd82bf446a662ea69ce462f7d5ebfba"
   license "GPL-2.0-only"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "224d6bc5f9b17a71d6aa715b2428c64c7d229da139680d595ca2dc0d2ccbd354"
-    sha256 cellar: :any,                 arm64_sonoma:   "a17fdb0881d933cb289dbb2a2889fde7cd8007fb377d90041e2db9bb348c2c16"
-    sha256 cellar: :any,                 arm64_ventura:  "907933adc8eab74c9f21b6a5d55d005c9306facb9729544f4bc4f7523ea86364"
-    sha256 cellar: :any,                 arm64_monterey: "fb2b305e62ef1b7792b85ffba6f927a372da008945856e3ccd70b950fdf471aa"
-    sha256 cellar: :any,                 sonoma:         "1afbaf0dfb2766bc9091938f1bb398edd36251bb2d79ca97e2c1aebe780965be"
-    sha256 cellar: :any,                 ventura:        "a61bcbab0b10c4e36960e3a73bb7f38c59c8d98dc6febbbdfa9590536a2d3f7c"
-    sha256 cellar: :any,                 monterey:       "c5070b7597b576ea6a5fb1f681441893baef91fccdd5de485528892704e5b069"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2693198a2dcc0078619c740c50a4b14d084a9ff3f59a3a8e3a6bded165c46ee5"
+    sha256 cellar: :any,                 arm64_sequoia: "7a1658f9283efdd49f3028330c7a7857cac89ed4e7b15906865fc31492f863bc"
+    sha256 cellar: :any,                 arm64_sonoma:  "d16880c428b51e97973a91f48ca54e4bf1a0f6ab23e65a4c3f2a682bc97a691e"
+    sha256 cellar: :any,                 arm64_ventura: "bd97f7fdd98d2f6014563f34787cbc9535cfab0435ff480c4ec81f943a5e9789"
+    sha256 cellar: :any,                 sonoma:        "e9f39094571a582cbfebbb7f8d6cd410ce7b19fd805c1ff31fa60f03e9fa219c"
+    sha256 cellar: :any,                 ventura:       "f662ef8870b01f0d789b1702ebfd2999b18ace602ec33d8d53dd9159053090fd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b027280395b134bb444a60c8d1cbe588886c14472174f6ba6c41d41698b21876"
   end
 
   depends_on "ffmpeg"

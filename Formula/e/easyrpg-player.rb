@@ -4,21 +4,19 @@ class EasyrpgPlayer < Formula
   url "https://easyrpg.org/downloads/player/0.8/easyrpg-player-0.8.tar.xz"
   sha256 "06e6d034348d1c52993d0be6b88fc3502a6c7718e366f691401539d5a2195c79"
   license "GPL-3.0-or-later"
-  revision 4
+  revision 6
 
   livecheck do
     url "https://github.com/EasyRPG/Player.git"
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "940fa9890761c2e0e6f97823f609b2a86c3d8c132af99041ccd291520ddb4937"
-    sha256 cellar: :any,                 arm64_sonoma:   "cb6367f8d7021433cb0777e645c3f2f23b03b78404baac81898c020f799ebc54"
-    sha256 cellar: :any,                 arm64_ventura:  "0b918d1a21110b3cc284d7ee0b453cf01cf9d306de3471e5ae868a522ac3ab38"
-    sha256 cellar: :any,                 arm64_monterey: "81ddad2d6f50aee5493a461d86c3cef8071d2b4f8186c32cbce7880fbbd7f4ad"
-    sha256 cellar: :any,                 sonoma:         "cbccb0b6c47ee38eecc699969f53e963f5edfb34f4290215f829ab501aa24ede"
-    sha256 cellar: :any,                 ventura:        "8d136de7c6d891113f50669181ccb5a81e244d6b7b1b63b969ea040379d60210"
-    sha256 cellar: :any,                 monterey:       "81a4c9e5b846c151b380ae620192e18cf8db7cebdb34d8d9766e8e96ce3173d5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2af54063e4cd34ce5b2a9e1da3c515a464b1029a6fe071307c28a17cab8fc675"
+    sha256 cellar: :any,                 arm64_sequoia: "66c7961634bf8c5e03ce836f43305bd1c0b26243b11a18bd891fc373598e4126"
+    sha256 cellar: :any,                 arm64_sonoma:  "18ca681626d5cd3567cb66c707f852c331bbdff76aa3b3d2ed8d4c20ac58333e"
+    sha256 cellar: :any,                 arm64_ventura: "10561454e76eccb05d5a54f019514737275771deba52204d71292247d961da97"
+    sha256 cellar: :any,                 sonoma:        "5334ddbe087aa9294f7b7492cd2d263d27cd20dcaa2f17a81c6f7708b350ce5e"
+    sha256 cellar: :any,                 ventura:       "8b8cfa026ce4c30fa3fb4b3b1ee9a5830a8635555f19f8dde776c35992100bbb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a6a5222eaa4447b239eb868aceae4dbec632cb4aa2ad4573f99efc99c675b57d"
   end
 
   depends_on "cmake" => :build
@@ -26,7 +24,7 @@ class EasyrpgPlayer < Formula
   depends_on "fmt"
   depends_on "freetype"
   depends_on "harfbuzz"
-  depends_on "icu4c"
+  depends_on "icu4c@76"
   depends_on "liblcf"
   depends_on "libpng"
   depends_on "libsndfile"
@@ -44,11 +42,9 @@ class EasyrpgPlayer < Formula
   end
 
   on_linux do
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
     depends_on "alsa-lib"
   end
-
-  fails_with gcc: "5"
 
   # Add support for fmt 10
   patch do

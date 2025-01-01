@@ -23,7 +23,7 @@ class Usbredir < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "glib"
   depends_on "libusb"
 
@@ -34,16 +34,13 @@ class Usbredir < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <usbredirparser.h>
       int main() {
         return usbredirparser_create() ? 0 : 1;
       }
-    EOS
-    system ENV.cc, "test.c",
-                   "-L#{lib}",
-                   "-lusbredirparser",
-                   "-o", "test"
+    C
+    system ENV.cc, "test.c", "-L#{lib}", "-lusbredirparser", "-o", "test"
     system "./test"
   end
 end

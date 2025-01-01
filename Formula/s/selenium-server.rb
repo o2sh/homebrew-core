@@ -1,8 +1,8 @@
 class SeleniumServer < Formula
   desc "Browser automation for testing purposes"
   homepage "https://www.selenium.dev/"
-  url "https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.24.0/selenium-server-4.24.0.jar"
-  sha256 "aa3bd6e9820a359a54da0cf06836ad42a7555ee13b5235ff60228f637db9bb57"
+  url "https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.27.0/selenium-server-4.27.0.jar"
+  sha256 "5481ca09814fc0ec8c2b8ff07b8574a467f49f0c285107b1525325d535408d6a"
   license "Apache-2.0"
 
   livecheck do
@@ -11,7 +11,7 @@ class SeleniumServer < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "9750da5b54f62143f25350eee11aaafb867eace0c784fd1592b5a5ebb49e9cc7"
+    sha256 cellar: :any_skip_relocation, all: "2fe9aee9a357a5490b042d4396e41ca190b78fa34d1c9b86eb737b43a6976295"
   end
 
   depends_on "openjdk"
@@ -30,7 +30,7 @@ class SeleniumServer < Formula
 
   test do
     port = free_port
-    fork { exec "#{bin}/selenium-server standalone --selenium-manager true --port #{port}" }
+    spawn "#{bin}/selenium-server standalone --selenium-manager true --port #{port}"
 
     parsed_output = nil
 
@@ -50,7 +50,7 @@ class SeleniumServer < Formula
       break if parsed_output["value"]["ready"]
     end
 
-    assert !parsed_output.nil?
+    refute_nil parsed_output
     assert parsed_output["value"]["ready"]
     assert_match version.to_s, parsed_output["value"]["nodes"].first["version"]
   end

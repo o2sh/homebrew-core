@@ -27,20 +27,22 @@ class Chaiscript < Formula
   depends_on "cmake" => :build
 
   def install
-    system "cmake", ".", *std_cmake_args
-    system "make", "install"
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <chaiscript/chaiscript.hpp>
       #include <chaiscript/chaiscript_stdlib.hpp>
       #include <cassert>
+
       int main() {
         chaiscript::ChaiScript chai;
         assert(chai.eval<int>("123") == 123);
       }
-    EOS
+    CPP
 
     system ENV.cxx, "test.cpp", "-I#{include}", "-L#{lib}", "-ldl", "-lpthread", "-std=c++14", "-o", "test"
     system "./test"

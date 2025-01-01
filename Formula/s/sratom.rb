@@ -23,7 +23,7 @@ class Sratom < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "lv2"
   depends_on "serd"
   depends_on "sord"
@@ -35,14 +35,14 @@ class Sratom < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <sratom/sratom.h>
 
       int main()
       {
         return 0;
       }
-    EOS
+    C
 
     pkg_config_cflags = shell_output("pkg-config --cflags --libs sratom-0").chomp.split
     system ENV.cc, "test.c", *pkg_config_cflags, "-o", "test"

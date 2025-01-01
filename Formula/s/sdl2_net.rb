@@ -35,7 +35,7 @@ class Sdl2Net < Formula
     depends_on "libtool" => :build
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "sdl2"
 
   def install
@@ -43,13 +43,12 @@ class Sdl2Net < Formula
 
     system "./autogen.sh" if build.head?
 
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}", "--disable-sdltest"
+    system "./configure", "--disable-sdltest", *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <SDL2/SDL_net.h>
 
       int main()
@@ -58,7 +57,7 @@ class Sdl2Net < Formula
           SDLNet_Quit();
           return success;
       }
-    EOS
+    C
 
     system ENV.cc, "test.c", "-I#{Formula["sdl2"].opt_include}/SDL2", "-L#{lib}", "-lSDL2_net", "-o", "test"
     system "./test"

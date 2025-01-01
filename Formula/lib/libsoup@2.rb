@@ -23,10 +23,9 @@ class LibsoupAT2 < Formula
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "python@3.12" => :build
   depends_on "vala" => :build
-  depends_on "icu4c" => :test
 
   depends_on "glib"
   depends_on "glib-networking"
@@ -54,7 +53,7 @@ class LibsoupAT2 < Formula
 
   test do
     # if this test start failing, the problem might very well be in glib-networking instead of libsoup
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <libsoup/soup.h>
 
       int main(int argc, char *argv[]) {
@@ -66,12 +65,11 @@ class LibsoupAT2 < Formula
         g_object_unref(session);
         return 0;
       }
-    EOS
+    C
 
-    ENV.prepend_path "PKG_CONFIG_PATH", Formula["icu4c"].opt_lib/"pkgconfig"
     ENV.prepend_path "PKG_CONFIG_PATH", lib/"pkgconfig"
-    pkg_config_flags = shell_output("pkg-config --cflags --libs libsoup-2.4").chomp.split
-    system ENV.cc, "test.c", "-o", "test", *pkg_config_flags
+    flags = shell_output("pkgconf --cflags --libs libsoup-2.4").chomp.split
+    system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
   end
 end

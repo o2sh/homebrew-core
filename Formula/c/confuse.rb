@@ -21,17 +21,16 @@ class Confuse < Formula
     sha256               x86_64_linux:   "a5fbe815c75f10344684dab03501ecab39cec4b157e46d955f6e2c70062d120b"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   def install
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}"
+    system "./configure", *std_configure_args
     system "make", "check"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <confuse.h>
       #include <stdio.h>
 
@@ -49,7 +48,7 @@ class Confuse < Formula
         cfg_free(cfg);
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-lconfuse", "-o", "test"
     assert_match "world", shell_output("./test")
   end

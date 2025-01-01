@@ -24,19 +24,23 @@ class Crc32c < Formula
   depends_on "cmake" => :build
 
   def install
-    system "cmake", ".", "-DCRC32C_BUILD_TESTS=0",
-                          "-DCRC32C_BUILD_BENCHMARKS=0", "-DCRC32C_USE_GLOG=0",
-                         *std_cmake_args
-    system "make", "install"
-    system "make", "clean"
-    system "cmake", ".", "-DBUILD_SHARED_LIBS=ON", "-DCRC32C_BUILD_TESTS=0",
-                         "-DCRC32C_BUILD_BENCHMARKS=0", "-DCRC32C_USE_GLOG=0",
-                         *std_cmake_args
-    system "make", "install"
+    args = %w[
+      -DCRC32C_BUILD_TESTS=0
+      -DCRC32C_BUILD_BENCHMARKS=0
+      -DCRC32C_USE_GLOG=0
+    ]
+
+    system "cmake", "-S", ".", "-B", "build-static", *args, *std_cmake_args
+    system "cmake", "--build", "build-static"
+    system "cmake", "--install", "build-static"
+
+    system "cmake", "-S", ".", "-B", "build-shared", "-DBUILD_SHARED_LIBS=ON", *args, *std_cmake_args
+    system "cmake", "--build", "build-shared"
+    system "cmake", "--install", "build-shared"
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <cassert>
       #include <crc32c/crc32c.h>
       #include <cstdint>
@@ -49,7 +53,7 @@ class Crc32c < Formula
         assert(result == expected);
         return 0;
       }
-    EOS
+    CPP
 
     system ENV.cxx, "test.cpp", "-I#{include}", "-L#{lib}", "-lcrc32c", "-std=c++11", "-o", "test"
     system "./test"

@@ -20,7 +20,7 @@ class Cctz < Formula
   depends_on "cmake" => :build
 
   def install
-    args = ["-DBUILD_TESTING=OFF", "-DCMAKE_POSITION_INDEPENDENT_CODE=ON"]
+    args = ["-DCMAKE_POSITION_INDEPENDENT_CODE=ON"]
 
     system "cmake", "-S", ".", "-B", "build_shared", "-DBUILD_SHARED_LIBS=ON", *args, *std_cmake_args
     system "cmake", "--build", "build_shared"
@@ -32,7 +32,7 @@ class Cctz < Formula
   end
 
   test do
-    (testpath/"test.cc").write <<~EOS
+    (testpath/"test.cc").write <<~CPP
       #include <ctime>
       #include <iostream>
       #include <string>
@@ -56,7 +56,7 @@ class Cctz < Formula
       #endif
         std::cout << format("UTC: %Y-%m-%d %H:%M:%S\\n", tm_utc) << format("Local: %Y-%m-%d %H:%M:%S\\n", tm_local);
       }
-    EOS
+    CPP
     system ENV.cxx, "test.cc", "-I#{include}", "-L#{lib}", "-std=c++11", "-lcctz", "-o", "test"
     system testpath/"test"
   end

@@ -23,7 +23,7 @@ class Libfixbuf < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "b2c6294855ef75ae5b347c818c9caf938640f7dc128a52fca9db6ed7b079c71b"
   end
 
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
 
   depends_on "glib"
   depends_on "openssl@3"
@@ -40,7 +40,7 @@ class Libfixbuf < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <fixbuf/public.h>
       #include <stdio.h>
 
@@ -55,10 +55,10 @@ class Libfixbuf < Formula
           fbInfoModelFree(model);
           return 0;
       }
-    EOS
+    C
 
-    pkg_config_flags = shell_output("pkg-config --cflags --libs libfixbuf").chomp.split
-    system ENV.cc, "test.c", "-o", "test", *pkg_config_flags
+    flags = shell_output("pkgconf --cflags --libs libfixbuf").chomp.split
+    system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
   end
 end

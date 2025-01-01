@@ -36,17 +36,21 @@ class CargoBinutils < Formula
 
     crate = testpath/"demo-crate"
     mkdir crate do
-      (crate/"src/main.rs").write <<~EOS
+      (crate/"src/main.rs").write <<~RUST
         fn main() {
           println!("Hello BrewTestBot!");
         }
-      EOS
-      (crate/"Cargo.toml").write <<~EOS
+      RUST
+      (crate/"Cargo.toml").write <<~TOML
         [package]
         name = "demo-crate"
         version = "0.1.0"
+        edition = "2021"
         license = "MIT"
-      EOS
+
+        [profile.release]
+        debug = true
+      TOML
 
       expected = if OS.mac?
         "__TEXT\t__DATA\t__OBJC\tothers\tdec\thex"

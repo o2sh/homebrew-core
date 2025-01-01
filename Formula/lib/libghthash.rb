@@ -28,14 +28,14 @@ class Libghthash < Formula
   depends_on "libtool" => :build
 
   def install
-    system "autoreconf", "-ivf"
+    system "autoreconf", "--force", "--install", "--verbose"
     system "./configure", "--disable-dependency-tracking",
            "--prefix=#{prefix}"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <string.h>
       #include <stdio.h>
       #include <stdlib.h>
@@ -70,7 +70,7 @@ class Libghthash < Formula
 
         return result;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-lghthash", "-o", "test"
     system "./test"
   end

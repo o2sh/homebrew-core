@@ -2,30 +2,28 @@ class Openrct2 < Formula
   desc "Open source re-implementation of RollerCoaster Tycoon 2"
   homepage "https://openrct2.io/"
   url "https://github.com/OpenRCT2/OpenRCT2.git",
-      tag:      "v0.4.14",
-      revision: "18492da2296ac6355844c7e53a56e584ee637b6f"
+      tag:      "v0.4.17",
+      revision: "60dc190e1b79a0a91bc1da68184afef8041a1624"
   license "GPL-3.0-only"
   head "https://github.com/OpenRCT2/OpenRCT2.git", branch: "develop"
 
   bottle do
-    sha256 cellar: :any, arm64_sequoia:  "34204e23e3a7b69c46e24fdcd2597693e6da30fa80d5f90543559c5ca74186ee"
-    sha256 cellar: :any, arm64_sonoma:   "b41b0ba5b2eb5fd41dc9abc0591e6de7d5c6a7eae6be118da900ea72d2cd7744"
-    sha256 cellar: :any, arm64_ventura:  "8c5e2a60bae7c6d5293c7da19ef07be22ff94ecc8fabdca8396ce303b3e8d142"
-    sha256 cellar: :any, arm64_monterey: "5728bb8c4c3c6cbbebc7911ead6ade7725f3396cc3f67e8015554b492d805bc9"
-    sha256 cellar: :any, sonoma:         "7e808aa325bf51b3cae1397e50a503491a8e145b486faeab3aecec8a43e7a5ff"
-    sha256 cellar: :any, ventura:        "78aca1947ee090961b372b1a103cfa3aa4b2114a75f48d696ebe1d1e6d4c27ed"
-    sha256 cellar: :any, monterey:       "6622e420b724a76b97e7d967bfb500bed008f53649959b7f44fa03a1d44bc5bf"
-    sha256               x86_64_linux:   "5878fad625d3f7a61f0e082b20c0634dd766fac1d6b70794993d5256a1d159f8"
+    sha256 cellar: :any, arm64_sequoia: "5b8c381e51aa0bdd0f70ea2ebce0d54d86d5ceea945fafe945462b94b91d699b"
+    sha256 cellar: :any, arm64_sonoma:  "2c0e257d5e866a275a2aea13ce5f93b4648dae883b19bbb79268c19515fdf94c"
+    sha256 cellar: :any, arm64_ventura: "72b0d5eba17c08bf8188126283effae80ecc6dc57d5e5db33167b8c8201e39d2"
+    sha256 cellar: :any, sonoma:        "71d03688193c5d008b44f42341c7721a79fcf76983a2aaa38e19c499559478d9"
+    sha256 cellar: :any, ventura:       "031543abeb6b77ddadac2ec5d14dc78d4853cb894ef24017707d2c7b370d60a5"
+    sha256               x86_64_linux:  "386a22c95c3fe472adc05011ac3a32a0ab5f141f5c3f5536e7524db4232ea815"
   end
 
   depends_on "cmake" => :build
   depends_on "nlohmann-json" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "duktape"
   depends_on "flac"
   depends_on "freetype"
-  depends_on "icu4c"
+  depends_on "icu4c@76"
   depends_on "libogg"
   depends_on "libpng"
   depends_on "libvorbis"
@@ -43,16 +41,14 @@ class Openrct2 < Formula
     depends_on "mesa"
   end
 
-  fails_with gcc: "5" # C++17
-
   resource "title-sequences" do
     url "https://github.com/OpenRCT2/title-sequences/releases/download/v0.4.14/title-sequences.zip"
     sha256 "140df714e806fed411cc49763e7f16b0fcf2a487a57001d1e50fce8f9148a9f3"
   end
 
   resource "objects" do
-    url "https://github.com/OpenRCT2/objects/releases/download/v1.4.7/objects.zip"
-    sha256 "003c7d8a68a2461ac27204a361ffe6eab66e3aff262755b9830c97ce36d6fb65"
+    url "https://github.com/OpenRCT2/objects/releases/download/v1.4.11/objects.zip"
+    sha256 "fd0fed611565710f79b136958100362a8c37211467f74b85126a3a2ea35e4f78"
   end
 
   def install
@@ -75,10 +71,10 @@ class Openrct2 < Formula
 
     # By default macOS build only looks up data in app bundle Resources
     libexec.install bin/"openrct2"
-    (bin/"openrct2").write <<~EOS
+    (bin/"openrct2").write <<~BASH
       #!/bin/bash
       exec "#{libexec}/openrct2" "$@" "--openrct2-data-path=#{pkgshare}"
-    EOS
+    BASH
   end
 
   test do

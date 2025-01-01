@@ -20,13 +20,13 @@ class Yyjson < Formula
   depends_on "cmake" => :build
 
   def install
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-DBUILD_SHARED_LIBS=ON"
+    system "cmake", "-S", ".", "-B", "build", "-DBUILD_SHARED_LIBS=ON", *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <yyjson.h>
 
       int main() {
@@ -50,7 +50,7 @@ class Yyjson < Formula
 
         yyjson_doc_free(doc);
       }
-    EOS
+    C
 
     expected_output = <<~EOS
       name: John

@@ -1,40 +1,42 @@
 class Vte3 < Formula
   desc "Terminal emulator widget used by GNOME terminal"
   homepage "https://wiki.gnome.org/Apps/Terminal/VTE"
-  url "https://download.gnome.org/sources/vte/0.76/vte-0.76.4.tar.xz"
-  sha256 "9c52d1da6c6f7409289351fc1cba8948cd3b47d048cbfede763a0f75b77453cc"
+  url "https://download.gnome.org/sources/vte/0.78/vte-0.78.0.tar.xz"
+  sha256 "07f09c6228a8bb3c1599dd0f5a6ec797b30d3010c3ac91cf21b69d9635dfaf7c"
   license "LGPL-2.0-or-later"
 
   bottle do
-    sha256 arm64_sequoia:  "e9968ae162ed90b8c97aa6c8628263a4287f83475e4bb94e3d16f4345831b4b0"
-    sha256 arm64_sonoma:   "e493a594877dcc06595b725b96dd915289bdd2293f467c746a07c685aaa0e9b2"
-    sha256 arm64_ventura:  "fef9c048213f11fe2cace83bd11a7c2d239bc3c4f0acad94206e7a758135f6ea"
-    sha256 arm64_monterey: "f80b773894ca38262ec0dcb54581c3daf3e975a3d6cb8f3f079b921289a824fb"
-    sha256 sonoma:         "422a31aaa3512958bd5f6546d5480ba2e61db36f674e0b3dfb6ee5eb8cf16f27"
-    sha256 ventura:        "4bd7c053119db55c5763afb4c8210b54932a578d55eaf17143bd9b9a6ee1f2ae"
-    sha256 monterey:       "4f9d6a846c608303d5f2bb81441732bc2be1fb5f1de94c103dd9fa191dca8f14"
-    sha256 x86_64_linux:   "f465add75933021f53c62287933fea92353640ec7e5e36c5be73ed0e541aa459"
+    sha256 arm64_sequoia: "eef8c092ba17930300120ef2dfc3d80313d71c460032107034e8a385aa810993"
+    sha256 arm64_sonoma:  "735c2e01451c22e5f9852f228abb9fc8bf9f428ac26c1271798da1eb974c1ec8"
+    sha256 arm64_ventura: "14458e231ae63d8419e5df350edb561646f5ffdffa7cf66d58086577a2be85d3"
+    sha256 sonoma:        "2016d3be03232ffec5e8ac2eb8a842e9384c2a35e029f734aa6b338cf3c322fc"
+    sha256 ventura:       "b4ffbc7244f0109309ad2be6f0bfb52484927ea51d54ae780b06d8d7eefc4e35"
+    sha256 x86_64_linux:  "368fb07431244bf6312f01e73999f9d39792631cef5b7fca59a3b63f3b065515"
   end
 
   depends_on "gettext" => :build
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "vala" => :build
+
   depends_on "at-spi2-core"
   depends_on "cairo"
   depends_on "fribidi"
   depends_on "gdk-pixbuf"
   depends_on "glib"
   depends_on "gnutls"
+  depends_on "graphene"
   depends_on "gtk+3"
   depends_on "gtk4"
-  depends_on "icu4c"
+  depends_on "icu4c@76"
   depends_on "lz4"
   depends_on macos: :mojave
   depends_on "pango"
   depends_on "pcre2"
+
+  uses_from_macos "python" => :build
 
   on_macos do
     depends_on "llvm" => :build if DevelopmentTools.clang_build_version <= 1500
@@ -42,6 +44,22 @@ class Vte3 < Formula
     # Undefined symbols for architecture x86_64:
     #   "std::__1::__libcpp_verbose_abort(char const*, ...)", referenced from: ...
     depends_on "llvm" if DevelopmentTools.clang_build_version <= 1400
+
+    # Use fast_float implementation for from_chars
+    # upstream bug report, https://gitlab.gnome.org/GNOME/vte/-/issues/2823
+    # TODO: Investigate using the `fast_float` formula instead of the one bundled here.
+    patch do
+      url "https://gitlab.gnome.org/kraj/vte/-/commit/c90b078ecf4382458a9af44d765d710eb46b0453.diff"
+      sha256 "fd8fd85339df1aa5ffb2617d6e67d26e26abb9caeb06ef7766b13341231c2c79"
+    end
+    patch do
+      url "https://gitlab.gnome.org/kraj/vte/-/commit/2a32e43e43b04771a3357d3d4ccbafa7714e0114.diff"
+      sha256 "f69f103b19de93f94fca05dea5a151b4109085ce716472acddb9a112502437d4"
+    end
+    patch do
+      url "https://gitlab.gnome.org/kraj/vte/-/commit/705e019713539bdaf2c50763ba585484c6253a59.diff"
+      sha256 "d09c512852a65a81f56b07c013ee0cc0c17b9dcbf63d9fcc2ac58173092bb80b"
+    end
   end
 
   on_linux do
@@ -60,14 +78,25 @@ class Vte3 < Formula
   end
 
   # submitted upstream as https://gitlab.gnome.org/tschoonj/vte/merge_requests/1
+  # color-test upstream fix commit, https://gitlab.gnome.org/GNOME/vte/-/commit/c8838779d5f8c0e03411cef9775cd8f5a10a6204
+  # meson build fix, upstream bug report, https://gitlab.gnome.org/GNOME/vte/-/issues/2827
   patch :DATA
 
   def install
     if OS.mac? && DevelopmentTools.clang_build_version <= 1500
+      llvm = Formula["llvm"]
       ENV.llvm_clang
       if DevelopmentTools.clang_build_version <= 1400
-        ENV.prepend "LDFLAGS", "-L#{Formula["llvm"].opt_lib}/c++ -L#{Formula["llvm"].opt_lib} -lunwind"
+        ENV.prepend "LDFLAGS", "-L#{llvm.opt_lib}/c++ -L#{llvm.opt_lib} -lunwind"
+      else
+        # Avoid linkage to LLVM libunwind. Should have been handled by superenv but still occurs
+        ENV.remove "HOMEBREW_LIBRARY_PATHS", llvm.opt_lib
       end
+    end
+
+    if ENV.compiler == :clang
+      ENV.append "CXXFLAGS", "-stdlib=libc++"
+      ENV.append "LDFLAGS", "-stdlib=libc++"
     end
 
     ENV["XML_CATALOG_FILES"] = etc/"xml/catalog"
@@ -86,14 +115,14 @@ class Vte3 < Formula
   test do
     ENV.clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1500)
 
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <vte/vte.h>
 
       int main(int argc, char *argv[]) {
         guint v = vte_get_major_version();
         return 0;
       }
-    EOS
+    C
     flags = shell_output("pkg-config --cflags --libs vte-2.91").chomp.split
     system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
@@ -130,3 +159,36 @@ index 79d4a702..0495dea8 100644
      include_directories: incs,
      dependencies: libvte_gtk3_deps,
      cpp_args: libvte_gtk3_cppflags,
+diff --git a/src/color-test.cc b/src/color-test.cc
+index 0ed9089..1bfad31 100644
+--- a/src/color-test.cc
++++ b/src/color-test.cc
+@@ -165,7 +165,7 @@ static void
+ test_color_to_string (void)
+ {
+         auto test = [](std::string str,
+-                       bool alpha = false) constexpr noexcept -> void
++                       bool alpha = false) noexcept -> void
+         {
+                 auto const value = parse<rgba>(str);
+                 assert(value);
+diff --git a/src/meson.build b/src/meson.build
+index 228ecf0..fba5958 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -73,6 +73,7 @@ minifont_coverage_sources = custom_target(
+   ),
+   capture: false,
+   command: [
++    python,
+     files('minifont-coverage.py'),
+     '--output', '@OUTPUT@',
+     '@INPUT@',
+@@ -596,6 +597,7 @@ test_minifont_sources += custom_target(
+   ),
+   capture: false,
+   command: [
++    python,
+     files('minifont-coverage.py'),
+     '--output', '@OUTPUT@',
+     '--tests',

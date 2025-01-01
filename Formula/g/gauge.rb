@@ -1,20 +1,18 @@
 class Gauge < Formula
   desc "Test automation tool that supports executable documentation"
   homepage "https://gauge.org"
-  url "https://github.com/getgauge/gauge/archive/refs/tags/v1.6.8.tar.gz"
-  sha256 "9cb2bce70a8170bef691e5f37571720aa402c896995d382fa5684eb91bb55591"
+  url "https://github.com/getgauge/gauge/archive/refs/tags/v1.6.11.tar.gz"
+  sha256 "166ce88cac762c177c5ad25a6fcb442eea8558291792f4777101749f96b04baf"
   license "Apache-2.0"
   head "https://github.com/getgauge/gauge.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "2be0f6e98481d39c686c4c495014ca431fa323ddfa2a3ac06c99164ce2204dc7"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a31c62d74966ffb1770b18dd4c7f9a3f0147ebfb0a8ec6ef5aadf632880fb5bb"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5550ee37d4bdd8d357e22128c9fce747354dda001871ede450db29cce52b68a7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "048063ae2da128eae5799e4878f45f46be9b2bb486b33aa80af8c0b82f4491d5"
-    sha256 cellar: :any_skip_relocation, sonoma:         "cc7993b47d73249c86a68e12cbdef83c181518af74a8173993c1cb318da0cd94"
-    sha256 cellar: :any_skip_relocation, ventura:        "3294fabd7b1e1ffdd724e79a40a6ba23ace32f13e44d2e9258c4b045f8baf89b"
-    sha256 cellar: :any_skip_relocation, monterey:       "103af5651bb7cb965a92a4fd25148a5c7bda5ec8621906fe5b8c3587627c6637"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ff2eb22978a70c3500d396c56960724e63d6d5f607dcc41ac1b84c2da1290586"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "162ec5d81cb2c17c07eb55f5d4d8736e60be895b29459bdccc1992359d6a23e7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d2a06174722cea1040d41d1068b763e136e33ef394aff67faa2d546fa2ea6900"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "e8e13c938498808fe562cc4574849fd345a57ae852508332daa1c98cff3dbfba"
+    sha256 cellar: :any_skip_relocation, sonoma:        "55daaabd8fd13ed472fa0afbf7e9f0c0b2e82e2153bee63a426e53e8869135b9"
+    sha256 cellar: :any_skip_relocation, ventura:       "b43eed6b2ccbe0f6e3720ff037bdaebfa195bef9b46860eb25b33b2b1475fa4d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "01206600022f34f40c88675be310e9662b5a801da43ed166981f5b392b9f4104"
   end
 
   depends_on "go" => :build
@@ -25,13 +23,13 @@ class Gauge < Formula
   end
 
   test do
-    (testpath/"manifest.json").write <<~EOS
+    (testpath/"manifest.json").write <<~JSON
       {
         "Plugins": [
           "html-report"
         ]
       }
-    EOS
+    JSON
 
     system(bin/"gauge", "install")
     assert_predicate testpath/".gauge/plugins", :exist?

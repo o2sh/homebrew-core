@@ -1,8 +1,8 @@
 class Yorkie < Formula
   desc "Document store for collaborative applications"
   homepage "https://yorkie.dev/"
-  url "https://github.com/yorkie-team/yorkie/archive/refs/tags/v0.5.0.tar.gz"
-  sha256 "c442f4cae0e179d25772cda77960943eff3acf458d65cd03df430a7d34720d6e"
+  url "https://github.com/yorkie-team/yorkie/archive/refs/tags/v0.5.8.tar.gz"
+  sha256 "a9e2442c24f1ac388f3e0fea594c7ca5146716b9a8d97c57df755be4a650f50b"
   license "Apache-2.0"
   head "https://github.com/yorkie-team/yorkie.git", branch: "main"
 
@@ -12,14 +12,12 @@ class Yorkie < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "ab9bb5c5a647b026dd790808cee4d8b52c889f922d8e0dae638fcbd3cdca32c5"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "27c1a2df71f3b6ff1a3603a3016c1aafbf73ff42e876113a171b19d993639b60"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "27c1a2df71f3b6ff1a3603a3016c1aafbf73ff42e876113a171b19d993639b60"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "27c1a2df71f3b6ff1a3603a3016c1aafbf73ff42e876113a171b19d993639b60"
-    sha256 cellar: :any_skip_relocation, sonoma:         "56ef53bda6cc9e6078b88c53b0faafa46c268716d61a082f31f873e14d0251a3"
-    sha256 cellar: :any_skip_relocation, ventura:        "56ef53bda6cc9e6078b88c53b0faafa46c268716d61a082f31f873e14d0251a3"
-    sha256 cellar: :any_skip_relocation, monterey:       "56ef53bda6cc9e6078b88c53b0faafa46c268716d61a082f31f873e14d0251a3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0c1ef0324e1132017576e230f2770b337102dae9522ce90d94793849b0ef1cab"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "618ed6016260b30b3041fe520128f161a37f7ec2ca62536d80e4e9d66ff90695"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "618ed6016260b30b3041fe520128f161a37f7ec2ca62536d80e4e9d66ff90695"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "618ed6016260b30b3041fe520128f161a37f7ec2ca62536d80e4e9d66ff90695"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e8401ef64aa584df42ba04dbe72afc037be84a5bdbb681982096c0d5913b8ca4"
+    sha256 cellar: :any_skip_relocation, ventura:       "e8401ef64aa584df42ba04dbe72afc037be84a5bdbb681982096c0d5913b8ca4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "03578845ee786860938a0e725e117f2134f6a7333cab958c1a86f92de0449710"
   end
 
   depends_on "go" => :build
@@ -44,9 +42,7 @@ class Yorkie < Formula
   end
 
   test do
-    yorkie_pid = fork do
-      exec bin/"yorkie", "server"
-    end
+    yorkie_pid = spawn bin/"yorkie", "server"
     # sleep to let yorkie get ready
     sleep 3
     system bin/"yorkie", "login", "-u", "admin", "-p", "admin", "--insecure"

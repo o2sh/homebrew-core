@@ -14,12 +14,13 @@ class Cereal < Formula
   depends_on "cmake" => :build
 
   def install
-    system "cmake", ".", "-DJUST_INSTALL_CEREAL=ON", *std_cmake_args
-    system "make", "install"
+    system "cmake", "-S", ".", "-B", "build", "-DJUST_INSTALL_CEREAL=ON", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <cereal/types/unordered_map.hpp>
       #include <cereal/types/memory.hpp>
       #include <cereal/archives/binary.hpp>
@@ -67,7 +68,7 @@ class Cereal < Formula
 
         return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "test.cpp", "-std=c++11", "-I#{include}", "-o", "test"
     system "./test"
     assert_predicate testpath/"out.cereal", :exist?

@@ -6,24 +6,23 @@ class Pipx < Formula
   url "https://files.pythonhosted.org/packages/17/21/dd6b9a9c4f0cb659ce3dad991f0e8dde852b2c81922224ef77df4222ab7a/pipx-1.7.1.tar.gz"
   sha256 "762de134e16a462be92645166d225ecef446afaef534917f5f70008d63584360"
   license "MIT"
+  revision 1
   head "https://github.com/pypa/pipx.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "eb9543f8890a6a9bfc7e6a6c04b7224d4197462792c2c7b9fde167ba388453b1"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "35878f2b4360c9cb25d27d2eb81a8a954bf6b80aafe4b8d9b8a163682f38b59e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "35878f2b4360c9cb25d27d2eb81a8a954bf6b80aafe4b8d9b8a163682f38b59e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "35878f2b4360c9cb25d27d2eb81a8a954bf6b80aafe4b8d9b8a163682f38b59e"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c33bf8044831c9db99aa7ebff0efe88f20274736af0f890d669a0d0c5693a1e9"
-    sha256 cellar: :any_skip_relocation, ventura:        "c33bf8044831c9db99aa7ebff0efe88f20274736af0f890d669a0d0c5693a1e9"
-    sha256 cellar: :any_skip_relocation, monterey:       "c33bf8044831c9db99aa7ebff0efe88f20274736af0f890d669a0d0c5693a1e9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2d6ef23a8c681bc0139299af75742d125411faf69d9ddaf57bfa15c935c27e58"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ca676ccaaf770e835c5a9ae2d3a648ef4539893c02aa8a70875bfd3e338b8484"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ca676ccaaf770e835c5a9ae2d3a648ef4539893c02aa8a70875bfd3e338b8484"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "ca676ccaaf770e835c5a9ae2d3a648ef4539893c02aa8a70875bfd3e338b8484"
+    sha256 cellar: :any_skip_relocation, sonoma:        "69ef5656f96b42ca04100279ec7319a7c82217550028e245ccf5f05638986799"
+    sha256 cellar: :any_skip_relocation, ventura:       "69ef5656f96b42ca04100279ec7319a7c82217550028e245ccf5f05638986799"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "621bb41e77afe49a6f4b2042485659267c80617331e8a1728ee1f31ff02c0c10"
   end
 
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   resource "argcomplete" do
-    url "https://files.pythonhosted.org/packages/75/33/a3d23a2e9ac78f9eaf1fce7490fee430d43ca7d42c65adabbb36a2b28ff6/argcomplete-3.5.0.tar.gz"
-    sha256 "4349400469dccfb7950bb60334a680c58d88699bff6159df61251878dc6bf74b"
+    url "https://files.pythonhosted.org/packages/7f/03/581b1c29d88fffaa08abbced2e628c34dd92d32f1adaed7e42fc416938b0/argcomplete-3.5.2.tar.gz"
+    sha256 "23146ed7ac4403b70bd6026402468942ceba34a6732255b9edf5b7354f68a6bb"
   end
 
   resource "click" do
@@ -37,8 +36,8 @@ class Pipx < Formula
   end
 
   resource "platformdirs" do
-    url "https://files.pythonhosted.org/packages/f5/52/0763d1d976d5c262df53ddda8d8d4719eedf9594d046f117c25a27261a19/platformdirs-4.2.2.tar.gz"
-    sha256 "38b7b51f512eed9e84a22788b4bce1de17c0adb134d6becb09836e37d8654cd3"
+    url "https://files.pythonhosted.org/packages/13/fc/128cc9cb8f03208bdbf93d3aa862e16d376844a14f9a0ce5cf4507372de4/platformdirs-4.3.6.tar.gz"
+    sha256 "357fb2acbc885b0419afd3ce3ed34564c13c9b95c89360cd9563f73aa5e2b907"
   end
 
   resource "userpath" do

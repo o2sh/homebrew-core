@@ -20,7 +20,7 @@ class Hidapi < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   on_linux do
     depends_on "libusb"
@@ -37,13 +37,13 @@ class Hidapi < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include "hidapi.h"
       int main(void)
       {
         return hid_exit();
       }
-    EOS
+    C
 
     flags = ["-I#{include}/hidapi", "-L#{lib}"]
     flags << if OS.mac?

@@ -18,7 +18,7 @@ class Libid3tag < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :test
+  depends_on "pkgconf" => :test
 
   uses_from_macos "gperf"
   uses_from_macos "zlib"
@@ -30,7 +30,7 @@ class Libid3tag < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <id3tag.h>
 
       int main(int n, char** c) {
@@ -41,10 +41,10 @@ class Libid3tag < Formula
 
         return 0;
       }
-    EOS
+    C
 
-    pkg_config_cflags = shell_output("pkg-config --cflags --libs id3tag").chomp.split
-    system ENV.cc, "test.c", *pkg_config_cflags, "-o", "test"
+    flags = shell_output("pkgconf --cflags --libs id3tag").chomp.split
+    system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
   end
 end

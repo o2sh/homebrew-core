@@ -2,31 +2,45 @@ class Inlyne < Formula
   desc "GPU powered yet browserless tool to help you quickly view markdown files"
   homepage "https://github.com/Inlyne-Project/inlyne"
   url "https://github.com/Inlyne-Project/inlyne/archive/refs/tags/v0.4.3.tar.gz"
-  sha256 "5ef5b54f572d93e96fc9bb0621c698098d4c6747d1ccdda4bd95af4f0b988b80"
+  sha256 "60f111e67d8e0b2bbb014900d4bc84ce6d2823c8daaba2d7eda0d403b01d7d1b"
   license "MIT"
   head "https://github.com/Inlyne-Project/inlyne.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "7056568b68182c6c19157e720aebba6b36b087d2ec4d2b877dc35137889f1717"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "795b49b70f6791d35eacf4f8cc5d7ce33fbf6e29de86cc09c331b9919b3f7c6d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4a1bd6b797573bcb83ce72dfe79e6310404910b593c63be8d7bbf90268bc685c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4ff421f43c095b86b55de237be33d739ca2509420dad914daff591147ac3d849"
-    sha256 cellar: :any_skip_relocation, sonoma:         "cfa5319173f6ee8ec5d80acd001f8ae1b764db1b3b6096d4a7cde527070b2696"
-    sha256 cellar: :any_skip_relocation, ventura:        "97cbbe8e9fea277396d4ad34e9ef1faa527ec89b284bf87495f9cb8208c0565b"
-    sha256 cellar: :any_skip_relocation, monterey:       "0c148c1c99fa14a56d0e4c8ebddd0e21000dca044577aa21633923aae552b36a"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "838ef3d45e6949f7a57bfd46aec5183010b77f197d6b1512e25f449cf9f6cd00"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "cdec9ff919ff61a2915e6e82d19c6e9e74b40b2b052b826855fcd5362adc9b79"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "68fbf10b131d5b4a03c3dac634cab8201920c409586b37f18478aecbde5bd561"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5b2b521422c8576337f04820780d2b07aabcf89afb0c6a03da7c9dfdf4efb9aa"
+    sha256 cellar: :any_skip_relocation, ventura:       "6007d217d4843db5e2e32ee15f00e0b76c31b9b5f788bec283d47f9e0020e48b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "756fd700b1045273f04784edcce040a85e14a12cd01a0033d4dcbc119f660bdf"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
-  depends_on :macos # currently linux build failed to start, upstream report, https://github.com/Inlyne-Project/inlyne/issues/263
 
   uses_from_macos "expect" => :test
 
+  on_linux do
+    depends_on "libxkbcommon"
+    depends_on "wayland"
+  end
+
   def install
     system "cargo", "install", *std_cargo_args
+
+    bash_completion.install "completions/inlyne.bash" => "inlyne"
+    fish_completion.install "completions/inlyne.fish"
+    zsh_completion.install "completions/_inlyne"
   end
 
   test do
+    assert_match version.to_s, shell_output("#{bin}/inlyne --version")
+
+    # Fails in Linux CI with
+    # "Failed to initialize any backend! Wayland status: XdgRuntimeDirNotSet X11 status: XOpenDisplayFailed"
+    return if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]
+
     test_markdown = testpath/"test.md"
     test_markdown.write <<~EOS
       _lorem_ **ipsum** dolor **sit** _amet_
@@ -45,7 +59,5 @@ class Inlyne < Formula
     EOS
 
     system "expect", "-f", "test.exp"
-
-    assert_match version.to_s, shell_output("#{bin}/inlyne --version")
   end
 end

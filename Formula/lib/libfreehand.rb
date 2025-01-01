@@ -28,11 +28,13 @@ class Libfreehand < Formula
   end
 
   depends_on "boost" => :build
-  depends_on "pkg-config" => :build
+  depends_on "icu4c@76" => :build
+  depends_on "pkgconf" => :build
   depends_on "librevenge"
   depends_on "little-cms2"
 
   uses_from_macos "gperf" => :build
+  uses_from_macos "zlib"
 
   # remove with version >=0.1.3
   patch do
@@ -42,21 +44,20 @@ class Libfreehand < Formula
 
   def install
     system "./configure", "--without-docs",
-                          "--disable-dependency-tracking",
-                          "--enable-static=no",
+                          "--disable-static",
                           "--disable-werror",
                           "--disable-tests",
-                          "--prefix=#{prefix}"
+                          *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <libfreehand/libfreehand.h>
       int main() {
         libfreehand::FreeHandDocument::isSupported(0);
       }
-    EOS
+    CPP
     system ENV.cxx, "test.cpp", "-o", "test",
                     "-I#{Formula["librevenge"].include}/librevenge-0.0",
                     "-I#{include}/libfreehand-0.1",

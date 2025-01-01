@@ -2,8 +2,8 @@ class Ipfs < Formula
   desc "Peer-to-peer hypermedia protocol"
   homepage "https://ipfs.tech/"
   url "https://github.com/ipfs/kubo.git",
-      tag:      "v0.30.0",
-      revision: "846c5ccf679eeda58e626969bee8e80685be4812"
+      tag:      "v0.32.1",
+      revision: "901745353f3b14b3dbf295a6d3f5f98a5a2ce38f"
   license all_of: [
     "MIT",
     any_of: ["MIT", "Apache-2.0"],
@@ -12,18 +12,16 @@ class Ipfs < Formula
 
   livecheck do
     url :stable
-    regex(/^v?(\d+(?:\.\d+)+)$/i)
+    strategy :github_latest
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "4400a28ccefea4d9bc9c92f63c75e810ca5233c9b910a4963a9e53f31776b3af"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2c8d45cd077882344b77aa2858fb5743a2c2c18c4d697fb2d1823ae8fcf28fe3"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "322f4e39316f5e5eaab0134ce20b3be6f72ff744a0eb0cecec3075bc2a46ae24"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ee0cb84873aece0c63c0581e550770ab9931c2be47b08b55b2f521a30e1130fe"
-    sha256 cellar: :any_skip_relocation, sonoma:         "28711e75ca77b12c08401e1fae54e0b722aaee029487ba7b51847df118e01806"
-    sha256 cellar: :any_skip_relocation, ventura:        "ba9395ee76fd9a74bd44622dde927c31fa97f02327fc6e4e11c8a430318fd6a1"
-    sha256 cellar: :any_skip_relocation, monterey:       "65306b6908cf229766fcdfb88aa727d9799a48a7edb20de3f66e453e8a257c7d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0a0f56ac016450be431b6231679cc6ae1a900526c6d19b8b13a1337a77889ec7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "59616a47887d20d48e2b349b402a5df78d61e9401478a55f2422e4c60cb73667"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "28055da0f805aef41fa41de454be1a6cd54d0b9f53e9e166fb9719e898792f0c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "bbf41acc432ce512fdf264f3cb126520929fe8ed4bbd5c22ee262dda7551a64e"
+    sha256 cellar: :any_skip_relocation, sonoma:        "c557aa0ed4ad4e372fb9c3b99046e0758c0f4ce9093cccef595d182ccbca1846"
+    sha256 cellar: :any_skip_relocation, ventura:       "b92abcb9223dfabd68ffbecf0501e6e8703d07217811f0a59f2caf6041cda26f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fcdd084e1ac3f4f11cbecb0d261da25fb1ac66844771f510be70151173a21dba"
   end
 
   depends_on "go" => :build

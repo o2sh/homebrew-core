@@ -17,7 +17,7 @@ class Libxaw < Formula
     sha256 x86_64_linux:   "b848eb55c4b41ebc2923e5f0dd8a3fcd0fcf7ec6700347f6469ff88b958857da"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libx11"
   depends_on "libxext"
   depends_on "libxmu"
@@ -46,14 +46,14 @@ class Libxaw < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include "X11/Xaw/Text.h"
 
       int main(int argc, char* argv[]) {
         XawTextScrollMode mode;
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c"
     assert_equal 0, $CHILD_STATUS.exitstatus
   end

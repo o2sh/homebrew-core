@@ -18,7 +18,7 @@ class CargoDeps < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "205f88a20c0bf8fdabc555ecd1ec72a6103f65dcaaf5dc8c23f687e6d78249d3"
   end
 
-  deprecate! date: "2024-01-19", because: :repo_removed
+  disable! date: "2025-01-19", because: :repo_removed
 
   depends_on "rust" => :build
   depends_on "rustup" => :test
@@ -36,17 +36,17 @@ class CargoDeps < Formula
 
     crate = testpath/"demo-crate"
     mkdir crate do
-      (crate/"src/main.rs").write <<~EOS
+      (crate/"src/main.rs").write <<~RUST
         fn main() {
           println!("Hello BrewTestBot!");
         }
-      EOS
-      (crate/"Cargo.toml").write <<~EOS
+      RUST
+      (crate/"Cargo.toml").write <<~TOML
         [package]
         name = "demo-crate"
         version = "0.1.0"
         license = "MIT"
-      EOS
+      TOML
 
       system "cargo", "generate-lockfile"
 

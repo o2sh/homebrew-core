@@ -1,9 +1,9 @@
 class Wireshark < Formula
   desc "Network analyzer and capture tool - without graphical user interface"
   homepage "https://www.wireshark.org"
-  url "https://www.wireshark.org/download/src/all-versions/wireshark-4.4.0.tar.xz"
-  mirror "https://1.eu.dl.wireshark.org/src/all-versions/wireshark-4.4.0.tar.xz"
-  sha256 "ead5cdcc08529a2e7ce291e01defc3b0f8831ba24c938db0762b1ebc59c71269"
+  url "https://www.wireshark.org/download/src/all-versions/wireshark-4.4.2.tar.xz"
+  mirror "https://1.eu.dl.wireshark.org/src/all-versions/wireshark-4.4.2.tar.xz"
+  sha256 "6053d97499c83feb87ce1d7f732d9c889c6c18bb334de67e65dca11483b0514e"
   license "GPL-2.0-or-later"
   head "https://gitlab.com/wireshark/wireshark.git", branch: "master"
 
@@ -15,14 +15,12 @@ class Wireshark < Formula
   end
 
   bottle do
-    sha256                               arm64_sequoia:  "76bfc1b990e65ce54f87d77059c4ce987d8b020511c80695b9756e2766a500af"
-    sha256                               arm64_sonoma:   "eb2fbcad494c5c771d81b0ed2c97457f9040edab06e255ba9f66bbe4eaa13aae"
-    sha256                               arm64_ventura:  "b7af5a5a1e7be6d024b458ef3eafe08bfc87435142a617daa8cd6557d1a77da8"
-    sha256                               arm64_monterey: "3d893b3ae03ef775f22e14bbaa97818468c83e0f3a526a609d87c54014a8889c"
-    sha256                               sonoma:         "c22b3cc90875322b3111df470e71dc0af3fa694669ceeca18bfe31dda1225eca"
-    sha256                               ventura:        "6f6fb024037e2e1d8d897d515f7d2dc7a011de15e32bfb3b0829668bf1b4ec1d"
-    sha256                               monterey:       "390b319c86383cbe63fa7f4d9bf0de38fd20226b7c1c8e30024234feb632939f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "35daa653db2da3a34359deac318ace5087e0b2a9b5aaea0d675fffd6b8744156"
+    sha256                               arm64_sequoia: "79de8ed9e17b4d00454cbdf810c508554790d3b982023d10605e9c4b7a3eb7f4"
+    sha256                               arm64_sonoma:  "db49f80c1e3d4d11ead6d179b28f77b535ebaddab35b5e3df6c19ac4785b2641"
+    sha256                               arm64_ventura: "395d25ffe9937c1cca3dea407255b16e1a1c09177adb2308eddebb3939dc1b71"
+    sha256                               sonoma:        "62ef0848fd5c795557b080f6242f7337ade2ff04a4fb6739afbcfb0c35e9e3f8"
+    sha256                               ventura:       "14f6063b51286d5b4629db52115bd42957c2d5927aa606a152d27c6de8eaf8c3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2c220cdded37de23e80a4002ece2cdcdcbc2fe411c705f656441fa48f8093dfd"
   end
 
   depends_on "cmake" => :build
@@ -85,7 +83,7 @@ class Wireshark < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <stdio.h>
       #include <ws_version.h>
 
@@ -94,7 +92,7 @@ class Wireshark < Formula
                WIRESHARK_VERSION_MICRO);
         return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++11", "test.cpp", "-I#{include}/wireshark", "-o", "test"
     output = shell_output("./test")
     assert_equal version.to_s, output

@@ -20,16 +20,16 @@ class Ancient < Formula
   depends_on "autoconf-archive" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   def install
     system "./autogen.sh"
-    system "./configure", *std_configure_args, "--disable-silent-rules"
+    system "./configure", "--disable-silent-rules", *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <ancient/ancient.hpp>
 
       int main(int argc, char **argv)
@@ -37,7 +37,7 @@ class Ancient < Formula
         std::optional<ancient::Decompressor> decompressor;
         return 0;
       }
-    EOS
+    CPP
 
     system ENV.cxx, "-std=c++17", "test.cpp", "-I#{include}", "-L#{lib}", "-lancient", "-o", "test"
     system "./test"

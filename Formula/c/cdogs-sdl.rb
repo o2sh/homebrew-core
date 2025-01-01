@@ -1,8 +1,8 @@
 class CdogsSdl < Formula
   desc "Classic overhead run-and-gun game"
   homepage "https://cxong.github.io/cdogs-sdl/"
-  url "https://github.com/cxong/cdogs-sdl/archive/refs/tags/2.1.0.tar.gz"
-  sha256 "ea24c15cf3372f7d2fd4275cea4f1fd658a2bd5f79f7e6d0c8e3f98991c60dc2"
+  url "https://github.com/cxong/cdogs-sdl/archive/refs/tags/2.2.0.tar.gz"
+  sha256 "2730e331a60aadd584fe026d0167d9395947065da50b485fd32acd4788457f0b"
   license "GPL-2.0-or-later"
   head "https://github.com/cxong/cdogs-sdl.git", branch: "master"
 
@@ -12,20 +12,19 @@ class CdogsSdl < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "daa0db61a75be661da8b47c0b894c7bc4ef0e362d28fed6dc31c60e7062634d0"
-    sha256 arm64_sonoma:   "424f873fb1a12d1fce9e007ffecd9645ad8fad1ab19609867ea764725f77677a"
-    sha256 arm64_ventura:  "c2478e77690ac1567728f8335d25c6c331605ded14c2442c5d9d65873d02cae9"
-    sha256 arm64_monterey: "06ae6bd346cc553fcb28f25820169b526662bb7ff3df7d5a73b311e0022655db"
-    sha256 sonoma:         "a901cac35e0506a8c7d6462e77c0321a804174f42cbcc5d9e326fb2e76e91301"
-    sha256 ventura:        "3e85d05df5d451c8f6d56bdb5aa3e43c2e26294007f8210ca4be68eb44a925b9"
-    sha256 monterey:       "0475a20d674cc4ba17cfcdf4a2b940acbaf843fdecdec18c0420504572baaac8"
-    sha256 x86_64_linux:   "01a97639b8274ece35b78b9ca91d2bf193be332af2196e3618e0d0842df1bcd2"
+    rebuild 1
+    sha256 arm64_sequoia: "7819cab36b9f47e2a90b818e7eb475227a4dfc981bb5982055b419f36e1ecd3a"
+    sha256 arm64_sonoma:  "ba340b0ffcf6de32eb25337153ac721cff45f260966024b7639c46812c1baa77"
+    sha256 arm64_ventura: "893511a99c440fe030099e907e5d699760cfc2ed0c7d9cbfea2f1af934007633"
+    sha256 sonoma:        "0e27435d8868c821eb5c3049a81ae08a63aef19c1ad88ed8af4ebf526cac0280"
+    sha256 ventura:       "7b69e399d4c11141e90dab084be90c9baafbed74dceafce9ac60f1609267a6e1"
+    sha256 x86_64_linux:  "894fc28e3abe311c9097a7c13fe4b70fd156d23e43ad977ec12ac7dc6f28c479"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "protobuf" => :build
-  depends_on "python@3.12"
+  depends_on "python@3.13"
   depends_on "sdl2"
   depends_on "sdl2_image"
   depends_on "sdl2_mixer"
@@ -37,22 +36,22 @@ class CdogsSdl < Formula
   end
 
   def install
-    args = std_cmake_args
-    args << "-DCDOGS_DATA_DIR=#{pkgshare}/"
-    system "cmake", ".", *args
-    system "make"
-    bin.install %w[src/cdogs-sdl src/cdogs-sdl-editor]
+    system "cmake", "-S", ".", "-B", "build", "-DCDOGS_DATA_DIR=#{pkgshare}/", *std_cmake_args
+    system "cmake", "--build", "build"
+
+    bin.install %w[build/src/cdogs-sdl build/src/cdogs-sdl-editor]
     pkgshare.install %w[data dogfights graphics missions music sounds]
     doc.install Dir["doc/*"]
   end
 
   test do
-    pid = fork do
-      exec bin/"cdogs-sdl"
-    end
-    sleep 7
-    assert_predicate testpath/".config/cdogs-sdl",
-                     :exist?, "User config directory should exist"
+    pid = spawn bin/"cdogs-sdl"
+
+    max_sleep_time = 90
+    time_slept = 0
+    time_slept += sleep(5) while !(testpath/".config/cdogs-sdl").exist? && time_slept < max_sleep_time
+
+    assert_path_exists testpath/".config/cdogs-sdl"
   ensure
     Process.kill("TERM", pid)
   end

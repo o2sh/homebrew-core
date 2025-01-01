@@ -1,27 +1,23 @@
 class Auditbeat < Formula
   desc "Lightweight Shipper for Audit Data"
-  homepage "https://www.elastic.co/products/beats/auditbeat"
+  homepage "https://www.elastic.co/beats/auditbeat"
   url "https://github.com/elastic/beats.git",
-      tag:      "v8.15.1",
-      revision: "88cc526a2d3e52dcbfa52c9dd25eb09ed95470e4"
+      tag:      "v8.17.0",
+      revision: "092f0eae4d0d343cc3a142f671c2a0428df67840"
   license "Apache-2.0"
   head "https://github.com/elastic/beats.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "825661df57e3e38be6d12dfd976f747c328826d82269af2a59e63f5ff05b8d7c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a343aa281e5232d9cae13ad2f0ad81a670b75ca09dad8f47d4712a14ee8c712c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f6d162c9df83112a06126a76714d32374df20db70929e0448dc44c30469380b4"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ef9e7125f699169a726917adeb44ba8df0326c7fc49465c81557d86200caf3d1"
-    sha256 cellar: :any_skip_relocation, sonoma:         "0c930434b7cafeee5d6e62911787548215daf8b860b4a9eb6c81bb1fabfa3e20"
-    sha256 cellar: :any_skip_relocation, ventura:        "9ac22f43258b3f1f77ec83b92331a687670b2248a942b7d136d709ef52f4934c"
-    sha256 cellar: :any_skip_relocation, monterey:       "07f76647512f57c4b23124dfc2178b3d89d446716a24bb685a639f0c152c10f4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "21283d120a1efad996dcf66430b7d311f1ea4981cc29046eaa1c0a0ec787f853"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "629e80dc0ecdab2029aa924feda7dafd9e7962980851f7a98c8e358ce0dca89a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "da9999e1844efd8399bdb6b04fa431dcb3f67a0027adbc7b37a34eb20e9f5973"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "2693ffb263f4a65ff3e2c52c694bdefad4fcd01c1bc9d6b49c642a5c01ed6893"
+    sha256 cellar: :any_skip_relocation, sonoma:        "42387fe099ef0b6dd232aad224487ebd74f70418db89149c763cc41953e39510"
+    sha256 cellar: :any_skip_relocation, ventura:       "1a3e0916daa45a5839bcbab0b91f6687894b4dd6ee858c091cbacaafe15fa402"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0406a989ea15c8fd446eb1c8419cca5d712866dae4374cd57f337dd337643d85"
   end
 
   depends_on "go" => :build
   depends_on "mage" => :build
-
-  uses_from_macos "python" => :build
 
   def install
     # remove non open source files
@@ -33,17 +29,15 @@ class Auditbeat < Formula
       inreplace "magefile.go", "devtools.GenerateModuleIncludeListGo, Docs)",
                                "devtools.GenerateModuleIncludeListGo)"
 
-      # prevent downloading binary wheels during python setup
-      system "make", "PIP_INSTALL_PARAMS=--no-binary :all", "python-env"
       system "mage", "-v", "build"
       system "mage", "-v", "update"
 
-      (etc/"auditbeat").install Dir["auditbeat.*", "fields.yml"]
+      pkgetc.install Dir["auditbeat.*", "fields.yml"]
       (libexec/"bin").install "auditbeat"
       prefix.install "build/kibana"
     end
 
-    (bin/"auditbeat").write <<~EOS
+    (bin/"auditbeat").write <<~SHELL
       #!/bin/sh
       exec #{libexec}/bin/auditbeat \
         --path.config #{etc}/auditbeat \
@@ -51,7 +45,7 @@ class Auditbeat < Formula
         --path.home #{prefix} \
         --path.logs #{var}/log/auditbeat \
         "$@"
-    EOS
+    SHELL
 
     chmod 0555, bin/"auditbeat"
     generate_completions_from_executable(bin/"auditbeat", "completion", shells: [:bash, :zsh])
@@ -68,7 +62,7 @@ class Auditbeat < Formula
 
   test do
     (testpath/"files").mkpath
-    (testpath/"config/auditbeat.yml").write <<~EOS
+    (testpath/"config/auditbeat.yml").write <<~YAML
       auditbeat.modules:
       - module: file_integrity
         paths:
@@ -76,18 +70,20 @@ class Auditbeat < Formula
       output.file:
         path: "#{testpath}/auditbeat"
         filename: auditbeat
-    EOS
-    fork do
-      exec bin/"auditbeat", "-path.config", testpath/"config", "-path.data", testpath/"data"
-    end
+    YAML
+
+    pid = spawn bin/"auditbeat", "--path.config", testpath/"config", "--path.data", testpath/"data"
     sleep 5
     touch testpath/"files/touch"
+    sleep 10
+    sleep 20 if OS.mac? && Hardware::CPU.intel?
 
-    sleep 30
-
-    assert_predicate testpath/"data/beat.db", :exist?
+    assert_path_exists testpath/"data/beat.db"
 
     output = JSON.parse((testpath/"data/meta.json").read)
     assert_includes output, "first_start"
+  ensure
+    Process.kill("TERM", pid)
+    Process.wait(pid)
   end
 end

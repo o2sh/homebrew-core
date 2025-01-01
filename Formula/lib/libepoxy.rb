@@ -28,7 +28,7 @@ class Libepoxy < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   on_linux do
     depends_on "freeglut"
@@ -41,8 +41,7 @@ class Libepoxy < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
-
+    (testpath/"test.c").write <<~C
       #include <epoxy/gl.h>
       #ifdef OS_MAC
       #include <OpenGL/CGLContext.h>
@@ -68,7 +67,7 @@ class Libepoxy < Formula
           #endif
           return 0;
       }
-    EOS
+    C
     args = %w[-lepoxy]
     args += %w[-framework OpenGL -DOS_MAC] if OS.mac?
     args += %w[-o test]

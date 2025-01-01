@@ -3,22 +3,20 @@ class SqliteUtils < Formula
 
   desc "CLI utility for manipulating SQLite databases"
   homepage "https://sqlite-utils.datasette.io/"
-  url "https://files.pythonhosted.org/packages/65/c5/a16a5d3f5f64e700a77de3df427ce1fcf5029e38db3352e12a0696448569/sqlite_utils-3.37.tar.gz"
-  sha256 "542a71033d4e7936fe909230ac9794d3e200021838ab63dbaf3ce8f5bc2273a4"
+  url "https://files.pythonhosted.org/packages/51/43/ce9183a21911e0b73248c8fb83f8b8038515cb80053912c2a009e9765564/sqlite_utils-3.38.tar.gz"
+  sha256 "1ae77b931384052205a15478d429464f6c67a3ac3b4eafd3c674ac900f623aab"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "ceac300ac185b339a8c01da78b7343e69e71c1682d3444e8e6aacb266f6c558a"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "df686f55d3c00995ff179cc24d3bc6df092113b874bae8f6425d9e4647ea6225"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "df686f55d3c00995ff179cc24d3bc6df092113b874bae8f6425d9e4647ea6225"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "df686f55d3c00995ff179cc24d3bc6df092113b874bae8f6425d9e4647ea6225"
-    sha256 cellar: :any_skip_relocation, sonoma:         "d2cbbd0b404f9e8b8b7e40a0ebf95256ee6ae41ca4926fc88c08b0fd82112869"
-    sha256 cellar: :any_skip_relocation, ventura:        "d2cbbd0b404f9e8b8b7e40a0ebf95256ee6ae41ca4926fc88c08b0fd82112869"
-    sha256 cellar: :any_skip_relocation, monterey:       "d2cbbd0b404f9e8b8b7e40a0ebf95256ee6ae41ca4926fc88c08b0fd82112869"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1422cbdfe26b640d56e033e82fd28e4ad8e00b0e692c5cdfe744e4d627f064a7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2ba7d7894a17d995f13bbc6e028709736092ffda97c57e226446635ac463fe23"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2ba7d7894a17d995f13bbc6e028709736092ffda97c57e226446635ac463fe23"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "2ba7d7894a17d995f13bbc6e028709736092ffda97c57e226446635ac463fe23"
+    sha256 cellar: :any_skip_relocation, sonoma:        "33df8c15199c62afd1e5892a815caa0f5450f6e9f3678f50fa23469ee1a48d9c"
+    sha256 cellar: :any_skip_relocation, ventura:       "33df8c15199c62afd1e5892a815caa0f5450f6e9f3678f50fa23469ee1a48d9c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "801f58dacffee3dd06633556ec40db111693a2031e0f6011748bf9e0681cdd11"
   end
 
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   resource "click" do
     url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"

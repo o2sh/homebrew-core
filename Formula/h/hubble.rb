@@ -1,8 +1,8 @@
 class Hubble < Formula
   desc "Network, Service & Security Observability for Kubernetes using eBPF"
   homepage "https://github.com/cilium/hubble"
-  url "https://github.com/cilium/hubble/archive/refs/tags/v1.16.1.tar.gz"
-  sha256 "5412ba0a63b2a3b296643563dc3dd4a66dfafa727025119adbf915b5f24d7dd8"
+  url "https://github.com/cilium/hubble/archive/refs/tags/v1.16.5.tar.gz"
+  sha256 "7fbcbc321ef3dc0ed67a84ecfe0749898ea3a11b72a3f9b279ae6b272e38a819"
   license "Apache-2.0"
 
   # There can be a notable gap between when a version is tagged and a
@@ -14,14 +14,12 @@ class Hubble < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "0658f692d19e0ade0a5f2df39707967a8f0bf4cf8808aa1cf83425406d3f409d"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0658f692d19e0ade0a5f2df39707967a8f0bf4cf8808aa1cf83425406d3f409d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0658f692d19e0ade0a5f2df39707967a8f0bf4cf8808aa1cf83425406d3f409d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0658f692d19e0ade0a5f2df39707967a8f0bf4cf8808aa1cf83425406d3f409d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "e1e42226fa13b0ca2c772b7b50fef406336a982d9f87a9c5b91a046fe469d75e"
-    sha256 cellar: :any_skip_relocation, ventura:        "e1e42226fa13b0ca2c772b7b50fef406336a982d9f87a9c5b91a046fe469d75e"
-    sha256 cellar: :any_skip_relocation, monterey:       "e1e42226fa13b0ca2c772b7b50fef406336a982d9f87a9c5b91a046fe469d75e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0ecacfcc415915b36133c9a8c6ffc06a316d3b44a493fcbb55c3753a180bc6c3"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "280efd6ac5fe81d7364f283ab4c8f1a7882eff584bedae364bf14a51286fcdcb"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "280efd6ac5fe81d7364f283ab4c8f1a7882eff584bedae364bf14a51286fcdcb"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "280efd6ac5fe81d7364f283ab4c8f1a7882eff584bedae364bf14a51286fcdcb"
+    sha256 cellar: :any_skip_relocation, sonoma:        "41f94fe9d766f71ed2b573d0057a5affab41d2a701c3790fcc8174df1632a444"
+    sha256 cellar: :any_skip_relocation, ventura:       "41f94fe9d766f71ed2b573d0057a5affab41d2a701c3790fcc8174df1632a444"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "08e682b91045107973e4a9f3153404f1f7f5b1352f3cbf2d10c857cf55fb1fd7"
   end
 
   depends_on "go" => :build

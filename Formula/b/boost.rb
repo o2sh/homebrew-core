@@ -1,23 +1,10 @@
 class Boost < Formula
   desc "Collection of portable C++ source libraries"
   homepage "https://www.boost.org/"
+  url "https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-b2-nodocs.tar.xz"
+  sha256 "3abd7a51118a5dd74673b25e0a3f0a4ab1752d8d618f4b8cea84a603aeecc680"
   license "BSL-1.0"
   head "https://github.com/boostorg/boost.git", branch: "master"
-
-  stable do
-    url "https://github.com/boostorg/boost/releases/download/boost-1.86.0/boost-1.86.0-b2-nodocs.tar.xz"
-    sha256 "a4d99d032ab74c9c5e76eddcecc4489134282245fffa7e079c5804b92b45f51d"
-
-    # Backport Boost.Compute support for latest Boost.Uuid
-    patch :p2 do
-      url "https://github.com/boostorg/compute/commit/79452d5279831ee59a650c17b71259a821f1a554.patch?full_index=1"
-      sha256 "ed4b9740c1f300ed0413498f0cba6f05389b570bec6a4b456d53314a2561d061"
-    end
-    patch :p2 do
-      url "https://github.com/boostorg/compute/commit/54915acaafa003b7aab6f24c74e7fdeaae297ad6.patch?full_index=1"
-      sha256 "1d1e83f4cb371003bad84a3789b2fecf215768f4a6f933444eaa4c26905f1e9f"
-    end
-  end
 
   livecheck do
     url "https://www.boost.org/users/download/"
@@ -28,18 +15,15 @@ class Boost < Formula
   end
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any,                 arm64_sequoia:  "c05f399132e5fdca2e010ba1d9af155e956a8ed70dcfd57aa285a772efac3efa"
-    sha256 cellar: :any,                 arm64_sonoma:   "8f6d3d3c76708a287c0157a0e48f0e2b8c7175ee23269c03c8eb0ad7c003dc86"
-    sha256 cellar: :any,                 arm64_ventura:  "7eb491c2e34ff445b92883bba4483f085c35eeb40cc6f021636d09c9fc3b7b25"
-    sha256 cellar: :any,                 arm64_monterey: "e1942964bba4803b5c01bf1b69f1fa15908e4f1372732f7bf2edb5fa1be54a75"
-    sha256 cellar: :any,                 sonoma:         "eb5a1eab5cfa550707a4e2148451c9a9c2b0ecdd2b7a4f4cf786cc830055e80c"
-    sha256 cellar: :any,                 ventura:        "f40318ac4b779df9fbb13bed9166a39eb9819438fe8b9c4b764cca973f739295"
-    sha256 cellar: :any,                 monterey:       "bd5f3394381a43315858c033adfbc430ead8e53d607686efef760637fe77298f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9b54de744fca5203371e41bbe08f18fe347d9873558b9b0e1c40b60e4bc5515c"
+    sha256 cellar: :any,                 arm64_sequoia: "00a8471e4eca0c3f486e94cfe0609fc467d0805270dd18e5e8bad0a237aadeba"
+    sha256 cellar: :any,                 arm64_sonoma:  "e343b4cb9530c8685040b7f33be212f8da78756060b3400f37242446a6b4c452"
+    sha256 cellar: :any,                 arm64_ventura: "e68b84eed4a2fe54c3de30ae35852c8fbe217bfdc28b8f063059cc1491d5f7b1"
+    sha256 cellar: :any,                 sonoma:        "4365d15232d6c4980c51f0c3b729b1adfe80ee6088d1276cf7d56a609a8025f5"
+    sha256 cellar: :any,                 ventura:       "125c0502cdfedda094229358e3173375cb8f020cd129a43ecfa43ffc251eb57a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ed501937c2b5e96c65f5b44c852f7fb8e8692fcd009459980b3751d10e762164"
   end
 
-  depends_on "icu4c"
+  depends_on "icu4c@76"
   depends_on "xz"
   depends_on "zstd"
 
@@ -57,11 +41,11 @@ class Boost < Formula
     end
 
     # libdir should be set by --prefix but isn't
-    icu4c_prefix = Formula["icu4c"].opt_prefix
+    icu4c = deps.map(&:to_formula).find { |f| f.name.match?(/^icu4c@\d+$/) }
     bootstrap_args = %W[
       --prefix=#{prefix}
       --libdir=#{lib}
-      --with-icu=#{icu4c_prefix}
+      --with-icu=#{icu4c.opt_prefix}
     ]
 
     # Handle libraries that will not be built.
@@ -79,16 +63,17 @@ class Boost < Formula
       --libdir=#{lib}
       -d2
       -j#{ENV.make_jobs}
-      --layout=tagged-1.66
+      --layout=system
       --user-config=user-config.jam
       install
-      threading=multi,single
+      threading=multi
       link=shared,static
     ]
 
-    # Boost is using "clang++ -x c" to select C compiler which breaks C++14
-    # handling using ENV.cxx14. Using "cxxflags" and "linkflags" still works.
-    args << "cxxflags=-std=c++14"
+    # Boost is using "clang++ -x c" to select C compiler which breaks C++
+    # handling in superenv. Using "cxxflags" and "linkflags" still works.
+    # C++17 is due to `icu4c`.
+    args << "cxxflags=-std=c++17"
     args << "cxxflags=-stdlib=libc++" << "linkflags=-stdlib=libc++" if ENV.compiler == :clang
 
     system "./bootstrap.sh", *bootstrap_args
@@ -97,7 +82,7 @@ class Boost < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <boost/algorithm/string.hpp>
       #include <boost/iostreams/device/array.hpp>
       #include <boost/iostreams/device/back_inserter.hpp>
@@ -143,7 +128,7 @@ class Boost < Formula
 
         return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "test.cpp", "-std=c++14", "-o", "test", "-L#{lib}", "-lboost_iostreams",
                     "-L#{Formula["zstd"].opt_lib}", "-lzstd"
     system "./test"

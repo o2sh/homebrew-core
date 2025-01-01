@@ -16,28 +16,26 @@ class Libxmu < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "1da14c69af817c5faa1fc53dcf66a32a9319c75769562941f7e0ac20dbe2347b"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libx11"
   depends_on "libxext"
   depends_on "libxt"
 
   def install
     args = %W[
-      --prefix=#{prefix}
       --sysconfdir=#{etc}
       --localstatedir=#{var}
-      --disable-dependency-tracking
       --disable-silent-rules
       --enable-docs=no
     ]
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include "X11/Xlib.h"
       #include "X11/Xmu/Xmu.h"
 
@@ -45,7 +43,7 @@ class Libxmu < Formula
         XmuArea area;
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lXmu"
     assert_equal 0, $CHILD_STATUS.exitstatus
   end

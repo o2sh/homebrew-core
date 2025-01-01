@@ -1,8 +1,8 @@
 class Dwarfutils < Formula
   desc "Dump and produce DWARF debug information in ELF objects"
   homepage "https://www.prevanders.net/dwarf.html"
-  url "https://www.prevanders.net/libdwarf-0.11.0.tar.xz"
-  sha256 "846071fb220ac1952f9f15ebbac6c7831ef50d0369b772c07a8a8139a42e07d2"
+  url "https://www.prevanders.net/libdwarf-0.11.1.tar.xz"
+  sha256 "b5be211b1bd0c1ee41b871b543c73cbff5822f76994f6b160fc70d01d1b5a1bf"
   license all_of: ["BSD-2-Clause", "LGPL-2.1-or-later", "GPL-2.0-or-later"]
   version_scheme 1
 
@@ -12,14 +12,12 @@ class Dwarfutils < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "b22ebc4400b8217acf0a8b579e874d457051466fec152934a18ef5232c9927ae"
-    sha256 arm64_sonoma:   "5de9a578a683c51ad52b7fe8cc27529240e611669be4c0d8bf2f1538ad0cb284"
-    sha256 arm64_ventura:  "cb832bbeca30e169a22accb474b0f39d1f878b270365f5b294fafd27683ca296"
-    sha256 arm64_monterey: "82e9aeb4f36ef9653b1db4ca33ce12d6279b1f2f27865e37b9443a38d36cfc61"
-    sha256 sonoma:         "ba1a7e49387710d019857b1543ebffc2fecdf147d73fa11bf7af1391d1e36c11"
-    sha256 ventura:        "953313e57e9e1740b2a4c75d34e0b33bcf53a4214ec4e6732bfe15562027b68b"
-    sha256 monterey:       "2e7adf305f4f8db91c13853b31098abeb25f442c8172715475d9b28f6bac85ba"
-    sha256 x86_64_linux:   "cc4fade52e1657d55320c7ce223fb2b6d07cbbf86a8843f480210331b24813b6"
+    sha256 arm64_sequoia: "2512f3599c17012df5dd2eadcda5272af06f3d1763c49bc53f2cbfae7bcf475b"
+    sha256 arm64_sonoma:  "5583328bb0280f4273155b6fdf0c6a4f47e3cc8b6cb322e7bb1a6e77434a6e06"
+    sha256 arm64_ventura: "c76a679482e874f69993afcc0977c9902195f05dab9c27943b53d6c666488d5d"
+    sha256 sonoma:        "6465cb24d88a78309be0d57e915e4bded2e53be288ab470b6f57f5a7149557d1"
+    sha256 ventura:       "c64584bbd209938f60b72fffe19abdc4105391f71496bafb951f970b6b238bdc"
+    sha256 x86_64_linux:  "f32720e90c4ae83dacde105e2b06c5aa1fb9c82f5d79a7d1e57831276f45344a"
   end
 
   head do
@@ -30,20 +28,20 @@ class Dwarfutils < Formula
     depends_on "libtool" => :build
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   uses_from_macos "zlib"
 
   def install
     system "sh", "autogen.sh" if build.head?
-    system "./configure", *std_configure_args, "--enable-shared"
+    system "./configure", "--enable-shared", *std_configure_args
     system "make", "install"
   end
 
   test do
     system bin/"dwarfdump", "-V"
 
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <dwarf.h>
       #include <libdwarf.h>
       #include <stdio.h>
@@ -65,7 +63,7 @@ class Dwarfutils < Formula
 
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "-I#{include}/libdwarf-0", "test.c", "-L#{lib}", "-ldwarf", "-o", "test"
     system "./test"
   end

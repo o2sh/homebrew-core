@@ -1,8 +1,8 @@
 class Promtail < Formula
   desc "Log agent for Loki"
   homepage "https://grafana.com/loki"
-  url "https://github.com/grafana/loki/archive/refs/tags/v3.2.0.tar.gz"
-  sha256 "480994460326bf3a3723713e7385d8f02b16f00f7fc1db8ee374f7ffe496e6ba"
+  url "https://github.com/grafana/loki/archive/refs/tags/v3.3.2.tar.gz"
+  sha256 "dd2e80ee40b981aaa414f528a76ab218931e5a53d50540e8fb9659f9e2446f43"
   license "AGPL-3.0-only"
   head "https://github.com/grafana/loki.git", branch: "main"
 
@@ -11,12 +11,12 @@ class Promtail < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "14286caea90a877c145a22d3a74d01ed7055bdef2ec4b19c8f9ec972ab10ba01"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d1c4f916c13a8a40579dc30c93087e30884ffefbb2127b73f42e4a0f6595edaa"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "7bda02a7e771f2efd2078cb28ddaa412d05c8476094d8bfc8e40c5ac8a7eed19"
-    sha256 cellar: :any_skip_relocation, sonoma:        "b982bec44ed1abbf170ebf76f31b445ab4af3266ab752930a55be363d50306f6"
-    sha256 cellar: :any_skip_relocation, ventura:       "0843a405103264d93660ac576baad58cdab3fe9a4e41570d9e2291e79d037519"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "96d037e5eb44c6d28e50724e3a6a2ba902c53328ddefda689b19e71ae7613cee"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c327a20a092e22b436044f7d2f52f0c64e08deeba519f907773b9231bd4b65b2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "13489ec35a2bf94c582823eaf9a44f3dd82c01285ab744c7bedd035d981b8866"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "804f580bfa400f674bce4e4b4d766b1ed7fbc2909078016e585c600ea311d10d"
+    sha256 cellar: :any_skip_relocation, sonoma:        "779b37392f462f360d333f4495e517d7123d8622b41094f3becf8f242eff21c9"
+    sha256 cellar: :any_skip_relocation, ventura:       "6f8b25b6ff9c30a47604f35b109220dae432eefb9389c989abaee3c23ae6bfbf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1164b17aa1229aba3f930a40f3d7210c0fa2ba0a08fba0d57dcf972bc8e7f687"
   end
 
   depends_on "go" => :build

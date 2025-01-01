@@ -1,20 +1,18 @@
 class OsvScanner < Formula
   desc "Vulnerability scanner which uses the OSV database"
   homepage "https://github.com/google/osv-scanner"
-  url "https://github.com/google/osv-scanner/archive/refs/tags/v1.8.5.tar.gz"
-  sha256 "27e95d475b26ee195aeea240799b091fd2654faca5336537950fb245f320df85"
+  url "https://github.com/google/osv-scanner/archive/refs/tags/v1.9.2.tar.gz"
+  sha256 "e2b62d114102eb9903e7ed110f69560bbf91b57c3163a256f532ab26dde45a49"
   license "Apache-2.0"
   head "https://github.com/google/osv-scanner.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "47b6f1ec47f9418d2f4530b83a13409dc52ea2a9092d7c5d9a639b56f2941d7a"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "47b6f1ec47f9418d2f4530b83a13409dc52ea2a9092d7c5d9a639b56f2941d7a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "47b6f1ec47f9418d2f4530b83a13409dc52ea2a9092d7c5d9a639b56f2941d7a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "47b6f1ec47f9418d2f4530b83a13409dc52ea2a9092d7c5d9a639b56f2941d7a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "72325d1ac50ca26609ef55042f398da39652ba8884a01f34b7fe30240fc48e65"
-    sha256 cellar: :any_skip_relocation, ventura:        "72325d1ac50ca26609ef55042f398da39652ba8884a01f34b7fe30240fc48e65"
-    sha256 cellar: :any_skip_relocation, monterey:       "72325d1ac50ca26609ef55042f398da39652ba8884a01f34b7fe30240fc48e65"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8005eb5860fb0da2785a4f13d6205cfc478a07fb047154154914584d402051fc"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "851aaf1113a28c7a54695e783352c748fc5e5f89550dd7b8e13612692536e08a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "851aaf1113a28c7a54695e783352c748fc5e5f89550dd7b8e13612692536e08a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "851aaf1113a28c7a54695e783352c748fc5e5f89550dd7b8e13612692536e08a"
+    sha256 cellar: :any_skip_relocation, sonoma:        "538d9596001e65d42de4377aef8ad6ebd6abda387f2874553cc0b251d5f1215e"
+    sha256 cellar: :any_skip_relocation, ventura:       "538d9596001e65d42de4377aef8ad6ebd6abda387f2874553cc0b251d5f1215e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cb8d7bbdf767630345c3a08415d373b62815fcf704a485583a6aa53531805d6f"
   end
 
   depends_on "go" => [:build, :test]
@@ -24,13 +22,13 @@ class OsvScanner < Formula
   end
 
   test do
-    (testpath/"go.mod").write <<~EOS
+    (testpath/"go.mod").write <<~GOMOD
       module my-library
 
       require (
         github.com/BurntSushi/toml v1.0.0
       )
-    EOS
+    GOMOD
 
     scan_output = shell_output("#{bin}/osv-scanner --lockfile #{testpath}/go.mod").strip
     expected_output = <<~EOS.chomp

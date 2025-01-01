@@ -1,8 +1,8 @@
 class Zabbix < Formula
   desc "Availability and monitoring solution"
   homepage "https://www.zabbix.com/"
-  url "https://cdn.zabbix.com/zabbix/sources/stable/7.0/zabbix-7.0.3.tar.gz"
-  sha256 "173059f57f11716146da79345e5a6bc52eceee6a5c4410664b8500a955598b2a"
+  url "https://cdn.zabbix.com/zabbix/sources/stable/7.2/zabbix-7.2.1.tar.gz"
+  sha256 "41c596f6b935dfa371f8d86d3c11867eaf61a3b635474baed7029c9f1d053570"
   license "AGPL-3.0-only"
   head "https://github.com/zabbix/zabbix.git", branch: "master"
 
@@ -12,23 +12,22 @@ class Zabbix < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "05419eedbd39fb40f891b865ee89340f69e71134791b4c242b712c4ee34ace20"
-    sha256 arm64_sonoma:   "0b3de39ab674d3979927725bba021617388e5a6dbd5380c38424b86ea90f8fe1"
-    sha256 arm64_ventura:  "522086a2d2e729d8c75a371a4df4aaf126fe5362bc26ac243d52e450b1aacf34"
-    sha256 arm64_monterey: "c634ae005eb477baf1c6d167962d507be98dd595f5e27889ace990b5bcb2f006"
-    sha256 sonoma:         "85a5ee366b9d04b93ab6fee76d5b6b79b214a3c6cf7668f1a53e61b0679a07b1"
-    sha256 ventura:        "913f38f6817b20e76012579a0118161f1838972c386408a67bf5fabe87f50b9a"
-    sha256 monterey:       "d6c3c0ef5c3854620966ac1960e1b53e8063bfef23b954abe106ae47dbc9c9dd"
-    sha256 x86_64_linux:   "2cce851ba3b3dd1082706569f7b892e3b0a28a26eca7448167ae044520ca9c7a"
+    sha256 arm64_sequoia: "559cdfca8486b90e599aa36ca6779ac5b0b47f402d525eb1c383b52813698322"
+    sha256 arm64_sonoma:  "86449000d3263400aa7324d5faf701cf07efb51963cc085795399bc47ecf3b15"
+    sha256 arm64_ventura: "f20842ee415396a3036ebddbfae7b41fca30e229c0a751b974935def9117c29d"
+    sha256 sonoma:        "967f97a3f0a1d659e01744bc73ff079a1c798708fc81219f50c618706b648b9b"
+    sha256 ventura:       "8f1105b3cd41e68bdd0c85166875b0c370246fe391bf13f35513281d406b70bd"
+    sha256 x86_64_linux:  "bcc9abefcb758ba207f6da96748f331e07e6bac13b72a6daa991f2b429bfc3ad"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "openssl@3"
   depends_on "pcre2"
 
   def install
     args = %W[
       --enable-agent
+      --enable-ipv6
       --with-libpcre2
       --sysconfdir=#{pkgetc}
       --with-openssl=#{Formula["openssl@3"].opt_prefix}

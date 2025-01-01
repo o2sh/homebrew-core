@@ -25,30 +25,23 @@ class Libao < Formula
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   def install
     ENV["AUTOMAKE_FLAGS"] = "--include-deps"
     system "./autogen.sh"
-
-    args = %W[
-      --disable-dependency-tracking
-      --prefix=#{prefix}
-      --enable-static
-    ]
-
-    system "./configure", *args
+    system "./configure", "--enable-static", *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <ao/ao.h>
       int main() {
         ao_initialize();
         return 0;
       }
-    EOS
+    CPP
     system ENV.cc, "test.cpp", "-I#{include}", "-L#{lib}", "-lao", "-o", "test"
     system "./test"
   end

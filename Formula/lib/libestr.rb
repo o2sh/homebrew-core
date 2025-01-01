@@ -27,7 +27,7 @@ class Libestr < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "6f131de3ed214869ab11a430e48f7e006d8b4ae1c181413f0d60aa9da85f4599"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   # Fix -flat_namespace being used on Big Sur and later.
   patch do
@@ -36,20 +36,20 @@ class Libestr < Formula
   end
 
   def install
-    system "./configure", "--disable-dependency-tracking", "--prefix=#{prefix}"
+    system "./configure", *std_configure_args
     system "make"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include "stdio.h"
       #include <libestr.h>
       int main() {
         printf("%s\\n", es_version());
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-lestr", "-o", "test"
     system "./test"
   end

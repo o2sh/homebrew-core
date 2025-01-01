@@ -22,12 +22,18 @@ class Snappystream < Formula
   depends_on "snappy"
 
   def install
-    system "cmake", ".", *std_cmake_args, "-DBUILD_TESTS=ON", "-DCMAKE_CXX_STANDARD=11"
-    system "make", "all", "test", "install"
+    args = %w[
+      -DBUILD_TESTS=ON
+      -DCMAKE_CXX_STANDARD=11
+    ]
+
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.cxx").write <<~EOS
+    (testpath/"test.cxx").write <<~CPP
       #include <iostream>
       #include <fstream>
       #include <iterator>
@@ -47,7 +53,7 @@ class Snappystream < Formula
           std::copy(std::istream_iterator<char>(isnstrm), std::istream_iterator<char>(), std::ostream_iterator<char>(std::cout));
         }
       }
-    EOS
+    CPP
     system ENV.cxx, "test.cxx", "-o", "test",
                     "-L#{lib}", "-lsnappystream",
                     "-L#{Formula["snappy"].opt_lib}", "-lsnappy"

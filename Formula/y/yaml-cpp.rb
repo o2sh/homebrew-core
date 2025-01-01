@@ -21,20 +21,22 @@ class YamlCpp < Formula
   depends_on "cmake" => :build
 
   def install
-    system "cmake", ".", *std_cmake_args, "-DYAML_BUILD_SHARED_LIBS=ON",
-                                          "-DYAML_CPP_BUILD_TESTS=OFF"
-    system "make", "install"
+    args = ["-DYAML_BUILD_SHARED_LIBS=ON", "-DYAML_CPP_BUILD_TESTS=OFF"]
+
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <yaml-cpp/yaml.h>
       int main() {
         YAML::Node node  = YAML::Load("[0, 0, 0]");
         node[0] = 1;
         return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "test.cpp", "-std=c++11", "-L#{lib}", "-lyaml-cpp", "-o", "test"
     system "./test"
   end

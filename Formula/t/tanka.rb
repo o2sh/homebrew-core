@@ -2,8 +2,8 @@ class Tanka < Formula
   desc "Flexible, reusable and concise configuration for Kubernetes using Jsonnet"
   homepage "https://tanka.dev"
   url "https://github.com/grafana/tanka.git",
-      tag:      "v0.28.2",
-      revision: "b9c7d9f12b3a85b5bd1e788a8fb7be9787af91af"
+      tag:      "v0.31.0",
+      revision: "d79a53e056495892fc202d2123a698ecb5e8ecb7"
   license "Apache-2.0"
   head "https://github.com/grafana/tanka.git", branch: "main"
 
@@ -13,14 +13,12 @@ class Tanka < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "aa3674fd0f36d6c6601167a3219dd428dafc960033fac2ae5ef8a8f9e955ab70"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "aa3674fd0f36d6c6601167a3219dd428dafc960033fac2ae5ef8a8f9e955ab70"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "aa3674fd0f36d6c6601167a3219dd428dafc960033fac2ae5ef8a8f9e955ab70"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "aa3674fd0f36d6c6601167a3219dd428dafc960033fac2ae5ef8a8f9e955ab70"
-    sha256 cellar: :any_skip_relocation, sonoma:         "7f571eb9ed4577d690eb30797c7ce6a2befb422b69d3e7e94344203dd76792c1"
-    sha256 cellar: :any_skip_relocation, ventura:        "7f571eb9ed4577d690eb30797c7ce6a2befb422b69d3e7e94344203dd76792c1"
-    sha256 cellar: :any_skip_relocation, monterey:       "7f571eb9ed4577d690eb30797c7ce6a2befb422b69d3e7e94344203dd76792c1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ac030e886e01c43c867e1c05e4f713f04102ab6a6227b37a25cfe39733cb3314"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2312c83ae68e7f566dd9c88fe8fde8f61d93d9dd048a6bd8f09db6e1bbb53c6f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2312c83ae68e7f566dd9c88fe8fde8f61d93d9dd048a6bd8f09db6e1bbb53c6f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "2312c83ae68e7f566dd9c88fe8fde8f61d93d9dd048a6bd8f09db6e1bbb53c6f"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e933ac02a61aa6f43af8e7837ebd442f8c57543b7960470e6440c777e4a41821"
+    sha256 cellar: :any_skip_relocation, ventura:       "e933ac02a61aa6f43af8e7837ebd442f8c57543b7960470e6440c777e4a41821"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5f623b0738da74a59e3db2037f89643ba9612adbfd30085d87e7a49cd57faa67"
   end
 
   depends_on "go" => :build

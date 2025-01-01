@@ -1,8 +1,8 @@
 class MongodbAtlasCli < Formula
   desc "Atlas CLI enables you to manage your MongoDB Atlas"
   homepage "https://www.mongodb.com/docs/atlas/cli/stable/"
-  url "https://github.com/mongodb/mongodb-atlas-cli/archive/refs/tags/atlascli/v1.28.0.tar.gz"
-  sha256 "949a12053c4e6159130a6fb7620b4c9695356daf10cbe4e23bf19e9d4d298639"
+  url "https://github.com/mongodb/mongodb-atlas-cli/archive/refs/tags/atlascli/v1.34.0.tar.gz"
+  sha256 "8151c413e8d9e6dd1657b4d642af460f20ffe04032676ab2152328c9358b0e2a"
   license "Apache-2.0"
   head "https://github.com/mongodb/mongodb-atlas-cli.git", branch: "master"
 
@@ -12,12 +12,12 @@ class MongodbAtlasCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d8017445482840803c9cc5081c185008d0a044475134a7a8a9a8c1ecc4efa3cf"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "cc19635f7be41c8205aaae3b75890244cbda373b73cbe06cb88f2e3d6b04d48b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "d0d8d29baa8fd9f8945ab2759d858c2abe456e64354562d30b8962850347ff87"
-    sha256 cellar: :any_skip_relocation, sonoma:        "1aa107cee1e81e7d0c0042668fe2220969f88ef19a1793661dd2d306c29353eb"
-    sha256 cellar: :any_skip_relocation, ventura:       "f5264d2f63b6783de05fe6ec5919a57562eef5d4d43b7aa9680cb2b511c03d10"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2f23cf99b1e3c8bb4239c17257e3e1d45ef0f972ca60447d7d9ef7332239035e"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0122cc44bd29bdd178988dac127584587705b49e0301034bc570f1d86e22c873"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b4215609913c432d69e4b3a204b2cedb67a864f2d6e13e0d3eb1e53c5df4702a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "16b56711b9f7f1ea72e1e257f29f8dcc4e2475826ab90c99cf5ebe78594a5f50"
+    sha256 cellar: :any_skip_relocation, sonoma:        "efbd314ad40d8b76622e33105b178288d5068843b4ce9118c81ab366af6d2250"
+    sha256 cellar: :any_skip_relocation, ventura:       "cbd46a307e6d1175a379c65c73a39deb91f65ff00541da8139fd87c7781d4b7e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b83d15b2b88e81e53427254ecf890ab35ce7d9862770b76c4fe6e37798662bdc"
   end
 
   depends_on "go" => :build
@@ -32,7 +32,7 @@ class MongodbAtlasCli < Formula
     system "make", "build"
     bin.install "bin/atlas"
 
-    generate_completions_from_executable(bin/"atlas", "completion", base_name: "atlas")
+    generate_completions_from_executable(bin/"atlas", "completion")
   end
 
   test do

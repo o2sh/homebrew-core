@@ -3,8 +3,8 @@ class AstrometryNet < Formula
 
   desc "Automatic identification of astronomical images"
   homepage "https://github.com/dstndstn/astrometry.net"
-  url "https://github.com/dstndstn/astrometry.net/releases/download/0.96/astrometry.net-0.96.tar.gz"
-  sha256 "fb3f2ec09cbe155d9ff461b9a60336f8493f5cb7804199e1782664e9034c9aac"
+  url "https://github.com/dstndstn/astrometry.net/releases/download/0.97/astrometry.net-0.97.tar.gz"
+  sha256 "e4eef1b658ba5ad462282b661c0ca3a5c538ba1716e853f7970b7b9fa4a33459"
   license "BSD-3-Clause"
 
   livecheck do
@@ -13,15 +13,15 @@ class AstrometryNet < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "cfac83085eb5d98dc36ba7ab7bca138c66b1e816943cbd7e5168e070fe4fc98a"
-    sha256 cellar: :any,                 arm64_sonoma:  "9afab005678388dbad503a220150c8daccc990e9bd2dd448fc569dcb541aabc1"
-    sha256 cellar: :any,                 arm64_ventura: "65d1e63b676575ff4d39c40f5ed98c18e13d27a22e25638de23034978274a9c6"
-    sha256 cellar: :any,                 sonoma:        "947ec849258784a4e6768e5bba5efd30bbb13916acd309087674186908dcb00a"
-    sha256 cellar: :any,                 ventura:       "73e3ad7d458ab962544735126e5c498436f2e847209293b25147080153972fea"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8602a196aa54fc2edb9e6b3be983811e1ce7558e03f2ca47dfba3785adbd6157"
+    sha256 cellar: :any,                 arm64_sequoia: "757f3c12578d021709e8332caa87e0d3ca1bcc28f39a675946d83cca07bc214e"
+    sha256 cellar: :any,                 arm64_sonoma:  "8e37742770e1efe10c744f4a908c002af489a59e8aa2bf6c5cb4dbad74b02d74"
+    sha256 cellar: :any,                 arm64_ventura: "12ea115da7ff9e7976e71bcb7e3f6ee7420f633a1c2295d24df6c95568aa28ba"
+    sha256 cellar: :any,                 sonoma:        "f4115527d39d5d12b687a44b02556072ad48e0d982b445193e1ccb3fb2f42eb8"
+    sha256 cellar: :any,                 ventura:       "acfb3cb5d86b8127c99a3ad33b874e3496e12bca06bf84252a70d49e33bf76df"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e92de421cb2c9161b9cc6a25bd364988041831bece5de023e55684350b0a03b3"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python-setuptools" => :build
   depends_on "swig" => :build
   depends_on "cairo"
@@ -31,7 +31,7 @@ class AstrometryNet < Formula
   depends_on "libpng"
   depends_on "netpbm"
   depends_on "numpy"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
   depends_on "wcslib"
 
   resource "fitsio" do
@@ -48,7 +48,7 @@ class AstrometryNet < Formula
     ENV["NETPBM_INC"] = "-I#{Formula["netpbm"].opt_include}/netpbm"
     ENV["NETPBM_LIB"] = "-L#{Formula["netpbm"].opt_lib} -lnetpbm"
     ENV["SYSTEM_GSL"] = "yes"
-    ENV["PYTHON"] = python3 = which("python3.12")
+    ENV["PYTHON"] = python3 = which("python3.13")
 
     venv = virtualenv_create(libexec, python3)
     venv.pip_install(resources, build_isolation: false)
@@ -78,11 +78,11 @@ class AstrometryNet < Formula
     EOS
     system bin/"solve-field", "--config", "99.cfg", prefix/"examples/apod4.jpg",
                               "--continue", "--dir", "jpg"
-    assert_predicate testpath/"jpg/apod4.solved", :exist?
-    assert_predicate testpath/"jpg/apod4.wcs", :exist?
+    assert_path_exists testpath/"jpg/apod4.solved"
+    assert_path_exists testpath/"jpg/apod4.wcs"
     system bin/"solve-field", "--config", "99.cfg", prefix/"examples/apod4.xyls",
                               "--continue", "--dir", "xyls"
-    assert_predicate testpath/"xyls/apod4.solved", :exist?
-    assert_predicate testpath/"xyls/apod4.wcs", :exist?
+    assert_path_exists testpath/"xyls/apod4.solved"
+    assert_path_exists testpath/"xyls/apod4.wcs"
   end
 end

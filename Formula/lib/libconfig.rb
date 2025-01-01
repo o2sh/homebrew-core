@@ -35,13 +35,13 @@ class Libconfig < Formula
   end
 
   def install
-    system "autoreconf", "-fiv" if build.head?
-    system "./configure", "--disable-dependency-tracking", "--prefix=#{prefix}"
+    system "autoreconf", "--force", "--install", "--verbose" if build.head?
+    system "./configure", *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <libconfig.h>
       int main() {
         config_t cfg;
@@ -49,7 +49,7 @@ class Libconfig < Formula
         config_destroy(&cfg);
         return 0;
       }
-    EOS
+    C
     system ENV.cc, testpath/"test.c", "-I#{include}",
            "-L#{lib}", "-lconfig", "-o", testpath/"test"
     system "./test"

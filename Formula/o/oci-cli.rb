@@ -3,24 +3,24 @@ class OciCli < Formula
 
   desc "Oracle Cloud Infrastructure CLI"
   homepage "https://docs.cloud.oracle.com/iaas/Content/API/Concepts/cliconcepts.htm"
-  url "https://files.pythonhosted.org/packages/79/72/9ee4c092bd19f41af4b5ddda035dffa401a95636f27d2ff95cb6ac8a36bc/oci-cli-3.48.0.tar.gz"
-  sha256 "a1c071419db3294d0fb993d06146d9c19c87e088ab56c04815a6f8f45fed80a7"
+  url "https://files.pythonhosted.org/packages/e5/f6/b228379a2888736266f5a59a0f59e588e0bd6e7b3c6d5585d2caadb1a2ad/oci_cli-3.51.1.tar.gz"
+  sha256 "dbff4d57bc72382306d84e3626709f48037d519fb265992c69df12caf81da3c1"
   license any_of: ["UPL-1.0", "Apache-2.0"]
   head "https://github.com/oracle/oci-cli.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "885781b6282e8f089646f8ac4bddcd8ee3030fa4e0bfc7652129b0b78ff72fef"
-    sha256 cellar: :any,                 arm64_sonoma:  "6991c019633bed20ac7bc57f7e4fb2eeebd4d6f124f6bc208a940440082f6f5f"
-    sha256 cellar: :any,                 arm64_ventura: "d4604c3d7385cfa8cc2cd11ae071a568277733c1ec1b184b3ed1baed32f17b02"
-    sha256 cellar: :any,                 sonoma:        "5da0bad39e991ff4e41c858cf1e634be32b7e8c8c5934600ac3b9c9636c8300b"
-    sha256 cellar: :any,                 ventura:       "a80b67d7d6adca44d38e41111a88aac05c1421db8854db5f0c97c01e22cb80f3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ac9f9e2e1a86e84712666354efef9a2a5be9f8ced8c2b9d7678610d6c477e9e5"
+    sha256 cellar: :any,                 arm64_sequoia: "5959cbe5fd76349c31473eaef81b8445ced5ee7436284a0c75a599818a61d353"
+    sha256 cellar: :any,                 arm64_sonoma:  "3186d961e0838a05ffc6f93b27d3db1971e4a5c93c688e8854c302c32bc2cb31"
+    sha256 cellar: :any,                 arm64_ventura: "c8e7996f5fff2526a5abd462ca24e9a97dbd28dacd5cf06691e5b481b65ff27b"
+    sha256 cellar: :any,                 sonoma:        "2db67045a5a0f7bfb21e4b207a95a4db1b7d39589374472c85538631d9fd9d92"
+    sha256 cellar: :any,                 ventura:       "fa19227c64385ee6e6c39444ba74c2cf37167f87b586f48951f80fa3bf4a0470"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "943a5072e82a314695e3ee74b7f5807ec4d87af26e4f19df002f3d38862db6ad"
   end
 
   depends_on "certifi"
   depends_on "cryptography"
   depends_on "libyaml"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   resource "arrow" do
     url "https://files.pythonhosted.org/packages/2e/00/0f6e8fcdb23ea632c866620cc872729ff43ed91d284c866b515c6342b173/arrow-1.3.0.tar.gz"
@@ -43,8 +43,8 @@ class OciCli < Formula
   end
 
   resource "oci" do
-    url "https://files.pythonhosted.org/packages/d3/4f/e5e75afd75cd1dbcfe3cf94028beee245e089e399c627473cc9ad08c029b/oci-2.134.0.tar.gz"
-    sha256 "14cd2aa834b4f645cfc4c6784849192fecc365c7eb66da4fc1b6a140042221c9"
+    url "https://files.pythonhosted.org/packages/55/2f/d7088e1c4b6d8afbc74e825492062751e99f74a7ce43d49c29e8fb01a54f/oci-2.141.1.tar.gz"
+    sha256 "ea4b0926039a16c53e19fa2f71e807c09e2e78061565f2f38c8991842edf26c9"
   end
 
   resource "prompt-toolkit" do
@@ -53,8 +53,8 @@ class OciCli < Formula
   end
 
   resource "pyopenssl" do
-    url "https://files.pythonhosted.org/packages/5d/70/ff56a63248562e77c0c8ee4aefc3224258f1856977e0c1472672b62dadb8/pyopenssl-24.2.1.tar.gz"
-    sha256 "4247f0dbe3748d560dcbb2ff3ea01af0f9a1a001ef5f7c4c647956ed8cbf0e95"
+    url "https://files.pythonhosted.org/packages/c1/d4/1067b82c4fc674d6f6e9e8d26b3dff978da46d351ca3bac171544693e085/pyopenssl-24.3.0.tar.gz"
+    sha256 "49f7a019577d834746bc55c5fce6ecbcec0f2b4ec5ce1cf43a9a173b8138bb36"
   end
 
   resource "python-dateutil" do
@@ -68,13 +68,13 @@ class OciCli < Formula
   end
 
   resource "pyyaml" do
-    url "https://files.pythonhosted.org/packages/cd/e5/af35f7ea75cf72f2cd079c95ee16797de7cd71f29ea7c68ae5ce7be1eda0/PyYAML-6.0.1.tar.gz"
-    sha256 "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
+    url "https://files.pythonhosted.org/packages/54/ed/79a089b6be93607fa5cdaedf301d7dfb23af5f25c398d5ead2525b063e17/pyyaml-6.0.2.tar.gz"
+    sha256 "d584d9ec91ad65861cc08d42e834324ef890a082e591037abe114850ff7bbc3e"
   end
 
   resource "six" do
-    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
-    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
+    url "https://files.pythonhosted.org/packages/94/e7/b2c673351809dca68a0e064b6af791aa332cf192da575fd474ed7d6f16a2/six-1.17.0.tar.gz"
+    sha256 "ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81"
   end
 
   resource "terminaltables" do
@@ -83,8 +83,8 @@ class OciCli < Formula
   end
 
   resource "types-python-dateutil" do
-    url "https://files.pythonhosted.org/packages/3e/d9/9c9ec2d870af7aa9b722ce4fd5890bb55b1d18898df7f1d069cab194bb2a/types-python-dateutil-2.9.0.20240906.tar.gz"
-    sha256 "9706c3b68284c25adffc47319ecc7947e5bb86b3773f843c73906fd598bc176e"
+    url "https://files.pythonhosted.org/packages/a9/60/47d92293d9bc521cd2301e423a358abfac0ad409b3a1606d8fbae1321961/types_python_dateutil-2.9.0.20241206.tar.gz"
+    sha256 "18f493414c26ffba692a72369fea7a154c502646301ebfe3d56a04b3767284cb"
   end
 
   resource "wcwidth" do
@@ -93,7 +93,10 @@ class OciCli < Formula
   end
 
   def install
-    venv = virtualenv_create(libexec, "python3.12")
+    # Loosen `pyyaml` version pin: https://github.com/oracle/oci-cli/pull/858
+    inreplace "setup.py", "PyYAML>=5.4,<=6.0.1", "PyYAML>=5.4,<=6.0.2"
+
+    venv = virtualenv_install_with_resources without: "terminaltables"
 
     # Switch build-system to poetry-core to avoid rust dependency on Linux.
     # Remove when released: https://github.com/matthewdeanmartin/terminaltables/pull/1
@@ -102,9 +105,6 @@ class OciCli < Formula
       inreplace "pyproject.toml", 'build-backend = "poetry.masonry.api"', 'build-backend = "poetry.core.masonry.api"'
       venv.pip_install_and_link Pathname.pwd
     end
-
-    venv.pip_install resources.reject { |r| r.name == "terminaltables" }
-    venv.pip_install_and_link buildpath
   end
 
   test do

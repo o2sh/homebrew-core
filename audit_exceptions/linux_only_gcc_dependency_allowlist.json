@@ -1,4 +1,5 @@
 [
-  "nghttp2",
-  "poac"
+  "cabin",
+  "gsmartcontrol",
+  "nghttp2"
 ]

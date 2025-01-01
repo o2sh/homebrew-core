@@ -1,19 +1,17 @@
 class Odpi < Formula
   desc "Oracle Database Programming Interface for Drivers and Applications"
   homepage "https://oracle.github.io/odpi/"
-  url "https://github.com/oracle/odpi/archive/refs/tags/v5.3.0.tar.gz"
-  sha256 "6081c6492dc48dee558e0125e33e39fae32d4c9357941fccb6b49c6c232fb828"
+  url "https://github.com/oracle/odpi/archive/refs/tags/v5.4.1.tar.gz"
+  sha256 "dc02c694e119c69af3a556a363fe406b26996d0e71c4c5dfbf9d7a253efa6a01"
   license any_of: ["Apache-2.0", "UPL-1.0"]
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "cfa9baa5ff834db4e5ace6be5a40351ba7f3ed5592626cb63ae0110edb475d36"
-    sha256 cellar: :any,                 arm64_sonoma:   "f6f1abb468f3b3232cbeb86d7da47d80928e41689e1760ae580ad644b021ef09"
-    sha256 cellar: :any,                 arm64_ventura:  "7b44b00447d2c7a0b96088f4a2626f7246e4e3cb3d1545b04e1ef6609e6b6946"
-    sha256 cellar: :any,                 arm64_monterey: "d48085f8629d9e36c6a3ea80f327cdfa30e6998f926486b2b326a4463a83b96d"
-    sha256 cellar: :any,                 sonoma:         "95f24904d50d8a6661613009099ebc6450fe292144fcf50e38bcedfd76cc7a60"
-    sha256 cellar: :any,                 ventura:        "9e104eb738d2b202ae6a9513246a8078440501a0d63f7bd5542d16f6f55def4f"
-    sha256 cellar: :any,                 monterey:       "122b0123d42827384a83fc67c5ae0de5defa3d35f2438050764cffd350e86e4c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "66a5771894b201742ab1a0c9469eaa8bfadcf1137eff5046370fa830fa827957"
+    sha256 cellar: :any,                 arm64_sequoia: "e033b3bfed34e7ce44609b3246b5b75ce04621ceafb68c82ae9758134d05ac3f"
+    sha256 cellar: :any,                 arm64_sonoma:  "04932f05827d04407bb99ee961060445a636baedc214d17f70f5efa759a34fcb"
+    sha256 cellar: :any,                 arm64_ventura: "04eb6b6c23351da490655c6978a4b966e567016e5c58228b92da7392cbf7a7c0"
+    sha256 cellar: :any,                 sonoma:        "305575b63b5f0eb78f083f62e678a5c1519544a53e43a71251646ef165bbae93"
+    sha256 cellar: :any,                 ventura:       "4d22a8140a6eb018972ce42d5496a6216c0c30b07f57239c88dde4fd740a4092"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ab4874e0519e7b7382a63acdb19334f6a3148345330ded22b5851a4ef5b8a7d0"
   end
 
   def install
@@ -22,7 +20,7 @@ class Odpi < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <dpi.h>
 
@@ -35,7 +33,7 @@ class Odpi < Formula
 
         return 0;
       }
-    EOS
+    C
 
     system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lodpic", "-o", "test"
     system "./test"

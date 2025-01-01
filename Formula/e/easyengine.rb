@@ -1,17 +1,17 @@
 class Easyengine < Formula
   desc "Command-line control panel to manage WordPress sites"
   homepage "https://easyengine.io/"
-  url "https://github.com/EasyEngine/easyengine/releases/download/v4.7.4/easyengine.phar"
-  sha256 "ddc0be3d3ea2a21af496d1d56e2c1822771e799faddc6d066f74eb7b2da4e356"
+  url "https://github.com/EasyEngine/easyengine/releases/download/v4.8.0/easyengine.phar"
+  sha256 "5002134b0a9940c0e9466a2ea9d981d77478034398352117952a1a71d73a4406"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e8f62d014c8c5c4778c267f6c4e1a7671db3822300e387746938fc5304c665e4"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e8f62d014c8c5c4778c267f6c4e1a7671db3822300e387746938fc5304c665e4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "e8f62d014c8c5c4778c267f6c4e1a7671db3822300e387746938fc5304c665e4"
-    sha256 cellar: :any_skip_relocation, sonoma:        "d76f128dda355228141dbbfdf15442e83f94b75ef4b64a19a48fb18949add328"
-    sha256 cellar: :any_skip_relocation, ventura:       "d76f128dda355228141dbbfdf15442e83f94b75ef4b64a19a48fb18949add328"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f6e1c80fc3b9f305f1812d493700f193bd9439fb0edb7190c9e16877b84d877e"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "21949eec79b6bb562a6806bc3dc6886493b6c46e074ea8bee7e5d4281d079a7c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "21949eec79b6bb562a6806bc3dc6886493b6c46e074ea8bee7e5d4281d079a7c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "21949eec79b6bb562a6806bc3dc6886493b6c46e074ea8bee7e5d4281d079a7c"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a3773f8ae8284af58899f0233bdf508de336297220563c52f08e37ff8cbf8646"
+    sha256 cellar: :any_skip_relocation, ventura:       "a3773f8ae8284af58899f0233bdf508de336297220563c52f08e37ff8cbf8646"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f0fe84d9a9117825edb55e597598a39b20e4ea44366f04495842f3145e5bebb8"
   end
 
   depends_on "dnsmasq"

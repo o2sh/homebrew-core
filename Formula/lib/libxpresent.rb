@@ -25,7 +25,7 @@ class Libxpresent < Formula
     depends_on "util-macros" => :build
   end
 
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "libx11"
   depends_on "libxext"
   depends_on "libxfixes"
@@ -38,14 +38,14 @@ class Libxpresent < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <X11/extensions/Xpresent.h>
 
       int main() {
         XPresentNotify notify;
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c"
     assert_equal 0, $CHILD_STATUS.exitstatus
   end

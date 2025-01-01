@@ -23,7 +23,7 @@ class LibxmlxxAT5 < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
 
   uses_from_macos "libxml2"
 
@@ -34,7 +34,7 @@ class LibxmlxxAT5 < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <libxml++/libxml++.h>
 
       int main(int argc, char *argv[])
@@ -44,8 +44,8 @@ class LibxmlxxAT5 < Formula
          xmlpp::Element *rootnode = document.create_root_node("homebrew");
          return 0;
       }
-    EOS
-    command = "#{Formula["pkg-config"].opt_bin}/pkg-config --cflags --libs libxml++-5.0"
+    CPP
+    command = "#{Formula["pkgconf"].opt_bin}/pkgconf --cflags --libs libxml++-5.0"
     flags = shell_output(command).strip.split
     system ENV.cxx, "-std=c++17", "test.cpp", "-o", "test", *flags
     system "./test"

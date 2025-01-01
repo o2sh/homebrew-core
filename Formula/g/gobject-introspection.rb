@@ -9,12 +9,13 @@ class GobjectIntrospection < Formula
   license all_of: ["GPL-2.0-or-later", "LGPL-2.0-or-later", "MIT"]
 
   bottle do
-    sha256 arm64_sequoia: "8d74abd27df2b62211a8e14c6d8900f258d5b3590956d801dae80ea4f6f1f4df"
-    sha256 arm64_sonoma:  "140e00fb8669877b8af6cbb7b0d3e3b88385e3b1478a6cf0a82aa5d78affaf62"
-    sha256 arm64_ventura: "72b7d5b987719b01b2d1a55b8401eea731299b6ae636a15e5ff1ddbbd4650f78"
-    sha256 sonoma:        "0065754b9e716fe32e180e8a130cd83f16797704b8a310fa300fa2511c42b12b"
-    sha256 ventura:       "7c874e6c4e301f867f7825084975240d3dc23311c92f460f48af59378409c1c4"
-    sha256 x86_64_linux:  "c69de82d45cb1788871624ed192f58955055696ed0ea1f714e1cd178184bb283"
+    rebuild 2
+    sha256 arm64_sequoia: "9d444f7cfd38c5a74765aa51eb6bea35136dde8d9b18e3d01093d19323987b7a"
+    sha256 arm64_sonoma:  "0f98698570fde113ddf8134b93edf7e50a71530fdad4a345dea44307ad489254"
+    sha256 arm64_ventura: "7d63768077cc24f658149b380daaf6c4d736b09dd3b8a7dc44ac1c94b0ff5472"
+    sha256 sonoma:        "893ed8eba9a90e94c95be128bb8acd9a81386204607e8bed4a53c290fb06fc32"
+    sha256 ventura:       "540635fb9a734b24b2f77740f1e7ca457b9b3644121ff9e938c61738be9827f3"
+    sha256 x86_64_linux:  "c34513885c5ac7c1df5e3f1f4ddb972194a572d19097980e6e67e4d8e8047319"
   end
 
   depends_on "bison" => :build
@@ -22,9 +23,9 @@ class GobjectIntrospection < Formula
   depends_on "ninja" => :build
   depends_on "cairo"
   depends_on "glib"
-  depends_on "pkg-config"
+  depends_on "pkgconf"
   # Ships a `_giscanner.cpython-312-darwin.so`, so needs a specific version.
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   uses_from_macos "flex" => :build
   uses_from_macos "libffi", since: :catalina
@@ -53,12 +54,12 @@ class GobjectIntrospection < Formula
   # See: https://github.com/Homebrew/homebrew-core/issues/75020
   #      https://gitlab.gnome.org/GNOME/gobject-introspection/-/merge_requests/273
   patch do
-    url "https://gitlab.gnome.org/tschoonj/gobject-introspection/-/commit/a7be304478b25271166cd92d110f251a8742d16b.diff"
+    url "https://gitlab.gnome.org/GNOME/gobject-introspection/-/commit/a7be304478b25271166cd92d110f251a8742d16b.diff"
     sha256 "740c9fba499b1491689b0b1216f9e693e5cb35c9a8565df4314341122ce12f81"
   end
 
   def install
-    venv = virtualenv_create(libexec, "python3.12")
+    venv = virtualenv_create(libexec, "python3.13")
     venv.pip_install resources
     ENV.prepend_path "PATH", venv.root/"bin"
 
@@ -82,7 +83,7 @@ class GobjectIntrospection < Formula
   end
 
   test do
-    (testpath/"main.c").write <<~EOS
+    (testpath/"main.c").write <<~C
       #include <girepository.h>
 
       int main (int argc, char *argv[]) {
@@ -90,10 +91,10 @@ class GobjectIntrospection < Formula
         g_assert_nonnull(repo);
         return 0;
       }
-    EOS
+    C
 
-    pkg_config_flags = shell_output("pkg-config --cflags --libs gobject-introspection-1.0").strip.split
-    system ENV.cc, "main.c", "-o", "test", *pkg_config_flags
+    pkgconf_flags = shell_output("pkgconf --cflags --libs gobject-introspection-1.0").strip.split
+    system ENV.cc, "main.c", "-o", "test", *pkgconf_flags
     system "./test"
   end
 end

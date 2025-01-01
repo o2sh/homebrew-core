@@ -30,8 +30,6 @@ class Assimp < Formula
 
   uses_from_macos "zlib"
 
-  fails_with gcc: "5"
-
   def install
     args = %W[
       -DASSIMP_BUILD_TESTS=OFF
@@ -46,13 +44,13 @@ class Assimp < Formula
 
   test do
     # Library test.
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <assimp/Importer.hpp>
       int main() {
         Assimp::Importer importer;
         return 0;
       }
-    EOS
+    CPP
     system ENV.cc, "-std=c++11", "test.cpp", "-L#{lib}", "-lassimp", "-o", "test"
     system "./test"
 

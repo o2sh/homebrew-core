@@ -24,19 +24,23 @@ class Antlr4CppRuntime < Formula
   depends_on "cmake" => :build
 
   on_linux do
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
     depends_on "util-linux"
   end
 
-  fails_with gcc: "5"
-
   def install
-    system "cmake", ".", "-DANTLR4_INSTALL=ON", "-DANTLR_BUILD_CPP_TESTS=OFF", *std_cmake_args
-    system "cmake", "--build", ".", "--target", "install"
+    args = %w[
+      -DANTLR4_INSTALL=ON
+      -DANTLR_BUILD_CPP_TESTS=OFF
+    ]
+
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.cc").write <<~EOS
+    (testpath/"test.cc").write <<~CPP
       #include <antlr4-runtime.h>
       int main(int argc, const char* argv[]) {
           try {
@@ -46,7 +50,7 @@ class Antlr4CppRuntime < Formula
           }
           return 0 ;
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++17", "-I#{include}/antlr4-runtime", "test.cc",
                     "-L#{lib}", "-lantlr4-runtime", "-o", "test"
     system "./test"

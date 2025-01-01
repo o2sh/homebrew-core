@@ -1,6 +1,6 @@
 class Pangomm < Formula
   desc "C++ interface to Pango"
-  homepage "https://www.pango.org/"
+  homepage "https://pango.gnome.org"
   url "https://download.gnome.org/sources/pangomm/2.54/pangomm-2.54.0.tar.xz"
   sha256 "4a5b1fd1b7c47a1af45277ea82b5abeaca8e08fb10a27daa6394cf88d74e7acf"
   license "LGPL-2.1-only"
@@ -18,15 +18,13 @@ class Pangomm < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
 
   depends_on "cairomm"
   depends_on "glib"
   depends_on "glibmm"
   depends_on "libsigc++"
   depends_on "pango"
-
-  fails_with gcc: "5"
 
   def install
     system "meson", "setup", "build", *std_meson_args
@@ -35,17 +33,17 @@ class Pangomm < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <pangomm.h>
       int main(int argc, char *argv[])
       {
         Pango::FontDescription fd;
         return 0;
       }
-    EOS
+    CPP
 
-    pkg_config_cflags = shell_output("pkg-config --cflags --libs pangomm-2.48").chomp.split
-    system ENV.cxx, "-std=c++17", "test.cpp", *pkg_config_cflags, "-o", "test"
+    pkgconf_flags = shell_output("pkgconf --cflags --libs pangomm-2.48").chomp.split
+    system ENV.cxx, "-std=c++17", "test.cpp", *pkgconf_flags, "-o", "test"
     system "./test"
   end
 end

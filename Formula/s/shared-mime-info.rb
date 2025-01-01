@@ -8,7 +8,10 @@ class SharedMimeInfo < Formula
 
   livecheck do
     url "https://gitlab.freedesktop.org/api/v4/projects/1205/releases"
-    regex(/shared-mime-info v?(\d+(?:\.\d+)+)/i)
+    regex(/^(?:Release[._-])?v?(\d+(?:[.-]\d+)+)$/i)
+    strategy :json do |json, regex|
+      json.map { |item| item["tag_name"]&.[](regex, 1)&.tr("-", ".") }
+    end
   end
 
   bottle do
@@ -27,7 +30,7 @@ class SharedMimeInfo < Formula
   depends_on "itstool" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "xmlto" => :build
   depends_on "glib"
 

@@ -3,15 +3,15 @@ class Litecli < Formula
 
   desc "CLI for SQLite Databases with auto-completion and syntax highlighting"
   homepage "https://github.com/dbcli/litecli"
-  url "https://files.pythonhosted.org/packages/4d/1d/4e033f1f9777c734d1fa6503b73c486f4bd8b574dbec47ba03ababb62fab/litecli-1.12.3.tar.gz"
-  sha256 "dd707c1bc04047aa6dba1916d204be47003aa383cf638bbe0f1d70bc6571d681"
+  url "https://files.pythonhosted.org/packages/ff/59/1e7ba81c715049b3eb299e65d29553fb64b3766dcc8669a1829faa0e6559/litecli-1.13.2.tar.gz"
+  sha256 "ac374929a5b3d914a9f47e0a7f4a838a7e1f6e963b4893cd7d67a1e2a3ac4762"
   license "BSD-3-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "77ce3029b4545b65fde5d5e012d69e79dc3880bf41236172e62b01c97c9a1f41"
+    sha256 cellar: :any_skip_relocation, all: "d24810e066854f0738e9659e8c020f1b85a0ed2796178fa9a102413132857527"
   end
 
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   uses_from_macos "sqlite"
 
@@ -26,13 +26,13 @@ class Litecli < Formula
   end
 
   resource "configobj" do
-    url "https://files.pythonhosted.org/packages/cb/87/17d4c6d634c044ab08b11c0cd2a8a136d103713d438f8792d7be2c5148fb/configobj-5.0.8.tar.gz"
-    sha256 "6f704434a07dc4f4dc7c9a745172c1cad449feb548febd9f7fe362629c627a97"
+    url "https://files.pythonhosted.org/packages/f5/c4/c7f9e41bc2e5f8eeae4a08a01c91b2aea3dfab40a3e14b25e87e7db8d501/configobj-5.0.9.tar.gz"
+    sha256 "03c881bbf23aa07bccf1b837005975993c4ab4427ba57f959afdd9d1a2386848"
   end
 
   resource "prompt-toolkit" do
-    url "https://files.pythonhosted.org/packages/47/6d/0279b119dafc74c1220420028d490c4399b790fc1256998666e3a341879f/prompt_toolkit-3.0.47.tar.gz"
-    sha256 "1e1b29cb58080b1e69f207c893a1a7bf16d127a5c30c9d17a25a5d77792e5360"
+    url "https://files.pythonhosted.org/packages/2d/4f/feb5e137aff82f7c7f3248267b97451da3644f6cdc218edfe549fb354127/prompt_toolkit-3.0.48.tar.gz"
+    sha256 "d6623ab0477a80df74e646bdbc93621143f5caf104206aa29294d53de1a03d90"
   end
 
   resource "pygments" do
@@ -40,14 +40,9 @@ class Litecli < Formula
     sha256 "786ff802f32e91311bff3889f6e9a86e81505fe99f2735bb6d60ae0c5004f199"
   end
 
-  resource "six" do
-    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
-    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
-  end
-
   resource "sqlparse" do
-    url "https://files.pythonhosted.org/packages/73/82/dfa23ec2cbed08a801deab02fe7c904bfb00765256b155941d789a338c68/sqlparse-0.5.1.tar.gz"
-    sha256 "bb6b4df465655ef332548e24f08e205afc81b9ab86cb1c45657a7ff173a3a00e"
+    url "https://files.pythonhosted.org/packages/57/61/5bc3aff85dc5bf98291b37cf469dab74b3d0aef2dd88eade9070a200af05/sqlparse-0.5.2.tar.gz"
+    sha256 "9e37b35e16d1cc652a2545f0997c1deb23ea28fa1f3eefe609eee3063c3b105f"
   end
 
   resource "tabulate" do
@@ -65,13 +60,13 @@ class Litecli < Formula
   end
 
   test do
-    (testpath/".config/litecli/config").write <<~EOS
+    (testpath/".config/litecli/config").write <<~INI
       [main]
       table_format = tsv
       less_chatty = True
-    EOS
+    INI
 
-    (testpath/"test.sql").write <<~EOS
+    (testpath/"test.sql").write <<~SQL
       CREATE TABLE IF NOT EXISTS package_manager (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name VARCHAR(256)
@@ -80,7 +75,7 @@ class Litecli < Formula
         package_manager (name)
       VALUES
         ('Homebrew');
-    EOS
+    SQL
     system "sqlite3 test.db < test.sql"
 
     require "pty"

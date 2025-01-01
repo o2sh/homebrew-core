@@ -1,10 +1,10 @@
 class MysqlAT80 < Formula
   desc "Open source relational database management system"
   homepage "https://dev.mysql.com/doc/refman/8.0/en/"
-  url "https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-boost-8.0.39.tar.gz"
-  sha256 "93208da9814116d81a384eae42120fd6c2ed507f1696064c510bc36047050241"
+  url "https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-boost-8.0.40.tar.gz"
+  sha256 "eb34a23d324584688199b4222242f4623ea7bca457a3191cd7a106c63a7837d9"
   license "GPL-2.0-only" => { with: "Universal-FOSS-exception-1.0" }
-  revision 3
+  revision 5
 
   livecheck do
     url "https://dev.mysql.com/downloads/mysql/8.0.html?tpl=files&os=src&version=8.0"
@@ -12,21 +12,21 @@ class MysqlAT80 < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "47d4dae95fbd3cb2384db090899cb934fbb48a717f8be81c610fc5af41c7ca87"
-    sha256 arm64_sonoma:  "66d7ff900a21ba374d0a479425a1eb004a6374ab044afca321660362ac671759"
-    sha256 arm64_ventura: "927c5644317dc2ed2eee35d9c59ed1ce30ef9694f6319e2e625b54fbd59d97f4"
-    sha256 sonoma:        "4aed24cb4c266ae40ea9753c46b0ba478221804bd175acab843b995cedb96e5c"
-    sha256 ventura:       "063a6829420749445323521119b986a685623d8b8519479cbf3fbac9421cdc4c"
-    sha256 x86_64_linux:  "ef7459fe57c4ce0b828a75bdf27e8d90700934680a94b82bdb202411ced2b8b2"
+    sha256 arm64_sequoia: "4980f38fe6d4eb8bf4d93cd9444434752c9b68d360fb5e45fa3c0903c88e9edc"
+    sha256 arm64_sonoma:  "3a8526f2947d0c2b853325c13e422ab237510b4268650cbe81eec9653d12e1b9"
+    sha256 arm64_ventura: "d48a3f4215deafffd7f1572e04d898749c16d560a4d8f9e4692d55cefbdf2cbd"
+    sha256 sonoma:        "da7ece595ed801cdfb47d315e41114afea68d082242767c5479475e880986ae5"
+    sha256 ventura:       "2c1dbb52e9b460b3c3168472a427b045c5d3b8016009fef106bec6177f453ed0"
+    sha256 x86_64_linux:  "e36b64f2b8e492b1fb462701b5583427179e9c6611087b89e83bef7bd5903f58"
   end
 
   keg_only :versioned_formula
 
   depends_on "bison" => :build
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "abseil"
-  depends_on "icu4c"
+  depends_on "icu4c@76"
   depends_on "libevent"
   depends_on "libfido2"
   depends_on "lz4"
@@ -44,11 +44,6 @@ class MysqlAT80 < Formula
     depends_on "libtirpc"
   end
 
-  fails_with :gcc do
-    version "6"
-    cause "Requires C++17"
-  end
-
   # Patch out check for Homebrew `boost`.
   # This should not be necessary when building inside `brew`.
   # https://github.com/Homebrew/homebrew-test-bot/pull/820
@@ -59,24 +54,11 @@ class MysqlAT80 < Formula
   end
 
   def install
-    if OS.linux?
-      # Fix libmysqlgcs.a(gcs_logging.cc.o): relocation R_X86_64_32
-      # against `_ZN17Gcs_debug_options12m_debug_noneB5cxx11E' can not be used when making
-      # a shared object; recompile with -fPIC
-      ENV.append_to_cflags "-fPIC"
+    # Disable ABI checking
+    inreplace "cmake/abi_check.cmake", "RUN_ABI_CHECK 1", "RUN_ABI_CHECK 0" if OS.linux?
 
-      # Disable ABI checking
-      inreplace "cmake/abi_check.cmake", "RUN_ABI_CHECK 1", "RUN_ABI_CHECK 0"
-
-      # Work around build issue with Protobuf 22+ on Linux
-      # Ref: https://bugs.mysql.com/bug.php?id=113045
-      # Ref: https://bugs.mysql.com/bug.php?id=115163
-      inreplace "cmake/protobuf.cmake" do |s|
-        s.gsub! 'IF(APPLE AND WITH_PROTOBUF STREQUAL "system"', 'IF(WITH_PROTOBUF STREQUAL "system"'
-        s.gsub! ' INCLUDE REGEX "${HOMEBREW_HOME}.*")', ' INCLUDE REGEX "libabsl.*")'
-      end
-    end
-
+    icu4c = deps.find { |dep| dep.name.match?(/^icu4c(@\d+)?$/) }
+                .to_formula
     # -DINSTALL_* are relative to `CMAKE_INSTALL_PREFIX` (`prefix`)
     args = %W[
       -DCOMPILATION_COMMENT=Homebrew
@@ -88,11 +70,13 @@ class MysqlAT80 < Formula
       -DINSTALL_PLUGINDIR=lib/plugin
       -DMYSQL_DATADIR=#{datadir}
       -DSYSCONFDIR=#{etc}
+      -DBISON_EXECUTABLE=#{Formula["bison"].opt_bin}/bison
+      -DOPENSSL_ROOT_DIR=#{Formula["openssl@3"].opt_prefix}
+      -DWITH_ICU=#{icu4c.opt_prefix}
       -DWITH_SYSTEM_LIBS=ON
       -DWITH_BOOST=boost
       -DWITH_EDITLINE=system
       -DWITH_FIDO=system
-      -DWITH_ICU=system
       -DWITH_LIBEVENT=system
       -DWITH_LZ4=system
       -DWITH_PROTOBUF=system

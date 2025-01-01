@@ -1,8 +1,8 @@
 class BtrfsProgs < Formula
   desc "Userspace utilities to manage btrfs filesystems"
   homepage "https://btrfs.readthedocs.io/en/latest/"
-  url "https://mirrors.edge.kernel.org/pub/linux/kernel/people/kdave/btrfs-progs/btrfs-progs-v6.11.tar.xz"
-  sha256 "ff9ae91521303a90d87e1c4be230f0121f39c44ddbe52c2aeae263c6fecfa099"
+  url "https://mirrors.edge.kernel.org/pub/linux/kernel/people/kdave/btrfs-progs/btrfs-progs-v6.12.tar.xz"
+  sha256 "9a7d9651ffd52fbe5212a8e4852a3cdb079e3d223fc5504e6a50b0ba96cd20a1"
   license all_of: [
     "GPL-2.0-only",
     "LGPL-2.1-or-later", # libbtrfsutil
@@ -14,12 +14,12 @@ class BtrfsProgs < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "267d655ecc32d194a9d2ba8d54c9a40654f2a0399a4a4f4809b4b036736d73fd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "f428dae088adcd1deeea6509791d030f91fb90f3d62a752b96a63588771e7eb5"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python-setuptools" => :build
-  depends_on "python@3.12" => [:build, :test]
+  depends_on "python@3.13" => [:build, :test]
   depends_on "sphinx-doc" => :build
   depends_on "e2fsprogs"
   depends_on :linux
@@ -30,7 +30,7 @@ class BtrfsProgs < Formula
   depends_on "zstd"
 
   def python3
-    which("python3.12")
+    which("python3.13")
   end
 
   # remove sphinx-rtd-theme extension for html docs

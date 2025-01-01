@@ -1,30 +1,32 @@
 class Bup < Formula
   desc "Backup tool"
   homepage "https://bup.github.io/"
-  url "https://github.com/bup/bup/archive/refs/tags/0.33.4.tar.gz"
-  sha256 "f51284f2cb24aa653288f05aad32d6ec6ebb9546143ed7c588d40ba82f24b79a"
+  url "https://github.com/bup/bup/archive/refs/tags/0.33.6.tar.gz"
+  sha256 "62108488f8d1027ac63f276e28f749129055628a82d23f4b926e10deb93cb54f"
   license all_of: ["BSD-2-Clause", "LGPL-2.0-only"]
   head "https://github.com/bup/bup.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "d5e14460192f0c0dad35bfcefd5b31ca061f7664fbe3e2b5c21a73a10d510987"
-    sha256 cellar: :any,                 arm64_sonoma:   "0318b68039fcf8b554e28288c2fc56b3b448602fecab8535cd6bc1a7df94f785"
-    sha256 cellar: :any,                 arm64_ventura:  "53a8d9dfd22c18e1a442a6897d0fc0381dc29e243a44f2b322345146c7ec3967"
-    sha256 cellar: :any,                 arm64_monterey: "a66d236fc9183a6e08731af6c11024cf22998a8fe2276421d128aebbb8431783"
-    sha256 cellar: :any,                 sonoma:         "3b3850de4518caee4d8efe70833b7050f1a7297abc4347dab46eb6c84e5baa21"
-    sha256 cellar: :any,                 ventura:        "b2175d5efffcbfc460013f608259ca44ced450038bd4e1cdfa1857c2c666e563"
-    sha256 cellar: :any,                 monterey:       "6785a85f8e7088815267b8648786cc033d1408da3922e77cce18380e657abbf8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "adce7c082d9fb66a0471b0728cb3c174a4a2fc1e89f3b4ac2e845ab58972b12d"
+    sha256 cellar: :any,                 arm64_sequoia: "df8271018cddc10787297ae3ac38e8edda355a7227471e9ef119c663267c7345"
+    sha256 cellar: :any,                 arm64_sonoma:  "e126ea3ee137ff6c99fecf0f8ffc8563fd3530f7e02f6c3fe198e03210d7c160"
+    sha256 cellar: :any,                 arm64_ventura: "012e7917175154e0f74d851a34a7c22f1ce9b0035dfbb7e645e7336a059d8504"
+    sha256 cellar: :any,                 sonoma:        "f8b3bad61c33f8d778e3b554a8d591f133f3d84ef7bef9155299964ce48edd91"
+    sha256 cellar: :any,                 ventura:       "ac8fca2732f37bc3ff0beae4753dba78f33fc35790261eb54d0b0b8fbfef9527"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5a9634bdbabeb6734ec49252baea50b710c09d807de83b3721ebf79fdf6d7c3f"
   end
 
   depends_on "pandoc" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
-  depends_on "python@3.12"
+  depends_on "python@3.13"
   depends_on "readline"
 
+  on_linux do
+    depends_on "acl"
+  end
+
   def python3
-    which("python3.12")
+    which("python3.13")
   end
 
   def install

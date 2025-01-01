@@ -1,8 +1,8 @@
 class Werf < Formula
   desc "Consistent delivery tool for Kubernetes"
   homepage "https://werf.io/"
-  url "https://github.com/werf/werf/archive/refs/tags/v2.10.6.tar.gz"
-  sha256 "7080f574c8e795a48af77a37251e3d814a353819939441b2fcaf481972caadf5"
+  url "https://github.com/werf/werf/archive/refs/tags/v2.17.0.tar.gz"
+  sha256 "cc84a00b21137e972f09c2c7f7133d28f3d1cc80a38b15e50faf34fddf7638d2"
   license "Apache-2.0"
   head "https://github.com/werf/werf.git", branch: "main"
 
@@ -15,18 +15,18 @@ class Werf < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1da10c07154035b5a95dff2b4cda1ac83a518cefa54ff60cd0a3597585fa455b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b7674fd3f2b8b70626c5057457e40329a251bfeb2e940aa637db28d558d1e1c4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "abe9b9d9044331d6c83ffb309711c165ce109cf8cff1b5466fbb729ca4236f5b"
-    sha256 cellar: :any_skip_relocation, sonoma:        "4a7c4f1e39946195bf4241f674df18fbd5c2322285be5be28880611625113489"
-    sha256 cellar: :any_skip_relocation, ventura:       "c943181921fa4e570b2f217bb7c8afd4f5fc7e30c0e12224598b753a81ce9a81"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e7c8f4f4804847b23d568486312e2b8e8db286077935743d98cc629c07066735"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "027a486cad3a082ae4c6ec57c2b640f278907fb2254de2b50226ecc069db4300"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "9cd001947d8811fd4cdd57588a694af0458f12238d564a13f52f848a2d678f6b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "2dd013ee52e7596f7cdb2d16bf51b5adab0281059d8f4f45a5c46c50da819695"
+    sha256 cellar: :any_skip_relocation, sonoma:        "271f1f0cf7183860567b288d2ec70cd9f98338fb8bf29492e44878e8615e7941"
+    sha256 cellar: :any_skip_relocation, ventura:       "49f2ffc3e329deca44a5f4517ef8b19a05f7808eafd6be8cae7c62aaeaab1c5a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8664cb536b9374f79be350b0e1744d33f9eecb92a69e7d5fa15baae1575118f0"
   end
 
   depends_on "go" => :build
 
   on_linux do
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
     depends_on "btrfs-progs"
     depends_on "device-mapper"
   end
@@ -55,7 +55,7 @@ class Werf < Formula
 
   test do
     werf_config = testpath/"werf.yaml"
-    werf_config.write <<~EOS
+    werf_config.write <<~YAML
       configVersion: 1
       project: quickstart-application
       ---
@@ -70,13 +70,13 @@ class Werf < Formula
       image: worker
       dockerfile: Dockerfile
       context: worker
-    EOS
+    YAML
 
-    output = <<~EOS
+    output = <<~YAML
       - image: vote
       - image: result
       - image: worker
-    EOS
+    YAML
 
     system "git", "init"
     system "git", "add", werf_config

@@ -3,10 +3,10 @@ class Nginx < Formula
   homepage "https://nginx.org/"
   # Use "mainline" releases only (odd minor version number), not "stable"
   # See https://www.nginx.com/blog/nginx-1-12-1-13-released/ for why
-  url "https://nginx.org/download/nginx-1.27.1.tar.gz"
-  sha256 "bd7ba68a6ce1ea3768b771c7e2ab4955a59fb1b1ae8d554fedb6c2304104bdfc"
+  url "https://nginx.org/download/nginx-1.27.3.tar.gz"
+  sha256 "ba23a9568f442036b61cd0e29bd66a47b90634efa91e0b2cf2d719057a9b7903"
   license "BSD-2-Clause"
-  head "https://github.com/nginx/nginx", branch: "master"
+  head "https://github.com/nginx/nginx.git", branch: "master"
 
   livecheck do
     url :homepage
@@ -14,14 +14,13 @@ class Nginx < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "ac1f1147a6cbaba5b0cb6ed68db7aa619f242bfaa1772407416d10a0dbda4a08"
-    sha256 arm64_sonoma:   "32f9a1923a5f149c9054c4a8451af76b783321d793fd804650e5e283ec8b87bd"
-    sha256 arm64_ventura:  "5b684ce3453d11e51d13ae235d5ab3ab797a422e39917db7d080ec12b6b9bc8b"
-    sha256 arm64_monterey: "40cce86ed46a8664c12f9e28438c4fabc054322c5f3327a4f3c47cea5f603b00"
-    sha256 sonoma:         "eb43305e60bf882c3f6f64da40a9d788b6e0eb6fa08b21feea4481a74a912412"
-    sha256 ventura:        "2d519c6e3b984e0a1d857ab78de44d3bb7e99819bbc60e15c0ff37a405ad3be6"
-    sha256 monterey:       "2c003d3208581f6cc540d39a85f9480c28931673c3e48418cc073b952c728d51"
-    sha256 x86_64_linux:   "16fcfde2b4d4fbabab7c440cb42a6037ca3ce86cea1c6a64cc1278168b296aa9"
+    rebuild 1
+    sha256 arm64_sequoia: "f40a9c6ad302a0a1dde106770adebee377460ef83738846be54039f58b9e03f4"
+    sha256 arm64_sonoma:  "c5e9720e335be052e94d52e81c808879c96a71fd2b3b8b957013c5feb5036933"
+    sha256 arm64_ventura: "5858332bcb079a0117f18a13c7dee37a83d0df97c6cbc6766ef40ff6e238abda"
+    sha256 sonoma:        "21a293938045a23a9e81a5c8ae6d70301e5aaea776dbabdd8a96b43426d0df71"
+    sha256 ventura:       "a522ff78dbf7156230cac0fe298d93fc7fc841650290722caf435513c15476be"
+    sha256 x86_64_linux:  "7a4f75de608255de3dfb7140ea2ed81ce7516f5353a297c44218a86450eecddc"
   end
 
   depends_on "openssl@3"
@@ -29,6 +28,7 @@ class Nginx < Formula
 
   uses_from_macos "xz" => :build
   uses_from_macos "libxcrypt"
+  uses_from_macos "zlib"
 
   def install
     # keep clean copy of source for compiling dynamic modules e.g. passenger
@@ -153,7 +153,7 @@ class Nginx < Formula
   end
 
   test do
-    (testpath/"nginx.conf").write <<~EOS
+    (testpath/"nginx.conf").write <<~NGINX
       worker_processes 4;
       error_log #{testpath}/error.log;
       pid #{testpath}/nginx.pid;
@@ -176,7 +176,7 @@ class Nginx < Formula
           error_log #{testpath}/error.log;
         }
       }
-    EOS
+    NGINX
     system bin/"nginx", "-t", "-c", testpath/"nginx.conf"
   end
 end

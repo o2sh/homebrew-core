@@ -4,19 +4,19 @@ class Bloaty < Formula
   url "https://github.com/google/bloaty/releases/download/v1.1/bloaty-1.1.tar.bz2"
   sha256 "a308d8369d5812aba45982e55e7c3db2ea4780b7496a5455792fb3dcba9abd6f"
   license "Apache-2.0"
-  revision 30
+  revision 35
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "ddb21006c0e861a027456d9011a38f68c491293f80d23a6dc905faa3f2e0e4b7"
-    sha256 cellar: :any,                 arm64_sonoma:  "b93d99e35c369cb856138e780d1f9aed0525d49431224f538fc84c8b46b1dff8"
-    sha256 cellar: :any,                 arm64_ventura: "0a0b15276af1e0b7c15ec0b1972d1af753390058b28c2d719b3b9ad2838a7b89"
-    sha256 cellar: :any,                 sonoma:        "ba9ffaab5f896984c2d8507203f4b5786e1d3f7e403b0873d5867cbffc6d9289"
-    sha256 cellar: :any,                 ventura:       "5d0b745d15eda4ef7f5e70645eb9df729378a74c18a59dec50e7380dc83ade3d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "af245e2db2f9d27e4c412d794edac1757cd1d6c7d5f71b9b45d058b559a3e92c"
+    sha256 cellar: :any,                 arm64_sequoia: "3903a8c98c15249ab765ea00d0def107762b404593bf37cc48366fbd02eb3e4d"
+    sha256 cellar: :any,                 arm64_sonoma:  "6b477734eee3c9d113edeb730761bc756567ad354e6311754c3b616f10f8697d"
+    sha256 cellar: :any,                 arm64_ventura: "bd59a6875bae0cc0f13328acac97d2bd32585768ced1881783411674bcc163bd"
+    sha256 cellar: :any,                 sonoma:        "e4cbac251b0b57d7a720d861620d0612002cd844ed53a26d65e3b8543b6cb0b5"
+    sha256 cellar: :any,                 ventura:       "be03dd99e7bb5d942650a94edbec4c2500ec388a0de91b0af68ef6aae4eb3e7a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "954903225e6903f0447d241e1a9bc42dab9ae66e5aff78d5b1cde950261bea40"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "abseil"
   depends_on "capstone"
   depends_on "protobuf"
@@ -37,6 +37,7 @@ class Bloaty < Formula
     abseil_cxx_standard = 17 # Keep in sync with C++ standard in abseil.rb
     inreplace "CMakeLists.txt", "CMAKE_CXX_STANDARD 11", "CMAKE_CXX_STANDARD #{abseil_cxx_standard}"
     inreplace "CMakeLists.txt", "-std=c++11", "-std=c++17"
+
     system "cmake", "-S", ".", "-B", "build", "-DCMAKE_CXX_STANDARD=#{abseil_cxx_standard}", *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"

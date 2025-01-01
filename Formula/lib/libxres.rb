@@ -18,27 +18,25 @@ class Libxres < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "b0a84c746909317e32b8e527e20d56df64836bf461e8719d5bbab2be1f249cc0"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "xorgproto" => :build
   depends_on "libx11"
   depends_on "libxext"
 
   def install
     args = %W[
-      --prefix=#{prefix}
       --sysconfdir=#{etc}
       --localstatedir=#{var}
-      --disable-dependency-tracking
       --disable-silent-rules
     ]
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include "X11/Xlib.h"
       #include "X11/extensions/XRes.h"
 
@@ -46,7 +44,7 @@ class Libxres < Formula
         XResType client;
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lXRes"
     assert_equal 0, $CHILD_STATUS.exitstatus
   end

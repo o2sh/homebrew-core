@@ -24,7 +24,7 @@ class Lasso < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "9adf24a05cbf953ad5f3d3bca3f388eadb08480aaf9f100663504c2ea83ff025"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "glib"
   depends_on "libxml2"
   depends_on "libxmlsec1"
@@ -73,13 +73,13 @@ class Lasso < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <lasso/lasso.h>
 
       int main() {
         return lasso_init();
       }
-    EOS
+    C
     system ENV.cc, "test.c",
                    "-I#{Formula["glib"].include}/glib-2.0",
                    "-I#{Formula["glib"].lib}/glib-2.0/include",
@@ -89,6 +89,7 @@ class Lasso < Formula
     system "./test"
   end
 end
+
 __END__
 diff --git a/lasso/xml/tools.c b/lasso/xml/tools.c
 index 4d5fa78a..0478f3f4 100644

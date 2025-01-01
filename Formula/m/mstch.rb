@@ -24,8 +24,9 @@ class Mstch < Formula
   depends_on "boost"
 
   def install
-    system "cmake", ".", *std_cmake_args
-    system "make", "install"
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
 
     (lib/"pkgconfig/mstch.pc").write pc_file
   end
@@ -46,7 +47,7 @@ class Mstch < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <mstch/mstch.hpp>
       #include <cassert>
       #include <string>
@@ -56,7 +57,7 @@ class Mstch < Formula
 
         assert(mstch::render(view, context) == "Hello, world");
       }
-    EOS
+    CPP
 
     system ENV.cxx, "test.cpp", "-L#{lib}", "-lmstch", "-std=c++11", "-o", "test"
     system "./test"

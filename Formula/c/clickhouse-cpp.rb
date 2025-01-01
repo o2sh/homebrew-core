@@ -22,9 +22,6 @@ class ClickhouseCpp < Formula
   depends_on "lz4"
   depends_on "openssl@3"
 
-  fails_with gcc: "5"
-  fails_with gcc: "6"
-
   def install
     # We use the vendored version (1.0.2) of `cityhash` because newer versions
     # break hash compatibility. See:
@@ -45,7 +42,7 @@ class ClickhouseCpp < Formula
   end
 
   test do
-    (testpath/"main.cpp").write <<~EOS
+    (testpath/"main.cpp").write <<~CPP
       #include <clickhouse/client.h>
 
       #include <exception>
@@ -82,7 +79,7 @@ class ClickhouseCpp < Formula
 
           return exit_code;
       }
-    EOS
+    CPP
 
     args = %W[
       -std=c++17

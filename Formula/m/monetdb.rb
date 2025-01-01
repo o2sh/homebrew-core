@@ -1,8 +1,8 @@
 class Monetdb < Formula
   desc "Column-store database"
   homepage "https://www.monetdb.org/"
-  url "https://www.monetdb.org/downloads/sources/Aug2024/MonetDB-11.51.3.tar.xz"
-  sha256 "2f4499349e7917e12ec5d2d33d477bb50b4a302485cfcce1ca20129c7e791264"
+  url "https://www.monetdb.org/downloads/sources/Aug2024-SP2/MonetDB-11.51.7.tar.xz"
+  sha256 "98fd6512858911b0e6e3a0f62432f4ac7acb34ca8b6adc882db6e3315fc297c6"
   license "MPL-2.0"
   head "https://dev.monetdb.org/hg/MonetDB", using: :hg
 
@@ -12,19 +12,17 @@ class Monetdb < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "96f96cb48088cdaa3c868a453c9b298538f4cb049035041a569d02afe51fe682"
-    sha256 arm64_sonoma:   "e0614266a5bec3fb9cb384151619f90cd029069a8ad1a2e7218db2fe31c56d26"
-    sha256 arm64_ventura:  "65981cd668538e4b9d79a8cd6297594a8c65e8cac03358d86e56620691cabbe7"
-    sha256 arm64_monterey: "854708fc0d738d4d4bb4e8a18b0b1e6febcf81b3643a9f83a7e423d6ab39958d"
-    sha256 sonoma:         "7d67c99b5bc5ecb03c06f0d96af1119730e7ce0c4e84a9a213da3ac1b330b187"
-    sha256 ventura:        "61fd24dc0a7e50526d29dc28a642904827ad1cc921c6ebbd1c1c52fe0bfc0ca8"
-    sha256 monterey:       "f3e27bb257cbe9f74b7564c9b2d17b26847ec588f702de6249786c9ad42a3ed8"
-    sha256 x86_64_linux:   "70f646cdad185a3ffebc909386b43fb2035e4ee81e7c03ff1ce3ae6ac4470f05"
+    sha256 arm64_sequoia: "3009b9b02155c2ac62e6fb747cf989222eb0b27360c7de286b332f0efdfe86c8"
+    sha256 arm64_sonoma:  "536cfdd1b67f37b85418bcf88b7a7c353662f23ce1497958f4aae4aa598482c3"
+    sha256 arm64_ventura: "8dff397a6cd6919941bc677d5565358ad2140234949cc8ab17249d9d8ad6f71c"
+    sha256 sonoma:        "d1865385c7eee772a7c81eaf3dac6c9c37f5513a8e098dcde414dc5c1195c266"
+    sha256 ventura:       "f5e1327e061fe9246a0d9cbaeeae8eaa31cfd057021e1061df354d20fdfb44df"
+    sha256 x86_64_linux:  "79e53c9d3b5860df89ba17b444f4169c4daa4b4e9579e8888691b722dfc55971"
   end
 
   depends_on "bison" => :build # macOS bison is too old
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "lz4"
   depends_on "openssl@3"
   depends_on "pcre"
@@ -34,39 +32,38 @@ class Monetdb < Formula
   uses_from_macos "python" => :build
 
   def install
-    mkdir "build" do
-      system "cmake", "..", *std_cmake_args,
-                      "-DRELEASE_VERSION=ON",
-                      "-DASSERT=OFF",
-                      "-DSTRICT=OFF",
-                      "-DTESTING=OFF",
-                      "-DFITS=OFF",
-                      "-DGEOM=OFF",
-                      "-DNETCDF=OFF",
-                      "-DODBC=OFF",
-                      "-DPY3INTEGRATION=OFF",
-                      "-DRINTEGRATION=OFF",
-                      "-DSHP=OFF",
-                      "-DWITH_BZ2=ON",
-                      "-DWITH_CMOCKA=OFF",
-                      "-DWITH_CURL=ON",
-                      "-DWITH_LZ4=ON",
-                      "-DWITH_LZMA=ON",
-                      "-DWITH_OPENSSL=ON",
-                      "-DWITH_PCRE=ON",
-                      "-DWITH_PROJ=OFF",
-                      "-DWITH_XML2=ON",
-                      "-DWITH_ZLIB=ON"
-      # remove reference to shims directory from compilation/linking info
-      inreplace "tools/mserver/monet_version.c", %r{"/[^ ]*/}, "\""
-      system "cmake", "--build", "."
-      system "cmake", "--build", ".", "--target", "install"
-    end
+    system "cmake", "-S", ".", "-B", "build",
+                    "-DRELEASE_VERSION=ON",
+                    "-DASSERT=OFF",
+                    "-DSTRICT=OFF",
+                    "-DTESTING=OFF",
+                    "-DFITS=OFF",
+                    "-DGEOM=OFF",
+                    "-DNETCDF=OFF",
+                    "-DODBC=OFF",
+                    "-DPY3INTEGRATION=OFF",
+                    "-DRINTEGRATION=OFF",
+                    "-DSHP=OFF",
+                    "-DWITH_BZ2=ON",
+                    "-DWITH_CMOCKA=OFF",
+                    "-DWITH_CURL=ON",
+                    "-DWITH_LZ4=ON",
+                    "-DWITH_LZMA=ON",
+                    "-DWITH_OPENSSL=ON",
+                    "-DWITH_PCRE=ON",
+                    "-DWITH_PROJ=OFF",
+                    "-DWITH_XML2=ON",
+                    "-DWITH_ZLIB=ON",
+                    *std_cmake_args
+    # remove reference to shims directory from compilation/linking info
+    inreplace "build/tools/mserver/monet_version.c", %r{"/[^ ]*/}, "\""
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
     # assert_match "Usage", shell_output("#{bin}/mclient --help 2>&1")
-    system("#{bin}/monetdbd", "create", "#{testpath}/dbfarm")
-    assert_predicate testpath/"dbfarm", :exist?
+    system bin/"monetdbd", "create", testpath/"dbfarm"
+    assert_path_exists testpath/"dbfarm"
   end
 end

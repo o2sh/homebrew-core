@@ -23,7 +23,7 @@ class Gtkmm4 < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
 
   depends_on "cairo"
   depends_on "cairomm"
@@ -35,8 +35,6 @@ class Gtkmm4 < Formula
   depends_on "libsigc++"
   depends_on "pangomm"
 
-  fails_with gcc: "5"
-
   def install
     system "meson", "setup", "build", *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"
@@ -44,7 +42,7 @@ class Gtkmm4 < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <gtkmm.h>
 
       class MyLabel : public Gtk::Label {
@@ -53,9 +51,9 @@ class Gtkmm4 < Formula
       int main(int argc, char *argv[]) {
         return 0;
       }
-    EOS
+    CPP
 
-    flags = shell_output("pkg-config --cflags --libs gtkmm-4.0").chomp.split
+    flags = shell_output("pkgconf --cflags --libs gtkmm-4.0").chomp.split
     system ENV.cxx, "-std=c++17", "test.cpp", "-o", "test", *flags
     system "./test"
   end

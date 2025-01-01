@@ -1,8 +1,8 @@
 class Manticoresearch < Formula
   desc "Open source text search engine"
   homepage "https://manticoresearch.com"
-  url "https://github.com/manticoresoftware/manticoresearch/archive/refs/tags/6.3.6.tar.gz"
-  sha256 "d0409bde33f4fe89358ad7dbbad775e1499d4e61fed16d4fa84f9b29b89482d2"
+  url "https://github.com/manticoresoftware/manticoresearch/archive/refs/tags/6.3.8.tar.gz"
+  sha256 "633a55f20545eb4c722dd05175b7187ca802d765fc3eaf9cce3bc2ebb4eaebbe"
   license all_of: [
     "GPL-3.0-or-later",
     "GPL-2.0-only", # wsrep
@@ -19,14 +19,12 @@ class Manticoresearch < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "d1cc0bf982a31827707598ebfca997641504ff4807402ce3fefb7249e9898cb1"
-    sha256 arm64_sonoma:   "e8c8da051f17ed8e3984e7a73b2956fe9dbb15af20f6586f7c639b82871d8b76"
-    sha256 arm64_ventura:  "7af52d4fa6beb2a7fe7a7fab57d7781c50f340e1c4f164668e03ca543ffc36ba"
-    sha256 arm64_monterey: "f793c0bb62386e8cc63f9657788d587c06dc742b507ac3c28d1d828d7ad00c8e"
-    sha256 sonoma:         "6f42e036fa7fe8fa7b5e3da02e0c4e0c685c862e0a332d7329aa14d75264007a"
-    sha256 ventura:        "ed97b55541841ab96bec286202cbc13bd6e4b3768f82ad18b4a207d2f4d631c9"
-    sha256 monterey:       "be12886881943aa6c44fe6f6506322f08163f129e4c91fcb4d3db9a8045bee9c"
-    sha256 x86_64_linux:   "5ddaec2c620e960e04733e79738758b88ecdafa09284c11283561005c3cb2449"
+    sha256 arm64_sequoia: "6dcdd6b0272b3d137486441e402e76533ce3fa37af5ae5187b15f9b0d8e91323"
+    sha256 arm64_sonoma:  "1f37515148fac4f4b83d4c847900e3a4053671de246b6d6c969a8ef4995063d8"
+    sha256 arm64_ventura: "7d30b9fb98196c9a569adafb85f73c66d23f975beb1015931d9ee5933c8ba410"
+    sha256 sonoma:        "de5e34aa93653420dbd4f3cee685be832b6ddc8944ef8598265693030c966858"
+    sha256 ventura:       "006072f761e4ae6145779953a579ca3db29a3d505ffe5f10001d6b4faefdf850"
+    sha256 x86_64_linux:  "9499fd95c8b1e71dcd1d004531edc7b8baf0a8a52868f46c435adb752979a297"
   end
 
   depends_on "boost" => :build
@@ -34,32 +32,31 @@ class Manticoresearch < Formula
   depends_on "nlohmann-json" => :build
   depends_on "snowball" => :build # for libstemmer.a
 
-  # NOTE: `libpq`, `mysql-client`, `unixodbc` and `zstd` are dynamically loaded rather than linked
+  # NOTE: `libpq`, `mariadb-connector-c`, `unixodbc` and `zstd` are dynamically loaded rather than linked
   depends_on "cctz"
-  depends_on "icu4c"
+  depends_on "icu4c@76"
   depends_on "libpq"
-  depends_on "mysql-client"
+  depends_on "mariadb-connector-c"
   depends_on "openssl@3"
   depends_on "re2"
   depends_on "unixodbc"
   depends_on "xxhash"
-  depends_on "zlib" # due to `mysql-client`
   depends_on "zstd"
 
   uses_from_macos "bison" => :build
   uses_from_macos "flex" => :build
+  uses_from_macos "expat"
   uses_from_macos "libxml2"
-
-  fails_with gcc: "5"
+  uses_from_macos "zlib"
 
   def install
     # Work around error when building with GCC
     # Issue ref: https://github.com/manticoresoftware/manticoresearch/issues/2393
     ENV.append_to_cflags "-fpermissive" if OS.linux?
 
-    ENV["ICU_ROOT"] = Formula["icu4c"].opt_prefix.to_s
+    ENV["ICU_ROOT"] = deps.find { |dep| dep.name.match?(/^icu4c(@\d+)?$/) }
+                          .to_formula.opt_prefix.to_s
     ENV["OPENSSL_ROOT_DIR"] = Formula["openssl@3"].opt_prefix.to_s
-    ENV["MYSQL_ROOT_DIR"] = Formula["mysql-client"].opt_prefix.to_s
     ENV["PostgreSQL_ROOT"] = Formula["libpq"].opt_prefix.to_s
 
     args = %W[
@@ -72,6 +69,7 @@ class Manticoresearch < Formula
       -DCMAKE_REQUIRE_FIND_PACKAGE_re2=ON
       -DCMAKE_REQUIRE_FIND_PACKAGE_stemmer=ON
       -DCMAKE_REQUIRE_FIND_PACKAGE_xxHash=ON
+      -DMYSQL_CONFIG_EXECUTABLE=#{Formula["mariadb-connector-c"].opt_bin}/mariadb_config
       -DRE2_LIBRARY=#{Formula["re2"].opt_lib/shared_library("libre2")}
       -DWITH_ICU_FORCE_STATIC=OFF
       -DWITH_RE2_FORCE_STATIC=OFF

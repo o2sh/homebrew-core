@@ -19,8 +19,6 @@ class Reproc < Formula
 
   depends_on "cmake" => :build
 
-  fails_with gcc: "5"
-
   def install
     args = *std_cmake_args << "-DREPROC++=ON"
     system "cmake", "-S", ".", "-B", "build", *args, "-DBUILD_SHARED_LIBS=ON", "-DCMAKE_INSTALL_RPATH=#{rpath}"
@@ -33,16 +31,16 @@ class Reproc < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <reproc/run.h>
 
       int main(void) {
         const char *args[] = { "echo", "Hello, world!", NULL };
         return reproc_run(args, (reproc_options) { 0 });
       }
-    EOS
+    C
 
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <iostream>
       #include <reproc++/run.hpp>
 
@@ -56,7 +54,7 @@ class Reproc < Formula
         std::tie(status, ec) = reproc::run(args, options);
         return ec ? ec.value() : status;
       }
-    EOS
+    CPP
 
     system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lreproc", "-o", "test-c"
     system ENV.cxx, "test.cpp", "-std=c++11", "-I#{include}", "-L#{lib}", "-lreproc++", "-o", "test-cpp"

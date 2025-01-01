@@ -21,15 +21,15 @@ class Stoken < Formula
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
+  depends_on "gmp"
   depends_on "nettle"
 
   uses_from_macos "libxml2"
 
   def install
     system "./autogen.sh"
-    system "./configure", *std_configure_args,
-                          "--disable-silent-rules"
+    system "./configure", "--disable-silent-rules", *std_configure_args
     system "make", "check"
     system "make", "install"
   end

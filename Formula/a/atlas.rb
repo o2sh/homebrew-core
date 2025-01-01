@@ -3,20 +3,18 @@ class Atlas < Formula
   homepage "https://atlasgo.io/"
   # Upstream may not mark patch releases as latest on GitHub; it is fine to ship them.
   # See https://github.com/ariga/atlas/issues/1090#issuecomment-1225258408
-  url "https://github.com/ariga/atlas/archive/refs/tags/v0.27.0.tar.gz"
-  sha256 "444eed6b081269b9f42839092689ef1e935631c8c5890a53dbacac1ed2596a11"
+  url "https://github.com/ariga/atlas/archive/refs/tags/v0.29.1.tar.gz"
+  sha256 "db5972f826761c9f52cb968061dd50d654e1b63af35bd81c01eb1218dabce924"
   license "Apache-2.0"
   head "https://github.com/ariga/atlas.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "b6a9ec3cf11eb1dc65322e39df31a08f2d14acaddb737207eae1ebff876c9eed"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2c58de084bfd7fc470691e590758986e085bb8037bc082ff52f005cd5e2bd3d9"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "94a7f705e06e643d658d302a7820ec9a49b488a292e61c5c7e85f8798018360e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9f69659dd6b4417d8075105a21930fc456fe9a8572d7a59c18dcbe89055d0da7"
-    sha256 cellar: :any_skip_relocation, sonoma:         "23c4d10340ba3412d88f81180cd9064b30e2956f5c5b08d3a1943d68a8bcb32a"
-    sha256 cellar: :any_skip_relocation, ventura:        "0f03a3233a78a3ffc7a8ed51feef8c2cbd0065f30dbcb24de49a8b75173a2184"
-    sha256 cellar: :any_skip_relocation, monterey:       "e5ac413768e23e4b8ac5e2b59199f685b4a2f1af605d9636af33d70519aee4a7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3e611d691eb041bb1bc8c577a9a83aa39143f15538dee1367fb2cb196ac499ed"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ce06499f6f994251d00749cd656d932caa408e473884b357d8c961146576f2ab"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4750cdf5afcc27f43ae05d5d44001e268b581234cc206fda6d74e89772fee9e9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "343bd34238cd54a4ca7a86210a9e0cf16c7e08eae0c044e73a84e15c185acfe6"
+    sha256 cellar: :any_skip_relocation, sonoma:        "94aa90d335a47cd1eb6bd674f8f6cc485054826476e99f7db2c61ccbc6f9cdce"
+    sha256 cellar: :any_skip_relocation, ventura:       "b9b18c465b07e6ca6917549fa322b4319e1a9a84dcd757b829429d2f45a5964e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1f807164d6f65aa72776487062b21a00b68f97b83529a45f6ff07f5f363980f6"
   end
 
   depends_on "go" => :build

@@ -19,25 +19,22 @@ class Libucl < Formula
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   def install
     system "./autogen.sh"
 
-    args = %W[
-      --disable-debug
-      --disable-dependency-tracking
+    args = %w[
       --disable-silent-rules
       --enable-utils
-      --prefix=#{prefix}
     ]
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <ucl++.h>
       #include <string>
       #include <cassert>
@@ -50,7 +47,7 @@ class Libucl < Formula
         assert(obj[std::string("foo")].string_value() == "bar");
         assert(obj[std::string("section")][std::string("flag")].bool_value());
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++11", "test.cpp", "-L#{lib}", "-lucl", "-o", "test"
     system "./test"
   end

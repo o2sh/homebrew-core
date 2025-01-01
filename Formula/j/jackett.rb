@@ -1,32 +1,33 @@
 class Jackett < Formula
   desc "API Support for your favorite torrent trackers"
   homepage "https://github.com/Jackett/Jackett"
-  url "https://github.com/Jackett/Jackett/archive/refs/tags/v0.22.643.tar.gz"
-  sha256 "4290a1fadc82c3a2cf3fbf6de3b908f9dceba7607fceeadba20598c88ff44d12"
+  url "https://github.com/Jackett/Jackett/archive/refs/tags/v0.22.1177.tar.gz"
+  sha256 "7c1ae748e0a12fc14e77ddc11ffae6d8e090dbbd87c9114ff285369d1b2decc8"
   license "GPL-2.0-only"
   head "https://github.com/Jackett/Jackett.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:  "d197ff532da1bee3db2e4bb20782148a2a4ec36f1ff7493be8d1bc80113397ae"
-    sha256 cellar: :any,                 arm64_ventura: "51541d6c129bfa8705459b28bf470fa8ca9c155bb4a7ce1d30a506f0ebb124c8"
-    sha256 cellar: :any,                 sonoma:        "a184fe7f26b6e6ac0a14f3813719f653574f0742ecf71fd71f6861003496026b"
-    sha256 cellar: :any,                 ventura:       "04e944c2475105e410033b414647d4dbaafda05e58dc5820a6b96f3be13d8292"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4752650c5e727825b36f6106dae90d7c3873781639c6b441fe73f3dcad075546"
+    sha256 cellar: :any,                 arm64_sequoia: "0f69797a9ebb993383f3ad889e867f33637f81c77b5f16a60639a19f15fe9e82"
+    sha256 cellar: :any,                 arm64_sonoma:  "e7af6aa501fd1d625e24b51954763ab60cb191e37d032c5e239902752dce20d9"
+    sha256 cellar: :any,                 arm64_ventura: "2ac08e9c7695ff0d96a1de7b481e8980a9ea6eb99f9f8c174ca100673c605872"
+    sha256 cellar: :any,                 ventura:       "54f02db8882efd9b34fe2018f698a13ad09f76e889e09405780b36ea9ae7932c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ed4f1eefcaa712ff2c2789c3887bcc2819c1e0c757d5a60941454caee64415c8"
   end
 
-  depends_on "dotnet"
+  depends_on "dotnet@8"
 
   def install
-    dotnet = Formula["dotnet"]
-    os = OS.mac? ? "osx" : OS.kernel_name.downcase
-    arch = Hardware::CPU.intel? ? "x64" : Hardware::CPU.arch.to_s
+    ENV["DOTNET_CLI_TELEMETRY_OPTOUT"] = "1"
+    ENV["DOTNET_SYSTEM_GLOBALIZATION_INVARIANT"] = "1"
+
+    dotnet = Formula["dotnet@8"]
 
     args = %W[
       --configuration Release
       --framework net#{dotnet.version.major_minor}
       --output #{libexec}
-      --runtime #{os}-#{arch}
       --no-self-contained
+      --use-current-runtime
     ]
     if build.stable?
       args += %W[

@@ -20,7 +20,7 @@ class Gerbv < Formula
   depends_on "automake" => :build
   depends_on "gettext" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "cairo"
   depends_on "gdk-pixbuf"
@@ -44,10 +44,9 @@ class Gerbv < Formula
       s.gsub! "${PREFIX}~", "${PREFIX}"
     end
     system "./autogen.sh"
-    system "./configure", *std_configure_args,
-                          "--disable-dependency-tracking",
-                          "--disable-update-desktop-database",
-                          "--disable-schemas-compile"
+    system "./configure", "--disable-update-desktop-database",
+                          "--disable-schemas-compile",
+                          *std_configure_args
     system "make"
     system "make", "install"
   end
@@ -56,14 +55,14 @@ class Gerbv < Formula
     # executable (GUI) test
     system bin/"gerbv", "--version"
     # API test
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <gerbv.h>
 
       int main(int argc, char *argv[]) {
         double d = gerbv_get_tool_diameter(2);
         return 0;
       }
-    EOS
+    C
     atk = Formula["atk"]
     cairo = Formula["cairo"]
     fontconfig = Formula["fontconfig"]

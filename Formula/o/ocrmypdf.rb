@@ -3,22 +3,20 @@ class Ocrmypdf < Formula
 
   desc "Adds an OCR text layer to scanned PDF files"
   homepage "https://ocrmypdf.readthedocs.io/en/latest/"
-  url "https://files.pythonhosted.org/packages/2c/85/439deb5b418261dbfd844dbae8c1d8713c9c7bc5dd36a59577a77d7ffbbb/ocrmypdf-16.5.0.tar.gz"
-  sha256 "cd96bddfb3a986be7bf7857757919332e1db5dab780eb7b321fdea38f60127ac"
+  url "https://files.pythonhosted.org/packages/0e/0d/135a35c1be3f50b5cff61360eb28f7965b9c92dd85238f3e9e27db595058/ocrmypdf-16.7.0.tar.gz"
+  sha256 "d79c37dc1404931eaa7ee15dc281d9da5575b8f361a55a509962a969d002daa4"
   license "MPL-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "578d34e7fc7fabcdc8d9a93858a2d2ffecc53474a822075dc124a5ddabce941c"
-    sha256 cellar: :any,                 arm64_sonoma:   "ba66320394edb0c2d3db4951022117bc1b4512cf3be351cac9ee461e1727744b"
-    sha256 cellar: :any,                 arm64_ventura:  "cb2f27a81182604604b82b38df25f62cb0fc7635040832fa6dda8563b694c149"
-    sha256 cellar: :any,                 arm64_monterey: "c25265f48bce9e10f80863e5524ea6d3cba54148e2bc108da3209020c0e137d3"
-    sha256 cellar: :any,                 sonoma:         "ce2ebd67be7c626f6d51ee7f5c85675b400f2b02ed4e2d5b3da671f7d29df94d"
-    sha256 cellar: :any,                 ventura:        "4b38e1d045dcb84f1285cd5e10ecdbd9ac2bf1e0c0f2184ce7fdc4f5ddaef8d8"
-    sha256 cellar: :any,                 monterey:       "09ae46940d17c6eb9ac4869673e6b7ec92051fc2daa8964b332e00191fb3005b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5b8e8701c3a16b56d4f647b4a0a69284eec27ae2f8dcbfb22c7ebf977ab02a3a"
+    sha256 cellar: :any,                 arm64_sequoia: "26fae418cf02a7accb78a3392ebb02d9338942d3e49117bbc7c96cb27591a866"
+    sha256 cellar: :any,                 arm64_sonoma:  "24de273f664cff91e1dc7a143e7398afa49cb305ee024e5b206c735dd5fef02e"
+    sha256 cellar: :any,                 arm64_ventura: "5426373fa590ef1ee09aa7fb688a0aa466c5b19f44a6ec1983ae565216b18213"
+    sha256 cellar: :any,                 sonoma:        "03bda81e9849964b205463af38a908f1e4045dd30504c685f5ab874e4709a9c2"
+    sha256 cellar: :any,                 ventura:       "79b0766fdc3fc36550f873de65c8f34f3ca58eb0f5fedf5597ee25ec19ab510e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "96319ef39b5a9bcccf9a966acbc3496b95e1955f64e1d9bae2961c5457744bb6"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "cryptography"
   depends_on "freetype"
   depends_on "ghostscript"
@@ -29,7 +27,7 @@ class Ocrmypdf < Formula
   depends_on "pillow"
   depends_on "pngquant"
   depends_on "pybind11"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
   depends_on "qpdf"
   depends_on "tesseract"
   depends_on "unpaper"
@@ -38,16 +36,14 @@ class Ocrmypdf < Formula
   uses_from_macos "libxml2", since: :ventura
   uses_from_macos "libxslt"
 
-  fails_with gcc: "5"
-
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
-    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
+    url "https://files.pythonhosted.org/packages/f2/4f/e1808dc01273379acc506d18f1504eb2d299bd4131743b9fc54d7be4df1e/charset_normalizer-3.4.0.tar.gz"
+    sha256 "223217c3d4f82c3ac5e29032b3f1c2eb0fb591b72161f86d93f5719079dae93e"
   end
 
   resource "deprecated" do
-    url "https://files.pythonhosted.org/packages/92/14/1e41f504a246fc224d2ac264c227975427a85caf37c3979979edb9b1b232/Deprecated-1.2.14.tar.gz"
-    sha256 "e5323eb936458dccc2582dc6f9c322c852a775a27065ff2b0c4970b9d53d01b3"
+    url "https://files.pythonhosted.org/packages/2e/a3/53e7d78a6850ffdd394d7048a31a6f14e44900adedf190f9a165f6b69439/deprecated-1.2.15.tar.gz"
+    sha256 "683e561a90de76239796e6b6feac66b99030d2dd3fcf61ef996330f14bbb9b0d"
   end
 
   resource "deprecation" do
@@ -76,8 +72,8 @@ class Ocrmypdf < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/51/65/50db4dda066951078f0a96cf12f4b9ada6e4b811516bf0262c0f4f7064d4/packaging-24.1.tar.gz"
-    sha256 "026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002"
+    url "https://files.pythonhosted.org/packages/d0/63/68dbb6eb2de9cb10ee4c9c14a0148804425e13c4fb20d61cce69f53106da/packaging-24.2.tar.gz"
+    sha256 "c228a6dc5e932d346bc5739379109d49e8853dd8223571c7c5b55260edc0b97f"
   end
 
   resource "pdfminer-six" do
@@ -86,13 +82,13 @@ class Ocrmypdf < Formula
   end
 
   resource "pi-heif" do
-    url "https://files.pythonhosted.org/packages/8e/12/b477e3bc1ce4a7e9db9ff85f22c89ccd5199c04c150d9cef1bbd444b1672/pi_heif-0.18.0.tar.gz"
-    sha256 "0a690159607beaa6712f2c8abaa5168a22314d18f00a617d691548f5acba8070"
+    url "https://files.pythonhosted.org/packages/f5/12/e87b1a7e5b353f885b646ee9c966be74b7db0ae9d68abc712411487353d7/pi_heif-0.21.0.tar.gz"
+    sha256 "4902cdb84e75505e1d9abdd5aff1e6dcfebe569ec825162d68a4a399a43689a4"
   end
 
   resource "pikepdf" do
-    url "https://files.pythonhosted.org/packages/1a/7b/da1b6baeb4361420d6531c90723b33a6e0071118316950a3b35be8375e0c/pikepdf-9.2.0.tar.gz"
-    sha256 "a666479a5a8cd5d8b86baa1010e5517c2c60dc3df586accacbd94377b744f034"
+    url "https://files.pythonhosted.org/packages/57/54/71552c3ab2694618741e5579506759238716664400304cb615917a993df5/pikepdf-9.4.2.tar.gz"
+    sha256 "0108c063bc56dc2dbfc87f20533a728342a938f4c85e39773866b71255aa8388"
   end
 
   resource "pluggy" do
@@ -106,13 +102,13 @@ class Ocrmypdf < Formula
   end
 
   resource "rich" do
-    url "https://files.pythonhosted.org/packages/cf/60/5959113cae0ce512cf246a6871c623117330105a0d5f59b4e26138f2c9cc/rich-13.8.0.tar.gz"
-    sha256 "a5ac1f1cd448ade0d59cc3356f7db7a7ccda2c8cbae9c7a90c28ff463d3e91f4"
+    url "https://files.pythonhosted.org/packages/ab/3a/0316b28d0761c6734d6bc14e770d85506c986c85ffb239e688eeaab2c2bc/rich-13.9.4.tar.gz"
+    sha256 "439594978a49a09530cff7ebc4b5c7103ef57baf48d5ea3184f21d9a2befa098"
   end
 
   resource "wrapt" do
-    url "https://files.pythonhosted.org/packages/95/4c/063a912e20bcef7124e0df97282a8af3ff3e4b603ce84c481d6d7346be0a/wrapt-1.16.0.tar.gz"
-    sha256 "5f370f952971e7d17c7d1ead40e49f32345a7f7a5373571ef44d800d06b1899d"
+    url "https://files.pythonhosted.org/packages/24/a1/fc03dca9b0432725c2e8cdbf91a349d2194cf03d8523c124faebe581de09/wrapt-1.17.0.tar.gz"
+    sha256 "16187aa2317c731170a88ef35e8937ae0f533c402872c1ee5e6d079fcf320801"
   end
 
   def install
@@ -125,6 +121,6 @@ class Ocrmypdf < Formula
   test do
     system bin/"ocrmypdf", "-f", "-q", "--deskew",
                            test_fixtures("test.pdf"), "ocr.pdf"
-    assert_predicate testpath/"ocr.pdf", :exist?
+    assert_path_exists testpath/"ocr.pdf"
   end
 end

@@ -21,7 +21,7 @@ class Libzen < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   # These files used to be distributed as part of the media-info formula
   link_overwrite "include/ZenLib/*"
@@ -35,7 +35,7 @@ class Libzen < Formula
   end
 
   test do
-    (testpath/"test.cc").write <<~EOS
+    (testpath/"test.cc").write <<~CPP
       #include <ZenLib/Ztring.h>
       #include <iostream>
       int main() {
@@ -43,7 +43,7 @@ class Libzen < Formula
         std::cout << myString.To_UTF8() << std::endl;
         return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++17", "test.cc", "-I#{include}", "-L#{lib}", "-lzen", "-o", "test"
     system "./test"
   end

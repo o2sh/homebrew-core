@@ -17,7 +17,7 @@ class Libnet < Formula
   end
 
   depends_on "doxygen" => :build
-  depends_on "pkg-config" => :test
+  depends_on "pkgconf" => :test
 
   def install
     system "./configure", *std_configure_args
@@ -25,8 +25,7 @@ class Libnet < Formula
   end
 
   test do
-    flags = shell_output("pkg-config --libs --cflags libnet").chomp.split
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <stdint.h>
       #include <libnet.h>
@@ -36,9 +35,10 @@ class Libnet < Formula
         printf("%s", libnet_version());
         return 0;
       }
-    EOS
+    C
 
-    system ENV.cc, "test.c", *flags, "-o", "test"
+    flags = shell_output("pkgconf --libs --cflags libnet").chomp.split
+    system ENV.cc, "test.c", "-o", "test", *flags
     assert_match version.to_s, shell_output("./test")
   end
 end

@@ -1,8 +1,8 @@
 class Openjdk < Formula
   desc "Development kit for the Java programming language"
   homepage "https://openjdk.java.net/"
-  url "https://github.com/openjdk/jdk23u/archive/refs/tags/jdk-23-ga.tar.gz"
-  sha256 "02e2c3b356c00c3cc7efcca2fbd37723f55349677a1de483a9be8a43f327de76"
+  url "https://github.com/openjdk/jdk23u/archive/refs/tags/jdk-23.0.1-ga.tar.gz"
+  sha256 "0e058ae2956871aafc5be33960b6e0f8dd954d234d590d249bcb3b619b579a0a"
   license "GPL-2.0-only" => { with: "Classpath-exception-2.0" }
 
   livecheck do
@@ -11,19 +11,20 @@ class Openjdk < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sequoia: "d11c49812b114460b90942c45f02becf69bdcffe48b8cd4514472302262f3518"
-    sha256 cellar: :any, arm64_sonoma:  "368d0cb33d3bf5651710c10be277d9a2e53d93d3488dc73c28fdb8eceaf07e91"
-    sha256 cellar: :any, arm64_ventura: "be0af8218d0903caa6219714efc9c807145e03f3598d70a7ca81ab4e1bfcc20b"
-    sha256 cellar: :any, sonoma:        "ceb6b3cce2e6824c31ad5e494dddc171e923e73e2f1a7f44fefa7fed70c1bd3c"
-    sha256 cellar: :any, ventura:       "ae27754ab1f09b846be1df1c921643728dc6731e87df731cd841fd699c2db786"
-    sha256               x86_64_linux:  "1818846f24b8e089d014cf49cc10163c9ddaeba96ee3e150c3f1981d5a98d628"
+    sha256 cellar: :any, arm64_sequoia: "5cba5c9149f823770a7aa5ddd12f8e0d48263284bfc8151b066d9c60b5945f04"
+    sha256 cellar: :any, arm64_sonoma:  "176f8199a78576ee2c58ff0991fe39715f5bfa2b3696f1524dd02d189b2bbecb"
+    sha256 cellar: :any, arm64_ventura: "28f082ca3d5a172b9991546169f74fbe1f69a9dbd3e96dc0fe02aa35e0332454"
+    sha256 cellar: :any, sonoma:        "0af938cb313d757ceadccb67ecb37ea8744de3a672ec23ee7fd19afd1ed9ff98"
+    sha256 cellar: :any, ventura:       "c682b196a6eb18f671c7f995d9c48ce8e88db01767822283f4ab3f74b3c51ce6"
+    sha256               x86_64_linux:  "873413e010c1bf4a928801aa74bd8d20fb8053a6bc303a74486ad17653d35e9e"
   end
 
   keg_only :shadowed_by_macos
 
   depends_on "autoconf" => :build
-  depends_on "pkg-config" => :build
-  depends_on xcode: :build
+  depends_on "pkgconf" => :build
+  depends_on xcode: :build # for metal
+  depends_on "freetype"
   depends_on "giflib"
   depends_on "harfbuzz"
   depends_on "jpeg-turbo"
@@ -36,24 +37,9 @@ class Openjdk < Formula
   uses_from_macos "zip"
   uses_from_macos "zlib"
 
-  on_macos do
-    if DevelopmentTools.clang_build_version == 1600
-      depends_on "llvm" => :build
-
-      fails_with :clang do
-        cause <<~EOS
-          Exception in thread "main" java.lang.ClassFormatError: StackMapTable format error: bad verification type
-            at jdk.compiler/com.sun.tools.javac.Main.compile(Main.java:64)
-            at jdk.compiler/com.sun.tools.javac.Main.main(Main.java:52)
-        EOS
-      end
-    end
-  end
-
   on_linux do
     depends_on "alsa-lib"
     depends_on "fontconfig"
-    depends_on "freetype"
     depends_on "libx11"
     depends_on "libxext"
     depends_on "libxi"
@@ -62,8 +48,6 @@ class Openjdk < Formula
     depends_on "libxt"
     depends_on "libxtst"
   end
-
-  fails_with gcc: "5"
 
   # From https://jdk.java.net/archive/
   resource "boot-jdk" do
@@ -97,11 +81,6 @@ class Openjdk < Formula
   end
 
   def install
-    if DevelopmentTools.clang_build_version == 1600
-      ENV.llvm_clang
-      ENV.remove "HOMEBREW_LIBRARY_PATHS", Formula["llvm"].opt_lib
-    end
-
     boot_jdk = buildpath/"boot-jdk"
     resource("boot-jdk").stage boot_jdk
     boot_jdk /= "Contents/Home" if OS.mac?
@@ -122,6 +101,7 @@ class Openjdk < Formula
       --with-version-build=#{revision}
       --without-version-opt
       --without-version-pre
+      --with-freetype=system
       --with-giflib=system
       --with-harfbuzz=system
       --with-lcms=system
@@ -137,8 +117,13 @@ class Openjdk < Formula
     args += if OS.mac?
       ldflags << "-headerpad_max_install_names"
 
+      # Allow unbundling `freetype` on macOS
+      inreplace "make/autoconf/lib-freetype.m4", '= "xmacosx"', '= ""'
+
       %W[
         --enable-dtrace
+        --with-freetype-include=#{Formula["freetype"].opt_include}
+        --with-freetype-lib=#{Formula["freetype"].opt_lib}
         --with-sysroot=#{MacOS.sdk_path}
       ]
     else
@@ -146,11 +131,14 @@ class Openjdk < Formula
         --with-x=#{HOMEBREW_PREFIX}
         --with-cups=#{HOMEBREW_PREFIX}
         --with-fontconfig=#{HOMEBREW_PREFIX}
-        --with-freetype=system
         --with-stdc++lib=dynamic
       ]
     end
     args << "--with-extra-ldflags=#{ldflags.join(" ")}"
+
+    if DevelopmentTools.clang_build_version == 1600
+      args << "--with-extra-cflags=-mllvm -enable-constraint-elimination=0"
+    end
 
     system "bash", "configure", *args
 
@@ -181,13 +169,13 @@ class Openjdk < Formula
   end
 
   test do
-    (testpath/"HelloWorld.java").write <<~EOS
+    (testpath/"HelloWorld.java").write <<~JAVA
       class HelloWorld {
         public static void main(String args[]) {
           System.out.println("Hello, world!");
         }
       }
-    EOS
+    JAVA
 
     system bin/"javac", "HelloWorld.java"
 

@@ -28,8 +28,6 @@ class Libnetworkit < Formula
     depends_on "libomp"
   end
 
-  fails_with gcc: "5"
-
   def install
     system "cmake", "-S", ".", "-B", "build",
                     "-DNETWORKIT_EXT_TLX=#{Formula["tlx"].opt_prefix}",
@@ -40,7 +38,7 @@ class Libnetworkit < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <networkit/graph/Graph.hpp>
       int main()
       {
@@ -48,7 +46,7 @@ class Libnetworkit < Formula
         NetworKit::Graph g(5);
         return 0;
       }
-    EOS
+    CPP
     omp_flags = OS.mac? ? ["-I#{Formula["libomp"].opt_include}"] : []
     system ENV.cxx, "-std=c++17", "test.cpp", "-L#{lib}", "-lnetworkit", "-o", "test", *omp_flags
     system "./test"

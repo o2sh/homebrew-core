@@ -17,13 +17,14 @@ class Nemu < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "gettext"
   depends_on "json-c"
   depends_on "libarchive"
   depends_on "ncurses"
   depends_on "openssl@3"
 
+  uses_from_macos "libxml2"
   uses_from_macos "sqlite"
 
   on_linux do

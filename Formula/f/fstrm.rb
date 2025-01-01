@@ -14,6 +14,12 @@ class Fstrm < Formula
     end
   end
 
+  # GitHub release descriptions contain a link to the `stable` tarball.
+  livecheck do
+    url :head
+    strategy :github_latest
+  end
+
   bottle do
     sha256 cellar: :any,                 arm64_sequoia:  "d33b95ae03b379e72f20439898cb8c87f896d2994783778803c7701d92a57998"
     sha256 cellar: :any,                 arm64_sonoma:   "b016547f64c4a39ea5c551314def723180ee3de352008aaf09d77eb2b76bd8d2"
@@ -37,23 +43,18 @@ class Fstrm < Formula
     depends_on "libtool" => :build
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libevent"
 
   def install
     system "autoreconf", "--force", "--install", "--verbose" if build.head?
-    system "./configure", "--disable-debug",
-           "--disable-dependency-tracking",
-           "--disable-silent-rules",
-           "--prefix=#{prefix}"
+    system "./configure", "--disable-silent-rules", *std_configure_args
     system "make", "install"
   end
 
   test do
-    job = fork do
-      exec bin/"fstrm_capture", "-t", "protobuf:dnstap.Dnstap",
-           "-u", "dnstap.sock", "-w", "capture.fstrm", "-dddd"
-    end
+    job = spawn bin/"fstrm_capture", "-t", "protobuf:dnstap.Dnstap",
+                                     "-u", "dnstap.sock", "-w", "capture.fstrm", "-dddd"
     sleep 2
 
     system bin/"fstrm_dump", "capture.fstrm"

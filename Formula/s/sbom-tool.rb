@@ -1,9 +1,10 @@
 class SbomTool < Formula
   desc "Scalable and enterprise ready tool to create SBOMs for any variety of artifacts"
   homepage "https://github.com/microsoft/sbom-tool"
-  url "https://github.com/microsoft/sbom-tool/archive/refs/tags/v2.2.9.tar.gz"
-  sha256 "013dbd84214ae9b41918138fc0292570b0819cb9284a860363eb2532dda204e5"
+  url "https://github.com/microsoft/sbom-tool/archive/refs/tags/v3.0.1.tar.gz"
+  sha256 "90085ab1f134f83d43767e46d6952be42a62dbb0f5368e293437620a96458867"
   license "MIT"
+  revision 1
   head "https://github.com/microsoft/sbom-tool.git", branch: "main"
 
   # There can be a notable gap between when a version is tagged and a
@@ -15,32 +16,27 @@ class SbomTool < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8187fac2b281d8031bbd3d86954f3fc71f5ab236ec08538a34f9752d8a59463b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "29bd6d62c85ca6c92d32909b3a9ec9d85ddbe1ea0273535b3dd834e2fb98e52f"
-    sha256 cellar: :any_skip_relocation, sonoma:        "27604c0023bba19d5473c6ced252ab3ce2e7e5e40eb64d039e63b5ba06c5a454"
-    sha256 cellar: :any_skip_relocation, ventura:       "22d665ec20d1d79556a310d4457cb5222ad3078e957c3d8017824b9b88f07bf4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "31114583c0e2dbc15dd4fe35b5ac88085057fc012e04e9bfe7359eae9dc7f54b"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6bf387a8034456bb65d63d4f864ec3b81748652ad39dd38d3d3807d02b437433"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8c0d07a6e89a1f372531636ca561f2e5af41910ecc5791cf931730503f063795"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "67a77a8352820d51e87c58b88aa7e696a3ab97694866dffb3e8875c8fe208b89"
+    sha256 cellar: :any_skip_relocation, ventura:       "844c19d372a7fab9e4c596a4e36c61bf8c42a5d820cc683923d5b24bd6636b17"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9fd6bee59cbb61af9efeb983811f7f6e418395efc5bbc2ba3796c118c743f663"
   end
 
-  depends_on "dotnet"
+  depends_on "dotnet@8"
 
   uses_from_macos "zlib"
 
   def install
-    bin.mkdir
-
     ENV["DOTNET_CLI_TELEMETRY_OPTOUT"] = "true"
 
-    dotnet = Formula["dotnet"]
-    os = OS.mac? ? "osx" : OS.kernel_name.downcase
-    arch = Hardware::CPU.intel? ? "x64" : Hardware::CPU.arch.to_s
-
+    dotnet = Formula["dotnet@8"]
     args = %W[
       --configuration Release
       --framework net#{dotnet.version.major_minor}
-      --output #{libexec}
-      --runtime #{os}-#{arch}
       --no-self-contained
+      --output #{libexec}
+      --use-current-runtime
       -p:OFFICIAL_BUILD=true
       -p:MinVerVersionOverride=#{version}
       -p:PublishSingleFile=true
@@ -51,8 +47,7 @@ class SbomTool < Formula
     ]
 
     system "dotnet", "publish", "src/Microsoft.Sbom.Tool/Microsoft.Sbom.Tool.csproj", *args
-    (bin/"sbom-tool").write_env_script libexec/"Microsoft.Sbom.Tool",
-                                       DOTNET_ROOT: "${DOTNET_ROOT:-#{dotnet.opt_libexec}}"
+    (bin/"sbom-tool").write_env_script libexec/"Microsoft.Sbom.Tool", DOTNET_ROOT: dotnet.opt_libexec
   end
 
   test do

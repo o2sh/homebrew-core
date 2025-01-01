@@ -1,23 +1,21 @@
 class I2pd < Formula
   desc "Full-featured C++ implementation of I2P client"
   homepage "https://i2pd.website/"
-  url "https://github.com/PurpleI2P/i2pd/archive/refs/tags/2.53.1.tar.gz"
-  sha256 "c6863d853905e7594ea661595ea591055f8f2f018b9b90507d5a43a6456188ea"
+  # TODO: Switch to latest `boost` dependency on next release
+  url "https://github.com/PurpleI2P/i2pd/archive/refs/tags/2.55.0.tar.gz"
+  sha256 "f5792a1c0499143c716663e90bfb105aaa7ec47d1c4550b5f90ebfc25da00c6c"
   license "BSD-3-Clause"
-  revision 2
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "3167c59ad43eae832f2453a7341bca45ac4436611a558c7fe591f5622ab0e3e9"
-    sha256 cellar: :any,                 arm64_sonoma:   "a4e7d4d4cbd93bee7bd27ca808684ec9568c14b1be7090c62fe6bc689985acad"
-    sha256 cellar: :any,                 arm64_ventura:  "a58c579c861e964a648cad9eb2d593f866cc5d2cfbad9049b42b08a5830ed4be"
-    sha256 cellar: :any,                 arm64_monterey: "ee32381a4a7c9ac7176dbb51e0a74f18e2f06eb59690c12527dceb74df1c6968"
-    sha256 cellar: :any,                 sonoma:         "0e6a92be437ff23d7bee284230e20b8da857f1b62048a73b213e366002482493"
-    sha256 cellar: :any,                 ventura:        "bb945682a876206475efe7e3ca26bfa5d670f76c3778a6fcab6a9338abe7a634"
-    sha256 cellar: :any,                 monterey:       "edc0f028fd5f951512fd5b33f1ce8b1cd6c41a208367ac17c1629d8da42f438f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ebfae0bea6e262521b9f2fd1d57adac740c4f94bf610959ce501010c2e3f802c"
+    sha256 cellar: :any,                 arm64_sequoia: "90d8ccd4ba31afcfcc690fac21c3a0946699916d5e22964e112b0149efcceabf"
+    sha256 cellar: :any,                 arm64_sonoma:  "cd91388ea4cb59b3b6e005d96b85c48c8c75fb6a5beaba36a13884fd28e87bd7"
+    sha256 cellar: :any,                 arm64_ventura: "ca57f6a6a9aac905ba794ef8a045eebba9a7ae2d7c13c03f2e2a62de308a5e87"
+    sha256 cellar: :any,                 sonoma:        "c35e53ab939669eac762f82441d880f58ca3ece6bcd82d2390b228522b54e795"
+    sha256 cellar: :any,                 ventura:       "83259ed270c54b04e910ba8ece73b10b82d2acb6214859accfdd1526727329e0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a016bfda13fa3b5deba1948edec9ee979b3fc2c90b226826c36600b9e0d20d9e"
   end
 
-  depends_on "boost"
+  depends_on "boost@1.85"
   depends_on "miniupnpc"
   depends_on "openssl@3"
 

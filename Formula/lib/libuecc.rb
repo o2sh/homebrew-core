@@ -32,12 +32,13 @@ class Libuecc < Formula
   depends_on "cmake" => :build
 
   def install
-    system "cmake", ".", *std_cmake_args
-    system "make", "install"
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdlib.h>
       #include <libuecc/ecc.h>
 
@@ -48,7 +49,8 @@ class Libuecc < Formula
 
           return EXIT_SUCCESS;
       }
-    EOS
+    C
+
     system ENV.cc, "-I#{include}/libuecc-#{version}", "-L#{lib}", "-o", "test", "test.c", "-luecc"
     system "./test"
   end

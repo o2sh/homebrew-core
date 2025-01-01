@@ -46,7 +46,7 @@ class Libetpan < Formula
     depends_on "autoconf" => :build
     depends_on "automake" => :build
     depends_on "libtool" => :build
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
     depends_on "openssl@3"
   end
 
@@ -77,7 +77,7 @@ class Libetpan < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <libetpan/libetpan.h>
       #include <string.h>
       #include <stdlib.h>
@@ -86,7 +86,7 @@ class Libetpan < Formula
       {
         printf("version is %d.%d",libetpan_get_version_major(), libetpan_get_version_minor());
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-letpan", "-o", "test"
     system "./test"
   end

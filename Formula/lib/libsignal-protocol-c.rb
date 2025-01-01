@@ -24,7 +24,7 @@ class LibsignalProtocolC < Formula
   deprecate! date: "2024-08-01", because: :repo_archived
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   def install
     system "cmake", "-S", ".", "-B", "build", "-DBUILD_SHARED_LIBS=ON", *std_cmake_args
@@ -33,7 +33,7 @@ class LibsignalProtocolC < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <signal_protocol.h>
       #include <session_builder.h>
       #include <session_cipher.h>
@@ -104,7 +104,7 @@ class LibsignalProtocolC < Formula
 
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-I#{include}/signal",
                    "-L#{lib}", "-lsignal-protocol-c",
                    "-o", "test"

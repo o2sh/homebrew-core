@@ -1,24 +1,22 @@
 class Enzyme < Formula
   desc "High-performance automatic differentiation of LLVM"
   homepage "https://enzyme.mit.edu"
-  url "https://github.com/EnzymeAD/Enzyme/archive/refs/tags/v0.0.150.tar.gz"
-  sha256 "9a6cdfef009f86996479d8ceb63bae3341df9f4394c62509d3e8ae2e0cadac22"
+  url "https://github.com/EnzymeAD/Enzyme/archive/refs/tags/v0.0.172.tar.gz"
+  sha256 "688200164787d543641cb446cff20f6a8e8b5c92bb7032ebe7f867efa67ceafb"
   license "Apache-2.0" => { with: "LLVM-exception" }
   head "https://github.com/EnzymeAD/Enzyme.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "74b42077af5b3297de1a73d40564f0134cd3e4200b4b25ba1fa5349ee10174bf"
-    sha256 cellar: :any,                 arm64_sonoma:  "e59fc2868ee5f6d7c7c47ec08ad0341bd436e45f32b9d48e8080972b13819cf7"
-    sha256 cellar: :any,                 arm64_ventura: "3ff6fb6653d78498ee29f3ed379d7445df228cb2261e725f76c7ad0e3db95e18"
-    sha256 cellar: :any,                 sonoma:        "7a299609f039b5d7fc3c5d74aa35ba727d3d177d993a4924950dd297e9e203d4"
-    sha256 cellar: :any,                 ventura:       "7be870f50da0b786033dae4ce3486da9404649020f1bb3ff743940f7e391fe46"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "45e44a19203691684fee565424bc3c35dc80525b2883922f1ee891930b493a4f"
+    sha256 cellar: :any,                 arm64_sequoia: "1986ae04d4b99170b2ba189b6e6f432d75432f34ef5bccc5d482d1ce259a9559"
+    sha256 cellar: :any,                 arm64_sonoma:  "cfddb6a4d52aa83bfa4b362b5923de91a322d423c0b227d1eddd72964c5efb69"
+    sha256 cellar: :any,                 arm64_ventura: "234b2e110d31c982699e867b697723820ec96c71dc2fe3f57da35893a348e2cf"
+    sha256 cellar: :any,                 sonoma:        "ec57ea612c564601bad3ad4fb3f1b2e1499b162f2f391c6d9dd6e36ae371b03d"
+    sha256 cellar: :any,                 ventura:       "b578a2c3be0635e0f82b5946edb04c56d97a725d7c8ae46b94abb6907ccf93aa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "08eaf58fb8a7ee08775dfd9a8b005a88e01cf2cf5f2285c05ff7ab0065369de8"
   end
 
   depends_on "cmake" => :build
   depends_on "llvm"
-
-  fails_with gcc: "5"
 
   def llvm
     deps.map(&:to_formula).find { |f| f.name.match?(/^llvm(@\d+)?$/) }
@@ -31,7 +29,7 @@ class Enzyme < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       extern double __enzyme_autodiff(void*, double);
       double square(double x) {
@@ -44,7 +42,7 @@ class Enzyme < Formula
         double i = 21.0;
         printf("square(%.0f)=%.0f, dsquare(%.0f)=%.0f\\n", i, square(i), i, dsquare(i));
       }
-    EOS
+    C
 
     ENV["CC"] = llvm.opt_bin/"clang"
 

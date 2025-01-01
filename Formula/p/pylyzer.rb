@@ -1,17 +1,17 @@
 class Pylyzer < Formula
   desc "Fast static code analyzer & language server for Python"
   homepage "https://github.com/mtshiba/pylyzer"
-  url "https://github.com/mtshiba/pylyzer/archive/refs/tags/v0.0.62.tar.gz"
-  sha256 "05eac3d7e6363b0a8439003db5af30ddaae91cbbaed906321e109ffcb1c2faa9"
+  url "https://github.com/mtshiba/pylyzer/archive/refs/tags/v0.0.76.tar.gz"
+  sha256 "e6e60ddcff14ec57e13fd810f57fa105d5ce5a1795fbe58c37684d69dcf4c52d"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "09002e1ed8476459e75be4a6518bc64b838b53a801a1bd392ce1b3f8442ba384"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3be88f4f6da76fb5e186aba0e693ba5b095de2e3c5f0e8c92cdee8aba48986aa"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "6097f7451850f1ea0e9c2c4d1bd6523730f39f3fd0524d93f6a629088bb31512"
-    sha256 cellar: :any_skip_relocation, sonoma:        "6b3deda0a2911657c7acc7c98b6911efa24e99bf1c2a8d02f1e13c5101a25927"
-    sha256 cellar: :any_skip_relocation, ventura:       "a3520f17f46fd503b4d72af9929e8fd7207d5d4cbfe0c16d6457cdcd017ad6b7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4e1f20aa27b9bba663551423e194805200d5e15562c06fea66de39c5fa1550c4"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fe5d70d07ccc4bff79c3c600a981e83fdf3449d6de209f6793585338f342607d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "bec02a0b5e112568b63dfba1270f6158025c6d112e24e995757e0734380889d5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "3780b1549ad07bc77e1b844249d6f019a67d644752d86a0a85eb64e8abfd11d8"
+    sha256 cellar: :any_skip_relocation, sonoma:        "d1a3c112c344dc622e40e5d8710ae236a1e6ebfce288fd3e5cd014482bf605bf"
+    sha256 cellar: :any_skip_relocation, ventura:       "cd20497670ddebcd32b92de5e369bba9aa19bf6b37aa0f461c2de5fa84d85676"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d2b2a8b2c33a83242790e0f0bdd5ec718c869dfd275810b952f7f7c8b13fd252"
   end
 
   depends_on "rust" => :build
@@ -25,9 +25,9 @@ class Pylyzer < Formula
   end
 
   test do
-    (testpath/"test.py").write <<~EOS
+    (testpath/"test.py").write <<~PYTHON
       print("test")
-    EOS
+    PYTHON
 
     expected = <<~EOS
       \e[94mStart checking\e[m: test.py

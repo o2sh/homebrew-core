@@ -1,8 +1,8 @@
 class Bmake < Formula
   desc "Portable version of NetBSD make(1)"
   homepage "https://www.crufty.net/help/sjg/bmake.html"
-  url "https://www.crufty.net/ftp/pub/sjg/bmake-20240909.tar.gz"
-  sha256 "d4e019e26c64cc8ffcf1cae9bb04fbb13da8fa6f41fb30fd26e221f655d4e84d"
+  url "https://www.crufty.net/ftp/pub/sjg/bmake-20241124.tar.gz"
+  sha256 "4f66406091c2f85ea964b238d69eb8f71ab4baac9dca4687a71883ba6de4ddb2"
   license "BSD-3-Clause"
 
   livecheck do
@@ -11,12 +11,12 @@ class Bmake < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b32e6100aeabc654941712b475dbd946a219ac92cf4de0dc0b0eb698a8ae884e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d48188692fb0fbca7494cf286d201719961951968aeb6fa607b9870c0b16e503"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "6e667b4063d2801fb3d557dc724328331f8640faa53bc5f7f260615a99a904e0"
-    sha256                               sonoma:        "5b0f1a3acaa654739765d87c9d29a68eaa12ac1d0b8be5e17eb66dbb9f6b8ad0"
-    sha256                               ventura:       "6a2180e8d58096a845967a153659a4f15f2b6c948e975636d6da6e591bcdacca"
-    sha256                               x86_64_linux:  "83403deef7acb0e26e364017440954f556e6e52f0fa3f593a20f9552394fa1b6"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "65da734c72c80726b4fdc89260fe99c44c24e891534d9d2eae8f7f2ad3360fdd"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8370997e485f21221f7a7f3c2a22d35c7e359b48471f352360b906875a5e5cb6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "aa18d6e999d56b306338cacfb3ed95ec97d8b5670389e84b335753ab7964ebc5"
+    sha256                               sonoma:        "77e8155f2989b75fbf0685191604c0c0cd008b019cf8eb44280097864d34e7bf"
+    sha256                               ventura:       "ccd41984fae0841df3c11bc401cc1fdb7c4ce45f981b00ec3e6d62c3e72feca1"
+    sha256                               x86_64_linux:  "cdf207a1f06c32cdd21d43e805ca85d6ed9c86514633f3e8be282ea44b33bf4f"
   end
 
   uses_from_macos "bc" => :build
@@ -31,15 +31,15 @@ class Bmake < Formula
   end
 
   test do
-    (testpath/"Makefile").write <<~EOS
+    (testpath/"Makefile").write <<~MAKE
       all: hello
 
       hello:
-      \t@echo 'Test successful.'
+      	@echo 'Test successful.'
 
       clean:
-      \trm -rf Makefile
-    EOS
+      	rm -rf Makefile
+    MAKE
     system bin/"bmake"
     system bin/"bmake", "clean"
   end

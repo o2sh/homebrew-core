@@ -1,9 +1,9 @@
 class Go < Formula
   desc "Open source programming language to build simple/reliable/efficient software"
   homepage "https://go.dev/"
-  url "https://go.dev/dl/go1.23.1.src.tar.gz"
-  mirror "https://fossies.org/linux/misc/go1.23.1.src.tar.gz"
-  sha256 "6ee44e298379d146a5e5aa6b1c5b5d5f5d0a3365eabdd70741e6e21340ec3b0d"
+  url "https://go.dev/dl/go1.23.4.src.tar.gz"
+  mirror "https://fossies.org/linux/misc/go1.23.4.src.tar.gz"
+  sha256 "ad345ac421e90814293a9699cca19dd5238251c3f687980bbcae28495b263531"
   license "BSD-3-Clause"
   head "https://go.googlesource.com/go.git", branch: "master"
 
@@ -21,14 +21,13 @@ class Go < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "f1d3ecd5e98fd66f0d1a8471b63bfac4508a3b89d2a96c4b2a87243b50866fcd"
-    sha256 arm64_sonoma:   "f1d3ecd5e98fd66f0d1a8471b63bfac4508a3b89d2a96c4b2a87243b50866fcd"
-    sha256 arm64_ventura:  "f1d3ecd5e98fd66f0d1a8471b63bfac4508a3b89d2a96c4b2a87243b50866fcd"
-    sha256 arm64_monterey: "f1d3ecd5e98fd66f0d1a8471b63bfac4508a3b89d2a96c4b2a87243b50866fcd"
-    sha256 sonoma:         "bae66c6a3b31f38c026f90b1e6eba9636842d2a91de23bdafa13f1214c75d764"
-    sha256 ventura:        "bae66c6a3b31f38c026f90b1e6eba9636842d2a91de23bdafa13f1214c75d764"
-    sha256 monterey:       "bae66c6a3b31f38c026f90b1e6eba9636842d2a91de23bdafa13f1214c75d764"
-    sha256 x86_64_linux:   "25ede0356b19c3966a03ef18bb489a8c1c57f3b3a2090cc6d0980be088bc4127"
+    rebuild 1
+    sha256 arm64_sequoia: "ce9aad234b15d873fcd727306ab7a361db924b449f527904b3614c3aa4773767"
+    sha256 arm64_sonoma:  "ce9aad234b15d873fcd727306ab7a361db924b449f527904b3614c3aa4773767"
+    sha256 arm64_ventura: "ce9aad234b15d873fcd727306ab7a361db924b449f527904b3614c3aa4773767"
+    sha256 sonoma:        "333dc0e36f21c81f8b07f8b0d9125a6cc0b16979de9d996979bf1eff6280b9bf"
+    sha256 ventura:       "333dc0e36f21c81f8b07f8b0d9125a6cc0b16979de9d996979bf1eff6280b9bf"
+    sha256 x86_64_linux:  "b18da6cb774e738cb65bd9840521a85c1eda42323e3264730794624a81dcfa64"
   end
 
   # Don't update this unless this version cannot bootstrap the new version.
@@ -65,7 +64,11 @@ class Go < Formula
   end
 
   def install
-    inreplace "go.env", /^GOTOOLCHAIN=.*$/, "GOTOOLCHAIN=local"
+    inreplace "go.env" do |s|
+      # Remove misleading comment about automatically downloading newer toolchains.
+      s.gsub!(/^# Automatically download.*$/, "")
+      s.gsub!(/^GOTOOLCHAIN=.*$/, "GOTOOLCHAIN=local")
+    end
 
     (buildpath/"gobootstrap").install resource("gobootstrap")
     ENV["GOROOT_BOOTSTRAP"] = buildpath/"gobootstrap"
@@ -100,7 +103,7 @@ class Go < Formula
   test do
     assert_equal "local", shell_output("#{bin}/go env GOTOOLCHAIN").strip
 
-    (testpath/"hello.go").write <<~EOS
+    (testpath/"hello.go").write <<~GO
       package main
 
       import "fmt"
@@ -108,7 +111,7 @@ class Go < Formula
       func main() {
           fmt.Println("Hello World")
       }
-    EOS
+    GO
 
     # Run go fmt check for no errors then run the program.
     # This is a a bare minimum of go working as it uses fmt, build, and run.
@@ -119,7 +122,7 @@ class Go < Formula
       system bin/"go", "build", "hello.go"
     end
 
-    (testpath/"hello_cgo.go").write <<~EOS
+    (testpath/"hello_cgo.go").write <<~GO
       package main
 
       /*
@@ -132,7 +135,7 @@ class Go < Formula
       func main() {
           C.hello()
       }
-    EOS
+    GO
 
     # Try running a sample using cgo without CC or CXX set to ensure that the
     # toolchain's default choice of compilers work

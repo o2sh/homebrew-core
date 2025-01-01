@@ -6,10 +6,13 @@ class AmmoniteRepl < Formula
   sha256 "57b4e3812123861e2acf339c9999f6c23fe2fc4dbfd2c87dc5c52c31bdc37d73"
   license "MIT"
 
+  # There can be a gap between when a GitHub release is created and when the
+  # release assets are uploaded, so the `GithubLatest` strategy isn't
+  # sufficient here. This checks GitHub asset URLs on the homepage, as it
+  # doesn't appear to be updated until the release assets are available.
   livecheck do
-    url :stable
-    strategy :github_latest
-    regex(/^v?(\d+(?:\.\d+)+[._-]M\d)$/i)
+    url :homepage
+    regex(%r{href=.*?/releases/download/v?(\d+(?:\.\d+)+(?:[._-]M\d+)?)/}i)
   end
 
   bottle do
@@ -28,11 +31,11 @@ class AmmoniteRepl < Formula
   end
 
   test do
-    (testpath/"testscript.sc").write <<~EOS
+    (testpath/"testscript.sc").write <<~SCALA
       #!/usr/bin/env amm
       @main
       def fn(): Unit = println("hello world!")
-    EOS
+    SCALA
     output = shell_output("#{bin}/amm #{testpath}/testscript.sc")
     assert_equal "hello world!", output.lines.last.chomp
   end

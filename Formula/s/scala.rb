@@ -1,10 +1,9 @@
 class Scala < Formula
   desc "JVM-based programming language"
   homepage "https://www.scala-lang.org/"
-  url "https://github.com/scala/scala3/releases/download/3.5.0/scala3-3.5.0.tar.gz"
-  sha256 "bacad178623f1940dae7d75c54c75aaf53f14f07ae99803be730a1d7d51a612d"
+  url "https://github.com/scala/scala3/releases/download/3.6.2/scala3-3.6.2.tar.gz"
+  sha256 "9525b93f8b9488330ecbdb85df3046d3ef46c6760ac23248902c4d89194c5206"
   license "Apache-2.0"
-  revision 1
 
   livecheck do
     url "https://www.scala-lang.org/download/"
@@ -12,22 +11,23 @@ class Scala < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "374e847bf9fb8ffd7384b194fefe3922542c60e1b543f20993ec507c041335c6"
+    sha256 cellar: :any_skip_relocation, all: "9836e7809cd8da0a45de3e6b212b452a538a102b750b356f4e9111d3d2aca94c"
   end
 
-  # Switch back to `openjdk` when supported:
-  # https://docs.scala-lang.org/overviews/jdk-compatibility/overview.html
-  depends_on "openjdk@21"
+  # JDK Compatibility: https://docs.scala-lang.org/overviews/jdk-compatibility/overview.html
+  depends_on "openjdk"
 
   conflicts_with "pwntools", because: "both install `common` binaries"
 
   def install
+    # fix `scala-cli.jar` path, upstream pr ref, https://github.com/scala/scala3/pull/22185
+    inreplace "libexec/cli-common-platform", "bin/scala-cli", "libexec/scala-cli"
+
     rm Dir["bin/*.bat"]
-    libexec.install "lib"
-    libexec.install "maven2"
-    libexec.install "VERSION"
+
+    libexec.install "lib", "maven2", "VERSION", "libexec"
     prefix.install "bin"
-    bin.env_script_all_files libexec/"bin", Language::Java.overridable_java_home_env("21")
+    bin.env_script_all_files libexec/"bin", Language::Java.overridable_java_home_env
 
     # Set up an IntelliJ compatible symlink farm in 'idea'
     idea = prefix/"idea"
@@ -43,13 +43,13 @@ class Scala < Formula
 
   test do
     file = testpath/"Test.scala"
-    file.write <<~EOS
+    file.write <<~SCALA
       object Test {
         def main(args: Array[String]): Unit = {
           println(s"${2 + 2}")
         }
       }
-    EOS
+    SCALA
 
     out = shell_output("#{bin}/scala #{file}").strip
 

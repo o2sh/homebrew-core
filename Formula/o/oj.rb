@@ -1,18 +1,18 @@
 class Oj < Formula
   desc "JSON parser and visualization tool"
   homepage "https://github.com/ohler55/ojg"
-  url "https://github.com/ohler55/ojg/archive/refs/tags/v1.24.1.tar.gz"
-  sha256 "60956fcfcd0cf1d2a75c40621f67ff483010d9aa904b4fe49e7ed7a27eab7e74"
+  url "https://github.com/ohler55/ojg/archive/refs/tags/v1.26.0.tar.gz"
+  sha256 "50c78bf0bd21924514967bc6039535b3e55db74a7214e7519f52e191db77e2dd"
   license "MIT"
   head "https://github.com/ohler55/ojg.git", branch: "develop"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5fc015e522924a14ff6a237b51e8c3490425badb6185f3e9764e8762e113bca0"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5fc015e522924a14ff6a237b51e8c3490425badb6185f3e9764e8762e113bca0"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "5fc015e522924a14ff6a237b51e8c3490425badb6185f3e9764e8762e113bca0"
-    sha256 cellar: :any_skip_relocation, sonoma:        "a3ab3a6a38183581b972bc578d0f1b8a2a215db6323bb1197815c837192860ad"
-    sha256 cellar: :any_skip_relocation, ventura:       "a3ab3a6a38183581b972bc578d0f1b8a2a215db6323bb1197815c837192860ad"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0be3f18f053ce8ef90cfca16a254ca828b087fa57bac2d185db8a205b208d23e"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1ff9beb95f2908004cb96fcc5e24f5ceddc4ed3e1274c15dd816bfc0680922ad"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1ff9beb95f2908004cb96fcc5e24f5ceddc4ed3e1274c15dd816bfc0680922ad"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "1ff9beb95f2908004cb96fcc5e24f5ceddc4ed3e1274c15dd816bfc0680922ad"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e402fed7003db67ea73a383cc106b603c6829c7681d49e7db8be98825d4a300a"
+    sha256 cellar: :any_skip_relocation, ventura:       "e402fed7003db67ea73a383cc106b603c6829c7681d49e7db8be98825d4a300a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b081c07e45f7b4c4d7549939f3aeb0172e99976572e7d22e50419951478752da"
   end
 
   depends_on "go" => :build

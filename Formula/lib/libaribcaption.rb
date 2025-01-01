@@ -18,10 +18,10 @@ class Libaribcaption < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :test
+  depends_on "pkgconf" => :test
 
   on_linux do
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
     depends_on "fontconfig"
     depends_on "freetype"
   end
@@ -33,7 +33,7 @@ class Libaribcaption < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <aribcaption/decoder.h>
 
       int main(int argc, char *argv[]) {
@@ -43,8 +43,8 @@ class Libaribcaption < Formula
         aribcc_context_free(ctx);
         return 0;
       }
-    EOS
-    flags = shell_output("pkg-config --cflags --libs libaribcaption").chomp.split
+    C
+    flags = shell_output("pkgconf --cflags --libs libaribcaption").chomp.split
     system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
   end

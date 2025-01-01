@@ -16,25 +16,23 @@ class Libxkbfile < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "5298209c95e682bf215c5335aa140c4e0249f68aa2d086f058c42f5fc5446197"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libx11"
 
   def install
     args = %W[
-      --prefix=#{prefix}
       --sysconfdir=#{etc}
       --localstatedir=#{var}
-      --disable-dependency-tracking
       --disable-silent-rules
     ]
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <X11/XKBlib.h>
       #include "X11/extensions/XKBfile.h"
@@ -43,7 +41,7 @@ class Libxkbfile < Formula
         XkbFileInfo info;
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c"
     assert_equal 0, $CHILD_STATUS.exitstatus
   end

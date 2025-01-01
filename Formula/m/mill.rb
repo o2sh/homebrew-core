@@ -1,17 +1,20 @@
 class Mill < Formula
   desc "Scala build tool"
   homepage "https://mill-build.com/mill/Scala_Intro_to_Mill.html"
-  url "https://github.com/com-lihaoyi/mill/releases/download/0.11.12/0.11.12-assembly"
-  sha256 "938fe8307bedab961763c851957e2058dd7a0a57e35c4027ea6448a04047349a"
+  url "https://github.com/com-lihaoyi/mill/releases/download/0.12.4/0.12.4-assembly"
+  sha256 "5a5ca4c8dc97522b51e851db8595ce7892ad302aefa092b582bba1f86fe191bf"
   license "MIT"
 
+  # There can be a notable gap between when a version is tagged and a
+  # corresponding release is created, so we check the "latest" release instead
+  # of the Git tags.
   livecheck do
     url :stable
-    regex(/^v?(\d+(?:\.\d+)+)$/i)
+    strategy :github_latest
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "1cc17f4bd0b4cde8d093e6fa05086874b9f691e285e4b850fe872f9aea72ffad"
+    sha256 cellar: :any_skip_relocation, all: "5f28042b2b84dde783e5eb2b480a7b01be3b109dd7c507ebb47eb18c29979bd4"
   end
 
   depends_on "openjdk"
@@ -23,13 +26,13 @@ class Mill < Formula
   end
 
   test do
-    (testpath/"build.sc").write <<~EOS
+    (testpath/"build.sc").write <<~SCALA
       import mill._
       import mill.scalalib._
       object foo extends ScalaModule {
         def scalaVersion = "2.13.11"
       }
-    EOS
+    SCALA
     output = shell_output("#{bin}/mill resolve __.compile")
     assert_equal "foo.compile", output.lines.last.chomp
   end

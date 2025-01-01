@@ -6,6 +6,7 @@ class Macvim < Formula
   version "9.1.0727"
   sha256 "e1bc74beb3ee594503b5e1e20a9d075b5972bbaa642a91921116531475f46a6f"
   license "Vim"
+  revision 1
   head "https://github.com/macvim-dev/macvim.git", branch: "master"
 
   # The stable Git tags use a `release-123` format and it's necessary to check
@@ -23,20 +24,20 @@ class Macvim < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sequoia: "5821209c314b1901c55f5d0899a10bd68929f4b5ff9f28a34bb01fc1b6619c25"
-    sha256 cellar: :any, arm64_sonoma:  "e7b2ee7c445f16c9865c79e4773eacef83bd811712cdf351dcbbc0115e96a108"
-    sha256 cellar: :any, arm64_ventura: "324bcc655e385bd60a16e55b22741c50099e4f8c6523ff48e437f5740ae49918"
-    sha256 cellar: :any, sonoma:        "f3bb80a2665bad75a82ae738ecfc06117c1c99d7c55a4601805c21dda2ff314d"
-    sha256 cellar: :any, ventura:       "3c8f838819b8da6dc55bbe419d4b6117c693aeee76b27e806bddfa6dae1d8298"
+    sha256 cellar: :any, arm64_sequoia: "ab76872feed0c90594fc3349302242ab142e87c5e04c364a570a12758fda1fe4"
+    sha256 cellar: :any, arm64_sonoma:  "2d7e4947f9eed2985029bc2ea1d026dda0c363a7eb272f87be4fd82f33d555ae"
+    sha256 cellar: :any, arm64_ventura: "428beaa2228f7c93adf0f7c00ad7ea9ea8639d7289265188ee74e81219c706c2"
+    sha256 cellar: :any, sonoma:        "79b0f224d6526b64664569fa3dd1bfbf69dcd57c346e7915b75591a282f8f27f"
+    sha256 cellar: :any, ventura:       "55f12977a79c56c95b008644f89586f175bb66eff260c307d0f91eda73dd01e4"
   end
 
   depends_on "gettext" => :build
   depends_on "libsodium" => :build
-  depends_on xcode: :build
+  depends_on xcode: :build # for xcodebuild
   depends_on "cscope"
   depends_on "lua"
   depends_on :macos
-  depends_on "python@3.12"
+  depends_on "python@3.13"
   depends_on "ruby"
 
   conflicts_with "ex-vi", because: "both install `vi` and `view` binaries"
@@ -90,12 +91,12 @@ class Macvim < Formula
     assert_match "+sodium", output
 
     # Simple test to check if MacVim was linked to Homebrew's Python 3
-    py3_exec_prefix = shell_output(Formula["python@3.12"].opt_libexec/"bin/python-config --exec-prefix")
+    py3_exec_prefix = shell_output(Formula["python@3.13"].opt_libexec/"bin/python-config --exec-prefix")
     assert_match py3_exec_prefix.chomp, output
-    (testpath/"commands.vim").write <<~EOS
+    (testpath/"commands.vim").write <<~VIM
       :python3 import vim; vim.current.buffer[0] = 'hello python3'
       :wq
-    EOS
+    VIM
     system bin/"mvim", "-v", "-T", "dumb", "-s", "commands.vim", "test.txt"
     assert_equal "hello python3", (testpath/"test.txt").read.chomp
   end

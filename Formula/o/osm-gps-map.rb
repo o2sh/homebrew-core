@@ -38,7 +38,7 @@ class OsmGpsMap < Formula
   end
 
   depends_on "gobject-introspection" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "cairo"
   depends_on "gdk-pixbuf"
@@ -59,7 +59,7 @@ class OsmGpsMap < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <osm-gps-map.h>
 
       int main(int argc, char *argv[]) {
@@ -68,7 +68,7 @@ class OsmGpsMap < Formula
         map = g_object_new (OSM_TYPE_GPS_MAP, NULL);
         return 0;
       }
-    EOS
+    C
     atk = Formula["atk"]
     cairo = Formula["cairo"]
     glib = Formula["glib"]

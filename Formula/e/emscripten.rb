@@ -3,8 +3,8 @@ class Emscripten < Formula
   homepage "https://emscripten.org/"
   # To automate fetching the required resource revisions, you can use this helper script:
   #   https://gist.github.com/carlocab/2db1d7245fa0cd3e92e01fe37b164021
-  url "https://github.com/emscripten-core/emscripten/archive/refs/tags/3.1.67.tar.gz"
-  sha256 "ec4af2648cd6ad382db799f4cc20630ea091ed6b45a963f79c96052a7e37fe35"
+  url "https://github.com/emscripten-core/emscripten/archive/refs/tags/3.1.74.tar.gz"
+  sha256 "07bc112871a4992a9e4bac5131f2f28554e47f826adeca40943144b159ddb700"
   license all_of: [
     "Apache-2.0", # binaryen
     "Apache-2.0" => { with: "LLVM-exception" }, # llvm
@@ -18,17 +18,17 @@ class Emscripten < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "8186c118d864f623ef27048d4f6ce889c4aa757a9487275af68d2b2d0a081ea5"
-    sha256 cellar: :any,                 arm64_sonoma:  "97af61b376081d73c12c9c91625800aa893bcdd413d2f8e6fd71c5ed6f3209d0"
-    sha256 cellar: :any,                 arm64_ventura: "79cee0d47fd416b10b700fe615a81d532c2a33ed11cbd7aa79df4e8069c53b16"
-    sha256 cellar: :any,                 sonoma:        "a17cb0dc72d436a7c0073266dba58999d13f0d28c16a2d3fa9e877d0b6245370"
-    sha256 cellar: :any,                 ventura:       "4ef5e18089752c5f57fd5bfd8a08cbbeaa09061e080ad549f269f2bc38891c76"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "46b2b408a311f61477406fc314fe8cbbf16706b5519c48b5d34649a38892d586"
+    sha256 cellar: :any,                 arm64_sequoia: "aa5970ff7ede9e0411a6694f6e77f0aceebfbf87de851db281f68d0b780c660b"
+    sha256 cellar: :any,                 arm64_sonoma:  "7109e8d69ee500aae75f3a1e1f61a79029fce5bf76fb05c46b478424747dc6fb"
+    sha256 cellar: :any,                 arm64_ventura: "d45a49dc7adca5f59aacb098a5a0bfdb559f3319121f7938baaa25befbf27540"
+    sha256 cellar: :any,                 sonoma:        "ab04f5e5adf2fdad97b93bbe38305ad6d3c808f3b5125a189487a985cb905aa9"
+    sha256 cellar: :any,                 ventura:       "cd38d2cd2c71c6883476b4b2a6af5215d0d9125d31f62eac1e1ce9377b08cab8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bcd9c7050a68949a7dd5ffdfba0e234114e5d3658645922cdc0c110ce54335b9"
   end
 
   depends_on "cmake" => :build
   depends_on "node"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
   depends_on "yuicompressor"
 
   uses_from_macos "llvm" => :build
@@ -64,7 +64,7 @@ class Emscripten < Formula
   # Then use the listed binaryen_revision for the revision below.
   resource "binaryen" do
     url "https://github.com/WebAssembly/binaryen.git",
-        revision: "29d30fabcb688b599920deef9d92a5413615eaab"
+        revision: "52bc45fc34ec6868400216074744147e9d922685"
   end
 
   # emscripten does not support using the stable version of LLVM.
@@ -72,8 +72,8 @@ class Emscripten < Formula
   # See binaryen resource above for instructions on how to update this.
   # Then use the listed llvm_project_revision for the tarball below.
   resource "llvm" do
-    url "https://github.com/llvm/llvm-project/archive/547917aebd1e79a8929b53f0ddf3b5185ee4df74.tar.gz"
-    sha256 "d2f3bcf38edd5168f3e71b200bf19b6b3f0c7a459a73a8d7ad9486c7b74472bf"
+    url "https://github.com/llvm/llvm-project/archive/322eb1a92e6d4266184060346616fa0dbe39e731.tar.gz"
+    sha256 "528b7a7324343a3241ec211c5fb2c3c0fa56208107969f7deb4e9462bccd25a4"
   end
 
   def install
@@ -178,7 +178,7 @@ class Emscripten < Formula
 
     # Add JAVA_HOME to env_script on ARM64 macOS and Linux, so that google-closure-compiler
     # can find OpenJDK
-    emscript_env = { PYTHON: Formula["python@3.12"].opt_bin/"python3.12" }
+    emscript_env = { PYTHON: Formula["python@3.13"].opt_bin/"python3.13" }
     emscript_env.merge! Language::Java.overridable_java_home_env if OS.linux? || Hardware::CPU.arm?
 
     emscripts.each do |emscript|
@@ -214,21 +214,21 @@ class Emscripten < Formula
   end
 
   test do
+    ENV["EM_CACHE"] = testpath
+
     # We're targeting WASM, so we don't want to use the macOS SDK here.
     ENV.remove_macosxsdk if OS.mac?
     # Avoid errors on Linux when other formulae like `sdl12-compat` are installed
     ENV.delete "CPATH"
 
-    ENV["NODE_OPTIONS"] = "--no-experimental-fetch"
-
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       int main()
       {
         printf("Hello World!");
         return 0;
       }
-    EOS
+    C
 
     system bin/"emcc", "test.c", "-o", "test.js", "-s", "NO_EXIT_RUNTIME=0"
     assert_equal "Hello World!", shell_output("node test.js").chomp

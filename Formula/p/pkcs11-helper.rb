@@ -26,23 +26,17 @@ class Pkcs11Helper < Formula
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "openssl@3"
 
   def install
-    args = %W[
-      --disable-debug
-      --disable-dependency-tracking
-      --prefix=#{prefix}
-    ]
-
-    system "autoreconf", "--verbose", "--install", "--force"
-    system "./configure", *args
+    system "autoreconf", "--force", "--install", "--verbose"
+    system "./configure", *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <stdlib.h>
       #include <pkcs11-helper-1.0/pkcs11h-core.h>
@@ -51,9 +45,8 @@ class Pkcs11Helper < Formula
         printf("Version: %08x", pkcs11h_getVersion ());
         return 0;
       }
-    EOS
-    system ENV.cc, testpath/"test.c", "-I#{include}", "-L#{lib}",
-                   "-lpkcs11-helper", "-o", "test"
+    C
+    system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lpkcs11-helper", "-o", "test"
     system "./test"
   end
 end

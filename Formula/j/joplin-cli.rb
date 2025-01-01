@@ -1,25 +1,22 @@
 class JoplinCli < Formula
   desc "Note taking and to-do application with synchronization capabilities"
   homepage "https://joplinapp.org/"
-  url "https://registry.npmjs.org/joplin/-/joplin-3.0.1.tgz"
-  sha256 "86217bd4b98a6a9e6b31ee3c716f6f83e2b90ff600bc436b47a428842494b5d4"
+  url "https://registry.npmjs.org/joplin/-/joplin-3.2.2.tgz"
+  sha256 "46cda9164f1e20c2ea451fa12398532fbbeb421a9bcdf275ac220f4163f75da5"
   license "MIT"
 
   bottle do
-    rebuild 1
-    sha256                               arm64_sequoia:  "5e5fe3221c830d5daf68074d89a1dc7e90d2ef3cef9bd109db1ebe2680c27c54"
-    sha256                               arm64_sonoma:   "268c55e18469316597519d382404d819ab5cc6919add24c64f8905ade49d12b2"
-    sha256                               arm64_ventura:  "0556a2e4a45eeca512fe5a84dd89e074ee6f235ee836ca368b9ae9a15de88c31"
-    sha256                               arm64_monterey: "bb9f103a62ec68f52a32739e367319ff5056c2a5f11ca6006926ad348e6093da"
-    sha256                               sonoma:         "bfc5d70e1b43b75510a7e76a60d26f5faec96007194116fd7e9d1f06b953e8eb"
-    sha256                               ventura:        "fc3bda1b535e6c489599ffc83b1d80e949c22f6cb0919078b7e140efe5b6a664"
-    sha256                               monterey:       "7e86a5257f01beb0e79aeba8cfee23baa69604f6e88e1d78cd1780790e33674e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a74a3425df0c9686ce10e748a6da188fd235f4b4ee861004a161b146e60732ae"
+    sha256                               arm64_sequoia: "9fb6115ba720d86c13274d26ae70de7f41193f03b3e33d4732e369b8d7d12438"
+    sha256                               arm64_sonoma:  "4f970ffbf4f5a913f15b76f3f69f991e18f557251a047ac3ab2207d7f4186a4a"
+    sha256                               arm64_ventura: "a3611669daf544c463ef4ed5f7345e907d61f30cb0faa16bae76f5cc275b1254"
+    sha256                               sonoma:        "e08b770b0c9c9ad238a7385286a3470c9683c2651b839172c270f100115e1e53"
+    sha256                               ventura:       "116677217ea988081c9e828ef17b43938e7378fd97166d7dc678c7e476a4bac6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "284ad0fcb8c24fe4c4302ea5204b7c22fc09068dadde6315b12a0d4e8a5c18af"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python-setuptools" => :build # for node-gyp
-  depends_on "python@3.12" => :build
+  depends_on "python@3.13" => :build
   depends_on "glib"
   depends_on "node"
   depends_on "sqlite"

@@ -1,20 +1,18 @@
 class Pluto < Formula
   desc "CLI tool to help discover deprecated apiVersions in Kubernetes"
   homepage "https://fairwinds.com"
-  url "https://github.com/FairwindsOps/pluto/archive/refs/tags/v5.20.2.tar.gz"
-  sha256 "94f7ccdcf17f5f160e457c1e5a7adaf16a3c5db8556864596e832deaef65f848"
+  url "https://github.com/FairwindsOps/pluto/archive/refs/tags/v5.21.0.tar.gz"
+  sha256 "0b09aaa02da175c801c6635d15041b2ef02e165f730fc226cf4a0022aeadd32b"
   license "Apache-2.0"
   head "https://github.com/FairwindsOps/pluto.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "2069ed72abe0b6d7a96b01dd7630ec626b56ebaa957249f8fe83b70ac505a1da"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f91dc7e304a3b84924ee4b3571cfee190272944ef763a220b8b0a058254c478f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f91dc7e304a3b84924ee4b3571cfee190272944ef763a220b8b0a058254c478f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f91dc7e304a3b84924ee4b3571cfee190272944ef763a220b8b0a058254c478f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3bf2a546ce67b6a8e83744cbd4a97507d4f7657ed35d709938ac219531bffaf9"
-    sha256 cellar: :any_skip_relocation, ventura:        "3bf2a546ce67b6a8e83744cbd4a97507d4f7657ed35d709938ac219531bffaf9"
-    sha256 cellar: :any_skip_relocation, monterey:       "3bf2a546ce67b6a8e83744cbd4a97507d4f7657ed35d709938ac219531bffaf9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "127005205e91300c5435afdde2d528c7888705bd5c37f4b40572e2b4dab62a19"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6c360c51cd3baf00dbef4b0ed4f91e431eca3c438429fadeaa44db726e0c13ae"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6c360c51cd3baf00dbef4b0ed4f91e431eca3c438429fadeaa44db726e0c13ae"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "6c360c51cd3baf00dbef4b0ed4f91e431eca3c438429fadeaa44db726e0c13ae"
+    sha256 cellar: :any_skip_relocation, sonoma:        "50c0c25ce618d7b5af39d3f8986eb67aa677b654dba282749a90f0faf0426d2c"
+    sha256 cellar: :any_skip_relocation, ventura:       "50c0c25ce618d7b5af39d3f8986eb67aa677b654dba282749a90f0faf0426d2c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f1e57325d146a752ea2fa47feeb710e03aa727affd4081f9d300c1c00dd42eed"
   end
 
   depends_on "go" => :build
@@ -29,13 +27,13 @@ class Pluto < Formula
     assert_match version.to_s, shell_output("#{bin}/pluto version")
     assert_match "Deployment", shell_output("#{bin}/pluto list-versions")
 
-    (testpath/"deployment.yaml").write <<~EOS
+    (testpath/"deployment.yaml").write <<~YAML
       apiVersion: extensions/v1beta1
       kind: Deployment
       metadata:
         name: homebrew-test
       spec: {}
-    EOS
+    YAML
     assert_match "homebrew-test", shell_output("#{bin}/pluto detect deployment.yaml", 3)
   end
 end

@@ -7,6 +7,10 @@ on:
     types:
       - completed
 
+defaults:
+  run:
+    shell: bash -xeuo pipefail {0}
+
 concurrency:
   group: automerge-merge_queue-${{ github.event.workflow_run.event }}-${{ github.event.workflow_run.id }}
   cancel-in-progress: true
@@ -37,7 +41,7 @@ jobs:
       actions: read
     steps:
       - name: Upload metadata
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
         with:
           name: event_payload
           path: ${{ github.event_path }}
@@ -252,9 +256,6 @@ jobs:
       contents: read
       pull-requests: read
       actions: write # to dispatch publish workflow
-    defaults:
-      run:
-        shell: bash
     steps:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master

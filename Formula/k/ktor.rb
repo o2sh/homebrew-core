@@ -1,28 +1,26 @@
 class Ktor < Formula
   desc "Generates Ktor projects through the command-line interface"
   homepage "https://github.com/ktorio/ktor-cli"
-  url "https://github.com/ktorio/ktor-cli/archive/refs/tags/0.2.0.tar.gz"
-  sha256 "03c7d45cd5c73600fbbd20b194668b3e3844fc77e652394ddd75ad9e19d481c0"
+  url "https://github.com/ktorio/ktor-cli/archive/refs/tags/0.3.1.tar.gz"
+  sha256 "d733b4e1bdb6dc1c24bdc5952805449e5fab974728c1491cbb680d94c88687bd"
   license "Apache-2.0"
   head "https://github.com/ktorio/ktor-cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "e2477ed41bf2cfe39653ddc1e61cd370eb8a79574798621aef5c3adfed537661"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e2477ed41bf2cfe39653ddc1e61cd370eb8a79574798621aef5c3adfed537661"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e2477ed41bf2cfe39653ddc1e61cd370eb8a79574798621aef5c3adfed537661"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e2477ed41bf2cfe39653ddc1e61cd370eb8a79574798621aef5c3adfed537661"
-    sha256 cellar: :any_skip_relocation, sonoma:         "0eb5d96c0bafe248c56d9434420403cf7e3d106aaf4da2397d2a090ce84cf787"
-    sha256 cellar: :any_skip_relocation, ventura:        "0eb5d96c0bafe248c56d9434420403cf7e3d106aaf4da2397d2a090ce84cf787"
-    sha256 cellar: :any_skip_relocation, monterey:       "0eb5d96c0bafe248c56d9434420403cf7e3d106aaf4da2397d2a090ce84cf787"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6ed8ea3a6a761a8f040b936e3cb4ee5a6a95e02989cc94dd1837fcbdbd3a3172"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e0f9d214cf75ad4f2555dc0d750cba7b2e6f28e250d31ee732e42dfa2b8c50ae"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e0f9d214cf75ad4f2555dc0d750cba7b2e6f28e250d31ee732e42dfa2b8c50ae"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "e0f9d214cf75ad4f2555dc0d750cba7b2e6f28e250d31ee732e42dfa2b8c50ae"
+    sha256 cellar: :any_skip_relocation, sonoma:        "be132ece24c7bf5519f46e62d18b79265f1962082f2095d06633fb79b0adf9b0"
+    sha256 cellar: :any_skip_relocation, ventura:       "be132ece24c7bf5519f46e62d18b79265f1962082f2095d06633fb79b0adf9b0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3029deef9706edbf7768a9e46191bdde459f2a0c547ab869aee5499ea7e695d5"
   end
 
   depends_on "go" => :build
 
   def install
-    ENV["CGO_ENABLED"] = "0"
-    ldflags = "-X main.Version=#{version}"
-    system "go", "build", *std_go_args(ldflags:), "github.com/ktorio/ktor-cli/cmd/ktor"
+    ldflags = "-s -w -X main.Version=#{version}"
+    system "go", "build", *std_go_args(ldflags:), "./cmd/ktor"
   end
 
   test do

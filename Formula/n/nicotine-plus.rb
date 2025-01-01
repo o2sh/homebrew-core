@@ -3,21 +3,13 @@ class NicotinePlus < Formula
 
   desc "Graphical client for the Soulseek peer-to-peer network"
   homepage "https://nicotine-plus.org"
-  url "https://files.pythonhosted.org/packages/63/1c/73f765da20b5b7e3579f6099490a9c4ac93e7c6341f97cf51d53ea0df49f/nicotine_plus-3.3.4.tar.gz"
-  sha256 "512bf4aea9b42d5f3d58e0c96ed90efc2af568f8d0a624bf957ffb5f84ab9b7c"
+  url "https://files.pythonhosted.org/packages/07/20/6fc7098083926c4930dd1f18e87a1d83ef4e943971cb96a0ac80a4371d88/nicotine_plus-3.3.7.tar.gz"
+  sha256 "7b0bad2584261f61a0fccc19c7b898d3906f379280faf6a480544887ac3f1803"
   license "GPL-3.0-or-later"
   head "https://github.com/nicotine-plus/nicotine-plus.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "ffb1a2659bff33e864b545b329c3af2ed20d7463f17f1e89b17061a8c039fed6"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ee66410a793440590408fc0524157aa98814d693bcf5173321eee17ed31bbf29"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ee66410a793440590408fc0524157aa98814d693bcf5173321eee17ed31bbf29"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ee66410a793440590408fc0524157aa98814d693bcf5173321eee17ed31bbf29"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ee66410a793440590408fc0524157aa98814d693bcf5173321eee17ed31bbf29"
-    sha256 cellar: :any_skip_relocation, ventura:        "ee66410a793440590408fc0524157aa98814d693bcf5173321eee17ed31bbf29"
-    sha256 cellar: :any_skip_relocation, monterey:       "ee66410a793440590408fc0524157aa98814d693bcf5173321eee17ed31bbf29"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "603be73b6c65bf171d66df59924bb95264b65836e32a69e0a8c523dd5d076207"
+    sha256 cellar: :any_skip_relocation, all: "af1f4ffd58ac45eb0d375df8ef5e39979c885cdbe426cd6488155bfe6b0dd90c"
   end
 
   depends_on "adwaita-icon-theme"
@@ -25,7 +17,7 @@ class NicotinePlus < Formula
   depends_on "libadwaita"
   depends_on "py3cairo"
   depends_on "pygobject3"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   on_linux do
     depends_on "gettext" => :build # for `msgfmt`

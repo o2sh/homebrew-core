@@ -3,39 +3,37 @@ class CodecovCli < Formula
 
   desc "Codecov's command-line interface"
   homepage "https://cli.codecov.io/"
-  url "https://files.pythonhosted.org/packages/dd/26/237d8dfa4b640f4f71aca0659eabde8a0421986d5de4389a174e0ddaaa25/codecov-cli-0.7.4.tar.gz"
-  sha256 "94ef34615ec969d504d9ca5c71b608086984e7918b8efb522d26071158711453"
+  url "https://files.pythonhosted.org/packages/1d/91/f173918549f01f0feb2d24fc799e19d4d4168a2e020076e58a6b33dc0899/codecov-cli-9.1.1.tar.gz"
+  sha256 "8da963600db1da76543a7f6fcbf09db717c68d0287b6bb58d775a605db080930"
   license "Apache-2.0"
   head "https://github.com/codecov/codecov-cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "fbb083c27f0eb4584f4c19a6ae81bfb990b9c42835bcb8e29d20c8f759604e52"
-    sha256 cellar: :any,                 arm64_sonoma:   "20809b19caba8b93b9b3a4ba7c657a86c3d225188350c6e6f5732f25978be4c8"
-    sha256 cellar: :any,                 arm64_ventura:  "c115f4b4754d1c417e9b8017a0cc4caff3a6e7d2f067961ac092527c6e19df4a"
-    sha256 cellar: :any,                 arm64_monterey: "d0b61b6a4c9009c29700a1b99a0bf751966e5c2686676c675a2eedb1abaa7d10"
-    sha256 cellar: :any,                 sonoma:         "96e5367cf7b1e09ecce1709ecbe96006cdc8e3b8adaadb360d2df99d31d61982"
-    sha256 cellar: :any,                 ventura:        "4e97c5f632e39dbab2c49a6d3a43937fdc61df9fb1ffbdee72575777575aea3b"
-    sha256 cellar: :any,                 monterey:       "80b341fe9b2c6889d83f832b9aeefc0c9474c7a9b68a91fe7f2e058bf4cc1e8a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2f480e43ad8f1c0766ca821bb60a65a36d0b2831381bac02a48eb1c52af11bf2"
+    sha256 cellar: :any,                 arm64_sequoia: "fa15506552cf2ac38410281bda8a21344813209d2f5e5cf8210f682ce1b7f756"
+    sha256 cellar: :any,                 arm64_sonoma:  "8454245e95147e0a4d47b89381c377780e086651c1c30ffbb5cea1a69a98f22f"
+    sha256 cellar: :any,                 arm64_ventura: "e775a72a976b2787d73f8a143c290333b9327b7a20c6d95b31ef84ac3d88b5c9"
+    sha256 cellar: :any,                 sonoma:        "53cec5f3ab28b45f933982f2b3e14ee30e4bf76bd314985051d28006442218d8"
+    sha256 cellar: :any,                 ventura:       "b44ec050ba7c15c30404a963cfea25cdeec4cc1da603fa565a6719b3a134f381"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3792cdb12499d6d7f47a568d142edd1d72ac9b7e751a28673bd81414fd5a9889"
   end
 
   depends_on "rust" => :build
   depends_on "libyaml"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   resource "anyio" do
-    url "https://files.pythonhosted.org/packages/e6/e3/c4c8d473d6780ef1853d630d581f70d655b4f8d7553c6997958c283039a2/anyio-4.4.0.tar.gz"
-    sha256 "5aadc6a1bbb7cdb0bede386cac5e2940f5e2ff3aa20277e991cf028e0585ce94"
+    url "https://files.pythonhosted.org/packages/f6/40/318e58f669b1a9e00f5c4453910682e2d9dd594334539c7b7817dabb765f/anyio-4.7.0.tar.gz"
+    sha256 "2f834749c602966b7d456a7567cafcb309f96482b5081d14ac93ccd457f9dd48"
   end
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/c2/02/a95f2b11e207f68bc64d7aae9666fed2e2b3f307748d5123dffb72a1bbea/certifi-2024.7.4.tar.gz"
-    sha256 "5a1e7645bc0ec61a09e26c36f6106dd4cf40c6db3a1fb6352b0244e7fb057c7b"
+    url "https://files.pythonhosted.org/packages/b0/ee/9b19140fe824b367c04c5e1b369942dd754c4c5462d5674002f75c4dedc1/certifi-2024.8.30.tar.gz"
+    sha256 "bec941d2aa8195e248a60b31ff9f0558284cf01a52591ceda73ea9afffd69fd9"
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
-    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
+    url "https://files.pythonhosted.org/packages/f2/4f/e1808dc01273379acc506d18f1504eb2d299bd4131743b9fc54d7be4df1e/charset_normalizer-3.4.0.tar.gz"
+    sha256 "223217c3d4f82c3ac5e29032b3f1c2eb0fb591b72161f86d93f5719079dae93e"
   end
 
   resource "click" do
@@ -49,18 +47,18 @@ class CodecovCli < Formula
   end
 
   resource "httpcore" do
-    url "https://files.pythonhosted.org/packages/61/42/5c456b02816845d163fab0f32936b6a5b649f3f915beff6f819f4f6c90b2/httpcore-0.16.3.tar.gz"
-    sha256 "c5d6f04e2fc530f39e0c077e6a30caa53f1451096120f1f38b954afd0b17c0cb"
+    url "https://files.pythonhosted.org/packages/6a/41/d7d0a89eb493922c37d343b607bc1b5da7f5be7e383740b4753ad8943e90/httpcore-1.0.7.tar.gz"
+    sha256 "8551cb62a169ec7162ac7be8d4817d561f60e08eaa485234898414bb5a8a0b4c"
   end
 
   resource "httpx" do
-    url "https://files.pythonhosted.org/packages/f5/50/04d5e8ee398a10c767a341a25f59ff8711ae3adf0143c7f8b45fc560d72d/httpx-0.23.3.tar.gz"
-    sha256 "9818458eb565bb54898ccb9b8b251a28785dd4a55afbc23d0eb410754fe7d0f9"
+    url "https://files.pythonhosted.org/packages/78/82/08f8c936781f67d9e6b9eeb8a0c8b4e406136ea4c3d1f89a5db71d42e0e6/httpx-0.27.2.tar.gz"
+    sha256 "f7c2be1d2f3c3c3160d441802406b206c2b76f5947b11115e6df10c6c65e66c2"
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
-    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
+    url "https://files.pythonhosted.org/packages/f1/70/7703c29685631f5a7590aa73f1f1d3fa9a380e654b86af429e0934a32f7d/idna-3.10.tar.gz"
+    sha256 "12f65c9b470abda6dc35cf8e63cc574b1c52b11df2c86030af0ac09b01b13ea9"
   end
 
   resource "ijson" do
@@ -74,8 +72,8 @@ class CodecovCli < Formula
   end
 
   resource "regex" do
-    url "https://files.pythonhosted.org/packages/3f/51/64256d0dc72816a4fe3779449627c69ec8fee5a5625fd60ba048f53b3478/regex-2024.7.24.tar.gz"
-    sha256 "9cfd009eed1a46b27c14039ad5bbc5e71b6367c5b2e6d5f5da0ea91600817506"
+    url "https://files.pythonhosted.org/packages/8e/5f/bd69653fbfb76cf8604468d3b4ec4c403197144c7bfe0e6a5fc9e02a07cb/regex-2024.11.6.tar.gz"
+    sha256 "7ab159b063c52a0333c884e4679f8d7a85112ee3078fe3d9004b2dd875585519"
   end
 
   resource "requests" do
@@ -88,14 +86,9 @@ class CodecovCli < Formula
     sha256 "b82502eb5f09a0289d8e209e7bad71ef3978334f56d09b444253d5ad67bf5253"
   end
 
-  resource "rfc3986" do
-    url "https://files.pythonhosted.org/packages/79/30/5b1b6c28c105629cc12b33bdcbb0b11b5bb1880c6cfbd955f9e792921aa8/rfc3986-1.5.0.tar.gz"
-    sha256 "270aaf10d87d0d4e095063c65bf3ddbc6ee3d0b226328ce21e036f946e421835"
-  end
-
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/ce/ef/013ded5b0d259f3fa636bf35de186f0061c09fbe124020ce6b8db68c83af/setuptools-72.2.0.tar.gz"
-    sha256 "80aacbf633704e9c8bfa1d99fa5dd4dc59573efcf9e4042c13d3bcef91ac2ef9"
+    url "https://files.pythonhosted.org/packages/43/54/292f26c208734e9a7f067aea4a7e282c080750c4546559b58e2e45413ca0/setuptools-75.6.0.tar.gz"
+    sha256 "8199222558df7c86216af4f84c30e9b34a61d8ba19366cc914424cdbd28252f6"
   end
 
   resource "sniffio" do
@@ -104,8 +97,8 @@ class CodecovCli < Formula
   end
 
   resource "test-results-parser" do
-    url "https://files.pythonhosted.org/packages/fa/1f/35f5b23beb148c36285bfe9722adeaef976814670ebf9bd8129356a283c8/test_results_parser-0.1.0.tar.gz"
-    sha256 "0034281a4b406d7f072fc5ac1f5e44660e3c23bc92f2e7284862ee097f9626ee"
+    url "https://files.pythonhosted.org/packages/a6/4d/2df785a23ccec80f427a61e5dcb6ecde5884cdd57b964fafbfe90e40d741/test_results_parser-0.5.1.tar.gz"
+    sha256 "0da5124eee0783d49b27005ddcf94c708026fe8eb7435c8ce44edd5716cec0cf"
   end
 
   resource "tree-sitter" do
@@ -114,8 +107,8 @@ class CodecovCli < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/43/6d/fa469ae21497ddc8bc93e5877702dca7cb8f911e337aca7452b5724f1bb6/urllib3-2.2.2.tar.gz"
-    sha256 "dd505485549a7a552833da5e6063639d0d177c04f23bc3864e41e5dc5f612168"
+    url "https://files.pythonhosted.org/packages/ed/63/22ba4ebfe7430b76388e7cd448d5478814d3032121827c12a2cc287e2260/urllib3-2.2.3.tar.gz"
+    sha256 "e7d814a81dad81e6caf2ec9fdedb284ecc9c73076b62654547cc64ccdcae26e9"
   end
 
   def install
@@ -123,18 +116,22 @@ class CodecovCli < Formula
   end
 
   test do
-    require "securerandom"
-
     assert_equal "codecovcli, version #{version}\n", shell_output("#{bin}/codecovcli --version")
 
-    # Unfortunately `shell_output` doesn't capture standard error
-    output = shell_output(["#{bin}/codecovcli create-report --commit-sha #{SecureRandom.hex(40)}",
-                           "--slug test/repo --token #{SecureRandom.hex(10)} 2>&1"].join(" "))
+    (testpath/"coverage.json").write <<~JSON
+      {
+        "meta": { "format": 2 },
+        "files": {},
+        "totals": {
+          "covered_lines": 0,
+          "num_statements": 0,
+          "percent_covered": 100,
+        }
+      }
+    JSON
 
-    ["No config file could be found. Ignoring config.",
-     "Process Report creating complete",
-     "Report creating failed: {\"detail\":\"Not valid tokenless upload\"}"].each do |l|
-       assert_match l, output
-     end
+    output = shell_output("#{bin}/codecovcli do-upload --commit-sha=mocksha --dry-run 2>&1")
+    assert_match "Found 1 coverage files to report", output
+    assert_match "Process Upload complete", output
   end
 end

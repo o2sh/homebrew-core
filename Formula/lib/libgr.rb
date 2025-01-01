@@ -1,19 +1,16 @@
 class Libgr < Formula
   desc "GR framework: a graphics library for visualisation applications"
   homepage "https://gr-framework.org/"
-  url "https://github.com/sciapp/gr/archive/refs/tags/v0.73.7.tar.gz"
-  sha256 "2584727b1413a337ef14daae1e61bdc5c946403031695b42ecfbf8bc1888d132"
+  url "https://github.com/sciapp/gr/archive/refs/tags/v0.73.10.tar.gz"
+  sha256 "bf698a5de7f5b25370c610e4816167597957fba7fa9b4eb37dd2148d20724baa"
   license "MIT"
-  revision 1
 
   bottle do
-    sha256 arm64_sonoma:   "fec336ec1dbb1c3566ce08deee9d7fd7e6b7549132ed2e22d900bf9dbef0c9ce"
-    sha256 arm64_ventura:  "becdedea5be352b8081b27dd59364024963840be9f61f09a2c78bcd355b7b27a"
-    sha256 arm64_monterey: "9815c78d0a03182f7e56b00ec740381394c5f83b0960a9bb8539de046215d93c"
-    sha256 sonoma:         "587f96c372ad04a8d92a541732fc0188abbcc54ddc0ca12435a8e842d9098d08"
-    sha256 ventura:        "bc3a26e21702baa178c3a6e02ba3aca677a57e339aca72ef5750dcb4f50d2769"
-    sha256 monterey:       "fc960efd05a90df2e5a8d05f78de301274ae66774da3ef04c97be5e7149eca43"
-    sha256 x86_64_linux:   "7a26ce524943d35575a9750c014937c626f00bc84d79ee4febb3672cc2d8f065"
+    sha256 arm64_sonoma:  "99201502644c546449fdc19a41de28560a98f2247dc58a2e3fdd054a232abea2"
+    sha256 arm64_ventura: "c33417492a4c673b9a51649f0fe2e66e5ee1a85911cf3b6e97778656a6eadf78"
+    sha256 sonoma:        "915e0ed9541a4dd45ba5a40864da64287f5cc0e5fc8153045e1993628018d00b"
+    sha256 ventura:       "8f6e15f6fe5b3407e1071174dc7cb6e23cdeb47eebf1b00ace20094c17e74f06"
+    sha256 x86_64_linux:  "7279d1599020dcaf1e395c1ec0973dc471e4c67ecf017aa0e9ee3b3d49a051a7"
   end
 
   depends_on "cmake" => :build
@@ -44,7 +41,7 @@ class Libgr < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <gr.h>
 
@@ -60,7 +57,7 @@ class Libgr < Formula
           gr_emergencyclosegks();
           return 0;
       }
-    EOS
+    C
 
     system ENV.cc, "test.c", "-o", "test", "-I#{include}", "-L#{lib}", "-lGR"
     system "./test"

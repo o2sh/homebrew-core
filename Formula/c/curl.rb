@@ -3,11 +3,11 @@ class Curl < Formula
   homepage "https://curl.se"
   # Don't forget to update both instances of the version in the GitHub mirror URL.
   # `url` goes below this comment when the `stable` block is removed.
-  url "https://curl.se/download/curl-8.10.1.tar.bz2"
-  mirror "https://github.com/curl/curl/releases/download/curl-8_10_1/curl-8.10.1.tar.bz2"
-  mirror "http://fresh-center.net/linux/www/curl-8.10.1.tar.bz2"
-  mirror "http://fresh-center.net/linux/www/legacy/curl-8.10.1.tar.bz2"
-  sha256 "3763cd97aae41dcf41950d23e87ae23b2edb2ce3a5b0cf678af058c391b6ae31"
+  url "https://curl.se/download/curl-8.11.1.tar.bz2"
+  mirror "https://github.com/curl/curl/releases/download/curl-8_11_1/curl-8.11.1.tar.bz2"
+  mirror "http://fresh-center.net/linux/www/curl-8.11.1.tar.bz2"
+  mirror "http://fresh-center.net/linux/www/legacy/curl-8.11.1.tar.bz2"
+  sha256 "e9773ad1dfa21aedbfe8e1ef24c9478fa780b1b3d4f763c98dd04629b5e43485"
   license "curl"
 
   livecheck do
@@ -16,12 +16,12 @@ class Curl < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "100108ddf12c4b3a9e7877e3f8c18bdfe4a0a51b273ffe74ea7545d0308450af"
-    sha256 cellar: :any,                 arm64_sonoma:  "91ba6f1d338eb2eb2b833efa332f43a4f9a562e120ed85661632e7dd20c3ed2a"
-    sha256 cellar: :any,                 arm64_ventura: "6526f3319a007cb30ec844458dfa4a6c9979d8ffb7ef810b6183998ce4c43d04"
-    sha256 cellar: :any,                 sonoma:        "c9e0fde442aef9d270c54eda97b16b9e1dfc946b0fe99d945839e654fc4de84e"
-    sha256 cellar: :any,                 ventura:       "f4ed8d096a11e53f8741cda841783fa0e904b5a862f6062be1ed1703444a4b44"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4284c064a03c57efbcac375ce3c2df8718653eebbedbf54a7957d94a223dc9ad"
+    sha256 cellar: :any,                 arm64_sequoia: "9becff07bed074d7ccf57b6875c54e0f81313faf5304d0a83c3b4a5f030fb7d5"
+    sha256 cellar: :any,                 arm64_sonoma:  "abe90ee3f273e4101cc2a6d597341de4f0fcff5add2ac70664bf6abd045cc204"
+    sha256 cellar: :any,                 arm64_ventura: "a2a7f0e1b2ec4b1444c6fb74e747801da3b2cc17fa2defab8e8766ca66fa2317"
+    sha256 cellar: :any,                 sonoma:        "d3f0ef75ee89823890173bae4caf3eff9cf552361dc400ea576e439b69045a5b"
+    sha256 cellar: :any,                 ventura:       "af443263f1ce0d8330fc4a8863b5bcd094686cf5e7c7352b5670f3137008fe0e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "76e0a5154b41a48c92434df18bc22727f50e1c5d85dbda724c7353ce0bbe385a"
   end
 
   head do
@@ -34,7 +34,7 @@ class Curl < Formula
 
   keg_only :provided_by_macos
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => [:build, :test]
   depends_on "brotli"
   depends_on "libnghttp2"
   depends_on "libssh2"
@@ -101,7 +101,7 @@ class Curl < Formula
   test do
     # Fetch the curl tarball and see that the checksum matches.
     # This requires a network connection, but so does Homebrew in general.
-    filename = (testpath/"test.tar.gz")
+    filename = testpath/"test.tar.gz"
     system bin/"curl", "-L", stable.url, "-o", filename
     filename.verify_checksum stable.checksum
 
@@ -116,7 +116,11 @@ class Curl < Formula
     end
 
     system libexec/"mk-ca-bundle.pl", "test.pem"
-    assert_predicate testpath/"test.pem", :exist?
-    assert_predicate testpath/"certdata.txt", :exist?
+    assert_path_exists testpath/"test.pem"
+    assert_path_exists testpath/"certdata.txt"
+
+    with_env(PKG_CONFIG_PATH: lib/"pkgconfig") do
+      system "pkgconf", "--cflags", "libcurl"
+    end
   end
 end

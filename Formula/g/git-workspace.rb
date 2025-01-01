@@ -1,20 +1,20 @@
 class GitWorkspace < Formula
   desc "Sync personal and work git repositories from multiple providers"
   homepage "https://github.com/orf/git-workspace"
-  url "https://github.com/orf/git-workspace/archive/refs/tags/v1.6.0.tar.gz"
-  sha256 "c99e821710b45d2c2639c1abea45ad9f2d63d3b5b81e19e1fd29604dca05e5e2"
+  url "https://github.com/orf/git-workspace/archive/refs/tags/v1.8.0.tar.gz"
+  sha256 "b6499b70362730dbe1674fd07bd9aefef0bcd45ba4504ed0cce62ef2c7ecad1f"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "e8748befe2d9116fdb60da448121643e9bb49401f9a1e7833343b4ef6fe5d5e3"
-    sha256 cellar: :any,                 arm64_sonoma:  "772d39bc35073c662e160ea86d20d153bdd689f360ad7538bd524fddedaa24ee"
-    sha256 cellar: :any,                 arm64_ventura: "6e918ed11da60bb72542f68d82e950a54db29f50674de061ec6de5c76267f456"
-    sha256 cellar: :any,                 sonoma:        "300b87932cafbc4e4f4bf4576b08cb6aaa89c89fb0cca029f0c55dbb146e05e1"
-    sha256 cellar: :any,                 ventura:       "30846356f2db9395c0bb3f4bd07679a0df35d07e8d04e19a76a17b6fc5111d03"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "54272b0971fea5d5d82b27831cad8d4f109ea9db91031ddeb20c47885dfa293a"
+    sha256 cellar: :any,                 arm64_sequoia: "6a4fe8611f58904c04941f7d24f0c05690e94a530e1a5c6a65e1b66ea17a63c7"
+    sha256 cellar: :any,                 arm64_sonoma:  "4cbcd08c8721d9d57b484e83370207dd7d624625b3fe3fe2f3b3a032ef57e602"
+    sha256 cellar: :any,                 arm64_ventura: "2238606be70e0cda69f2b1385151a603da2b4cb09d5d5596801bd297e78d809e"
+    sha256 cellar: :any,                 sonoma:        "24d8208eaa671dc162bad95db12f51ed4a33e8ba47f0f5d734e292d97d43f1c1"
+    sha256 cellar: :any,                 ventura:       "09b7800f722e02bbee6a0d894b06a88ebd8a7b1606532c7c922b285b5dab0dca"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "eac36464fd5fef9aa5c473173281b4a73ded57c21a6fc8595742a1b6a6a539e7"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
   depends_on "libgit2"
   depends_on "openssl@3"

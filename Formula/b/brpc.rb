@@ -1,28 +1,48 @@
 class Brpc < Formula
   desc "Better RPC framework"
   homepage "https://brpc.apache.org/"
-  url "https://dlcdn.apache.org/brpc/1.10.0/apache-brpc-1.10.0-src.tar.gz"
-  sha256 "4bcfa0ae09b69790c9767c098512e62a0c2c1d896a38559415a92e5d1206965b"
   license "Apache-2.0"
+  revision 3
   head "https://github.com/apache/brpc.git", branch: "master"
 
+  stable do
+    url "https://dlcdn.apache.org/brpc/1.11.0/apache-brpc-1.11.0-src.tar.gz"
+    sha256 "7076b564bf3d4e1f9ed248ba7051ae42e9c63340febccea5005efc89d068f339"
+
+    # Backport support for newer protobuf
+    patch do
+      url "https://github.com/apache/brpc/commit/282776acaf2c894791d2b5d4c294a28cfa2d4138.patch?full_index=1"
+      sha256 "ce55b0d5df5b8aaf1c54cd7d80f32c01e8fd35c97f12b864ea6618b38d2db547"
+    end
+  end
+
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "d6d546991106ec10996d64ff95b58c01c61267afbf9bc9cd7377a88bde9b9ddd"
-    sha256 cellar: :any,                 arm64_sonoma:   "a4f42713b545c6bdf393661b1c33e855c56f791cc2175f93e6ac968328b21963"
-    sha256 cellar: :any,                 arm64_ventura:  "710cc3a18cc3aa0d7294275c887b4d947e8bb661c4b3c0c67bf4190c3918cfa3"
-    sha256 cellar: :any,                 arm64_monterey: "b1b93405ed8b571d90dc48cddbaed021561337f9b0576f0f8e5e5ab0bff4031e"
-    sha256 cellar: :any,                 sonoma:         "ea0abdfed6e3ba6bc3f0d0a94aeb9b5e4a46b828a2c0c4f18e05d511e379a0b8"
-    sha256 cellar: :any,                 ventura:        "af89289ed5ceb5157cc9b40fd83db742fe98b28d8b9db3670f22a6f9dcbee5e4"
-    sha256 cellar: :any,                 monterey:       "8ea78cb0d65f63595ee2669c0ba5f7eb2f1d8d2c0a00d6b91e67a5823d0f7624"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bdadab0418095e110d55ef0f482c39a094591b348bc167a260ddd277f773fd2d"
+    sha256 cellar: :any,                 arm64_sequoia: "936ae5d786f34fa6a42ec96490e3b755a11a9d8629115068e8351fb4d67d52e3"
+    sha256 cellar: :any,                 arm64_sonoma:  "3da1715944951eb5d0804c46b8af9b91e542e344dd2b61c7bc577d25da52679c"
+    sha256 cellar: :any,                 arm64_ventura: "ec604fabcd98acf3278497d1a6123c1d02d426c55d38d249584aa08daec1ac11"
+    sha256 cellar: :any,                 sonoma:        "d5b5088575f73b50330fc29390de7cf5a9ec1465d50a732255b7db9e89ad86dd"
+    sha256 cellar: :any,                 ventura:       "6139f7f3cae9e2b5e52327f2645a49fd0aadf7e28a17fead4284397e3d202dde"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9858a95aa4eb0ddc2fcee3efbad34632079bd1d4ae273510130d581eeed4a1fc"
   end
 
   depends_on "cmake" => :build
+  depends_on "abseil"
   depends_on "gflags"
   depends_on "gperftools"
   depends_on "leveldb"
   depends_on "openssl@3"
-  depends_on "protobuf@21"
+  depends_on "protobuf"
+
+  on_linux do
+    depends_on "pkgconf" => :test
+  end
+
+  # Apply open PR commit to fix compile with Protobuf 29+.
+  # PR ref: https://github.com/apache/brpc/pull/2830
+  patch do
+    url "https://github.com/apache/brpc/commit/8d1ee6d06ffdf84a33bd083463663ece5fb9e7a9.patch?full_index=1"
+    sha256 "9602c9200bd53b58e359cdf408775c21584ce613404097f6f3832f4df3bcba9c"
+  end
 
   def install
     inreplace "CMakeLists.txt", "/usr/local/opt/openssl",
@@ -47,7 +67,7 @@ class Brpc < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <iostream>
 
       #include <brpc/channel.h>
@@ -73,8 +93,9 @@ class Brpc < Formula
         std::cout << cntl.http_response().status_code();
         return 0;
       }
-    EOS
-    protobuf = Formula["protobuf@21"]
+    CPP
+
+    protobuf = Formula["protobuf"]
     gperftools = Formula["gperftools"]
     flags = %W[
       -I#{include}
@@ -86,7 +107,11 @@ class Brpc < Formula
       -lprotobuf
       -ltcmalloc
     ]
-    system ENV.cxx, "-std=c++11", testpath/"test.cpp", "-o", "test", *flags
+    # Work around for undefined reference to symbol
+    # '_ZN4absl12lts_2024072212log_internal21CheckOpMessageBuilder7ForVar2Ev'
+    flags += shell_output("pkgconf --libs absl_log_internal_check_op").chomp.split if OS.linux?
+
+    system ENV.cxx, "-std=c++17", "test.cpp", "-o", "test", *flags
     assert_equal "200", shell_output("./test")
   end
 end

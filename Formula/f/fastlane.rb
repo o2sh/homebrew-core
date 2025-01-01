@@ -1,9 +1,10 @@
 class Fastlane < Formula
   desc "Easiest way to build and release mobile apps"
   homepage "https://fastlane.tools"
-  url "https://github.com/fastlane/fastlane/archive/refs/tags/2.222.0.tar.gz"
-  sha256 "2e4624170873a03f9d59b333dd3e2c0ad9905848bf496e3ac98766f7d068407b"
+  url "https://github.com/fastlane/fastlane/archive/refs/tags/2.226.0.tar.gz"
+  sha256 "dab7c2f3d8cc47e1bc4ed8b4351a0e1b438c70009bb28f3e352ffbb5c001b1f9"
   license "MIT"
+  revision 1
   head "https://github.com/fastlane/fastlane.git", branch: "master"
 
   livecheck do
@@ -12,14 +13,12 @@ class Fastlane < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "691806f2aac9c52bcef7431318c89260a2ad900d3fd25327614a537328f6eec2"
-    sha256 cellar: :any,                 arm64_sonoma:   "5759abba16aa2aba62600479800b8806bb630f045246fc9c390c837644938028"
-    sha256 cellar: :any,                 arm64_ventura:  "cae603c32444e2a1163e24dbd9d0aebac6b9edfb0f06ba8afee21d664037c8f3"
-    sha256 cellar: :any,                 arm64_monterey: "59ef9d10a908dd9468b3727ff8254911e3f5f8b375de0cc7f3c97b691c289922"
-    sha256 cellar: :any,                 sonoma:         "f027aae7bf6d91e0c0c9e514c1e8ef62842692d40e163d77e5538c5c52bc12fa"
-    sha256 cellar: :any,                 ventura:        "0a8a4f5b90c99582956e807d24ed58f67eafaaffb5c0c580b9579461fb269a7d"
-    sha256 cellar: :any,                 monterey:       "f94ce123b22d3cf0f0870499f8a58f033cb55af7aabfeedf79e3d1d2ba14f0cc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6dd14a74db870dd3966eb32ec97558f0a1f5add17ca56f238088397026315b96"
+    sha256 cellar: :any,                 arm64_sequoia: "d4c54b581214943be2f5e8063a9b1ef9ff1685a86bd8d0db0d665f8068e2f35c"
+    sha256 cellar: :any,                 arm64_sonoma:  "98749c5e08c615bedc1dd2244fb90573b869b434f2705c6bcfb3e2b7c3adc1d0"
+    sha256 cellar: :any,                 arm64_ventura: "2d41ffe353ab6bd4ce27706cc46cddec1142638ad13c8ee1ff0c14fb80c95864"
+    sha256 cellar: :any,                 sonoma:        "c012e9f78fb4b08f068bc3082e36cd83688b717bfab325a27f82404cb6a7ed6d"
+    sha256 cellar: :any,                 ventura:       "292ef02ff9752fde13846171cfbf381028226c79df17481e171ad45a60de5522"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0e72c513943982423660260daa61a9533c553ea4498cda613c2bfcf109fd33b8"
   end
 
   depends_on "ruby"
@@ -28,18 +27,28 @@ class Fastlane < Formula
     depends_on "terminal-notifier"
   end
 
+  def fastlane_gem_home
+    "${HOME}/.local/share/fastlane/#{Formula["ruby"].version.major_minor}.0"
+  end
+
   def install
     ENV["GEM_HOME"] = libexec
     ENV["GEM_PATH"] = libexec
+    ENV["LANG"] = "en_US.UTF-8"
+    ENV["LC_ALL"] = "en_US.UTF-8"
+
+    # `abbrev`, `mutex_m` gem no longer with ruby 3.4+, upstream patch pr, https://github.com/fastlane/fastlane/pull/29182
+    system "gem", "install", "abbrev", "--no-document"
+    system "gem", "install", "mutex_m", "--no-document"
 
     system "gem", "build", "fastlane.gemspec"
     system "gem", "install", "fastlane-#{version}.gem", "--no-document"
 
     (bin/"fastlane").write_env_script libexec/"bin/fastlane",
-      PATH:                            "#{Formula["ruby"].opt_bin}:#{libexec}/bin:$PATH",
+      PATH:                            "#{Formula["ruby"].opt_bin}:#{libexec}/bin:#{fastlane_gem_home}/bin:$PATH",
       FASTLANE_INSTALLED_VIA_HOMEBREW: "true",
-      GEM_HOME:                        libexec.to_s,
-      GEM_PATH:                        libexec.to_s
+      GEM_HOME:                        "${FASTLANE_GEM_HOME:-#{fastlane_gem_home}}",
+      GEM_PATH:                        "${FASTLANE_GEM_HOME:-#{fastlane_gem_home}}:#{libexec}"
 
     # Remove vendored pre-built binary
     terminal_notifier_dir = libexec.glob("gems/terminal-notifier-*/vendor/terminal-notifier").first
@@ -51,6 +60,13 @@ class Fastlane < Formula
         terminal_notifier_dir,
       )
     end
+  end
+
+  def caveats
+    <<~EOS
+      Fastlane will install additional gems to FASTLANE_GEM_HOME, which defaults to
+        #{fastlane_gem_home}
+    EOS
   end
 
   test do

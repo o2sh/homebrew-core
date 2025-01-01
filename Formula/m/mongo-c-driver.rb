@@ -1,8 +1,8 @@
 class MongoCDriver < Formula
   desc "C driver for MongoDB"
   homepage "https://github.com/mongodb/mongo-c-driver"
-  url "https://github.com/mongodb/mongo-c-driver/archive/refs/tags/1.28.0.tar.gz"
-  sha256 "fc8ef2d081d9388b9016d74826f4a229d213a2813708d26063d771ab12e457cb"
+  url "https://github.com/mongodb/mongo-c-driver/archive/refs/tags/1.29.1.tar.gz"
+  sha256 "bc7d861192948ea9f5898867b7c9a8ce57b6b775d8d45591d2cc3db7eb637671"
   license "Apache-2.0"
   head "https://github.com/mongodb/mongo-c-driver.git", branch: "master"
 
@@ -12,28 +12,29 @@ class MongoCDriver < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "d8ae916ca0fe5aaf2435aeb02211bf2ef323834bc6088a2f4305003599e6fb7c"
-    sha256 cellar: :any,                 arm64_sonoma:  "07561192178d208bf885f4908e38b659f8f6dc986f6f457e806f584770315730"
-    sha256 cellar: :any,                 arm64_ventura: "e256ac69d7c678ded1b83e598001d316a5c5c9c337067a8bd8124190e48cd52d"
-    sha256 cellar: :any,                 sonoma:        "326553b8d8f1e7f9675e7de957d8e9fb007cd0a67185e6df19863b92d4917fd1"
-    sha256 cellar: :any,                 ventura:       "0fd8b193bf01ef41437f973e08208af3137df1600cffb63a00112b6a0cff93d8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4b5706220ddd48ae36ecb24dfb23438ab49b8f1035722881b96625f30a34e5c7"
+    sha256 cellar: :any,                 arm64_sequoia: "25ba735ffb61294af4806ea19208dcc27ea9eee2ec45c647f3478f6d650af1fc"
+    sha256 cellar: :any,                 arm64_sonoma:  "6d1443980ddbf551113c34307560d06c1a0ef05679e19948ced3e3b4d1152221"
+    sha256 cellar: :any,                 arm64_ventura: "45ba5549157d95d90e7a3f5fea023f8f67db10356a2065d39d7fd80c44b686da"
+    sha256 cellar: :any,                 sonoma:        "bfd445a4cd04afc10c706e32785dd49c63cc1e2979baef7ce81cbef780ceb753"
+    sha256 cellar: :any,                 ventura:       "8cac51cd969cbc9f070c57f85dcc1f178a1f86a70ad54e6e51f3d40a4bc44375"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2a10b81629a9b481681abeb5ae061aea6d03276a199910000576f4495d030f5d"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "sphinx-doc" => :build
   depends_on "openssl@3"
 
   uses_from_macos "zlib"
 
   def install
-    cmake_args = std_cmake_args
-    cmake_args << "-DCMAKE_INSTALL_RPATH=#{rpath}"
     File.write "VERSION_CURRENT", version.to_s unless build.head?
     inreplace "src/libmongoc/src/mongoc/mongoc-config.h.in", "@MONGOC_CC@", ENV.cc
-    system "cmake", ".", *cmake_args
-    system "make", "install"
+
+    system "cmake", "-S", ".", "-B", "build", "-DCMAKE_INSTALL_RPATH=#{rpath}", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
+
     (pkgshare/"libbson").install "src/libbson/examples"
     (pkgshare/"libmongoc").install "src/libmongoc/examples"
   end

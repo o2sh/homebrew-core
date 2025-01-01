@@ -2,27 +2,27 @@ class ClangFormat < Formula
   desc "Formatting tools for C, C++, Obj-C, Java, JavaScript, TypeScript"
   homepage "https://clang.llvm.org/docs/ClangFormat.html"
   # The LLVM Project is under the Apache License v2.0 with LLVM Exceptions
-  license "Apache-2.0"
+  license "Apache-2.0" => { with: "LLVM-exception" }
   version_scheme 1
   head "https://github.com/llvm/llvm-project.git", branch: "main"
 
   stable do
-    url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.0/llvm-19.1.0.src.tar.xz"
-    sha256 "a8b141cbfa13f50d84ce545899bd311aaa60d59dfbf7f3a0cf84f25badc1544d"
+    url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.6/llvm-19.1.6.src.tar.xz"
+    sha256 "ad1a3b125ff014ded290094088de40efb9193ce81a24278184230b7d401f8a3e"
 
     resource "clang" do
-      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.0/clang-19.1.0.src.tar.xz"
-      sha256 "03c3be44ff8e602213222fb99645c239965623d2bf2a6e4d210249520112377e"
+      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.6/clang-19.1.6.src.tar.xz"
+      sha256 "6358cbb3e14687ca2f3465c61cffc65589b448aaa912ec2c163ef9fc046e8a89"
     end
 
     resource "cmake" do
-      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.0/cmake-19.1.0.src.tar.xz"
-      sha256 "dc78b6a9ac8a097ca6ac0f23c06821d65e6ea3bf666026f529994c1d01056ae7"
+      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.6/cmake-19.1.6.src.tar.xz"
+      sha256 "9c7ec82d9a240dc2287b8de89d6881bb64ceea0dcd6ce133c34ef65bda22d99e"
     end
 
     resource "third-party" do
-      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.0/third-party-19.1.0.src.tar.xz"
-      sha256 "f521e6cdb6598d777c6120d086aee3993f182ab38bc59ce4a59c48fae4839b8c"
+      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.6/third-party-19.1.6.src.tar.xz"
+      sha256 "0e8048333bab2ba3607910e5d074259f08dccf00615778d03a2a55416718eb45"
     end
   end
 
@@ -33,12 +33,12 @@ class ClangFormat < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fd9f55ce1e7070804eedd3714d6bdcc51d603d5a485dc9bae070e8c61a40c7ba"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "7430daa8b4ed88ad80c6224a1529d9ca11a192bcc24f9056be4b0797256592ae"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "dd47348ac5d1243cde53a6572bde91b4adde18ddfcc86df8e063d969305ad5ee"
-    sha256 cellar: :any_skip_relocation, sonoma:        "8db8fe084ab3090cdd83241f325de36549e4404382b4f79f624e41fe5209c136"
-    sha256 cellar: :any_skip_relocation, ventura:       "02ddcb526b715cb480296f2d7a930afc092e3fc44f1e966a03683ea5f595a1c2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c59a311e84edc3575c055df2e48f95ba4a81709563151979d60786f3da9f40c4"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d3b1c576d39cae615a6bf558d416f53e9b8ba12e3e6675e325026fb7fb7ed096"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1cc3444deac024d0d7364807c9505bb2a805c35c5b3c10a0a8c267a2b2321606"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "f10999f36ee6067a08723893cafcd984b7c63aaba2533a68a46a23ce3bbf08dc"
+    sha256 cellar: :any_skip_relocation, sonoma:        "6d9bebcbacc13d46993071e698af4f760f59b06185c8ae0f29b9ea9e6a63a092"
+    sha256 cellar: :any_skip_relocation, ventura:       "d42951b1941e5edb02ea1f15d0f070e90e1819e1e6cc75d892fe0746a24a4d86"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e9cf162378530d55dd7f17a247981f6c7badc6334f3a51da7849fdc3fe36ec78"
   end
 
   depends_on "cmake" => :build
@@ -86,9 +86,9 @@ class ClangFormat < Formula
     system "git", "commit", "--allow-empty", "-m", "initial commit", "--quiet"
 
     # NB: below C code is messily formatted on purpose.
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       int         main(char *args) { \n   \t printf("hello"); }
-    EOS
+    C
     system "git", "add", "test.c"
 
     assert_equal "int main(char *args) { printf(\"hello\"); }\n",

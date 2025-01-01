@@ -32,7 +32,7 @@ class Sdl2Ttf < Formula
     depends_on "libtool" => :build
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "freetype"
   depends_on "harfbuzz"
   depends_on "sdl2"
@@ -52,7 +52,7 @@ class Sdl2Ttf < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <SDL2/SDL_ttf.h>
 
       int main()
@@ -61,7 +61,7 @@ class Sdl2Ttf < Formula
           TTF_Quit();
           return success;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-I#{Formula["sdl2"].opt_include}/SDL2", "-L#{lib}", "-lSDL2_ttf", "-o", "test"
     system "./test"
   end

@@ -1,8 +1,8 @@
 class Librdkafka < Formula
   desc "Apache Kafka C/C++ library"
   homepage "https://github.com/confluentinc/librdkafka"
-  url "https://github.com/confluentinc/librdkafka/archive/refs/tags/v2.5.3.tar.gz"
-  sha256 "eaa1213fdddf9c43e28834d9a832d9dd732377d35121e42f875966305f52b8ff"
+  url "https://github.com/confluentinc/librdkafka/archive/refs/tags/v2.6.1.tar.gz"
+  sha256 "0ddf205ad8d36af0bc72a2fec20639ea02e1d583e353163bf7f4683d949e901b"
   license "BSD-2-Clause"
   head "https://github.com/confluentinc/librdkafka.git", branch: "master"
 
@@ -12,17 +12,15 @@ class Librdkafka < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "3bf8b2381a201443739697cda09d78a0597835b41489180d58b642566af785fb"
-    sha256 cellar: :any,                 arm64_sonoma:   "7fab9f212d5242f52c2edf3216d0b0ca1ceda3d67296a8cec1ae421b957cf271"
-    sha256 cellar: :any,                 arm64_ventura:  "a1306e9b4ec059f96b35ee6ad8f5d9072c2920e48fa046140b25c256fb2f2afd"
-    sha256 cellar: :any,                 arm64_monterey: "ec2b22e2d103e0ab5ed9c1a952c6738a8c97b6f68c780a8b14234090c576124b"
-    sha256 cellar: :any,                 sonoma:         "0d64170898e4340b14bfa4375bda94b79eefff7845fff02d84ffe5148865950b"
-    sha256 cellar: :any,                 ventura:        "5f58fd2abd9f62997e0943d332e8c9f82f7803c9f86a56b3cd0592f4e1529d91"
-    sha256 cellar: :any,                 monterey:       "f1d066bb93bcdd508b2c4306f1a609ba3a5ee8efb805804f55263c9a8ffa1e24"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f7caf909927a31db5908751a70a1018212bf449d4c2dbc967389c1f1d5ff9028"
+    sha256 cellar: :any,                 arm64_sequoia: "c8cb62d6249166d482dbc61eabc6abe6a57effa571b5a4a03d9b2e2ee9b75d62"
+    sha256 cellar: :any,                 arm64_sonoma:  "5a057cedacf435fb436f56e8fb18e85fdfb5a89a87465a7a0deeb3fe7eb8d648"
+    sha256 cellar: :any,                 arm64_ventura: "aa31edae9841cf293319ebacf345b299e76767abee5d3e890ba704bdac755210"
+    sha256 cellar: :any,                 sonoma:        "ca4719ab13622e709823e8a0c1582e087feacb1825dc2a4d3051c6725d2996bd"
+    sha256 cellar: :any,                 ventura:       "8294e9370476400ea3ae4cd6ce95bc49c106372bae929008fc5f75e706c653a5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1fea707e4636ced72b92ee2a83d4dc345ba66c7cada66533a575a5ec4e89cc37"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "lz4"
   depends_on "lzlib"
   depends_on "openssl@3"
@@ -40,7 +38,7 @@ class Librdkafka < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <librdkafka/rdkafka.h>
 
       int main (int argc, char **argv)
@@ -49,7 +47,7 @@ class Librdkafka < Formula
         int version = rd_kafka_version();
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-lrdkafka", "-lz", "-lpthread", "-o", "test"
     system "./test"
   end

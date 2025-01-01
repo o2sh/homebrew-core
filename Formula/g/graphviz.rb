@@ -5,8 +5,8 @@ class Graphviz < Formula
   version_scheme 1
 
   stable do
-    url "https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/12.1.1/graphviz-12.1.1.tar.xz"
-    sha256 "8dd4fa2a30a80e9ee4a11ad4f43f4a900d683684e824681b084a1dc86777a2a3"
+    url "https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/12.2.1/graphviz-12.2.1.tar.xz"
+    sha256 "85e34b5c982777c30f01dfab9ea7c713b4335a2f584e62c0abb9868413eb915b"
 
     # Fix -flat_namespace being used on Big Sur and later.
     patch do
@@ -15,15 +15,18 @@ class Graphviz < Formula
     end
   end
 
+  livecheck do
+    url "https://graphviz.org/download/source/"
+    regex(/href=.*?graphviz[._-]v?(\d+(?:\.\d+)+)\.t/i)
+  end
+
   bottle do
-    sha256 arm64_sequoia:  "9ccd668bdff612a554d3c7e44c599f143e640479a98d1b03ef63c205d05f648b"
-    sha256 arm64_sonoma:   "dd45b9ea58f4baa6813c807ea0416f302faa5e1069f8a8143044d5bd89a3aa83"
-    sha256 arm64_ventura:  "94de859a11b2f236133b2f541c00a6bed2a730c81a4bc6d729930480009881a9"
-    sha256 arm64_monterey: "5557ee94735171a98bb962f0f0a2026eab01f770a05572cdd7a0d75bb68e6c86"
-    sha256 sonoma:         "32045b867d4fba1e3fbfb64cf9b5f001aa5014e0987d7a9a9b0d4a589d4b6e7f"
-    sha256 ventura:        "11d1e6b2726cf8283a30abdcb5540c5d08709d6b8dfed8ba61d7584b3373a41d"
-    sha256 monterey:       "c32bfeb0330478975e6507829b92ea13adba64e644681451d3d8b7556c7adbf0"
-    sha256 x86_64_linux:   "52d08a6c684768e83853e1210eef6b7404cc42487eae026146a9b00342505cec"
+    sha256 arm64_sequoia: "1021bca3aee2d641cc8b3741820f4df48c2f53916cfb6cff3ed1fc664ebdf5dd"
+    sha256 arm64_sonoma:  "067aecda0ddbf4b5593f81aaca952ef5d14992f9e0fcff692ba29cc2c868330e"
+    sha256 arm64_ventura: "ce8eaf49349dfd40a47ce364f7b33c94b812e05527ae92be9a58dd9202145734"
+    sha256 sonoma:        "82f8b94e10a0faeffb28cb097ac071707188ea26ab2fc66da607c49c37743d30"
+    sha256 ventura:       "6f35eabfb6acfebcd48ea4d2663307148f7bd8f54fe748dfa33eb173d794aba7"
+    sha256 x86_64_linux:  "67fab62f20a6882fff2a4863382566cd3e462226f121b6b415a22176e81c518c"
   end
 
   head do
@@ -34,7 +37,7 @@ class Graphviz < Formula
   end
 
   depends_on "bison" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "cairo"
   depends_on "gd"
   depends_on "glib"

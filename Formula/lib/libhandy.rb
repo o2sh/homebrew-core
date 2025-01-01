@@ -20,7 +20,7 @@ class Libhandy < Formula
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "vala" => :build
 
   depends_on "at-spi2-core"
@@ -43,7 +43,7 @@ class Libhandy < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <gtk/gtk.h>
       #include <handy.h>
       int main(int argc, char *argv[]) {
@@ -52,10 +52,10 @@ class Libhandy < Formula
         HdyLeaflet *leaflet = HDY_LEAFLET (hdy_leaflet_new ());
         return 0;
       }
-    EOS
+    C
 
-    pkg_config_flags = shell_output("pkg-config --cflags --libs libhandy-1").strip.split
-    system ENV.cc, "test.c", "-o", "test", *pkg_config_flags
+    flags = shell_output("pkgconf --cflags --libs libhandy-1").strip.split
+    system ENV.cc, "test.c", "-o", "test", *flags
     # Don't have X/Wayland in Docker
     system "./test" if OS.mac?
   end

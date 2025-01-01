@@ -1,28 +1,25 @@
 class Mpv < Formula
   desc "Media player based on MPlayer and mplayer2"
   homepage "https://mpv.io"
-  url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.38.0.tar.gz"
-  sha256 "86d9ef40b6058732f67b46d0bbda24a074fae860b3eaae05bab3145041303066"
+  url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.39.0.tar.gz"
+  sha256 "2ca92437affb62c2b559b4419ea4785c70d023590500e8a52e95ea3ab4554683"
   license :cannot_represent
-  revision 2
+  revision 1
   head "https://github.com/mpv-player/mpv.git", branch: "master"
 
   bottle do
-    rebuild 2
-    sha256 arm64_sequoia:  "a3a7cd86a672e47419fe093115529b288a566b68265bdd5d3a2968caf9a96c80"
-    sha256 arm64_sonoma:   "ce971ccc83b4bdfd0d105e693b9b039be775fbfe29868e6b67c9f98010ecb718"
-    sha256 arm64_ventura:  "dec75b6b3ec01b24685d1db985ea945ffc586b99b67b56e7ee8de23d27b5e01b"
-    sha256 arm64_monterey: "ab1e0c314ed9e88066ba548060229146c3761f86ff6c8519d5fdfa9e6bb34c7c"
-    sha256 sonoma:         "4e9c392f96563a2b779e7c9c60bddfa463b2b91e3fd0406bd6e8ace9e356bf04"
-    sha256 ventura:        "9232d665c69b49aff0cab02cd87575bdf09baafa42f7cf6c864d09873a505ee1"
-    sha256 monterey:       "de9ecd10b58e04546f3196eb8699ea8da4ea6d627311971bdee0462a3624b887"
-    sha256 x86_64_linux:   "3d95bb5352432924134fbc616c214ab4839d9fb59a831e5a3fb57e7000f4d2b2"
+    sha256 arm64_sequoia: "6ca65c7edfb41534bf8a22a8f17284717c699680c43e23246258f919ed2545ac"
+    sha256 arm64_sonoma:  "17e235319eb2611e7a828444a64954cc340effb0eb16b909b9d247a402c177c2"
+    sha256 arm64_ventura: "b4de2eb8f40a03737d705d157921d61e5f3a1f8be83e3d1bfde7144a29ab15af"
+    sha256 sonoma:        "ae496a7e51e9c5f4636b2f868b1371c157ca7010d6f353c70b3788b2a9381a44"
+    sha256 ventura:       "8c2c5be6917b47240078eabfc1208f54f4a621c8d74e7aee60e2acbcec000c55"
+    sha256 x86_64_linux:  "a80f7ba627052cc08ac3433bda05d6abf36220a5832f1d965c1f12facb7ae182"
   end
 
   depends_on "docutils" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on xcode: :build
   depends_on "ffmpeg"
   depends_on "jpeg-turbo"
@@ -119,7 +116,7 @@ class Mpv < Formula
     system bin/"mpv", "--ao=null", "--vo=null", test_fixtures("test.wav")
     assert_match "vapoursynth", shell_output(bin/"mpv --vf=help")
 
-    # Make sure `pkg-config` can parse `mpv.pc` after the `inreplace`.
-    system "pkg-config", "mpv"
+    # Make sure `pkgconf` can parse `mpv.pc` after the `inreplace`.
+    system "pkgconf", "--print-errors", "mpv"
   end
 end

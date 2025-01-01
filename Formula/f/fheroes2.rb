@@ -1,8 +1,8 @@
 class Fheroes2 < Formula
   desc "Recreation of the Heroes of Might and Magic II game engine"
   homepage "https://ihhub.github.io/fheroes2/"
-  url "https://github.com/ihhub/fheroes2/archive/refs/tags/1.1.2.tar.gz"
-  sha256 "2c1ecc167de9b4a5f0eb6b6c88392ba021b4e031844760611067971e71e58b6d"
+  url "https://github.com/ihhub/fheroes2/archive/refs/tags/1.1.5.tar.gz"
+  sha256 "b860e5cc0064d15f47e1b1e04b4c75bd8200084260da860632b61fa2899fcf83"
   license "GPL-2.0-or-later"
   head "https://github.com/ihhub/fheroes2.git", branch: "master"
 
@@ -12,12 +12,12 @@ class Fheroes2 < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "b43c8c4af2e91e1076891492b66de8db17e6d2374b84d9f284c249191dda44c5"
-    sha256 arm64_sonoma:  "1f24eaa709448375741122f51f22bb234462c92cd90b41455a0ba3aa2b75f9bd"
-    sha256 arm64_ventura: "c511e61f3941660653997de4dfb4237ba5757a43f44ddeef3b2e9fb783e858d9"
-    sha256 sonoma:        "fa07c89b98c6fa84a3c1c0307543cd368399ef73c4e1f195eff535d7199e744d"
-    sha256 ventura:       "754576a4078b46907bfa927da2d59a311997f96eda27dba30323e0e8c9b8bcbc"
-    sha256 x86_64_linux:  "b7d17c758434be4241622c577a9e0ec15a9b32ef019d94da89458802421ca493"
+    sha256 arm64_sequoia: "febed7ae920afd6ecaf50a6b864bf10c77c7dbe10d06ea1c17eda74473fe169a"
+    sha256 arm64_sonoma:  "12d505f0fab20bda6081438e72b6e3089099d94417d2b3fcb22923fd6bfabaf5"
+    sha256 arm64_ventura: "b6d414ccc9e5bd794d4e8f5421a40a6995e00490ccae65ce242d8c48b240657b"
+    sha256 sonoma:        "da74c6e86c4861698dee79dd5f0978d89db2f9cba62e42998fc7741bdfd06a6b"
+    sha256 ventura:       "c0fc1d518bf6697d2a877cfd00ef53da5d3e40a647499acd0b4168180a544905"
+    sha256 x86_64_linux:  "501bafb0aba102ffc9acb468cee08acefb7fbb591c945feb93d1533947b52ad6"
   end
 
   depends_on "cmake" => :build
@@ -28,8 +28,6 @@ class Fheroes2 < Formula
   depends_on "sdl2_mixer"
 
   uses_from_macos "zlib"
-
-  fails_with gcc: "5"
 
   def install
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args
@@ -42,6 +40,12 @@ class Fheroes2 < Formula
 
   def caveats
     <<~EOS
+      Run fheroes2-install-demo command to download and install all the necessary
+      files from the demo version of the original Heroes of Might and Magic II game.
+
+      Run fheroes2-extract-resources command to extract all the necessary resource
+      files from a legally purchased copy of the original game.
+
       Documentation is available at:
       #{share}/doc/fheroes2/README.txt
     EOS

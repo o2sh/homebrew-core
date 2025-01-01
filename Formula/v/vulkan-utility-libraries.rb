@@ -1,8 +1,8 @@
 class VulkanUtilityLibraries < Formula
   desc "Utility Libraries for Vulkan"
   homepage "https://github.com/KhronosGroup/Vulkan-Utility-Libraries"
-  url "https://github.com/KhronosGroup/Vulkan-Utility-Libraries/archive/refs/tags/v1.3.295.tar.gz"
-  sha256 "9dc5247bfb1585ecab48fdd4708b52ba1839cebf0347077bbc897580401b15ca"
+  url "https://github.com/KhronosGroup/Vulkan-Utility-Libraries/archive/refs/tags/v1.4.304.tar.gz"
+  sha256 "daaf71220fffe3988e79f229ae70fb0937e5d932cd176bccb6be0f946dd54c03"
   license "Apache-2.0"
   head "https://github.com/KhronosGroup/Vulkan-Utility-Libraries.git", branch: "main"
 
@@ -12,19 +12,17 @@ class VulkanUtilityLibraries < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "637fc5ffd917a87c2a69d85b1ebf1dc1d6d0c7e0138d4a98867035d7823cbaa5"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6c676320b23f5e62f0a5e5e5e080d20d514098641684c3212ec0c1abd2e692e8"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2773113a13b0bb5e2255290f01d9c7af899ea63d7f6895e9c57f15b0496f2032"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d4fb236da8adf0acbcbdd47d2a4e9cb2a799219d7e1c0bcd8cd7a2d4d49fcbb2"
-    sha256 cellar: :any_skip_relocation, sonoma:         "0d2212715f1fe0c6d7690e649e019d9b78fb5e883db5fe8a463a1bb9962c17e8"
-    sha256 cellar: :any_skip_relocation, ventura:        "40880e567dc04de4e10215d9dc1a82835f05cd19448f57972f951b56c1687ad0"
-    sha256 cellar: :any_skip_relocation, monterey:       "78dc0498a2f09d5135bfa57e67bb24f3004030768294c348ce537cce50a15796"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7c6081368f1508790672c2569be783d614e2001ec38e2c746c0fbf0d8e666ce8"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e5afb5ff504974af0a0828aa1ed0ccc0174140aa4cdac398ac45e4ee0d19a8bf"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4c4a3023ea08794801f4b736dc615c13384c951a79628637621bf521976cfee6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "a591da683a84240f1fcc04e718622feecf4f702f2e8678e817670a92639d3b07"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a8f9766dd48e7e5d5a0f3c9343c19a0e0c646cdcd7dab7f36ca6906fa11736ec"
+    sha256 cellar: :any_skip_relocation, ventura:       "1d6858b4241703794b63f426a3c5bf1fdadb2b5b8b1c1d33d930a8cc909b2bcc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8ebdc101d2f033687bd644d7999bcf316718578f4d6a336e31f65fcf6d06f9eb"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
-  depends_on "python@3.12" => :build
+  depends_on "pkgconf" => :build
+  depends_on "python@3.13" => :build
   depends_on "vulkan-headers"
 
   def install
@@ -34,7 +32,7 @@ class VulkanUtilityLibraries < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <vulkan/layer/vk_layer_settings.h>
       int main() {
@@ -50,7 +48,7 @@ class VulkanUtilityLibraries < Formula
 
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-o", "test"
     system "./test"
   end

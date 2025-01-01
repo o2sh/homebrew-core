@@ -1,9 +1,8 @@
 class Grafana < Formula
   desc "Gorgeous metric visualizations and dashboards for timeseries databases"
   homepage "https://grafana.com"
-  # TODO: switch to use go1.23 when 11.3.0 is released
-  url "https://github.com/grafana/grafana/archive/refs/tags/v11.2.0.tar.gz"
-  sha256 "f1727b5e99183879e30d3ca8393e328f39f6bd8b5a11690e7b6e60081f99bbd9"
+  url "https://github.com/grafana/grafana/archive/refs/tags/v11.4.0.tar.gz"
+  sha256 "c3a63aade2a86aa360c9b46f4963e60673fc51bb6c54a088d44dfab5a8fb465e"
   license "AGPL-3.0-only"
   head "https://github.com/grafana/grafana.git", branch: "main"
 
@@ -13,18 +12,15 @@ class Grafana < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "e3b2130bf2e1058ae0c2f2bcacbe7b96fc5fb5d4dd97a3fd97ccae7c31d1c6de"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "284947cbafa943186e6119c1c1fb8747e934d7ab892be1b2db472d5ba9f5310e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9ab238b65f499ccbd852097e562ebc0f03c5b8c4c1b4cf98b2821184d29d973d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "902f90003d932f350fb58645415e811dc6f8dcae641b023c5c9d0adb4be9579e"
-    sha256 cellar: :any_skip_relocation, sonoma:         "12387f6ee94b61e1a327ccec62ad668793fb9669fc09ef3c371776f1201a4fb7"
-    sha256 cellar: :any_skip_relocation, ventura:        "ebcd43744c90d19e495b874610dfa96dd3e324b4e756dbfe16e5ac3976121e74"
-    sha256 cellar: :any_skip_relocation, monterey:       "eb6e9df35d51470a2cd2c13f1d312c3d35cb5a1433afe8875526f240eaebc6a6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "44b17ca1a0f64c04558baf6176dcfd71e1c35cd6dbf7779f9fd5e16c262c856b"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2a17c0012f1c42f8e70f6fba36d84daf57ca22d2f62d3b9b1f39c62d78e4d813"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "328dfb28cbd6f001c1bd02d6cafd6478323745d74aa313a13c7f8d8a963702ac"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "f3ecaba2e44418a5833a9f3016e943a0cafb17c6d2f877b901054e6493bfc454"
+    sha256 cellar: :any_skip_relocation, sonoma:        "7bfb9e105d1d73c032a9b8ba8f82fe3b6a31786efa0fb9763f1772b6d8774fd1"
+    sha256 cellar: :any_skip_relocation, ventura:       "758c04af568e1e8fe11db570ad5a5fc9b01e1d7c0d48df59eba66369000df1e6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2aea4ca36d6f641b554129140a095c77e42a07bab768454cacf840fa46a6491f"
   end
 
-  depends_on "corepack" => :build
-  depends_on "go@1.22" => :build
+  depends_on "go" => :build
   depends_on "node" => :build
 
   uses_from_macos "python" => :build, since: :catalina
@@ -35,16 +31,17 @@ class Grafana < Formula
     depends_on "freetype"
   end
 
-  # update yarn.lock
-  patch :DATA
-
   def install
     ENV["NODE_OPTIONS"] = "--max-old-space-size=8000"
+
+    ENV["COREPACK_ENABLE_DOWNLOAD_PROMPT"] = "0"
+    system "corepack", "enable", "--install-directory", buildpath
+
     system "make", "gen-go"
     system "go", "run", "build.go", "build"
 
-    system "yarn", "install"
-    system "yarn", "build"
+    system buildpath/"yarn", "install"
+    system buildpath/"yarn", "build"
 
     os = OS.kernel_name.downcase
     arch = Hardware::CPU.intel? ? "amd64" : Hardware::CPU.arch.to_s
@@ -122,36 +119,3 @@ class Grafana < Formula
     listening
   end
 end
-
-__END__
-diff --git a/yarn.lock b/yarn.lock
-index 5f122101..b96cd364 100644
---- a/yarn.lock
-+++ b/yarn.lock
-@@ -3233,7 +3233,7 @@ __metadata:
-   languageName: unknown
-   linkType: soft
- 
--"@grafana/e2e-selectors@npm:11.2.0, @grafana/e2e-selectors@workspace:*, @grafana/e2e-selectors@workspace:packages/grafana-e2e-selectors":
-+"@grafana/e2e-selectors@npm:11.2.0, @grafana/e2e-selectors@npm:^11.0.0, @grafana/e2e-selectors@workspace:*, @grafana/e2e-selectors@workspace:packages/grafana-e2e-selectors":
-   version: 0.0.0-use.local
-   resolution: "@grafana/e2e-selectors@workspace:packages/grafana-e2e-selectors"
-   dependencies:
-@@ -3251,17 +3251,6 @@ __metadata:
-   languageName: unknown
-   linkType: soft
- 
--"@grafana/e2e-selectors@npm:^11.0.0":
--  version: 11.1.0
--  resolution: "@grafana/e2e-selectors@npm:11.1.0"
--  dependencies:
--    "@grafana/tsconfig": "npm:^1.3.0-rc1"
--    tslib: "npm:2.6.3"
--    typescript: "npm:5.4.5"
--  checksum: 10/010a32e8b562d0da83b008646b9928a96a79957096eed713aa67b227d8ad6055d22cc0ec26f87fd9839cfb28344d0012f49c3c823defc6e91f4ab05ed7d8c465
--  languageName: node
--  linkType: hard
--
- "@grafana/eslint-config@npm:7.0.0":
-   version: 7.0.0
-   resolution: "@grafana/eslint-config@npm:7.0.0"

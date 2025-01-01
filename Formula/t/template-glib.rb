@@ -19,7 +19,7 @@ class TemplateGlib < Formula
   depends_on "bison" => :build # does not appear to work with system bison
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "vala" => :build
   depends_on "glib"
   depends_on "gobject-introspection"
@@ -37,7 +37,7 @@ class TemplateGlib < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <tmpl-glib.h>
 
       int main(int argc, char *argv[]) {
@@ -45,9 +45,9 @@ class TemplateGlib < Formula
         g_assert_nonnull(locator);
         return 0;
       }
-    EOS
+    C
 
-    flags = shell_output("pkg-config --cflags --libs template-glib-1.0").chomp.split
+    flags = shell_output("pkgconf --cflags --libs template-glib-1.0").chomp.split
     system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
   end

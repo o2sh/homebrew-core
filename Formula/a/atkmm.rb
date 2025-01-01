@@ -18,7 +18,7 @@ class Atkmm < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
 
   depends_on "at-spi2-core"
   depends_on "glib"
@@ -29,8 +29,6 @@ class Atkmm < Formula
     depends_on "gettext"
   end
 
-  fails_with gcc: "5"
-
   def install
     system "meson", "setup", "build", *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"
@@ -38,7 +36,7 @@ class Atkmm < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <atkmm/init.h>
 
       int main(int argc, char *argv[])
@@ -46,7 +44,7 @@ class Atkmm < Formula
          Atk::init();
          return 0;
       }
-    EOS
+    CPP
     flags = shell_output("pkg-config --cflags --libs atkmm-2.36").chomp.split
     system ENV.cxx, "-std=c++17", "test.cpp", "-o", "test", *flags
     system "./test"

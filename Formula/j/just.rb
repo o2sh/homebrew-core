@@ -1,8 +1,8 @@
 class Just < Formula
   desc "Handy way to save and run project-specific commands"
   homepage "https://github.com/casey/just"
-  url "https://github.com/casey/just/archive/refs/tags/1.35.0.tar.gz"
-  sha256 "f1ce3fe46c57cba0096227f8c9251d3b476e54e8a620eb39707d0ab3e16b8f55"
+  url "https://github.com/casey/just/archive/refs/tags/1.38.0.tar.gz"
+  sha256 "3d47e27755d39f40e1ca34bc0ef535fa514e7ed547b2af62311dcadd8bd6d564"
   license "CC0-1.0"
   head "https://github.com/casey/just.git", branch: "master"
 
@@ -12,14 +12,12 @@ class Just < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "e68635ab7da685a275f147ba317689eddda293bb9d38d4ae6d6e347bea5cc10a"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "454b9f0f223c45eb885800a2d22aa521bdf777ecbfc76c2df7a85e84814740b1"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1872406c7b89b11767883e22808a50fa0fc731cd6113a0e4597165987f1ef41d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "dddd0bc46851928a3b130259a2fec8fab8032f577aad6d2cdfd1ea1777d7017b"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8fc6933dc4e9d0383a714da937ffef5e8841d1b7be982b2e372409f819fc22ee"
-    sha256 cellar: :any_skip_relocation, ventura:        "2ae0a96dd93fb7471fac74f396b5a0168779c34d6badbeb7733e6d5144e51786"
-    sha256 cellar: :any_skip_relocation, monterey:       "fb1e1e0f32afa1dd554bd407420d5236af2812f757e9de6d3c89fceb5521652a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9049d74f853c32933739b7b0da4ad25e64581f59c74848949ef454ab4b81e0af"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7105d991eee61b2ba03090f6324356f1ed9dc0aa9f093402c7fd8eaa4287fd1e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1a3f21a3ccedbef806eae7111a8d7f90a8be2c83455d98c6ffbdc2328655678a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "25d8d9ae6f0fab4760bd8c2e1dbb732cdc881222d0cd52014ba6e9313d39ce9b"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5a5cafdecf7bb541e47cabb82436f8067a7c0eb6dc83625ba929aa8822328cf4"
+    sha256 cellar: :any_skip_relocation, ventura:       "daed72125fd53bef76a3b278f192fbf70814806c732e0519e232696203f7425c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8e3a2b92f0bd2fe5d2ddb0b40d6f11d8e37876504d061cba3e2e539a43328c48"
   end
 
   depends_on "rust" => :build

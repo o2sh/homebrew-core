@@ -21,8 +21,6 @@ class Jinx < Formula
 
   depends_on "cmake" => :build
 
-  fails_with gcc: "5"
-
   def install
     # disable building tests
     inreplace "CMakeLists.txt", "if(NOT jinx_is_subproject)", "if(FALSE)"
@@ -35,7 +33,7 @@ class Jinx < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include "Jinx.h"
 
       int main() {
@@ -57,7 +55,7 @@ class Jinx < Formula
         // Create and execute a script object
         auto script = runtime->ExecuteScript(scriptText);
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++17", "test.cpp", "-I#{include}", "-L#{lib}", "-lJinx", "-o", "test"
     assert_match "Hello, world!", shell_output("./test")
   end

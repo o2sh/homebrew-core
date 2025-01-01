@@ -21,22 +21,24 @@ class Libebur128 < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "speex"
 
   def install
-    system "cmake", ".", *std_cmake_args
-    system "make", "install"
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <ebur128.h>
       int main() {
         ebur128_init(5, 44100, EBUR128_MODE_I);
         return 0;
       }
-    EOS
+    C
+
     system ENV.cc, "test.c", "-L#{lib}", "-lebur128", "-o", "test"
     system "./test"
   end

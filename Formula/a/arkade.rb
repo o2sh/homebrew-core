@@ -1,8 +1,8 @@
 class Arkade < Formula
   desc "Open Source Kubernetes Marketplace"
   homepage "https://blog.alexellis.io/kubernetes-marketplace-two-year-update/"
-  url "https://github.com/alexellis/arkade/archive/refs/tags/0.11.25.tar.gz"
-  sha256 "8c508b0020922b3cc3e3ef3160ce36aea429f754b98f0d5b368d9b7928f52488"
+  url "https://github.com/alexellis/arkade/archive/refs/tags/0.11.31.tar.gz"
+  sha256 "66d30f61e9f44cf8b728f888ff251e776bc112101abcb60b5a4562dc76bf89c9"
   license "MIT"
 
   livecheck do
@@ -11,12 +11,12 @@ class Arkade < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "362c7c9bd4337b2ed55c5ec2f0ea27cb044c7b3d2455d6dfe6aafbff146f3dfd"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "362c7c9bd4337b2ed55c5ec2f0ea27cb044c7b3d2455d6dfe6aafbff146f3dfd"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "362c7c9bd4337b2ed55c5ec2f0ea27cb044c7b3d2455d6dfe6aafbff146f3dfd"
-    sha256 cellar: :any_skip_relocation, sonoma:        "6660df000ca0afe16b23ff6a72afe0da978144a954c4e83e4fa3df81aab71024"
-    sha256 cellar: :any_skip_relocation, ventura:       "6660df000ca0afe16b23ff6a72afe0da978144a954c4e83e4fa3df81aab71024"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bf14859011dbab6855b4a2e96f9bc7e17c5603c8e5e28c979a204fc50116d0ca"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7f62b549c155318c8b5727a34c194440673af4882955ab0fa01db5fc85d10dda"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "7f62b549c155318c8b5727a34c194440673af4882955ab0fa01db5fc85d10dda"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "7f62b549c155318c8b5727a34c194440673af4882955ab0fa01db5fc85d10dda"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a2ee8a2f7ec47a20ea7d56fcd59ca44955244e01427e5270e6f4b52d519b8b93"
+    sha256 cellar: :any_skip_relocation, ventura:       "a2ee8a2f7ec47a20ea7d56fcd59ca44955244e01427e5270e6f4b52d519b8b93"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ac4fb10c4188c7fdc8f91e28c3df870c2717fa6d6e1b11188e06d1d21ec7145f"
   end
 
   depends_on "go" => :build

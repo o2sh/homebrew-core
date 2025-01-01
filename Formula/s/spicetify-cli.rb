@@ -1,20 +1,18 @@
 class SpicetifyCli < Formula
   desc "Command-line tool to customize Spotify client"
   homepage "https://github.com/spicetify/cli"
-  url "https://github.com/spicetify/cli/archive/refs/tags/v2.38.3/v2.38.3.tar.gz"
-  sha256 "0a5315940f2d193a3c22ccf6e244ad1917c87a1a3c6f00462b7deb5333d24a0c"
+  url "https://github.com/spicetify/cli/archive/refs/tags/v2.38.7/v2.38.7.tar.gz"
+  sha256 "96b53a96d1f4d17fe218fc008a4ea99c2760027f1d0c69f39bdef171d6f0f8e3"
   license "LGPL-2.1-only"
   head "https://github.com/spicetify/cli.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "0c6aa0ccc801aa87dfd16252d8bfea695af7b3272bc59c225ae194986fb38e15"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0c6aa0ccc801aa87dfd16252d8bfea695af7b3272bc59c225ae194986fb38e15"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0c6aa0ccc801aa87dfd16252d8bfea695af7b3272bc59c225ae194986fb38e15"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0c6aa0ccc801aa87dfd16252d8bfea695af7b3272bc59c225ae194986fb38e15"
-    sha256 cellar: :any_skip_relocation, sonoma:         "df901a10cc518bed6dbf1527d5c17733c9b59eb789e8ab2eed62863b26cb52ca"
-    sha256 cellar: :any_skip_relocation, ventura:        "df901a10cc518bed6dbf1527d5c17733c9b59eb789e8ab2eed62863b26cb52ca"
-    sha256 cellar: :any_skip_relocation, monterey:       "df901a10cc518bed6dbf1527d5c17733c9b59eb789e8ab2eed62863b26cb52ca"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "85dfad34cbdf5d815f8329b2e6b95716edc0600f1feedeeffbe579a360566458"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "cee146270d62e24f7c0b9259488b46436ce6845d656cfa0a158e57640f1f73d6"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "cee146270d62e24f7c0b9259488b46436ce6845d656cfa0a158e57640f1f73d6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "cee146270d62e24f7c0b9259488b46436ce6845d656cfa0a158e57640f1f73d6"
+    sha256 cellar: :any_skip_relocation, sonoma:        "cc8809d6deed80fc9c5261ffb590fe9a60d808d88e7b51890b4eb8034499866a"
+    sha256 cellar: :any_skip_relocation, ventura:       "cc8809d6deed80fc9c5261ffb590fe9a60d808d88e7b51890b4eb8034499866a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "daf2d47ed395cbf9b8891879672caee0bfb8edbf11884c75ea636fb592263d36"
   end
 
   depends_on "go" => :build
@@ -44,12 +42,12 @@ class SpicetifyCli < Formula
     mkdir_p spotify_folder
     touch pref_file
     path = testpath/".config/spicetify/config-xpui.ini"
-    path.write <<~EOS
+    path.write <<~INI
       [Setting]
       spotify_path            = #{spotify_folder}
       current_theme           = SpicetifyDefault
       prefs_path              = #{pref_file}
-    EOS
+    INI
 
     quiet_system bin/"spicetify", "config"
     assert_match version.to_s, shell_output("#{bin}/spicetify -v")

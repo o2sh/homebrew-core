@@ -28,7 +28,7 @@ class Vstr < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "8346f2277202db06584db705dcf754a00ca364c547791d911e7c3395072b1b6e"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   # Fix flat namespace usage on macOS.
   patch :DATA
@@ -36,14 +36,12 @@ class Vstr < Formula
   def install
     ENV.append "CFLAGS", "--std=gnu89"
     ENV["ac_cv_func_stat64"] = "no" if Hardware::CPU.arm?
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}",
-                          "--mandir=#{man}"
+    system "./configure", "--mandir=#{man}", *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       // based on http://www.and.org/vstr/examples/ex_hello_world.c
       #define VSTR_COMPILE_INCLUDE 1
       #include <vstr.h>
@@ -69,7 +67,7 @@ class Vstr < Formula
         vstr_free_base(s1);
         vstr_exit();
       }
-    EOS
+    C
 
     system ENV.cc, "test.c", "-L#{lib}", "-lvstr", "-o", "test"
     system "./test"

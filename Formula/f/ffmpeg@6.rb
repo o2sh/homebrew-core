@@ -6,7 +6,7 @@ class FfmpegAT6 < Formula
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
   license "GPL-2.0-or-later"
-  revision 2
+  revision 7
 
   livecheck do
     url "https://ffmpeg.org/download.html"
@@ -14,17 +14,17 @@ class FfmpegAT6 < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "ed8f0f667339c888a0f91a147767f9447c0f46c55702fc9c02dec78deab2c1af"
-    sha256 arm64_sonoma:  "3a48ddaa3461f41b39789d333f8a9e687d620eac420b81fe67b2b3ec609624cf"
-    sha256 arm64_ventura: "757329a5c2e17e70ff7b86dac3edd9a0a243b8cd1bbd0e3d05742cd5015b5b0e"
-    sha256 sonoma:        "9e0cc76bb9b4663d09e40b9557564cdc4d95a6f00fc5eaa97f1379f195582d79"
-    sha256 ventura:       "4f1f865a660ace46fe30312c497cb4498bd7a2cb217c80f595a3047d368bdd39"
-    sha256 x86_64_linux:  "f2bc668a78415b7e4c625d6ec7a2094a05f1be7799b68cf2ee5499b3c35b7977"
+    sha256 arm64_sequoia: "e8a11eea09ec3800874c6db22f5b37270fce05fb7c1fca401a721f4e26aa74fa"
+    sha256 arm64_sonoma:  "ad01c4945806c0c7f1aee4d87170b918a584cdab7f9ff0f66b61871dd747bdef"
+    sha256 arm64_ventura: "64d9fc785f992fe271f6ea375ff64529619ceae5e9f8ebf7bb9ea77f601d0434"
+    sha256 sonoma:        "77922b41b119b65a161f9df1583353da3febd51818cf69df9e5c31c76c433d72"
+    sha256 ventura:       "4bd3c1b5b4d73c764ef9508cbf866142ce847074d9a0b3febb5f39c6b2de6374"
+    sha256 x86_64_linux:  "6b5f3f76676660d7dfea88fbfb63c6e240f6e21f715ff12bea7e37887a4a45e4"
   end
 
   keg_only :versioned_formula
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "aom"
   depends_on "aribb24"
   depends_on "dav1d"
@@ -85,8 +85,6 @@ class FfmpegAT6 < Formula
   on_intel do
     depends_on "nasm" => :build
   end
-
-  fails_with gcc: "5"
 
   # Fix for QtWebEngine, do not remove
   # https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=270209
@@ -169,6 +167,6 @@ class FfmpegAT6 < Formula
     # Create an example mp4 file
     mp4out = testpath/"video.mp4"
     system bin/"ffmpeg", "-filter_complex", "testsrc=rate=1:duration=1", mp4out
-    assert_predicate mp4out, :exist?
+    assert_path_exists mp4out
   end
 end

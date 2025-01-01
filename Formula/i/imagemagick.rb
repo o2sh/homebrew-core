@@ -1,10 +1,9 @@
 class Imagemagick < Formula
   desc "Tools and libraries to manipulate images in many formats"
   homepage "https://imagemagick.org/index.php"
-  url "https://imagemagick.org/archive/releases/ImageMagick-7.1.1-38.tar.xz"
-  sha256 "48de548d4977fc226c982ca03b9d6ad8001b47d8dc142b49fdca69333bc4ad82"
+  url "https://imagemagick.org/archive/releases/ImageMagick-7.1.1-43.tar.xz"
+  sha256 "fa79401342b409b9b7f7d3146bd6595787373811e72be1669c39b58d1489da4f"
   license "ImageMagick"
-  revision 2
   head "https://github.com/ImageMagick/ImageMagick.git", branch: "main"
 
   livecheck do
@@ -13,15 +12,15 @@ class Imagemagick < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "c2cb0b528e9d2265cd80df802438f8c42826c0f394c4862720082a4655061ead"
-    sha256 arm64_sonoma:  "0f83ef549c139885ac25385a001d9a9d6de78a49ac00c6b0d554857fede02159"
-    sha256 arm64_ventura: "0fb63cab295985d97f12b4244149a268f11c9fc73fa7ffd03595c7f7133a03f1"
-    sha256 sonoma:        "0131b887acc0b5e150d56154284defec76d80ff059a11ca9f4f14bea290949a8"
-    sha256 ventura:       "d5cf70826f720760a7baf9f53b4b505196fa2c63d150be8925aae0d873f363af"
-    sha256 x86_64_linux:  "76d2634d9692e27eb767449178d06999f6863d43e385317f5b3ee37f9c9852f4"
+    sha256 arm64_sequoia: "ea562dba64a57da0d95fe2c361ff88768f6909950d0685fc228a440f4c345c8b"
+    sha256 arm64_sonoma:  "f713f0e8aa18acc8614d06b4213b1001487f38618ff2d61c6a9f1a3a7669b626"
+    sha256 arm64_ventura: "e18c49b40f4ca961a0b070d283ac82ed56649ead0ec99cea0e8e5650f7f67284"
+    sha256 sonoma:        "6229daea5b9b91ed5a62e568883bd8ab132bd5f2224024b36845d598565c4536"
+    sha256 ventura:       "5a9c1e94e3280f65ae5addaa961768836db68d97e002015dbb793eb31106d749"
+    sha256 x86_64_linux:  "30e617977216fe9175f0c04b49ebd136fe03a309f8a8fb41c34d290b194408f6"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "ghostscript"
@@ -52,6 +51,7 @@ class Imagemagick < Formula
 
   on_linux do
     depends_on "libx11"
+    depends_on "libxext"
   end
 
   skip_clean :la
@@ -95,7 +95,7 @@ class Imagemagick < Formula
       ]
     end
 
-    system "./configure", *std_configure_args, *args
+    system "./configure", *args, *std_configure_args
     system "make", "install"
   end
 

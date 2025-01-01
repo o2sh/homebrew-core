@@ -1,23 +1,21 @@
 class StellarCli < Formula
   desc "Stellar command-line tool for interacting with the Stellar network"
   homepage "https://developers.stellar.org"
-  url "https://github.com/stellar/stellar-cli/archive/refs/tags/v21.5.0.tar.gz"
-  sha256 "9d9209f6bde7ed5a68422ef3ff5cd37f16a2209c9c5b5676224a7132ccdfd5ec"
+  url "https://github.com/stellar/stellar-cli/archive/refs/tags/v22.1.0.tar.gz"
+  sha256 "6f5303ca1d88e173fb2952b48dd2b88c711bb525b8c2ff5b65f870f08192ccd4"
   license "Apache-2.0"
   head "https://github.com/stellar/stellar-cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "9a8618fb36df2ac69a77a3884359eba0a14fb737267631649f6f09e5a295d9fc"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "64cc11be0010a21ca59f850f740ada377701fccf5a22e2cec671edb75ce269ce"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4e218a5a89acae8caab9cd0610db20911b1e602e272dcefcb03ddd0209c6377a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a9f5147f447727a36d6e86cfd727cf681669b0213f1ed21da2cb16e0f9cf2508"
-    sha256 cellar: :any_skip_relocation, sonoma:         "67e8e90667233e0d6cc55b1481d02bcb4c8c78a1cd9f60f66e21b6a092d0fd95"
-    sha256 cellar: :any_skip_relocation, ventura:        "e49d8af8a90c4ecc1b0a72ad2728e7871a66d3ee37f0a3aad1b4e9822bf7b04b"
-    sha256 cellar: :any_skip_relocation, monterey:       "9d6d7dfeabcc520ee2b255a6d2d818e82ffefeaa12ddeb36e495f954e3aa72df"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8eaec424f808bc95bef66c9abd1ce88475493ac8ccb4080b415c4da57da15406"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "bd89adce23bd1938b5e827a29a215fdef70735e28ae159067b138ef42c263304"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8884dd1bd6f38eb24b702c1f192edc5e58fb4a4d341a8ea0fbaf57c0133f2a71"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "109348141ab93feb4fb30fa8140e2b52b65e0ed8e6982b5053a6a665c43a7193"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f2734c1426ec3fa7554f00d2efe00ea41e6001d645475b5b1423c1c930fbdc19"
+    sha256 cellar: :any_skip_relocation, ventura:       "1cd8a257fad93ba8d47013392d5ccdb96b81ba9f1fc1fc6778f1ba0989a36e9f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9aaf58cc52e40f52aa7d6ced3a71e7badc36e48da525bfd282a01a64359c8434"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
   depends_on "openssl@3"
 

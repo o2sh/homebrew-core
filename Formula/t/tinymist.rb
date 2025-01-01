@@ -1,33 +1,32 @@
 class Tinymist < Formula
   desc "Language server for Typst"
   homepage "https://github.com/Myriad-Dreamin/tinymist"
-  url "https://github.com/Myriad-Dreamin/tinymist/archive/refs/tags/v0.11.20.tar.gz"
-  sha256 "19d28b1c7c9fed755a3bf599c9dc4147755b7ff12a329a328fa392db10af4bb6"
+  url "https://github.com/Myriad-Dreamin/tinymist/archive/refs/tags/v0.12.14.tar.gz"
+  sha256 "24bd7b64487158f41ca980066fff3b9b95b2d5367d364c62b23974f6a82cfd32"
   license "Apache-2.0"
   head "https://github.com/Myriad-Dreamin/tinymist.git", branch: "main"
 
+  # Upstream creates releases that use a stable tag (e.g., `v1.2.3`) but are
+  # labeled as "pre-release" on GitHub before the version is released, so it's
+  # necessary to use the `GithubLatest` strategy.
   livecheck do
     url :stable
-    regex(/^v?(\d+(?:\.\d+)+)/i)
+    strategy :github_latest
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "bc72e3502a4e8376c150d31435bf1ef262c8782cdd22124ee33c301dfbe0b196"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5dbe220c73cbb2c16819961dabd61c869c15cd0c09b3dca1558caaefa6e02da7"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a1e6dc9850a7bacfa8340bbc79b39ad4c3bce045d61b7134aab24439c8a0cd78"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "23d56e80b57d48ccba473a4903c9b1296731ffb6f0d96b99cee3775770712b70"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3719086352ff4c2e8316e8750c57c0a32c845bbef4f2dbee3104aad95324845d"
-    sha256 cellar: :any_skip_relocation, ventura:        "7c627dee7a902528344d888ed9a6a578531cfc634d664d580dc303e2d204e95b"
-    sha256 cellar: :any_skip_relocation, monterey:       "9d80704a40787f9350959d1553b87de06f4a55f66805407e2fa020ebb33937ef"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "be31d2a3086fd27c33afe6e39eba0226382d234802ccfe2b341291236ff8e881"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "357df13e0b0ceb18c0fdad78a64c52819d0782ff6e91f9b259dbae438b7e9a30"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a5c8a5ea3162acf441e2a6d8b088261069da39bce6775fc6c0219413ee4a99e2"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "90d6148c18044440a5b01cdff64868433276cf6dcb9719a50fa57b79c9016b49"
+    sha256 cellar: :any_skip_relocation, sonoma:        "2730d64576b6d843bcad3ebd52c9813a0f3a9c3180b112425fe2bbe961094264"
+    sha256 cellar: :any_skip_relocation, ventura:       "4949ce78d2d97b545016106290dff578adc508419d32345ea60feb58ac1f4901"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "eedb26ea21f8e0da134a0523f238e60fb4c7ed551d5247a29c87b94129bff473"
   end
 
   depends_on "rust" => :build
 
   def install
-    cd "crates/tinymist" do
-      system "cargo", "install", *std_cargo_args
-    end
+    system "cargo", "install", *std_cargo_args(path: "crates/tinymist")
   end
 
   test do

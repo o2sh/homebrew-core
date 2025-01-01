@@ -1,23 +1,28 @@
 class Mdless < Formula
   desc "Provides a formatted and highlighted view of Markdown files in Terminal"
   homepage "https://github.com/ttscoff/mdless"
-  url "https://github.com/ttscoff/mdless/archive/refs/tags/2.1.44.tar.gz"
-  sha256 "baa3df2a641f5f8646c90d955a1a89cee1e21aa3a571cbcbe6b45ee0df3189ea"
+  url "https://github.com/ttscoff/mdless/archive/refs/tags/2.1.51.tar.gz"
+  sha256 "fedd185416a7c4c88c824f48f13da843d0535f0dded13ead0b6cae7bf174da5d"
   license "MIT"
+  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "981586a10c14c7d1df4c9da6898da548d0f0efdb9e837d2da9738e277df83360"
-    sha256 cellar: :any,                 arm64_sonoma:   "6ccdc2729ca43fd97d8e4dc882e7f314cf1d45de14e92a80c69a0a781f6bd253"
-    sha256 cellar: :any,                 arm64_ventura:  "7d342f3e5ad4e71f71155efc4938a79773518e0a8bcc1a1d1a001d06df3fcaf7"
-    sha256 cellar: :any,                 arm64_monterey: "969bb90dd5b86447f06c4bd962a5109ed426bf39af4a4ce2c3a3a7a07b08b7d4"
-    sha256 cellar: :any,                 sonoma:         "444d16e225ff1877acdebc31cdec07ddc0ccbe24437de8ed426243608218cc8e"
-    sha256 cellar: :any,                 ventura:        "a63754351ae37b608126a64e2606e83fb0288bedcf3dcc9632e2517002ae83ea"
-    sha256 cellar: :any,                 monterey:       "c6ef26ef7ce2273b82f7eb9c285afd60cf3acac45f8060601ecbfbb0ed78ae58"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fe5e2745792e8ebb94c8e653747813d3763ca981f474c6a5b0f1661dd5bf31ef"
+    sha256 cellar: :any,                 arm64_sequoia: "c53f9b1eec7442a0c501a5758f98c1efe742d1e75ae2cd7b9de84b0a0ffee6d6"
+    sha256 cellar: :any,                 arm64_sonoma:  "b7465de4d8a7ed2734ddb505f188bc3dc7582134f98c94eb46e3fcf70b235039"
+    sha256 cellar: :any,                 arm64_ventura: "529b3fde7b425c29020d5a977337af1137da0744f81c455a70b1648728d88972"
+    sha256 cellar: :any,                 sonoma:        "315028ea29ae443c4d56b91cbb66e7cc32159fc281d7eb6455b0c00462524783"
+    sha256 cellar: :any,                 ventura:       "5abacf54acfca534e3c413c0fa6f93c1543f28c0fa326e1ad38947bd38ba8224"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dbdf674a68b07d2f6a39ba0c256a29dc2b841505360418884b587d372ee86a47"
   end
 
   # Requires Ruby >= 2.7
   depends_on "ruby"
+
+  # version patch, upstream pr ref, https://github.com/ttscoff/mdless/pull/103
+  patch do
+    url "https://github.com/ttscoff/mdless/commit/3462d11f8c8dc5936cdae573a6ce9a2837ceaba6.patch?full_index=1"
+    sha256 "f8da80dcc221cbf125841aee49da31912b1f3f82208a3fd99c0906e0c930863c"
+  end
 
   def install
     ENV["GEM_HOME"] = libexec
@@ -29,10 +34,10 @@ class Mdless < Formula
 
   test do
     assert_match "mdless #{version}", shell_output("#{bin}/mdless --version")
-    (testpath/"test.md").write <<~EOS
+    (testpath/"test.md").write <<~MARKDOWN
       # title first level
       ## title second level
-    EOS
+    MARKDOWN
     out = shell_output("#{bin}/mdless --no-color -P test.md")
     assert_match(/^title first level =+$/, out)
     assert_match(/^title second level -+$/, out)

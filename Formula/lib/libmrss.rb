@@ -20,8 +20,10 @@ class Libmrss < Formula
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "libnxml"
+
+  uses_from_macos "curl"
 
   def install
     # need NEWS file for build
@@ -33,7 +35,7 @@ class Libmrss < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <mrss.h>
 
@@ -57,10 +59,10 @@ class Libmrss < Formula
 
         return 0;
       }
-    EOS
+    C
 
-    pkg_config_flags = shell_output("pkg-config --cflags --libs mrss").chomp.split
-    system ENV.cc, "test.c", *pkg_config_flags, "-o", "test"
+    flags = shell_output("pkgconf --cflags --libs mrss").chomp.split
+    system ENV.cc, "test.c", "-o", "test", *flags
     assert_match "Title: {{ post.title | xml_escape}}", shell_output("./test")
   end
 end

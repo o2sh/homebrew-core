@@ -1,29 +1,24 @@
 class Frizbee < Formula
   desc "Throw a tag at and it comes back with a checksum"
   homepage "https://github.com/stacklok/frizbee"
-  url "https://github.com/stacklok/frizbee/archive/refs/tags/v0.1.2.tar.gz"
-  sha256 "0061c090b59ee22599b76d46fcf4b79f0d2402987c8d720c6de03fba46d4c4b9"
+  url "https://github.com/stacklok/frizbee/archive/refs/tags/v0.1.6.tar.gz"
+  sha256 "3aca6e86a27fd659f2c543c3516a50ca46d1e6b0a85df5363d90e792dbf90f2b"
   license "Apache-2.0"
   head "https://github.com/stacklok/frizbee.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "6c3f639d48aa9f2aab1f6836b2da1f17d244b968720193a9a6358b1c27a876f5"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "138a05f755b59f97f49d46ea9bc304188d7f6dfb44303778ef2a0966819aa825"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "138a05f755b59f97f49d46ea9bc304188d7f6dfb44303778ef2a0966819aa825"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "138a05f755b59f97f49d46ea9bc304188d7f6dfb44303778ef2a0966819aa825"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a58254f2fcafb7fd54818b9b0d4fc16605a3229b40475bc51cd1f708f334a2a8"
-    sha256 cellar: :any_skip_relocation, ventura:        "a58254f2fcafb7fd54818b9b0d4fc16605a3229b40475bc51cd1f708f334a2a8"
-    sha256 cellar: :any_skip_relocation, monterey:       "a58254f2fcafb7fd54818b9b0d4fc16605a3229b40475bc51cd1f708f334a2a8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "1c441ea87564702c9760362b3ec805a4fb47df361c45e93307ba40202eddaf43"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "46c25d69ec52fab8fa9cbb339aae62c8d4072853e33d779c95cd5f9e146aa6ab"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "46c25d69ec52fab8fa9cbb339aae62c8d4072853e33d779c95cd5f9e146aa6ab"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "46c25d69ec52fab8fa9cbb339aae62c8d4072853e33d779c95cd5f9e146aa6ab"
+    sha256 cellar: :any_skip_relocation, sonoma:        "0a4435d62f083d5e20b0893ef8673cead2aaa27a5c707ddc988a153c9ca885a7"
+    sha256 cellar: :any_skip_relocation, ventura:       "0a4435d62f083d5e20b0893ef8673cead2aaa27a5c707ddc988a153c9ca885a7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a36516da0357fc73d5d8398854ddd467d808f1d97b5ebf61b21620f38b6cdbe0"
   end
 
   depends_on "go" => :build
 
   def install
-    ldflags = %W[
-      -s -w
-      -X github.com/stacklok/frizbee/internal/cli.CLIVersion=#{version}
-    ]
+    ldflags = "-s -w -X github.com/stacklok/frizbee/internal/cli.CLIVersion=#{version}"
     system "go", "build", *std_go_args(ldflags:)
 
     generate_completions_from_executable(bin/"frizbee", "completion")

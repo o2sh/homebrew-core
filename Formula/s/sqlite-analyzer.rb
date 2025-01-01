@@ -1,9 +1,9 @@
 class SqliteAnalyzer < Formula
   desc "Analyze how space is allocated inside an SQLite file"
   homepage "https://www.sqlite.org/"
-  url "https://www.sqlite.org/2024/sqlite-src-3460100.zip"
-  version "3.46.1"
-  sha256 "def3fc292eb9ecc444f6c1950e5c79d8462ed5e7b3d605fd6152d145e1d5abb4"
+  url "https://www.sqlite.org/2024/sqlite-src-3470200.zip"
+  version "3.47.2"
+  sha256 "e6a471f1238225f34c2c48c5601b54024cc538044368230f59ff0672be1fc623"
   license "blessing"
 
   livecheck do
@@ -11,14 +11,12 @@ class SqliteAnalyzer < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "0d7e6989618d698199c326ae533437c4e555cbf8554b58ea2f44e1f9f055df71"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c7ce6728deffcb45dea25ba6921622ccde1d1ab4bf4bb1bc51ee60a7006732cb"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b00a5bafcfa9c81567fec9e2007f85b55ca580f5caaf59a00c20288550620c88"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e31e40ffd4812d5137099279bc29c74d14f15c30d3e1c765b25aa4513424d31a"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a7ee7b8a0d9967a8a0bf002f29ef188e3d577f91edbde418b3077cd94170b68a"
-    sha256 cellar: :any_skip_relocation, ventura:        "140b7f60ab6ac6637d84c5a3571ba8f7b561352205b280ba8ebea9eef30248d3"
-    sha256 cellar: :any_skip_relocation, monterey:       "3f9b5c2acd7ecc8617d3e072f444ba38eebf907e28bfdb0e29c78a11b75ab61f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c359a37822510fec0e67c9c909c7bffd9c2632c783cfd505f73050f40a5dd199"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "04c96ac935e155087c84b8232ee43fd63a046fcf41722946b766a1654ee931d7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e953e3fe7d14931a6f8ed3fd30bb8248694d47dc32c5333126f180af16f0d448"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "1e8f602973292ccc1cce175090b3f1dd2538e6d9294e99361357123f96c670c7"
+    sha256 cellar: :any_skip_relocation, sonoma:        "48a326c7bb5fc3f48a9e170559e73dd417aa8a9b4a5ca22cbd9f5d125b237f8d"
+    sha256 cellar: :any_skip_relocation, ventura:       "31c07574a32037f1a1e7fef7f78b8d8d58b4ffe97764028d0a3dd8afdba5b545"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b5f4ff378cd8d058f84f91ce71f9e52a64e4dee102f40999a53bc679d24ccda3"
   end
 
   uses_from_macos "sqlite" => :test
@@ -41,12 +39,12 @@ class SqliteAnalyzer < Formula
   test do
     dbpath = testpath/"school.sqlite"
     sqlpath = testpath/"school.sql"
-    sqlpath.write <<~EOS
+    sqlpath.write <<~SQL
       create table students (name text, age integer);
       insert into students (name, age) values ('Bob', 14);
       insert into students (name, age) values ('Sue', 12);
       insert into students (name, age) values ('Tim', 13);
-    EOS
+    SQL
     system "sqlite3 #{dbpath} < #{sqlpath}"
     system bin/"sqlite3_analyzer", dbpath
   end

@@ -24,7 +24,7 @@ class Librasterlite2 < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "0e91e0eafa3ab9941d7e7b9610089e8398b3259e40951711bc9a70f34c76d0e9"
   end
 
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "cairo"
   depends_on "fontconfig"
   depends_on "freetype"
@@ -71,7 +71,7 @@ class Librasterlite2 < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdlib.h>
       #include <unistd.h>
       #include <stdio.h>
@@ -109,11 +109,11 @@ class Librasterlite2 < Formula
 
           return 0;
       }
-    EOS
+    C
 
-    pkg_config_flags = shell_output("pkg-config --cflags --libs rasterlite2").chomp.split
-    system ENV.cc, "test.c", *pkg_config_flags, "-o", "test"
+    flags = shell_output("pkgconf --cflags --libs rasterlite2").chomp.split
+    system ENV.cc, "test.c", "-o", "test", *flags
     system testpath/"test"
-    assert_predicate testpath/"from_gif.png", :exist?
+    assert_path_exists testpath/"from_gif.png"
   end
 end

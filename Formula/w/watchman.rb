@@ -1,26 +1,26 @@
 class Watchman < Formula
   desc "Watch files and take action when they change"
   homepage "https://github.com/facebook/watchman"
-  url "https://github.com/facebook/watchman/archive/refs/tags/v2024.09.09.00.tar.gz"
-  sha256 "1013e0dcc22d70fabe35ba30928b00d815f88b97f90d51f310f1982f8fbac28c"
+  url "https://github.com/facebook/watchman/archive/refs/tags/v2024.12.02.00.tar.gz"
+  sha256 "445bda6f262cd23ed305f914249e400c7377ebe21ec971a2ace6c1c3dfad5880"
   license "MIT"
+  revision 2
   head "https://github.com/facebook/watchman.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "1e2e07b530a4ca4b18d9ca451a171910b7b740d2621d7dc7338dbe65269ceb39"
-    sha256 cellar: :any,                 arm64_sonoma:   "3cf06b71825dc4dd3030201a6760466f593da3e5e74d9b334b7a380daa979866"
-    sha256 cellar: :any,                 arm64_ventura:  "73cec64603b6f6bc0a610d05261114f77f4940a4bca9dd8f3b46fedaaa11fa64"
-    sha256 cellar: :any,                 arm64_monterey: "716fb2194ee73d51dc3faa23202745062f31ed4599abab83bd4ded26d2b2b7cf"
-    sha256 cellar: :any,                 sonoma:         "0a8029884e5f1c5366367bcf1a2ced06027ff7415840b2ac3d8531a6f67140d1"
-    sha256 cellar: :any,                 ventura:        "6b402f47fd9494a66d15fb1c3a1caf97e2698e770b2126f0b4ecb0e294e784b1"
-    sha256 cellar: :any,                 monterey:       "6d650d8c4e43ec47cf9447a7492f38900909650a8c36978b362bcd5a1fbb8866"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6fd1f956331093dc2e89c5684c6aac3845291cee8d6e0e80ddfb8cdebbb3a920"
+    sha256 cellar: :any,                 arm64_sequoia: "caa41cb9dc1d7707da7078b7f8a7a1b5fb2d9c5193a744ea035627699e472ed9"
+    sha256 cellar: :any,                 arm64_sonoma:  "9b70da1cfde3294c1bd0e498a7d091df78f95eefafae0190dbd9fa7c5c11bcc4"
+    sha256 cellar: :any,                 arm64_ventura: "83cecd08b798fb570eb9194a3e2ba7a7149f5b1a5448643439adac5e9f4fb48c"
+    sha256 cellar: :any,                 sonoma:        "d32ba4e9aaab9dc10589b7e79cd3d1edfb30f39876fa53fc0f472503c28a4dc9"
+    sha256 cellar: :any,                 ventura:       "91d3d3000f0e5cfd67c10c1526b93f81012ae3af4fccc7235b6504c31cc97a66"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d793f03af48391058490f5bb8516239b101d6cfabc1b288cfbba90428ec54eb7"
   end
 
   depends_on "cmake" => :build
   depends_on "cpptoml" => :build
   depends_on "googletest" => :build
-  depends_on "pkg-config" => :build
+  depends_on "mvfst" => :build
+  depends_on "pkgconf" => :build
   depends_on "python-setuptools" => :build
   depends_on "rust" => :build
   depends_on "edencommon"
@@ -33,14 +33,12 @@ class Watchman < Formula
   depends_on "libevent"
   depends_on "openssl@3"
   depends_on "pcre2"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   on_linux do
     depends_on "boost"
     depends_on "libunwind"
   end
-
-  fails_with gcc: "5"
 
   def install
     # NOTE: Setting `BUILD_SHARED_LIBS=ON` will generate DSOs for Eden libraries.
@@ -52,7 +50,7 @@ class Watchman < Formula
     # Use the upstream default for WATCHMAN_STATE_DIR by unsetting it.
     args = %W[
       -DENABLE_EDEN_SUPPORT=ON
-      -DPython3_EXECUTABLE=#{which("python3.12")}
+      -DPython3_EXECUTABLE=#{which("python3.13")}
       -DWATCHMAN_VERSION_OVERRIDE=#{version}
       -DWATCHMAN_BUILDINFO_OVERRIDE=#{tap&.user || "Homebrew"}
       -DWATCHMAN_STATE_DIR=

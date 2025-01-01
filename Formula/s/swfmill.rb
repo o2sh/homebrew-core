@@ -28,11 +28,13 @@ class Swfmill < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "2e86fcc5ea5d803ac5f8f4bfe33090c4ceec8369bd8c026db34fdfd1b6aa997b"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "freetype"
   depends_on "libpng"
 
+  uses_from_macos "libxml2"
   uses_from_macos "libxslt"
+  uses_from_macos "zlib"
 
   def install
     system "./configure", "--prefix=#{prefix}"

@@ -33,13 +33,14 @@ class OpenSceneGraph < Formula
   depends_on "cmake" => :build
   depends_on "doxygen" => :build
   depends_on "graphviz" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "jpeg-turbo"
   depends_on "sdl2"
 
+  uses_from_macos "curl"
   uses_from_macos "zlib"
 
   on_linux do
@@ -90,16 +91,15 @@ class OpenSceneGraph < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <iostream>
       #include <osg/Version>
       using namespace std;
-      int main()
-        {
+      int main() {
           cout << osgGetVersion() << endl;
           return 0;
-        }
-    EOS
+      }
+    CPP
     system ENV.cxx, "test.cpp", "-I#{include}", "-L#{lib}", "-losg", "-o", "test"
     assert_match version.to_s, shell_output("./test")
   end

@@ -26,8 +26,6 @@ class Ctemplate < Formula
   depends_on "libtool" => :build
   uses_from_macos "python" => :build
 
-  fails_with gcc: "5"
-
   def install
     system "./autogen.sh"
     system "./configure", "--disable-dependency-tracking", "--prefix=#{prefix}"
@@ -35,7 +33,7 @@ class Ctemplate < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <iostream>
       #include <string>
       #include <ctemplate/template.h>
@@ -44,7 +42,7 @@ class Ctemplate < Formula
         dict.SetValue("NAME", "Jane Doe");
         return 0;
       }
-    EOS
+    CPP
 
     system ENV.cxx, "test.cpp", "-std=c++11", "-I#{include}", "-L#{lib}",
                     "-lctemplate_nothreads", "-o", "test"

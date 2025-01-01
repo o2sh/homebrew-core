@@ -1,17 +1,17 @@
 class Crystalline < Formula
   desc "Language Server Protocol implementation for Crystal"
   homepage "https://github.com/elbywan/crystalline"
-  url "https://github.com/elbywan/crystalline/archive/refs/tags/v0.14.1.tar.gz"
-  sha256 "caa8cc661abc2ba63194983aae46e87c896d89c228a158521e40c34375d738f7"
+  url "https://github.com/elbywan/crystalline/archive/refs/tags/v0.15.0.tar.gz"
+  sha256 "45ed0162e724d2ef080e5264086bcea5b53d12fcafc5ddefc3bbf16af021fc48"
   license "MIT"
 
   bottle do
-    sha256 arm64_sequoia: "6a791148ac79644e6d3d0ba6bd0306e53f62a4f47871af5620bd6603c57f6889"
-    sha256 arm64_sonoma:  "03a5cb50cd6ec32995ddb7276fc9c6a6513b5463a763a040faa1af7fd37adf42"
-    sha256 arm64_ventura: "7fd5b91daba051719d1f5b1d3e61ac8013e41bd6f00c2b5e10a9551c0daa9fa1"
-    sha256 sonoma:        "820c696641b7444f80fd17110cf333a81e6105088baf4d45c9fb68e542f8ee70"
-    sha256 ventura:       "0322c8711ae76b2d53232f3b131f6bdbd6b637f734ea394ea9576c03add97c43"
-    sha256 x86_64_linux:  "162c25a092ae85798b44eedfad082d82f44efdc537b0f4d29387dc8a69e3fd21"
+    sha256 arm64_sequoia: "58cb6766d9b3bde9205fc294459629e62cc7b0f33c8340d56541cbf8d58b7cf5"
+    sha256 arm64_sonoma:  "d49db70364b4b5fffcd93c462c5522bbd0be7335b612ed59174866b1372f335f"
+    sha256 arm64_ventura: "25ee4d95d2bf90dd2ebfd9dd3ad08e5d50c2435407e54324872d2e30f8f61d87"
+    sha256 sonoma:        "2300f91fa3b8111f09e9749cf1fca4eeab71045765fedab5133081fb6ef9c52c"
+    sha256 ventura:       "47a3caec8b5e43a8da8d246da2aeaa2c84a4735b572b3680eedaba931bed4796"
+    sha256 x86_64_linux:  "715de9336f21432cd9d431bb5e7f4f280f9e5cef7947dccdb172b5dacab52ac4"
   end
 
   depends_on "bdw-gc"
@@ -33,7 +33,7 @@ class Crystalline < Formula
   end
 
   test do
-    payload = <<~LSP_PAYLOAD
+    payload = <<~JSON
       {
         "jsonrpc": "2.0",
         "id": 1,
@@ -46,7 +46,7 @@ class Crystalline < Formula
           "workspaceFolders": null
         }
       }
-    LSP_PAYLOAD
+    JSON
 
     request = <<~LSP_REQUEST
       Content-Length: #{payload.size}

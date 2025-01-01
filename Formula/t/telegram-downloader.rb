@@ -1,20 +1,19 @@
 class TelegramDownloader < Formula
   desc "Telegram Messenger downloader/tools written in Golang"
   homepage "https://docs.iyear.me/tdl/"
-  url "https://github.com/iyear/tdl/archive/refs/tags/v0.17.4.tar.gz"
-  sha256 "c3f7fa6e8f5067a0de75df28f8a34bee7a3e586ece6f912cf335bc04ef7ee85b"
+  url "https://github.com/iyear/tdl/archive/refs/tags/v0.18.3.tar.gz"
+  sha256 "24dda392d0ff96b9ac3e16ed38169f8b5d0697ecc80e6d83809633b19d5f91fc"
   license "AGPL-3.0-only"
   head "https://github.com/iyear/tdl.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "c8f70ee5eac6694e75beb75b8bcef7c859e509944c603ce7ce9c6042ceba130c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0f9247f52e6a8607094097df4291a7f738eb3b2f83cea844d93c8d6b77ac8851"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1922d1d5823ed2e3ce145f737f628d4c1d75deaa5996945bf3179d5f773801bc"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f9e05fced8a3545d4ea40436b623261c16bfeea5147cac270153b87582161662"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3e538a42f6da2e07d28c357994ef07ee30d2556e2925b2caf53f1cd23e781423"
-    sha256 cellar: :any_skip_relocation, ventura:        "d3a9894e955817c3cd10d4c9a143b58f9d065b6540768dcfc8708af958837fe3"
-    sha256 cellar: :any_skip_relocation, monterey:       "5a993f249027e756f44391b9d31477981b2b524b507035eb38bc8b0667babc43"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "310e219cf515ff1efe3c30cf267964c6ca07cac7ea21eab8451ada99ca0fceef"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ad7daff3ddad71a0c78a906dcdde061e06df87e21273497a8c793aaeb88a6df4"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "87515957cfa197efc5bd4d1a838ab474bfd95f296863b29e0b2333df5849ceec"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "0831ef0ea6471f3100cff507fa847a9fee2dc8054a0ec13d497646653f2733c4"
+    sha256 cellar: :any_skip_relocation, sonoma:        "8fbb49370725842e024a57c17aa4dcb36198c32079b8f4b307aa9f9ad99e2b98"
+    sha256 cellar: :any_skip_relocation, ventura:       "553fd19caf48fe1e93323edc6844d605c5b1e3a626caf105b98e345bbdd00a91"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3bf7a942125d16280177c86635070f55a1bd9bef94d471f78f7123945dc50814"
   end
 
   depends_on "go" => :build

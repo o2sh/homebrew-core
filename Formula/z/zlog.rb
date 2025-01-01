@@ -22,13 +22,13 @@ class Zlog < Formula
   end
 
   test do
-    (testpath/"zlog.conf").write <<~EOS
+    (testpath/"zlog.conf").write <<~INI
       [formats]
       simple = "%m%n"
       [rules]
       my_cat.DEBUG    >stdout; simple
-    EOS
-    (testpath/"test.c").write <<~EOS
+    INI
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <zlog.h>
       int main() {
@@ -53,7 +53,7 @@ class Zlog < Formula
 
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-lzlog", "-pthread", "-o", "test"
     assert_equal "hello, zlog!\n", shell_output("./test")
   end

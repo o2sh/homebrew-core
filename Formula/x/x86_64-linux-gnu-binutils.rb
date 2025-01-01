@@ -19,7 +19,7 @@ class X8664LinuxGnuBinutils < Formula
     sha256 x86_64_linux:  "28b05e9d5c0673be09dedcca3f2f9664b65a59d4c65a2aa9dff2fb6c8e9a4712"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   # Requires the <uchar.h> header
   # https://sourceware.org/bugzilla/show_bug.cgi?id=31320
   depends_on macos: :ventura
@@ -71,10 +71,10 @@ class X8664LinuxGnuBinutils < Formula
     return if OS.linux?
 
     (testpath/"sysroot").install resource("homebrew-sysroot")
-    (testpath/"hello.c").write <<~EOS
+    (testpath/"hello.c").write <<~C
       #include <stdio.h>
       int main() { printf("hello!\\n"); }
-    EOS
+    C
 
     ENV.remove_macosxsdk
     system ENV.cc, "-v", "--target=x86_64-pc-linux-gnu", "--sysroot=#{testpath}/sysroot", "-c", "hello.c"

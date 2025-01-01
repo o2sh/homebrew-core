@@ -24,11 +24,6 @@ class MitScheme < Formula
     sha256 x86_64_linux:   "0e910ffb8aff109164099832f8d465f54e9e0c731a0580cb0c794970e3f6ce11"
   end
 
-  # Has a hardcoded compile check for /Applications/Xcode.app
-  # Dies on "configure: error: SIZEOF_CHAR is not 1" without Xcode.
-  # https://github.com/Homebrew/homebrew-x11/issues/103#issuecomment-125014423
-  depends_on xcode: :build
-
   uses_from_macos "m4" => :build
   uses_from_macos "ncurses"
 
@@ -36,19 +31,7 @@ class MitScheme < Formula
     depends_on "texinfo" => :build
   end
 
-  resource "bootstrap" do
-    url "https://ftp.gnu.org/gnu/mit-scheme/stable.pkg/12.1/mit-scheme-12.1-svm1-64le.tar.gz"
-    sha256 "2c5b5bf1f44c7c2458da79c0943e082ae37f1752c7d9d1ce0a61f7afcbf04304"
-  end
-
   def install
-    resource("bootstrap").stage do
-      cd "src"
-      system "./configure", "--prefix=#{buildpath}/staging", "--without-x"
-      system "make"
-      system "make", "install"
-    end
-
     # Liarc builds must launch within the src dir, not using the top-level
     # Makefile
     cd "src"
@@ -85,7 +68,7 @@ class MitScheme < Formula
 
   test do
     # https://www.cs.indiana.edu/pub/scheme-repository/code/num/primes.scm
-    (testpath/"primes.scm").write <<~EOS
+    (testpath/"primes.scm").write <<~SCHEME
       ;
       ; primes
       ; By Ozan Yigit
@@ -113,7 +96,7 @@ class MitScheme < Formula
         (sieve (interval-list 2 n)))
 
       ; (primes<= 300)
-    EOS
+    SCHEME
 
     output = shell_output(
       "#{bin}/mit-scheme --load primes.scm --eval '(primes<= 72)' < /dev/null",

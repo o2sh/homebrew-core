@@ -2,33 +2,31 @@ class Libnghttp3 < Formula
   desc "HTTP/3 library written in C"
   homepage "https://nghttp2.org/nghttp3/"
   url "https://github.com/ngtcp2/nghttp3.git",
-      tag:      "v1.5.0",
-      revision: "750a655ae4ee8888e8724b0b6cfa7023c2e3dcb9"
+      tag:      "v1.7.0",
+      revision: "86a72e9e64b81c770315636da8756d3ce38c3281"
   license "MIT"
   head "https://github.com/ngtcp2/nghttp3.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "c5cb90b4f447990790100f7d4ee78beb72394c0fb86f840716f7d92965b29c46"
-    sha256 cellar: :any,                 arm64_sonoma:   "eabd197238ac5f48f55109a37a6aba4caef7f4fec4c547da2eb406ade5078992"
-    sha256 cellar: :any,                 arm64_ventura:  "2485b36ae2feda4774dcc3292cf0d33d4125e372f164cb13779961a7ed16cdbe"
-    sha256 cellar: :any,                 arm64_monterey: "ab93283b2ae44b17060d0a476d82a75c73bfe912b7570a0813f4b6c98b3d405a"
-    sha256 cellar: :any,                 sonoma:         "eb86ffac56dba708fafc2313cf10af0248207d7cd8f7e80f55314cce803f60fc"
-    sha256 cellar: :any,                 ventura:        "dde875020091d8a2265d3d4d3e7c23de5a853f2d7acbd09dda732ebd964832e1"
-    sha256 cellar: :any,                 monterey:       "d6c32483df642130aab679dbe5910468637c445123860e348bef1c17e57d452d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9e49ca806480009079c1cfbed84f2eaf1e612c79e5aa74faee94daf09abbf0be"
+    sha256 cellar: :any,                 arm64_sequoia: "a3c8f4658539e92c32f790e6e122c5cd5997a0f9ab9e80cbacff9e8a0f5ef848"
+    sha256 cellar: :any,                 arm64_sonoma:  "6734dfc0f8d258a6166568635fed6c31dfb1e91a60be440bb92a6ec5e7b2f113"
+    sha256 cellar: :any,                 arm64_ventura: "5249a29504d61bdd324202e585ab20a3469141f53c33bf9675593de70f19bd79"
+    sha256 cellar: :any,                 sonoma:        "957808bd55a7e1f592af84b989a3b32daf67f15a16ff3661f92721b65aa13949"
+    sha256 cellar: :any,                 ventura:       "cb3120a35a4f927550f0c0425599d18578bd55819cb8abb2c4955d7da1cecc5b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a8c3f3addc09b45d718a445ed1a1ce9fbe68777b31abcba543a7a68c654f6f60"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :test
+  depends_on "pkgconf" => :test
 
   def install
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-DENABLE_LIB_ONLY=1"
+    system "cmake", "-S", ".", "-B", "build", "-DENABLE_LIB_ONLY=1", *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <nghttp3/nghttp3.h>
 
       int main(void) {
@@ -39,10 +37,10 @@ class Libnghttp3 < Formula
         nghttp3_qpack_decoder_del(decoder);
         return 0;
       }
-    EOS
+    C
 
-    flags = shell_output("pkg-config --cflags --libs libnghttp3").chomp.split
-    system ENV.cc, "test.c", *flags, "-o", "test"
+    flags = shell_output("pkgconf --cflags --libs libnghttp3").chomp.split
+    system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
   end
 end

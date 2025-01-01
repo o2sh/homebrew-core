@@ -1,8 +1,8 @@
 class VulkanProfiles < Formula
   desc "Tools for Vulkan profiles"
   homepage "https://github.com/KhronosGroup/Vulkan-Profiles"
-  url "https://github.com/KhronosGroup/Vulkan-Profiles/archive/refs/tags/v1.3.295.tar.gz"
-  sha256 "9f44e8c7814750b0bb6b5558d1b236579edf7a20b65f018d6d22a1c35af5d7e1"
+  url "https://github.com/KhronosGroup/Vulkan-Profiles/archive/refs/tags/v1.4.304.tar.gz"
+  sha256 "36505936722415ac3a75ddf3034aff8473512ecdb7a12a01f9b714fbf5219723"
   license "Apache-2.0"
   head "https://github.com/KhronosGroup/Vulkan-Profiles.git", branch: "main"
 
@@ -12,19 +12,17 @@ class VulkanProfiles < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "584257aa41a6ed46a9dbd4e13dcfee8105241b02231b867be56ae2f5e4b5c3d2"
-    sha256 cellar: :any,                 arm64_sonoma:   "6e9053788cd013c8404d78e7e3e95812527f89b24e4cea5543f702b0f95b8b18"
-    sha256 cellar: :any,                 arm64_ventura:  "fe0a026bec29eaec06060093b53b2015c69472d134ed00ac6c8b63704b3c35fd"
-    sha256 cellar: :any,                 arm64_monterey: "aff171d7d4ee2973bb5e285d199581b335a2b66138b74645d8caf8fcb345accf"
-    sha256 cellar: :any,                 sonoma:         "4754983e2dde13428e7131da480500d5517c53bc680dd6c6a9e33b3095a058b6"
-    sha256 cellar: :any,                 ventura:        "accdef86c09bc1c1aa0888aacc92a87a57eb91a27d1dd9097e3c84af22539123"
-    sha256 cellar: :any,                 monterey:       "4571370b82d6ee965360356256e30da2fcf99dea34666d0939c81868df6d1ad5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7e0cca15eedb25fc8a4806c120dd90c73e9fa6d0500c07419fb54ba65669bfd0"
+    sha256 cellar: :any,                 arm64_sequoia: "27634f0895dcbed96fdd76733720547e2266af4c60638f25d99d5f92cc44ad2f"
+    sha256 cellar: :any,                 arm64_sonoma:  "867353f74a010e3c234f87e9d4aa0b7dbae4fda12fc17918701e63cecc550245"
+    sha256 cellar: :any,                 arm64_ventura: "33008915207178fff41c4e920f68fa520dd95d9ff3b1eaa89a0e2ed78b86bcd3"
+    sha256 cellar: :any,                 sonoma:        "0f43a5ab040a29c03b862873af17547b881d72a147d7e0663f9044962362d2f3"
+    sha256 cellar: :any,                 ventura:       "9fc7ec165d179ea54b93870ed40a9fefd4bec7182fc70738270588622406be0d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ce06837d87c7013971af35b7dbd1de5df29f5b39e259f4ba6226fe394a63c921"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
-  depends_on "python@3.12" => :build
+  depends_on "pkgconf" => :build
+  depends_on "python@3.13" => :build
   depends_on "vulkan-tools" => :test
   depends_on "jsoncpp"
   depends_on "valijson"

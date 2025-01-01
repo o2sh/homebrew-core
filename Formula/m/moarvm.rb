@@ -1,8 +1,8 @@
 class Moarvm < Formula
   desc "VM with adaptive optimization and JIT compilation, built for Rakudo"
   homepage "https://moarvm.org"
-  url "https://github.com/MoarVM/MoarVM/releases/download/2024.08/MoarVM-2024.08.tar.gz"
-  sha256 "e438ed69854ae2ab5213bd6d41e6a08c1ae14c2d7a5577fea1250f86784bf74b"
+  url "https://github.com/MoarVM/MoarVM/releases/download/2024.12/MoarVM-2024.12.tar.gz"
+  sha256 "7f8ae605a19189ebb48a51bae486bacd32141326df8289509825bdb1bee3984c"
   license "Artistic-2.0"
 
   livecheck do
@@ -11,17 +11,15 @@ class Moarvm < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "0c6455820896a97aac53d6c666cd69199bdbf6cc2fe5915f7586834c77e311bd"
-    sha256 arm64_sonoma:   "383612941f0990e5e379880b4a75fa61fef3d5181f7e661a1c07665e21437dbd"
-    sha256 arm64_ventura:  "82c13996dd26b2f3b1085375fc33f03dec38d7fd4f139ab4f73556c344cc690a"
-    sha256 arm64_monterey: "0b188acf40dad6c1ce1a78cc5603ede0a4da7f414b9241180ca483f98f3db65e"
-    sha256 sonoma:         "38f811ef661ded6243ef263be1ee5ea700e3016ea8d0edf55f8499124f73bcf7"
-    sha256 ventura:        "29b691440ef0a86f7a86687d802fdb3aa34ffdcb8136ae0f64fc02ef8710a4bf"
-    sha256 monterey:       "93383a14d6e4deeda5225de8b00afa85add0a463587c68b8d3c299d717430f19"
-    sha256 x86_64_linux:   "654e7a52b998c22cba01046af8cc78b20561d0758886535568586b6fa6a1267b"
+    sha256 arm64_sequoia: "76ce2ad41c6bd48baa4e6136ba4aba98e28d1cbbf5722f879878c1df1b60e259"
+    sha256 arm64_sonoma:  "508e2ab97bcdc1ecbe2e0cc617321f8a40c6399f1e3a8ed0bba9f154b0db05f2"
+    sha256 arm64_ventura: "ce4a40b33933e373dccd7ad8b26c6f216da5d3c9b860bb8c6e7a23f00907b072"
+    sha256 sonoma:        "1a6b6206952be2c5054a74a5b90c76ff855bfe486fb2f90c3bb8a425d3c29870"
+    sha256 ventura:       "56f13cc512c69691922fbbc66ffbb36de2307c2f23fb232f2fa074b58cb009d6"
+    sha256 x86_64_linux:  "ce44335219f52ecd1d7bdd46de6f2603de1d43d44e2538c3cb78502879494e9c"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libtommath"
   depends_on "libuv"
   depends_on "zstd"
@@ -33,8 +31,8 @@ class Moarvm < Formula
   conflicts_with "rakudo-star", because: "rakudo-star currently ships with moarvm included"
 
   resource "nqp" do
-    url "https://github.com/Raku/nqp/releases/download/2024.08/nqp-2024.08.tar.gz"
-    sha256 "6b9835ee5c0aa9e561cc7cecc846fe496ffe432567407bf0c3c14c3f3a2711a0"
+    url "https://github.com/Raku/nqp/releases/download/2024.12/nqp-2024.12.tar.gz"
+    sha256 "026ff25d7eaae299b2d644e46b389642774cdf51fd803047f4291731dc4b2477"
   end
 
   def install
@@ -44,7 +42,7 @@ class Moarvm < Formula
       --has-libtommath
       --has-libuv
       --optimize
-      --pkgconfig=#{Formula["pkg-config"].opt_bin}/pkg-config
+      --pkgconfig=#{Formula["pkgconf"].opt_bin}/pkgconf
       --prefix=#{prefix}
     ]
     system "perl", "Configure.pl", *configure_args

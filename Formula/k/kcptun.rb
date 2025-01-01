@@ -1,8 +1,8 @@
 class Kcptun < Formula
   desc "Stable & Secure Tunnel based on KCP with N:M multiplexing and FEC"
   homepage "https://github.com/xtaci/kcptun"
-  url "https://github.com/xtaci/kcptun/archive/refs/tags/v20240919.tar.gz"
-  sha256 "80c2dfe277196e5aac19272f30d83b588f57f6e180b22c5865b7864080cfed09"
+  url "https://github.com/xtaci/kcptun/archive/refs/tags/v20241227.tar.gz"
+  sha256 "744688140df5f72bf9f5cc26ed61ce6a2a2090c0a5d5bf54e3b67b6c933a6c51"
   license "MIT"
   head "https://github.com/xtaci/kcptun.git", branch: "master"
 
@@ -16,12 +16,12 @@ class Kcptun < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ad2c540a88ddc13b9e4dbdf38f7014b9895d1b05e3dca14dfdbefaf29323bd0e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ad2c540a88ddc13b9e4dbdf38f7014b9895d1b05e3dca14dfdbefaf29323bd0e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "ad2c540a88ddc13b9e4dbdf38f7014b9895d1b05e3dca14dfdbefaf29323bd0e"
-    sha256 cellar: :any_skip_relocation, sonoma:        "7108d6cededa38b57e469b2d918909377bf88169bf8b2a489ed1a0b1f3fc29c8"
-    sha256 cellar: :any_skip_relocation, ventura:       "7108d6cededa38b57e469b2d918909377bf88169bf8b2a489ed1a0b1f3fc29c8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "74c05db9c0892742052eb9fe44520b3b7ce3a99792041d45cb65bf730e66c174"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "866882494618aef86ed0b3751654a8c13fec2e91194fb3b2b061bf7186e4078c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "866882494618aef86ed0b3751654a8c13fec2e91194fb3b2b061bf7186e4078c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "866882494618aef86ed0b3751654a8c13fec2e91194fb3b2b061bf7186e4078c"
+    sha256 cellar: :any_skip_relocation, sonoma:        "cd9c28659adb72d7e6dd8ca2dc34dfd380d1e383c05428ededf4b9c62cef4cb2"
+    sha256 cellar: :any_skip_relocation, ventura:       "cd9c28659adb72d7e6dd8ca2dc34dfd380d1e383c05428ededf4b9c62cef4cb2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7558c6fa73df28999fe29dd176902da77d9225969f34d476cda9b5141e648b87"
   end
 
   depends_on "go" => :build
@@ -44,7 +44,7 @@ class Kcptun < Formula
   test do
     server = fork { exec bin/"kcptun_server", "-t", "1.1.1.1:80" }
     client = fork { exec bin/"kcptun_client", "-r", "127.0.0.1:29900", "-l", ":12948" }
-    sleep 1
+    sleep 5
     begin
       assert_match "cloudflare", shell_output("curl -vI http://127.0.0.1:12948/")
     ensure
