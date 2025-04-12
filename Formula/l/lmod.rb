@@ -1,17 +1,18 @@
 class Lmod < Formula
   desc "Lua-based environment modules system to modify PATH variable"
   homepage "https://lmod.readthedocs.io"
-  url "https://github.com/TACC/Lmod/archive/refs/tags/8.7.55.tar.gz"
-  sha256 "f85ed9b55c23afb563fa99c7201037628be016e8d88a1aa8dba4632c0ab450bd"
+  url "https://github.com/TACC/Lmod/archive/refs/tags/8.7.59.tar.gz"
+  sha256 "37d374544a4556b283ab2dce918c13567ed8cc32f83164aff636065827025b5d"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8f4680503b309463f94e52c0e3643f23842fff01cab415d383ccc817717f5e77"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "45b9d3a46c8f2aa9b20b91ef2c2284ffdec5e5b363a0a8a04003cfd17c00e0b2"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "547b23347fd3405672c92ef959482c5acca1787fd48f5df7e34ce8f920d8bbbb"
-    sha256 cellar: :any_skip_relocation, sonoma:        "7cb6dfd71c4475f3102dda0ab4081db2dc9e5a637d108f01d258eaf07f7daf3a"
-    sha256 cellar: :any_skip_relocation, ventura:       "94f0ca9b0ff0cc71628be0e4f91e6d23ecf34da16217c0721f3d82e62148c5b7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "72c572c74143a5e8b1f477a7ebde8633ef7096004ad4add242ae1cb3f163833b"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1e55a6d270d277816c637929e725e577fea2da074c4a5e1ce70bd33b7c9150fb"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ee356911b5b93bcea6039087482ad04ab99c33f0202b3b0a02f842274339b1a5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "acdde72ec300a079d1ca7cf250013de7688d620cd7b9423e2a0f10c09968cbd3"
+    sha256 cellar: :any_skip_relocation, sonoma:        "b1a7e179f32187cb6603beeef45e5343ba62a24726cec188a3bf918f228d6d67"
+    sha256 cellar: :any_skip_relocation, ventura:       "5a6b69760b292adcc437736b5dab515e4abd91db1ad474ac1d877b1de47a69af"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "32e93a7d8abaa6c5de31835e38a834204c646b228cc57b69e51a79b6a60737a2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a2a47ce8c9b2ceff6b425c8079b86f8453aaf76191654e14fc1b079ac4bf98d6"
   end
 
   depends_on "luarocks" => :build
@@ -20,13 +21,15 @@ class Lmod < Formula
 
   uses_from_macos "bc" => :build
   uses_from_macos "libxcrypt"
+  uses_from_macos "tcl-tk"
 
   on_macos do
     depends_on "gnu-sed" => :build
   end
 
-  on_linux do
-    depends_on "tcl-tk@8" # TCL 9 issue: https://github.com/TACC/Lmod/issues/728
+  resource "lua-term" do
+    url "https://github.com/hoelzro/lua-term/archive/refs/tags/0.8.tar.gz"
+    sha256 "0cb270be22dfc262beec2f4ffc66b878ccaf236f537d693fa36c8f578fc51aa6"
   end
 
   resource "luafilesystem" do
@@ -35,8 +38,8 @@ class Lmod < Formula
   end
 
   resource "luaposix" do
-    url "https://github.com/luaposix/luaposix/archive/refs/tags/v36.2.1.tar.gz"
-    sha256 "44e5087cd3c47058f9934b90c0017e4cf870b71619f99707dd433074622debb1"
+    url "https://github.com/luaposix/luaposix/archive/refs/tags/v36.3.tar.gz"
+    sha256 "82cd9a96c41a4a3205c050206f0564ff4456f773a8f9ffc9235ff8f1907ca5e6"
   end
 
   def install

@@ -1,9 +1,9 @@
 class TomcatAT10 < Formula
   desc "Implementation of Java Servlet and JavaServer Pages"
   homepage "https://tomcat.apache.org/"
-  url "https://www.apache.org/dyn/closer.lua?path=tomcat/tomcat-10/v10.1.34/bin/apache-tomcat-10.1.34.tar.gz"
-  mirror "https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.34/bin/apache-tomcat-10.1.34.tar.gz"
-  sha256 "f799541380bfff2b674cefd86c5376d2d7d566b3a2e7c4579d2b491de8ec6c36"
+  url "https://www.apache.org/dyn/closer.lua?path=tomcat/tomcat-10/v10.1.40/bin/apache-tomcat-10.1.40.tar.gz"
+  mirror "https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.40/bin/apache-tomcat-10.1.40.tar.gz"
+  sha256 "25f1e607f17ee2fa99e329eec23b6393ab9e1390929c6cdcb31f749576b94d8e"
   license "Apache-2.0"
 
   livecheck do
@@ -11,7 +11,7 @@ class TomcatAT10 < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "6c8fc0955ba8d245c8d66c1e8192ef2f08ad9bd12e6a3e511b1034e5b9f089e8"
+    sha256 cellar: :any_skip_relocation, all: "f4e7492d4eaf05a3fafa52b6b757ca5744f0e964c1ad61ff859555fb3cbf5fc2"
   end
 
   keg_only :versioned_formula
@@ -58,6 +58,6 @@ class TomcatAT10 < Formula
     ensure
       Process.wait pid
     end
-    assert_predicate testpath/"logs/catalina.out", :exist?
+    assert_path_exists testpath/"logs/catalina.out"
   end
 end

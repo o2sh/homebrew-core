@@ -1,17 +1,18 @@
 class Nco < Formula
   desc "Command-line operators for netCDF and HDF files"
   homepage "https://nco.sourceforge.net/"
-  url "https://github.com/nco/nco/archive/refs/tags/5.3.0.tar.gz"
-  sha256 "661d12f4eb678ca301bf6000f1c1d0fb0e32a69def237dc14f3253e9fc1aaf6a"
+  url "https://github.com/nco/nco/archive/refs/tags/5.3.3.tar.gz"
+  sha256 "f9185e115e246fe884dcae0804146b56df7257f53de7ba190fea66977ccd5a64"
   license "BSD-3-Clause"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "1c9c38bb4dda815909d103da84dce502aa8cadddbc7df188c86a3ac2c7db2637"
-    sha256 cellar: :any,                 arm64_sonoma:  "3132a8ec83a442ccb0718afe046684cfe10474aed7a96bc70a20307ea0cad85c"
-    sha256 cellar: :any,                 arm64_ventura: "70f56a4234af5feef1975a19a830c9b01571c072a4109e24774eac0c78c7f50e"
-    sha256 cellar: :any,                 sonoma:        "79806516c40d58a0a6b6602faa81e707b80f46817676cd29113193fb4eac92c8"
-    sha256 cellar: :any,                 ventura:       "51fc29e80898d8414db875113a2f8b29e91233303d22e163536acc3b7c663198"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b6dbe757dbf4ad0952f31987c0a5fcf2606cb475db5e5aa73daa4bf8fc423774"
+    sha256 cellar: :any,                 arm64_sequoia: "016683051edaab8c463bb06d0e67abb7f676e73bbc56da209b8117523fbcbe8c"
+    sha256 cellar: :any,                 arm64_sonoma:  "06b88bf96fe1fcb98214c7fa0f18ac13f95f0dfb87354e9aaa470f25ddf19f88"
+    sha256 cellar: :any,                 arm64_ventura: "0b9dfb56a0715a8493a38de209db30264ee3330c71a60c11a0e90e5b14feff5c"
+    sha256 cellar: :any,                 sonoma:        "d36b2ab46f025cefe922332b0e79378fae84ac103b180c1ec2a6ce08c1740a5c"
+    sha256 cellar: :any,                 ventura:       "6826e166a0f390722aa352f3f0d5a38af73d0d172eb67e95bd36eb0a481e82ea"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "8d68df0d8dc0af882b0ba189fdc6bf412935dc841f62d4d1ab97e0e82c1a93bd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e18741d889ae6f8aef1edc838490626baf3c18c6b99e2ddac7b0ab3f0c598c6c"
   end
 
   head do
@@ -36,9 +37,11 @@ class Nco < Formula
 
   def install
     resource("antlr2").stage do
-      system "./configure", "--prefix=#{buildpath}",
-                            "--disable-debug",
-                            "--disable-csharp"
+      args = ["--disable-csharp"]
+      # Help old config scripts identify arm64 linux
+      args << "--build=aarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+
+      system "./configure", *args, *std_configure_args(prefix: buildpath)
       system "make"
 
       (buildpath/"libexec").install "antlr.jar"

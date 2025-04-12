@@ -1,18 +1,19 @@
 class Gitu < Formula
   desc "TUI Git client inspired by Magit"
   homepage "https://github.com/altsem/gitu"
-  url "https://github.com/altsem/gitu/archive/refs/tags/v0.27.0.tar.gz"
-  sha256 "b36673dfd2f3fb3f0fc7ae2e54940781875c1685a79fa53047a5a812fd2088ef"
+  url "https://github.com/altsem/gitu/archive/refs/tags/v0.29.0.tar.gz"
+  sha256 "eb65c9470bcf59ce76f7e73893a2a40302a39fd339af38a746b78c596d80615f"
   license "MIT"
   head "https://github.com/altsem/gitu.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b0a5dcf0fb34c10ab37a770c735c6c41e21300a5b39b3a0745724ac879434828"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "04889b42f5fea95b44e137ecc58b7831437608005f03165a3f39c4dd56c681d1"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "2578044334e0f78d2e95748855d7b70c1141e63c0a20a1a918d00d842986019e"
-    sha256 cellar: :any_skip_relocation, sonoma:        "002ee2b1d34292ff44fa31c2f7c4c7d6abf37e112d2d59a8d8d3956ceec9fa78"
-    sha256 cellar: :any_skip_relocation, ventura:       "533f794d77cc81462ac96ab6a69dca9f70c661a1c4cc0f8a69b5210014aa61f4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6d56b63270455e28dc517dd4e5184b1c96ae9e4b7cbb9a84cc129d8044d5997e"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "81a5a48a585eb2b259b4765df3e5abcdd07ccf7ed3edccd1cc7cf11f9ff39e28"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3d4d3bd2c0760c705e8db14273ea7ac4fad5afeda1790fba6fcf9684c74fce88"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "b324b0578a7767123b6dc583dfc5c2f0acd92eff163a995e56a55c3dc6f3c080"
+    sha256 cellar: :any_skip_relocation, sonoma:        "ba9b0717f0cc0cab86a87fb8586688f254d1397221331c3d4bbdf4421cfe3546"
+    sha256 cellar: :any_skip_relocation, ventura:       "666802de4cfe1467f2c7824716be5f6ddc76f698a95861093e701a2bf03457b7"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "42f9a56ee3f331de972bce4060f6986b075674292da4a35340019acd4cb6ae9a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "daf49de50f2a9222931f9f584aa4238a877ae67466644a368344ba44f9613cf8"
   end
 
   depends_on "rust" => :build

@@ -1,10 +1,10 @@
 class Cmake < Formula
   desc "Cross-platform make"
   homepage "https://www.cmake.org/"
-  url "https://github.com/Kitware/CMake/releases/download/v3.31.3/cmake-3.31.3.tar.gz"
-  mirror "http://fresh-center.net/linux/misc/cmake-3.31.3.tar.gz"
-  mirror "http://fresh-center.net/linux/misc/legacy/cmake-3.31.3.tar.gz"
-  sha256 "fac45bc6d410b49b3113ab866074888d6c9e9dc81a141874446eb239ac38cb87"
+  url "https://github.com/Kitware/CMake/releases/download/v4.0.1/cmake-4.0.1.tar.gz"
+  mirror "http://fresh-center.net/linux/misc/cmake-4.0.1.tar.gz"
+  mirror "http://fresh-center.net/linux/misc/legacy/cmake-4.0.1.tar.gz"
+  sha256 "d630a7e00e63e520b25259f83d425ef783b4661bdc8f47e21c7f23f3780a21e1"
   license "BSD-3-Clause"
   head "https://gitlab.kitware.com/cmake/cmake.git", branch: "master"
 
@@ -17,12 +17,14 @@ class Cmake < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "89891f8bcbec3470764bd7d0460773d354b04f9331baaab97ba0fe2ae86e5036"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "7b6ac3e359b4e5e2534c9ab556c218ae4744fc00e9121fca7e5f91abe48f3689"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "0d3c917fec6e56e93b0eaad41f59887615efb4d4418234cc4170c2972977e4c8"
-    sha256 cellar: :any_skip_relocation, sonoma:        "4a8069852f7a0940680ca7834de9818fd661e6eeea1389054eb1b831b913025c"
-    sha256 cellar: :any_skip_relocation, ventura:       "b7a3f9483c6163bf47bab7f1cf44f19a908e6649afc426ed730763afdce34505"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e2b0e8d31bf157218a9a119675b26cc2d559d4bd7c2806f3904e689b5406d523"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5fc195bfee6a1a218f792107dcf52da2f49c764dad521367ef8134e65bab442b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ff8a06cee1e54ba4bce2a1d8bc81654ee2090a9037cbd323d2d160432b179a8c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "d709ac137ca543c3eb3af98d516a4a321087a57a4c19d0b4b490b8c3176c2b46"
+    sha256 cellar: :any_skip_relocation, sequoia:       "09c377a31e872e5f817e3b31d770c23c8c14975c9481da37621dde81411bc313"
+    sha256 cellar: :any_skip_relocation, sonoma:        "965132c38bfa0fdb8f8ed287f3c66ce9b689ba3d35de9a619083ecb5aaafb0ca"
+    sha256 cellar: :any_skip_relocation, ventura:       "e8b44379ffd02b1e74c9a4b6fb5712940f6bddce83eb6324d3aff28a890971fa"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "080f7483ffc67e124b6de04623b366512cef0c74962fe8f546ab732684fc7cf0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "93fea13b3848b9b4d3db0848e4e2db49ebd3564c039d35cafe58754789a77373"
   end
 
   uses_from_macos "ncurses"
@@ -30,11 +32,6 @@ class Cmake < Formula
   on_linux do
     depends_on "openssl@3"
   end
-
-  # Prevent the formula from breaking on version/revision bumps.
-  # Check if possible to remove in 3.32.0
-  # https://gitlab.kitware.com/cmake/cmake/-/merge_requests/9978
-  patch :DATA
 
   # The completions were removed because of problems with system bash
 
@@ -75,7 +72,10 @@ class Cmake < Formula
   end
 
   test do
-    (testpath/"CMakeLists.txt").write("find_package(Ruby)")
+    (testpath/"CMakeLists.txt").write <<~CMAKE
+      cmake_minimum_required(VERSION #{version.major_minor})
+      find_package(Ruby)
+    CMAKE
     system bin/"cmake", "."
 
     # These should be supplied in a separate cmake-docs formula.
@@ -83,26 +83,3 @@ class Cmake < Formula
     refute_path_exists man
   end
 end
-
-__END__
-diff --git a/Source/cmSystemTools.cxx b/Source/cmSystemTools.cxx
-index 5ad0439c..161257cf 100644
---- a/Source/cmSystemTools.cxx
-+++ b/Source/cmSystemTools.cxx
-@@ -2551,7 +2551,7 @@ void cmSystemTools::FindCMakeResources(const char* argv0)
-     _NSGetExecutablePath(exe_path, &exe_path_size);
-   }
-   exe_dir =
--    cmSystemTools::GetFilenamePath(cmSystemTools::GetRealPath(exe_path));
-+    cmSystemTools::GetFilenamePath(exe_path);
-   if (exe_path != exe_path_local) {
-     free(exe_path);
-   }
-@@ -2572,7 +2572,6 @@ void cmSystemTools::FindCMakeResources(const char* argv0)
-   std::string exe;
-   if (cmSystemTools::FindProgramPath(argv0, exe, errorMsg)) {
-     // remove symlinks
--    exe = cmSystemTools::GetRealPath(exe);
-     exe_dir = cmSystemTools::GetFilenamePath(exe);
-   } else {
-     // ???

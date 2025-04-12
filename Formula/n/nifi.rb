@@ -1,13 +1,13 @@
 class Nifi < Formula
   desc "Easy to use, powerful, and reliable system to process and distribute data"
   homepage "https://nifi.apache.org"
-  url "https://www.apache.org/dyn/closer.lua?path=/nifi/2.1.0/nifi-2.1.0-bin.zip"
-  mirror "https://archive.apache.org/dist/nifi/2.1.0/nifi-2.1.0-bin.zip"
-  sha256 "5105062aa684ceb11d05e6536f3c8ca6fde957b785f1f341021ea29911cf7948"
+  url "https://www.apache.org/dyn/closer.lua?path=/nifi/2.3.0/nifi-2.3.0-bin.zip"
+  mirror "https://archive.apache.org/dist/nifi/2.3.0/nifi-2.3.0-bin.zip"
+  sha256 "022806e16b7f43db06b148f329499ec5130226c33975119824370717d61474d0"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "eba45458e2a9ccc9a2b59619e69439fd0e4c1c4eff4e97a638cccd2da2f1629e"
+    sha256 cellar: :any_skip_relocation, all: "c8b8f5ca37382ed05872957a5b1d282558b374473b853fe925b0e746c3776682"
   end
 
   depends_on "openjdk@21"

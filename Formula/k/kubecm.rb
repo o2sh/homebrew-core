@@ -1,17 +1,18 @@
 class Kubecm < Formula
   desc "KubeConfig Manager"
   homepage "https://kubecm.cloud"
-  url "https://github.com/sunny0826/kubecm/archive/refs/tags/v0.32.1.tar.gz"
-  sha256 "30fd9c306b0820be24f56ebc1319a956eb1c05afeee63ae4ab5779e5fc897692"
+  url "https://github.com/sunny0826/kubecm/archive/refs/tags/v0.32.3.tar.gz"
+  sha256 "2dec9f042984d5d05e8f2ffa4d2c475ed9339d05ae71c95f9674e9e6aeb9ac1c"
   license "Apache-2.0"
+  head "https://github.com/sunny0826/kubecm.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "225f10417ff1e8833e567eca54e30b5b4ad5e45ff59149f99e53b2c074d0f420"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "225f10417ff1e8833e567eca54e30b5b4ad5e45ff59149f99e53b2c074d0f420"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "225f10417ff1e8833e567eca54e30b5b4ad5e45ff59149f99e53b2c074d0f420"
-    sha256 cellar: :any_skip_relocation, sonoma:        "1d7d521861c8d136d95d9cd9a3698812d7776a1644759a33a42c02710dced62b"
-    sha256 cellar: :any_skip_relocation, ventura:       "1d7d521861c8d136d95d9cd9a3698812d7776a1644759a33a42c02710dced62b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3cff271aa2e4ac6f95fe3722ee176cca481a6bdaf959e4a9dd9025da9bc49b9a"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "62464e84fe54de407a31be4c0c855a31a7abca48ea2070666652109771869401"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "62464e84fe54de407a31be4c0c855a31a7abca48ea2070666652109771869401"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "62464e84fe54de407a31be4c0c855a31a7abca48ea2070666652109771869401"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a131cc3291d74e7d2a6170724738e486623677c22ed296cea468d5cd3433dc8f"
+    sha256 cellar: :any_skip_relocation, ventura:       "a131cc3291d74e7d2a6170724738e486623677c22ed296cea468d5cd3433dc8f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4350844f68c8d20c42c5e2034f134481d25003406fd9fa8ea1a376c562a4a378"
   end
 
   depends_on "go" => :build

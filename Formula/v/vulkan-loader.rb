@@ -1,8 +1,8 @@
 class VulkanLoader < Formula
   desc "Vulkan ICD Loader"
   homepage "https://github.com/KhronosGroup/Vulkan-Loader"
-  url "https://github.com/KhronosGroup/Vulkan-Loader/archive/refs/tags/v1.4.304.tar.gz"
-  sha256 "368d8281604a3f4dee038bfcc55c44e305031ec67f6e3fdd50cdeb83586c99f9"
+  url "https://github.com/KhronosGroup/Vulkan-Loader/archive/refs/tags/v1.4.312.tar.gz"
+  sha256 "aff1a255bc32e6500e6a435d0c331fde268b823da3888f549af97ee226fa9530"
   license "Apache-2.0"
   head "https://github.com/KhronosGroup/Vulkan-Loader.git", branch: "main"
 
@@ -12,12 +12,14 @@ class VulkanLoader < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "d35c80b23b6e2bdfe103466725ea523b1202ff549c3687ccd046aba6dd6e6bff"
-    sha256 arm64_sonoma:  "4d44cc07c46042c54a382671a76870cab6455f33f657e3814191a069d391b2f4"
-    sha256 arm64_ventura: "4518fd3017776d204ee86f433bce70da6b2a36275832f81c3b247dddbd242b75"
-    sha256 sonoma:        "5a6427923ea32d8e0395d57a793341d97b11f345075434c3fb59263cfeccbb91"
-    sha256 ventura:       "59ce83160e137f5dd3917b2da074f0ac02219e23f68303477c67b131a1020817"
-    sha256 x86_64_linux:  "c35a330ed03dad3a49eb9fc735294ac5a6d400e4f4fb04d35332bc9442720c4c"
+    sha256 arm64_sequoia: "64f4dc9ef0e72a0ae9291398a24216ff710dba8efca44e1736e6728b962b70ba"
+    sha256 arm64_sonoma:  "19080b88ec4476c97db7618a6b2e5ecb17263ad8a5243f13933794ecf1a59f4d"
+    sha256 arm64_ventura: "0d72465ce25eeee629466df786a504b0651d6c551429f7a74a2046e1d187c28e"
+    sha256 sequoia:       "eae3a6295c26bf754e6e25d5ed11d30436a48cc2b432c616530d584fb6121a66"
+    sha256 sonoma:        "062ec15575ae670f8269452ef7b5bf5ef615bf8a30358f1688f4c5c2968fe7ff"
+    sha256 ventura:       "fcbeee954083e9cab018a9cbe0fe6e47c1d8a7ea454ac6cfa58d7ba7f047cb0b"
+    sha256 arm64_linux:   "1d09862de20b01d521c39f21a66d1f2e7a01ef2e528b727e220f39e482764bf3"
+    sha256 x86_64_linux:  "31684c497f63be6f43a5c9f2ee9e1788e0bb69cbd3e04a9293426d8ba1aa419e"
   end
 
   depends_on "cmake" => :build

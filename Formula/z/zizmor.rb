@@ -1,17 +1,18 @@
 class Zizmor < Formula
   desc "Find security issues in GitHub Actions setups"
-  homepage "https://github.com/woodruffw/zizmor"
-  url "https://github.com/woodruffw/zizmor/archive/refs/tags/v0.10.0.tar.gz"
-  sha256 "ac188a66c496dc503707515b60bff0b9d61bd27c163ad98b1d16465bfe816980"
+  homepage "https://woodruffw.github.io/zizmor/"
+  url "https://github.com/woodruffw/zizmor/archive/refs/tags/v1.5.2.tar.gz"
+  sha256 "9789dca47e36ac8c124be5856c38acfac6169839c7fb3a0ce492776e47f1d880"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "19bf52fec33f2d225edee6da9148cd0967e7c2f72fba15c0c77c4f958d0f0c3e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1e5a720c4b80474c281a08fe8327edc86d2a182966b439b670f33f766f18f91a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "81f5ccebbad9bedd1e01e41feee931f616ab604484655a9b3bcf633df94a2253"
-    sha256 cellar: :any_skip_relocation, sonoma:        "482fcfc51b9316d13b18e3c5c0f1e4c92e35d38c227e0d109631974f7c43602c"
-    sha256 cellar: :any_skip_relocation, ventura:       "e6dbac52a5df9688893b5ead40bf27903460d3af3629d3a6b69122df8195acc3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f2a5b5a9222bc5cdc1890e467d3d472425c38a0fe1cf6e7db604e4e0621bf06a"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "44ea65cdc71afa8e5717919be822456172a31a39b8061fb56041ec82d1b1b40e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "45afe3145e67cd329faa3b1be1a7eea8840955881e2afdaa655cbb7d1e91cffd"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "f94f2cc9e5c878c80dd9cacbdf8f249bc574cded3301524ea642557ff2cb8213"
+    sha256 cellar: :any_skip_relocation, sonoma:        "6730852ca2acea48f89324559683c526709f92c9be0e20bba156965f492754bf"
+    sha256 cellar: :any_skip_relocation, ventura:       "83b9c25537c2e30c681eef1796bd55dafc3c86a87d486807f194f78197ecdcd3"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "a602a257efd83ca95718bd7750701fb6cf0370e4a2555b7e6a7987261ecb87cf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "59c31eed2ba3d1f73b5f106678c548f04daad76b4f54591335d3337fdcdb17b0"
   end
 
   depends_on "pkgconf" => :build

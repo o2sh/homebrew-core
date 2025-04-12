@@ -1,10 +1,12 @@
 class Mysql < Formula
   desc "Open source relational database management system"
-  homepage "https://dev.mysql.com/doc/refman/9.0/en/"
-  url "https://cdn.mysql.com/Downloads/MySQL-9.0/mysql-9.0.1.tar.gz"
-  sha256 "18fa65f1ea6aea71e418fe0548552d9a28de68e2b8bc3ba9536599eb459a6606"
+  # FIXME: Actual homepage fails audit due to Homebrew's user-agent
+  # homepage "https://dev.mysql.com/doc/refman/9.2/en/"
+  homepage "https://github.com/mysql/mysql-server"
+  url "https://cdn.mysql.com/Downloads/MySQL-9.2/mysql-9.2.0.tar.gz"
+  sha256 "a39d11fdf6cf8d1b03b708d537a9132de4b99a9eb4d610293937f0687cd37a12"
   license "GPL-2.0-only" => { with: "Universal-FOSS-exception-1.0" }
-  revision 9
+  revision 3
 
   livecheck do
     url "https://dev.mysql.com/downloads/mysql/?tpl=files&os=src"
@@ -12,22 +14,23 @@ class Mysql < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "2956e440bb77be78a4d96b848d146af4508f57e879c06438c278d3e91181d959"
-    sha256 arm64_sonoma:  "6c2b53e7879bd7dcf1d71922986093aab604f824051735004a060f192cedfa79"
-    sha256 arm64_ventura: "12df096425c79c0bfddeffb8f8dedab931b8dc26a0c2c87d717597f2909f8ad4"
-    sha256 sonoma:        "60d14f95afda88e63653921051cc0e08cb3fb789250c0c8bf430e890bedcc1df"
-    sha256 ventura:       "23c0256889c3edc211b5526b92c16b42403b0a95fd169aebb88d7854e657ad50"
-    sha256 x86_64_linux:  "3d7f54eaa40cd566591cef527d56fa2ecf5b8a91e877c9a02a245e617cca6953"
+    sha256 arm64_sequoia: "32753b6f6cfa2a6a7941de8e9c6efeb134ada05b7160e8e8fde7714907374554"
+    sha256 arm64_sonoma:  "d5c6e57001b7e3bd6f4389a12d8fa9ce77288ae0074c76d255b8350b6287e4d0"
+    sha256 arm64_ventura: "2203d5f4d456a954842b7de96b32802f587ed4c4c8dc0ba4ab4f5063b8822809"
+    sha256 sonoma:        "774354f586c49cdfcab91a18925b241b14152809290ef0bf4aae4fd00027b3ae"
+    sha256 ventura:       "5eb8c1b68d480e0f545a5217ed5f18bea33a28d1c4a6e5a79eace6b0fe29f5e0"
+    sha256 arm64_linux:   "097dca4d0c77a3cc70d88d0216949b6d45ee990bc7ee803ae74113f6e251a29e"
+    sha256 x86_64_linux:  "36fb5e843bfa6add36de2c68d88af0cdd83f9451c575d48f4499dd347b8bfa11"
   end
 
   depends_on "bison" => :build
   depends_on "cmake" => :build
   depends_on "pkgconf" => :build
   depends_on "abseil"
-  depends_on "icu4c@76"
+  depends_on "icu4c@77"
   depends_on "lz4"
   depends_on "openssl@3"
-  depends_on "protobuf"
+  depends_on "protobuf@29"
   depends_on "zlib" # Zlib 1.2.13+
   depends_on "zstd"
 
@@ -35,8 +38,14 @@ class Mysql < Formula
   uses_from_macos "cyrus-sasl"
   uses_from_macos "libedit"
 
-  on_macos do
-    depends_on "llvm" if DevelopmentTools.clang_build_version <= 1400
+  on_ventura :or_older do
+    depends_on "llvm"
+    fails_with :clang do
+      cause <<~EOS
+        std::string_view is not fully compatible with the libc++ shipped
+        with ventura, so we need to use the LLVM libc++ instead.
+      EOS
+    end
   end
 
   on_linux do
@@ -45,11 +54,6 @@ class Mysql < Formula
   end
 
   conflicts_with "mariadb", "percona-server", because: "both install the same binaries"
-
-  fails_with :clang do
-    build 1400
-    cause "Requires C++20"
-  end
 
   fails_with :gcc do
     version "9"
@@ -75,20 +79,11 @@ class Mysql < Formula
     if OS.linux?
       # Disable ABI checking
       inreplace "cmake/abi_check.cmake", "RUN_ABI_CHECK 1", "RUN_ABI_CHECK 0"
-
-      # Work around build issue with Protobuf 22+ on Linux
-      # Ref: https://bugs.mysql.com/bug.php?id=113045
-      # Ref: https://bugs.mysql.com/bug.php?id=115163
-      inreplace "cmake/protobuf.cmake" do |s|
-        s.gsub! 'IF(APPLE AND WITH_PROTOBUF STREQUAL "system"', 'IF(WITH_PROTOBUF STREQUAL "system"'
-        s.gsub! ' INCLUDE REGEX "${HOMEBREW_HOME}.*")', ' INCLUDE REGEX "libabsl.*")'
-      end
-    elsif DevelopmentTools.clang_build_version <= 1400
+    elsif MacOS.version <= :ventura
       ENV.llvm_clang
-      # Work around failure mixing newer `llvm` headers with older Xcode's libc++:
-      # Undefined symbols for architecture arm64:
-      #   "std::exception_ptr::__from_native_exception_pointer(void*)", referenced from:
-      #       std::exception_ptr std::make_exception_ptr[abi:ne180100]<std::runtime_error>(std::runtime_error) ...
+      ENV.append "LDFLAGS", "-L#{Formula["llvm"].opt_lib}/unwind -lunwind"
+      # When using Homebrew's superenv shims, we need to use HOMEBREW_LIBRARY_PATHS
+      # rather than LDFLAGS for libc++ in order to correctly link to LLVM's libc++.
       ENV.prepend_path "HOMEBREW_LIBRARY_PATHS", Formula["llvm"].opt_lib/"c++"
     end
 
@@ -111,16 +106,13 @@ class Mysql < Formula
       -DOPENSSL_ROOT_DIR=#{Formula["openssl@3"].opt_prefix}
       -DWITH_ICU=#{icu4c.opt_prefix}
       -DWITH_SYSTEM_LIBS=ON
-      -DWITH_BOOST=boost
       -DWITH_EDITLINE=system
-      -DWITH_LIBEVENT=system
       -DWITH_LZ4=system
       -DWITH_PROTOBUF=system
       -DWITH_SSL=system
       -DWITH_ZLIB=system
       -DWITH_ZSTD=system
       -DWITH_UNIT_TESTS=OFF
-      -DWITH_INNODB_MEMCACHED=ON
     ]
 
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
@@ -202,17 +194,33 @@ class Mysql < Formula
     (testpath/"mysql").mkpath
     (testpath/"tmp").mkpath
 
-    args = %W[--no-defaults --user=#{ENV["USER"]} --datadir=#{testpath}/mysql --tmpdir=#{testpath}/tmp]
-    system bin/"mysqld", *args, "--initialize-insecure", "--basedir=#{prefix}"
     port = free_port
-    pid = spawn(bin/"mysqld", *args, "--port=#{port}")
+    socket = testpath/"mysql.sock"
+    mysqld_args = %W[
+      --no-defaults
+      --mysqlx=OFF
+      --user=#{ENV["USER"]}
+      --port=#{port}
+      --socket=#{socket}
+      --basedir=#{prefix}
+      --datadir=#{testpath}/mysql
+      --tmpdir=#{testpath}/tmp
+    ]
+    client_args = %W[
+      --port=#{port}
+      --socket=#{socket}
+      --user=root
+      --password=
+    ]
+
+    system bin/"mysqld", *mysqld_args, "--initialize-insecure"
+    pid = spawn(bin/"mysqld", *mysqld_args)
     begin
       sleep 5
-
-      output = shell_output("#{bin}/mysql --port=#{port} --user=root --password= --execute='show databases;'")
+      output = shell_output("#{bin}/mysql #{client_args.join(" ")} --execute='show databases;'")
       assert_match "information_schema", output
-      system bin/"mysqladmin", "--port=#{port}", "--user=root", "--password=", "shutdown"
     ensure
+      system bin/"mysqladmin", *client_args, "shutdown"
       Process.kill "TERM", pid
     end
   end

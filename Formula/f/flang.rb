@@ -1,8 +1,8 @@
 class Flang < Formula
   desc "LLVM Fortran Frontend"
   homepage "https://flang.llvm.org/"
-  url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.6/llvm-project-19.1.6.src.tar.xz"
-  sha256 "e3f79317adaa9196d2cfffe1c869d7c100b7540832bc44fe0d3f44a12861fa34"
+  url "https://github.com/llvm/llvm-project/releases/download/llvmorg-20.1.2/llvm-project-20.1.2.src.tar.xz"
+  sha256 "f0a4a240aabc9b056142d14d5478bb6d962aeac549cbd75b809f5499240a8b38"
   # The LLVM Project is under the Apache License v2.0 with LLVM Exceptions
   license "Apache-2.0" => { with: "LLVM-exception" }
   head "https://github.com/llvm/llvm-project.git", branch: "main"
@@ -12,12 +12,13 @@ class Flang < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "b2b8d18a9b72618a4fb3d1d30188b1d887633af97a84c26d3088b98181383468"
-    sha256 cellar: :any,                 arm64_sonoma:  "b6234e509f08078a4c155af45936a1563cff77a8985049fb21bbcd5f8756a1b5"
-    sha256 cellar: :any,                 arm64_ventura: "c54f42c807534ea2da8ac0517969a54dcfc82d853d42e322585c0136f0752081"
-    sha256 cellar: :any,                 sonoma:        "14d62644ccb8ebdf65b1a3f640a49005f72a2a1d01bcb1862c82e5e5c39b553b"
-    sha256 cellar: :any,                 ventura:       "390f98ddd205c01015b6f0748627e3de4fb2811db5e566bb3293ecd49081f289"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "24164d7d3ea0733d695afe1bbff76889e49fdaab48cab688d9ed57be56d84647"
+    sha256 cellar: :any,                 arm64_sequoia: "00c50446452260abf7a51342dcbfb3773232922879c1a8a0b3d913a26cee0099"
+    sha256 cellar: :any,                 arm64_sonoma:  "a80fff8380650c7baba0fea1a47929fc56a57d069546b8d818e8ef6e2b708560"
+    sha256 cellar: :any,                 arm64_ventura: "2b3e6fc4790138b3cfe4eae2108bc9532ac28d1b2ee2919c9d609d0890080af2"
+    sha256 cellar: :any,                 sonoma:        "8f2015416971cc68ad78c684004d12bc66ab5f88a2f14323a6ff789db47d2712"
+    sha256 cellar: :any,                 ventura:       "01909576e54190c55c060e7d5feb60771f5ceb357247221f73b1351b2225bff9"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "1a9b085e052dc177c27cb333edb29d2208bebac1e01e532e88b76ac4bbb1d2a0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f9078ab8a1ecd47810ad1952aeba8bc314dced510cfb3f49edad85b0fd20148c"
   end
 
   depends_on "cmake" => :build
@@ -30,10 +31,16 @@ class Flang < Formula
     "flang-new"
   end
 
+  def llvm
+    Formula["llvm"]
+  end
+
   def install
-    llvm = Formula["llvm"]
-    # NOTE: Setting `BUILD_SHARED_LIBRARIES=ON` causes the just-built flang to throw ICE.
+    # Generate omp_lib.h and omp_lib.F90 to be used by flang build
+    system "cmake", "-S", "openmp", "-B", "build/projects/openmp", *std_cmake_args
+
     args = %W[
+      -DLLVM_TOOL_OPENMP_BUILD=ON
       -DCLANG_DIR=#{llvm.opt_lib}/cmake/clang
       -DFLANG_INCLUDE_TESTS=OFF
       -DFLANG_REPOSITORY_STRING=#{tap&.issues_url}
@@ -44,27 +51,28 @@ class Flang < Formula
       -DLLVM_ENABLE_LTO=ON
       -DLLVM_USE_SYMLINKS=ON
       -DMLIR_DIR=#{llvm.opt_lib}/cmake/mlir
+      -DMLIR_LINK_MLIR_DYLIB=ON
     ]
     args << "-DFLANG_VENDOR_UTI=sh.brew.flang" if tap&.official?
+    # FIXME: Setting `BUILD_SHARED_LIBS=ON` causes the just-built flang to throw ICE on macOS
+    args << "-DBUILD_SHARED_LIBS=ON" if OS.linux?
 
     ENV.append_to_cflags "-ffat-lto-objects" if OS.linux? # Unsupported on macOS.
     system "cmake", "-S", "flang", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
+    return if OS.linux?
 
     libexec.install bin.children
     bin.install_symlink libexec.children
 
-    # Our LLVM is built with exception-handling, which requires linkage with the C++ standard library.
-    # TODO: Remove this if/when we've rebuilt LLVM with `LLVM_ENABLE_EH=OFF`.
-    flang_cfg_file = if OS.mac?
-      ["-lc++", "-Wl,-lto_library,#{llvm.opt_lib}/libLTO.dylib"]
-    else
-      ["-lstdc++"]
-    end
-    (libexec/"flang.cfg").atomic_write flang_cfg_file.join("\n")
-
-    return if OS.linux?
+    # Help `flang-new` driver find `libLTO.dylib` and runtime libraries
+    resource_dir = Utils.safe_popen_read(llvm.opt_bin/"clang", "-print-resource-dir").chomp
+    resource_dir.gsub!(llvm.prefix.realpath, llvm.opt_prefix)
+    (libexec/"flang.cfg").atomic_write <<~CONFIG
+      -Wl,-lto_library,#{llvm.opt_lib}/libLTO.dylib
+      -resource-dir=#{resource_dir}
+    CONFIG
 
     # Convert LTO-generated bitcode in our static archives to MachO.
     # Not needed on Linux because of `-ffat-lto-objects`
@@ -86,14 +94,6 @@ class Flang < Formula
         system llvm.opt_bin/"llvm-ar", "r", static_archive, *rebuilt_files if rebuilt_files.present?
       end
     end
-  end
-
-  def caveats
-    <<~EOS
-      Homebrew LLVM is built with LLVM_ENABLE_EH=ON, so binaries built by `#{flang_driver}`
-      require linkage to the C++ standard library. `#{flang_driver}` is configured to do this
-      automatically.
-    EOS
   end
 
   test do
@@ -126,6 +126,45 @@ class Flang < Formula
 
     system bin/flang_driver, "-v", "test.f90", "-o", "test"
     assert_equal "Done", shell_output("./test").chomp
+
+    (testpath/"omptest.f90").write <<~FORTRAN
+      PROGRAM omptest
+      USE omp_lib
+      !$OMP PARALLEL NUM_THREADS(4)
+      WRITE(*,'(A,I1,A,I1)') 'Hello from thread ', OMP_GET_THREAD_NUM(), ', nthreads ', OMP_GET_NUM_THREADS()
+      !$OMP END PARALLEL
+      ENDPROGRAM
+    FORTRAN
+
+    openmp_flags = %w[-fopenmp]
+    openmp_flags += if OS.mac?
+      %W[-L#{llvm.opt_lib}]
+    else
+      libomp_dir = llvm.opt_lib/Utils.safe_popen_read(llvm.opt_bin/"clang", "--print-target-triple").chomp
+      %W[-L#{libomp_dir} -Wl,-rpath,#{libomp_dir} -Wl,-rpath,#{lib}]
+    end
+    system bin/flang_driver, "-v", *openmp_flags, "omptest.f90", "-o", "omptest"
+    testresult = shell_output("./omptest")
+
+    expected_result = <<~EOS
+      Hello from thread 0, nthreads 4
+      Hello from thread 1, nthreads 4
+      Hello from thread 2, nthreads 4
+      Hello from thread 3, nthreads 4
+    EOS
+
+    sorted_testresult = testresult.split("\n").sort.join("\n")
+    assert_equal expected_result.strip, sorted_testresult.strip
+
+    (testpath/"runtimes.f90").write <<~FORTRAN
+      Program main
+        Complex :: y
+        y = y/2
+      End Program
+    FORTRAN
+    system bin/flang_driver, "-v", "runtimes.f90"
+
+    return if OS.linux?
 
     system "ar", "x", lib/"libFortranCommon.a"
     testpath.glob("*.o").each do |object_file|

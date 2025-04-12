@@ -3,11 +3,11 @@ class Curl < Formula
   homepage "https://curl.se"
   # Don't forget to update both instances of the version in the GitHub mirror URL.
   # `url` goes below this comment when the `stable` block is removed.
-  url "https://curl.se/download/curl-8.11.1.tar.bz2"
-  mirror "https://github.com/curl/curl/releases/download/curl-8_11_1/curl-8.11.1.tar.bz2"
-  mirror "http://fresh-center.net/linux/www/curl-8.11.1.tar.bz2"
-  mirror "http://fresh-center.net/linux/www/legacy/curl-8.11.1.tar.bz2"
-  sha256 "e9773ad1dfa21aedbfe8e1ef24c9478fa780b1b3d4f763c98dd04629b5e43485"
+  url "https://curl.se/download/curl-8.13.0.tar.bz2"
+  mirror "https://github.com/curl/curl/releases/download/curl-8_13_0/curl-8.13.0.tar.bz2"
+  mirror "http://fresh-center.net/linux/www/curl-8.13.0.tar.bz2"
+  mirror "http://fresh-center.net/linux/www/legacy/curl-8.13.0.tar.bz2"
+  sha256 "e0d20499260760f9865cb6308928223f4e5128910310c025112f592a168e1473"
   license "curl"
 
   livecheck do
@@ -16,12 +16,13 @@ class Curl < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "9becff07bed074d7ccf57b6875c54e0f81313faf5304d0a83c3b4a5f030fb7d5"
-    sha256 cellar: :any,                 arm64_sonoma:  "abe90ee3f273e4101cc2a6d597341de4f0fcff5add2ac70664bf6abd045cc204"
-    sha256 cellar: :any,                 arm64_ventura: "a2a7f0e1b2ec4b1444c6fb74e747801da3b2cc17fa2defab8e8766ca66fa2317"
-    sha256 cellar: :any,                 sonoma:        "d3f0ef75ee89823890173bae4caf3eff9cf552361dc400ea576e439b69045a5b"
-    sha256 cellar: :any,                 ventura:       "af443263f1ce0d8330fc4a8863b5bcd094686cf5e7c7352b5670f3137008fe0e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "76e0a5154b41a48c92434df18bc22727f50e1c5d85dbda724c7353ce0bbe385a"
+    sha256 cellar: :any,                 arm64_sequoia: "5629dc2ddfe44e07dc15aa725796a8aad62b5785979b91d19b856060f2bc6e21"
+    sha256 cellar: :any,                 arm64_sonoma:  "acc8f8a0ea285d1f6d664f4cc8c8f598efb3503ba5a7c4ac4bbd71f42425f0d2"
+    sha256 cellar: :any,                 arm64_ventura: "5556e95c7b91201cd03c7b02e4110e4b706ee551038ad4720d6526c3f69c172d"
+    sha256 cellar: :any,                 sonoma:        "bc44f5d463aeb83665feb028968e43fec2aa2731244b79a2c350e01e514a8493"
+    sha256 cellar: :any,                 ventura:       "210a0e1e334cac9c2398c6938f9f8337e4f86e1685c8f604a5c024e6baba7cec"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "18bb0c7ef38940a4c030e8258cce21e0948a7800d208c7e67f125dc4df72fddb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e29f1bd12fffb9b651022b74f2d1772797093185fb192f051b2a39f549acc469"
   end
 
   head do
@@ -57,7 +58,7 @@ class Curl < Formula
            "Please make sure the URL is correct."
     end
 
-    system "./buildconf" if build.head?
+    system "autoreconf", "--force", "--install", "--verbose" if build.head?
 
     args = %W[
       --disable-silent-rules

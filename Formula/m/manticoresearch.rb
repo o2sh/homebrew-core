@@ -1,8 +1,8 @@
 class Manticoresearch < Formula
   desc "Open source text search engine"
   homepage "https://manticoresearch.com"
-  url "https://github.com/manticoresoftware/manticoresearch/archive/refs/tags/6.3.8.tar.gz"
-  sha256 "633a55f20545eb4c722dd05175b7187ca802d765fc3eaf9cce3bc2ebb4eaebbe"
+  url "https://github.com/manticoresoftware/manticoresearch/archive/refs/tags/9.2.24.tar.gz"
+  sha256 "46df013f37ac820cafd2257fc53bbcc0a6c1743e590bbf3c78e598780e0dd21b"
   license all_of: [
     "GPL-3.0-or-later",
     "GPL-2.0-only", # wsrep
@@ -19,22 +19,23 @@ class Manticoresearch < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "6dcdd6b0272b3d137486441e402e76533ce3fa37af5ae5187b15f9b0d8e91323"
-    sha256 arm64_sonoma:  "1f37515148fac4f4b83d4c847900e3a4053671de246b6d6c969a8ef4995063d8"
-    sha256 arm64_ventura: "7d30b9fb98196c9a569adafb85f73c66d23f975beb1015931d9ee5933c8ba410"
-    sha256 sonoma:        "de5e34aa93653420dbd4f3cee685be832b6ddc8944ef8598265693030c966858"
-    sha256 ventura:       "006072f761e4ae6145779953a579ca3db29a3d505ffe5f10001d6b4faefdf850"
-    sha256 x86_64_linux:  "9499fd95c8b1e71dcd1d004531edc7b8baf0a8a52868f46c435adb752979a297"
+    sha256 arm64_sequoia: "b5b35e305ad0b55a3778c516a51e348c8756bec4c59691d4625fd02873f419d5"
+    sha256 arm64_sonoma:  "08f2a418bde1e3498b9bc07be61105e6d548037c0b75e26a8b8aae66224f7a58"
+    sha256 arm64_ventura: "a8a606f5f8503fad595f5d38cc9315e5ef770b02cff7c71c1236fc3e706343a5"
+    sha256 sonoma:        "346caaaee96488f73ca2ed7269e4c3f459d12edb621932a83e683c056e11b40d"
+    sha256 ventura:       "230742371e824829edebe4d75743d3ae8df6de8f5ca4939ca05c096265526a53"
+    sha256 arm64_linux:   "f9ff3a52589bbe11ab4cf31d35f4717cdb0b34d43686700765991a211a8e2eee"
+    sha256 x86_64_linux:  "ebbc4fc0a6746762af75de24707c64c71bb7abd04f8b00e193ec946e322385b5"
   end
 
-  depends_on "boost" => :build
   depends_on "cmake" => :build
   depends_on "nlohmann-json" => :build
   depends_on "snowball" => :build # for libstemmer.a
 
   # NOTE: `libpq`, `mariadb-connector-c`, `unixodbc` and `zstd` are dynamically loaded rather than linked
+  depends_on "boost"
   depends_on "cctz"
-  depends_on "icu4c@76"
+  depends_on "icu4c@77"
   depends_on "libpq"
   depends_on "mariadb-connector-c"
   depends_on "openssl@3"
@@ -50,9 +51,8 @@ class Manticoresearch < Formula
   uses_from_macos "zlib"
 
   def install
-    # Work around error when building with GCC
-    # Issue ref: https://github.com/manticoresoftware/manticoresearch/issues/2393
-    ENV.append_to_cflags "-fpermissive" if OS.linux?
+    # Avoid statically linking to boost
+    inreplace "src/CMakeLists.txt", "set ( Boost_USE_STATIC_LIBS ON )", "set ( Boost_USE_STATIC_LIBS OFF )"
 
     ENV["ICU_ROOT"] = deps.find { |dep| dep.name.match?(/^icu4c(@\d+)?$/) }
                           .to_formula.opt_prefix.to_s

@@ -1,18 +1,19 @@
 class Fizz < Formula
   desc "C++14 implementation of the TLS-1.3 standard"
   homepage "https://github.com/facebookincubator/fizz"
-  url "https://github.com/facebookincubator/fizz/releases/download/v2024.12.02.00/fizz-v2024.12.02.00.tar.gz"
-  sha256 "4d6fc99f65a53f9fdff5751bfe822da89cb792c7898b63583ef9f034ae41d64c"
+  url "https://github.com/facebookincubator/fizz/releases/download/v2025.04.07.00/fizz-v2025.04.07.00.tar.gz"
+  sha256 "119efbacce276bab0cb9f32cf873154e87bd040b03d70cb806e02e0c1789b6f2"
   license "BSD-3-Clause"
   head "https://github.com/facebookincubator/fizz.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "8bb5b3a6edeee6ab808b7122457c58ada41f459152303d3a10082dde167b081b"
-    sha256 cellar: :any,                 arm64_sonoma:  "6c3b5fc9d99ad2cd4ff3473b4fc5ce62e744c93709ad5abadb01f7a683ea2684"
-    sha256 cellar: :any,                 arm64_ventura: "ecf069b557a6ef996d0321b3a7526cb2992fa809a39792ffbe1655d8d5e57b98"
-    sha256 cellar: :any,                 sonoma:        "8310099784a83b395cf5cc65aec343d48288ee0221fed4b51fed2ddb3a2e49b5"
-    sha256 cellar: :any,                 ventura:       "9a1a0cf6777ddea9bb1f5ab02c21f5aea9c666c6107358ff0b92faaefb23ce3d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f67932d4f086898517bdc0eafe06cf0a64259f5a5070b5e4447480a407a27634"
+    sha256                               arm64_sequoia: "469b44672be923557cbf6aae13eed0a7197fec930d4f143acc8e1fc3acfdb2e3"
+    sha256                               arm64_sonoma:  "473e7c2f0adfce03137571bbaaa6b51a9595204d2287095b1f92d02b51df5799"
+    sha256                               arm64_ventura: "49e19c0a1a041a9964e28c3a097e626e62eb4a8648c133f2573ae2d539d04de2"
+    sha256 cellar: :any,                 sonoma:        "7e236cdaed78ec4bc9f03e93700b475661ff1c76fc574fe0c20b665470c71324"
+    sha256 cellar: :any,                 ventura:       "2756744c9a603edb6bf2df625c09480d75ae27a1dbd4e11d54bb435098fc6e4c"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "c0797744a07ab2c97f81287f81691376c385cdf6f0253d0e3a3b52ec966975ac"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a6e86f5429d50cfb118294650de108b53115fed55696e9e4b1552b9faab5bac2"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -27,12 +28,6 @@ class Fizz < Formula
   depends_on "zstd"
 
   uses_from_macos "zlib"
-
-  # fix ambiguous reference to gflags, upstream pr ref, https://github.com/facebookincubator/fizz/pull/153
-  patch do
-    url "https://github.com/facebookincubator/fizz/commit/ebd194681cc2ee7669d2dea2b802ae473f3d03d2.patch?full_index=1"
-    sha256 "3dfb5453678b5fad48b99fef2555b9c4b2535c5099fe3c32929c4f1c0b531f6f"
-  end
 
   def install
     args = ["-DBUILD_TESTS=OFF", "-DBUILD_SHARED_LIBS=ON", "-DCMAKE_INSTALL_RPATH=#{rpath}"]
@@ -71,7 +66,7 @@ class Fizz < Formula
     CPP
 
     (testpath/"CMakeLists.txt").write <<~CMAKE
-      cmake_minimum_required(VERSION 3.5)
+      cmake_minimum_required(VERSION 3.10)
       project(test LANGUAGES CXX)
       set(CMAKE_CXX_STANDARD 17)
 
@@ -85,7 +80,8 @@ class Fizz < Formula
 
     ENV.delete "CPATH"
 
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    args = OS.mac? ? [] : ["-DCMAKE_BUILD_RPATH=#{lib};#{HOMEBREW_PREFIX}/lib"]
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     assert_match "TLS", shell_output("./build/test")
   end

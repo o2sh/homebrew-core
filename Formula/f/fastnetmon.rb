@@ -1,23 +1,24 @@
 class Fastnetmon < Formula
   desc "DDoS detection tool with sFlow, Netflow, IPFIX and port mirror support"
   homepage "https://github.com/pavel-odintsov/fastnetmon/"
-  url "https://github.com/pavel-odintsov/fastnetmon/archive/refs/tags/v1.2.7.tar.gz"
-  sha256 "c21fcbf970214dd48ee8aa11e6294e16bea86495085315e7b370a84b316d0af9"
+  url "https://github.com/pavel-odintsov/fastnetmon/archive/refs/tags/v1.2.8.tar.gz"
+  sha256 "d16901b00963f395241c818d02ad2751f14e33fd32ed3cb3011641ab680e0d01"
   license "GPL-2.0-only"
-  revision 11
+  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "c9299b17e960a0a658eb30f446e0ab73844347c3cfbc47d23a83cfac265bad54"
-    sha256 cellar: :any,                 arm64_sonoma:  "ce88a842e3dd91f51e77177329a98140cedfbc56eb29ee817fc607aef4c4d999"
-    sha256 cellar: :any,                 arm64_ventura: "d0555ae5c9470e421f2f34dcd3e132758a18a3b36a2f6467be87c1fb1dbe8834"
-    sha256 cellar: :any,                 sonoma:        "f099031849eaade4336780175c076e494393be12ffe340e62927c1be849a5024"
-    sha256 cellar: :any,                 ventura:       "280c6e9153debe69a71513af6fc47a65a520a1af76842265a32493531fa23b47"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d5d6eef3e64d59b152ae60f728174f2a87c5a6518cc17925c9756e53855a1676"
+    sha256 cellar: :any,                 arm64_sequoia: "5f4bed5e5c54509357ab50e1f632c93468dd92f44d3c24e6bbfdc453dfb854fa"
+    sha256 cellar: :any,                 arm64_sonoma:  "d90db34688c6898f289dec8712bcae94ea1b6e14ba6de7d9a397dc1258ef4f5c"
+    sha256 cellar: :any,                 arm64_ventura: "a9f7f4ccc492890a0984393a6b26cc8fd45d1a34e744d07f546cd6fa5efdaeea"
+    sha256 cellar: :any,                 sonoma:        "a1aca2ad069573c760f9b427b8e62c3d06a8764612cadc63af55a6a3960fbd40"
+    sha256 cellar: :any,                 ventura:       "666b4e9976cf156389157e939f7e7549b857f94e7b98000b90fb051833a492dc"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "5a6afcaebac8a15dec52b7b1c27b711c68f67ee4d06bd5e8750dac97e6a70944"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "aa901de61f1cd9915c8e34e8ac2d7b7eb8d951531342a392d268bb39b8e1956f"
   end
 
   depends_on "cmake" => :build
   depends_on "abseil"
-  depends_on "boost@1.85" # Boost 1.87+ issue: https://github.com/pavel-odintsov/fastnetmon/issues/1027
+  depends_on "boost"
   depends_on "capnp"
   depends_on "grpc"
   depends_on "hiredis"
@@ -26,24 +27,31 @@ class Fastnetmon < Formula
   depends_on "mongo-c-driver"
   depends_on "openssl@3"
   depends_on "protobuf"
+
+  uses_from_macos "libpcap"
   uses_from_macos "ncurses"
 
   on_linux do
     depends_on "elfutils"
     depends_on "libbpf"
-    depends_on "libpcap"
   end
 
-  # Fix build failure with gRPC 1.67.
-  # https://github.com/pavel-odintsov/fastnetmon/pull/1023
+  # Backport support for Boost 1.87.0
   patch do
-    url "https://github.com/pavel-odintsov/fastnetmon/commit/b6cf2e7222c24343b868986e867ddb7adad0bf30.patch?full_index=1"
-    sha256 "3a3f719f7434e52db01a512ed3891cf0e3794d4576323e3c2fd3b31c69fb39be"
+    url "https://github.com/pavel-odintsov/fastnetmon/commit/f02063204d2b07a525d70e502571b31514653604.patch?full_index=1"
+    sha256 "273d22bdfae85e464ab8cc1044423b2589800bef1db649f664049030f2cf719b"
+  end
+
+  # Backport fix to build with Clang
+  patch do
+    url "https://github.com/pavel-odintsov/fastnetmon/commit/8a91b5a8c8be1af0fe96ffe1ee1c002c30494662.patch?full_index=1"
+    sha256 "cb2dd41177c73ed3ef4ee3a372d8f99b6471f695041dc1c05299ea03a572a202"
   end
 
   def install
     system "cmake", "-S", "src", "-B", "build",
-                    "-DLINK_WITH_ABSL=TRUE",
+                    "-DCMAKE_CXX_STANDARD=20",
+                    "-DLINK_WITH_ABSL=ON",
                     "-DSET_ABSOLUTE_INSTALL_PATH=OFF",
                     *std_cmake_args
     system "cmake", "--build", "build"
@@ -70,7 +78,7 @@ class Fastnetmon < Formula
 
     pid = spawn opt_sbin/"fastnetmon", "--configuration_file", testpath/"fastnetmon.conf", "--log_to_console"
     sleep 60
-    sleep 30 if OS.mac? && Hardware::CPU.intel?
+    sleep 40 if OS.mac? && Hardware::CPU.intel?
 
     assert_path_exists testpath/"fastnetmon.dat"
     assert_path_exists testpath/"fastnetmon_ipv6.dat"

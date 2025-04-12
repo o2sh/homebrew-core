@@ -3,10 +3,9 @@ class Uhd < Formula
 
   desc "Hardware driver for all USRP devices"
   homepage "https://files.ettus.com/manual/"
-  url "https://github.com/EttusResearch/uhd/archive/refs/tags/v4.7.0.0.tar.gz"
-  sha256 "afe56842587ce72d6a57535a2b15c061905f0a039abcc9d79f0106f072a00d10"
+  url "https://github.com/EttusResearch/uhd/archive/refs/tags/v4.8.0.0.tar.gz"
+  sha256 "a2159491949477dca67f5a9b05f5a80d8c2b32e91b95dd7fac8ddd3893e36d09"
   license all_of: ["GPL-3.0-or-later", "LGPL-3.0-or-later", "MIT", "BSD-3-Clause", "Apache-2.0"]
-  revision 2
   head "https://github.com/EttusResearch/uhd.git", branch: "master"
 
   livecheck do
@@ -15,18 +14,19 @@ class Uhd < Formula
   end
 
   bottle do
-    sha256                               arm64_sequoia: "4a05fe3cf7631907bef6a416e3a5e1b76ee7c9590e6c02a2194b66b7c5c79292"
-    sha256                               arm64_sonoma:  "ea007011a24d72f1f3ff2d05b1e509d6a0b4bf79fc358117c1ce02714540ebb3"
-    sha256                               arm64_ventura: "047350eee3e26cdb321be13ab062adb73d15690ccd6142456db1bc57c8296b4d"
-    sha256                               sonoma:        "7f649d23d094b511b032788e8d67ea726c4ab394a9e30b2a8c42760aee1bf004"
-    sha256                               ventura:       "aea0fe40b4c6a1a530ad5e57cf4296cdd82345b03730737852451401faea7a66"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e367b389872d8029334fad40c27e6567d17a3a2bab731c3f7a54c626af7cc617"
+    sha256                               arm64_sequoia: "029c4215fed8f3bc2e30e31ef27772f836831cc5fef89b94712f0195e456b29e"
+    sha256                               arm64_sonoma:  "455d66c8ab4b66ceea29e30a5197aa7cfa00b93370fb8ff5b26668d71803fbf5"
+    sha256                               arm64_ventura: "f0edc58fa1e8483310cddcd4654d5195d5c09b44e658afaefda82ea4ef9f5732"
+    sha256                               sonoma:        "b1d55671dfd15d6e46f6f5e1d570818c7d1ac3a32d33c462f849b77bd69a5392"
+    sha256                               ventura:       "ec4910b5b59e7e15dbd6828fa6fcabfa283208b278988c1e894091c6c7ad9c17"
+    sha256                               arm64_linux:   "c464cc045e9f131bec1248f9f5ddf62099ca9951bc75079b683d71d254bbd36d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6af77cb2f0c1a85487ad3ccd6a5a5f29849da2e7c05e25df346448a4bd02851d"
   end
 
   depends_on "cmake" => :build
   depends_on "doxygen" => :build
   depends_on "pkgconf" => :build
-  depends_on "boost@1.85"
+  depends_on "boost"
   depends_on "libusb"
   depends_on "python@3.13"
 
@@ -35,13 +35,13 @@ class Uhd < Formula
   end
 
   resource "mako" do
-    url "https://files.pythonhosted.org/packages/67/03/fb5ba97ff65ce64f6d35b582aacffc26b693a98053fa831ab43a437cbddb/Mako-1.3.5.tar.gz"
-    sha256 "48dbc20568c1d276a2698b36d968fa76161bf127194907ea6fc594fa81f943bc"
+    url "https://files.pythonhosted.org/packages/5f/d9/8518279534ed7dace1795d5a47e49d5299dd0994eed1053996402a8902f9/mako-1.3.8.tar.gz"
+    sha256 "577b97e414580d3e088d47c2dbbe9594aa7a5146ed2875d4dfa9075af2dd3cc8"
   end
 
   resource "markupsafe" do
-    url "https://files.pythonhosted.org/packages/b4/d2/38ff920762f2247c3af5cbbbbc40756f575d9692d381d7c520f45deb9b8f/markupsafe-3.0.1.tar.gz"
-    sha256 "3e683ee4f5d0fa2dde4db77ed8dd8a876686e3fc417655c2ece9a90576905344"
+    url "https://files.pythonhosted.org/packages/b2/97/5d42485e71dfc078108a86d6de8fa46db44a1a9295e89c5d6d4a06e23a62/markupsafe-3.0.2.tar.gz"
+    sha256 "ee55d3edf80167e48ea11a923c7386f4669df67d7994554387f84e7d8b0a2bf0"
   end
 
   def python3

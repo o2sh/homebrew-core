@@ -1,10 +1,9 @@
 class Libphonenumber < Formula
   desc "C++ Phone Number library by Google"
   homepage "https://github.com/google/libphonenumber"
-  url "https://github.com/google/libphonenumber/archive/refs/tags/v8.13.52.tar.gz"
-  sha256 "672758f48fdffcf0be48894824c72c729c07b914a04626e24fa01945bb09ca53"
+  url "https://github.com/google/libphonenumber/archive/refs/tags/v9.0.2.tar.gz"
+  sha256 "ccc54c3ff073f6f9be3260d0e93a17ab6e98be6906a15625a614b41de0d1693b"
   license "Apache-2.0"
-  revision 2
 
   livecheck do
     url :stable
@@ -12,19 +11,20 @@ class Libphonenumber < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "8f9d906ac50082edaa863e023e790a8059f71362068b6b87083c2749e709020e"
-    sha256 cellar: :any,                 arm64_sonoma:  "834dc66ce128813dede8c7b73844965ca90485697d0728c24cfc09e4baef8c35"
-    sha256 cellar: :any,                 arm64_ventura: "47d6b974debd630cc154af7c2598191fd853434c0ef11fdfc82862c6e860d9aa"
-    sha256 cellar: :any,                 sonoma:        "c8b4b905e7eb1ee7235f313bf0f32cd9186c747079a371db125021d79afc0296"
-    sha256 cellar: :any,                 ventura:       "32c5e5649cf10423c78309e38ce8250d6747ff7d1fb558d67fb20d338b2301c6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0d89328a35661597724a9689bb982611d34da7779754e320e1ef05ea4f1a988e"
+    sha256 cellar: :any,                 arm64_sequoia: "5499d250c99f5b2d90dc24707b1654fcc0d1ce8430a4dafcb27242fdf9a6ebe5"
+    sha256 cellar: :any,                 arm64_sonoma:  "a401dc993264402ca0482b65ca5394d943f0ff5fd3b39b4f8adc829661cd972c"
+    sha256 cellar: :any,                 arm64_ventura: "83378e2c3f64f168f169e18696b344c9e54416e278f6dbede05dceb3dc10995a"
+    sha256 cellar: :any,                 sonoma:        "cdfdb213e403283f9065f71ecddfa9146104bbf5c75315262f5c3a92e1a6773e"
+    sha256 cellar: :any,                 ventura:       "51ffc65ae944d628fe6d74ec694325671670dbfb7de18c0ab8ad247bbe0f1630"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "4242403ecf45594389c1093b6433802c31e848e3d27696c3afa7fad5921ae706"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "272754c2974ba6053596da84d59abff3c894a357a3c1ef8cb750800359522c6d"
   end
 
   depends_on "cmake" => [:build, :test]
   depends_on "openjdk" => :build
   depends_on "abseil"
   depends_on "boost"
-  depends_on "icu4c@76"
+  depends_on "icu4c@77"
   depends_on "protobuf"
 
   def install

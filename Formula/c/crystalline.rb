@@ -1,17 +1,18 @@
 class Crystalline < Formula
   desc "Language Server Protocol implementation for Crystal"
   homepage "https://github.com/elbywan/crystalline"
-  url "https://github.com/elbywan/crystalline/archive/refs/tags/v0.15.0.tar.gz"
-  sha256 "45ed0162e724d2ef080e5264086bcea5b53d12fcafc5ddefc3bbf16af021fc48"
+  url "https://github.com/elbywan/crystalline/archive/refs/tags/v0.16.0.tar.gz"
+  sha256 "4639607061f8d137d2dd1a66cfa673052930d628ef9da7f65f8cab70c615e6e1"
   license "MIT"
+  revision 2
 
   bottle do
-    sha256 arm64_sequoia: "58cb6766d9b3bde9205fc294459629e62cc7b0f33c8340d56541cbf8d58b7cf5"
-    sha256 arm64_sonoma:  "d49db70364b4b5fffcd93c462c5522bbd0be7335b612ed59174866b1372f335f"
-    sha256 arm64_ventura: "25ee4d95d2bf90dd2ebfd9dd3ad08e5d50c2435407e54324872d2e30f8f61d87"
-    sha256 sonoma:        "2300f91fa3b8111f09e9749cf1fca4eeab71045765fedab5133081fb6ef9c52c"
-    sha256 ventura:       "47a3caec8b5e43a8da8d246da2aeaa2c84a4735b572b3680eedaba931bed4796"
-    sha256 x86_64_linux:  "715de9336f21432cd9d431bb5e7f4f280f9e5cef7947dccdb172b5dacab52ac4"
+    sha256 arm64_sequoia: "6e2952bb70e3eec710e218913810efb07921378b35aa31b0ca29f02855cd94a5"
+    sha256 arm64_sonoma:  "02cbaa41bb8451c67bd056f2633129e7e617a11e805ebc80871ecf0498a27870"
+    sha256 arm64_ventura: "fac4533b13c54646be003ca911cbff395340ed2faf72e6b30fb51f34bd701ae2"
+    sha256 sonoma:        "e44fba275c146fc00e9405438c6e3f7ebf55d597799cce183790d0f0521ff61f"
+    sha256 ventura:       "328124c5b8c4d94f952a1770f566f4660d85831e845cd7b0433a4a21ed448454"
+    sha256 x86_64_linux:  "fe9bd89417815800b5fdb69c8091bf9ab9adcf327fe2ab29095815a030a87396"
   end
 
   depends_on "bdw-gc"

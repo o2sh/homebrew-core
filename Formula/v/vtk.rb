@@ -1,17 +1,17 @@
 class Vtk < Formula
   desc "Toolkit for 3D computer graphics, image processing, and visualization"
   homepage "https://www.vtk.org/"
-  url "https://www.vtk.org/files/release/9.4/VTK-9.4.1.tar.gz"
-  sha256 "c253b0c8d002aaf98871c6d0cb76afc4936c301b72358a08d5f3f72ef8bc4529"
+  url "https://www.vtk.org/files/release/9.4/VTK-9.4.2.tar.gz"
+  sha256 "36c98e0da96bb12a30fe53708097aa9492e7b66d5c3b366e1c8dc251e2856a02"
   license "BSD-3-Clause"
   head "https://gitlab.kitware.com/vtk/vtk.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:  "861af55635ecc3501cdbe94f6a839f2fe79590c58f21cd77a8e1e179b1444a71"
-    sha256 cellar: :any,                 arm64_ventura: "c5857daa338929a47c7e4ab43546f9f67b32c586ce6735cdfee2361a7daaa361"
-    sha256 cellar: :any,                 sonoma:        "e9f5ebec5dfedd9dddf72e1f21f2673176d648fab3bb302a2837880d49e0f10f"
-    sha256 cellar: :any,                 ventura:       "5ba7c66ce11cc1deca229c494590d162341d1baa02616342b89a3cf96a808c2f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cbd384a51a64c5e8d35297769d71f7f35087cf423b1c367e093be83fb426b8d4"
+    sha256 cellar: :any, arm64_sonoma:  "3d98178d03bda17cfc99b98fbf4ff4e4ef69f65d149e6cf4e5bbb4a3bd571d6d"
+    sha256 cellar: :any, arm64_ventura: "b3ca6551477ca951b025053442c2192aa9375cc2872f2439a2a7edcc7af885cd"
+    sha256 cellar: :any, sonoma:        "1b55ad498c0d7191412c3805b816e996a6339fd51873c4f90d2bf23f3ad885e6"
+    sha256 cellar: :any, ventura:       "bfd8e930e9e961638b401a2618acf2045c85c2f2656ffbbba5b23cdf67c16a34"
+    sha256               x86_64_linux:  "f03f5d6b65a4aee98a52723b9ee8f3c82e632828d3cf787f04abc55863e16288"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -46,19 +46,6 @@ class Vtk < Formula
   uses_from_macos "tcl-tk"
   uses_from_macos "zlib"
 
-  on_macos do
-    on_arm do
-      if DevelopmentTools.clang_build_version == 1316
-        depends_on "llvm" => :build
-
-        # clang: error: unable to execute command: Segmentation fault: 11
-        # clang: error: clang frontend command failed due to signal (use -v to see invocation)
-        # Apple clang version 13.1.6 (clang-1316.0.21.2)
-        fails_with :clang
-      end
-    end
-  end
-
   on_linux do
     depends_on "gl2ps"
     depends_on "libx11"
@@ -66,13 +53,22 @@ class Vtk < Formula
     depends_on "mesa"
   end
 
-  def install
-    # Work around problematic netCDF CMake file by forcing pkg-config fallback.
-    # Ref: https://github.com/Unidata/netcdf-c/issues/1444
-    odie "Try removing netCDF workaround!" if Formula["netcdf"].stable.version > "4.9.2"
-    inreplace "CMake/FindNetCDF.cmake", "find_package(netCDF CONFIG QUIET)", "# \\0"
+  # Apply Arch Linux patch to fix build with netcdf 4.9.3+
+  # Issue ref: https://gitlab.kitware.com/vtk/vtk/-/issues/19616
+  patch do
+    url "https://gitlab.archlinux.org/archlinux/packaging/packages/vtk/-/raw/b4d07bd7ee5917e2c32f7f056cf78472bcf1cec2/netcdf-4.9.3.patch"
+    sha256 "87535578bbb0023ede506fd64afae95cdf4fb698c543f9735e6267730634afbc"
+  end
 
-    ENV.llvm_clang if DevelopmentTools.clang_build_version == 1316 && Hardware::CPU.arm?
+  def install
+    # Work around superenv to avoid mixing `expat` usage in libraries across dependency tree.
+    # Brew `expat` usage in Python has low impact as it isn't loaded unless pyexpat is used.
+    # TODO: Consider adding a DSL for this or change how we handle Python's `expat` dependency
+    if OS.mac? && MacOS.version < :sequoia
+      env_vars = %w[CMAKE_PREFIX_PATH HOMEBREW_INCLUDE_PATHS HOMEBREW_LIBRARY_PATHS PATH PKG_CONFIG_PATH]
+      ENV.remove env_vars, /(^|:)#{Regexp.escape(Formula["expat"].opt_prefix)}[^:]*/
+      ENV.remove "HOMEBREW_DEPENDENCIES", "expat"
+    end
 
     python = "python3.13"
     qml_plugin_dir = lib/"qml/VTK.#{version.major_minor}"
@@ -127,15 +123,12 @@ class Vtk < Formula
   end
 
   test do
-    # Force use of Apple Clang on macOS that needs LLVM to build
-    ENV.clang if DevelopmentTools.clang_build_version == 1316 && Hardware::CPU.arm?
-
     vtk_dir = lib/"cmake/vtk-#{version.major_minor}"
     vtk_cmake_module = vtk_dir/"VTK-vtk-module-find-packages.cmake"
     assert_match Formula["boost"].version.to_s, vtk_cmake_module.read, "VTK needs to be rebuilt against Boost!"
 
     (testpath/"CMakeLists.txt").write <<~CMAKE
-      cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
+      cmake_minimum_required(VERSION 4.0 FATAL_ERROR)
       project(Distance2BetweenPoints LANGUAGES CXX)
       find_package(VTK REQUIRED COMPONENTS vtkCommonCore CONFIG)
       add_executable(Distance2BetweenPoints Distance2BetweenPoints.cxx)

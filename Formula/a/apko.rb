@@ -1,8 +1,8 @@
 class Apko < Formula
   desc "Build OCI images from APK packages directly without Dockerfile"
   homepage "https://github.com/chainguard-dev/apko"
-  url "https://github.com/chainguard-dev/apko/archive/refs/tags/v0.22.4.tar.gz"
-  sha256 "88abc448820157d020284268d69ad011e2312627b29cfeec18ab504639e6b5c3"
+  url "https://github.com/chainguard-dev/apko/archive/refs/tags/v0.25.6.tar.gz"
+  sha256 "bfd5187f39d4de73d2a53207d94bde96d69681644ba8ede1ec9f913958821db2"
   license "Apache-2.0"
   head "https://github.com/chainguard-dev/apko.git", branch: "main"
 
@@ -15,12 +15,12 @@ class Apko < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b2e989602dc890ef27eec947e741e94f130020abaa8f2fd15657e78562a659d5"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b2e989602dc890ef27eec947e741e94f130020abaa8f2fd15657e78562a659d5"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "b2e989602dc890ef27eec947e741e94f130020abaa8f2fd15657e78562a659d5"
-    sha256 cellar: :any_skip_relocation, sonoma:        "9665317dfc0afacd6c17e343584af2e91007dd66281ad4bc14f6c8a73e6d3eaa"
-    sha256 cellar: :any_skip_relocation, ventura:       "9665317dfc0afacd6c17e343584af2e91007dd66281ad4bc14f6c8a73e6d3eaa"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6332a774b0a108d506f56e8df017bbb3c7e405a15909d3f5cae4c49ef1b04d1b"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8d583b872a59c957f7cf8b12ad57224253b6340dc35a0166e5828f6524fab061"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8d583b872a59c957f7cf8b12ad57224253b6340dc35a0166e5828f6524fab061"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "8d583b872a59c957f7cf8b12ad57224253b6340dc35a0166e5828f6524fab061"
+    sha256 cellar: :any_skip_relocation, sonoma:        "cdfc15e2846f89d11c9417fc801e6efe8a677fa98bd9618b4d8807edf837e8ae"
+    sha256 cellar: :any_skip_relocation, ventura:       "cdfc15e2846f89d11c9417fc801e6efe8a677fa98bd9618b4d8807edf837e8ae"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d3b1c59a52002667dc886cc03e956797ea8f787dcb26b62e357a13c340b5f9fc"
   end
 
   depends_on "go" => :build
@@ -58,7 +58,7 @@ class Apko < Formula
         - riscv64
     YAML
     system bin/"apko", "build", testpath/"test.yml", "apko-alpine:test", "apko-alpine.tar"
-    assert_predicate testpath/"apko-alpine.tar", :exist?
+    assert_path_exists testpath/"apko-alpine.tar"
 
     assert_match version.to_s, shell_output(bin/"apko version 2>&1")
   end

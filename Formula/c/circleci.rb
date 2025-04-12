@@ -3,18 +3,18 @@ class Circleci < Formula
   homepage "https://circleci.com/docs/2.0/local-cli/"
   # Updates should be pushed no more frequently than once per week.
   url "https://github.com/CircleCI-Public/circleci-cli.git",
-      tag:      "v0.1.31151",
-      revision: "591d7b247869fc47c663fad2e756b9e45ca2a302"
+      tag:      "v0.1.31543",
+      revision: "5390914548a9937f3ef0d6d1070fbedcb162a4fc"
   license "MIT"
   head "https://github.com/CircleCI-Public/circleci-cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "dd7183aa43741eaf1215d725331567b28df0c3b79fe52300a71752e640fd7493"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "dd7183aa43741eaf1215d725331567b28df0c3b79fe52300a71752e640fd7493"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "dd7183aa43741eaf1215d725331567b28df0c3b79fe52300a71752e640fd7493"
-    sha256 cellar: :any_skip_relocation, sonoma:        "348f51f93f629eb708d2c81c11d297a48d5967d4e297dcf0c9df34ed13ba1d47"
-    sha256 cellar: :any_skip_relocation, ventura:       "348f51f93f629eb708d2c81c11d297a48d5967d4e297dcf0c9df34ed13ba1d47"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0bf2ab29b9d8d6418ddfbe1a26adb6d371ee623e3e6f86bc2f49c24531a5dae7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ad623eddec17fdd6b50264f6be170eb80d4e6a8cb6dc76485a2dcc9a43f5b81c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ad623eddec17fdd6b50264f6be170eb80d4e6a8cb6dc76485a2dcc9a43f5b81c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "ad623eddec17fdd6b50264f6be170eb80d4e6a8cb6dc76485a2dcc9a43f5b81c"
+    sha256 cellar: :any_skip_relocation, sonoma:        "ff7015d0268f8ce2adb918c792c46a8afe1c2aabb891be097d7f9536852e72db"
+    sha256 cellar: :any_skip_relocation, ventura:       "ff7015d0268f8ce2adb918c792c46a8afe1c2aabb891be097d7f9536852e72db"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bcf41e4802d824d483bbc0023aedcf2ed312672d90bb96d0bebb88dfcc8daa6f"
   end
 
   depends_on "go" => :build
@@ -22,7 +22,7 @@ class Circleci < Formula
   def install
     ldflags = %W[
       -s -w
-      -X github.com/CircleCI-Public/circleci-cli/version.packageManager=homebrew
+      -X github.com/CircleCI-Public/circleci-cli/version.packageManager=#{tap.user.downcase}
       -X github.com/CircleCI-Public/circleci-cli/version.Version=#{version}
       -X github.com/CircleCI-Public/circleci-cli/version.Commit=#{Utils.git_short_head}
       -X github.com/CircleCI-Public/circleci-cli/telemetry.SegmentEndpoint=https://api.segment.io

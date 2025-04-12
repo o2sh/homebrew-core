@@ -3,19 +3,20 @@ class SigmaCli < Formula
 
   desc "CLI based on pySigma"
   homepage "https://github.com/SigmaHQ/sigma-cli"
-  url "https://files.pythonhosted.org/packages/70/e8/6a4e6aa2875494af43483a37c1715039d42a0ba54cb1353db5c3ebfded69/sigma_cli-1.0.4.tar.gz"
-  sha256 "30db40f7b6ea1cff8da5c03668ee37326fa371fa343129455741a6b8b68d81b2"
+  url "https://files.pythonhosted.org/packages/7e/9a/6ad847f2e2ad0ac673839504a9aa1bf1b69f2c38265cf119a8b3d3dbf481/sigma_cli-1.0.5.tar.gz"
+  sha256 "7720244026fabf5bbd1ba37ae67b9cc1dc9d61a79320562d55e2228409b159e7"
   license "LGPL-2.1-or-later"
   revision 1
   head "https://github.com/SigmaHQ/sigma-cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "7f8083cf34d6448e0e342015a8fca502f0ff8833dd311ba16a2f93a909f6ed24"
-    sha256 cellar: :any,                 arm64_sonoma:  "5cbcf0140ec1a48e1813d7b16fbad8e12b9e55d34668cc23fbb100e8a43b0a2d"
-    sha256 cellar: :any,                 arm64_ventura: "1bef4969fef936b6174e2b4a4fd446cec1c26aaa82ac0b371bd0bdb9a2a985ca"
-    sha256 cellar: :any,                 sonoma:        "6bd62a6633329e125f5fdbc3b35fae5fa9e9aded71d30a63efe8d510a948c7e5"
-    sha256 cellar: :any,                 ventura:       "25da1fb930db48ae4223ec5ac53bc2d5d668e7495734b60ff6f000bb4fbe8c52"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b451f1e0f7bdff2173a5ecbe5127108d6f54cc4c4ea95245cd4fee7c130a40f1"
+    sha256 cellar: :any,                 arm64_sequoia: "4e5a5e2500a78686eb148ad2ec997f4b99093503b5efdc4b04127aaa0392b237"
+    sha256 cellar: :any,                 arm64_sonoma:  "6f5bc461b76f4c1960482d648e708839464a7c6b6a8dff911f4fb4365d5cb236"
+    sha256 cellar: :any,                 arm64_ventura: "8c884e0e252c3c76ea47a893de6689dd776913f9076875ccbf75b0e2dc23af70"
+    sha256 cellar: :any,                 sonoma:        "02a0c87e8d0b6b34c392a38d4f978818522f9ec3d4641cafaf6e0a174a8e85a5"
+    sha256 cellar: :any,                 ventura:       "d5dd6070e60661bd85e93b04ef7276d890e3cd826a11c8f6df66a178fc1e4cdd"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "73f0f5dd8e6fccb65845983467cda2e434e57e7c10a47d672f30e9aec1340464"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "85b48f3544a8b9111dc264ebfa6ebe09890fc1e7fe755a47b96b24c5acd1a6d9"
   end
 
   depends_on "certifi"
@@ -25,8 +26,8 @@ class SigmaCli < Formula
   conflicts_with "open-simh", because: "both install `sigma` binaries"
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/f2/4f/e1808dc01273379acc506d18f1504eb2d299bd4131743b9fc54d7be4df1e/charset_normalizer-3.4.0.tar.gz"
-    sha256 "223217c3d4f82c3ac5e29032b3f1c2eb0fb591b72161f86d93f5719079dae93e"
+    url "https://files.pythonhosted.org/packages/16/b0/572805e227f01586461c80e0fd25d65a2115599cc9dad142fee4b747c357/charset_normalizer-3.4.1.tar.gz"
+    sha256 "44251f18cd68a75b56585dd00dae26183e102cd5e0f9f1466e6df5da2ed64ea3"
   end
 
   resource "click" do
@@ -45,8 +46,8 @@ class SigmaCli < Formula
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/af/92/b3130cbbf5591acf9ade8708c365f3238046ac7cb8ccba6e81abccb0ccff/jinja2-3.1.5.tar.gz"
-    sha256 "8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb"
+    url "https://files.pythonhosted.org/packages/df/bf/f7da0350254c0ed7c72f3e33cef02e048281fec7ecec5f032d4aac52226b/jinja2-3.1.6.tar.gz"
+    sha256 "0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d"
   end
 
   resource "markupsafe" do
@@ -60,23 +61,35 @@ class SigmaCli < Formula
   end
 
   resource "prettytable" do
-    url "https://files.pythonhosted.org/packages/3b/8a/de4dc1a6098621781c266b3fb3964009af1e9023527180cb8a3b0dd9d09e/prettytable-3.12.0.tar.gz"
-    sha256 "f04b3e1ba35747ac86e96ec33e3bb9748ce08e254dc2a1c6253945901beec804"
+    url "https://files.pythonhosted.org/packages/38/95/78080e58efbdde46cda8d4498737bf9687839ed4a9744b068cc730a073ed/prettytable-3.15.1.tar.gz"
+    sha256 "f0edb38060cb9161b2417939bfd5cd9877da73388fb19d1e8bf7987e8558896e"
   end
 
   resource "pyparsing" do
-    url "https://files.pythonhosted.org/packages/8c/d5/e5aeee5387091148a19e1145f63606619cb5f20b83fccb63efae6474e7b2/pyparsing-3.2.0.tar.gz"
-    sha256 "cbf74e27246d595d9a74b186b810f6fbb86726dbf3b9532efb343f6d7294fe9c"
+    url "https://files.pythonhosted.org/packages/8b/1a/3544f4f299a47911c2ab3710f534e52fea62a633c96806995da5d25be4b2/pyparsing-3.2.1.tar.gz"
+    sha256 "61980854fd66de3a90028d679a954d5f2623e83144b5afe5ee86f43d762e5f0a"
   end
 
   resource "pysigma" do
-    url "https://files.pythonhosted.org/packages/fc/34/5d7bf067f4219f8634609ce30190ff51da96deb3ed6d675140a1a3c03601/pysigma-0.11.18.tar.gz"
-    sha256 "eb625590dbc9822bed9ad0d64cb42fb3df69581d98c0c87f674df255b1a617d7"
+    url "https://files.pythonhosted.org/packages/4c/e8/88fe64e0ff626362a366dddb5ba8229b087aec5b0fae5ec76ad5988830a0/pysigma-0.11.19.tar.gz"
+    sha256 "075df35e56f2128491f8ad501cc063d88d282879d37b50213fc6b5008fac8625"
+
+    # poetry 2.0 build patch, upstream pr ref, https://github.com/SigmaHQ/pySigma/pull/318
+    patch do
+      url "https://github.com/Homebrew/formula-patches/commit/d0361c3e94fd7020a2f94d0c2e1124a9371134e5.patch?full_index=1"
+      sha256 "bd6e4fb6d4d214a469902e350d7d9429ae44ee55cf1d43ba36085d17cd5824d3"
+    end
   end
 
   resource "pysigma-backend-sqlite" do
     url "https://files.pythonhosted.org/packages/72/63/e618d84f770f982afa5f8e99a93c99c48bd87992d1ba4cc961aab6ba15e9/pysigma_backend_sqlite-0.2.0.tar.gz"
     sha256 "0ff1bbb0165477e938e2951808ba348bd29803fd3fae5c4cbcd117532e622217"
+
+    # poetry 2.0 build patch, upstream pr ref, https://github.com/SigmaHQ/pySigma-backend-sqlite/pull/6
+    patch do
+      url "https://github.com/SigmaHQ/pySigma-backend-sqlite/commit/865350ce1a398acd7182f6f8429c3048db54ef1d.patch?full_index=1"
+      sha256 "aff54090de9eecf5e5c0d69abd3be294ca86eba6b2e58d0c574528bd6058bfc4"
+    end
   end
 
   resource "pyyaml" do
@@ -101,6 +114,8 @@ class SigmaCli < Formula
 
   def install
     virtualenv_install_with_resources
+
+    generate_completions_from_executable(bin/"sigma", shells: [:fish, :zsh], shell_parameter_format: :click)
   end
 
   test do
@@ -111,6 +126,6 @@ class SigmaCli < Formula
 
     # Only show compatible plugins
     output = shell_output("#{bin}/sigma plugin list --compatible")
-    refute_match "Datadog Cloud SIEM backend", output
+    refute_match "IBM QRadar backend", output
   end
 end

@@ -1,18 +1,19 @@
 class Kwctl < Formula
   desc "CLI tool for the Kubewarden policy engine for Kubernetes"
   homepage "https://www.kubewarden.io/"
-  url "https://github.com/kubewarden/kwctl/archive/refs/tags/v1.20.0.tar.gz"
-  sha256 "ae143c27b972b1584ba663a893857abfc21592904a777841410d2e426d7a8ef0"
+  url "https://github.com/kubewarden/kwctl/archive/refs/tags/v1.23.0.tar.gz"
+  sha256 "b995ae97914546f7a7ca179e0f838ab5bd7640bb261ae8ae842d181596ba1889"
   license "Apache-2.0"
   head "https://github.com/kubewarden/kwctl.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e88b18a341684051a293a2f63ab03accdfd472814f19fe177c6d8051b728ea77"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "36e92e0bca45b9a81b42f95f45e7b1c9903b424b0cc22de0b9d1d97ab29da259"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "554a99755aa9c3959476c407e4294e8c9dcf402a9a1093aba1ad906b0b5b5481"
-    sha256 cellar: :any_skip_relocation, sonoma:        "bfed61cee8a4e191deef588d238eebbf2e375241b3a55e56a77c9a4fc12056c7"
-    sha256 cellar: :any_skip_relocation, ventura:       "88bdd6d30f58fcb9337411264f5c00161b5cfa8d0b27fbc6261ce8de9d0e438a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4fe9f2dfa1be2bb6c22e8ce8844da8b7a29b0b777d4325155184b4dd1f1f5fad"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "11b659a467b66e49282aad02afcb8a9a199bff5a5ad43a4da90f06437158a09a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ac00a2ea56b231b35fdd2bce2dc9fa13c3e267376ebb978a6052c68f50b4f13b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "447899b3dcb16bde7186573bb0172e17f8d0e905f747196d88acb923b6e1f082"
+    sha256 cellar: :any_skip_relocation, sonoma:        "ee9a772417da33afba87f6f63ae6c6dd528e260c1296c61827166a75905e33ef"
+    sha256 cellar: :any_skip_relocation, ventura:       "a83b2ba4bbe7edf0d85f376d198a021fa919ea16c63d5772c1fe36df6b45dd0a"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "d7719bb9d7c524a9fce0fd79bf49dd6eb10d96de68955f4ba256abf6034d1340"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e9774e8db4e4bb91b5eff535aa99ac51ef6cbefdfe741db4d5c09562aad68f8c"
   end
 
   depends_on "rust" => :build

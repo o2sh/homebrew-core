@@ -1,10 +1,10 @@
 class MysqlAT80 < Formula
   desc "Open source relational database management system"
   homepage "https://dev.mysql.com/doc/refman/8.0/en/"
-  url "https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-boost-8.0.40.tar.gz"
-  sha256 "eb34a23d324584688199b4222242f4623ea7bca457a3191cd7a106c63a7837d9"
+  url "https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-boost-8.0.41.tar.gz"
+  sha256 "719589993b1a6769edb82b59f28e0dab8d47df94fa53ac4e9340b7c5eaba937c"
   license "GPL-2.0-only" => { with: "Universal-FOSS-exception-1.0" }
-  revision 5
+  revision 3
 
   livecheck do
     url "https://dev.mysql.com/downloads/mysql/8.0.html?tpl=files&os=src&version=8.0"
@@ -12,12 +12,13 @@ class MysqlAT80 < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "4980f38fe6d4eb8bf4d93cd9444434752c9b68d360fb5e45fa3c0903c88e9edc"
-    sha256 arm64_sonoma:  "3a8526f2947d0c2b853325c13e422ab237510b4268650cbe81eec9653d12e1b9"
-    sha256 arm64_ventura: "d48a3f4215deafffd7f1572e04d898749c16d560a4d8f9e4692d55cefbdf2cbd"
-    sha256 sonoma:        "da7ece595ed801cdfb47d315e41114afea68d082242767c5479475e880986ae5"
-    sha256 ventura:       "2c1dbb52e9b460b3c3168472a427b045c5d3b8016009fef106bec6177f453ed0"
-    sha256 x86_64_linux:  "e36b64f2b8e492b1fb462701b5583427179e9c6611087b89e83bef7bd5903f58"
+    sha256 arm64_sequoia: "1fbd8460bc91942d0b05c0a9d0e21aeea51a065e8c0c7663f7f14a383fa8a981"
+    sha256 arm64_sonoma:  "16d6545c42cab0284aa30bf0f8d5d6aedf5e6110b28d19d32b7dbc7ec005c5cc"
+    sha256 arm64_ventura: "ca5fbc203e55784ad0389b6270c94b6e1c981a2f290c68f8bf53ba23a5ba3a28"
+    sha256 sonoma:        "beebe9d9fb277f201ad4785865fada5d4081c84d06957449a5ee484da7f2fd0f"
+    sha256 ventura:       "38dcad38c4b6de7ffd5691ac2d4d0e2929ad42e47f5756e4d33db765b0549bee"
+    sha256 arm64_linux:   "d20b923fc901c86f13ba1b93b405933f1b04a0cf1666f7366b4f2e14c2cd7b77"
+    sha256 x86_64_linux:  "cd384407b3c449894acf701cec16ec04941cfacd78e45a84569520560bb0f993"
   end
 
   keg_only :versioned_formula
@@ -26,12 +27,12 @@ class MysqlAT80 < Formula
   depends_on "cmake" => :build
   depends_on "pkgconf" => :build
   depends_on "abseil"
-  depends_on "icu4c@76"
+  depends_on "icu4c@77"
   depends_on "libevent"
   depends_on "libfido2"
   depends_on "lz4"
   depends_on "openssl@3"
-  depends_on "protobuf"
+  depends_on "protobuf@29"
   depends_on "zlib" # Zlib 1.2.13+
   depends_on "zstd"
 
@@ -54,6 +55,12 @@ class MysqlAT80 < Formula
   end
 
   def install
+    # Remove bundled libraries other than explicitly allowed below.
+    # `boost` and `rapidjson` must use bundled copy due to patches.
+    # `lz4` is still needed due to xxhash.c used by mysqlgcs
+    keep = %w[libbacktrace lz4 rapidjson unordered_dense]
+    (buildpath/"extra").each_child { |dir| rm_r(dir) unless keep.include?(dir.basename.to_s) }
+
     # Disable ABI checking
     inreplace "cmake/abi_check.cmake", "RUN_ABI_CHECK 1", "RUN_ABI_CHECK 0" if OS.linux?
 
@@ -91,7 +98,7 @@ class MysqlAT80 < Formula
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
-    (prefix/"mysql-test").cd do
+    cd prefix/"mysql-test" do
       system "./mysql-test-run.pl", "status", "--vardir=#{buildpath}/mysql-test-vardir"
     end
 
@@ -105,13 +112,13 @@ class MysqlAT80 < Formula
     bin.install_symlink prefix/"support-files/mysql.server"
 
     # Install my.cnf that binds to 127.0.0.1 by default
-    (buildpath/"my.cnf").write <<~EOS
+    (buildpath/"my.cnf").write <<~INI
       # Default Homebrew MySQL server config
       [mysqld]
       # Only allow connections from localhost
       bind-address = 127.0.0.1
       mysqlx-bind-address = 127.0.0.1
-    EOS
+    INI
     etc.install "my.cnf"
   end
 
@@ -159,15 +166,35 @@ class MysqlAT80 < Formula
     (testpath/"mysql").mkpath
     (testpath/"tmp").mkpath
 
-    args = %W[--no-defaults --user=#{ENV["USER"]} --datadir=#{testpath}/mysql --tmpdir=#{testpath}/tmp]
-    system bin/"mysqld", *args, "--initialize-insecure", "--basedir=#{prefix}"
     port = free_port
-    fork { exec bin/"mysqld", *args, "--port=#{port}" }
-    sleep 5
+    socket = testpath/"mysql.sock"
+    mysqld_args = %W[
+      --no-defaults
+      --mysqlx=OFF
+      --user=#{ENV["USER"]}
+      --port=#{port}
+      --socket=#{socket}
+      --basedir=#{prefix}
+      --datadir=#{testpath}/mysql
+      --tmpdir=#{testpath}/tmp
+    ]
+    client_args = %W[
+      --port=#{port}
+      --socket=#{socket}
+      --user=root
+      --password=
+    ]
 
-    output = shell_output("#{bin}/mysql --port=#{port} --user=root --password= --execute='show databases;'")
-    assert_match "information_schema", output
-    system bin/"mysqladmin", "--port=#{port}", "--user=root", "--password=", "shutdown"
+    system bin/"mysqld", *mysqld_args, "--initialize-insecure"
+    pid = spawn(bin/"mysqld", *mysqld_args)
+    begin
+      sleep 5
+      output = shell_output("#{bin}/mysql #{client_args.join(" ")} --execute='show databases;'")
+      assert_match "information_schema", output
+    ensure
+      system bin/"mysqladmin", *client_args, "shutdown"
+      Process.kill "TERM", pid
+    end
   end
 end
 

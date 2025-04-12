@@ -1,19 +1,19 @@
 class Prqlc < Formula
   desc "Simple, powerful, pipelined SQL replacement"
   homepage "https://prql-lang.org"
-  url "https://github.com/PRQL/prql/archive/refs/tags/0.13.2.tar.gz"
-  sha256 "ee6b683a674d64c4a12893a6c926127e98481767ccb385a0f563dcc862bd199a"
+  url "https://github.com/PRQL/prql/archive/refs/tags/0.13.4.tar.gz"
+  sha256 "1d214df7827659e9573afc339078e421e326953f7954ba0cba0b996e0d110531"
   license "Apache-2.0"
   head "https://github.com/prql/prql.git", branch: "main"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e9233066bb8690613d46ff4337c28489d17d26eef557e540605f4edf073d8494"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "612382df672c86e91ab3bfd905175ac04898edf6f90110b5e69b97499305b107"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "797d0ecad3c02117082e1392d8febe2f3816a0d3a52b1f82fcc53b52c84735b2"
-    sha256 cellar: :any_skip_relocation, sonoma:        "d16beb8b2d71ee21bb79fe2a9012f59d355d11dd8dabce3b5d38509ff23a427d"
-    sha256 cellar: :any_skip_relocation, ventura:       "6962e491915d83e04e2baffd143ec649977aa179b9373c817b060189b5738a90"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e8a97686a8660a15460858df5725cf1b12a24b01f7f39c3e4a5ed075011e8fa1"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2b7e06cd44eb914925c510a1960a2dc4300256a8110e61a48c9376cc5db73f4d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1c415be246789f5c4f0186faff43375c7426b6a76c99f524ee8e613381ff28a9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "1bf53c05419ba357804e4e7860f7b890d175b81f6ee5c0ef480ca7a2e7bfdddc"
+    sha256 cellar: :any_skip_relocation, sonoma:        "9678c394ba845c4bac9f02060921cb912b7f273e983a5e29e222988445c75156"
+    sha256 cellar: :any_skip_relocation, ventura:       "ad5b425bcd4bca3cd7150d5f791b40e8101b080aa5ebb052a009be39355bb44d"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "389518823c39646ad75a842c27e22bb599b4c6959d530f869cd2feb6e78945c6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5d3c89c64c998f4d9d48a827e8bbb099105aef8201029df041faaf0345fd043a"
   end
 
   depends_on "rust" => :build

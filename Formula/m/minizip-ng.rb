@@ -1,20 +1,19 @@
 class MinizipNg < Formula
   desc "Zip file manipulation library with minizip 1.x compatibility layer"
   homepage "https://github.com/zlib-ng/minizip-ng"
-  url "https://github.com/zlib-ng/minizip-ng/archive/refs/tags/4.0.7.tar.gz"
-  sha256 "a87f1f734f97095fe1ef0018217c149d53d0f78438bcb77af38adc21dff2dfbc"
+  url "https://github.com/zlib-ng/minizip-ng/archive/refs/tags/4.0.9.tar.gz"
+  sha256 "353a9e1c1170c069417c9633cc94ced74f826319d6d0b46d442c2cd7b00161c1"
   license "Zlib"
   head "https://github.com/zlib-ng/minizip-ng.git", branch: "dev"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "d622ccfef83d7e940f3741faa660ea65a86b0b88607ad342c9cbf61b7d121908"
-    sha256 cellar: :any,                 arm64_sonoma:   "34b1969b53e8f3432499789af0defac42027c440e32ba1df2a3e31d6a8fd87c5"
-    sha256 cellar: :any,                 arm64_ventura:  "e03beb8fdeabfec130141c86e607020713357766aa2034a26eb373f82044c2bc"
-    sha256 cellar: :any,                 arm64_monterey: "0a74f9330b6f34afc554840df5214649e920b0669c2f4b70235cdb1423bb4e9e"
-    sha256 cellar: :any,                 sonoma:         "32999c125bdfb8e3e6f20a892f8c802ccddc192ed4b9e64f0cabfdbfe1d65f97"
-    sha256 cellar: :any,                 ventura:        "d9ebd676a4d2ad996b0f8d9de8a30ca045552edb4fa381698b37da3c8d7d5295"
-    sha256 cellar: :any,                 monterey:       "7e5f18ef56fe482184ace1a7686ea5d2d1e5423e92558c5b8c58566f53ee72d0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a2ed7856d5ac6319e6e9c09b86aded5d1361c2064296d0dda76c28be0f64692a"
+    sha256 cellar: :any,                 arm64_sequoia: "9f12f1afaa1a105cbfe42bc96fe718fdf39f6956b51ca32c76fe289c86b83ec0"
+    sha256 cellar: :any,                 arm64_sonoma:  "5ab0aabe48dd01af06bb1d5770249c847cba21c30ffcdd99a0c287aa31065fae"
+    sha256 cellar: :any,                 arm64_ventura: "a28efcc113a97d01e803a1e890a8cbcd3ed46d2bb741c552a27e6606add0b572"
+    sha256 cellar: :any,                 sonoma:        "21c01459a3b484979bc4b4826797406fc84d5ac521e006a92af50198d5beba9c"
+    sha256 cellar: :any,                 ventura:       "377c959bc7886683d6136582e6e2c896885d4f35db54741945ed87d9aee72ebd"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "d2b76c30613d858447ab1600102c90bdf721e9c130a72996cd46d2e944101f61"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0f50444e2682a6c74cc674b8e4d23623645a0240843d6511263da53d36a1e273"
   end
 
   depends_on "cmake" => :build
@@ -52,7 +51,8 @@ class MinizipNg < Formula
       #include <stdint.h>
       #include <time.h>
       #include "mz_zip.h"
-      #include "mz_compat.h"
+      #include "mz.h"
+      #include "zip.h"
       int main(void)
       {
         zipFile hZip = zipOpen2_64("test.zip", APPEND_STATUS_CREATE, NULL, NULL);

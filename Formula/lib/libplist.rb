@@ -1,6 +1,6 @@
 class Libplist < Formula
   desc "Library for Apple Binary- and XML-Property Lists"
-  homepage "https://www.libimobiledevice.org/"
+  homepage "https://libimobiledevice.org/"
   url "https://github.com/libimobiledevice/libplist/releases/download/2.6.0/libplist-2.6.0.tar.bz2"
   sha256 "67be9ee3169366589c92dc7c22809b90f51911dd9de22520c39c9a64fb047c9c"
   license "LGPL-2.1-or-later"
@@ -14,6 +14,7 @@ class Libplist < Formula
     sha256 cellar: :any,                 sonoma:         "1c3804cd5d0ffbc2c9e694609e889e0b26d7a87ce98ba5a884bb8c6406ecb59c"
     sha256 cellar: :any,                 ventura:        "c564322af66d7fc3edc4c7253f98785d203442ae5ca7402385d17f46caecffcf"
     sha256 cellar: :any,                 monterey:       "e836a4889c978fc1e799e6727c0e8776e93a5982637c99e72465f3f99983f27c"
+    sha256 cellar: :any_skip_relocation, arm64_linux:    "d486222beb045a10587113f6492dc983d088225c14c51fed64bf5113bdb27889"
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "1391edc27beba3ffd60197bcc649c13a2f42808e5b9dd0c9614438a457c4ad73"
   end
 

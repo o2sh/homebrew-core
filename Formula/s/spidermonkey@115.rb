@@ -1,9 +1,9 @@
 class SpidermonkeyAT115 < Formula
   desc "JavaScript-C Engine"
   homepage "https://spidermonkey.dev"
-  url "https://archive.mozilla.org/pub/firefox/releases/115.18.0esr/source/firefox-115.18.0esr.source.tar.xz"
-  version "115.18.0"
-  sha256 "2a79174f743caa1bffcc6f4e95e4642b0f36ab24cfa94e4dca0663e0d45c344c"
+  url "https://archive.mozilla.org/pub/firefox/releases/115.22.0esr/source/firefox-115.22.0esr.source.tar.xz"
+  version "115.22.0"
+  sha256 "f57b6507ab1db52183df2aadb1fd81d9f0108b185226d1bac6205b7d7d3005b3"
   license "MPL-2.0"
 
   # Spidermonkey versions use the same versions as Firefox, so we simply check
@@ -14,12 +14,13 @@ class SpidermonkeyAT115 < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sequoia: "ac5efe200d732f8698375165dd788d8030e39a62f069055966edcc50cf61d5ac"
-    sha256 cellar: :any, arm64_sonoma:  "fe7570f7aca00cad06b343a900d1c7dd36c449957394d6baa356e09bdae6237e"
-    sha256 cellar: :any, arm64_ventura: "c15376eab09e478ea144f6b2b062b61564a5fd7e24afbe8479e36cb33748fecc"
-    sha256 cellar: :any, sonoma:        "06daae4b712047cdd9f4901fb2f44d8c0773f8da60c9284e5374c26b9f3cfaa0"
-    sha256 cellar: :any, ventura:       "c6ccd1f907ac0ddfc352cb9fef18a8ea2312564b4fc66de6ec75e8ee5a46842e"
-    sha256               x86_64_linux:  "e693c7e42d1d6c034c079ac7276aae7238ccc058d12dea0223c4826ffc5698a0"
+    sha256 cellar: :any, arm64_sequoia: "238c04ed2a99a38f7dde51657f76753a8a1d40758e3e5e524c42303864209cd8"
+    sha256 cellar: :any, arm64_sonoma:  "581420592aa67ce63b02579d99f81130399d086db22b2fcfbee8e6a99c3e4c3a"
+    sha256 cellar: :any, arm64_ventura: "73cb87c91e9d059a71218c36ffd194a99fb2a512990a681ffef45dfc406a3c4e"
+    sha256 cellar: :any, sonoma:        "5eb778c67f6b734bc05be0c503ad021c50ed0bead89f730a533db7d7cf9e9386"
+    sha256 cellar: :any, ventura:       "5c89548fbbb33f39c2359aacc83f828ccc0189fc3ca7b567068bf3c9a826ed75"
+    sha256               arm64_linux:   "9c13d740d2344c2bc8dfaef636d59f74012cf0dc94b48f177fcb9472bfff0fd3"
+    sha256               x86_64_linux:  "cd710f663cfcf8b8c834d5b856db4b56e799145ba9e9138d3ffebe9f7bda5332"
   end
 
   disable! date: "2025-07-01", because: :versioned_formula
@@ -27,7 +28,7 @@ class SpidermonkeyAT115 < Formula
   depends_on "pkgconf" => :build
   depends_on "python@3.11" => :build # https://bugzilla.mozilla.org/show_bug.cgi?id=1857515
   depends_on "rust" => :build
-  depends_on "icu4c@76"
+  depends_on "icu4c@77"
   depends_on "nspr"
   depends_on "readline"
 

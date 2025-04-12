@@ -1,17 +1,18 @@
 class Tabiew < Formula
   desc "TUI to view and query tabular files (CSV,TSV, Parquet, etc.)"
   homepage "https://github.com/shshemi/tabiew"
-  url "https://github.com/shshemi/tabiew/archive/refs/tags/v0.8.0.tar.gz"
-  sha256 "d8f5a7ab8373d8cb1ca88a8d921f0ce0f44ff34bf5fdbf6afd170594ba28df9a"
+  url "https://github.com/shshemi/tabiew/archive/refs/tags/v0.8.5.tar.gz"
+  sha256 "08c94c1e531b53c99d9c1a3f7e9960337b869cfdf85fe547afdb1b3c9a6233d7"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f7d069010db1e45626e5030a24e0aa7e1f6ad88c3fab086192c5d57da47af0ba"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4136fff6f3096acf6b88fea482485b1a7345238a55d8951c1dd97ea4326257c1"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "f7d07e60d63797143f6605402c3c66643ed16344f777c28004e9b72c05af1244"
-    sha256 cellar: :any_skip_relocation, sonoma:        "12cb5e4e790977e75313bb9f1d5493a2ce295a0d4ba78769e04f7fc1dac3d300"
-    sha256 cellar: :any_skip_relocation, ventura:       "7d3a75f1edeec8a7f0416146d4ee822dc1b16a6c9db782c6175534009bcd95fd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "22dfb6af56911749a9e16ff4e925a0e37cca389402777f3a2f13fb36442c0fa6"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "29bc2f0daf42d093054cef911e80e6ff6da0b6eea96d158c0451135799014ad3"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e7cf91d8888ca58d1e3cb0423e2380ccf365f2d17603b93ef07db00b83b0878f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "965ee15895b913290d89c4a56a8feb695e10fedd42bb27c978391ac1efcb38bd"
+    sha256 cellar: :any_skip_relocation, sonoma:        "2340338678343c8e736ed0764faf5d957c6d0ee59f1d6cbec2b8b6ee498cae98"
+    sha256 cellar: :any_skip_relocation, ventura:       "3423f700e05347b9ab64d78cc0b3f255653efe88a9790f1c3cee81b40907e3c4"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "08676f5bc49b7658feb2a9ffb0f37bb423479a56837b64c9541363a45e5f6f3f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7243440074aa412b5fccd6e7457ef9e1cfa28258a41eed8129ca315724011250"
   end
 
   depends_on "rust" => :build
@@ -22,7 +23,7 @@ class Tabiew < Formula
     system "cargo", "install", *std_cargo_args
 
     man1.install "target/manual/tabiew.1" => "tw.1"
-    bash_completion.install "target/completion/tw.bash"
+    bash_completion.install "target/completion/tw.bash" => "tw"
     zsh_completion.install "target/completion/_tw"
     fish_completion.install "target/completion/tw.fish"
   end
@@ -43,9 +44,7 @@ class Tabiew < Formula
     sleep 1
     input.close
     sleep 2
-    File.open(testpath/"output.txt") do |f|
-      contents = f.read
-      assert_match "you think?", contents
-    end
+
+    assert_match "you think?", (testpath/"output.txt").read
   end
 end

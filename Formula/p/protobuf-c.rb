@@ -1,18 +1,18 @@
 class ProtobufC < Formula
   desc "Protocol buffers library"
   homepage "https://github.com/protobuf-c/protobuf-c"
-  url "https://github.com/protobuf-c/protobuf-c/releases/download/v1.5.0/protobuf-c-1.5.0.tar.gz"
-  sha256 "7b404c63361ed35b3667aec75cc37b54298d56dd2bcf369de3373212cc06fd98"
+  url "https://github.com/protobuf-c/protobuf-c/releases/download/v1.5.2/protobuf-c-1.5.2.tar.gz"
+  sha256 "e2c86271873a79c92b58fef7ebf8de1aa0df4738347a8bd5d4e65a80a16d0d24"
   license "BSD-2-Clause"
-  revision 15
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "033a048cdddc037263304cf5102be982d9e741fc4d136ffe1426d6126d57ed7e"
-    sha256 cellar: :any,                 arm64_sonoma:  "bba1e39e480fadac4356159e5c8e56eb8326ddb7a52b6c48278658bf1581ae24"
-    sha256 cellar: :any,                 arm64_ventura: "fdaa89466f4a97f60f728e6fc1e9da0cddf7f09a36c671c51e51cd49d7a0878c"
-    sha256 cellar: :any,                 sonoma:        "e39b6ef0b20522fa272e4be22ad59db2979c265389c32aebcd23058fa9d3a581"
-    sha256 cellar: :any,                 ventura:       "8aae4d62b96d329a10c46875847cc7947955c88c6965a1d01496636381cae706"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "175c871acb90fc795097e6b1383d06a44cc2a98bd49e9046f59307f4a620eeb9"
+    sha256 cellar: :any,                 arm64_sequoia: "a4c6dbe4ec1d26e23e6e64fcf119bf6b09c558fb4433a53be2e2de0e1ed6611a"
+    sha256 cellar: :any,                 arm64_sonoma:  "2c43aeeb810402ebfda6130aa5c542e039ef220430beff018ea5f882d2507ff9"
+    sha256 cellar: :any,                 arm64_ventura: "34f6256e4e965cb4feabad6f18797443f9b8828019e2a8952ae5e4d71a180b13"
+    sha256 cellar: :any,                 sonoma:        "3bf90fd0fb9e303a6c50b66e2ac116c30a81b45491b3345027f3ba6d0e87e841"
+    sha256 cellar: :any,                 ventura:       "7489118f2098d2374da1776d28924c0830a235ee20128383d0c7deae7ed7e04b"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "dae0763672aca79ff944c60ecb03b040c47f7e1f6be998f7c473977ba9d689fb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b145453b03874422ac9c7890113ae68c34c07d679ba05f47e2bab90b093a59e9"
   end
 
   head do
@@ -27,17 +27,6 @@ class ProtobufC < Formula
   depends_on "pkgconf" => :build
   depends_on "abseil"
   depends_on "protobuf"
-
-  # Apply commits from open PR to support Protobuf 26.
-  # PR ref: https://github.com/protobuf-c/protobuf-c/pull/711
-  patch do
-    url "https://github.com/protobuf-c/protobuf-c/commit/e3acc96ca2a00ef715fa2caa659f677cad8a9fa0.patch?full_index=1"
-    sha256 "3b564a971023d127bb7b666e5669f792c94766836ccaed5acfae3e23b8152d43"
-  end
-  patch do
-    url "https://github.com/protobuf-c/protobuf-c/commit/1b4b205d87b1bc6f575db1fd1cbbb334a694abe8.patch?full_index=1"
-    sha256 "6d02812445a229963add1b41c07bebddc3437fecb2a03844708512326fd70914"
-  end
 
   def install
     system "autoreconf", "--force", "--install", "--verbose" if build.head?

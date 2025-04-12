@@ -3,12 +3,12 @@ class GitMachete < Formula
 
   desc "Git repository organizer & rebase workflow automation tool"
   homepage "https://github.com/VirtusLab/git-machete"
-  url "https://files.pythonhosted.org/packages/ed/80/77d3aa3b4dc4d561aebdf8b92eea7d693f43312dd970cea79d2e05a2af56/git_machete-3.31.1.tar.gz"
-  sha256 "fdb3aeb8c1fe1fd8bcb362259a50e2c285a8aab29e84e598a1220d3b235960d7"
+  url "https://files.pythonhosted.org/packages/6e/b7/5971db7e34cbef60d0915372ba444e18f5dfb8c3d50788bdbecc7007e6d7/git_machete-3.34.0.tar.gz"
+  sha256 "3b700fa24f254d2690a7215c8025144bb4b4d09a627748d55231214c76cd14de"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "8193ac2d25a936fcbd72af0bbe8f5187487ceb4396b55f56dbdc44b7cc1f4b39"
+    sha256 cellar: :any_skip_relocation, all: "fbda93e510a7a8f294d28c2ef1d75b16d0b133eac02ed4c925ef6c398036582e"
   end
 
   depends_on "python@3.13"
@@ -18,8 +18,8 @@ class GitMachete < Formula
 
     man1.install "docs/man/git-machete.1"
 
-    bash_completion.install "completion/git-machete.completion.bash"
-    zsh_completion.install "completion/git-machete.completion.zsh"
+    bash_completion.install "completion/git-machete.completion.bash" => "git-machete"
+    zsh_completion.install "completion/git-machete.completion.zsh" => "_git-machete"
     fish_completion.install "completion/git-machete.fish"
   end
 

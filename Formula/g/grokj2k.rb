@@ -3,8 +3,8 @@ class Grokj2k < Formula
   homepage "https://github.com/GrokImageCompression/grok"
   # pull from git tag to get submodules
   url "https://github.com/GrokImageCompression/grok.git",
-      tag:      "v14.1.0",
-      revision: "959b0a770e41dc48d6117eb1d42b617d96a1c66c"
+      tag:      "v14.3.0",
+      revision: "1542410d2ee31c881ef46f491d613d7cea76e75b"
   license "AGPL-3.0-or-later"
   head "https://github.com/GrokImageCompression/grok.git", branch: "master"
 
@@ -14,12 +14,14 @@ class Grokj2k < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "ba1e24687f542b24303f5e0c04527d423b75a4aa1b72f02d749cd113cff94230"
-    sha256 cellar: :any,                 arm64_sonoma:  "629073681c8c45d47b16375e7e146c420972c26daad0a64c6165e55262cc7324"
-    sha256 cellar: :any,                 arm64_ventura: "fb54bb82c7c150803cb918f7a02a7532d523c57962c569ce3fe02fe981d43392"
-    sha256 cellar: :any,                 sonoma:        "6e347095705ec832a1e4c50591ed4807a70fec5e1a0af640483bf4c51e30df91"
-    sha256 cellar: :any,                 ventura:       "71eb59f63d77cdcb237ac9f6f52dca4492567029b7b79f823034394275604ca6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "aa70ca7b41fb65c7cf7bdecdaa7b1cce5444ec31310004000cfc92fbd6907010"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "5149d78f8c62ba15378406a5cf7069664610210b6217407a84f525b8d4f3a503"
+    sha256 cellar: :any,                 arm64_sonoma:  "77b72bff592cea45f9a58ac582c40936a40f43c5043a03f776c66ebcb243c4a8"
+    sha256 cellar: :any,                 arm64_ventura: "671bcbcd63e92dcec776dd40f283af775c20ac48b8db218df2bf434b1e2745bc"
+    sha256 cellar: :any,                 sonoma:        "9ced0cf80ece1940de03f7aa539c7ab8343cee8e180322bbd13746d715f47fb5"
+    sha256 cellar: :any,                 ventura:       "55af09dd82eabdd8ccdec7300c92598cc194f59d4f67c7f7dfd36abc99617c37"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "034279982c94fdf35fdd73e2e31f41a6a600494dbb722e070501013984970398"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "61435c3633d1ba62db43e0ade8388ed6fe95e4c6601ef6446223d1e9f2527cd4"
   end
 
   depends_on "cmake" => :build
@@ -56,7 +58,7 @@ class Grokj2k < Formula
     ENV.llvm_clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1200)
 
     # Fix: ExifTool Perl module not found
-    ENV.prepend_path "PERL5LIB", Formula["exiftool"].opt_libexec/"lib"
+    ENV.prepend_path "PERL5LIB", Formula["exiftool"].opt_libexec/"lib/perl5"
 
     # Ensure we use Homebrew libraries
     %w[liblcms2 libpng libtiff libz].each { |l| rm_r(buildpath/"thirdparty"/l) }

@@ -2,8 +2,8 @@ class Rdkit < Formula
   desc "Open-source chemoinformatics library"
   homepage "https://rdkit.org/"
   # NOTE: Make sure to update RPATHs if any "@rpath-referenced libraries" show up in `brew linkage`
-  url "https://github.com/rdkit/rdkit/archive/refs/tags/Release_2024_09_4.tar.gz"
-  sha256 "a5e8da75aae7e88f3a50d8577f9027c971187492a93a15085f797fe6fef74ad2"
+  url "https://github.com/rdkit/rdkit/archive/refs/tags/Release_2025_03_1.tar.gz"
+  sha256 "947e5aa004047fbec4bf4ba93b84a50ca7f68e248a0654080d8ca0cdb06e3534"
   license "BSD-3-Clause"
   head "https://github.com/rdkit/rdkit.git", branch: "master"
 
@@ -16,12 +16,13 @@ class Rdkit < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "c8f48f4b31a3376c13d8739b9dd52e5954d4b8a8bad18b5ea0783a8ef1d3587e"
-    sha256 cellar: :any,                 arm64_sonoma:  "8164206a12dbef541b5642f2427dd91be62c931dec2987740bde9516abdef16f"
-    sha256 cellar: :any,                 arm64_ventura: "7983d7fde5a0428f59ab746589067c12e58a22c11cdcc8f984905443b1a802bf"
-    sha256 cellar: :any,                 sonoma:        "fae97a066928949c14794288f909ac1469dac9d89c128a48130ad1ddf27fa342"
-    sha256 cellar: :any,                 ventura:       "41f1289dcc6d89321afcc273fd7d78a28ac23e84614c5059d9de1f93d63a8535"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "19a5b8696d46459c9955b2014f41b82b30bf86240512d945324b8f5caab00869"
+    sha256                               arm64_sequoia: "31da430cb2a456ebcb019cb543cee63d7a0232967b39b6c9349b4c362ff160c5"
+    sha256                               arm64_sonoma:  "1753ccd22f23a8a147e3fcbde494db9c7928b6d10265fba3ab995d4fb06630c3"
+    sha256                               arm64_ventura: "6fb21ed2d43af6d41308f256662f913398b7b531018b52e5b5e5bf83a991197a"
+    sha256                               sonoma:        "e2b96a28b8556d7049e4872bdc7c5943af61067f219186ceb6537fb9f500ae04"
+    sha256                               ventura:       "979c2e3a9e4b3dec317671290900e15b8c53db09b9eba8483f63a1d50ebd64dd"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "c7af3e8d1bf553e469ce35fe0f9d14dcebac0817b2b51f738dcc29bf594aa767"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0c31476e67fd2c0ca2b4a4f1b51c95e1b6d90bddc58a6e3b001bcaaf9c67041e"
   end
 
   depends_on "catch2" => :build
@@ -41,6 +42,11 @@ class Rdkit < Formula
   depends_on "py3cairo"
   depends_on "python@3.13"
 
+  resource "better_enums" do
+    url "https://github.com/aantron/better-enums/archive/refs/tags/0.11.3.tar.gz"
+    sha256 "1b1597f0aa5452b971a94ab13d8de3b59cce17d9c43c8081aa62f42b3376df96"
+  end
+
   def python3
     "python3.13"
   end
@@ -51,6 +57,8 @@ class Rdkit < Formula
   end
 
   def install
+    (buildpath/"better_enums").install resource("better_enums")
+
     python_rpath = rpath(source: lib/Language::Python.site_packages(python3))
     python_rpaths = [python_rpath, "#{python_rpath}/..", "#{python_rpath}/../.."]
     args = %W[
@@ -59,6 +67,7 @@ class Rdkit < Formula
       -DCMAKE_REQUIRE_FIND_PACKAGE_coordgen=ON
       -DCMAKE_REQUIRE_FIND_PACKAGE_maeparser=ON
       -DCMAKE_REQUIRE_FIND_PACKAGE_Inchi=ON
+      -DFETCHCONTENT_SOURCE_DIR_BETTER_ENUMS=#{buildpath}/better_enums
       -DINCHI_INCLUDE_DIR=#{Formula["inchi"].opt_include}/inchi
       -DRDK_INSTALL_INTREE=OFF
       -DRDK_BUILD_SWIG_WRAPPERS=OFF

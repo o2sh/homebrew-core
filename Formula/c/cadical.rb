@@ -1,8 +1,8 @@
 class Cadical < Formula
   desc "Clean and efficient state-of-the-art SAT solver"
   homepage "https://fmv.jku.at/cadical/"
-  url "https://github.com/arminbiere/cadical/archive/refs/tags/rel-2.1.1.tar.gz"
-  sha256 "6e6ad07dc833d2ae4f49115f9b92b5f78e4b1a9ef37f83f252dbc035c9d41850"
+  url "https://github.com/arminbiere/cadical/archive/refs/tags/rel-2.1.3.tar.gz"
+  sha256 "abfe890aa4ccda7b8449c7ad41acb113cfb8e7e8fbf5e49369075f9b00d70465"
   license "MIT"
 
   livecheck do
@@ -11,12 +11,13 @@ class Cadical < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "bcda9767eeeb92ee295e5ea771685921675abe36cd05fced553c42dee2ee42e2"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6eaa2bba5167b6886cc22cde377134970373454b8726b119567a3c1640e3e2d3"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "051ee3a2b14fd87fdb4677ff19c936a08b7a24ef35b0b240cd5f7419082f5822"
-    sha256 cellar: :any_skip_relocation, sonoma:        "bf1bba0754b2f75845bee0419c7a31b2f5b0c7b7513e87ce27b39822bc14e361"
-    sha256 cellar: :any_skip_relocation, ventura:       "9a4ca7ff7f647a65ff10c1cc21a765847fb23fba46f58890b09b789ea0579895"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9fd1ec6e2fd2f692e59cf687715c14d4c3b2c1853a6e345491c93392364403b7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "13599f5a5a95eca75c9cdac49ff39ed271834ec54068742d456b5a16db68d04e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e48caf86797f6b6d72afecdd0271e0d5665af282801e2fa556d3f86066a7fa76"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "4ad047a3437ab8c0c944c44c7cfa977704781bf69b176658a21324d4abf0a19e"
+    sha256 cellar: :any_skip_relocation, sonoma:        "c7d6caa39c55c9c21a1e4224d2bb754bbc31a617ae795f63a68986db92f83d2b"
+    sha256 cellar: :any_skip_relocation, ventura:       "f8b6bc085363d6e92db05d37cd4794a646ab858e8feb8f53d52845a3c1cee21c"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "3bd60910c6fe37fbbfe153494ef5d20d139c4afdcd242f356d7999243434c328"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8ccda8639207be39bbcf10f84c36c520c433379be429100d86e6dca26a21ac09"
   end
 
   def install

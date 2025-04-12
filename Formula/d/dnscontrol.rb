@@ -1,10 +1,11 @@
 class Dnscontrol < Formula
   desc "Synchronize your DNS to multiple providers from a simple DSL"
   homepage "https://dnscontrol.org/"
-  url "https://github.com/StackExchange/dnscontrol/archive/refs/tags/v4.15.2.tar.gz"
-  sha256 "c833598de612f7682f26927e8bc0d16f10e4a7e6c0e88ef0c3a69edc5efcd08d"
+  url "https://github.com/StackExchange/dnscontrol/archive/refs/tags/v4.18.0.tar.gz"
+  sha256 "ab1f228cdc87351754186000bcd9966f0bc1a1ccfc790aa61e9b103c944c4b3c"
   license "MIT"
   version_scheme 1
+  head "https://github.com/StackExchange/dnscontrol.git", branch: "main"
 
   # Upstream appears to use GitHub releases to indicate that a version is
   # released and they sometimes re-tag versions before that point, so it's
@@ -15,12 +16,12 @@ class Dnscontrol < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "737ab13083318c984745f98c5b4421ab7b7c3cded702eb1a7efd90d1b193e60b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "737ab13083318c984745f98c5b4421ab7b7c3cded702eb1a7efd90d1b193e60b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "737ab13083318c984745f98c5b4421ab7b7c3cded702eb1a7efd90d1b193e60b"
-    sha256 cellar: :any_skip_relocation, sonoma:        "a06c5925d74550224542920c25fe0f481c4b2bc09c9ed21cc7825ed56013d4c7"
-    sha256 cellar: :any_skip_relocation, ventura:       "a06c5925d74550224542920c25fe0f481c4b2bc09c9ed21cc7825ed56013d4c7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e91b7d07f8a74519ee04bba9198b8e29b2cf73441414136e9e46c4ef592577e7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6a547b724ca54639186b5d581915e50bde201771b85a4fbada775bc615bd4270"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6a547b724ca54639186b5d581915e50bde201771b85a4fbada775bc615bd4270"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "6a547b724ca54639186b5d581915e50bde201771b85a4fbada775bc615bd4270"
+    sha256 cellar: :any_skip_relocation, sonoma:        "7f6a6e88b0abc727070b7fcd19dc206820e086272ce5aa7c0e3a6bd7f5307fec"
+    sha256 cellar: :any_skip_relocation, ventura:       "7f6a6e88b0abc727070b7fcd19dc206820e086272ce5aa7c0e3a6bd7f5307fec"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4b3b15142d86a03606500a2057f453085890b0dde0dd2f7dd088fc9a8ad11357"
   end
 
   depends_on "go" => :build

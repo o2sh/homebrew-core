@@ -4,14 +4,16 @@ class Fastp < Formula
   url "https://github.com/OpenGene/fastp/archive/refs/tags/v0.24.0.tar.gz"
   sha256 "42445973c57be9209c753027e99781261c69381013813c576ad447e413ff3d04"
   license "MIT"
+  revision 2
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "b3ab9145befee1c91f94affcbff56639d42d51d0ca15968a77a03fe8f3470e34"
-    sha256 cellar: :any,                 arm64_sonoma:  "84d99c79412d7d1d4a7d0a28ce5c053539a0ece96d9895743c164231b88fbdd7"
-    sha256 cellar: :any,                 arm64_ventura: "c95133f539e6d2028c1dcfe77636746afc8b5cae83f62149e30645aecec8319e"
-    sha256 cellar: :any,                 sonoma:        "2fb9b68f0f5e6394ef0fc4f2e9f3f727169276d7036a8c5bf46b26a99680a5f4"
-    sha256 cellar: :any,                 ventura:       "7280ac0a603254ac8711bb1de17acd0c22fdc067de3ad806e3e74fd60fba439b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1b9af0aa2d7c574f3522b4ca8dfd39df425f995f0b9a09e7a3fb63adee9a5ff6"
+    sha256 cellar: :any,                 arm64_sequoia: "0b1857b6a337f7867d9d6aa0bb35d7698c9eef52b6055ef9d5c9a272d4cd10e6"
+    sha256 cellar: :any,                 arm64_sonoma:  "cbabdac6b39972a39ed5182be994809d66e06019e6f868ef1414ca6dc7e85554"
+    sha256 cellar: :any,                 arm64_ventura: "2db312fadbe52246448cc481e9a497e1a88c233b369e3fb4e57274451167d4ca"
+    sha256 cellar: :any,                 sonoma:        "edf65bd19025373896ee67537cf40753cb29eff691192e06b5ef1db0d07744ad"
+    sha256 cellar: :any,                 ventura:       "5fe76051073d69ce846aed31f01cceae1c32fdaf329b9ca2feec825434c6fd79"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "4bb59d6348fab36c97b7f9bcb50134a593623f179ee8e45661001fe5ebb1ab1b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a58d8f99ec2c14988a9ee2351feae042053d7d5e3e8266b8b9dda439f2172bbb"
   end
 
   depends_on "isa-l"
@@ -26,6 +28,6 @@ class Fastp < Formula
 
   test do
     system bin/"fastp", "-i", pkgshare/"testdata/R1.fq", "-o", "out.fq"
-    assert_predicate testpath/"out.fq", :exist?
+    assert_path_exists testpath/"out.fq"
   end
 end

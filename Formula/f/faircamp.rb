@@ -1,16 +1,16 @@
 class Faircamp < Formula
   desc "Static site generator for audio producers"
   homepage "https://codeberg.org/simonrepp/faircamp"
-  url "https://codeberg.org/simonrepp/faircamp/archive/1.0.0.tar.gz"
-  sha256 "bc26a17aba006b7d2988038ec3bb32e9d4741b384ec74810d0f8be93c4dcdee3"
+  url "https://codeberg.org/simonrepp/faircamp/archive/1.3.0.tar.gz"
+  sha256 "8bec1de6dc2ffac76df8d046f0c20556b6ff89a639be4cbb30847aefa76fa545"
   license "AGPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any, arm64_sequoia: "d26281f10e29298a54c6d2b2ad55538e32f9877829324ccdcfbcfa9a2fe221c2"
-    sha256 cellar: :any, arm64_sonoma:  "cf44be726136de7be80b3bca020b6a069b1144709212ce063d0c25bc68e5dfc8"
-    sha256 cellar: :any, arm64_ventura: "e51aab26d7cf96de3e363c786306549c90fbf10787f115b638e42ba88cd7167c"
-    sha256 cellar: :any, sonoma:        "34603ece2f7bb2347a48cee298f8904c210cc3e49be62d9eab7d883341cfae85"
-    sha256 cellar: :any, ventura:       "220533b5a1769f142a17f3d3e14b7cf8eb7bf720089b3641a2fe10308bc22e45"
+    sha256 cellar: :any, arm64_sequoia: "51a47d2cf95164e32913b9f8980de2adc553ea447680d399dda48edf6d076613"
+    sha256 cellar: :any, arm64_sonoma:  "d708eacb18bbe295ac0dd6fe40df9ce8c597a94d7f3d7db1a4b0272cbbd47645"
+    sha256 cellar: :any, arm64_ventura: "8f91ef5b65bbe15d7ebaa78f300f98a08cefa1ebe11ddce9effddcad74ec289d"
+    sha256 cellar: :any, sonoma:        "0279cddbcdf690847d7b66233906c8a5e0f1363611ecd23d2635288b686303bf"
+    sha256 cellar: :any, ventura:       "2a0b021105c831a5ab8589633f9338c15f4fb45e3b1a69606296860e6c5953eb"
   end
 
   depends_on "opus" => :build
@@ -38,8 +38,9 @@ class Faircamp < Formula
 
   test do
     # Check properly compiled with optional libvips feature
-    version_str = shell_output("#{bin}/faircamp --version").chomp
-    assert_match "faircamp #{version} (compiled with libvips)", version_str
+    output = shell_output("#{bin}/faircamp --version").chomp
+    assert_match version.to_s, output
+    assert_match "compiled with libvips", output
 
     # Check site generation
     catalog_dir = testpath/"Catalog"
@@ -55,9 +56,9 @@ class Faircamp < Formula
     assert_path_exists output_dir/"favicon.svg"
     assert_path_exists output_dir/"album"/"index.html"
     assert_path_exists output_dir/"album"/"cover_1.jpg"
-    assert_path_exists output_dir/"album"/"opus-96"/"ASINtk0hKII"/"01 Track01.opus"
-    assert_path_exists output_dir/"album"/"opus-96"/"uWPoxZFX0kQ"/"02 Track02.opus"
-    assert_path_exists output_dir/"album"/"mp3-v5"/"1syLQAjRlm8"/"01 Track01.mp3"
-    assert_path_exists output_dir/"album"/"mp3-v5"/"zh4GTzy3VT0"/"02 Track02.mp3"
+    assert_path_exists output_dir/"album"/"1"/"opus-96"/"8zjo5mMqlmM"/"01 Track01.opus"
+    assert_path_exists output_dir/"album"/"2"/"opus-96"/"visBSotimzQ"/"02 Track02.opus"
+    assert_path_exists output_dir/"album"/"1"/"mp3-v5"/"tbscAvvooxg"/"01 Track01.mp3"
+    assert_path_exists output_dir/"album"/"2"/"mp3-v5"/"d3t6L5fUbXg"/"02 Track02.mp3"
   end
 end

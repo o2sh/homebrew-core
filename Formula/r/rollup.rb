@@ -1,17 +1,18 @@
 class Rollup < Formula
   desc "Next-generation ES module bundler"
   homepage "https://rollupjs.org/"
-  url "https://registry.npmjs.org/rollup/-/rollup-4.29.1.tgz"
-  sha256 "653b9922b4d9a4872ad0c6e607e8f17fac4a1a8e7dccba882a4f976a28585f94"
+  url "https://registry.npmjs.org/rollup/-/rollup-4.40.0.tgz"
+  sha256 "c25de66498beddeb3dec3fb9511b88c79b2b9e53c37763a12f46ce2b46387580"
   license all_of: ["ISC", "MIT"]
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "ae9c4043ffcb3bbc40b211d6d2fc643585245a3a8ebab8b8a75aff698db6d8f7"
-    sha256 cellar: :any,                 arm64_sonoma:  "ae9c4043ffcb3bbc40b211d6d2fc643585245a3a8ebab8b8a75aff698db6d8f7"
-    sha256 cellar: :any,                 arm64_ventura: "ae9c4043ffcb3bbc40b211d6d2fc643585245a3a8ebab8b8a75aff698db6d8f7"
-    sha256 cellar: :any,                 sonoma:        "ccefd869f741a96a61736d9278cd651921907b2aa0873370ee1105ef71293f8a"
-    sha256 cellar: :any,                 ventura:       "ccefd869f741a96a61736d9278cd651921907b2aa0873370ee1105ef71293f8a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "356d327507f286abc0be4df5e008edc3ebb426e96d9eeb0f9ceb2d45c3cc79de"
+    sha256 cellar: :any,                 arm64_sequoia: "d7ffc1b40946bd3fa2d38f6dca297be124056e58bfaf52b8543b72540a58ca94"
+    sha256 cellar: :any,                 arm64_sonoma:  "d7ffc1b40946bd3fa2d38f6dca297be124056e58bfaf52b8543b72540a58ca94"
+    sha256 cellar: :any,                 arm64_ventura: "d7ffc1b40946bd3fa2d38f6dca297be124056e58bfaf52b8543b72540a58ca94"
+    sha256 cellar: :any,                 sonoma:        "9f76db576f4a9e785b853f9e37f285f5da7e1c008d1936774e8bdeafb9903c40"
+    sha256 cellar: :any,                 ventura:       "9f76db576f4a9e785b853f9e37f285f5da7e1c008d1936774e8bdeafb9903c40"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "29c4e4474e316a19270fbb839d98e963dab302c68064530bedb74b653032631b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "edae71106c74709d9008b016433917eb9891f46659ba27abeff63751c538ccd1"
   end
 
   depends_on "node"

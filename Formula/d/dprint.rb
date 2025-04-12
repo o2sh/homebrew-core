@@ -1,18 +1,19 @@
 class Dprint < Formula
   desc "Pluggable and configurable code formatting platform written in Rust"
   homepage "https://dprint.dev/"
-  url "https://github.com/dprint/dprint/archive/refs/tags/0.48.0.tar.gz"
-  sha256 "ef4c150c31dc3da7cecb8a192722784778499fbfc297b620b636ce088d6a6d0e"
+  url "https://github.com/dprint/dprint/archive/refs/tags/0.49.1.tar.gz"
+  sha256 "df019b295ff137ccaec3ad8c7a39282b485b6381ff5a3519ec18bd3d7c89ba72"
   license "MIT"
   head "https://github.com/dprint/dprint.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4d7f537231482b8eeb8542ff46256cb44cbeb20cba18d33ec06dd4544bb3b125"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4fe9111aa55a00563a99857d14229ab2432e1a63140c02d66c8ade5ac5112c72"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "cb1b10dbea113351df8653ee40188a3bd87550540c5c99df4f0f00d73864c677"
-    sha256 cellar: :any_skip_relocation, sonoma:        "39f058f2d96f2635aa936db41f0a1bec6312dc5418040092b30e4d419341a542"
-    sha256 cellar: :any_skip_relocation, ventura:       "1c92708f4d31eaff09a622dbbce5f43a5a3848e259f8914eb8b2c30696e641b7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e5ab8cbdab295ac93d4b9f1d7a23b3400cc0de20233737493bda3aa89d3a764f"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9b0e4b377e98ad778793484a3dff59f74b29906ccde4b94f52acafb9917195a7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "10a11ad7af71def0ba4b5a24c8aabc87563cbe745aa4b9899308e22ecbdbf844"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "4b317e6c03f9dbfb204b69c5600b46a480969b4754939d6790ba84ef504a5f21"
+    sha256 cellar: :any_skip_relocation, sonoma:        "76c79faf66dab060c0f8a12748640b27b4749751c52e61ec066120cc8e49e48b"
+    sha256 cellar: :any_skip_relocation, ventura:       "888304a28f1df47eb8dc5acbfe7c7ab7ea3ed82bf2dc01b8fa6e4cad48b3d526"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "1bcd8dba5722c9dd55148118451136d91948d2d641058a7b923e2b9436af151c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7408ff0f353f0797570b56ba614081abe5fbc553f97d11c4ef7b2f0b175c581c"
   end
 
   depends_on "rust" => :build

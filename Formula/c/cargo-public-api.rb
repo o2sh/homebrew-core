@@ -1,18 +1,19 @@
 class CargoPublicApi < Formula
   desc "List and diff the public API of Rust library crates"
   homepage "https://github.com/cargo-public-api/cargo-public-api"
-  url "https://github.com/cargo-public-api/cargo-public-api/archive/refs/tags/v0.42.0.tar.gz"
-  sha256 "cc6328f092fbf3896eee8f28c32e36420d5cca400d5fc18f43fc0932e05a7ba3"
+  url "https://github.com/cargo-public-api/cargo-public-api/archive/refs/tags/v0.47.0.tar.gz"
+  sha256 "4557a2d1017e2cb83cb9afc65654fd9d4602a8e92abfaa6f99a1f40ff80c00aa"
   license "MIT"
   head "https://github.com/cargo-public-api/cargo-public-api.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d6fb7758a1e0d0ddf055f42a9244794c2c6b8797aeebda9b659b2b28e899f4f8"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6c2ae65e24c70e29a01a9e418c46dd44041e323b327deadb211d68ac0a67f308"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "4b2d129303e9388ad71c6442fcd1c53f8625d7e246da4c01e2911741f3f7f186"
-    sha256 cellar: :any_skip_relocation, sonoma:        "39c0476c66f5338d1e539225ae4d0b5ef0e9cc5a232edccca74e0098343a2b0e"
-    sha256 cellar: :any_skip_relocation, ventura:       "747bed135e9ec87919deab7f35861639fca60be934c4df083b85e8a5afb17014"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "79610dff0462bc1ebedacf09a77eb0abd4ab47b71deb50a5c87d09685b715a41"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1f894595937a3cf35b508d3d023a9bdca1bba15f0ec3f454544a3632b7d7748b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3847e7ea0cfa8c6b9196c9d482119ceacbe3f2be395a3aa2959f6c4eba512d8d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "d5d75ef2bf46ae33f55a11547019adb1fa58bfd471937df4e4d795181cf6a708"
+    sha256 cellar: :any_skip_relocation, sonoma:        "93833eb1c063d0c8d84ccdd7719203d41db707b7f582ba3d067b567cfae17a11"
+    sha256 cellar: :any_skip_relocation, ventura:       "a9c8c826519f8fe57e22787c8c74ac26bd1ed806a3d464ef42196ade2965bade"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "fd8187f8fcac703d34d602757c3fadc5efeaa469e9fd8457d862f8391f66e2e2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2f3705d706ea068f436c3839daf51fdbd3fa8645c6850b95e69cb7cb84dc650b"
   end
 
   depends_on "pkgconf" => :build

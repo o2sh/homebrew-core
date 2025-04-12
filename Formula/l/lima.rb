@@ -1,18 +1,19 @@
 class Lima < Formula
   desc "Linux virtual machines"
   homepage "https://lima-vm.io/"
-  url "https://github.com/lima-vm/lima/archive/refs/tags/v1.0.3.tar.gz"
-  sha256 "c36e803f4faf41607220df4c1d7a61977a7d492facf03e0b67f1f69390840a90"
+  url "https://github.com/lima-vm/lima/archive/refs/tags/v1.0.7.tar.gz"
+  sha256 "90f682e96a370c342c3b16deb1858f37ee28ce88e888e1d6b2634ba24228fdbb"
   license "Apache-2.0"
   head "https://github.com/lima-vm/lima.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d5bbdf46683a37bcf7e966c9f5a91f2da620a80b9378f75b575ba32f288f6d5d"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8aeb0a3b7295f0c3e0c2a7a92a798a44397936e5bb732db825aee6da5e762d7a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "80f5e9fb07ed53da6675bb616a02dfd13f394a953cbe0fd5bd28ce3b7b072fe2"
-    sha256 cellar: :any_skip_relocation, sonoma:        "f675abee28d0f10f335f7a04dc6ad3de12434c83c2f0f32c913061204c137a94"
-    sha256 cellar: :any_skip_relocation, ventura:       "fe6dbf00e813c294ba0f1e8dc053d2aa6fbc8db83cdfa50ace2d81c5fe5e3346"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8ebdca67c4a83677827fab4b7bc393e3201ed5d807d5095a702c8977eb83debd"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7a99cf98dbfdbd0b3ad62f4d84640c5cfcef5242cbaa4b8d043c1d12c41809b0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "fd766f555146d659f9841554a8270e704156b48ae3502c584b0e1f4af076688a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "69ef12a79d1a2057073cdb7e659d6f903fc02cb816f49c856e032df853b549fa"
+    sha256 cellar: :any_skip_relocation, sonoma:        "bfabc4017b8412a0d6d69445c2a398a387af58c5b5c232542d07689d00e1c345"
+    sha256 cellar: :any_skip_relocation, ventura:       "2f04d37e54c94d413434f5e0ac74f52d7c2714df72f12198e86545b7aa71310d"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "b6385e14aa7c7b095f780d3143121353dd63383cac97f050e0b45e86ea7975ba"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7dee156f0206d0ddb735d4da04a1eeade34799dd9b5e37db32da404a14fb49cf"
   end
 
   depends_on "go" => :build

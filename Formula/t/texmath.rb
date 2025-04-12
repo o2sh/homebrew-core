@@ -1,18 +1,18 @@
 class Texmath < Formula
   desc "Haskell library for converting LaTeX math to MathML"
   homepage "https://johnmacfarlane.net/texmath.html"
-  url "https://hackage.haskell.org/package/texmath-0.12.8.12/texmath-0.12.8.12.tar.gz"
-  sha256 "0e05552aa651a438dcbb2b8357310ca7fae65110a071c27db6583528109d0583"
+  url "https://hackage.haskell.org/package/texmath-0.12.9/texmath-0.12.9.tar.gz"
+  sha256 "2e3454d672e69857c957d2b945b64de83a9f28b3c9f8d4beb6992fef3b908e17"
   license "GPL-2.0-or-later"
   head "https://github.com/jgm/texmath.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "bd840df921600e0cb272cc76300bc0cf14ad5c00f5e9049a23caed8677fab04e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "355ff48a8d1d3609f3db17c4a0172f71a4c34f3bb65e6e15523107e8072f18a3"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "7f4dc6add39c8c5dbcfe9a1f8d8b0f2c5fae582f23e1439595aa7ad0e56bf3df"
-    sha256 cellar: :any_skip_relocation, sonoma:        "726c61cef9d8ebdf17956e06860b5206b61a18086378e57f4af9f0159620ec53"
-    sha256 cellar: :any_skip_relocation, ventura:       "76f9552a8d4f4739e4beeb0e4ba0e33d6672f2704c7de7cdcfb3d4f7fa71cc2f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "487ce31931b9b1cb566a77d07a321e35c4bb8577e4accc1035ebece3a03db32a"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0e8ac8738583735b1ec82ff72b6f66f9cb8db5b5e092287b5d9cc2d987f30152"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f3a1807646b8a13d54cee2e8083d076399284177d3cfa5706fe050fd3d2765f2"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "19f1ff78f57aaefe59eb93c3791d95d066c41908655e3de0ac5194323ba20e24"
+    sha256 cellar: :any_skip_relocation, sonoma:        "65c689a50943c33ce98d0923c1565a9f2669e3e8f842f8ee1a47639a58aed74e"
+    sha256 cellar: :any_skip_relocation, ventura:       "d5573e3fae8d93d830f2e2fd29c2b430f7f32bc14b86a92c03fcee26340471a4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f1623d869fb7ae3b778353a8d2435e5ef979425d795e4bc0d11205e03d7860ae"
   end
 
   depends_on "cabal-install" => :build
@@ -20,10 +20,10 @@ class Texmath < Formula
 
   def install
     system "cabal", "v2-update"
-    system "cabal", "v2-install", *std_cabal_v2_args, "-fexecutable"
+    system "cabal", "v2-install", "--flags=executable", *std_cabal_v2_args
   end
 
   test do
-    assert_match "<mn>2</mn>", pipe_output(bin/"texmath", "a^2 + b^2 = c^2")
+    assert_match "<mn>2</mn>", pipe_output(bin/"texmath", "a^2 + b^2 = c^2", 0)
   end
 end

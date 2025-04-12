@@ -1,8 +1,8 @@
 class KosliCli < Formula
   desc "CLI for managing Kosli"
   homepage "https://docs.kosli.com/client_reference/"
-  url "https://github.com/kosli-dev/cli/archive/refs/tags/v2.11.5.tar.gz"
-  sha256 "d922d5a1cb060fc6550b81015c47e89465d9414a8eb035068b91b48a70709ba4"
+  url "https://github.com/kosli-dev/cli/archive/refs/tags/v2.11.11.tar.gz"
+  sha256 "7178f70892a309bf829565fe1655212e14049d7b62fe7a5e12ae2ef665b16d55"
   license "MIT"
   head "https://github.com/kosli-dev/cli.git", branch: "main"
 
@@ -12,12 +12,13 @@ class KosliCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6248dcd364de461823078c7c39028c01f74609831ed0e84feb56713c61816778"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f6654547dfae38c68b9d69944aa45771ac1f0d4c81ddd9171eb334d04e830371"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "c039432e54f6ffe54b1bf3e64005031a275754282d82c4159427178284990422"
-    sha256 cellar: :any_skip_relocation, sonoma:        "85f4f864dafb48f49965b13d8eb6693179f6677d88d54b9daf6a4a574c346854"
-    sha256 cellar: :any_skip_relocation, ventura:       "dd10aeb1354a811a1fd9f51bee361f5c6c47ea055a82dd1ede9dc69bc7765256"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0475bc758892c6db6ce6df746dfef1e1506a792795cb713491a702a95971a299"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7eba6acfeed1cccaad7f293e552de14f8d384b383bb3cbf130052865f9078a6d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "48fc66e43663f0d83f8063477b8756b22c55911cde53bdb8c1b1e45828205a48"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "72ac7041817d652d50c94ee7bdecbcea0bba205d0eb77ab61bbfe0356faced96"
+    sha256 cellar: :any_skip_relocation, sonoma:        "748e0bedf1313d9bceb66224f49f07a05abaecfa97853c2760052d1456d45783"
+    sha256 cellar: :any_skip_relocation, ventura:       "65f2a04472120752d8fa6f1abda224d507885d2bd6ea684678922c8f80c7c092"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "bb864a8815d8e389f05d2545c87eb2a24ceb0cd4e683ae9ec38e1a8286d0563e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "293fe4f2addefeb344fbcb7d3d8aeb9834ea8671c4d45145fda0dde1fe4b3c0b"
   end
 
   depends_on "go" => :build

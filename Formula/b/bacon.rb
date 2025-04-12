@@ -1,22 +1,28 @@
 class Bacon < Formula
   desc "Background rust code check"
   homepage "https://dystroy.org/bacon/"
-  url "https://github.com/Canop/bacon/archive/refs/tags/v3.7.0.tar.gz"
-  sha256 "c439767c6ec59ff91fddfdffd7581697c9db051d086c23e928633f73ae0f8533"
+  url "https://github.com/Canop/bacon/archive/refs/tags/v3.12.0.tar.gz"
+  sha256 "729d4672793369a2de7e120232e39c656f15745e4403cb7af6bafc17a6781b4c"
   license "AGPL-3.0-or-later"
   head "https://github.com/Canop/bacon.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1cdfadc26203028bd28810b9b5d6d3c092a64ab0923c7474f6511aa0907f5a0b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a25677036efa8b4be19e8ae3ed7d0e818e51431669109e97abe7baff97e201e7"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "36d37bee11be67380ac69d7b43f1099aa3c12265490e453bede17c06a02df253"
-    sha256 cellar: :any_skip_relocation, sonoma:        "9669f3a172984d7347da897541df9c797cdfe4ba5cfc3d7c02db1a61da6e9298"
-    sha256 cellar: :any_skip_relocation, ventura:       "8b270c281f8e77a87d01ad287d4ac2e87e737238ee6df41f55315043e8d1c4bc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "750ecb5f1838975eea1e9d402d51df6e91c1dd0b971b997459bd65356e25b165"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1938e8afa580247ae121c4a04fa55966ebf9dc1b03dd1b4af1bac58c154c969e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "23009702417125eb10fe54513b0d1a8ad2d961344c3849b4bd95074250d047ac"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "1fee05e3379620cd24a134b7dadc988969c33587ff4c683754b8d7f4cdb7d983"
+    sha256 cellar: :any_skip_relocation, sonoma:        "7ae982afd40edd0eb55179ce3b9c3bf3d1c363f67945eb32a2de3f20e5c22ef7"
+    sha256 cellar: :any_skip_relocation, ventura:       "3be5ae926f0cd88cdda979059a69f7e4c3ccb0837147c39de11878a2f1c204ec"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "8ce5cf7a45afd55c5ef30ea28ab12b7af68ee17a4a55fedb3de0eb1a39af1241"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "375c8f7853e306f9b914b7b340662bbdece1b5b39d9e766e1332cbfa36a4a0bf"
   end
 
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
   depends_on "rustup" => :test
+
+  on_linux do
+    depends_on "alsa-lib"
+  end
 
   def install
     system "cargo", "install", *std_cargo_args

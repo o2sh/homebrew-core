@@ -1,8 +1,8 @@
 class Loki < Formula
   desc "Horizontally-scalable, highly-available log aggregation system"
   homepage "https://grafana.com/loki"
-  url "https://github.com/grafana/loki/archive/refs/tags/v3.3.2.tar.gz"
-  sha256 "dd2e80ee40b981aaa414f528a76ab218931e5a53d50540e8fb9659f9e2446f43"
+  url "https://github.com/grafana/loki/archive/refs/tags/v3.4.3.tar.gz"
+  sha256 "00b6b671c1e5fbd52ab1fd014bb8a201d32fe01d9998a28d7dcc933a2c3e5f77"
   license "AGPL-3.0-only"
   head "https://github.com/grafana/loki.git", branch: "main"
 
@@ -12,22 +12,15 @@ class Loki < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5fd0beded217871d642e1f09eca8198cfff0e480b1851f1139fb2349e377d70b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "9536ea8a854152b333305728480ed1af59bf5a3ba9fa7fc76f1f27fb06fcd971"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "7dfd2b5f0f0b314654dd9298f2403212ac4abdaaad87e1ec1858532a63cfd54e"
-    sha256 cellar: :any_skip_relocation, sonoma:        "9d1d8c5232fd60805acabf75955e860a781a40de47171f3cd439ef71af255617"
-    sha256 cellar: :any_skip_relocation, ventura:       "685c61f7b828b0e6e37326001c10522533cc9d37341b6592cc44f3d0d23afeab"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "04d00ca11fc0cf92bb0493bb4f965410ba887c18399d4f276bff76259764aa65"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "92503584e00da8c2b8f1bf5b5c9e8f031c0177070a112ed2d3f09f2c7dbd8d56"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "545bb0f7881634f82e62456d35748a47dbe11096d9353de87ed3dcbb210c68a8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "2197674c9eb4e925cea20cb74f92a1c70503b4c291034d6b941584cc5cf77104"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e6c2d989284d7746703c015f40c40191bca554d9d8805ae238c34ed1387d77c0"
+    sha256 cellar: :any_skip_relocation, ventura:       "84e303f766d7a18ea9ea7a17c29c4d202c3764f22f0b7512f86cebddd3ce5599"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c4669c32f34a014871f4b005be1f4008b1b9dc12095623ee3ae714438c2d8c90"
   end
 
   depends_on "go" => :build
-
-  # Fix to yaml: unmarshal errors
-  # Issue ref: https://github.com/grafana/loki/issues/15039, upstream pr ref, https://github.com/grafana/loki/pull/15059
-  patch do
-    url "https://github.com/grafana/loki/commit/5c8542036609f157fee45da7efafbba72308e829.patch?full_index=1"
-    sha256 "733203854fa0dd828b74e291a72945a511a20b68954964ad56c815f118fc68d6"
-  end
 
   def install
     cd "cmd/loki" do

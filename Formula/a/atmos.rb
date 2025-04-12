@@ -1,17 +1,18 @@
 class Atmos < Formula
   desc "Universal Tool for DevOps and Cloud Automation"
   homepage "https://github.com/cloudposse/atmos"
-  url "https://github.com/cloudposse/atmos/archive/refs/tags/v1.133.0.tar.gz"
-  sha256 "ab20fbd7028f483b9889f13fa2e527deeff473561f27f05d29a62978dce8db84"
+  url "https://github.com/cloudposse/atmos/archive/refs/tags/v1.170.0.tar.gz"
+  sha256 "2fcf14200d079ec65876627083d4a28e4371d7bfc78f19bb76c4e858030bd62b"
   license "Apache-2.0"
+  head "https://github.com/cloudposse/atmos.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6bcbbca6308fae2ee3e3f2b2a55314f60b900a2014aa53e7e2155d4570bd5f1c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6bcbbca6308fae2ee3e3f2b2a55314f60b900a2014aa53e7e2155d4570bd5f1c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "6bcbbca6308fae2ee3e3f2b2a55314f60b900a2014aa53e7e2155d4570bd5f1c"
-    sha256 cellar: :any_skip_relocation, sonoma:        "b3790b8815381f9de1a21c1ec88039174d3044cf27857f40e6cca5f6e0d4b631"
-    sha256 cellar: :any_skip_relocation, ventura:       "b3790b8815381f9de1a21c1ec88039174d3044cf27857f40e6cca5f6e0d4b631"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "caa0bc1f4fdc63be0d5be1093fd4e791cf140403541a5e41c13e02531ba805a4"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2eb3b26664158b623078cf3dc47d060f6cc7a4d7eb448bd168bc45192edde2b5"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "540506fe3f0d1442cb291055db6d84f56ebc0d82b65f53ee14581f2e129d1c3a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "5e519ac6bb3d7b4eeef211a2f8ea2c7f125443a6c3b8e427fd06a6ede5307f41"
+    sha256 cellar: :any_skip_relocation, sonoma:        "7d2000d38d4d6a46f0f5b608cf17cab1dd4d8d07cd29a60b6abb51b84a35962f"
+    sha256 cellar: :any_skip_relocation, ventura:       "e83ecfc01fa0906025fe35f0ef43d750d4d6e8b834fc3508d4c119d86c2ed9c3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7b5a7ba317489c1871991c24277bb7ea1296a55ba2c1b278c6083bc4c22eb894"
   end
 
   depends_on "go" => :build
@@ -48,6 +49,7 @@ class Atmos < Formula
           - "**/*globals*"
         name_pattern: "{tenant}-{environment}-{stage}"
       logs:
+        file: "/dev/stderr"
         verbose: false
         colors: true
     YAML

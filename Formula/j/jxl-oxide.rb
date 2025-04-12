@@ -1,17 +1,18 @@
 class JxlOxide < Formula
   desc "JPEG XL decoder"
   homepage "https://github.com/tirr-c/jxl-oxide"
-  url "https://github.com/tirr-c/jxl-oxide/archive/refs/tags/0.11.0.tar.gz"
-  sha256 "035ebefb13e7dce5cc9517ada36b5e677df0d5da7c613695ab82983f9be96f0f"
+  url "https://github.com/tirr-c/jxl-oxide/archive/refs/tags/0.11.4.tar.gz"
+  sha256 "3a8ae80ef96c5784bb7136e8260565e7df6ec6ae09fa17c3037aa8fd7bba8e1a"
   license any_of: ["MIT", "Apache-2.0"]
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "e749b9f7c96dba73fb330ce26cff24f906b34e5cfe0fd10498ec63845fabf21e"
-    sha256 cellar: :any,                 arm64_sonoma:  "f9774319e324e44e0f981aa7f036ae8e4b3513cc2165b73eeea878eb9c1ef9e8"
-    sha256 cellar: :any,                 arm64_ventura: "6218e460376fc12cc3cccbbf554b23a66be0d6c959988e910d1ea383fd96aab0"
-    sha256 cellar: :any,                 sonoma:        "d7bd67d051f8ae7bbb518b6366882509121f4567101cc1d24563ff9655da8ba1"
-    sha256 cellar: :any,                 ventura:       "0e2dd6812957242a25ca607b957ac6dc522f1e08dc74f9b8370c1abca8d5c045"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d591c14976cf450c922e1e2198c501c07229e2d415eadfa4700169297ceb0ca0"
+    sha256 cellar: :any,                 arm64_sequoia: "3244cf5848e86466a3a539ebc41f7ce81e13350a5d2c020ae9bf21833d1aca7f"
+    sha256 cellar: :any,                 arm64_sonoma:  "3f62b55bbd1bd510100cdc622f90390f3de0d697dfa1bfc5fad585eff886b2c4"
+    sha256 cellar: :any,                 arm64_ventura: "ccaed443bc7841f418f013df84629899a839352e46e08a271900ed0ae445bbd1"
+    sha256 cellar: :any,                 sonoma:        "c88821bc2a078108f71ff5830ec8e9706e6393cd8ede41456d69e8e3103ce2ea"
+    sha256 cellar: :any,                 ventura:       "7fb0046d3316e5316560643e748a11b4163251df84b039142298c4b4ef4fb2f2"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "c4923559a0b40a4852053ff4149a60395114cbc5747c7e40314a6398eb05fcfe"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c410f2ad6d3e8bb92ffe3a1e7128419c9b150fb8ad03a3369f4a0658524c9fd8"
   end
 
   depends_on "rust" => :build
@@ -31,6 +32,6 @@ class JxlOxide < Formula
     resource("sunset-logo-jxl").stage do
       system bin/"jxl-oxide", "input.jxl", "-o", testpath/"out.png"
     end
-    assert_predicate testpath/"out.png", :exist?
+    assert_path_exists testpath/"out.png"
   end
 end

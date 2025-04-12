@@ -1,18 +1,19 @@
 class Broot < Formula
   desc "New way to see and navigate directory trees"
   homepage "https://dystroy.org/broot/"
-  url "https://github.com/Canop/broot/archive/refs/tags/v1.44.3.tar.gz"
-  sha256 "1b68c6d4a21974d5e3c14bf22e067607113afc3ea152b1ec225fe19ffe127348"
+  url "https://github.com/Canop/broot/archive/refs/tags/v1.45.1.tar.gz"
+  sha256 "3ce8dcfdc64f03e64547b4413c3d94f47003054aa3e779089393d3e8a7ed3837"
   license "MIT"
   head "https://github.com/Canop/broot.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1044c61939047537b1ae698dee5ae467572b86beff9c2848a9d135e68e63196d"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f8854e632a4e95e14b8181b8b040207317779eb9344d8ecdc75808ab2e9cd9ff"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "5b8e8dc79c6372dcda21dec16e08e25fc47df6444b2fe1d3df5909b1664d8c89"
-    sha256 cellar: :any_skip_relocation, sonoma:        "965330412f65373b144e10d239fd232d3970fb1b18ade87ea70670448cdba092"
-    sha256 cellar: :any_skip_relocation, ventura:       "826861b159bdef6b7f5d2787ee9773bc3efb4fb630317753db471ca128822723"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "374b87c3719a97ed366537bc3917fc77a1fbfe89501493c9c699e28ccb4e41ac"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "62d85c98412aadc2bd1a699769b987344e65fe9a4a791afb1a57c0d9d3017f3a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5d3c3a804e45ab882127a91611edab105e05143a7012d8ade12ccffb16a472e0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "9bb35b92804383340df669363d0fef9551fd97571ec8b8204e37f01857539222"
+    sha256 cellar: :any_skip_relocation, sonoma:        "556717270fcc451408eab99360a9e6103c37c89d59d36d6676e2827c102075fd"
+    sha256 cellar: :any_skip_relocation, ventura:       "f524d9ea25249b699603aea7fad1bca8b68845ff0061c5b5f896a2751ffd98fc"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "2105de7fed1d8b5a0cdc14dd9191d59d5c26a9491486ccb003de8cbf777c8684"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3354a07a72b42afe300bab20bd36a811a23c39e1636da38dc18e9da7b03753f9"
   end
 
   depends_on "rust" => :build
@@ -43,22 +44,23 @@ class Broot < Formula
   end
 
   test do
-    return if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]
-
     output = shell_output("#{bin}/broot --help")
     assert_match "lets you explore file hierarchies with a tree-like view", output
-
     assert_match version.to_s, shell_output("#{bin}/broot --version")
 
     require "pty"
     require "io/console"
-    PTY.spawn(bin/"broot", "-c", ":print_tree", "--color", "no", "--outcmd", testpath/"output.txt",
-                err: :out) do |r, w, pid|
+    PTY.spawn(bin/"broot", "-c", ":print_tree", "--color", "no", "--outcmd", testpath/"output.txt") do |r, w, pid|
       r.winsize = [20, 80] # broot dependency terminal requires width > 2
-      w.write "n\r"
-      assert_match "New Configuration files written in", r.read
-      Process.wait(pid)
+      w.write "n\r\n"
+      output = ""
+      begin
+        r.each { |line| output += line }
+      rescue Errno::EIO
+        # GNU/Linux raises EIO when read is done on closed pty
+      end
+      assert_match "New Configuration files written in", output
+      assert_predicate Process::Status.wait(pid), :success?
     end
-    assert_equal 0, $CHILD_STATUS.exitstatus
   end
 end

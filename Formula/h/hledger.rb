@@ -1,8 +1,8 @@
 class Hledger < Formula
   desc "Easy plain text accounting with command-line, terminal and web UIs"
   homepage "https://hledger.org/"
-  url "https://github.com/simonmichael/hledger/archive/refs/tags/1.41.tar.gz"
-  sha256 "627db83f148ea3c339cabd9aa9e4ab42d372ef56ab837e5d5539c75f8a82a30d"
+  url "https://github.com/simonmichael/hledger/archive/refs/tags/1.42.1.tar.gz"
+  sha256 "4f1f51b3a9881f8916ee560ef6d59256e4a7b3dc41805a5cb72d9e32e9a3609d"
   license "GPL-3.0-or-later"
   head "https://github.com/simonmichael/hledger.git", branch: "master"
 
@@ -15,15 +15,15 @@ class Hledger < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f4582cbc364d5ba4e13d2d0aa6e30e09a085b3c3922b0cd4188772be080f7156"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "04c8a0e49f67695e2719d5c0188d6e40e9e31a81b74cd7284998f644a1c08beb"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "93b4c915312a226e4c34ca7e91d2e03c27bf502ef93a1516b1b5ecc6c0de1102"
-    sha256 cellar: :any_skip_relocation, sonoma:        "3b888de72cd2f65abcc3c46d5216f2e80a519e08015a40322dff8b5e4a0f9fbc"
-    sha256 cellar: :any_skip_relocation, ventura:       "84c13d7ab6cfe65cee349cb595956d366bbed3ae748e548b7aed042b69e7c518"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7e06fa5f1bde15cf47f2671f6b5012731476dee82e05d79aa09ec383c44b3a95"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "3f5ab7f6bab85b88efaf347acef94c022b3641c2693571b43edc55cc1fcea88e"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b7f9ad75611a7c7a1e679936aebc6a102bf486de208220f32fb83793bdf2b43a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "cf2be7014cae8f431a444f602c87140f53f84442f50f091c062fb42220454f59"
+    sha256 cellar: :any_skip_relocation, sonoma:        "63f0dc6e1350138fbd4dc87d834e8e34541a6571af225c3f31046a2f996193e7"
+    sha256 cellar: :any_skip_relocation, ventura:       "7ce2d500f72423d8916c557d0eac3c484b4b43d29e0c83577e877381c35e1829"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dedee0b7c5e25ae0af2417c5594e11efd59c919856dc74dbcb3865b799eb7647"
   end
 
-  depends_on "ghc@9.8" => :build
+  depends_on "ghc@9.10" => :build
   depends_on "haskell-stack" => :build
 
   uses_from_macos "ncurses"

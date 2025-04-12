@@ -1,8 +1,8 @@
 class VulkanUtilityLibraries < Formula
   desc "Utility Libraries for Vulkan"
   homepage "https://github.com/KhronosGroup/Vulkan-Utility-Libraries"
-  url "https://github.com/KhronosGroup/Vulkan-Utility-Libraries/archive/refs/tags/v1.4.304.tar.gz"
-  sha256 "daaf71220fffe3988e79f229ae70fb0937e5d932cd176bccb6be0f946dd54c03"
+  url "https://github.com/KhronosGroup/Vulkan-Utility-Libraries/archive/refs/tags/v1.4.312.tar.gz"
+  sha256 "b16b407565036e06baa384ff005c90e674e7fbf13d44844bd754199328d98123"
   license "Apache-2.0"
   head "https://github.com/KhronosGroup/Vulkan-Utility-Libraries.git", branch: "main"
 
@@ -12,12 +12,14 @@ class VulkanUtilityLibraries < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e5afb5ff504974af0a0828aa1ed0ccc0174140aa4cdac398ac45e4ee0d19a8bf"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4c4a3023ea08794801f4b736dc615c13384c951a79628637621bf521976cfee6"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "a591da683a84240f1fcc04e718622feecf4f702f2e8678e817670a92639d3b07"
-    sha256 cellar: :any_skip_relocation, sonoma:        "a8f9766dd48e7e5d5a0f3c9343c19a0e0c646cdcd7dab7f36ca6906fa11736ec"
-    sha256 cellar: :any_skip_relocation, ventura:       "1d6858b4241703794b63f426a3c5bf1fdadb2b5b8b1c1d33d930a8cc909b2bcc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8ebdc101d2f033687bd644d7999bcf316718578f4d6a336e31f65fcf6d06f9eb"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a4134a6434f46c3d92076643d40324c124de1dc5d9a7427bb1e30f00f3198e03"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6648cdddda759b3316c4ca044e47485a4cc36f25a9f8796b40211c7da6336ec5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "48aee25ee85f2d6051ec0ba0e54c623334b2dd845dfa048b19fd8f7af8161248"
+    sha256 cellar: :any_skip_relocation, sequoia:       "2c6bd77393eae588d2f1b7105a40de5e340ea2d7d4a4cda8def0e2df8e64bfec"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f80f9e29ee21212e439b8bf67067a6e89ad87d75f65163303d7da26d298a7e16"
+    sha256 cellar: :any_skip_relocation, ventura:       "d1e9a160ab69f20fd4e25157a1f680d95a32d334b43ee6c1b2c9b6e602f0d3a2"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "75808fcd9949e8a43efc7674ee7ca3f25cef48ccd92c339d5d440982aee76b44"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "60b66ef0a0ea6b7ed34a534b7fb65d00411a0cb00885b0f0fdc9132544b69a0b"
   end
 
   depends_on "cmake" => :build

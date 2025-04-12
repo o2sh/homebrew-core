@@ -1,8 +1,8 @@
 class Joern < Formula
   desc "Open-source code analysis platform based on code property graphs"
   homepage "https://joern.io/"
-  url "https://github.com/joernio/joern/archive/refs/tags/v4.0.190.tar.gz"
-  sha256 "1c6dd4ff82a5c1b25ea53ae219c714b8a086f296c77e8ec4491bea549985a562"
+  url "https://github.com/joernio/joern/archive/refs/tags/v4.0.320.tar.gz"
+  sha256 "0ce966a9b56b272233a96c7517a9d5e528281f132d25c17cd83fb0f053442047"
   license "Apache-2.0"
 
   livecheck do
@@ -12,12 +12,13 @@ class Joern < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ce9438cfa23fd0e47b42c66e6418b184d9c808ac3c7aae1add7caab54f721229"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "45601d8d0270c642cd347c80a99133dafd9232c10ff8891e618f45508919ff83"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "1021ae1230ec9a7fdf1c72066658a8bc47ca3cc75e3a5efe833064e3d5124019"
-    sha256 cellar: :any_skip_relocation, sonoma:        "feedef1451be3bbf30135660e01ecb091c022f87da550f4bfc3f29e36c505974"
-    sha256 cellar: :any_skip_relocation, ventura:       "612d2d5c78e3a3286d94c0026d706d6615fa60a624943bbf920f3487baedb066"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4155212f9ef2386bd6fa94276ba7c5d21547ba7d1305f8b8f8d67fcb756cf50f"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5f35d8a8642aba0edcf405b7f50f5c6dacb364a08b127bc2aa264e2e5278b124"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "862fea168ee6504a041cd7bdf2dbe1235bed740c4371de8cf27b02bc85ffa8a1"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "862fea168ee6504a041cd7bdf2dbe1235bed740c4371de8cf27b02bc85ffa8a1"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5e5e2cd68edae36fffa47da09c725799a8a4f6570d8e87f2169beb8877f255c8"
+    sha256 cellar: :any_skip_relocation, ventura:       "56268a704e5e9295cbb8f0fe818b928221f15013495be23e1306b40ea412a73d"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "408da43e671f009c27350ad89d6f4d9ff1dc72bcf3cf9cdc8b4e2f796cd601de"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7ac7cfd3f2828659130811be2dfe82982d3f19e0f02004ef24562ac5472a847e"
   end
 
   depends_on "sbt" => :build
@@ -62,6 +63,6 @@ class Joern < Formula
     CPP
 
     assert_match "Parsing code", shell_output("#{bin}/joern-parse test.cpp")
-    assert_predicate testpath/"cpg.bin", :exist?
+    assert_path_exists testpath/"cpg.bin"
   end
 end

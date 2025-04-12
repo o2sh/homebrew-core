@@ -2,8 +2,8 @@ class Onnxruntime < Formula
   desc "Cross-platform, high performance scoring engine for ML models"
   homepage "https://github.com/microsoft/onnxruntime"
   url "https://github.com/microsoft/onnxruntime.git",
-      tag:      "v1.20.1",
-      revision: "5c1b7ccbff7e5141c1da7a9d963d660e5741c319"
+      tag:      "v1.21.0",
+      revision: "e0b66cad282043d4377cea5269083f17771b6dfc"
   license "MIT"
 
   livecheck do
@@ -12,12 +12,12 @@ class Onnxruntime < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "aec466ff3c136af218a5c53ddedcdf755a5affb8ea3e4a45a08ece660f997d16"
-    sha256 cellar: :any,                 arm64_sonoma:  "2eca70956aa47707dd4799edcd11bcdff642ddf55e9834b7e5f85986e595b2ea"
-    sha256 cellar: :any,                 arm64_ventura: "c93749fcaeecf6b64e8651de30352acd7d14f1926074a9186f2cf8be13dc82a0"
-    sha256 cellar: :any,                 sonoma:        "975557a04b1d91a9c335adae9c93e643b8987a1bd0cfdefdf340bdbaba16bbce"
-    sha256 cellar: :any,                 ventura:       "f8a9326453bff294371955a114734b6c465d4d55aa2af725a3b5ff6532d77fdd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "17c511a8d9e2967f6ef52b22bf88c83ccf42371716a5b2c3768bbfb536bd89ae"
+    sha256 cellar: :any,                 arm64_sequoia: "7274f49bd2b56ea21a92a81b83afbdd2576fa94ba5829cbd674f6bacefdf2484"
+    sha256 cellar: :any,                 arm64_sonoma:  "f0decf50d64c68d6cf3d91a540d14002cb7126cafe1e3e49dd3c0c04f3a7c5c4"
+    sha256 cellar: :any,                 arm64_ventura: "b38052bf7959968170b0397f226ca8a32912afc7ab8d919833c059620d4c4895"
+    sha256 cellar: :any,                 sonoma:        "e446360155e5c58a757cb142e76ab307272bcf037cfcc8630bfde8b7bf35d06d"
+    sha256 cellar: :any,                 ventura:       "87a8e6152b8f73557e2bda6ee7673c51565362b4a53e675502ac07528716ce55"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "450d2d06a7b3cf547d26410cec335198aaeb28530159e1fb9df58b96173e1d8e"
   end
 
   depends_on "boost" => :build
@@ -31,7 +31,7 @@ class Onnxruntime < Formula
   depends_on "abseil"
   depends_on "nsync"
   depends_on "onnx"
-  depends_on "protobuf@21" # https://github.com/microsoft/onnxruntime/issues/21308
+  depends_on "protobuf"
   depends_on "re2"
 
   # Need newer than stable `eigen` after https://github.com/microsoft/onnxruntime/pull/21492
@@ -39,31 +39,18 @@ class Onnxruntime < Formula
   #
   # https://github.com/microsoft/onnxruntime/blob/v#{version}/cmake/deps.txt#L25
   resource "eigen" do
-    url "https://gitlab.com/libeigen/eigen/-/archive/e7248b26a1ed53fa030c5c459f7ea095dfd276ac/eigen-e7248b26a1ed53fa030c5c459f7ea095dfd276ac.tar.bz2"
-    sha256 "a3f1724de1dc7e7f74fbcc206ffcaeba27fd89b37dc71f9c31e505634d0c1634"
+    url "https://gitlab.com/libeigen/eigen/-/archive/1d8b82b0740839c0de7f1242a3585e3390ff5f33/eigen-1d8b82b0740839c0de7f1242a3585e3390ff5f33.tar.bz2"
+    sha256 "37c2385d5b18471d46ac8c971ce9cf6a5a25d30112f5e4a2761a18c968faa202"
   end
 
-  # https://github.com/microsoft/onnxruntime/blob/v#{version}/cmake/deps.txt#L52
+  # https://github.com/microsoft/onnxruntime/blob/v#{version}/cmake/deps.txt#L51
   resource "pytorch_cpuinfo" do
-    url "https://github.com/pytorch/cpuinfo/archive/ca678952a9a8eaa6de112d154e8e104b22f9ab3f.tar.gz"
-    sha256 "c8f43b307fa7d911d88fec05448161eb1949c3fc0cb62f3a7a2c61928cdf2e9b"
-  end
-
-  # Backport fix for build on Linux
-  patch do
-    url "https://github.com/microsoft/onnxruntime/commit/4d614e15bd9e6949bc3066754791da403e00d66c.patch?full_index=1"
-    sha256 "76f9920e591bc52ea80f661fa0b5b15479960004f1be103467b219e55c73a8cc"
+    url "https://github.com/pytorch/cpuinfo/archive/8a1772a0c5c447df2d18edf33ec4603a8c9c04a6.tar.gz"
+    sha256 "37bb2fd2d1e87102baea8d131a0c550c4ceff5a12fba61faeb1bff63868155f1"
   end
 
   def install
     python3 = which("python3.13")
-
-    # Workaround to use brew `nsync`. Remove in future release with
-    # https://github.com/microsoft/onnxruntime/commit/88676e62b966add2cc144a4e7d8ae1dbda1148e8
-    inreplace "cmake/external/onnxruntime_external_deps.cmake" do |s|
-      s.gsub!(/ NAMES nsync unofficial-nsync$/, " NAMES nsync_cpp")
-      s.gsub!(/\bunofficial::nsync::nsync_cpp\b/, "nsync_cpp")
-    end
 
     resources.each do |r|
       (buildpath/"build/_deps/#{r.name}-src").install r
@@ -75,7 +62,7 @@ class Onnxruntime < Formula
       -DFETCHCONTENT_SOURCE_DIR_PYTORCH_CLOG=#{buildpath}/build/_deps/pytorch_cpuinfo-src
       -DFETCHCONTENT_TRY_FIND_PACKAGE_MODE=ALWAYS
       -DPYTHON_EXECUTABLE=#{python3}
-      -DONNX_CUSTOM_PROTOC_EXECUTABLE=#{Formula["protobuf@21"].opt_bin}/protoc
+      -DONNX_CUSTOM_PROTOC_EXECUTABLE=#{Formula["protobuf"].opt_bin}/protoc
       -Donnxruntime_BUILD_SHARED_LIB=ON
       -Donnxruntime_BUILD_UNIT_TESTS=OFF
       -Donnxruntime_GENERATE_TEST_REPORTS=OFF

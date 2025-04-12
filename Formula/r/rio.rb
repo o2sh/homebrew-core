@@ -1,8 +1,8 @@
 class Rio < Formula
   desc "Hardware-accelerated GPU terminal emulator powered by WebGPU"
   homepage "https://raphamorim.io/rio/"
-  url "https://github.com/raphamorim/rio/archive/refs/tags/v0.2.2.tar.gz"
-  sha256 "a334cc6c71621ff84aef70d5185caee663f0409ebf3942f7496c5ba6533188b2"
+  url "https://github.com/raphamorim/rio/archive/refs/tags/v0.2.12.tar.gz"
+  sha256 "1d2403c70fb1fe382e1849d5bb6d09a72eb6b76a0a551176dd247339a4f2940e"
   license "MIT"
   head "https://github.com/raphamorim/rio.git", branch: "main"
 
@@ -12,11 +12,11 @@ class Rio < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7074f4068734eefaa5ff08ad2496eb34d78825cb86d6d7091b57e4eac1f254f6"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "959781c65969a20abb90d2d5e6aad5ea75f3d15662c3825d95ee135250e796a8"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "90811ac1123c36b48961a863cb1fdd268a2da591720a51245b244d14290f204f"
-    sha256 cellar: :any_skip_relocation, sonoma:        "62fb690aa9ac6c849161db67ae0b7daa83fa44136bf501b12565fdc77d498075"
-    sha256 cellar: :any_skip_relocation, ventura:       "536ac8e9b21e2228ae7456ebc3415dffd53a3a5ae7191863574d78b328557de7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "92eff0d911ab241d56f665285833e252c775f0af163df0767b49f61dc9ed75c6"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a5c55ee098e55f5e49f6ff92989366d58a96db66922b78e927c618692abdc483"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "6e7e8aba4b847f8f005c334f9576603c56484e92ee5e3c8695958b74bb4326bb"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e4405f2b8759856f307e15fd3f4832f0b63cecd48aa73369fea88aa1f47d6c07"
+    sha256 cellar: :any_skip_relocation, ventura:       "a0a70301c5a3f98ec3d87cb303b187cffe018107ef5fe574947a3c1c13267039"
   end
 
   depends_on "rust" => :build
@@ -36,6 +36,6 @@ class Rio < Formula
     # which is the case of x86 in the CI
 
     system bin/"rio", "-e", "touch", testpath/"testfile"
-    assert_predicate testpath/"testfile", :exist?
+    assert_path_exists testpath/"testfile"
   end
 end

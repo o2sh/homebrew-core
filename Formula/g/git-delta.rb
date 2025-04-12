@@ -4,16 +4,17 @@ class GitDelta < Formula
   url "https://github.com/dandavison/delta/archive/refs/tags/0.18.2.tar.gz"
   sha256 "64717c3b3335b44a252b8e99713e080cbf7944308b96252bc175317b10004f02"
   license "MIT"
-  revision 1
+  revision 3
   head "https://github.com/dandavison/delta.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "7c6b8a8d5802e42770a3f5da3e276a3dcc2e8b7a6945c3f5e7e240e95274afe1"
-    sha256 cellar: :any,                 arm64_sonoma:  "aaaa87419f0ac6b1ca16345e9299b93a4c26646bdf7b27048b4789a68c38e785"
-    sha256 cellar: :any,                 arm64_ventura: "e1dd88715549906c8d75fda37aba45bebccc2feaa5152e8444739f80bf349fe6"
-    sha256 cellar: :any,                 sonoma:        "4800301c726f6b22a99a9f6f9294799e9ae2b7b4625c87fbb63890358c984aaa"
-    sha256 cellar: :any,                 ventura:       "ed18eb50a566ddbae43d7cfad0e090e8774a213ed3a6a7a7d3832c7e23a59469"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4ea94075ccecbdb82e38f3b57a2e08ec6c46958fd6f723c11c6515e359985b07"
+    sha256 cellar: :any,                 arm64_sequoia: "7c27a32de04509f9a25338f7cc4bafb70afd00f7cbea5da8c204a71c0f2a732b"
+    sha256 cellar: :any,                 arm64_sonoma:  "a6c8b820d16efadc9177575a7fb3a4a523156d025be6ab605a9309669171e63d"
+    sha256 cellar: :any,                 arm64_ventura: "ff3d53184c7906ef335c901fec639c8355f802644d025703b0b39c6b18b0727f"
+    sha256 cellar: :any,                 sonoma:        "e17a98613a20338c989370e9d6f456d526b5cfb3d9ba92ad9b6a48b409948ca0"
+    sha256 cellar: :any,                 ventura:       "c84810ecf79b524ce48078f5c7356385fd9dd00d79aeb6ce5f907d4e08264061"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "06c529b61898673d7b0537378247b4865402459abf6fb0967a5454f895796ba1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fbff34c88d3f5db15c4cb31935f6727e7fc2f682ae3a4e0ccd572685cd5c2fb5"
   end
 
   depends_on "pkgconf" => :build
@@ -23,10 +24,10 @@ class GitDelta < Formula
 
   uses_from_macos "zlib"
 
-  # support libgit2 1.8, https://github.com/dandavison/delta/pull/1930
+  # support libgit2 1.9, https://github.com/dandavison/delta/pull/1930
   patch do
-    url "https://github.com/dandavison/delta/commit/b90f249f7186696bb104cd992d705108373d216a.patch?full_index=1"
-    sha256 "a3b2839fe70c8a2452e016dff663791d42ad650f9169e210a6a8fe1a519e2939"
+    url "https://github.com/dandavison/delta/commit/9d6101e82a79daecfa9e81fa54c440b2e0442a33.patch?full_index=1"
+    sha256 "1967b73aeaba44cf96a3f2866d436449668028d6f8a6fa77dbc0d5c3c386c0cf"
   end
 
   def install

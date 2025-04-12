@@ -9,7 +9,9 @@ class Rpmspectool < Formula
   revision 2
 
   bottle do
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "998212959687c76fc3f7ce05de22cbf55a7db9e9c94d77fe0c5de4b9075c9360"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_linux:  "e88e0681a686b19b82467ed2d5f4cc3c42d35133ee03063695d51076c4d034aa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "4c77cc55ad2dd5ef71b1f0e6f962181198567a56ce65828e3ed2c18cafed4cb6"
   end
 
   depends_on "curl"
@@ -30,6 +32,9 @@ class Rpmspectool < Formula
 
   def install
     virtualenv_install_with_resources
+
+    generate_completions_from_executable(libexec/"bin/register-python-argcomplete", "rpmspectool",
+                                         shell_parameter_format: :arg)
   end
 
   test do
@@ -71,6 +76,6 @@ class Rpmspectool < Formula
       %_infodir/hello.info*
     EOS
     system bin/"rpmspectool", "get", testpath/"hello.spec"
-    assert_predicate testpath/"hello-2.12.1.tar.gz", :exist?
+    assert_path_exists testpath/"hello-2.12.1.tar.gz"
   end
 end

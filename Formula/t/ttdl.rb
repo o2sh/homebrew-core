@@ -1,17 +1,18 @@
 class Ttdl < Formula
   desc "Terminal Todo List Manager"
   homepage "https://github.com/VladimirMarkelov/ttdl"
-  url "https://github.com/VladimirMarkelov/ttdl/archive/refs/tags/v4.7.0.tar.gz"
-  sha256 "44a4e6e5405b8dc50438ebd77f321061193ad7c4265e765ee06f318ed1cedc65"
+  url "https://github.com/VladimirMarkelov/ttdl/archive/refs/tags/v4.10.0.tar.gz"
+  sha256 "b9c33fdd50ee87b344595b0ad4d3be8b5e957d15c8d5dcb27920d6447d6aa6f7"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d306adf5dbeff692b71e43ab4a73ac2ccf9d2a224da61718eff1bd5af5a5e50c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "024af50ec7c64aa8b6d5c6982fa9eba1f74370710594a4b6984655efc8c93313"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "a02311edb1e1fdd8d291a46c11ad32ca9bb054f69534efd99e11c974dae7ebb2"
-    sha256 cellar: :any_skip_relocation, sonoma:        "6520ad58b759666b1a4e0a5e031a1c0167595fd8aa0032418b3fd3a85592cfd6"
-    sha256 cellar: :any_skip_relocation, ventura:       "b055d677f287a900af32a150701cdfc6143fcfb64c75992e61ef328c8b544c1a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "490ad0602fcc31a0c81505a52482e6856b82930039d5176fdb0f42605fc7f983"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d0e4f062f4b3e4b5b3ed0608c994c4b9cdecb131953d95e5843658c0d7d84e49"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "31935477918fbc6cc07c3d5a895f4e87097a3e3db59b985f3f6b140a9dce55fd"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "163229b254068baadf2013a7fa954b03e97b3b3cb15ebbe79fe3cf3b25306930"
+    sha256 cellar: :any_skip_relocation, sonoma:        "41ccb16653f6631c42524f27fd645bc8209434046452b76d640fea39b85b1f00"
+    sha256 cellar: :any_skip_relocation, ventura:       "58eed2a7e8076d83c864ecc11cd88558e3b7340e2ae2f13f862fbceb1553a411"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "eaa7301861a3c586b094c1e6942cdaa3a8ca37acc427031c4c508724428fd6a8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "345d41d3234e07bd8b9f13499eeb0b8489354c440e8618acf340ebbc01f657ab"
   end
 
   depends_on "rust" => :build
@@ -22,7 +23,7 @@ class Ttdl < Formula
 
   test do
     assert_match "Added todo", shell_output("#{bin}/ttdl 'add readme due:tomorrow'")
-    assert_predicate testpath/"todo.txt", :exist?
+    assert_path_exists testpath/"todo.txt"
     assert_match "add readme", shell_output("#{bin}/ttdl list")
   end
 end

@@ -1,19 +1,12 @@
 class YamlLanguageServer < Formula
   desc "Language Server for Yaml Files"
   homepage "https://github.com/redhat-developer/yaml-language-server"
-  url "https://registry.npmjs.org/yaml-language-server/-/yaml-language-server-1.15.0.tgz"
-  sha256 "b93db2a985437355eb124d44ae60c0569f22cf19473eb0b6f41b8b0d7af579bd"
+  url "https://registry.npmjs.org/yaml-language-server/-/yaml-language-server-1.17.0.tgz"
+  sha256 "12e71607e11c3b62712904245cf3802a9013da74a5093c1ad39c1dca0352f0e1"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "e30f07eca51ae70cfe072524e2b9fcab31530959016c76be39dcfe2c25003a04"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "103e85d99f2823ce773ec29c4776b9d75ea2136b7e3b7937c74067ad81043d57"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "103e85d99f2823ce773ec29c4776b9d75ea2136b7e3b7937c74067ad81043d57"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "103e85d99f2823ce773ec29c4776b9d75ea2136b7e3b7937c74067ad81043d57"
-    sha256 cellar: :any_skip_relocation, sonoma:         "5f403dfb87069355b2cc18e4eb9c8883a83bb4f264cc84e6a8a521c9833939d9"
-    sha256 cellar: :any_skip_relocation, ventura:        "5f403dfb87069355b2cc18e4eb9c8883a83bb4f264cc84e6a8a521c9833939d9"
-    sha256 cellar: :any_skip_relocation, monterey:       "5f403dfb87069355b2cc18e4eb9c8883a83bb4f264cc84e6a8a521c9833939d9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f4c4e98bd5a4235676df5460cfbd8d32ca2ecd5d3b259553d433093e130636de"
+    sha256 cellar: :any_skip_relocation, all: "c31f79071701064a4f0c5b43c6636ed8d397a64312bb20386efb364164e0c291"
   end
 
   depends_on "node"

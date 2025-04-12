@@ -1,17 +1,17 @@
 class AwsCrtCpp < Formula
   desc "C++ wrapper around the aws-c-* libraries"
   homepage "https://github.com/awslabs/aws-crt-cpp"
-  url "https://github.com/awslabs/aws-crt-cpp/archive/refs/tags/v0.29.8.tar.gz"
-  sha256 "a693b1b6a802dd8bf0210cbb9f01fd58a95c851309a10a221e1ba7496b81384c"
+  url "https://github.com/awslabs/aws-crt-cpp/archive/refs/tags/v0.32.3.tar.gz"
+  sha256 "6f955f7d9a671d21da67ecda222ee70753c648f025207812229518e3ab2b242a"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "5bbb59a04e7b8054826bb04defab3f7edd15e1e271fc9a4ab406cbd1d8bb73ce"
-    sha256 cellar: :any,                 arm64_sonoma:  "97cfadd38d9947aa7e53d6c9d6a49ba7e9d384a5ef5c3b85fe61ca957e78ff1a"
-    sha256 cellar: :any,                 arm64_ventura: "340fa15f049ee6708d7d6815e487aeb771d4879699c0cc788e4cf02517b0bf03"
-    sha256 cellar: :any,                 sonoma:        "5c997697758a75acd684bf39457bd501d62aa29053a4d77ad4585a4ad25b9228"
-    sha256 cellar: :any,                 ventura:       "a8e2bb7b3490a6bdf5eba2898debfc14de67d96f0550447132860c93ee9d8028"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8308729f0abf172d241188a1311027dac56f1f012f2c25116c9f970d9dd62ee0"
+    sha256 cellar: :any,                 arm64_sequoia: "a5a35cbf85e430f05eec003461c190b9687594733b1cd0756921878046c9b622"
+    sha256 cellar: :any,                 arm64_sonoma:  "2a62c46dce60af8764bbcc6eb9c5b92fb80d3261d4551c923933f20ec189fa61"
+    sha256 cellar: :any,                 arm64_ventura: "3b61e1687fc11ea9c7e6f8b46fb7500bf10f471db518f960a2afbbb669d54188"
+    sha256 cellar: :any,                 sonoma:        "82edf6584546cc68602ecbd7fcab5249c3232c158312f4cb36c6212933a60ebe"
+    sha256 cellar: :any,                 ventura:       "461e08249db0169716c38001255d89d4b3c0fb89c7413fa08044b287c114613f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4da134ed3a40a927389e1bd47670c0bb0c2885064c8b9d6123c022e30536e5fa"
   end
 
   depends_on "cmake" => :build

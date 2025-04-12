@@ -1,32 +1,40 @@
 class ApacheArrow < Formula
   desc "Columnar in-memory analytics layer designed to accelerate big data"
   homepage "https://arrow.apache.org/"
-  url "https://www.apache.org/dyn/closer.lua?path=arrow/arrow-18.1.0/apache-arrow-18.1.0.tar.gz"
-  mirror "https://archive.apache.org/dist/arrow/arrow-18.1.0/apache-arrow-18.1.0.tar.gz"
-  sha256 "2dc8da5f8796afe213ecc5e5aba85bb82d91520eff3cf315784a52d0fa61d7fc"
   license "Apache-2.0"
-  revision 4
+  revision 3
   head "https://github.com/apache/arrow.git", branch: "main"
 
+  stable do
+    url "https://www.apache.org/dyn/closer.lua?path=arrow/arrow-19.0.1/apache-arrow-19.0.1.tar.gz"
+    mirror "https://archive.apache.org/dist/arrow/arrow-19.0.1/apache-arrow-19.0.1.tar.gz"
+    sha256 "acb76266e8b0c2fbb7eb15d542fbb462a73b3fd1e32b80fad6c2fafd95a51160"
+
+    # Backport support for LLVM 20
+    patch do
+      url "https://github.com/apache/arrow/commit/c124bb55d993daca93742ce896869ab3101dccbb.patch?full_index=1"
+      sha256 "249ec9d7bf33136080992cda4d47790d3b00cdf24caa3b0e3f95d4a4bb9fba3e"
+    end
+  end
+
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "365dbe9722456dbb3c41c13c8c939ae519008d60fd48a57d6e581290a540a83b"
-    sha256 cellar: :any,                 arm64_sonoma:  "37c4d21830e414964627268e60d558340bb4e84a236bd5559e00f742ecd4e170"
-    sha256 cellar: :any,                 arm64_ventura: "2ed61140c2acd7c800868228c7681403754cf3ce8b043feedc3bea8ff74ab433"
-    sha256 cellar: :any,                 sonoma:        "d5f91bce2a00954bcc433bcf2a63a46f77a62b454258e1fbabcaec3d3295a7fa"
-    sha256 cellar: :any,                 ventura:       "aa065ac9d32ada2f3017d8b0795a69d04fae9d3ca9a113442979089e290b6631"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a6d92852cdcbbdef86b35753634735d2d4c0abfd55628ad7b97dfe4d9c63cc2f"
+    sha256 cellar: :any,                 arm64_sequoia: "09dd6b12173701dbbefa75a850d7d1ee2eef7611e46f3defa2ba1f60179bb0b2"
+    sha256 cellar: :any,                 arm64_sonoma:  "32d41bb6a695b9d5bc7ab70c59519fdef495021bf66a60c53a209affe84e8fb0"
+    sha256 cellar: :any,                 arm64_ventura: "ef576b75ee40955a2a31e951d779c1a7dffa1f46d494180a2f76f3328f223bdf"
+    sha256 cellar: :any,                 sonoma:        "0b0ff31763614549f15221730f2930ec21b29130ac8b4a2ff3a88f74be857856"
+    sha256 cellar: :any,                 ventura:       "1b33d5a46e8d4152fa089548888c26891ac07784ae295c442188fe196bf3158e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3527eef2d7240e0b7087621d85bb3bb010a25e8ee6a0c498e99b36c505c6772f"
   end
 
   depends_on "boost" => :build
   depends_on "cmake" => :build
   depends_on "gflags" => :build
-  depends_on "ninja" => :build
   depends_on "rapidjson" => :build
   depends_on "xsimd" => :build
   depends_on "abseil"
+  depends_on "aws-crt-cpp"
   depends_on "aws-sdk-cpp"
   depends_on "brotli"
-  depends_on "c-ares"
   depends_on "grpc"
   depends_on "llvm"
   depends_on "lz4"
@@ -50,6 +58,10 @@ class ApacheArrow < Formula
 
   def install
     ENV.llvm_clang if OS.linux?
+
+    # upstream pr ref, https://github.com/apache/arrow/pull/44989
+    odie "Remove CMAKE_POLICY_VERSION_MINIMUM workaround!" if build.stable? && version > "19.0.1"
+    ENV["CMAKE_POLICY_VERSION_MINIMUM"] = "3.5"
 
     # We set `ARROW_ORC=OFF` because it fails to build with Protobuf 27.0
     args = %W[
@@ -79,10 +91,17 @@ class ApacheArrow < Formula
       -DARROW_WITH_UTF8PROC=ON
       -DARROW_INSTALL_NAME_RPATH=OFF
       -DPARQUET_BUILD_EXECUTABLES=ON
-      -GNinja
+      -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     ]
-
     args << "-DARROW_MIMALLOC=ON" unless Hardware::CPU.arm?
+    # Reduce overlinking. Can remove on Linux if GCC 11 issue is fixed
+    args << "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,#{OS.mac? ? "-dead_strip_dylibs" : "--as-needed"}"
+    # ARROW_SIMD_LEVEL sets the minimum required SIMD. Since this defaults to
+    # SSE4.2 on x86_64, we need to reduce level to match oldest supported CPU.
+    # Ref: https://arrow.apache.org/docs/cpp/env_vars.html#envvar-ARROW_USER_SIMD_LEVEL
+    if build.bottle? && Hardware::CPU.intel? && (!OS.mac? || !MacOS.version.requires_sse42?)
+      args << "-DARROW_SIMD_LEVEL=NONE"
+    end
 
     system "cmake", "-S", "cpp", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"

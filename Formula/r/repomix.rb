@@ -1,17 +1,18 @@
 class Repomix < Formula
   desc "Pack repository contents into a single AI-friendly file"
   homepage "https://github.com/yamadashy/repomix"
-  url "https://registry.npmjs.org/repomix/-/repomix-0.2.12.tgz"
-  sha256 "c9d9f71c82ef4e8c90948f87634c3d70ccb43c80111100478c9ad8cbe7acc412"
+  url "https://registry.npmjs.org/repomix/-/repomix-0.3.1.tgz"
+  sha256 "541a352c47322558996439f0b5551c9e18f4173e3cb9800ef6813e5332d3d413"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b2d21b5a94e4c2c2493fdf98e530fdd40022ddf9f8c6db7759f79c31b75d589c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b2d21b5a94e4c2c2493fdf98e530fdd40022ddf9f8c6db7759f79c31b75d589c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "b2d21b5a94e4c2c2493fdf98e530fdd40022ddf9f8c6db7759f79c31b75d589c"
-    sha256 cellar: :any_skip_relocation, sonoma:        "af4fd8841c8339566799810148a9c66461f9e5125753fd041509a388ce1ac2bf"
-    sha256 cellar: :any_skip_relocation, ventura:       "af4fd8841c8339566799810148a9c66461f9e5125753fd041509a388ce1ac2bf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cff9b616028e29089a6b1efe2bcc1b81cb1eacdaaf4b2aa35694ed819235b852"
+    sha256 cellar: :any,                 arm64_sequoia: "c243e8e09953934ff02d9272b91da3b096dc720111014b116a5d3c0283954491"
+    sha256 cellar: :any,                 arm64_sonoma:  "c243e8e09953934ff02d9272b91da3b096dc720111014b116a5d3c0283954491"
+    sha256 cellar: :any,                 arm64_ventura: "c243e8e09953934ff02d9272b91da3b096dc720111014b116a5d3c0283954491"
+    sha256 cellar: :any,                 sonoma:        "fbb781f816e3cc173e68dd50f7374b0e1bf862bdb133699f792fbcb77f8e90ff"
+    sha256 cellar: :any,                 ventura:       "fbb781f816e3cc173e68dd50f7374b0e1bf862bdb133699f792fbcb77f8e90ff"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "3ce369e450dbae8fcdf4247782600f8385da30dd5e2f5c72bc700b2db3775ac1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2278b623f378054f42d85124e60dd77bde85f0436cebec510fdfb5e988a71c0b"
   end
 
   depends_on "node"
@@ -40,7 +41,7 @@ class Repomix < Formula
     (testpath/"test_repo").mkdir
     (testpath/"test_repo/test_file.txt").write("Test content")
 
-    output = shell_output("#{bin}/repomix #{testpath}/test_repo")
+    output = shell_output("#{bin}/repomix --style plain --compress #{testpath}/test_repo")
     assert_match "Packing completed successfully!", output
     assert_match "This file is a merged representation of the entire codebase", (testpath/"repomix-output.txt").read
   end

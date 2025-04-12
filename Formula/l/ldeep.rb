@@ -3,18 +3,19 @@ class Ldeep < Formula
 
   desc "LDAP enumeration utility"
   homepage "https://github.com/franc-pentest/ldeep"
-  url "https://files.pythonhosted.org/packages/5d/0e/b6498e66f47d06eb65d919ca1b19c6ef737f4362e298edd536afd774d1fe/ldeep-1.0.78.tar.gz"
-  sha256 "4a29c50acd0a41297eafdd9439db2f2f74c35f28873e5a1ec0a3acbf15509bfd"
+  url "https://files.pythonhosted.org/packages/50/d1/03642f7fc3c1d71be0f319266f64002b6a3515d87675a5f06302147915ca/ldeep-1.0.84.tar.gz"
+  sha256 "6f04e50bf4424512d775d3e0e065744d563bfc4ba812faf874f639954efdb1be"
   license "MIT"
   head "https://github.com/franc-pentest/ldeep.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f8ed93c95f58e39a5604730273cc6733d83fba7a4d2e6b97ab9e7e581e8ab4bc"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "966be85a4e03ee7a31521db7848d93df07bfc3af7b503ded45f2a942f14981b0"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "c0c99824d48abe513f9aad036401836299af96cc160838b1d344e61611b7e1ad"
-    sha256 cellar: :any_skip_relocation, sonoma:        "b388b440ba1b74248c4998bdd2dfb74416836ae741380df740740082be032595"
-    sha256 cellar: :any_skip_relocation, ventura:       "2c3da88031f1ed03715ff7589ce83f21f36ddd00b90bb1652c623ba4edb015e8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4fafb38b6294472886fb07a2c1d129a90e60a42a0c1d64ef7ce80b7a91b3f840"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b835c13f23f0846ac6761be28e37fc18b576b0347486dbc16aea0812bcabd741"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "43459970f69ef0d8a2e391c3a71db936e954778a9776604ef2b40393d501dd16"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "375dd7343696f91299fffc23f59427a397144ce2e891d4d1ac88f232566b8990"
+    sha256 cellar: :any_skip_relocation, sonoma:        "fa793d9c6098a52d67a87b3105da861fd0af5b0867d236b6f70a450548194eaa"
+    sha256 cellar: :any_skip_relocation, ventura:       "fb9d4ad6677f70c42884cdc45da5f2399f74600459c31be3b37330783fb07c69"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "17f85fa5bf4cc5ea77d1284471b330928ba933cebba32edd2eba217babb26204"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3438f69c8db8b60df934daf6866a09966f24bc47b6f33da58762b4097d3e00da"
   end
 
   depends_on "cryptography"
@@ -33,8 +34,8 @@ class Ldeep < Formula
   end
 
   resource "decorator" do
-    url "https://files.pythonhosted.org/packages/66/0c/8d907af351aa16b42caae42f9d6aa37b900c67308052d10fdce809f8d952/decorator-5.1.1.tar.gz"
-    sha256 "637996211036b6385ef91435e4fae22989472f9d571faba8927ba8253acbc330"
+    url "https://files.pythonhosted.org/packages/43/fa/6d96a0978d19e17b68d634497769987b16c8f4cd0a7a05048bec693caa6b/decorator-5.2.1.tar.gz"
+    sha256 "65f266143752f734b0a7cc83c46f4618af75b8c5911b00ccb61d0ac9b6da0360"
   end
 
   resource "dnspython" do

@@ -3,18 +3,19 @@ class Sqlfluff < Formula
 
   desc "SQL linter and auto-formatter for Humans"
   homepage "https://docs.sqlfluff.com/"
-  url "https://files.pythonhosted.org/packages/6d/1f/d4d5f97110a917e01c4f5c921852eb11a3b69d6c5decdbb6ddd5658ccdcd/sqlfluff-3.3.0.tar.gz"
-  sha256 "ea0b752c0b8f4602a56fa5b381eb5c806799e4941df8fc0aad0842c9d4283e03"
+  url "https://files.pythonhosted.org/packages/e5/1d/2bdff48cfe61115ecec38ba5e64fcb74f446449aa88d4c1e5d98f8100bf7/sqlfluff-3.3.1.tar.gz"
+  sha256 "fbd877395ea597686421a5d453c6844243f1b4082563e05d20b36171804e459a"
   license "MIT"
   revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "830cbf051c2a2c8e4096c6b26e6e117279dbc10ef5bbf2145cc5fb9d8af0541a"
-    sha256 cellar: :any,                 arm64_sonoma:  "3b2dd1dc1306544b7c6a987b849220f01427cf7b0e53bc1fc1e8fc9e961eccac"
-    sha256 cellar: :any,                 arm64_ventura: "04e1c499d0f7f127a00255b283394e39b98315ff2b7c428437b922cf05151bd7"
-    sha256 cellar: :any,                 sonoma:        "f57c5f5c2f234f4ad22b6d182ac06357ff71f933bbbf2c2931e9d0b2ab0d3c3c"
-    sha256 cellar: :any,                 ventura:       "6038c8962a161f028c866b928c55a716dbbf68a91c01d7465b37d49dccc3b88b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e43497f373c045bfe70c60bf1092b6a7f0b8866820f34fbcc38eb9658f2fe2f7"
+    sha256 cellar: :any,                 arm64_sequoia: "1c22fe94c9e66c065a8b5044438f5fbdd16aa1e4ef4ced915d3c8d182066dec6"
+    sha256 cellar: :any,                 arm64_sonoma:  "72c273eac5d4436cea2ecd3222e2ca8535a7fc935f28c53c4a55ffb373f81ad7"
+    sha256 cellar: :any,                 arm64_ventura: "1c1dfc1a00b80c430f154928a3c5ad54fd7b937281d2280cc3b03cc49c4317f1"
+    sha256 cellar: :any,                 sonoma:        "a01c10a0ff30e16202a5a62bf4caf5d2ce76053d9ad7dfe053061e2c43a6433c"
+    sha256 cellar: :any,                 ventura:       "967b723b4a6109309a6450f251fc5210939fdbbb9676a9428f52f4fb2fee49c7"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "a21f357bb8abc6915e7714ee03be7925411593d107938b5460a03c69d37f48e6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "079b5e4a30ba4e2100aa473c49c36f2b8feb5b80b29d819ad97800a833153ff5"
   end
 
   depends_on "libyaml"
@@ -36,8 +37,8 @@ class Sqlfluff < Formula
   end
 
   resource "diff-cover" do
-    url "https://files.pythonhosted.org/packages/36/b0/f3ccf97926f6e5cc76d5ece42f3c685d75673d1886fcec62886b8b00c51a/diff_cover-9.2.1.tar.gz"
-    sha256 "5fa5b2d71ccf5d16cd222a71c2ca069d9bf5fa3d657f6fac9b4d9c23379323bf"
+    url "https://files.pythonhosted.org/packages/27/03/9b78acb6ccd661a7679776885eda642ad33061697f054516324c0526c906/diff_cover-9.2.3.tar.gz"
+    sha256 "342e92128e6236b1adee2ddb4e6cbc1d470465c14829cfc64c4cdae581115f3b"
   end
 
   resource "iniconfig" do
@@ -46,8 +47,8 @@ class Sqlfluff < Formula
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/af/92/b3130cbbf5591acf9ade8708c365f3238046ac7cb8ccba6e81abccb0ccff/jinja2-3.1.5.tar.gz"
-    sha256 "8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb"
+    url "https://files.pythonhosted.org/packages/df/bf/f7da0350254c0ed7c72f3e33cef02e048281fec7ecec5f032d4aac52226b/jinja2-3.1.6.tar.gz"
+    sha256 "0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d"
   end
 
   resource "markupsafe" do
@@ -76,13 +77,13 @@ class Sqlfluff < Formula
   end
 
   resource "pygments" do
-    url "https://files.pythonhosted.org/packages/8e/62/8336eff65bcbc8e4cb5d05b55faf041285951b6e80f33e2bff2024788f31/pygments-2.18.0.tar.gz"
-    sha256 "786ff802f32e91311bff3889f6e9a86e81505fe99f2735bb6d60ae0c5004f199"
+    url "https://files.pythonhosted.org/packages/7c/2d/c3338d48ea6cc0feb8446d8e6937e1408088a72a39937982cc6111d17f84/pygments-2.19.1.tar.gz"
+    sha256 "61c16d2a8576dc0649d9f39e089b5f02bcd27fba10d8fb4dcc28173f7a45151f"
   end
 
   resource "pytest" do
-    url "https://files.pythonhosted.org/packages/05/35/30e0d83068951d90a01852cb1cef56e5d8a09d20c7f511634cc2f7e0372a/pytest-8.3.4.tar.gz"
-    sha256 "965370d062bce11e73868e0335abac31b4d3de0e82f4007408d242b4f8610761"
+    url "https://files.pythonhosted.org/packages/ae/3c/c9d525a414d506893f0cd8a8d0de7706446213181570cdbd766691164e40/pytest-8.3.5.tar.gz"
+    sha256 "f4efe70cc14e511565ac476b57c279e12a855b11f48f212af1080ef2263d3845"
   end
 
   resource "pyyaml" do

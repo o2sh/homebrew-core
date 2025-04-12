@@ -1,24 +1,31 @@
 class ProtocGenGrpcJava < Formula
   desc "Protoc plugin for gRPC Java"
   homepage "https://grpc.io/docs/languages/java/"
-  url "https://github.com/grpc/grpc-java/archive/refs/tags/v1.69.0.tar.gz"
-  sha256 "5c3178f118190d73f52460d671c7b6fc42249b7b5890d228ce422f2ca20b1a68"
+  url "https://github.com/grpc/grpc-java/archive/refs/tags/v1.71.0.tar.gz"
+  sha256 "2942a56b794479a0bc1c0e69039c9ae615f1cb39d0e3af12af35c0eb3bd73fdf"
   license "Apache-2.0"
-  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "f7233bee8aa11c24b84b5b12c0d653059a2a8beb4cb09a4b4d1fbfba3fbdfb4e"
-    sha256 cellar: :any,                 arm64_sonoma:  "a5d03b39175152b3de075a3f91d30bbee7fcf75e8ab9349fd7d22bfb946702ec"
-    sha256 cellar: :any,                 arm64_ventura: "cbfbef34610db941d0acd3a43ca4e752c3f37d07e51f809c10233a3d944cd87a"
-    sha256 cellar: :any,                 sonoma:        "25ef38649ae0edd15660ceefb79d572d3a395773d2610f7aad8e6176a324de1e"
-    sha256 cellar: :any,                 ventura:       "b653b716fc88a1b77704fba7f7d125e0161c246906df07fb2e9f34b4ca766433"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f8af80522f0d63166dc2055170fb94dd98b2e67a278c541650757ccf34888fe3"
+    sha256 cellar: :any,                 arm64_sequoia: "eddb7acbcc4edcc0785283131a80fb2b003917aab3cd72725f879b93241cabfe"
+    sha256 cellar: :any,                 arm64_sonoma:  "74ffcffbc652761997d38433bcdfecfde9830bb57bb259a071761b5d3a07957f"
+    sha256 cellar: :any,                 arm64_ventura: "6accc306df2fb0278da95c82baa1fdbdd02ebb67e862e41616303df1a689196f"
+    sha256 cellar: :any,                 sonoma:        "fb1a984cd2fdaebf1eff1ac2da5c98631e2f4842dbb8ced281a9cb3984d7ac6a"
+    sha256 cellar: :any,                 ventura:       "c8a7ee5b8572243073a298694651bce4a6a371ed92339641c03c127cd8252fc0"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "b9e9f5bbb70e8d6a1c867ae1e9633425b41ca14db0e0842c51879f7947b3ceda"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d5409cf2417b4765cfed0343613f998845d3290c31028b514ee8125e18bce4be"
   end
 
-  depends_on "openjdk@21" => :build # due to Gradle 8.5
+  depends_on "gradle" => :build
+  depends_on "openjdk" => :build
   depends_on "pkgconf" => :build
   depends_on "abseil"
   depends_on "protobuf"
+
+  # Backport support for newer Gradle
+  patch do
+    url "https://github.com/grpc/grpc-java/commit/60f6ea7b8eec1692fc877ec82dd67d6bb888f706.patch?full_index=1"
+    sha256 "75f1061860e3a01f1e9c57c05bbdf461cd5b9bc3301f94f2b3db683264dee63b"
+  end
 
   def install
     # Workaround for newer Protobuf to link to Abseil libraries
@@ -35,9 +42,7 @@ class ProtocGenGrpcJava < Formula
       s.gsub! ', "-static-libgcc"', ""
     end
 
-    # Fails with brew `gradle` due to animalsniffer 1.7.1
-    # Ref: https://github.com/xvik/gradle-animalsniffer-plugin/issues/100
-    system "./gradlew", "--no-daemon", "--project-dir=compiler", "-PskipAndroid=true", "java_pluginExecutable"
+    system "gradle", "--no-daemon", "--project-dir=compiler", "-PskipAndroid=true", "java_pluginExecutable"
     bin.install "compiler/build/exe/java_plugin/protoc-gen-grpc-java"
 
     pkgshare.install "examples/src/main/proto/helloworld.proto"

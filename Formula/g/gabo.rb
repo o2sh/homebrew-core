@@ -1,17 +1,18 @@
 class Gabo < Formula
   desc "Generates GitHub Actions boilerplate"
   homepage "https://github.com/ashishb/gabo"
-  url "https://github.com/ashishb/gabo/archive/refs/tags/v1.3.1.tar.gz"
-  sha256 "e4ee22bf70b54dcf4e500cd73271fba858b5007fdcf8356c20556225b9e45370"
+  url "https://github.com/ashishb/gabo/archive/refs/tags/v1.5.0.tar.gz"
+  sha256 "e9f35080fc54490c5bba5eea27f6b336d3741c29ad039f270a1511d07d3e2cda"
   license "Apache-2.0"
+  head "https://github.com/ashishb/gabo.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "927e72f8dfa3a82635e53f2f4de8c83a7d7145250a735faee21e1c884e61dee0"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "927e72f8dfa3a82635e53f2f4de8c83a7d7145250a735faee21e1c884e61dee0"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "927e72f8dfa3a82635e53f2f4de8c83a7d7145250a735faee21e1c884e61dee0"
-    sha256 cellar: :any_skip_relocation, sonoma:        "8d88f0baa044e096d7da59e1772ad906fbfd9e6496a7e44375dc52a4573396e8"
-    sha256 cellar: :any_skip_relocation, ventura:       "8d88f0baa044e096d7da59e1772ad906fbfd9e6496a7e44375dc52a4573396e8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c99ae0e97b2b7bbef5ad821f09962361ea0176b7c6b467e178fe965bb3cc8286"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "45cd2db844081e8bca9262d1858ab1e0f96f7efa9c8f21eb4c0ee38c9a06c03f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "45cd2db844081e8bca9262d1858ab1e0f96f7efa9c8f21eb4c0ee38c9a06c03f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "45cd2db844081e8bca9262d1858ab1e0f96f7efa9c8f21eb4c0ee38c9a06c03f"
+    sha256 cellar: :any_skip_relocation, sonoma:        "711ab98807f579d7f5901d3bc3ee4aeb816c6328f8a2e2136c612547004202de"
+    sha256 cellar: :any_skip_relocation, ventura:       "711ab98807f579d7f5901d3bc3ee4aeb816c6328f8a2e2136c612547004202de"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "37593db2caea79cf6ea7e44f701aa67b13910cd96566bb43bb922e6438155712"
   end
 
   depends_on "go" => :build
@@ -29,6 +30,6 @@ class Gabo < Formula
     gabo_test.mkpath
     (gabo_test/".git").mkpath # Emulate git
     system bin/"gabo", "-dir", gabo_test, "-for", "lint-yaml", "-mode=generate"
-    assert_predicate gabo_test/".github/workflows/lint-yaml.yaml", :exist?
+    assert_path_exists gabo_test/".github/workflows/lint-yaml.yaml"
   end
 end

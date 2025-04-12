@@ -1,10 +1,9 @@
 class Ngspice < Formula
   desc "Spice circuit simulator"
   homepage "https://ngspice.sourceforge.io/"
-  url "https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/44/ngspice-44.tar.gz"
-  sha256 "8fef0e80b324df1f6ac6c73a9ed9a4120a9a17b62c13e83e1f674a9d9e6a4142"
+  url "https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/44.2/ngspice-44.2.tar.gz"
+  sha256 "e7dadfb7bd5474fd22409c1e5a67acdec19f77e597df68e17c5549bc1390d7fd"
   license :cannot_represent
-  head "https://git.code.sf.net/p/ngspice/ngspice.git", branch: "master"
 
   livecheck do
     url :stable
@@ -12,17 +11,22 @@ class Ngspice < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "3137db5e486825253c5189af8a360ccba86b51a1f43bcb4bd20903d0558d52d9"
-    sha256 arm64_sonoma:  "bfaa71b5943132e959147136b50c81295aa949d4be3e6e455b15680ee6f380ba"
-    sha256 arm64_ventura: "ae6abd74200c1b1efa83d64c0d2908b30b3cf90836b8f40367c7fdb4b457d9c8"
-    sha256 sonoma:        "3957caa308e93b869cdbdff5d68b88356a1bc5da4e97dce03901037e9b9005c9"
-    sha256 ventura:       "ca0b4853b3efd4df944b12fcd24b5254786e6312fc589c5b0cea0944f58817c8"
-    sha256 x86_64_linux:  "7a233aef2813b9f45d2d1234f7292c35073299762f6b11f0e047f64fae8fba71"
+    sha256 arm64_sequoia: "1ffc6582d286ba7c1055977a97500cd471eb9f9841c25367fcd1d95732236ef8"
+    sha256 arm64_sonoma:  "9552d93ee2085bf77d77231dc028067699663683f109f5ed2c946f54f2d407f6"
+    sha256 arm64_ventura: "a2da2fd8087760d6dad8e20002165dca3b131d3905376eaedf70b6d681abc9b6"
+    sha256 sonoma:        "f624fb44bf82600cdda20654e6ba1f4fd1b9e5f14f424771fe248160da3a77d1"
+    sha256 ventura:       "94a359bbe2d18e22422fbff5d654404e99b1aad7ba98854c9ae686cfe6e0636e"
+    sha256 arm64_linux:   "2e59dddfbbbedb1a710590ede896261865481cce64e3e551a3d67850e2a77348"
+    sha256 x86_64_linux:  "516b7806491d2da1e788ec6d0fc7074716171ee10d04fdddc004f6cdb7e05ab8"
   end
 
-  depends_on "autoconf" => :build
-  depends_on "automake" => :build
-  depends_on "libtool" => :build
+  head do
+    url "https://git.code.sf.net/p/ngspice/ngspice.git", branch: "master"
+
+    depends_on "autoconf" => :build
+    depends_on "automake" => :build
+    depends_on "libtool" => :build
+  end
 
   depends_on "fftw"
   depends_on "freetype"
@@ -43,9 +47,6 @@ class Ngspice < Formula
   end
 
   def install
-    # upstream bug report on the `configure` script, https://sourceforge.net/p/ngspice/bugs/731/
-    system "./autogen.sh"
-
     # Xft #includes <ft2build.h>, not <freetype2/ft2build.h>, hence freetype2
     # must be put into the search path.
     ENV.append "CFLAGS", "-I#{Formula["freetype"].opt_include}/freetype2"
@@ -66,6 +67,13 @@ class Ngspice < Formula
 
     # remove conflict lib files with libngspice
     rm_r(Dir[lib/"ngspice"])
+  end
+
+  def caveats
+    <<~EOS
+      If you need the graphical plotting functions you need to install X11 with:
+        brew install --cask xquartz
+    EOS
   end
 
   test do

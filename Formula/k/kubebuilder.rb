@@ -2,19 +2,18 @@ class Kubebuilder < Formula
   desc "SDK for building Kubernetes APIs using CRDs"
   homepage "https://github.com/kubernetes-sigs/kubebuilder"
   url "https://github.com/kubernetes-sigs/kubebuilder.git",
-      tag:      "v4.3.1",
-      revision: "a9ee3909f7686902879bd666b92deec4718d92c9"
+      tag:      "v4.5.2",
+      revision: "7c707052daa2e8bd51f47548c02710b1f1f7a77e"
   license "Apache-2.0"
   head "https://github.com/kubernetes-sigs/kubebuilder.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6ee4f57443c4f474f3f11e02760e5a569f41ffdc7e43b4ee20aff2ebb401712b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6ee4f57443c4f474f3f11e02760e5a569f41ffdc7e43b4ee20aff2ebb401712b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "6ee4f57443c4f474f3f11e02760e5a569f41ffdc7e43b4ee20aff2ebb401712b"
-    sha256 cellar: :any_skip_relocation, sonoma:        "04a88935b8f844e6c9c7150e0cec2e2949a033161b75224e5ee3373c97a7d056"
-    sha256 cellar: :any_skip_relocation, ventura:       "04a88935b8f844e6c9c7150e0cec2e2949a033161b75224e5ee3373c97a7d056"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "eccaab58c93d975cd255be39ca10c2181a1543b1cfe3f376c7bffb28d21330c2"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4eb39ab13ebaeb91d38858d972533967057123f05b11ac9c1471777d94039a97"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4eb39ab13ebaeb91d38858d972533967057123f05b11ac9c1471777d94039a97"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "4eb39ab13ebaeb91d38858d972533967057123f05b11ac9c1471777d94039a97"
+    sha256 cellar: :any_skip_relocation, sonoma:        "12b4ea064e71982f7830f3cd1cf73c7281a52b060abe2d383520d9a6953edd8f"
+    sha256 cellar: :any_skip_relocation, ventura:       "12b4ea064e71982f7830f3cd1cf73c7281a52b060abe2d383520d9a6953edd8f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "18f0e43e72941720bf85430c3e8781a908dbb898d4dd937ee95d270896000cb5"
   end
 
   depends_on "go"
@@ -25,13 +24,13 @@ class Kubebuilder < Formula
 
     ldflags = %W[
       -s -w
-      -X main.kubeBuilderVersion=#{version}
-      -X main.goos=#{goos}
-      -X main.goarch=#{goarch}
-      -X main.gitCommit=#{Utils.git_head}
-      -X main.buildDate=#{time.iso8601}
+      -X sigs.k8s.io/kubebuilder/v4/cmd.kubeBuilderVersion=#{version}
+      -X sigs.k8s.io/kubebuilder/v4/cmd.goos=#{goos}
+      -X sigs.k8s.io/kubebuilder/v4/cmd.goarch=#{goarch}
+      -X sigs.k8s.io/kubebuilder/v4/cmd.gitCommit=#{Utils.git_head}
+      -X sigs.k8s.io/kubebuilder/v4/cmd.buildDate=#{time.iso8601}
     ]
-    system "go", "build", *std_go_args(ldflags:), "./cmd"
+    system "go", "build", *std_go_args(ldflags:)
 
     generate_completions_from_executable(bin/"kubebuilder", "completion")
   end

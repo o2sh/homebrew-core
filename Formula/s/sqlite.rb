@@ -1,9 +1,9 @@
 class Sqlite < Formula
   desc "Command-line interface for SQLite"
   homepage "https://sqlite.org/index.html"
-  url "https://www.sqlite.org/2024/sqlite-autoconf-3470200.tar.gz"
-  version "3.47.2"
-  sha256 "f1b2ee412c28d7472bc95ba996368d6f0cdcf00362affdadb27ed286c179540b"
+  url "https://www.sqlite.org/2025/sqlite-autoconf-3490100.tar.gz"
+  version "3.49.1"
+  sha256 "106642d8ccb36c5f7323b64e4152e9b719f7c0215acf5bfeac3d5e7f97b59254"
   license "blessing"
 
   livecheck do
@@ -15,12 +15,14 @@ class Sqlite < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "7eca69ad4697874a907a2eb2ae60ceec930d93e92796b3433b65fc7c65a8dbaa"
-    sha256 cellar: :any,                 arm64_sonoma:  "725168435181011bdd06d7d1f18dad719529aec4ae0176392b0a16a725612b37"
-    sha256 cellar: :any,                 arm64_ventura: "3ab78c5df09c610070f4a64a8fc55e4ef5037de719e9361b8e30dd00590bd510"
-    sha256 cellar: :any,                 sonoma:        "03bd52415c045f9ee4cc5c9e4711aee2872ca186cca60c8c7f6296fec8d3e87c"
-    sha256 cellar: :any,                 ventura:       "0f2d1a76178f1da4bfbc684b8e4a0393bb18ff6ed4a24261aa66b3d2e2011f04"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "082aa7c1c531ca9f74fbc8833fcf8459f985c11bdf5164e2ea4a820d479497ae"
+    sha256 cellar: :any,                 arm64_sequoia: "757c3d60f4d35fe1c3336207d63992fc804fa6ddd2c40ebb84eb7bfa07bc69e1"
+    sha256 cellar: :any,                 arm64_sonoma:  "49a9ba828b871d0aca0f9093478971763172c20c7c3184bab42b5f0dd579268f"
+    sha256 cellar: :any,                 arm64_ventura: "bc9452d380a2b553d773112d283f96386bf7acd7ba9f41186ef13b01e1e0f01f"
+    sha256 cellar: :any,                 sequoia:       "e716021f04832c5efd6d6c54f6577062dd3e7c61338df31525853f69b17d2bab"
+    sha256 cellar: :any,                 sonoma:        "d6447132dbe25963619d8113df0c519b97c0781cf0dad090e21571a0c1799a44"
+    sha256 cellar: :any,                 ventura:       "313fe6fe6590c79082a7d92810214166a580d8f9c21616f3bcec568db1cf3a1a"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "36f28aee864eb8512612ab12219811863e64780a1d37b22211939677c993cbb7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "988cd498cfd373e932dadd1893ef46b8b2ef11cdb12f802260a362dbd3e8942b"
   end
 
   keg_only :provided_by_macos
@@ -48,16 +50,15 @@ class Sqlite < Formula
       -DSQLITE_USE_URI=1
     ].join(" ")
 
-    args = %W[
-      --prefix=#{prefix}
-      --disable-dependency-tracking
-      --enable-dynamic-extensions
-      --enable-readline
-      --disable-editline
-      --enable-session
+    args = [
+      "--enable-readline",
+      "--disable-editline",
+      "--enable-session",
+      "--with-readline-cflags=-I#{Formula["readline"].opt_include}",
+      "--with-readline-ldflags=-L#{Formula["readline"].opt_lib} -lreadline",
     ]
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make", "install"
 
     # Avoid rebuilds of dependants that hardcode this path.

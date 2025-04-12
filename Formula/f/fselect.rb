@@ -1,58 +1,46 @@
 class Fselect < Formula
   desc "Find files with SQL-like queries"
   homepage "https://github.com/jhspetersson/fselect"
-  url "https://github.com/jhspetersson/fselect/archive/refs/tags/0.8.8.tar.gz"
-  sha256 "0f586c3870a66d4a3ab7b92409dcf0f68a23bd8031ec0cc3f1622efebe190c9e"
+  url "https://github.com/jhspetersson/fselect/archive/refs/tags/0.8.11.tar.gz"
+  sha256 "aafd7d6463a1d8d699a9d3f80295b66aee1b6dc3748c9409c7b76f5fef9a180c"
   license any_of: ["Apache-2.0", "MIT"]
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "e5e7b20338ffee88d3d873a8833eebb899d178d664b69d9ec1467f183b83a7bd"
-    sha256 cellar: :any,                 arm64_sonoma:  "4a7a59e06bdc9386a66ad1f321b8be70d9fd44311a1855847fae76ac76171fb9"
-    sha256 cellar: :any,                 arm64_ventura: "9c69d01efd42573aec1830a943fc6e3e40027430529d6ad34d7fef9f2a983c17"
-    sha256 cellar: :any,                 sonoma:        "067861bb6541a0cf74f7e5398bc77a2f17e7acda0c9ecb4fae662be738488dd2"
-    sha256 cellar: :any,                 ventura:       "933cb9075ee0eedd71b1668a776806c66d559a5ad48f4d5428c7e976c8126ab7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0bccfa74b105eecd9922f38cd7733cf940e6701ac2da1fb8c501775b160a63b5"
+    sha256 cellar: :any,                 arm64_sequoia: "8753a03ee239694b36731d3de0afa40691f6b92afdc43de1dc7d02a323eb645d"
+    sha256 cellar: :any,                 arm64_sonoma:  "20b9eedcec8726d400c54700008d614e582980c16ed0db76e106fe78dc7d4855"
+    sha256 cellar: :any,                 arm64_ventura: "7480a6afe203eebb01ca385cba2fe35e8888d6bd506ceeac39b3a3e07ddce22d"
+    sha256 cellar: :any,                 sonoma:        "31aa80e99167c000fa8bd996ca9aa7ae418a8bfa7433a779dfc07ea91b36bac0"
+    sha256 cellar: :any,                 ventura:       "e836162794da0366ddb4ac37cebcbe3cc5a5c0e6698a35927082ed300bf1569d"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "893747899170c0a9d72fb1c928d279172f4ed19ea591d48457c3c4508963baf2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fb0764eec636d432e88c5abd2b7e21ef4430df6d7e26234605b42bcd84df0f3a"
   end
 
   depends_on "cmake" => :build # for libz-ng-sys
   depends_on "pkgconf" => :build
   depends_on "rust" => :build
+
   depends_on "libgit2"
-  depends_on "openssl@3"
 
   uses_from_macos "bzip2"
-  uses_from_macos "zlib"
 
   def install
     ENV["LIBGIT2_NO_VENDOR"] = "1"
-    # Ensure the correct `openssl` will be picked up.
-    ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
-    ENV["OPENSSL_NO_VENDOR"] = "1"
 
     system "cargo", "install", *std_cargo_args
   end
 
-  def check_binary_linkage(binary, library)
-    binary.dynamically_linked_libraries.any? do |dll|
-      next false unless dll.start_with?(HOMEBREW_PREFIX.to_s)
-
-      File.realpath(dll) == File.realpath(library)
-    end
-  end
-
   test do
+    require "utils/linkage"
+
     touch testpath/"test.txt"
     cmd = "#{bin}/fselect name from . where name = '*.txt'"
     assert_match "test.txt", shell_output(cmd).chomp
 
     linked_libraries = [
       Formula["libgit2"].opt_lib/shared_library("libgit2"),
-      Formula["openssl@3"].opt_lib/shared_library("libcrypto"),
-      Formula["openssl@3"].opt_lib/shared_library("libssl"),
     ]
-    linked_libraries << (Formula["openssl@3"].opt_lib/shared_library("libcrypto")) if OS.mac?
     linked_libraries.each do |library|
-      assert check_binary_linkage(bin/"fselect", library),
+      assert Utils.binary_linked_to_library?(bin/"fselect", library),
              "No linkage with #{library.basename}! Cargo is likely using a vendored version."
     end
   end

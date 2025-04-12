@@ -4,32 +4,37 @@ class Ortp < Formula
   license "GPL-3.0-or-later"
 
   stable do
-    url "https://gitlab.linphone.org/BC/public/ortp/-/archive/5.3.84/ortp-5.3.84.tar.bz2"
-    sha256 "e0b539a0021c8b6babca5efddc9362954148824f59c4c316d772a124ebbb51bd"
+    url "https://gitlab.linphone.org/BC/public/ortp/-/archive/5.3.106/ortp-5.3.106.tar.bz2"
+    sha256 "16692af175836d9e38ff79065b69aad0d63b7af0ea79c7fac48c3f1578af2529"
 
     depends_on "mbedtls"
 
     # bctoolbox appears to follow ortp's version. This can be verified at the GitHub mirror:
     # https://github.com/BelledonneCommunications/bctoolbox
     resource "bctoolbox" do
-      url "https://gitlab.linphone.org/BC/public/bctoolbox/-/archive/5.3.84/bctoolbox-5.3.84.tar.bz2"
-      sha256 "1c9ec26a91e74f720b16416a0e9e5e84c8aeb04b3fc490c22a4b2fc10ab6d5e3"
+      url "https://gitlab.linphone.org/BC/public/bctoolbox/-/archive/5.3.106/bctoolbox-5.3.106.tar.bz2"
+      sha256 "eeebad5333aaac08c522fb8dc077188901047f9fba1fb8845ac14d4fafbb48d3"
+
+      livecheck do
+        formula :parent
+      end
+
+      patch :DATA
     end
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "4db45336c212cfb572b3ff42b878352733679fdbc11a79f6dc3dda037f220bab"
-    sha256 cellar: :any,                 arm64_sonoma:  "4214e613d3563fdb8e737376eabc9576e7b01ec5d001082e19169f1b9b6dff0b"
-    sha256 cellar: :any,                 arm64_ventura: "9cd9109b254d1d76307bc9c779d6e2b6da0ed264297421aac06ba61fdf2a66a9"
-    sha256 cellar: :any,                 sonoma:        "635f5d33e32f95b633923cbcb168f0be9705699b83da87a7fc3eb590f46de10c"
-    sha256 cellar: :any,                 ventura:       "113dff9d0907b040807916b184d3c722be016f952f4b0f7ca895c4eb4332fe6b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4b2f06f9efd8c6b09a40b5cd555d1a1ce5c782463cf60a5ddd324885a272b124"
+    sha256 cellar: :any,                 arm64_sequoia: "2f8f3f3f19a0ad3188e6d17b9ea1f05b00e2197acf20faf1c31650b2dc0e5c7e"
+    sha256 cellar: :any,                 arm64_sonoma:  "1ca2655a406bd666264258133aa2daa1ba13da7eb40e5b87456f2e4e1bbab3cb"
+    sha256 cellar: :any,                 arm64_ventura: "d01444c40490aa5c160cd4e366baaee03ccf19e70ce2d76e7cfac3c986ff0a50"
+    sha256 cellar: :any,                 sonoma:        "13473cbdc344bd58d11909bc16a96aaf9184154afd3601c3f38baef2335c1550"
+    sha256 cellar: :any,                 ventura:       "7c507970fd4811989e58f9deb7b78ddfa4bd4189d13548e093ba46b580bc918c"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "9548b5209e7ba21afb45c42bf34622846c0ff8a192097bc32208d759f7c4be04"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ad54474538903687f1490d96b8a583274bce61120dba8cf71189c3662219fe8d"
   end
 
   head do
     url "https://gitlab.linphone.org/BC/public/ortp.git", branch: "master"
-
-    depends_on "openssl@3"
 
     resource "bctoolbox" do
       url "https://gitlab.linphone.org/BC/public/bctoolbox.git", branch: "master"
@@ -38,13 +43,17 @@ class Ortp < Formula
 
   depends_on "cmake" => :build
   depends_on "pkgconf" => :build
+  depends_on "mbedtls"
 
   def install
     odie "bctoolbox resource needs to be updated" if build.stable? && version != resource("bctoolbox").version
 
     resource("bctoolbox").stage do
-      args = ["-DENABLE_TESTS_COMPONENT=OFF", "-DBUILD_SHARED_LIBS=ON"]
-      args += ["-DENABLE_MBEDTLS=OFF", "-DENABLE_OPENSSL=ON"] if build.head?
+      args = %w[
+        -DENABLE_TESTS_COMPONENT=OFF
+        -DBUILD_SHARED_LIBS=ON
+        -DENABLE_MBEDTLS=ON
+      ]
 
       system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args(install_prefix: libexec)
       system "cmake", "--build", "build"
@@ -84,3 +93,26 @@ class Ortp < Formula
     system "./test"
   end
 end
+
+__END__
+diff --git a/src/crypto/mbedtls.cc b/src/crypto/mbedtls.cc
+index 4bc16d4..278c524 100644
+--- a/src/crypto/mbedtls.cc
++++ b/src/crypto/mbedtls.cc
+@@ -106,8 +106,6 @@ public:
+ 	std::unique_ptr<RNG> sRNG;
+ 	mbedtlsStaticContexts() {
+ #ifdef BCTBX_USE_MBEDTLS_PSA
+-		mbedtls_threading_set_alt(threading_mutex_init_cpp, threading_mutex_free_cpp, threading_mutex_lock_cpp,
+-		                          threading_mutex_unlock_cpp);
+ 		if (psa_crypto_init() != PSA_SUCCESS) {
+ 			bctbx_error("MbedTLS PSA init fail");
+ 		}
+@@ -120,7 +118,6 @@ public:
+ 		sRNG = nullptr;
+ #ifdef BCTBX_USE_MBEDTLS_PSA
+ 		mbedtls_psa_crypto_free();
+-		mbedtls_threading_free_alt();
+ #endif // BCTBX_USE_MBEDTLS_PSA
+ 	}
+ };

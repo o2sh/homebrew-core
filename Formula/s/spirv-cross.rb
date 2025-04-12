@@ -1,8 +1,8 @@
 class SpirvCross < Formula
   desc "Performing reflection and disassembling SPIR-V"
   homepage "https://github.com/KhronosGroup/SPIRV-Cross"
-  url "https://github.com/KhronosGroup/SPIRV-Cross/archive/refs/tags/vulkan-sdk-1.3.296.0.tar.gz"
-  sha256 "4f7f9a8a643e6694f155712016b9b572c13a9444e65b3f43b27bb464c0ab76e0"
+  url "https://github.com/KhronosGroup/SPIRV-Cross/archive/refs/tags/vulkan-sdk-1.4.309.0.tar.gz"
+  sha256 "cf4f12a767d63f63024e61750e372ffdc95567513b99ed9be6f21f474b328ddd"
   license all_of: [
     "Apache-2.0",
     "MIT",
@@ -18,12 +18,13 @@ class SpirvCross < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "94d2fa1830967dcf20e19901f13518fbe51c0625f29fc9509813b5200ebdcee9"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "afbd2b3aca191e95c3205df6d234c06f67c9505faebd78090cf466ee857fc98a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "6f614f93680d87ee7c48124d01f4a9bc731b655199ed588d41a193d43caa621e"
-    sha256 cellar: :any_skip_relocation, sonoma:        "1848ddb46b8c90a582d6369ad7fae6d4c3f8decd78372b82fff1f8dcdf5160f5"
-    sha256 cellar: :any_skip_relocation, ventura:       "3eedd1eb6700688cd58ab559a078251308a15a98cdcda8dc041c02c2829edf34"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fcb20807bc4ee7b77f5c240c758d2f2085873b0a52c3f6b535b24c6ca184c0d5"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7c11d777c4c3d19e6b689ca9ab68e0b0eaa0cb814fa82a28e121f532c179c6dc"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "952eb717a8b50dea59454dfebd1f12982ae126c27b2567acbf84f699800d9fe6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "66a6937a801b5910ad226c4d224077a3e0cda7bd6ca6629132a561bec1a7d4f1"
+    sha256 cellar: :any_skip_relocation, sonoma:        "cef5e5bf0b464211ecc5e2a0598c361cac63a7386edbc85d79967826527ff6d1"
+    sha256 cellar: :any_skip_relocation, ventura:       "acd20f2e7366f2146e323d29faf3a8e2f73092297918ece5cf29fceefcfa0d36"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "78df390f80fefdaa62237b847df8ff52b4960cf6334ecc40b05b8bd4123884c1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1486b0f2d8f1dfffbcdfac239d3ec33a51ce140b86b6c97bd48458ac19d2c069"
   end
 
   depends_on "cmake" => :build
@@ -63,7 +64,7 @@ class SpirvCross < Formula
 
     EOS
 
-    (Dir["*.comp"]).each do |shader_file|
+    Dir["*.comp"].each do |shader_file|
       inreplace shader_file, before, after
     end
 

@@ -1,18 +1,19 @@
 class Serie < Formula
   desc "Rich git commit graph in your terminal"
   homepage "https://github.com/lusingander/serie"
-  url "https://github.com/lusingander/serie/archive/refs/tags/v0.4.1.tar.gz"
-  sha256 "f806e5d818c6211bb1d194b4e751b5ab1dd4571a5857e910fdca29e77c2cf4e8"
+  url "https://github.com/lusingander/serie/archive/refs/tags/v0.4.4.tar.gz"
+  sha256 "32ea162b9aece1e65e4d813063447004b77b27c85304a4122bb63b16f38389ea"
   license "MIT"
   head "https://github.com/lusingander/serie.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6456a66f53969dd3367af21b077fc2932764f732ba8f7743353e6a587309ac61"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "dac857c650b3a380959fcbb6fea3fbf4ab6c304d85db9f221d2da1bac9b7f43d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "6f4fd7d23914c404e00d161917663d471b0c9ba746bdd6311dc1b80231f45698"
-    sha256 cellar: :any_skip_relocation, sonoma:        "c42af1688492dba546f3bf88b70df537d73da720f6aa6d948de274739285aac1"
-    sha256 cellar: :any_skip_relocation, ventura:       "8af3a8c67e926bcb8243bfa3e50a2cdfd0878befc76808b1ad1cf72bb86e5020"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a9f3ef62cad5700569f19914158dd5079583a3a942e1ec1eb5cc3175718071e0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d9cbaf142fc79d12a4d69fca2fb2ed3d5629e0bac1acbefdf4b3d27954e45027"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b173059e87b60cf2e4ef204538450e2e4df98d1a3d2e8f0170854a388d747f13"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "2573a342ec084d75fef580a7ce2a7c1a26538dc331715426186f4524cd26bcc2"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f903acd198b13976ae7892e4d505b36e15de8dd0599aa658349888c7eb732212"
+    sha256 cellar: :any_skip_relocation, ventura:       "184e82cc5aef27f8d30b6e8443ac05c5be04cffc48bd45f9cdf409a57318f30d"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "d84c785cedcd18916c3b50f116f5f96e8a4d013aecc379961c5861b2a695b353"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7fe031a7cf7a66532d21ecf94cfdd3fce534607c0645d24ef799664d8e2b5ca6"
   end
 
   depends_on "rust" => :build

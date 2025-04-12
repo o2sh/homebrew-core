@@ -1,17 +1,18 @@
 class GoParquetTools < Formula
   desc "Utility to deal with Parquet data"
   homepage "https://github.com/hangxie/parquet-tools"
-  url "https://github.com/hangxie/parquet-tools/archive/refs/tags/v1.25.12.tar.gz"
-  sha256 "a34e545858754ac7ba6e03e0ae51d91dacd21597f59a1fc4c80581ac59b37df1"
+  url "https://github.com/hangxie/parquet-tools/archive/refs/tags/v1.28.0.tar.gz"
+  sha256 "a45c98b28e378708ff794fcf497b4b93403b2212543fa22991dec255fa9cae13"
   license "BSD-3-Clause"
+  head "https://github.com/hangxie/parquet-tools.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "696c51741a50f9a044235caf80f41df8a6b7550677925793c3ac2e660ceb254d"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "696c51741a50f9a044235caf80f41df8a6b7550677925793c3ac2e660ceb254d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "696c51741a50f9a044235caf80f41df8a6b7550677925793c3ac2e660ceb254d"
-    sha256 cellar: :any_skip_relocation, sonoma:        "0182ea46749b8e6fb0aa7d90a26604cff4bf1c95ebd95cff9dfc48f27125a25e"
-    sha256 cellar: :any_skip_relocation, ventura:       "0182ea46749b8e6fb0aa7d90a26604cff4bf1c95ebd95cff9dfc48f27125a25e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ac6be16f611e6db9bcb7b42728df32de3f431fd93045905598a85a5d504a402e"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "41b0140e8286b188baaa8b9cc16339a6d97a97b95cdfa043aa61f79d8648234c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "41b0140e8286b188baaa8b9cc16339a6d97a97b95cdfa043aa61f79d8648234c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "41b0140e8286b188baaa8b9cc16339a6d97a97b95cdfa043aa61f79d8648234c"
+    sha256 cellar: :any_skip_relocation, sonoma:        "80dd869d046de54b58783e715f14b3e39c8194faca04325e663b051fe69bdba3"
+    sha256 cellar: :any_skip_relocation, ventura:       "80dd869d046de54b58783e715f14b3e39c8194faca04325e663b051fe69bdba3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "08f395b03b4d5c08e35619a9a42e17e79194bacde2f732329c2529e56466f96e"
   end
 
   depends_on "go" => :build
@@ -21,7 +22,7 @@ class GoParquetTools < Formula
       -s -w
       -X github.com/hangxie/parquet-tools/cmd.version=v#{version}
       -X github.com/hangxie/parquet-tools/cmd.build=#{time.iso8601}
-      -X github.com/hangxie/parquet-tools/cmd.source=Homebrew
+      -X github.com/hangxie/parquet-tools/cmd.source=#{tap.user}
     ]
     system "go", "build", *std_go_args(ldflags:, output: bin/"parquet-tools")
   end

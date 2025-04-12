@@ -1,9 +1,10 @@
 class Wxmaxima < Formula
   desc "Cross platform GUI for Maxima"
   homepage "https://wxmaxima-developers.github.io/wxmaxima/"
-  url "https://github.com/wxMaxima-developers/wxmaxima/archive/refs/tags/Version-24.11.0.tar.gz"
-  sha256 "e01fd8ca9bb8054e38f6d973f619e2549ab6ab9d0aaebae70c4ed73580258055"
+  url "https://github.com/wxMaxima-developers/wxmaxima/archive/refs/tags/Version-25.01.0.tar.gz"
+  sha256 "18cce36cc6c41ca012ec128aafe3c96659b1d670f8a8f7d98395eac1a19ade6f"
   license "GPL-2.0-or-later"
+  revision 1
   head "https://github.com/wxMaxima-developers/wxmaxima.git", branch: "main"
 
   livecheck do
@@ -12,10 +13,11 @@ class Wxmaxima < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:  "2358e8f2d617ee1712c99475050a1a4e949cb71cdd1cd7506dd119b4e85f4158"
-    sha256 arm64_ventura: "43209d344a49e1f9ca0cbdb23749a66b271b3f3f4ed31f1a86a9575ccc52000f"
-    sha256 sonoma:        "afb0646873fe32ce18f6e2728cdfba174d0a91f0681b9bbb23ad7010ed61b9a6"
-    sha256 ventura:       "27aa853a9d23657d84ff041fed37c0994e4551ad996655a3962ef35920c40205"
+    sha256 arm64_sonoma:  "2b8ee335d9432282f9a96e4f17b5827621a869d0fc0f61a209fac4a19642d397"
+    sha256 arm64_ventura: "1f1af869814afcf0e1b2aa4c2a1508cae3aeeb945248993f3f37a562e6689e5b"
+    sha256 sonoma:        "669e8564ed22b45469abcfd49b7eb3bc9d66942c69e5e56fda42b582f6138f3d"
+    sha256 ventura:       "2e6e2e79a4280ea8e2183798300630bf8fc78c006cd8598c6c8b97a68a2d0dbc"
+    sha256 x86_64_linux:  "6c926aaa5d88ae8a4f098ec79185b5daa8b75c0a6f623b79af2a85a8b0ff237d"
   end
 
   depends_on "cmake" => :build
@@ -45,7 +47,10 @@ class Wxmaxima < Formula
     # Disable CMake fixup_bundle to prevent copying dylibs
     inreplace "src/CMakeLists.txt", "fixup_bundle(", "# \\0"
 
-    system "cmake", "-S", ".", "-B", "build-wxm", "-G", "Ninja", *std_cmake_args
+    # https://github.com/wxMaxima-developers/wxmaxima/blob/main/Compiling.md#wxwidgets-isnt-found
+    args = OS.mac? ? [] : ["-DWXM_DISABLE_WEBVIEW=ON"]
+
+    system "cmake", "-S", ".", "-B", "build-wxm", "-G", "Ninja", *args, *std_cmake_args
     system "cmake", "--build", "build-wxm"
     system "cmake", "--install", "build-wxm"
     bash_completion.install "data/wxmaxima"

@@ -1,9 +1,10 @@
 class Ghostscript < Formula
   desc "Interpreter for PostScript and PDF"
   homepage "https://www.ghostscript.com/"
-  url "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10040/ghostpdl-10.04.0.tar.xz"
-  sha256 "0603f5629bc6f567b454911d104cd96702489c9e70e577787843f480b23d4a77"
+  url "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10050/ghostpdl-10.05.0.tar.xz"
+  sha256 "f154039345b6e9957b0750f872374d887d76321d52bbcc9d3b85487855e08f02"
   license "AGPL-3.0-or-later"
+  revision 1
 
   # The GitHub tags omit delimiters (e.g. `gs9533` for version 9.53.3). The
   # `head` repository tags are formatted fine (e.g. `ghostpdl-9.53.3`) but a
@@ -15,12 +16,13 @@ class Ghostscript < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "1ec5dc13df46f9336bd39399ba4d0564fcba2f63f0c4ca008f2b86e3172f4d04"
-    sha256 arm64_sonoma:  "0193b5a6ca5b47a35263cb547d09b438048ff532315d010cd544bf513d2a64ec"
-    sha256 arm64_ventura: "ddc4cba70de0af25125eba0ba9e5b7ced5e2290622f83bba20f20da246637594"
-    sha256 sonoma:        "0ea2144019a3128a6b1e0b640d491b5d457666be21d0763166ffe94764eab716"
-    sha256 ventura:       "6505dca6f56f4af62d12af839ee75b3ad5ef91c880d87982b81567b1f59835e2"
-    sha256 x86_64_linux:  "51882cc46695af1c7e7732ddedfa8e02e41a4c7797981e5c77bd3dc75bdb6950"
+    sha256 arm64_sequoia: "948f72023c7ea36999720a3896e9fe6bd7bca5f729e9542a83898fc466ae5574"
+    sha256 arm64_sonoma:  "92ca4fa430c750da529e54330cf8b4af147d379eed7ec737cfde9d9f1ee2c5a0"
+    sha256 arm64_ventura: "64e79e4bc5ab9cf9f0b53645710a193ef4e1d75e60a8c51e66a846a47a49ad39"
+    sha256 sonoma:        "707b9eea9f80bdf950e12cf7b59537302a33f5707f2e06109b24a17cc384507c"
+    sha256 ventura:       "3dbff2e77ad07b6cfd12cd46caabd589e38bc2fa07c12db491e29579f6af2ab9"
+    sha256 arm64_linux:   "2c35a094d9836470412654c12e5a3ea17c87cfe85063ba8bf99deefe0960d8e2"
+    sha256 x86_64_linux:  "e00b681edbdf22d03d037ed0a62097b01a296e76cbced89d544306622a979d80"
   end
 
   head do
@@ -68,6 +70,7 @@ class Ghostscript < Formula
               --disable-cups
               --disable-gtk
               --with-system-libtiff
+              --without-versioned-path
               --without-x]
 
     # Set the correct library install names so that `brew` doesn't need to fix them up later.
@@ -79,6 +82,20 @@ class Ghostscript < Formula
     ENV.deparallelize { system "make", "install-so" }
 
     (pkgshare/"fonts").install resource("fonts")
+
+    # Temporary backwards compatibility symlinks
+    if build.stable?
+      odie "Remove backwards compatibility symlink and caveat!" if version >= "10.07"
+      pkgshare.install_symlink pkgshare => version.to_s
+      doc.install_symlink doc => version.to_s
+    end
+  end
+
+  def caveats
+    <<~CAVEATS
+      Ghostscript is now built `--without-versioned-path`. Temporary backwards
+      compatibility symlinks exist but will be removed with 10.07.0 release.
+    CAVEATS
   end
 
   test do

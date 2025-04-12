@@ -1,8 +1,8 @@
 class VulkanTools < Formula
   desc "Vulkan utilities and tools"
   homepage "https://github.com/KhronosGroup/Vulkan-Tools"
-  url "https://github.com/KhronosGroup/Vulkan-Tools/archive/refs/tags/v1.4.304.tar.gz"
-  sha256 "fa17870f531affec06dfd5cab8121cb6e54777f779dab59fccafeb136fe43e19"
+  url "https://github.com/KhronosGroup/Vulkan-Tools/archive/refs/tags/v1.4.312.tar.gz"
+  sha256 "e7052a8ac9ba730442cf5ca87dba28ac5b6bd3b3f9e55cfc115e14081a9f5fec"
   license "Apache-2.0"
   head "https://github.com/KhronosGroup/Vulkan-Tools.git", branch: "main"
 
@@ -12,12 +12,13 @@ class VulkanTools < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sequoia: "00209f402d6a016da15c9f85610fcc37527992a134662c85f5215e7c883783c9"
-    sha256 cellar: :any, arm64_sonoma:  "c60ec0981eee8817b18e516806be7df430252cd75a28854de9f708a04bf260a5"
-    sha256 cellar: :any, arm64_ventura: "481a9305ecf5cabf84db42bdc75f1f28d897b7c852b019fd0ac730d95ab980db"
-    sha256 cellar: :any, sonoma:        "7ba08a4994c11775a71f20f6a8aeb909b22332f09714c1d4e7e9eef64bd44bad"
-    sha256 cellar: :any, ventura:       "6e245b47c855b1528e9972290173c9a23974fc49b415ea7e8c0585b022a29498"
-    sha256               x86_64_linux:  "a0a143db6502b936a5b1bfbcefe272a167dd221a928597697badd73baabf7a47"
+    sha256 cellar: :any, arm64_sequoia: "3e7f4edcfdbabb24454d6d66332ced8c4356262d9f1e2bc179214aaa4d8d8461"
+    sha256 cellar: :any, arm64_sonoma:  "3b92acbe2ffdd6259a39d9f9cb6ebb881a75e8f730360f6c3fcc5d1318fb79fa"
+    sha256 cellar: :any, arm64_ventura: "e61d04441ad3f86b0ee2f451f69bc0f17e144d140e30020dcb78499b87b74ec7"
+    sha256 cellar: :any, sonoma:        "b19a277da387152bc3dc40595b64c3ab7383b22c74c2c31f7b1a14fbb27210cd"
+    sha256 cellar: :any, ventura:       "2660abc232cfeff8651bcf7509d907fbe453650609bd91ad31eab8f8cb75288f"
+    sha256               arm64_linux:   "e87943ec8c3c6661d3b85134947f6cb38b40c6b4ff5511f9388e0ae00c35c8ec"
+    sha256               x86_64_linux:  "574685296bf0dff48c493875623a9f7b405b6c298f4c5c9df63513dae2f14cd3"
   end
 
   depends_on "cmake" => :build
@@ -46,11 +47,10 @@ class VulkanTools < Formula
       # account for using already-built MoltenVK instead of the source repo
       inreplace "cube/CMakeLists.txt",
                 "${MOLTENVK_DIR}/MoltenVK/icd/MoltenVK_icd.json",
-                "${MOLTENVK_DIR}/share/vulkan/icd.d/MoltenVK_icd.json"
-      inreplace buildpath.glob("*/macOS/*/CMakeLists.txt") do |s|
-        s.gsub! "${MOLTENVK_DIR}/Package/Release/MoltenVK/dynamic/dylib/macOS/libMoltenVK.dylib",
+                "${MOLTENVK_DIR}/etc/vulkan/icd.d/MoltenVK_icd.json"
+      inreplace buildpath.glob("*/macOS/*/CMakeLists.txt"),
+                "${MOLTENVK_DIR}/Package/Release/MoltenVK/dynamic/dylib/macOS/libMoltenVK.dylib",
                 "${MOLTENVK_DIR}/lib/libMoltenVK.dylib"
-      end
     end
 
     args = [
@@ -105,7 +105,14 @@ class VulkanTools < Formula
   end
 
   test do
-    ENV["VK_ICD_FILENAMES"] = lib/"mock_icd/VkICD_mock_icd.json"
-    system bin/"vulkaninfo", "--summary"
+    with_env(VK_ICD_FILENAMES: lib/"mock_icd/VkICD_mock_icd.json") do
+      assert_match "Vulkan Mock Device", shell_output("#{bin}/vulkaninfo --summary")
+    end
+
+    return if !OS.mac? || (Hardware::CPU.intel? && ENV["HOMEBREW_GITHUB_ACTIONS"])
+
+    with_env(XDG_DATA_DIRS: testpath) do
+      assert_match "DRIVER_ID_MOLTENVK", shell_output("#{bin}/vulkaninfo --summary")
+    end
   end
 end

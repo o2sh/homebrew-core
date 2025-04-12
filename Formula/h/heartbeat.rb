@@ -2,23 +2,22 @@ class Heartbeat < Formula
   desc "Lightweight Shipper for Uptime Monitoring"
   homepage "https://www.elastic.co/beats/heartbeat"
   url "https://github.com/elastic/beats.git",
-      tag:      "v8.17.0",
-      revision: "092f0eae4d0d343cc3a142f671c2a0428df67840"
+      tag:      "v8.17.4",
+      revision: "5449535b768a9308714a63dc745911c924da307b"
   license "Apache-2.0"
   head "https://github.com/elastic/beats.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b8e753ec2d5880405874e61abb16bf6e5e87487f3a258221c1970958b4505e8e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ef5c6cf2eab88ef9df06a4ef21a033622773509d7b7df3f41eef9661cce84d6a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "c5435c9222244b883d9fce1585f92917b1f180873d6796ee1d326dab2ea538dc"
-    sha256 cellar: :any_skip_relocation, sonoma:        "0011afb9fc0674b9228e06670797ec9dd900aff9afc7b6b8e7db00f90bdd27d5"
-    sha256 cellar: :any_skip_relocation, ventura:       "5a7b3d88df68366869d274e04a0d402e56c3b5473d8ceaea2b457faed6fde483"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5f25e3043fb84fb08e390055bdb44ed2c6efd7d0899affe519b8edcb47158e20"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c430f945130ff1a1101b22717ca514963eaa85d30f3580df9ec966410dd583a8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1c96c43429343e966344d1a2f1d5c61358595daac95335ead37d9f7dbeaf3582"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "2d9713aefc34b176b7037d00b25c3d9518de01b2af0c401464d71aaa51ad6885"
+    sha256 cellar: :any_skip_relocation, sonoma:        "0faa4f864a0ac2082d70515c0cabf9b937f2531ec73e8da277102d5db2abf8bc"
+    sha256 cellar: :any_skip_relocation, ventura:       "c8635d0c8fd0cf6b869b9f128f67088acbe6fab5f457aef74d45d78ff64c3198"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6fa05bee84e468750a3a518a8d0c7ac86af0041828fb02c9cc86a3c991161b1e"
   end
 
   depends_on "go" => :build
   depends_on "mage" => :build
-  depends_on "python@3.12" => :build
 
   uses_from_macos "netcat" => :test
 
@@ -26,14 +25,18 @@ class Heartbeat < Formula
     # remove non open source files
     rm_r("x-pack")
 
+    # remove requirements.txt files so that build fails if venv is used.
+    # currently only needed by docs/tests
+    rm buildpath.glob("**/requirements.txt")
+
     cd "heartbeat" do
-      # prevent downloading binary wheels during python setup
-      system "make", "PIP_INSTALL_PARAMS=--no-binary :all", "python-env"
+      # don't build docs because we aren't installing them and allows avoiding venv
+      inreplace "magefile.go", "(Fields, FieldDocs,", "(Fields,"
+
       system "mage", "-v", "build"
-      ENV.deparallelize
       system "mage", "-v", "update"
 
-      (etc/"heartbeat").install Dir["heartbeat.*", "fields.yml"]
+      pkgetc.install Dir["heartbeat.*"], "fields.yml"
       (libexec/"bin").install "heartbeat"
     end
 

@@ -3,18 +3,18 @@ class Copier < Formula
 
   desc "Utility for rendering projects templates"
   homepage "https://copier.readthedocs.io/"
-  url "https://files.pythonhosted.org/packages/c4/84/b99005e18cb07986a9fa1c1314c9bb461851dc115ab24d3d9ac668daad7f/copier-9.4.1.tar.gz"
-  sha256 "cc81d8204cb17fbc8c4a14996a8ce764166c34c77236de38cfbeb960c887b68f"
+  url "https://files.pythonhosted.org/packages/d2/a2/b8919c3c3fe31ccfae6a16bbef0279396c0f9d4fb49dfd333ab4cc92bdb6/copier-9.6.0.tar.gz"
+  sha256 "e05a18b387b96e8d1fbd5271d37f59c9a02be5ad717f7878d0505562fd62b786"
   license "MIT"
-  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "d576ff755864b94b0ec364c8d240a6b925702a394b7ca8c64c5e4c2c897715aa"
-    sha256 cellar: :any,                 arm64_sonoma:  "d388edb8acd7ffd44530b286ce5d8d67cf68f0fd0dc02dfbdef6cd25e066276b"
-    sha256 cellar: :any,                 arm64_ventura: "a5f510e023da2fe537d29a31119c6cad7723b6eb89cd3e836d27c213ed591b86"
-    sha256 cellar: :any,                 sonoma:        "e3578064c7e3136924dd8adb91157dbd68652d6d6b8c83f818350f3ff1ad9e8c"
-    sha256 cellar: :any,                 ventura:       "0ea3f6cb8acd31c70a21df54f08836f44cef7aca3d811da6bbee473ea2022452"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "51dc6281f88186087af9f33d343163d4cc84cbb8a49225f66ab359f76932f74d"
+    sha256 cellar: :any,                 arm64_sequoia: "50a5c78e37bb9d803124a05195f63a7c61180fbaf2888f312934f8a32293310a"
+    sha256 cellar: :any,                 arm64_sonoma:  "3dd8e6644a90bc7fb354fdb550dccecae8dbb9ffffe4a7c597641feb03996d9f"
+    sha256 cellar: :any,                 arm64_ventura: "2a2684ade12925237b02dcf4285ffed5c4fa41b5f04078e6bf0cc5d6c4de71bc"
+    sha256 cellar: :any,                 sonoma:        "a735c114de80d9be684ab01bcde80deb20232fc54860e2457112b96729e9f844"
+    sha256 cellar: :any,                 ventura:       "9886f01dad72ceb21ae7c3d4169022eb1cf3befbe11136d3970322cce19ac104"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "33a6cbe4aa19c6b3cd710c3be4a44f3d576b6d686b34a086341da7c6f64bd2a7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6da3c005386a2811c74a06fca8a2a879aac0bcf2ec41f3a6a6136340dc7db6e7"
   end
 
   depends_on "rust" => :build
@@ -42,8 +42,8 @@ class Copier < Formula
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/af/92/b3130cbbf5591acf9ade8708c365f3238046ac7cb8ccba6e81abccb0ccff/jinja2-3.1.5.tar.gz"
-    sha256 "8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb"
+    url "https://files.pythonhosted.org/packages/df/bf/f7da0350254c0ed7c72f3e33cef02e048281fec7ecec5f032d4aac52226b/jinja2-3.1.6.tar.gz"
+    sha256 "0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d"
   end
 
   resource "jinja2-ansible-filters" do
@@ -66,19 +66,24 @@ class Copier < Formula
     sha256 "a482d51503a1ab33b1c67a6c3813a26953dbdc71c31dacaef9a838c4e29f5712"
   end
 
+  resource "platformdirs" do
+    url "https://files.pythonhosted.org/packages/13/fc/128cc9cb8f03208bdbf93d3aa862e16d376844a14f9a0ce5cf4507372de4/platformdirs-4.3.6.tar.gz"
+    sha256 "357fb2acbc885b0419afd3ce3ed34564c13c9b95c89360cd9563f73aa5e2b907"
+  end
+
   resource "plumbum" do
     url "https://files.pythonhosted.org/packages/f0/5d/49ba324ad4ae5b1a4caefafbce7a1648540129344481f2ed4ef6bb68d451/plumbum-1.9.0.tar.gz"
     sha256 "e640062b72642c3873bd5bdc3effed75ba4d3c70ef6b6a7b907357a84d909219"
   end
 
   resource "prompt-toolkit" do
-    url "https://files.pythonhosted.org/packages/fb/93/180be2342f89f16543ec4eb3f25083b5b84eba5378f68efff05409fb39a9/prompt_toolkit-3.0.36.tar.gz"
-    sha256 "3e163f254bef5a03b146397d7c1963bd3e2812f0964bb9a24e6ec761fd28db63"
+    url "https://files.pythonhosted.org/packages/a1/e1/bd15cb8ffdcfeeb2bdc215de3c3cffca11408d829e4b8416dcfe71ba8854/prompt_toolkit-3.0.50.tar.gz"
+    sha256 "544748f3860a2623ca5cd6d2795e7a14f3d0e1c3c9728359013f79877fc89bab"
   end
 
   resource "pydantic" do
-    url "https://files.pythonhosted.org/packages/70/7e/fb60e6fee04d0ef8f15e4e01ff187a196fa976eb0f0ab524af4599e5754c/pydantic-2.10.4.tar.gz"
-    sha256 "82f12e9723da6de4fe2ba888b5971157b3be7ad914267dea8f05f82b28254f06"
+    url "https://files.pythonhosted.org/packages/b7/ae/d5220c5c52b158b1de7ca89fc5edb72f304a70a4c540c84c8844bf4008de/pydantic-2.10.6.tar.gz"
+    sha256 "ca5daa827cce33de7a42be142548b0096bf05a7e7b365aebfa5f8eeec7128236"
   end
 
   resource "pydantic-core" do
@@ -87,8 +92,8 @@ class Copier < Formula
   end
 
   resource "pygments" do
-    url "https://files.pythonhosted.org/packages/8e/62/8336eff65bcbc8e4cb5d05b55faf041285951b6e80f33e2bff2024788f31/pygments-2.18.0.tar.gz"
-    sha256 "786ff802f32e91311bff3889f6e9a86e81505fe99f2735bb6d60ae0c5004f199"
+    url "https://files.pythonhosted.org/packages/7c/2d/c3338d48ea6cc0feb8446d8e6937e1408088a72a39937982cc6111d17f84/pygments-2.19.1.tar.gz"
+    sha256 "61c16d2a8576dc0649d9f39e089b5f02bcd27fba10d8fb4dcc28173f7a45151f"
   end
 
   resource "pyyaml" do
@@ -97,8 +102,8 @@ class Copier < Formula
   end
 
   resource "questionary" do
-    url "https://files.pythonhosted.org/packages/84/d0/d73525aeba800df7030ac187d09c59dc40df1c878b4fab8669bdc805535d/questionary-2.0.1.tar.gz"
-    sha256 "bcce898bf3dbb446ff62830c86c5c6fb9a22a54146f0f5597d3da43b10d8fc8b"
+    url "https://files.pythonhosted.org/packages/a8/b8/d16eb579277f3de9e56e5ad25280fab52fc5774117fb70362e8c2e016559/questionary-2.1.0.tar.gz"
+    sha256 "6302cdd645b19667d8f6e6634774e9538bfcd1aad9be287e743d96cacaf95587"
   end
 
   resource "typing-extensions" do
@@ -112,6 +117,9 @@ class Copier < Formula
   end
 
   def install
+    # The source doesn't have a valid SOURCE_DATE_EPOCH, so here we set default.
+    ENV["SOURCE_DATE_EPOCH"] = "1451574000"
+
     virtualenv_install_with_resources
   end
 
@@ -127,6 +135,6 @@ class Copier < Formula
     system bin/"copier", "copy", *params, "--vcs-ref=v0.1.0",
       "https://github.com/copier-org/autopretty.git", "template"
     assert (testpath/"template").directory?
-    assert_predicate testpath/"template/.copier-answers.autopretty.yml", :exist?
+    assert_path_exists testpath/"template/.copier-answers.autopretty.yml"
   end
 end

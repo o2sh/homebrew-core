@@ -1,18 +1,19 @@
 class Okteto < Formula
   desc "Build better apps by developing and testing code directly in Kubernetes"
   homepage "https://okteto.com"
-  url "https://github.com/okteto/okteto/archive/refs/tags/3.2.2.tar.gz"
-  sha256 "32e4da0a10189210458be9f112034549d8eb7583ae5ff0445fc9d30e8b69be3a"
+  url "https://github.com/okteto/okteto/archive/refs/tags/3.6.0.tar.gz"
+  sha256 "f8b92f0ae879886df75dbfefb4f7e60741cb048322e66166a60aac662239eb26"
   license "Apache-2.0"
   head "https://github.com/okteto/okteto.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "be8461a0788946522586875c5e7bcb6f6495acb48692c331d04cb783f61cc437"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "aff6fa3c0754980274ef77207d821936725d50db7ebd148ae3e30be4bd91c8ea"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "8c0198431662aedf99fce1c7b56198e682f880cde14f0a6b9e7d8cfe46004fe0"
-    sha256 cellar: :any_skip_relocation, sonoma:        "31289f7a317a821d8dd00e00165d4a673cff73bf3f998e9383880d063a065ac2"
-    sha256 cellar: :any_skip_relocation, ventura:       "bc2e028a624f780f0c4559069efbe8a1dbe48fa257bc8bd2a61b4b5ade7cd30e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "076876c73d8b3e4b16eb62514b603ec56676ea6fd61ea04aa77994fdafd515a8"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a5495feac6e0cee5456bfdd97e031d2e4dd91a1a5dad8e5a1c2c7244570a1f8c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "00fcfbe6f5424d5a1b2edbb7c436551abd0f98ea5845622908a9365ff5578d5b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "af1a57c0daa690f94e11dbbb016897bdd2e198207010f69f7931575483494c60"
+    sha256 cellar: :any_skip_relocation, sonoma:        "42aef5a76be48374a5b1e41de14ad342c3813750a090b9233bc20d9bdb4d1108"
+    sha256 cellar: :any_skip_relocation, ventura:       "51ecc4c948c395c34008ce1565adef8ccb08de747b05e3033bae322a3fc4a3f6"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "ceec829c40c390515907e68700df629b677429e7ffed3ae50d147402908e5286"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d28c10e34c3c7d22b7938315af8bff0c715676bbdc09bd91b2b9196e3dabb942"
   end
 
   depends_on "go" => :build
@@ -20,7 +21,7 @@ class Okteto < Formula
   def install
     ldflags = "-s -w -X github.com/okteto/okteto/pkg/config.VersionString=#{version}"
     tags = "osusergo netgo static_build"
-    system "go", "build", *std_go_args(ldflags:), "-tags", tags
+    system "go", "build", *std_go_args(ldflags:, tags:)
 
     generate_completions_from_executable(bin/"okteto", "completion")
   end

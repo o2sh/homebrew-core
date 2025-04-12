@@ -1,19 +1,10 @@
 class Root < Formula
   desc "Analyzing petabytes of data, scientifically"
   homepage "https://root.cern"
+  url "https://root.cern/download/root_v6.34.08.source.tar.gz"
+  sha256 "806045b156de03fe8f5661a670eab877f2e4d2da6c234dc3e31e98e2d7d96fe8"
   license "LGPL-2.1-or-later"
   head "https://github.com/root-project/root.git", branch: "master"
-
-  stable do
-    url "https://root.cern/download/root_v6.32.08.source.tar.gz"
-    sha256 "29ad4945a72dff1a009c326a65b6fa5ee2478498823251d3cef86a2cbeb77b27"
-
-    # Backport fix for RPATH on macOS
-    patch do
-      url "https://github.com/root-project/root/commit/0569d5d7bfb30d96e06c4192658aed4b78e4da64.patch?full_index=1"
-      sha256 "24553b16f66459fe947d192854f5fa6832c9414cc711d7705cb8e8fa67d2d935"
-    end
-  end
 
   livecheck do
     url "https://root.cern/install/all_releases/"
@@ -24,12 +15,12 @@ class Root < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "c1bfbeb7e3b575aae166c61272d178037aaf520fd92d62412cf53693e174f98b"
-    sha256 arm64_sonoma:  "c9493b1209d72dde8a29ebe3c5b7cf8cab840399bbada9f3205393b82dd29c8b"
-    sha256 arm64_ventura: "55d9cb47591f8802fc38c1f84d4dbc5114ade1d46598099bf89867cbfe84ec54"
-    sha256 sonoma:        "41b8bb0e19a62eec938a89e8aa5ed5cbefa49d2298f9f9d16010f5c44a7b6230"
-    sha256 ventura:       "7c4bd4f672dfe680fb02353c0a7c7d315601079e9797c863bde708696e6caddd"
-    sha256 x86_64_linux:  "b324dbc173966910292f9bbc64b2d66837f604eb6a6eb4930421b1b69f35c544"
+    sha256 arm64_sequoia: "872d561d4c92a0a37aa43e44222fa5779c15198a9b5e0c0af0808e92de321b12"
+    sha256 arm64_sonoma:  "c84c4008267e189f62bfaa30df8348d70c4e3e070f6269545c5cf18c11a3af3e"
+    sha256 arm64_ventura: "7812501d43bb5dfbfea9a987a544bc0cf05a8a21a4acc1dc1ffcab11b017be22"
+    sha256 sonoma:        "cf568d4813be0f7c5fc98ecefa32c957e48574a9cbe834e2508c1a974db8f9fe"
+    sha256 ventura:       "41a1a6480a5b90487f603ae365bcaac57cf7278950461f004e33a41c9a5cf0b9"
+    sha256 x86_64_linux:  "c19013bd674cc29a79ea1d0cd28a8a68a037888a0719089616c172506b46d682"
   end
 
   depends_on "cmake" => :build
@@ -41,10 +32,14 @@ class Root < Formula
   depends_on "freetype"
   depends_on "ftgl"
   depends_on "gcc" # for gfortran
+  depends_on "giflib"
   depends_on "gl2ps"
   depends_on "glew"
   depends_on "graphviz"
   depends_on "gsl"
+  depends_on "jpeg-turbo"
+  depends_on "libpng"
+  depends_on "libtiff"
   depends_on "lz4"
   depends_on "mariadb-connector-c"
   depends_on "nlohmann-json"
@@ -66,11 +61,11 @@ class Root < Formula
   uses_from_macos "ncurses"
   uses_from_macos "zlib"
 
+  on_ventura :or_older do
+    depends_on :xcode
+  end
+
   on_linux do
-    depends_on "giflib"
-    depends_on "jpeg-turbo"
-    depends_on "libpng"
-    depends_on "libtiff"
     depends_on "libx11"
     depends_on "libxext"
     depends_on "libxft"
@@ -86,10 +81,15 @@ class Root < Formula
   end
 
   def install
+    # Workaround for CMake 4 due to VDT, https://github.com/dpiparo/vdt/blob/master/CMakeLists.txt
+    ENV["CMAKE_POLICY_VERSION_MINIMUM"] = "3.5"
+
     # Skip modification of CLING_OSX_SYSROOT to the unversioned SDK path
     # Related: https://github.com/Homebrew/homebrew-core/issues/135714
     # Related: https://github.com/root-project/cling/issues/457
-    inreplace "interpreter/cling/lib/Interpreter/CMakeLists.txt", '"MacOSX[.0-9]+\.sdk"', '"SKIP"'
+    if OS.mac? && MacOS.version > :ventura
+      inreplace "interpreter/cling/lib/Interpreter/CMakeLists.txt", '"MacOSX[.0-9]+\.sdk"', '"SKIP"'
+    end
 
     inreplace "cmake/modules/SearchInstalledSoftware.cmake" do |s|
       # Enforce secure downloads of vendored dependencies. These are
@@ -161,14 +161,8 @@ class Root < Formula
       -GNinja
     ]
 
-    compiledata = if build.head?
-      "cmake/unix/compiledata.sh"
-    else
-      args << "-Dbuiltin_afterimage=ON"
-      "build/unix/compiledata.sh"
-    end
     # Workaround the shim directory being embedded into the output
-    inreplace compiledata, "`type -path $CXX`", ENV.cxx
+    inreplace "cmake/unix/compiledata.sh", "`type -path $CXX`", ENV.cxx
 
     # Homebrew now sets CMAKE_INSTALL_LIBDIR to /lib, which is incorrect
     # for ROOT with gnuinstall, so we set it back here.

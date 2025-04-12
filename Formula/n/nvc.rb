@@ -1,17 +1,19 @@
 class Nvc < Formula
   desc "VHDL compiler and simulator"
-  homepage "https://github.com/nickg/nvc"
-  url "https://github.com/nickg/nvc/releases/download/r1.14.2/nvc-1.14.2.tar.gz"
-  sha256 "420826dc44ed209d7346e183438a654af1816bd802d15fded2f8a9c272a47331"
+  homepage "https://www.nickg.me.uk/nvc/"
+  url "https://github.com/nickg/nvc/releases/download/r1.15.2/nvc-1.15.2.tar.gz"
+  sha256 "d3d2ce61e4d31806ebed91dcff7580a9bb16bd0722f3ef86c275c03d999b18b8"
   license "GPL-3.0-or-later"
+  revision 1
 
   bottle do
-    sha256 arm64_sequoia: "2f4df4784c3f76d5417fb27611bd0cb0a147c85e7d0b482118dde651c217030f"
-    sha256 arm64_sonoma:  "2b0ee54b5af6f94d794b1158cf2d3f9266055cac560d8761b2de96fec58b66f5"
-    sha256 arm64_ventura: "05c517c0cc6c835c512fb50108a8e7f055ed1f6bbb45e8169394c962e0014dbe"
-    sha256 sonoma:        "0c82323f94cb9367b4f139037d5ee164a7ebcff9c1c01d79f8f67f2a17024c50"
-    sha256 ventura:       "2b949b05bd388a68c7c47099755b07b224fa5e36c9c56e132e4157e321bdab9d"
-    sha256 x86_64_linux:  "5db794ebdbfd9803be1e75133729f1aac9d89aefd1cdc19feb404c970e820666"
+    sha256 arm64_sequoia: "6140cea270a9d18242c5c85ce2539c72d8fb54d660f4cd42f3c66828d643a887"
+    sha256 arm64_sonoma:  "ffcc3a5ca1ec7f92a27c013ad986a9f1b636543727197975162b2cc3e68bd3c4"
+    sha256 arm64_ventura: "eae4c7a244d7b7e1c00d3b55ea49d6dfd30a6748dc32b96876027fd873eec996"
+    sha256 sonoma:        "3fb503359b5c85ed143a61d67864c128c5a618088fca6c232354c0c67b624a7b"
+    sha256 ventura:       "98cc71fde5e39174819fa6b15f34007f4bd0e94a568219f1292701f88469e9aa"
+    sha256 arm64_linux:   "071c78c3aba9c8803524d0d603061a0fbcc6fca17e6823f1bd0416e3e5e2ad6e"
+    sha256 x86_64_linux:  "cc8330c5951afcfb7938f8841ac13fb9a9a3eb03df3b32aaa9bb916f41aa1f95"
   end
 
   head do
@@ -46,8 +48,6 @@ class Nvc < Formula
                              "--prefix=#{prefix}",
                              "--with-system-cc=#{ENV.cc}",
                              "--disable-silent-rules"
-      inreplace ["Makefile", "config.h"], Superenv.shims_path/ENV.cc, ENV.cc
-      ENV.deparallelize
       system "make", "V=1"
       system "make", "V=1", "install"
     end

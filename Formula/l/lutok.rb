@@ -1,17 +1,26 @@
 class Lutok < Formula
   desc "Lightweight C++ API for Lua"
   homepage "https://github.com/freebsd/lutok"
-  url "https://github.com/freebsd/lutok/releases/download/lutok-0.5/lutok-0.5.tar.gz"
-  sha256 "9cdc3cf08babec6e70a96a907d82f8b34eac866dd7196abc73b95d5e13701f55"
+  url "https://github.com/freebsd/lutok/releases/download/lutok-0.6.1/lutok-0.6.1.tar.gz"
+  sha256 "509c43c240ba47b8c452b45f3423a416fa91bdfc0341bfb806e0b78f65ce452d"
   license "BSD-3-Clause"
 
+  # Upstream creates releases that use a stable tag (e.g., `v1.2.3`) but are
+  # labeled as "pre-release" on GitHub before the version is released, so it's
+  # necessary to use the `GithubLatest` strategy.
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "4e32874f4a95cdd38f4391253fa9252b443d03fe0bdb8f628f4d118f8ecb5a69"
-    sha256 cellar: :any,                 arm64_sonoma:  "154d00c3114fe64469ec54977d189c8f83815af51ef16c95406a0a7885067a09"
-    sha256 cellar: :any,                 arm64_ventura: "8a9ab6d781bfb340295d4da2bad20ada63a90a9b9eb4a586eab1d0686d7db9fe"
-    sha256 cellar: :any,                 sonoma:        "50ceaa40b7954932f72f101589f03bdf26cf16bfe9c9a3805fd1194d1ff1838f"
-    sha256 cellar: :any,                 ventura:       "e4ba0f8494a46eab869c3443a07eb143fcb7e9715e0f5c44261e460c091bebf6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "82aa5ccf29fda46f215b71698a5e36533e5833e14de3d86c3d8d073810978b0c"
+    sha256 cellar: :any,                 arm64_sequoia: "622214005100c49c8927563ebc9643a45ca09e6c2a046a3423f90536bf5c4fd8"
+    sha256 cellar: :any,                 arm64_sonoma:  "512239a68c9a297b3058e6218407cc08e3b893255afa64e1e6227ad7d7c54bf5"
+    sha256 cellar: :any,                 arm64_ventura: "4c01cfb8ed37128e7ff3319734958694600672c2885a9145f0199ba80f15c418"
+    sha256 cellar: :any,                 sonoma:        "5c6514ff4cddd77e9a5899ee67d7639ed0df16fcd40799f4b5a864996fc22be5"
+    sha256 cellar: :any,                 ventura:       "6cad6e4dd588227c1cba484e7b3eee3deb60350a50fa7a536359f95a9c804c53"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "e5bd35200c2438896dac87fd370af4be0a5f2fee03c23c6659f427523128f048"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "398180c13b8203f6004840922d92ef7d7d1893f7d3f5874580132089083cf5f3"
   end
 
   depends_on "autoconf" => :build
@@ -21,12 +30,6 @@ class Lutok < Formula
 
   depends_on "atf"
   depends_on "lua"
-
-  # add configure.ac patch, upstream pr ref, https://github.com/freebsd/lutok/pull/24
-  patch do
-    url "https://github.com/freebsd/lutok/commit/b2e45d2848f64e1178eb0c6ed44d0b8fc4ea5dea.patch?full_index=1"
-    sha256 "0dbb00bd646343f3b8b61e07222e5ca21ae85028c84772b1eb5b0feba098b4b8"
-  end
 
   def install
     system "glibtoolize", "--force", "--install"

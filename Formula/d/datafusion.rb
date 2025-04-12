@@ -1,18 +1,19 @@
 class Datafusion < Formula
   desc "Apache Arrow DataFusion and Ballista query engines"
   homepage "https://arrow.apache.org/datafusion"
-  url "https://github.com/apache/arrow-datafusion/archive/refs/tags/44.0.0.tar.gz"
-  sha256 "f3afc14c735db37525db50cb71144d895e7b0729f696ff97439590759c13afa6"
+  url "https://github.com/apache/arrow-datafusion/archive/refs/tags/46.0.1.tar.gz"
+  sha256 "7325c5a8025c067169e638cfe9aa64cbe1d05948d8c5343b28d8e1a3ace70c34"
   license "Apache-2.0"
   head "https://github.com/apache/arrow-datafusion.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f19a572ed16a7a279dc61b0cb2e391d20d29f94e40af2f1cf117d334af185421"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "810ee05733c7945380a87ce3504b52c066ee4d2625c10e5e320ee09ea223ca44"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "9c7bd7633628893abf29ae7829a9a04754b98018ebba29622728633c72d7da94"
-    sha256 cellar: :any_skip_relocation, sonoma:        "5df78de31c02cee7d27787a22a657607481516df41ba20d35533b657f17388ab"
-    sha256 cellar: :any_skip_relocation, ventura:       "34bea9512c5ecd959a1520c2dbbed4d2779f2d2c3d056f3a09b207e20d444490"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "79d1e6cc01adc6dce40162f00b01b1c6e98d85fcee5d678ffe475b672c735cde"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "3b5047e576e061a87a9d3ce284badb4debfa3ec90449a1502417e8374bbe00e2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "abf882bbde2792f3971a9f00a5a133ab586c7af90fce07f37c87c4ad4a86ffa0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "918830f7e1021dbbb7c51be6ae822ec4461bb6214bd759adbb90f2063bdce95e"
+    sha256 cellar: :any_skip_relocation, sonoma:        "3e55dc6c9bb9d2fa337863ac5f949c75946df314322b48f29620eac8827938f7"
+    sha256 cellar: :any_skip_relocation, ventura:       "a2760dbd946c8bc49b4cdaf57fc4171e66cc3aa1f460056bc6e5d8ec2a9cfde4"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "34111f178b04fdd4d98f372146c7d19a7d282f8ad868b76a7b8b30cf279684e7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "31ae968ca941241d98668b1f6b425c509c007d329cd5267629b74f7d69844e49"
   end
 
   depends_on "rust" => :build

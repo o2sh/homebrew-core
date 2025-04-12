@@ -1,20 +1,19 @@
 class Buildifier < Formula
   desc "Format bazel BUILD files with a standard convention"
   homepage "https://github.com/bazelbuild/buildtools"
-  url "https://github.com/bazelbuild/buildtools/archive/refs/tags/v7.3.1.tar.gz"
-  sha256 "051951c10ff8addeb4f10be3b0cf474b304b2ccd675f2cc7683cdd9010320ca9"
+  url "https://github.com/bazelbuild/buildtools/archive/refs/tags/v8.0.3.tar.gz"
+  sha256 "573345c2039889a4001b9933a7ebde8dcaf910c47787993aecccebc3117a4425"
   license "Apache-2.0"
   head "https://github.com/bazelbuild/buildtools.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "778a3d2f8e3f9d635b719dd6dbd69deb61ec5350c8bfa62e586d0165246dbe32"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e1166ae3c40a598be78f7c95e0d1a7c9d76a6c611202cd39c5d3d9a3b17b75f6"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e1166ae3c40a598be78f7c95e0d1a7c9d76a6c611202cd39c5d3d9a3b17b75f6"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e1166ae3c40a598be78f7c95e0d1a7c9d76a6c611202cd39c5d3d9a3b17b75f6"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a245b991ebf0f1abc37be1efd2334ba03a418400ad39f75ea91553f0e34c4a81"
-    sha256 cellar: :any_skip_relocation, ventura:        "a245b991ebf0f1abc37be1efd2334ba03a418400ad39f75ea91553f0e34c4a81"
-    sha256 cellar: :any_skip_relocation, monterey:       "a245b991ebf0f1abc37be1efd2334ba03a418400ad39f75ea91553f0e34c4a81"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f807df31511f08e0ac64c2ab60636e98c0bae2d4caef00f6e600f214690efec1"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2f1292e85a5899b679c29dee057710ec29672b9a198d3ac3b09553027e1c3730"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2f1292e85a5899b679c29dee057710ec29672b9a198d3ac3b09553027e1c3730"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "2f1292e85a5899b679c29dee057710ec29672b9a198d3ac3b09553027e1c3730"
+    sha256 cellar: :any_skip_relocation, sonoma:        "dfec64a25d3507a98a3595803434cf1ccb37f7786b4a84e3266667349e280e6d"
+    sha256 cellar: :any_skip_relocation, ventura:       "dfec64a25d3507a98a3595803434cf1ccb37f7786b4a84e3266667349e280e6d"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "16428f1aa1d1e3f709a60ea485d7614b7eba2ad32ba181b83bfc16fdf6d3574c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "72b45c33c6863734420c87400e6ef1b6908e076b458759337ae4b02f647ebe14"
   end
 
   depends_on "go" => :build

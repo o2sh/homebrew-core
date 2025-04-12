@@ -1,27 +1,18 @@
 class Sile < Formula
   desc "Modern typesetting system inspired by TeX"
   homepage "https://sile-typesetter.org"
+  url "https://github.com/sile-typesetter/sile/releases/download/v0.15.12/sile-0.15.12.tar.zst"
+  sha256 "a3234111d56bb22f0cba2608954ec88df260eb4772f054ed29770912003ec8a0"
   license "MIT"
 
-  stable do
-    url "https://github.com/sile-typesetter/sile/releases/download/v0.15.8/sile-0.15.8.tar.zst"
-    sha256 "64c17abafd5b1ef30419a81b000998870c1b081b6372d55bc31df9c3b83f0f6a"
-
-    # Needed to workaround upstream source dist snafu, see configure phase
-    on_macos do
-      depends_on "autoconf" => :build
-      depends_on "automake" => :build
-      depends_on "libtool" => :build
-    end
-  end
-
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "c73569b18ef58118933b042b2798cdfbf799a7d33db269233d277ebab9e65aae"
-    sha256 cellar: :any,                 arm64_sonoma:  "6c9ccd73775633e380f73599b77b7743ab0cab761387f1b17b8a12077a54fdac"
-    sha256 cellar: :any,                 arm64_ventura: "f9f0a55bebd34b16e5c20b741bec059de5a5833a425ee78095cf27b6a51e29a4"
-    sha256 cellar: :any,                 sonoma:        "1399274b08181e6d034f66669f9f2c5e2cc26d201dd16502d7b55ec13e490ea3"
-    sha256 cellar: :any,                 ventura:       "0af3edbdfbe446a79ed80f705ae432062390f9f42973779c9cba4cb0392bb308"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c5e0c9a04abe78f48723118e502326da42c8943a3ac54910569d3ce84b8f81e2"
+    sha256 cellar: :any,                 arm64_sequoia: "eca1e70dd844c9facaedb981b388afb6a238fba2f953b60dcf82a9dc00daf0fb"
+    sha256 cellar: :any,                 arm64_sonoma:  "336bc3d0f83537822e1b9613d0271246cb6f61a7e80b911f5aec23509662813c"
+    sha256 cellar: :any,                 arm64_ventura: "9776105f8da8dbefa26535ca9dd15ac771476b5a7a1d7320f038ddde52d79962"
+    sha256 cellar: :any,                 sonoma:        "89d04ca5e3ec6e92e79959f9a16a329ad6b47db644932f75c2024f2d3d0396dc"
+    sha256 cellar: :any,                 ventura:       "44367b55c868bd3659d507654a101812a2b4ea4876b9ff76bcef05aa8d27528d"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "706444ee18db2eb49fe44044c9fbc170dd91180b3a80c5ab533658dcd03731b1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "570ca957d702a09bb5901515a9216c72b2a770da6064bf8d5d276c1558fb3ad5"
   end
 
   head do
@@ -39,7 +30,7 @@ class Sile < Formula
 
   depends_on "fontconfig"
   depends_on "harfbuzz"
-  depends_on "icu4c@76"
+  depends_on "icu4c@77"
   depends_on "libpng"
   depends_on "luajit"
   depends_on "luarocks"
@@ -142,8 +133,8 @@ class Sile < Formula
   end
 
   resource "luautf8" do
-    url "https://luarocks.org/manifests/xavier-wang/luautf8-0.1.5-2.src.rock"
-    sha256 "68bd8e3c3e20f98fceb9e20d5a7a50168202c22eb45b87eff3247a0608f465ae"
+    url "https://luarocks.org/manifests/xavier-wang/luautf8-0.1.6-1.src.rock"
+    sha256 "37901bc127c4afe9f611bba58af7b12eda6599fc270e1706e2f767807dfacd82"
   end
 
   resource "vstruct" do
@@ -188,14 +179,7 @@ class Sile < Formula
         rock = Pathname.pwd.children(false).first
         unpack_dir = Utils.safe_popen_read("luarocks", "unpack", rock).split("\n")[-2]
         spec = "#{r.name}-#{r.version}.rockspec"
-        cd unpack_dir do
-          # Work around LuaJIT not exporting a setting for INT_MAX any
-          # more and luautf8 expecting it transitively
-          if r.name.eql? "luautf8"
-            inreplace "lutf8lib.c", "#include <stdint.h>", "#include <stdint.h>\n#include <limits.h>"
-          end
-          system "luarocks", "make", *luarocks_args, spec
-        end
+        cd(unpack_dir) { system "luarocks", "make", *luarocks_args, spec }
       end
     end
 
@@ -211,14 +195,6 @@ class Sile < Formula
 
     system "./bootstrap.sh" if build.head?
     system "./configure", *configure_args, *std_configure_args
-    # Work around platform detection results having been baked into the
-    # source dist (generated on Linux) with an extra configure cycle to
-    # regenerate aminclude.m4 *after* having actually run the platform
-    # detection on the target platform and found Darwin.
-    if build.stable? && OS.mac?
-      system "autoreconf", "-fiv"
-      system "./configure", *configure_args, *std_configure_args
-    end
     system "make"
     system "make", "install"
   end

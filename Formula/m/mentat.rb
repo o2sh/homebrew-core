@@ -16,8 +16,12 @@ class Mentat < Formula
     sha256 cellar: :any,                 arm64_ventura: "da02fd79ddd6e866f7d9cdc4459548c24eaeb04d9c57fb0c3c4f5756b2a437c2"
     sha256 cellar: :any,                 sonoma:        "45d47f97037d79f06a20e6b28c43deac9d9cfe0968aca3881a19a0c3c2d95430"
     sha256 cellar: :any,                 ventura:       "30951808b6bbebe3cd919b11ff7b82fea0b3737773bb684dde2cc1619872c760"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "217d8ab6cc5f2e324ebe8e23f36322e0c6deb979c590dc2d06708895861b270e"
     sha256 cellar: :any_skip_relocation, x86_64_linux:  "cc06886c4c5577b995aae0dbcf6d3c34185f477bd51601752a0cc0bc8fbdf69a"
   end
+
+  # https://github.com/AbanteAI/archive-old-cli-mentat/commit/901f0726418e9e9a66bec78facecf3a45541002d
+  deprecate! date: "2025-01-10", because: :repo_archived
 
   depends_on "rust" => :build # for tiktoken
   depends_on "certifi"

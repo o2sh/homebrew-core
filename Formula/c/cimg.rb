@@ -1,8 +1,8 @@
 class Cimg < Formula
   desc "C++ toolkit for image processing"
   homepage "https://cimg.eu/"
-  url "https://cimg.eu/files/CImg_3.5.0.zip"
-  sha256 "6126e66e44b447748fb8cd97246707ac90b598e36ca1575e58104b03aa834c62"
+  url "https://cimg.eu/files/CImg_3.5.3.zip"
+  sha256 "a9b825366ade0a1cfda784c87b40aa5e65f84f2d5ec562ae48928161880ed01b"
   license "CECILL-2.0"
 
   livecheck do
@@ -11,12 +11,13 @@ class Cimg < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f5a8bda491f815b8b397fd314a42e73fccf4ba33a88bbe0f40650166632d6890"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f5a8bda491f815b8b397fd314a42e73fccf4ba33a88bbe0f40650166632d6890"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "f5a8bda491f815b8b397fd314a42e73fccf4ba33a88bbe0f40650166632d6890"
-    sha256 cellar: :any_skip_relocation, sonoma:        "698fbcbf0794dfbd76b3932a0af7b5eeb3fa35cdc08035ab5680907a586d3c7e"
-    sha256 cellar: :any_skip_relocation, ventura:       "698fbcbf0794dfbd76b3932a0af7b5eeb3fa35cdc08035ab5680907a586d3c7e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f5a8bda491f815b8b397fd314a42e73fccf4ba33a88bbe0f40650166632d6890"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "802f049ec2de8d9e442fff040210ee61a9a7fee12cb5db03aa047f40b3979dc0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "802f049ec2de8d9e442fff040210ee61a9a7fee12cb5db03aa047f40b3979dc0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "802f049ec2de8d9e442fff040210ee61a9a7fee12cb5db03aa047f40b3979dc0"
+    sha256 cellar: :any_skip_relocation, sonoma:        "dc9c5dc3c55049540f22cc19afec3e7f2716b81984ee64a6bdba2e055e812c28"
+    sha256 cellar: :any_skip_relocation, ventura:       "dc9c5dc3c55049540f22cc19afec3e7f2716b81984ee64a6bdba2e055e812c28"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "802f049ec2de8d9e442fff040210ee61a9a7fee12cb5db03aa047f40b3979dc0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "802f049ec2de8d9e442fff040210ee61a9a7fee12cb5db03aa047f40b3979dc0"
   end
 
   def install

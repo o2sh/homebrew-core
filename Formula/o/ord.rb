@@ -1,18 +1,19 @@
 class Ord < Formula
   desc "Index, block explorer, and command-line wallet"
   homepage "https://ordinals.com/"
-  url "https://github.com/ordinals/ord/archive/refs/tags/0.22.1.tar.gz"
-  sha256 "36f7871915d9c0f19d3fb47e49a54ce2d07d5df04f48744616158680b7d3d941"
+  url "https://github.com/ordinals/ord/archive/refs/tags/0.23.1.tar.gz"
+  sha256 "bacd90dbd470883035edcaba1ff85ea34360d35b93c0b7539dfe94399fdca184"
   license "CC0-1.0"
   head "https://github.com/ordinals/ord.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c6bac82b73a8cd9dfea6e4c06fd5310bfa601f4c6f52b494a8fbce90190c99cc"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e1ce4fcfa4e8836fd6f896e84d1c09e0236bf892973e3880fe022850a89c3a7e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "3d56a59a656189fd6d2cb63f7f3b5b37ae928e0f7b2fd8cfb1cbac2571599b7a"
-    sha256 cellar: :any_skip_relocation, sonoma:        "7eba326305a05cb9bbb0de9f094f0b5964979728e04d78f1c94514932b8c9d3b"
-    sha256 cellar: :any_skip_relocation, ventura:       "8edf20146b0761a3949f4f98bd165ffe4314eb931af274e0a64c351ace5eec22"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a8f6555295dc68be47ae9b561ff2df4e26d00ba323ffb85f25d3d29735b2bbcb"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d4ee2eaba425e6410dfdc382fd2f3defef29ae493efc8a5b91966a99a8b17cee"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2abed74bff0ae175a7c224b4feee92f0ab63ec9eb8341304fd5117e1413b98fd"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "d738ef2c19ce1c82d782c09b76c720a3ccf02fa57d252e84683cf0e1d2a99f9d"
+    sha256 cellar: :any_skip_relocation, sonoma:        "b8a4057e0162e8ab8e81a3da38fc71ba9898b54b80e5452adbc7c18dc2f0165d"
+    sha256 cellar: :any_skip_relocation, ventura:       "bd82a40dcc24ffe1551d783cf18cc1f3a7e424148efd0860e2448b61876442b1"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "7d91b7ec987202d1855e304795d345732698e0d4e3ea61d984fd1b8209af106f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d3011ef48bbc7057fa537d216751b77379cce59439f6d544f494af01b2931aa0"
   end
 
   depends_on "pkgconf" => :build

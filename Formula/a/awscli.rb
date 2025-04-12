@@ -3,34 +3,33 @@ class Awscli < Formula
 
   desc "Official Amazon AWS command-line interface"
   homepage "https://aws.amazon.com/cli/"
-  url "https://github.com/aws/aws-cli/archive/refs/tags/2.22.26.tar.gz"
-  sha256 "f47e44655ba66fb817e073ce717b6307d8d070bb28fb3a76f071217bd5c438cd"
+  url "https://github.com/aws/aws-cli/archive/refs/tags/2.26.1.tar.gz"
+  sha256 "b9dd15971c17954e3ceb77ff5f8bdd10352dcc9bef474cb9ae2e637e32ba71cd"
   license "Apache-2.0"
   head "https://github.com/aws/aws-cli.git", branch: "v2"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "05a08dd947240314ff466f12bf5d98fbb467068a32e75afbc2cac5e3bc8089d0"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ce8c826154506ebd46a39af866a9a30dda26f849a49aba0d18892f1a51842f2c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "009b8802b97ca357bbcc0e243a71182865b0b030d174e5d3d163457c6ccc7ad1"
-    sha256 cellar: :any_skip_relocation, sonoma:        "b31e0b9f1dd0e65f685863c875da68499d962541913fb64d136cc1b48a83f3ce"
-    sha256 cellar: :any_skip_relocation, ventura:       "03a5725858c7db80085ac3076cf8ff45d00067a6cb3c119ee3232fc73fa2d420"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0333d394b9d6efaa67f55c664d6cc908a7af76319b6a485a7e9c23f8a6369aad"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "5eb45c9ea37205315d0688b8ddac98150c1a57e11797f063503ec6941ea57928"
+    sha256 cellar: :any,                 arm64_sonoma:  "a5cad0cc1d0590e10bc323cd34ebfe9a27c4ed2fa7d92c11e8859a34e255d5c6"
+    sha256 cellar: :any,                 arm64_ventura: "49f07d7bddf62d8667e683ec766c062dd41e7f21944944b6ceea95ea4c2688c2"
+    sha256 cellar: :any,                 sonoma:        "07b11d03b04491b1a5b02fde196c7bf3733458d78a3a575119d5b35abed9cf3a"
+    sha256 cellar: :any,                 ventura:       "a17a3f48c4aa3ceca09ffbf69de2e59641580cfa410e54bf928f211b5ba9d299"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "99d1ff2319ecd124ac3eb7e7a8aace5755084556b855faedadd93a98d42d970b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4f564e919264c72885601d1fe433fbf7113963110dbd15437e2017f269b4becf"
   end
 
   depends_on "cmake" => :build
   depends_on "cryptography"
-  depends_on "python@3.12"
+  depends_on "openssl@3"
+  depends_on "python@3.13"
 
   uses_from_macos "libffi"
   uses_from_macos "mandoc"
 
-  on_linux do
-    depends_on "openssl@3"
-  end
-
   resource "awscrt" do
-    url "https://files.pythonhosted.org/packages/ff/ba/ff910e6c0f51eae21cd517b17bf0fc532230b72b2f759bd0482ac2f8706b/awscrt-0.23.4.tar.gz"
-    sha256 "3ef5212a3c3b0549b3b0e85507b7bbdfb891ff40ca4c597e92db07a0bf7b614a"
+    url "https://files.pythonhosted.org/packages/9d/a6/e1553dc8cb8beea1d518a53a5c2c9296d3eb2ee6701ecb8b6544735cfbef/awscrt-0.25.4.tar.gz"
+    sha256 "bfea85e4240184137fe94ac9294e52bfd0b22e93b10748d9907c86ab86005f42"
   end
 
   resource "colorama" do
@@ -49,8 +48,8 @@ class Awscli < Formula
   end
 
   resource "flit-core" do
-    url "https://files.pythonhosted.org/packages/d5/ae/09427bea9227a33ec834ed5461432752fd5d02b14f93dd68406c91684622/flit_core-3.10.1.tar.gz"
-    sha256 "66e5b87874a0d6e39691f0e22f09306736b633548670ad3c09ec9db03c5662f7"
+    url "https://files.pythonhosted.org/packages/69/59/b6fc2188dfc7ea4f936cd12b49d707f66a1cb7a1d2c16172963534db741b/flit_core-3.12.0.tar.gz"
+    sha256 "18f63100d6f94385c6ed57a72073443e1a71a4acb4339491615d0f16d6ff01b2"
   end
 
   resource "jmespath" do
@@ -74,8 +73,8 @@ class Awscli < Formula
   end
 
   resource "ruamel-yaml-clib" do
-    url "https://files.pythonhosted.org/packages/46/ab/bab9eb1566cd16f060b54055dd39cf6a34bfa0240c53a7218c43e974295b/ruamel.yaml.clib-0.2.8.tar.gz"
-    sha256 "beb2e0404003de9a4cab9753a8805a8fe9320ee6673136ed7f04255fe60bb512"
+    url "https://files.pythonhosted.org/packages/20/84/80203abff8ea4993a87d823a5f632e4d92831ef75d404c9fc78d0176d2b5/ruamel.yaml.clib-0.2.12.tar.gz"
+    sha256 "6c8fbb13ec503f99a91901ab46e0b07ae7941cd527393187039aec586fdfd36f"
   end
 
   resource "six" do
@@ -93,13 +92,8 @@ class Awscli < Formula
     sha256 "72ea0c06399eb286d978fdedb6923a9eb47e1c486ce63e9b4e64fc18303972b5"
   end
 
-  resource "zipp" do
-    url "https://files.pythonhosted.org/packages/54/bf/5c0000c44ebc80123ecbdddba1f5dcd94a5ada602a9c225d84b5aaa55e86/zipp-3.20.2.tar.gz"
-    sha256 "bc9eb26f4506fda01b81bcde0ca78103b6e62f991b381fec825435c836edbc29"
-  end
-
   def python3
-    which("python3.12")
+    which("python3.13")
   end
 
   def install
@@ -110,7 +104,10 @@ class Awscli < Formula
     ENV.append_to_cflags "-Wno-incompatible-function-pointer-types" if DevelopmentTools.clang_build_version >= 1500
 
     venv = virtualenv_create(libexec, python3, system_site_packages: false)
-    venv.pip_install resources
+    venv.pip_install resources.reject { |r| r.name == "awscrt" }
+    # CPU detection is available in AWS C libraries
+    ENV.runtime_cpu_detection
+    venv.pip_install resource("awscrt")
     venv.pip_install_and_link buildpath, build_isolation: false
 
     pkgshare.install "awscli/examples"

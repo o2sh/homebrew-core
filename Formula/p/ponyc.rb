@@ -2,17 +2,18 @@ class Ponyc < Formula
   desc "Object-oriented, actor-model, capabilities-secure programming language"
   homepage "https://www.ponylang.io/"
   url "https://github.com/ponylang/ponyc.git",
-      tag:      "0.58.9",
-      revision: "cabe71ef4dd3d59b620c2b348e381e91d1905a84"
+      tag:      "0.58.13",
+      revision: "fbae22329109da921ba57614e2aae77a5c776d99"
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4ed1755717a011056bcd1fec998be976a1b65e575d5971cf4cee20610f3c2979"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e065f745573c180e1370b5bc552a9be9a9bb9675b2a7c8469fc9c416e2dff72f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "01cec72461f9014cc6527a13ffd562f1d6086251b93120c76f81a56b81aa7711"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e54d06689c83a3e71c3946ae1022565433365f37c0878559843043aacd66cda0"
-    sha256 cellar: :any_skip_relocation, ventura:       "c345120fb40f5fb5b366e3de0806bf78fe241306eddc9c245aca5e2147b9269b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "222e01cd8e9ae391b59a840f94135aee3294d912279d994e7246b43d8d37d658"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2c555d43672fa143e7aef6b477236315be0b1fcf7a0103641903d4b49c130fee"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d2b6a4a411f13a91366aa6b4299ab3dd8e599be8ce0ed4b78cf9427dca90bed9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "42effa3a3be2b6514c1a464359f0b34573e3063e510635d7fbc15e26c425e7e3"
+    sha256 cellar: :any_skip_relocation, sonoma:        "8db4eb7a97ffe5010a0116a75fcb6e8700d5dc7d47874b8a62757bba8942bd0c"
+    sha256 cellar: :any_skip_relocation, ventura:       "c27dd9b385726c4f9a917cf8377b2c4539188c0eacbec1144cf97bcd6d2fd86f"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "dfa6233a76b2d763cf313cc94894eb1c65d630095951d740e4b18379c4aa414d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b893acb2605a07e6a2f85f2a8a9f40766ab6ff760b41fc71ee4bad4995ae6c68"
   end
 
   depends_on "cmake" => :build
@@ -48,11 +49,11 @@ class Ponyc < Formula
 
     system bin/"ponyc", "-rexpr", "#{prefix}/packages/stdlib"
 
-    (testpath/"test/main.pony").write <<~EOS
+    (testpath/"test/main.pony").write <<~PONY
       actor Main
         new create(env: Env) =>
           env.out.print("Hello World!")
-    EOS
+    PONY
     system bin/"ponyc", "test"
     assert_equal "Hello World!", shell_output("./test1").strip
   end

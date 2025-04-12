@@ -4,30 +4,35 @@ class Freeling < Formula
   url "https://github.com/TALP-UPC/FreeLing/releases/download/4.2/FreeLing-src-4.2.1.tar.gz"
   sha256 "c672a6379142ac2e872741e7662f17eccd8230bffc680564d2843d87480f1600"
   license "AGPL-3.0-only"
-  revision 8
+  revision 9
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "d6acdd643de5c309907ceb793cd046cd8dd8ad28699322502b5dfb66a2242a2f"
-    sha256 cellar: :any,                 arm64_sonoma:  "322a9d592bc73e998a38644941240636caa518d30116c1fa70f8d9239b000d30"
-    sha256 cellar: :any,                 arm64_ventura: "fd3f956da818dd715eedc7b82f8bf0f5045a38021ccf1b000691811edf2f35a3"
-    sha256 cellar: :any,                 sonoma:        "780a8288885a7e4577fd407cedd81431f52b7158ac46950623893e5cb2e17905"
-    sha256 cellar: :any,                 ventura:       "506d8768088d58c6bb31306c78f1bd0470d3f1f06b0aab7a97897cf99056c4d9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "59dff48c765a92393305e2ed97eb4764fdfd458ff3d1e18dce973179dd3b3a3e"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "7818f5931f6a47b3b1347f40740e9ed5d69497b35273d05751f50b3b7aae780c"
+    sha256 cellar: :any,                 arm64_sonoma:  "830fc63ec3e39530597595fb83f2545f4011aa2bd3db2b8348c3b914aec34a7f"
+    sha256 cellar: :any,                 arm64_ventura: "3688000fe9494bf4481c2ecaff45fbbb90de39f450fdbd35c95d9200f896c8c6"
+    sha256 cellar: :any,                 sonoma:        "02928e1c1d2de345657a5296ec2aba68903ed41b759a533c05c0f73404153a9a"
+    sha256 cellar: :any,                 ventura:       "ddca7f21d90216b356ea852e14d23e5299d0032b7109a5e19a7666b252db3143"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "df83bdff0215c970ec2cbddda96458f831f527cfcbe8f165994e69d66fbaef3d"
   end
 
   depends_on "cmake" => :build
   depends_on "boost"
-  depends_on "icu4c@76"
+  depends_on "dynet"
+  depends_on "icu4c@77"
 
   uses_from_macos "zlib"
 
-  conflicts_with "dynet", because: "freeling ships its own copy of dynet"
-  conflicts_with "eigen", because: "freeling ships its own copy of eigen"
   conflicts_with "foma", because: "freeling ships its own copy of foma"
   conflicts_with "hunspell", because: "both install 'analyze' binary"
   conflicts_with "crfsuite", because: "both install `crfsuite` binaries"
 
   def install
+    # Unbundle `dynet` and its dependency `eigen`
+    rm_r(["src/eigen3", "src/libdynet"])
+    (buildpath/"src/eigen3").mkpath
+    (buildpath/"src/libdynet/CMakeLists.txt").write ""
+
     # icu4c 75+ needs C++17
     inreplace "CMakeLists.txt", "set(CMAKE_CXX_STANDARD 11)", "set(CMAKE_CXX_STANDARD 17)"
 

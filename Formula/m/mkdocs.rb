@@ -6,15 +6,16 @@ class Mkdocs < Formula
   url "https://files.pythonhosted.org/packages/bc/c6/bbd4f061bd16b378247f12953ffcb04786a618ce5e904b8c5a01a0309061/mkdocs-1.6.1.tar.gz"
   sha256 "7b432f01d928c084353ab39c57282f29f92136665bdd6abf7c1ec8d822ef86f2"
   license "BSD-2-Clause"
-  revision 1
+  revision 2
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "3d666fb68bc2fd0ed7786a997aacdf042e55e0cdb8d23f5af8de2aaf7d4d6ef3"
-    sha256 cellar: :any,                 arm64_sonoma:  "b6efd733d2eeafebd9cfcf10ab0191ff4168150ed0925f9a2aba07d10361d29c"
-    sha256 cellar: :any,                 arm64_ventura: "be71697c0de3aa849899f2e00431185258749ded2602605e509dfd40d3af7e1e"
-    sha256 cellar: :any,                 sonoma:        "f98b0e0e86d568be18b679229b263f95afc19da03c6dc84e812c04298bab9313"
-    sha256 cellar: :any,                 ventura:       "e9f98afd0b518de77f3a48f4ffe72b38db62e78474f5752171a8dfa8bd50e43f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "db9e1d15a081347232dff3e04a92522b1511673a18977ee7dab75a830cd90e59"
+    sha256 cellar: :any,                 arm64_sequoia: "8949d2400c8ac7907722453a9dd3eda5fb2fa59d108780cf39ec08c0e6f85839"
+    sha256 cellar: :any,                 arm64_sonoma:  "18027883a996c60ba30c512355f1191f6511012d10f923a823054ec84433d676"
+    sha256 cellar: :any,                 arm64_ventura: "da17c04e73e0303c652227c3430ff796ad56d4413ecf83dd70d56e726a32c50f"
+    sha256 cellar: :any,                 sonoma:        "4ea1fe98fa94007b603783f49613bbb2a78f17e1eef3ed25d4ba8bc7df058093"
+    sha256 cellar: :any,                 ventura:       "a971cd332ce793ad02a26af1c969939159312cae8e8912cade00bd3ed8ff82d5"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "3f5431f94afb48e3c3f075f972b4cbb6ce369a92025cc0c68bf8d56006f8f4aa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ef7464dc0f884425c657bd71d5f29700644c6c5ca4825a8bfdfe5daf5ca74481"
   end
 
   depends_on "libyaml"
@@ -33,8 +34,8 @@ class Mkdocs < Formula
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/af/92/b3130cbbf5591acf9ade8708c365f3238046ac7cb8ccba6e81abccb0ccff/jinja2-3.1.5.tar.gz"
-    sha256 "8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb"
+    url "https://files.pythonhosted.org/packages/df/bf/f7da0350254c0ed7c72f3e33cef02e048281fec7ecec5f032d4aac52226b/jinja2-3.1.6.tar.gz"
+    sha256 "0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d"
   end
 
   resource "markdown" do
@@ -100,6 +101,8 @@ class Mkdocs < Formula
   def install
     ENV["PIP_USE_PEP517"] = "1"
     virtualenv_install_with_resources
+
+    generate_completions_from_executable(bin/"mkdocs", shells: [:fish, :zsh], shell_parameter_format: :click)
   end
 
   test do

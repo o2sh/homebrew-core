@@ -18,6 +18,7 @@ class WpCli < Formula
     sha256 cellar: :any_skip_relocation, sonoma:         "17ab14f199e16148b4efd4e2704650e450513ff99e724f36a485761cf722eb58"
     sha256 cellar: :any_skip_relocation, ventura:        "17ab14f199e16148b4efd4e2704650e450513ff99e724f36a485761cf722eb58"
     sha256 cellar: :any_skip_relocation, monterey:       "17ab14f199e16148b4efd4e2704650e450513ff99e724f36a485761cf722eb58"
+    sha256 cellar: :any_skip_relocation, arm64_linux:    "9a914a88b731a0a8912fbbe45ca081b2ccd6a1c4403e52d7ad1f549974d4e9b6"
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "ffa9280acd31b4b1b7f7d567d1dfbabda11d2bc0cc25fc34f49af131bf613c0f"
   end
 
@@ -35,7 +36,11 @@ class WpCli < Formula
   end
 
   test do
-    output = shell_output("#{bin}/wp core download --path=wptest")
+    assert_match version.to_s, shell_output("#{bin}/wp --version")
+
+    # workaround to fix memory exhaustion error
+    # see https://make.wordpress.org/cli/handbook/guides/common-issues/#php-fatal-error-allowed-memory-size-of-999999-bytes-exhausted-tried-to-allocate-99-bytes
+    output = shell_output("php -d memory_limit=512M #{bin}/wp core download --path=wptest")
     assert_match "Success: WordPress downloaded.", output
   end
 end

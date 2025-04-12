@@ -1,19 +1,18 @@
 class Gosec < Formula
   desc "Golang security checker"
   homepage "https://securego.io/"
-  url "https://github.com/securego/gosec/archive/refs/tags/v2.21.4.tar.gz"
-  sha256 "fe3d78c52383164906d3cca5b22e693e22a146a4b89a8f60438fdaa833e32b3f"
+  url "https://github.com/securego/gosec/archive/refs/tags/v2.22.3.tar.gz"
+  sha256 "f9b9ac7e82e8bc66ea340d161ce4034575174dd8fd9688e0cde089f2f4e8b31d"
   license "Apache-2.0"
   head "https://github.com/securego/gosec.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0193dd59288ec01a5cf4679b3a6ae4da8c4d02e39bd799d0cfb0e2492d634f6b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0193dd59288ec01a5cf4679b3a6ae4da8c4d02e39bd799d0cfb0e2492d634f6b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "0193dd59288ec01a5cf4679b3a6ae4da8c4d02e39bd799d0cfb0e2492d634f6b"
-    sha256 cellar: :any_skip_relocation, sonoma:        "60cab52631b73a9eb2b9f74f1aeef0f5a66902009412d43b3395c4c041dc023a"
-    sha256 cellar: :any_skip_relocation, ventura:       "60cab52631b73a9eb2b9f74f1aeef0f5a66902009412d43b3395c4c041dc023a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ca434b1c6fb412c4f5da4b318380e148632417fd7e4f69ba18eed3f7a043c637"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "363a2b962e17892d4673747d460a4a5a977ebf26f79d6a1646069db58ce082c3"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "363a2b962e17892d4673747d460a4a5a977ebf26f79d6a1646069db58ce082c3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "363a2b962e17892d4673747d460a4a5a977ebf26f79d6a1646069db58ce082c3"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5a466435b0ffcbecc32e01e5bf211f1a60d84da89c16b0a7c3d18cc51c1308d9"
+    sha256 cellar: :any_skip_relocation, ventura:       "5a466435b0ffcbecc32e01e5bf211f1a60d84da89c16b0a7c3d18cc51c1308d9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5a3c391451f47ac8e992befdcc754908bafadf94db7987df80b027bbf7319738"
   end
 
   depends_on "go"

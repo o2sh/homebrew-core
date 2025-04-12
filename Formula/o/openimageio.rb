@@ -1,8 +1,8 @@
 class Openimageio < Formula
   desc "Library for reading, processing and writing images"
   homepage "https://openimageio.readthedocs.io/en/stable/"
-  url "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.0.1.0.tar.gz"
-  sha256 "7f84c2b9c13be74c4a187fefe3844b391374ba329aa63fbbca21fa232e43c87b"
+  url "https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/refs/tags/v3.0.4.0.tar.gz"
+  sha256 "dd481071d532c1ab38242011bb7af16f6ec7d915c58cada9fb78ed72b402ebc5"
   license "Apache-2.0"
   head "https://github.com/AcademySoftwareFoundation/OpenImageIO.git", branch: "master"
 
@@ -13,20 +13,20 @@ class Openimageio < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sequoia: "f319ab0634e8ec0a34c07017f6b84f9abbd5a1c3e1f10de7b7c50d0836b44337"
-    sha256 cellar: :any,                 arm64_sonoma:  "cc389000f92e12ce948c65a78de7317b241f0bcefb31c5772bfd13f4b0184979"
-    sha256 cellar: :any,                 arm64_ventura: "910356b34c8e68d76139a5b652ea4116daf3633cd76a06e199faa33fe4dc44c2"
-    sha256 cellar: :any,                 sonoma:        "7b12bcc47d9e40de1679879be9176969a0341d7de9668a4ffc377442dc74c9fe"
-    sha256 cellar: :any,                 ventura:       "1adecdfa9960e65bd011c066b6b7f5ffe1b4e9db9b85ce0c693be5b3597ab050"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "52f6da42295798264891d623c377aa97310935fccc13f21c343f2a229cdea804"
+    sha256 cellar: :any,                 arm64_sequoia: "fabfcbfcd422a179aca1b2667b7fc97afbbfcb33068c24be4cf13a9d2df506d9"
+    sha256 cellar: :any,                 arm64_sonoma:  "15844d3b731b19888a755b7d19605a8a2c13ea913628399265144271443710f7"
+    sha256 cellar: :any,                 arm64_ventura: "62afb78dcccaedb0d0c47ebd8bb040bc3e3542c6deb3a6507e8b750bfa4ac534"
+    sha256 cellar: :any,                 sonoma:        "9846a1521b2fffbf9236993ed57887ce648df52d41cec348e7ef2cc7b0b1b3f2"
+    sha256 cellar: :any,                 ventura:       "34883f8bf7495f8ea40fca3d71e369f3df8a75cec938bcd7f476b266f8100c81"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "e3409039beffcbf97455e2876503b014e803ee3d5974ce240db59cd038bc9cd7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7e0e791e125f44eb6f6bee02f4f070ce818e52391f78008cdc8c1561f2d833c1"
   end
 
   depends_on "cmake" => :build
   depends_on "pkgconf" => :build
   depends_on "pybind11" => :build
   depends_on "ffmpeg"
-  depends_on "fmt"
+  depends_on "fmt" # needed for headers
   depends_on "freetype"
   depends_on "giflib"
   depends_on "imath"
@@ -57,21 +57,20 @@ class Openimageio < Formula
 
   def install
     py3ver = Language::Python.major_minor_version python3
-    ENV["PYTHONPATH"] = prefix/Language::Python.site_packages(python3)
+    ENV["PYTHONPATH"] = site_packages = prefix/Language::Python.site_packages(python3)
 
     args = %W[
-      -DPython_EXECUTABLE=#{which(python3)}
+      -DCMAKE_INSTALL_RPATH=#{rpath};#{rpath(source: site_packages/"OpenImageIO")}
+      -DPython3_EXECUTABLE=#{which(python3)}
       -DPYTHON_VERSION=#{py3ver}
-      -DBUILD_MISSING_FMT=OFF
       -DCCACHE_FOUND=
       -DEMBEDPLUGINS=ON
       -DOIIO_BUILD_TESTS=OFF
+      -DOIIO_INTERNALIZE_FMT=OFF
       -DUSE_DCMTK=OFF
       -DUSE_EXTERNAL_PUGIXML=ON
-      -DUSE_JPEGTURBO=ON
       -DUSE_NUKE=OFF
       -DUSE_OPENCV=OFF
-      -DUSE_OPENGL=OFF
       -DUSE_OPENJPEG=OFF
       -DUSE_PTEX=OFF
       -DUSE_QT=OFF

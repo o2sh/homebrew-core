@@ -3,19 +3,20 @@ class Gcovr < Formula
 
   desc "Reports from gcov test coverage program"
   homepage "https://gcovr.com/"
-  url "https://files.pythonhosted.org/packages/32/21/7f9967a2d5a37d8f77e793ba4c173d0e1e59195028c997a9947b73b652f4/gcovr-8.2.tar.gz"
-  sha256 "9a1dddd4585d13ec77555db5d6b6a31ee81587ea6fc604ff9fcd232cb0782df5"
+  url "https://files.pythonhosted.org/packages/40/9f/2883275d71f27f81919a7f000afe7eb344496ab74d62e1c0e4a804918b9f/gcovr-8.3.tar.gz"
+  sha256 "faa371f9c4a7f78c9800da655107d4f99f04b718d1c0d9f48cafdcbef0049079"
   license "BSD-3-Clause"
   revision 1
   head "https://github.com/gcovr/gcovr.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1a09146bcee614db137253e92cc1b78eb60ca8a7827b572179756f72f1b0990e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8ce9dfe3b5deb35b8dc6e6b1cf4ed97522468f70badb276aea37073772daec56"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "b0713667a59b6036abd8e80a8b871ca88b89278fbd2cc6c87a3d535a844d933e"
-    sha256 cellar: :any_skip_relocation, sonoma:        "9ee6e3c4f93a745a2b3fbc3a7a42111796980cb3c9bb3cd862cf98f5de319345"
-    sha256 cellar: :any_skip_relocation, ventura:       "ce114a13425cde927c8f5339da613b7ade8c53a635880d99d0a8bce3148b6b28"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e831d5f17f37ade49c96ef94a6264148d887f4975087793233db86fb6ef156b2"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9bbb80b9db76a6b006d56229948f56abae10a00ede9fe0a4546bddf847d078e1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "fe5e05f6529a00d03b708fa4588b2741d9b7f1df01905a55a4e4dbc6ab254fff"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "0fd089bfa06c18013cae107199c2da512fb7b9c2a4bdb7cdaf260f17931681c3"
+    sha256 cellar: :any_skip_relocation, sonoma:        "7dcdf19da6dd9ac9a6aebc0da570b5a849ecd0f39ef195c287c0f765c933fd96"
+    sha256 cellar: :any_skip_relocation, ventura:       "823beec7344b7dce24e94660603d5a4c9b1199ed232803983ee70e92a3a0e992"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "e2f76e4d8551cc2f636aa90b60a9cffbdb9d6a17dcee8d0ed5c6e5f232887568"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1bd87ae3e136cf7758e904e80510ff06c6fa8005c42f38beba6e375248f62a19"
   end
 
   depends_on "python@3.13"
@@ -29,13 +30,13 @@ class Gcovr < Formula
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/af/92/b3130cbbf5591acf9ade8708c365f3238046ac7cb8ccba6e81abccb0ccff/jinja2-3.1.5.tar.gz"
-    sha256 "8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb"
+    url "https://files.pythonhosted.org/packages/df/bf/f7da0350254c0ed7c72f3e33cef02e048281fec7ecec5f032d4aac52226b/jinja2-3.1.6.tar.gz"
+    sha256 "0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d"
   end
 
   resource "lxml" do
-    url "https://files.pythonhosted.org/packages/e7/6b/20c3a4b24751377aaa6307eb230b66701024012c29dd374999cc92983269/lxml-5.3.0.tar.gz"
-    sha256 "4e109ca30d1edec1ac60cdbe341905dc3b8f55b16855e03a54aaf59e51ec8c6f"
+    url "https://files.pythonhosted.org/packages/ef/f6/c15ca8e5646e937c148e147244817672cf920b56ac0bf2cc1512ae674be8/lxml-5.3.1.tar.gz"
+    sha256 "106b7b5d2977b339f1e97efe2778e2ab20e99994cbb0ec5e55771ed0795920c8"
   end
 
   resource "markupsafe" do
@@ -44,8 +45,8 @@ class Gcovr < Formula
   end
 
   resource "pygments" do
-    url "https://files.pythonhosted.org/packages/8e/62/8336eff65bcbc8e4cb5d05b55faf041285951b6e80f33e2bff2024788f31/pygments-2.18.0.tar.gz"
-    sha256 "786ff802f32e91311bff3889f6e9a86e81505fe99f2735bb6d60ae0c5004f199"
+    url "https://files.pythonhosted.org/packages/7c/2d/c3338d48ea6cc0feb8446d8e6937e1408088a72a39937982cc6111d17f84/pygments-2.19.1.tar.gz"
+    sha256 "61c16d2a8576dc0649d9f39e089b5f02bcd27fba10d8fb4dcc28173f7a45151f"
   end
 
   def install

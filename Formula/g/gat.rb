@@ -1,17 +1,18 @@
 class Gat < Formula
   desc "Cat alternative written in Go"
   homepage "https://github.com/koki-develop/gat"
-  url "https://github.com/koki-develop/gat/archive/refs/tags/v0.19.3.tar.gz"
-  sha256 "584c14cadafe2658d09ed8bdb02d3b92e9b2d27efb7696dd4c830cd38446701e"
+  url "https://github.com/koki-develop/gat/archive/refs/tags/v0.21.2.tar.gz"
+  sha256 "17536538142780aa9cc32dec491778e2fcbf783848ea30cb5aac553ed8e75812"
   license "MIT"
+  head "https://github.com/koki-develop/gat.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6c5d17d657baf760bc4b74de016e94e309d97f4dba3133d9f1ad0933a9ba9553"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6c5d17d657baf760bc4b74de016e94e309d97f4dba3133d9f1ad0933a9ba9553"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "6c5d17d657baf760bc4b74de016e94e309d97f4dba3133d9f1ad0933a9ba9553"
-    sha256 cellar: :any_skip_relocation, sonoma:        "6312834cd6653a14c80cf22e63010c2933f2cb8df9e9de3d474460eef971fcb9"
-    sha256 cellar: :any_skip_relocation, ventura:       "6312834cd6653a14c80cf22e63010c2933f2cb8df9e9de3d474460eef971fcb9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0e097cab9d7a6075cbf7eca273bb1cc56fe5ebf83797e8a491852637a2db45d4"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "eec2eb7915040c64071f99805b89cf8f99a9ff6e2153cd7a1b76c950bf6d0255"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "eec2eb7915040c64071f99805b89cf8f99a9ff6e2153cd7a1b76c950bf6d0255"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "eec2eb7915040c64071f99805b89cf8f99a9ff6e2153cd7a1b76c950bf6d0255"
+    sha256 cellar: :any_skip_relocation, sonoma:        "16ba60b0033d44c46a382fc952c833199b81103685afbcfae6092b40d0996b16"
+    sha256 cellar: :any_skip_relocation, ventura:       "16ba60b0033d44c46a382fc952c833199b81103685afbcfae6092b40d0996b16"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5b81415e540ddd9020fbc64b1e3ed91fe43ecf4d42be57fe282540088c034296"
   end
 
   depends_on "go" => :build

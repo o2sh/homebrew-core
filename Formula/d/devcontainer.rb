@@ -1,17 +1,18 @@
 class Devcontainer < Formula
   desc "Reference implementation for the Development Containers specification"
   homepage "https://containers.dev"
-  url "https://registry.npmjs.org/@devcontainers/cli/-/cli-0.72.0.tgz"
-  sha256 "dce95550333869e03660f98d4963f898f204af9a961f324ff2b6be048a4704db"
+  url "https://registry.npmjs.org/@devcontainers/cli/-/cli-0.75.0.tgz"
+  sha256 "fd6f16ee527f7a1404a2cbcf3472237f64e6ec947dd9be202f3338a639ab51e2"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2b23eec0465a7e0cb536cc57c61b0e2f2d0701cf5eb0aa2a0f298b6ae7673e4d"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2b23eec0465a7e0cb536cc57c61b0e2f2d0701cf5eb0aa2a0f298b6ae7673e4d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "2b23eec0465a7e0cb536cc57c61b0e2f2d0701cf5eb0aa2a0f298b6ae7673e4d"
-    sha256 cellar: :any_skip_relocation, sonoma:        "fd463e73fb6bb6ba250b87e5e418642d6d68ff6b81c779b6a087d4ba3ea8db6d"
-    sha256 cellar: :any_skip_relocation, ventura:       "fd463e73fb6bb6ba250b87e5e418642d6d68ff6b81c779b6a087d4ba3ea8db6d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2b23eec0465a7e0cb536cc57c61b0e2f2d0701cf5eb0aa2a0f298b6ae7673e4d"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "dd4e2abfeec277d5a50d7a33b7055678d87a166528ffbe5c6f005425581caa9b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "dd4e2abfeec277d5a50d7a33b7055678d87a166528ffbe5c6f005425581caa9b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "dd4e2abfeec277d5a50d7a33b7055678d87a166528ffbe5c6f005425581caa9b"
+    sha256 cellar: :any_skip_relocation, sonoma:        "3d20ab359f66edb38a09c27535e00aa2f70bd2a70e1a7150125b556839dbd4e9"
+    sha256 cellar: :any_skip_relocation, ventura:       "3d20ab359f66edb38a09c27535e00aa2f70bd2a70e1a7150125b556839dbd4e9"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "dd4e2abfeec277d5a50d7a33b7055678d87a166528ffbe5c6f005425581caa9b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dd4e2abfeec277d5a50d7a33b7055678d87a166528ffbe5c6f005425581caa9b"
   end
 
   depends_on "node"

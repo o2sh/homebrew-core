@@ -1,20 +1,23 @@
 class Gnunet < Formula
   desc "Framework for distributed, secure and privacy-preserving applications"
   homepage "https://gnunet.org/"
-  url "https://ftp.gnu.org/gnu/gnunet/gnunet-0.23.1.tar.gz"
-  mirror "https://ftpmirror.gnu.org/gnunet/gnunet-0.23.1.tar.gz"
-  sha256 "6fd05b69076b3b1a8e7e20b254e044fdd4c6da5313196317f3de088f7d025cf2"
+  url "https://ftp.gnu.org/gnu/gnunet/gnunet-0.24.1.tar.gz"
+  mirror "https://ftpmirror.gnu.org/gnunet/gnunet-0.24.1.tar.gz"
+  sha256 "c4f8f9d25d3a00f80709583b87aa8312d01454090b73a413b43ec7ec7c07ba39"
   license "AGPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "15797564cf281fc48e58e9d96e1f86348e0320082ea0044e4d2fef8dd35e6e95"
-    sha256 cellar: :any,                 arm64_sonoma:  "ac3646e173da3bed97e3e61e841ebbef29903f3f5899b6df4a27f71df9501ea2"
-    sha256 cellar: :any,                 arm64_ventura: "e527744dd0cdfafad96a34309d4ac4e7328451e15a615436374aa4e3b3819774"
-    sha256 cellar: :any,                 sonoma:        "0fc8d62658746a3a1632ae2a31e4e5af5b5bcf62753492c27476a639be5f501a"
-    sha256 cellar: :any,                 ventura:       "ba21f56397adcad7f116bc24697ee1fe774053fb474f8859cbdb4e3c23601d2a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0ac3072699a9e63f67b894dc08f71c7fa7fcd6e42d59da7617b59b987d0d1c47"
+    sha256 cellar: :any, arm64_sequoia: "1b2ace0ac8ed3de46232cce757c6c17821abcf62f77db2379b210bfeebbd245d"
+    sha256 cellar: :any, arm64_sonoma:  "affae8cd659814408ccae7f16116fec13e4c2323c12e3c8555858af87260a86e"
+    sha256 cellar: :any, arm64_ventura: "b77cc1cb7afd855da6308b5ec725145f8792a1e048d0912578bf7525a939e83e"
+    sha256 cellar: :any, sonoma:        "d6f3e8caa1ee63145f269ecf7f64f383106e55acb05b25a32d43ae5062de7d06"
+    sha256 cellar: :any, ventura:       "34886996f1f93ad7bfd44329ce84ed89ce0ff00f420fe8a5a34715482a832aa7"
+    sha256               arm64_linux:   "6da4308d9cc5120910b0706cdf52223b4b59c19db299495b43094ada6212fc19"
+    sha256               x86_64_linux:  "bfe12d34758600c26177abbd086a427fda4bf334d5d3f2446716632e32f03e1b"
   end
 
+  depends_on "meson" => :build
+  depends_on "ninja" => :build
   depends_on "pkgconf" => :build
   depends_on "gettext"
   depends_on "gmp"
@@ -37,10 +40,9 @@ class Gnunet < Formula
   end
 
   def install
-    ENV.deparallelize if OS.linux?
-
-    system "./configure", "--disable-documentation", *std_configure_args
-    system "make", "install"
+    system "meson", "setup", "build", *std_meson_args
+    system "meson", "compile", "-C", "build", "--verbose"
+    system "meson", "install", "-C", "build"
   end
 
   test do

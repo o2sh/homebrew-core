@@ -4,6 +4,7 @@ class ScummvmTools < Formula
   url "https://downloads.scummvm.org/frs/scummvm-tools/2.9.0/scummvm-tools-2.9.0.tar.xz"
   sha256 "1b4bbd7a7ccf4584bfc2c0142b7c1b4e5db97c39d8d214757c72d50e0905b71d"
   license "GPL-3.0-or-later"
+  revision 2
   head "https://github.com/scummvm/scummvm-tools.git", branch: "master"
 
   livecheck do
@@ -12,12 +13,13 @@ class ScummvmTools < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "9f8d04daac9c26a48ff80e3ce087d12cb3b5b8bdebab9884765c950de4d30bf4"
-    sha256 cellar: :any,                 arm64_sonoma:  "e07ba39dd7a18914540bc691a69386e9f0010a45449577e87d6ec85b69ac81c0"
-    sha256 cellar: :any,                 arm64_ventura: "7cc02f042e2857885a37a690963828b1d86299e971c0e6a7fe5b21dc4570c891"
-    sha256 cellar: :any,                 sonoma:        "0d76af780aac37fec4ddbe3839c0967e75c228888e0d5dd1ac1558f2971aa422"
-    sha256 cellar: :any,                 ventura:       "4af72525fa2059800f33b2ae392dcca1686bfb4f3275ca009b3180af353e74f8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "529873130d47d9b1d37b903881307e03f73c83d37125b40381307c40b105332d"
+    sha256 cellar: :any,                 arm64_sequoia: "17c2e47d29d820d952abd8f7c998e6cccc0b76c2db3cedeb2fba9ee4a4d5ca8a"
+    sha256 cellar: :any,                 arm64_sonoma:  "bea57948288adcbeebc766c92aa33b55c83cbc655d6c81cd3af696052a80d2db"
+    sha256 cellar: :any,                 arm64_ventura: "814637a792eca7f40295e0c8820b05b523b10b9481942c8adc8ebe2cb3557a6d"
+    sha256 cellar: :any,                 sonoma:        "2f4e16b6f36872476a378f10dc29a8e3b96c980787a7d61a86f114c11c0ba009"
+    sha256 cellar: :any,                 ventura:       "b40f2bb4e3b0c81289ee5bfaf1ef74ffafe63272a953e2c79ad11e92b9d4ce79"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "e1c361d6c11cb57770ceaad18334b571b16793e3c806f6ceacb8e271825e5c55"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "71839183e12d5e6c06b327a596e4190955fcefe54c2d0c5c3457988d4aa48c83"
   end
 
   depends_on "boost"

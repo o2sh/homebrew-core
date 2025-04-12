@@ -2,30 +2,25 @@ class Eksctl < Formula
   desc "Simple command-line tool for creating clusters on Amazon EKS"
   homepage "https://eksctl.io"
   url "https://github.com/eksctl-io/eksctl.git",
-      tag:      "0.199.0",
-      revision: "228a27121c9aa65ba96df2033003be5a08e439f5"
+      tag:      "0.207.0",
+      revision: "87e1d6e6eabc73115c92f29edc03785d9a398a7d"
   license "Apache-2.0"
   head "https://github.com/eksctl-io/eksctl.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "cefb79e437d501f7d34678261058c311ff7c139bd918658406065e89e3c49501"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "da35f3fbe65943a8f8e2490fea443230bdd34d37d7692907bb8e96a020aa5312"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "8adb33f06150f20d3f6e7f71a532791f4244db7462a5fc59f1214a66bf077d64"
-    sha256 cellar: :any_skip_relocation, sonoma:        "58c607191c35a0ac2165ff7fb903e4517b4dbc857a72bcb2551ca7205f02c6c6"
-    sha256 cellar: :any_skip_relocation, ventura:       "e0c84e44bd5d0bde1e96a75534f550f6e5c781d49dee57514bd152953639b6b1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e081a82af425747600243dd658a7eac006a7d8ec3d5d54875fd2730fc378f9ac"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "021338619fe5fc1224f8a123a3612fc5f701a7420d4d5495437baba66253d381"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "9c8196b9d93aaaf79287df6d74f1f536922f80c8225e692e8fd6329720f5079e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "8e65b16309e2640e0a02fe13e38c3bc9405f389af3edc2a35193888aef32fc22"
+    sha256 cellar: :any_skip_relocation, sonoma:        "d5fc9cb18b7b2a82f8a34e9b5e5e0af9c239d48da4cc17d988ea2d479d38c28e"
+    sha256 cellar: :any_skip_relocation, ventura:       "b7db237992c5b65551fb02bbcda11373fd5bac895432ad2271a3df3f41fde09e"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "33c7d893d1c8eecb4d5ec5ae443410433d1607aec43adcba5d7a2e36453962d0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0e756a10fc54ffff4b541b9efbdc5259ec6a8c63589bb1167c5a0b5781274fd2"
   end
 
-  depends_on "counterfeiter" => :build
   depends_on "go" => :build
-  depends_on "go-bindata" => :build
-  depends_on "ifacemaker" => :build
-  depends_on "mockery" => :build
 
   def install
-    ENV["GOBIN"] = HOMEBREW_PREFIX/"bin"
-    ENV.deparallelize # Makefile prerequisites need to be run in order
-    system "make", "build"
+    system "make", "binary"
     bin.install "eksctl"
 
     generate_completions_from_executable(bin/"eksctl", "completion")

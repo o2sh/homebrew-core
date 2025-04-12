@@ -3,30 +3,40 @@ class Memray < Formula
 
   desc "Memory profiler for Python applications"
   homepage "https://bloomberg.github.io/memray/"
-  url "https://files.pythonhosted.org/packages/88/8b/0a9854e5b6ce0875f2e2ad163cfecdb8de59fc1a2f1b9a1cb7c683a67826/memray-1.12.0.tar.gz"
-  sha256 "3b61c199a60197ae6164a2b44cd828c52de24083ecc49e9ac7d6287686bd68f3"
+  url "https://files.pythonhosted.org/packages/ad/bc/e3d9540bba802a090269255e114248f23a5cac08092ec6715bebd95ceba5/memray-1.17.0.tar.gz"
+  sha256 "10d9cbb4326feb25693ff95e0e3036fe3be4896de517a47e14950b8c32001b74"
   license "Apache-2.0"
-  revision 2
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "8a76ee4c9c79aa43d58e67deafea8214c24eab988775652d4d7a7a0f6a4f0675"
-    sha256 cellar: :any,                 arm64_sonoma:  "fe1cd3d54e1b2401bc1036670dfc9dc78b299874226e7e3ce45bcd89abe50112"
-    sha256 cellar: :any,                 arm64_ventura: "0f81b5b3ab4bef04881be51031ccef1f68a22094a50023a57399a5c7e1a0c7d0"
-    sha256 cellar: :any,                 sonoma:        "0938ac4bc5973dfe877c4220718b6aea0715d262f754281a6a9e8ed383d42d4b"
-    sha256 cellar: :any,                 ventura:       "feb218b83dd46e4959d9a4ad3e83d72eab6cdeb66e8a787b21402cf28f2debbe"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "80379938136c9bf291e1ff971080deef783489e3a23d7b6099235dbf172f4c6d"
+    sha256 cellar: :any,                 arm64_sequoia: "d013b3c89d17b0725eaa0ba527e87a896a3388fe787f9c50f6181bbfa4afa981"
+    sha256 cellar: :any,                 arm64_sonoma:  "3e8521e72da027a8433888887059650003a87cb9ca6482acae1ccb42b79ea7d4"
+    sha256 cellar: :any,                 arm64_ventura: "d8a99ec6fcab83fbad0a4a38796a35e83572db60ffbd9d29c0f3816549342f45"
+    sha256 cellar: :any,                 sonoma:        "51c55496be1be73c7ca4bcf4b231f6bb907b0d08485937e5c9f3b499589a09d9"
+    sha256 cellar: :any,                 ventura:       "ae44c2bc5bb1cb8cbd10d4f6f8bebc88df10cbac5636791fa26e8c638153b509"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "a007550b8b7b3d715b1a4e16672a441ef992478afbd058e38390a8c31a950d29"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b0405c6845a47180a058dad77caf99a434fa925852f290c58a839eecce531bc5"
   end
 
   depends_on "lz4"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   on_linux do
+    depends_on "pkgconf" => :build # for libdebuginfod
+    depends_on "curl" # for libdebuginfod
+    depends_on "elfutils" # for libdebuginfod
+    depends_on "json-c" # for libdebuginfod
     depends_on "libunwind"
+
+    # TODO: Consider creating a formula for (lib)debuginfod
+    resource "elfutils" do
+      url "https://sourceware.org/elfutils/ftp/0.192/elfutils-0.192.tar.bz2"
+      sha256 "616099beae24aba11f9b63d86ca6cc8d566d968b802391334c91df54eab416b4"
+    end
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/af/92/b3130cbbf5591acf9ade8708c365f3238046ac7cb8ccba6e81abccb0ccff/jinja2-3.1.5.tar.gz"
-    sha256 "8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb"
+    url "https://files.pythonhosted.org/packages/df/bf/f7da0350254c0ed7c72f3e33cef02e048281fec7ecec5f032d4aac52226b/jinja2-3.1.6.tar.gz"
+    sha256 "0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d"
   end
 
   resource "linkify-it-py" do
@@ -55,28 +65,28 @@ class Memray < Formula
   end
 
   resource "platformdirs" do
-    url "https://files.pythonhosted.org/packages/13/fc/128cc9cb8f03208bdbf93d3aa862e16d376844a14f9a0ce5cf4507372de4/platformdirs-4.3.6.tar.gz"
-    sha256 "357fb2acbc885b0419afd3ce3ed34564c13c9b95c89360cd9563f73aa5e2b907"
+    url "https://files.pythonhosted.org/packages/b6/2d/7d512a3913d60623e7eb945c6d1b4f0bddf1d0b7ada5225274c87e5b53d1/platformdirs-4.3.7.tar.gz"
+    sha256 "eb437d586b6a0986388f0d6f74aa0cde27b48d0e3d66843640bfb6bdcdb6e351"
   end
 
   resource "pygments" do
-    url "https://files.pythonhosted.org/packages/8e/62/8336eff65bcbc8e4cb5d05b55faf041285951b6e80f33e2bff2024788f31/pygments-2.18.0.tar.gz"
-    sha256 "786ff802f32e91311bff3889f6e9a86e81505fe99f2735bb6d60ae0c5004f199"
+    url "https://files.pythonhosted.org/packages/7c/2d/c3338d48ea6cc0feb8446d8e6937e1408088a72a39937982cc6111d17f84/pygments-2.19.1.tar.gz"
+    sha256 "61c16d2a8576dc0649d9f39e089b5f02bcd27fba10d8fb4dcc28173f7a45151f"
   end
 
   resource "rich" do
-    url "https://files.pythonhosted.org/packages/ab/3a/0316b28d0761c6734d6bc14e770d85506c986c85ffb239e688eeaab2c2bc/rich-13.9.4.tar.gz"
-    sha256 "439594978a49a09530cff7ebc4b5c7103ef57baf48d5ea3184f21d9a2befa098"
+    url "https://files.pythonhosted.org/packages/a1/53/830aa4c3066a8ab0ae9a9955976fb770fe9c6102117c8ec4ab3ea62d89e8/rich-14.0.0.tar.gz"
+    sha256 "82f1bc23a6a21ebca4ae0c45af9bdbc492ed20231dcb63f297d6d1021a9d5725"
   end
 
   resource "textual" do
-    url "https://files.pythonhosted.org/packages/1f/b6/59b1de04bb4dca0f21ed7ba0b19309ed7f3f5de4396edf20cc2855e53085/textual-1.0.0.tar.gz"
-    sha256 "bec9fe63547c1c552569d1b75d309038b7d456c03f86dfa3706ddb099b151399"
+    url "https://files.pythonhosted.org/packages/8a/87/eda3ef12ac40b46a6d2930b89f19ffb1b8cde1ead8b24b0a31521eb8d2e6/textual-3.0.1.tar.gz"
+    sha256 "a5bfc924d63ceb16a4c63ce4ff4b424e5c554c4dfd71336450885c85dfc6247e"
   end
 
   resource "typing-extensions" do
-    url "https://files.pythonhosted.org/packages/df/db/f35a00659bc03fec321ba8bce9420de607a1d37f8342eee1863174c69557/typing_extensions-4.12.2.tar.gz"
-    sha256 "1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8"
+    url "https://files.pythonhosted.org/packages/76/ad/cd3e3465232ec2416ae9b983f27b9e94dc8171d56ac99b345319a9475967/typing_extensions-4.13.1.tar.gz"
+    sha256 "98795af00fb9640edec5b8e31fc647597b4691f099ad75f469a2616be1a76dff"
   end
 
   resource "uc-micro-py" do
@@ -85,12 +95,26 @@ class Memray < Formula
   end
 
   def install
-    virtualenv_install_with_resources
+    if OS.linux?
+      without = "elfutils"
+      libelf = Formula["elfutils"].opt_lib/"libelf.so"
+      resource("elfutils").stage do
+        # https://github.com/bloomberg/memray/blob/main/pyproject.toml#L96-L104
+        system "./configure", "--disable-debuginfod",
+                              "--disable-nls",
+                              "--disable-silent-rules",
+                              "--enable-libdebuginfod",
+                              *std_configure_args(prefix: libexec)
+        system "make", "-C", "debuginfod", "install", "bin_PROGRAMS=", "libelf=#{libelf}"
+        ENV.append "LDFLAGS", "-L#{libexec}/lib -Wl,-rpath,#{libexec}/lib"
+      end
+    end
+    virtualenv_install_with_resources(without:)
   end
 
   test do
     system bin/"memray", "run", "--output", "output.bin", "-c", "print()"
-    assert_predicate testpath/"output.bin", :exist?
+    assert_path_exists testpath/"output.bin"
 
     assert_match version.to_s, shell_output("#{bin}/memray --version")
   end

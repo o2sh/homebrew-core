@@ -3,19 +3,19 @@ class Fwupd < Formula
 
   desc "Firmware update daemon"
   homepage "https://github.com/fwupd/fwupd"
-  url "https://github.com/fwupd/fwupd/releases/download/2.0.3/fwupd-2.0.3.tar.xz"
-  sha256 "73690175d0dd81849d729a0f247c69146ee9105c3c8c5d8428b64ad42d49b2f7"
+  url "https://github.com/fwupd/fwupd/releases/download/2.0.8/fwupd-2.0.8.tar.xz"
+  sha256 "9aac805d18ed8a48fb37c7e8d9644520c33984326b7954584fe38ee2d10a3988"
   license "LGPL-2.1-or-later"
-  revision 1
   head "https://github.com/fwupd/fwupd.git", branch: "main"
 
   bottle do
-    sha256 arm64_sequoia: "5930222336830529919343a33540a0f8e1603a2a5695ed5e4e322cdfff860351"
-    sha256 arm64_sonoma:  "5d818cf44344991cd367b181d89608844e2354541402785f5ebe721d344549cc"
-    sha256 arm64_ventura: "1af8b3db3328365386419652f1b6b312e2b7754225f64c301cec766fc0a346fc"
-    sha256 sonoma:        "72e98bddb44ebc8841a411cc2f48b6346926306c5157dd9fadfb0624ee11823d"
-    sha256 ventura:       "84321c057422c3b94134ec73ccbe5a31eb28efe6d5ab99e712ed0babac759672"
-    sha256 x86_64_linux:  "2f6c424f24827871f9a2c21c3f7671608de0238002d2b8ee6e8812ea775be4cd"
+    sha256 arm64_sequoia: "7d49636df66927c758efe2487a219b70bdc527da5caa86c67742018e8599ca72"
+    sha256 arm64_sonoma:  "f4fbec9c586cc70c4be7b32332cc5f815a0d9256aa59968159aafa528ea8cadf"
+    sha256 arm64_ventura: "c51cafcea5d9b33f7c19468d9db44ae427ee3dce540e6bf9266279f8cf66aa2b"
+    sha256 sonoma:        "14ec7ea3ea80063019ec6825e1f3f77bdb0f1fcdfc3d11a524ec141f74f6cf96"
+    sha256 ventura:       "04f8e8820fabce1477bca0886daeb4865b570aadaed0378e7be3a08a7d61f4f5"
+    sha256 arm64_linux:   "32ed3f93ab30fdcc83c67b208987e23db0b04290aa0658be14c3a8d25938f6f8"
+    sha256 x86_64_linux:  "22d48e644b5aa022f9b27c6df0537e0f9d89f78d55b8e73bb30a4628dbda7a3f"
   end
 
   depends_on "gettext" => :build
@@ -27,7 +27,6 @@ class Fwupd < Formula
   depends_on "python@3.13" => :build
   depends_on "vala" => :build
 
-  depends_on "gcab"
   depends_on "glib"
   depends_on "gnutls"
   depends_on "json-glib"
@@ -53,8 +52,8 @@ class Fwupd < Formula
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/af/92/b3130cbbf5591acf9ade8708c365f3238046ac7cb8ccba6e81abccb0ccff/jinja2-3.1.5.tar.gz"
-    sha256 "8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb"
+    url "https://files.pythonhosted.org/packages/df/bf/f7da0350254c0ed7c72f3e33cef02e048281fec7ecec5f032d4aac52226b/jinja2-3.1.6.tar.gz"
+    sha256 "0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d"
   end
 
   resource "markupsafe" do
@@ -77,15 +76,9 @@ class Fwupd < Formula
                     "-Dpython=#{which(python3)}",
                     "-Dsupported_build=enabled",
                     "-Dplugin_flashrom=disabled",
-                    "-Dplugin_gpio=disabled",
                     "-Dplugin_modem_manager=disabled",
-                    "-Dplugin_msr=disabled",
-                    "-Dplugin_tpm=disabled",
-                    "-Dplugin_uefi_capsule=disabled",
-                    "-Dplugin_uefi_pk=disabled",
-                    # these two are needed for https://github.com/fwupd/fwupd/pull/6147
-                    "-Dplugin_logitech_scribe=disabled",
-                    "-Dplugin_logitech_tap=disabled",
+                    "-Dplugin_uefi_capsule_splash=false",
+                    "-Dtests=false",
                     "-Dvendor_ids_dir=#{Formula["usb.ids"].opt_share}/misc/usb.ids",
                     *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"

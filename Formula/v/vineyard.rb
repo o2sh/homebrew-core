@@ -1,28 +1,27 @@
 class Vineyard < Formula
-  include Language::Python::Virtualenv
-
   desc "In-memory immutable data manager. (Project under CNCF)"
   homepage "https://v6d.io"
-  url "https://github.com/v6d-io/v6d/releases/download/v0.23.2/v6d-0.23.2.tar.gz"
-  sha256 "2a2788ed77b9459477b3e90767a910e77e2035a34f33c29c25b9876568683fd4"
+  url "https://github.com/v6d-io/v6d/releases/download/v0.24.2/v6d-0.24.2.tar.gz"
+  sha256 "a3acf9a9332bf5cce99712f9fd00a271b4330add302a5a8bbfd388e696a795c8"
   license "Apache-2.0"
-  revision 9
+  revision 1
 
   bottle do
-    sha256                               arm64_sequoia: "1f528609410f9e02d56d6b2517e5f1459c731b10522796eb1c4890847bec8a02"
-    sha256                               arm64_sonoma:  "29e8285e01a286d64e78a00bba49fa12c18f0354061b864b8cb92e11ff4ecc77"
-    sha256                               arm64_ventura: "8d0dcc00e7e5f57cc2d8b03d6afeff35a25a5effb0fc0d6c45684794b8a1aa38"
-    sha256                               sonoma:        "bda2b307746eb09f85aea5f2b648953929406d4a83d1e9ee05e9c701b713a2e8"
-    sha256                               ventura:       "fec317dff55f2921e26f90a7906067cbcd57b92b4a61a4907f40341953851698"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0eb533ac4e1611709db3ea310960bb0c3f3a895ffaed562e8c7ea67744ea2e27"
+    sha256                               arm64_sequoia: "561165ad084f00d50a006cbc129d2f680d09fc0ad125d2f3984a95bcbcc72321"
+    sha256                               arm64_sonoma:  "1a7a921549ba270da4d7d328e3473f110c67ffddd96204e3d65baedf198e8da8"
+    sha256                               arm64_ventura: "f1480e5c08cd4bbaed23bb7ac94129c39197f16b3b42fa2a2324ccd4aad2224c"
+    sha256                               sonoma:        "a8c536a70c4aa56fb7e47c3a2d730908e091f20c37ecd46fb1fb468aab9012a8"
+    sha256                               ventura:       "e4d5f00c8254923e4808411e904e5b57466cdb6959f5dee7b27d9fcea4e79245"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "033e633eb759b964d7881b6d3354e43517058fa3fff32a8a75235b931332a474"
   end
 
   depends_on "cmake" => [:build, :test]
   depends_on "llvm" => :build # for clang Python bindings
   depends_on "openssl@3" => :build # indirect (not linked) but CMakeLists.txt checks for it
-  depends_on "python@3.12" => :build
+  depends_on "python-setuptools" => :build
+  depends_on "python@3.13" => :build
   depends_on "apache-arrow"
-  depends_on "boost@1.85"
+  depends_on "boost"
   depends_on "cpprestsdk"
   depends_on "etcd"
   depends_on "etcd-cpp-apiv3"
@@ -31,15 +30,26 @@ class Vineyard < Formula
   depends_on "libgrape-lite"
   depends_on "open-mpi"
 
-  resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/27/b8/f21073fde99492b33ca357876430822e4800cdf522011f18041351dfa74b/setuptools-75.1.0.tar.gz"
-    sha256 "d59a21b17a275fb872a9c3dae73963160ae079f1049ed956880cd7c09b120538"
+  on_linux do
+    depends_on "autoconf" => :build
+    depends_on "automake" => :build
+    depends_on "libtool" => :build
   end
 
   def install
-    python3 = "python3.12"
-    venv = virtualenv_create(buildpath/"venv", python3)
-    venv.pip_install resources
+    # Workaround to support Boost 1.87.0+ until upstream fix for https://github.com/v6d-io/v6d/issues/2041
+    boost_asio_post_files = %w[
+      src/server/async/socket_server.cc
+      src/server/server/vineyard_server.cc
+      src/server/services/etcd_meta_service.cc
+      src/server/services/local_meta_service.cc
+      src/server/services/local_meta_service.h
+      src/server/services/meta_service.cc
+    ]
+    inreplace boost_asio_post_files, /^(\s*)(\S+)\.post\(/, "\\1boost::asio::post(\\2,"
+    inreplace "src/server/services/etcd_meta_service.cc", "backoff_timer_->cancel(ec);", "backoff_timer_->cancel();"
+
+    python3 = "python3.13"
     # LLVM is keg-only.
     llvm = deps.map(&:to_formula).find { |f| f.name.match?(/^llvm(@\d+)?$/) }
     ENV.prepend_path "PYTHONPATH", llvm.opt_prefix/Language::Python.site_packages(python3)
@@ -52,7 +62,7 @@ class Vineyard < Formula
       "-DCMAKE_FIND_PACKAGE_PREFER_CONFIG=ON", # for newer protobuf
       "-DLIBGRAPELITE_INCLUDE_DIRS=#{Formula["libgrape-lite"].opt_include}",
       "-DOPENSSL_ROOT_DIR=#{Formula["openssl@3"].opt_prefix}",
-      "-DPYTHON_EXECUTABLE=#{venv.root}/bin/python",
+      "-DPYTHON_EXECUTABLE=#{which(python3)}",
       "-DUSE_EXTERNAL_ETCD_LIBS=ON",
       "-DUSE_EXTERNAL_HIREDIS_LIBS=ON",
       "-DUSE_EXTERNAL_REDIS_LIBS=ON",

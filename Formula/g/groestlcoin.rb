@@ -1,18 +1,20 @@
 class Groestlcoin < Formula
   desc "Decentralized, peer to peer payment network"
-  homepage "https://groestlcoin.org/groestlcoin-core-wallet/"
+  homepage "https://www.groestlcoin.org/groestlcoin-core-wallet/"
   url "https://github.com/Groestlcoin/groestlcoin/releases/download/v28.0/groestlcoin-28.0.tar.gz"
   sha256 "4446c49916c6f2c45fcf609270318dc114e166d1c833bb7d0b51d12cb42acba6"
   license "MIT"
+  revision 2
   head "https://github.com/groestlcoin/groestlcoin.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "7de5d4238e721cc097d4fa98d6ed2e49bbe507a84fd5a0541d5cc88633ddcb46"
-    sha256 cellar: :any,                 arm64_sonoma:  "1ea359dbb57581a60771e9035540808ea429aa8c840bb15c45afc84977af7c80"
-    sha256 cellar: :any,                 arm64_ventura: "f93b9e4a3cf6edecbbfcf241cf8244e17cd42f3dcc29259c0d47f9703a8d353d"
-    sha256 cellar: :any,                 sonoma:        "dfa6da522949bb1983269cd565d36cf94a340b0f8ffdbf0e92919f594c84950a"
-    sha256 cellar: :any,                 ventura:       "b6198d1cf90d785de75b3cb65048232af5e77c4e7e40bb0c9476f3aafb0271a6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b3d7dd592e8bc3b2fe5f3dc9dc7ecbc2b0e5d510c1f878e560a6cfcd06175df1"
+    sha256 cellar: :any,                 arm64_sequoia: "893ac9fa8462e9ff7f6fbd6f9857780758ae0af2201284d65b7f18f6b72c1f7f"
+    sha256 cellar: :any,                 arm64_sonoma:  "31c08d3a249f9e53d571051c5068816fe6224c00daec40b202e0d926761245f2"
+    sha256 cellar: :any,                 arm64_ventura: "7a126eb52180581d3c66b1404cd6db1a1e647d4470645e16d7d569f60f415790"
+    sha256 cellar: :any,                 sonoma:        "98bf3b941307bf031bbcdf1e0f6a22140872d642bce9e2db0741420504d5b0b5"
+    sha256 cellar: :any,                 ventura:       "c916ed1c3f83bd7bccffd521b3688ec7c288a89f703a4424228cf0cbd19823eb"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "dfd80a8d2bd67a15fea6633a799eced363b66477ac5bc66b1a75d1e59047d696"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "751568f7603c64c6109ada47fd40fc2f8f32961a069f3a6c1b00307fa0355d7b"
   end
 
   depends_on "autoconf" => :build
@@ -38,6 +40,7 @@ class Groestlcoin < Formula
   end
 
   def install
+    ENV.runtime_cpu_detection
     system "./autogen.sh"
     system "./configure", "--disable-silent-rules",
                           "--with-boost-libdir=#{Formula["boost"].opt_lib}",

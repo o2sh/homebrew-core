@@ -1,9 +1,10 @@
 class Doltgres < Formula
   desc "Dolt for Postgres"
   homepage "https://github.com/dolthub/doltgresql"
-  url "https://github.com/dolthub/doltgresql/archive/refs/tags/v0.15.0.tar.gz"
-  sha256 "adcf9dafaf662aa4785c4fc9d2c3dd1165de500bf11f8e3dff57337b1263417c"
+  url "https://github.com/dolthub/doltgresql/archive/refs/tags/v0.18.0.tar.gz"
+  sha256 "645d1b9147d53d1670f9061ee42b0ed55bc2f3aff11f97ad8d324d6240a6d0be"
   license "Apache-2.0"
+  head "https://github.com/dolthub/doltgresql.git", branch: "main"
 
   # Upstream creates releases that use a stable tag (e.g., `v1.2.3`) but are
   # labeled as "pre-release" on GitHub before the version is released, so it's
@@ -14,12 +15,13 @@ class Doltgres < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ad25fb1cdca844589ef2ec8e855b93b5786990f157cc34ee0526c6208a8f057b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1bde589aead7008c4895ea7bc86414f6717c92bfbcbb20d14a4e24bedce93336"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "6b5f699dd45d5837c2c6cb5d2640b13ab291d3a31da21577b067c9ea48b04bb1"
-    sha256 cellar: :any_skip_relocation, sonoma:        "ef01427b155c7f3c257101c16188cab4427bd6f9618bb0244a7f01c9e93506b1"
-    sha256 cellar: :any_skip_relocation, ventura:       "9dc1cf178b27790f3d65eee8a3b25b51257a95d1cb8ee3aad05d9e2371488474"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "71c4f5d6318a3de18d946a61d4acd04d6736aa5964cc0c5ee363510ebe699882"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "58f506f4f234294a5e40f7cff03011d76497b9cf65dc2bbd8e39a51ea9e059b2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "524d30b78ebff5f3c50fc5d300be1d7d62f0442a5069cb614736f4e2a1d00d71"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "e36292ac37bb42c3eac73e292f7edb0c8cc724d2a8a071a487a6fdbe970524b2"
+    sha256 cellar: :any_skip_relocation, sonoma:        "cb1d78bbd99cb84382ac4b5c854fef44eeb28ecb984df6377af5a9b0a3c4d148"
+    sha256 cellar: :any_skip_relocation, ventura:       "1b5d7434ad53c72a3bcb698b97d53175870fffae44855e6066ad41a9f32b50a1"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "9adedf9b3a650e26836019a59b5ebe2441485f66a64134b5a3d2c0f3894d3ab8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a082edd2db0f10b12b0dfe038978d77770b4fd857f2d9d575947b4cc36e4f05f"
   end
 
   depends_on "go" => :build

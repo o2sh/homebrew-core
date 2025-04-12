@@ -1,20 +1,31 @@
 class Qsv < Formula
   desc "Ultra-fast CSV data-wrangling toolkit"
-  homepage "https://github.com/jqnatividad/qsv"
-  url "https://github.com/jqnatividad/qsv/archive/refs/tags/1.0.0.tar.gz"
-  sha256 "92ca4fef2c0f58aa5d322a01a70a7e9dd689f8055cdf64aaf1422cb28fe5357b"
+  homepage "https://qsv.dathere.com/"
+  url "https://github.com/dathere/qsv/archive/refs/tags/3.3.0.tar.gz"
+  sha256 "34cda085f10d79eb09145f57cf685aba798bfbb2131ce903d4925f270933382e"
   license any_of: ["MIT", "Unlicense"]
-  head "https://github.com/jqnatividad/qsv.git", branch: "master"
+  head "https://github.com/dathere/qsv.git", branch: "master"
 
-  bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "cfd65ae7bec0ad2bc5088fa2ac7013c1eda71326568c6f8b33f6ca596bd08929"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "24d543706a408c2e9c06e3c40b73c164d2ddaa66c8172f1d6141edc7b60875d8"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "c7cc215c5b7827df8ed0c672243a7648a4aeda21c1671efc50a8251c8e7f363e"
-    sha256 cellar: :any_skip_relocation, sonoma:        "b43b6d118781cde8ef56cd40b604f91765a0dca12a9fad4c8eaeef6ee9096421"
-    sha256 cellar: :any_skip_relocation, ventura:       "4fd97de6e88658dad19ab38a290d3ec199823da0ed45110edf497b57911447a2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c3a4fa1ee8e48b4065a9959d5c5b29f6e1db2647d6bab694b7e3de43543dbe36"
+  # There can be a notable gap between when a version is tagged and a
+  # corresponding release is created, so we check the "latest" release instead
+  # of the Git tags.
+  livecheck do
+    url :stable
+    strategy :github_latest
   end
 
+  bottle do
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "66718b010cfd806964e44940b6fbe9163cbe158b178e6b91943457a01379ebf3"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "31974c4f8b76c8858b276aee3dc84258520be5afe35fa08c4a3f67a1748f0a05"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "069548fb05d671e0dcb6f9c10de4d61f20c50d72d67d25601768817d0be2a0a0"
+    sha256 cellar: :any_skip_relocation, sonoma:        "c625594d67497b5cc3f1cc383f0039732452a49caf723ec1ddf5ee63cf179500"
+    sha256 cellar: :any_skip_relocation, ventura:       "7aa50860b5f33add996e9a0fdc0c43d26b7a03dbd263267083d8dcedeaf02b35"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "b603c3d8bcbb46e00489d139589a0caa81d16066f650ee1e891a27f361606ee1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b8a947e79df08863f8ce58576eed252c1b65ff6f5820a711afe9c700d2fc8d15"
+  end
+
+  depends_on "cmake" => :build # for libz-ng-sys
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
 
   on_linux do
@@ -30,14 +41,14 @@ class Qsv < Formula
 
   test do
     (testpath/"test.csv").write("first header,second header")
-    assert_equal <<~EOS, shell_output("#{bin}/qsv stats test.csv")
-      field,type,is_ascii,sum,min,max,range,sort_order,min_length,max_length,sum_length,avg_length,mean,sem,stddev,variance,cv,nullcount,max_precision,sparsity,qsv__value
-      first header,NULL,,,,,,,,,,,,,,,,0,,,
-      second header,NULL,,,,,,,,,,,,,,,,0,,,
-      qsv__rowcount,,,,,,,,,,,,,,,,,,,,0
-      qsv__columncount,,,,,,,,,,,,,,,,,,,,2
-      qsv__filesize_bytes,,,,,,,,,,,,,,,,,,,,26
-      qsv__fingerprint_hash,,,,,,,,,,,,,,,,,,,,1d0c55659105190da4e4e4d2ff69ae40956634c83dee786393680d9d02006bff
+    assert_equal <<~EOS, shell_output("#{bin}/qsv stats --dataset-stats test.csv")
+      field,type,is_ascii,sum,min,max,range,sort_order,sortiness,min_length,max_length,sum_length,avg_length,stddev_length,variance_length,cv_length,mean,sem,geometric_mean,harmonic_mean,stddev,variance,cv,nullcount,max_precision,sparsity,qsv__value
+      first header,NULL,,,,,,,,,,,,,,,,,,,,,,0,,,
+      second header,NULL,,,,,,,,,,,,,,,,,,,,,,0,,,
+      qsv__rowcount,,,,,,,,,,,,,,,,,,,,,,,,,,0
+      qsv__columncount,,,,,,,,,,,,,,,,,,,,,,,,,,2
+      qsv__filesize_bytes,,,,,,,,,,,,,,,,,,,,,,,,,,26
+      qsv__fingerprint_hash,,,,,,,,,,,,,,,,,,,,,,,,,,589aa48c29e0a4abf207a0ff266da0903608c1281478acd75457c8f8ccea455a
     EOS
   end
 end

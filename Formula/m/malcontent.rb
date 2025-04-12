@@ -1,22 +1,23 @@
 class Malcontent < Formula
   desc "Supply Chain Attack Detection, via context differential analysis and YARA"
   homepage "https://github.com/chainguard-dev/malcontent"
-  url "https://github.com/chainguard-dev/malcontent/archive/refs/tags/v1.7.1.tar.gz"
-  sha256 "e2f6b43715cefc00f1a07c84bb899fddc5defa3f69a1a68f5a4051680b0ca4b5"
+  url "https://github.com/chainguard-dev/malcontent/archive/refs/tags/v1.9.0.tar.gz"
+  sha256 "fdeb67021d6bc459a497c0bdd368ad57887e123fb53b82f7fcca1e6ae3040c15"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "1c6d0fcb4136e5a5ac5c5720dd59200bce74cdf884311258f55f4b030a858579"
-    sha256 cellar: :any,                 arm64_sonoma:  "98dd6af3a8c080c6b9090c60fefd796c23b95f109838f802176a56e1d5f6c46e"
-    sha256 cellar: :any,                 arm64_ventura: "4dc1ced5cf5d2cab87201af25d7b21f65ebe52dafaa9efe848fa1085ceeeeda6"
-    sha256 cellar: :any,                 sonoma:        "e759a7ae280ac4d54aceef7681be3304ac0313c08ec4ebe73a70e3092c40d62d"
-    sha256 cellar: :any,                 ventura:       "45a2c31ec4cff70a861cf10b841a541ae863946d7ccc6e2fb53eff29a2429844"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "971033b9af2ae9fcec299abe47b01cf9793a3e8f486999bee9161bd24e0dc8e6"
+    sha256 cellar: :any,                 arm64_sequoia: "4b578de3e90f341a633c00d0fb734a927c9bd9fce379f5a469dfc242d0d1a903"
+    sha256 cellar: :any,                 arm64_sonoma:  "88e3a321ad1b5b95bebedce2cb774e68482c909934538f73aeb0559d9e583524"
+    sha256 cellar: :any,                 arm64_ventura: "6f6bc958daad98d78764f36117d705d893c124938af99b2319447e9b08c976e4"
+    sha256 cellar: :any,                 sonoma:        "640a13dc82e5fabff6efe7ae2015e5b4b7b778c624e77791da5a717f81e4b364"
+    sha256 cellar: :any,                 ventura:       "c411b381c02e58229be7e346fdae7c60cc5b20fdc6222f6fa1eef22619b6503c"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "464dda654e59de858f5ca317e788b55cbe48478d466e014c8ff7b72a02d48f58"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a1498c207bd012a369d9e811e8e83748731b45c168d98e73cdadfb766d8d9f77"
   end
 
   depends_on "go" => :build
   depends_on "pkgconf" => :build
-  depends_on "yara"
+  depends_on "yara-x"
 
   def install
     system "go", "build", *std_go_args(ldflags: "-s -w -X main.BuildVersion=#{version}", output: bin/"mal"), "./cmd/mal"

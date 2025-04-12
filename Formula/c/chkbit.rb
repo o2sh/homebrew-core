@@ -1,18 +1,18 @@
 class Chkbit < Formula
   desc "Check your files for data corruption"
   homepage "https://github.com/laktak/chkbit"
-  url "https://github.com/laktak/chkbit/archive/refs/tags/v5.4.0.tar.gz"
-  sha256 "13fb0627475e2ab1ba5486c4a0290228930b80e57cd99254efa9d001df31eacb"
+  url "https://github.com/laktak/chkbit/archive/refs/tags/v6.4.0.tar.gz"
+  sha256 "99a69e05172ed27f0cf60d4aa967bc3f00a34f49c0d6529f6df41242cab789f8"
   license "MIT"
   head "https://github.com/laktak/chkbit.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5f82a3b2a523e105f931fc045d5af9de18115117fdb2b96aaaabc50523fc4fc6"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5f82a3b2a523e105f931fc045d5af9de18115117fdb2b96aaaabc50523fc4fc6"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "5f82a3b2a523e105f931fc045d5af9de18115117fdb2b96aaaabc50523fc4fc6"
-    sha256 cellar: :any_skip_relocation, sonoma:        "6cd781742c5fd2b4834c832225e35a13e0bd8d834d974da9c1e4f90c807f2cb6"
-    sha256 cellar: :any_skip_relocation, ventura:       "6cd781742c5fd2b4834c832225e35a13e0bd8d834d974da9c1e4f90c807f2cb6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "72c157b96149cfc77d83a067d51ceed5b912e84e7bbf97521b0600eb56b03bde"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fa3de15f0dd07551bfcd3e36a3b228cf66332893fca929b4dd37869b03ab8f37"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "fa3de15f0dd07551bfcd3e36a3b228cf66332893fca929b4dd37869b03ab8f37"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "fa3de15f0dd07551bfcd3e36a3b228cf66332893fca929b4dd37869b03ab8f37"
+    sha256 cellar: :any_skip_relocation, sonoma:        "45d20ff4444e1f13ebdd46bf0f85397c7c49abc79e9a54d99549bd960b0c5e85"
+    sha256 cellar: :any_skip_relocation, ventura:       "45d20ff4444e1f13ebdd46bf0f85397c7c49abc79e9a54d99549bd960b0c5e85"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1be986d6bf7eb3637f5d9afdf6ddc904cbd21d4c67af7e76df8bb4edcb4bf7d9"
   end
 
   depends_on "go" => :build
@@ -23,15 +23,8 @@ class Chkbit < Formula
   end
 
   test do
-    assert_match version.to_s, shell_output("#{bin}/chkbit --version").chomp
-
-    (testpath/"one.txt").write <<~EOS
-      testing
-      testing
-      testing
-    EOS
-
-    system bin/"chkbit", "-u", testpath
-    assert_predicate testpath/".chkbit", :exist?
+    assert_match version.to_s, shell_output("#{bin}/chkbit version").chomp
+    system bin/"chkbit", "init", "split", testpath
+    assert_path_exists testpath/".chkbit"
   end
 end

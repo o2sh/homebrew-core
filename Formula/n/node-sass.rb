@@ -1,17 +1,18 @@
 class NodeSass < Formula
   desc "JavaScript implementation of a Sass compiler"
   homepage "https://github.com/sass/dart-sass"
-  url "https://registry.npmjs.org/sass/-/sass-1.83.0.tgz"
-  sha256 "77fdc3eda7d5a8330b3c20e8c05142b171768b6bbe2cb3017a01ce6812540cab"
+  url "https://registry.npmjs.org/sass/-/sass-1.86.3.tgz"
+  sha256 "34f7312e6a151b7dae8c1de5952d4a00b2cc5cb77c2abba44f996b36343ff9ec"
   license "MIT"
 
   bottle do
-    sha256                               arm64_sequoia: "4debefd83cabcc6b2fc5e9d1f6beb368cdd368ead2fbe3ef235bc9a862fc2f86"
-    sha256                               arm64_sonoma:  "2d9461e8c37e96d3105d9b6b783b27304cbf299e33903c600266ad111eef8d91"
-    sha256                               arm64_ventura: "02cd356892952d7b5640272ca8943e286c1b4409101e4520257b1be07f2fcb97"
-    sha256                               sonoma:        "bc3b689d24fb0142ad45c5287dda381de1942311151cbb86826cfcbbd98c1c59"
-    sha256                               ventura:       "c9051e042f42248184d2fd2115d9463dd1f156bc4bbf2498f3a89197d8c3c681"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bc76ca9a64b1e9b07300b58e327ceeb8964dfaacbb7bae9a585c6dcbb726d1b5"
+    sha256                               arm64_sequoia: "8fe3599d275d343b4a33e82ea3716a1925623bcb67afa879c9c9f67ea6ea4ea9"
+    sha256                               arm64_sonoma:  "4507ce4991b8e52589c1da322bef01920f3317fef4c73d9c0a4b3d5c0b694618"
+    sha256                               arm64_ventura: "06b0cfd6d7e534fa97b7cf46b13a4155ab47dde7fd3c38987e59ffbb0d3a3d89"
+    sha256                               sonoma:        "748a44fd719897613197e739cf1281b7b1faf34645b904c552156c3de155c814"
+    sha256                               ventura:       "473cdf5daecc62c282e048eba25ec61f4674ea276f187c729d66cd37d5f591d3"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "2483a4d1b4136e2dbb2c1b36c863a6d462de287fe20780f717b73677d02548cb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f143e6dce903411663f7c637d09280ee2a270f48f0288929b7429fd0f61e94b1"
   end
 
   depends_on "node"

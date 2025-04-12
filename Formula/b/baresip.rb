@@ -1,17 +1,19 @@
 class Baresip < Formula
   desc "Modular SIP useragent"
   homepage "https://github.com/baresip/baresip"
-  url "https://github.com/baresip/baresip/archive/refs/tags/v3.18.0.tar.gz"
-  sha256 "1c51fd01aa73cab60cfbdb6c1e13c99537e1866bf06b83b5c03004a92fe2bdf0"
+  url "https://github.com/baresip/baresip/archive/refs/tags/v3.21.0.tar.gz"
+  sha256 "cdd4ee5b37e3a21b12848f1e14b7998cdb23c040e2057909b3e6725ba1799322"
   license "BSD-3-Clause"
+  revision 1
 
   bottle do
-    sha256 arm64_sequoia: "a85dc12a6af1edafac98d48d8d0c531f859f1e69fab58d2d9bc7efed17640852"
-    sha256 arm64_sonoma:  "2b5d336da2b9005ec2f68d1d1b79813f34f5ddb653fa6dfecd1fc4790ecf7384"
-    sha256 arm64_ventura: "47a256f4e1e78a6c01895e4b0cae285f0ccb0adf4dbace899fb5e0869916f814"
-    sha256 sonoma:        "4e9e52ae5feb752219bc8b4dbb731c215f44853ac12404baa999ff072dc504a0"
-    sha256 ventura:       "1b8008fae372ecaa815a98a948dd405ab34a8396721cbb5e86ef6b5523b3df0f"
-    sha256 x86_64_linux:  "8ea08bb89abf975bec8c804bfa77675a70f0aacc12f3e3b40e0f67f010a0dd8b"
+    sha256 arm64_sequoia: "d2675a50231a7a8617fa1d3681b0771872b7b4fbf1396c9d38cf4dc6733f0903"
+    sha256 arm64_sonoma:  "c499fa9f9b58f0747967fc41ed8c453b6a534f7f7edee5f06423c537d913945a"
+    sha256 arm64_ventura: "ab41f3f7e90966b0e9bc433a6f8c794f5ca435a9032af70bece13f78533fc6be"
+    sha256 sonoma:        "4c1bf351c7ba218bb5387b8d74b53bc71bde1e95c00524cd325f8b8dcfd5009a"
+    sha256 ventura:       "8083783cca9fd979d801b12ce42f36035152d2b9e3a183b93f586dc031be93f1"
+    sha256 arm64_linux:   "1f9db97c54f54c4e328fe5c4d1e4f39be6bca0eb1c66972d810470403c7d9c9c"
+    sha256 x86_64_linux:  "17288171c66e6addae0c0a26aaaae38dfd79942e5c9d132bc48d70f08367a0ae"
   end
 
   depends_on "cmake" => :build

@@ -2,8 +2,8 @@ class Openbao < Formula
   desc "Provides a software solution to manage, store, and distribute sensitive data"
   homepage "https://openbao.org/"
   url "https://github.com/openbao/openbao.git",
-      tag:      "v2.1.0",
-      revision: "93609bf0c73a18dd81ac8c7d21b95cbde1e4887c"
+      tag:      "v2.2.0",
+      revision: "a2bf51c891680240888f7363322ac5b2d080bb23"
   license "MPL-2.0"
   head "https://github.com/openbao/openbao.git", branch: "main"
 
@@ -13,12 +13,13 @@ class Openbao < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "940577b0a16660eb3b8f2102b6136b1ad1b442e7de8fd07deab094d2a4c5429b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "60c1e58b97bdd7b8a97ae5dd77928f4cdc793961fdb378a672f3254ae0c373df"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "cf0e4be4db2c9ada9155742fa55dab94b2eeb33446da4a03a34b5e715ba644a9"
-    sha256 cellar: :any_skip_relocation, sonoma:        "cb2b837e679ab8a4fc0811f47ce491fe3ce300a99d129d3ad11500d1e18b720d"
-    sha256 cellar: :any_skip_relocation, ventura:       "e40878ff92e9d146e9288c134815fdd6e9fe02cb8a34f9633b8d3abb595c909f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d1920f697d2f763daeb299b7d0c33cd45f82fe862f42b9f4b8cb193aa58b3d5d"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1c4289dcaa366e22dab85a9fcde2a740796f660e26f96cb97c6b13f33278c4c0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c0fde25b19955ce60558ef478a739a37c4358342ba031a451aeac10ab8cb4a7b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "7398c8b531df151df936e781d31d41e8861586bf662ed0462a7d66d5ebc9514f"
+    sha256 cellar: :any_skip_relocation, sonoma:        "437d9bf8ebf4246f497ef3520828fb9ea07af33d09a2c03c5badce3a687f7f21"
+    sha256 cellar: :any_skip_relocation, ventura:       "5a785bb4f0d235af8d59b29a4a8204de777a99872ab85309943700834e83416d"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "e17cb91593cca492f442eab303f00fcce13ec48755d558d2497d47480edf82a5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "527df7748c0f9373dcc287a2437852d267d72b0e8d2d10e491ef92a10404a996"
   end
 
   depends_on "go" => :build

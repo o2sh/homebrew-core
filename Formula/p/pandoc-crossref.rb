@@ -1,21 +1,21 @@
 class PandocCrossref < Formula
   desc "Pandoc filter for numbering and cross-referencing"
   homepage "https://github.com/lierdakil/pandoc-crossref"
-  url "https://github.com/lierdakil/pandoc-crossref/archive/refs/tags/v0.3.18.1.tar.gz"
-  sha256 "d41c7fc7e9f1fd3bff72d96c0693458aa18b338f65390692baf277c305f95ec4"
+  url "https://github.com/lierdakil/pandoc-crossref/archive/refs/tags/v0.3.18.2.tar.gz"
+  sha256 "a7b95fcf6807c3092684cf622da87afa34df3c2e6655a20dd5c243390f5e5ffd"
   license "GPL-2.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d3d162bcce4c55bd1a2d2a40099893593ec6dbc5c41df9d84593fce444dd5fc5"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "673133be289e57a36574d6e2f491e3346e385f832b611ae175280247de33c1ca"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "941ca59af3d7f24f63700399c2410975421e262ff88a367f6f3f2f3e0881bd4f"
-    sha256 cellar: :any_skip_relocation, sonoma:        "7a9a08fe8d552cedba2fd1e17a82ff77da5ac738026ea5cc1b982061183d4777"
-    sha256 cellar: :any_skip_relocation, ventura:       "e38878a0d191840523257eacbe1aae372a26d08d23ec1f561ebdc591417ddc36"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "492887aac29ac862b534be705b0b7714e08675297c37927b9005500d4b38b52d"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c31c2e8d6cbf71a6471a59ff0af50309109f69600f0ca6f9fcb0faa0b8c973d7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5d3f7c2debc407d04db35dc18f24f9dd1bb7c61b846d8d50755e664d42e182a5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "b767c8f3a07c9a70ef21be148c4691908039322b7e4528b211c6a03c53bc9528"
+    sha256 cellar: :any_skip_relocation, sonoma:        "912f9f13386e61b1ce6102dea06e376cdf09d2bbfddefe5c6316cb3bba864f57"
+    sha256 cellar: :any_skip_relocation, ventura:       "ec217ff88096135b8f1dd5fb087a9467ed54941fb0b72b758cea1fe66c61adfd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c9ff2b5d1c5379da0b17cad7ab5a0b241c38c76042497148fecc6b8bba76c095"
   end
 
   depends_on "cabal-install" => :build
-  depends_on "ghc" => :build
+  depends_on "ghc@9.10" => :build
   depends_on "pandoc"
 
   uses_from_macos "unzip" => :build

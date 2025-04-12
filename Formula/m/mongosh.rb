@@ -1,17 +1,18 @@
 class Mongosh < Formula
   desc "MongoDB Shell to connect, configure, query, and work with your MongoDB database"
   homepage "https://github.com/mongodb-js/mongosh"
-  url "https://registry.npmjs.org/@mongosh/cli-repl/-/cli-repl-2.3.7.tgz"
-  sha256 "ef43c89db2efb24604debaf946a1d4e258b381dc22f7e64e34fe78bab14f9625"
+  url "https://registry.npmjs.org/@mongosh/cli-repl/-/cli-repl-2.5.0.tgz"
+  sha256 "98657fd4509a49110f2e3be1e8f05a6af47d285e31f339dcfbd1fc84278df5cb"
   license "Apache-2.0"
 
   bottle do
-    sha256                               arm64_sequoia: "08bc3e7b40db7ad32dbd713cd2bf4a4a908b7d4645e99f955ba641c7fbb6c6d5"
-    sha256                               arm64_sonoma:  "7ba962a70b86a736db3ec5542f4da76a18e1586fe560b0570c2aec9cc28a2ed3"
-    sha256                               arm64_ventura: "0669d778de5dd526b2bdce3aa06cf9535eab09d8b3e28bc88f71b65c8ebf884b"
-    sha256                               sonoma:        "9c998ed06abcf29dc9ce5036cf748d764cdbbc1abe46b4990004f46d78c5e6fc"
-    sha256                               ventura:       "ab1e02f5be6ce47921f04fce3ed268786775c4ea222f8edc0b7f90900292c6de"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ec0aa248696125acef60f9adf7a2e0ae74c7f4d8441147dcef8d6c8ab053aaf1"
+    sha256                               arm64_sequoia: "2ec5e335106903f3df6fae44a84ac1ce9c8aa1f56c9b7451e9df5c8225d61216"
+    sha256                               arm64_sonoma:  "0b843da4ebc97f1547b1eca6ce4c3e37cbea7e7d63e1ebd5b52206fe690441c3"
+    sha256                               arm64_ventura: "453f424718db86458d3b7f8e22a95d8b96d8738309a04f822d4a2ef66dbd521a"
+    sha256                               sonoma:        "9ebd752fce4c15cb9ce0857c0920596f24b4aa61f4c4b139e98cdcb352171a3a"
+    sha256                               ventura:       "1f457eda9511a1cab0ae90c9e168e6f35ee1a1f672df5c8594fb16133b6d575e"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "7955e0e4e7b7e14ba7c3f899311c4f29e6e6edba452d1c376d25063da358a880"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4f913901422020a94da2011bbc0537088c66216e43a539610003ae5689b8e6d7"
   end
 
   depends_on "node"

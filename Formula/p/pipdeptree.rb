@@ -3,17 +3,18 @@ class Pipdeptree < Formula
 
   desc "CLI to display dependency tree of the installed Python packages"
   homepage "https://github.com/tox-dev/pipdeptree"
-  url "https://files.pythonhosted.org/packages/7e/01/a3c3bdbf1bb50e0c675c76a65071fdbc80dbe92e8ec7959b7ba81c642769/pipdeptree-2.24.0.tar.gz"
-  sha256 "d520e165535e217dd8958dfc14f1922efa0f6e4ff16126a61edb7ed6c538a930"
+  url "https://files.pythonhosted.org/packages/47/fd/48835ffa0d70b8a861cf8986771dfdfc3245e9886e50e951a7500cad64db/pipdeptree-2.26.0.tar.gz"
+  sha256 "9b8f3de54e87509a7e021d30bd39a1a6a1a45dce1489b8e785f2e90da06c3858"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "06272258cf29fd57b03724854c3b4ab0a60d5611b48b89e0eeeceeecbdde974a"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "06272258cf29fd57b03724854c3b4ab0a60d5611b48b89e0eeeceeecbdde974a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "06272258cf29fd57b03724854c3b4ab0a60d5611b48b89e0eeeceeecbdde974a"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e68e45064ac8a9b60d9fddc4f84db688fad835439740acc4de923707338a5a12"
-    sha256 cellar: :any_skip_relocation, ventura:       "e68e45064ac8a9b60d9fddc4f84db688fad835439740acc4de923707338a5a12"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "06272258cf29fd57b03724854c3b4ab0a60d5611b48b89e0eeeceeecbdde974a"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7474ec1ccbafd4ea823211e76c4763e16d61bd6c2a71d9defeffa8809f4f578a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "7474ec1ccbafd4ea823211e76c4763e16d61bd6c2a71d9defeffa8809f4f578a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "7474ec1ccbafd4ea823211e76c4763e16d61bd6c2a71d9defeffa8809f4f578a"
+    sha256 cellar: :any_skip_relocation, sonoma:        "4ffaf0dce132efa2a483e9713cd97032fff08c32cf977e8a5839ce36965aafa1"
+    sha256 cellar: :any_skip_relocation, ventura:       "4ffaf0dce132efa2a483e9713cd97032fff08c32cf977e8a5839ce36965aafa1"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "7474ec1ccbafd4ea823211e76c4763e16d61bd6c2a71d9defeffa8809f4f578a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7474ec1ccbafd4ea823211e76c4763e16d61bd6c2a71d9defeffa8809f4f578a"
   end
 
   depends_on "python@3.13"

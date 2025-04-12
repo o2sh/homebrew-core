@@ -1,9 +1,9 @@
 class Glassfish < Formula
   desc "Java EE application server"
   homepage "https://glassfish.org/"
-  url "https://download.eclipse.org/ee4j/glassfish/glassfish-7.0.20.zip"
-  mirror "https://github.com/eclipse-ee4j/glassfish/releases/download/7.0.20/glassfish-7.0.20.zip"
-  sha256 "b56c5f2e86a38c822dc3549585d4967ec5a2cbf2becd703ad0d3bbeede9814dc"
+  url "https://download.eclipse.org/ee4j/glassfish/glassfish-7.0.23.zip"
+  mirror "https://github.com/eclipse-ee4j/glassfish/releases/download/7.0.23/glassfish-7.0.23.zip"
+  sha256 "e3fc0e6b3cddaaf9038fa01839687086c2e89f7df47c27645d28f264b967a1c9"
   license "EPL-2.0"
 
   livecheck do
@@ -12,7 +12,7 @@ class Glassfish < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "3aece59d237464a752b30fcf2d461a566c7ec00eeebe55a3e12154a059a4e4ca"
+    sha256 cellar: :any_skip_relocation, all: "33b829e4dac04c60d920106d99ec70d331ddeb88ac9b4e21d676a461cb11b76b"
   end
 
   # no java 22 support for glassfish 7.x

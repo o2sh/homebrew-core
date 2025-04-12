@@ -1,19 +1,30 @@
 class Watchman < Formula
+  include Language::Python::Shebang
+
   desc "Watch files and take action when they change"
   homepage "https://github.com/facebook/watchman"
-  url "https://github.com/facebook/watchman/archive/refs/tags/v2024.12.02.00.tar.gz"
-  sha256 "445bda6f262cd23ed305f914249e400c7377ebe21ec971a2ace6c1c3dfad5880"
   license "MIT"
-  revision 2
   head "https://github.com/facebook/watchman.git", branch: "main"
 
+  stable do
+    url "https://github.com/facebook/watchman/archive/refs/tags/v2025.04.07.00.tar.gz"
+    sha256 "792ded3402b74d62c45b2ae5ff91eefe0472ce1937cf5067b019f90b9e6a67d3"
+
+    # Backport commit to fix build on Linux
+    patch do
+      url "https://github.com/facebook/watchman/commit/3d91e6db2f1e0cded7abdf10cf3bfc0a13c4f61f.patch?full_index=1"
+      sha256 "723a80ca790afbd942689e854abd0428438750171622f4c9a69ac65e2ac8e6e4"
+    end
+  end
+
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "caa41cb9dc1d7707da7078b7f8a7a1b5fb2d9c5193a744ea035627699e472ed9"
-    sha256 cellar: :any,                 arm64_sonoma:  "9b70da1cfde3294c1bd0e498a7d091df78f95eefafae0190dbd9fa7c5c11bcc4"
-    sha256 cellar: :any,                 arm64_ventura: "83cecd08b798fb570eb9194a3e2ba7a7149f5b1a5448643439adac5e9f4fb48c"
-    sha256 cellar: :any,                 sonoma:        "d32ba4e9aaab9dc10589b7e79cd3d1edfb30f39876fa53fc0f472503c28a4dc9"
-    sha256 cellar: :any,                 ventura:       "91d3d3000f0e5cfd67c10c1526b93f81012ae3af4fccc7235b6504c31cc97a66"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d793f03af48391058490f5bb8516239b101d6cfabc1b288cfbba90428ec54eb7"
+    sha256 cellar: :any,                 arm64_sequoia: "6998f7af83ede3e531a2ec4857274e85ec61324bbbe8b32df1125aad21642055"
+    sha256 cellar: :any,                 arm64_sonoma:  "32d3c99d143094bdf85ab7b7f6bb6df75c2b298dff33bf75d4cf93ccc5ac99ef"
+    sha256 cellar: :any,                 arm64_ventura: "d15964c61e89ff8ecdb19786a063c27dfdd870dd34b4812e752df34dbb8acb8a"
+    sha256 cellar: :any,                 sonoma:        "479c7c1d72cc04fd3c8c10d0a5f1680fe82af868e542f2982f84e60978816e06"
+    sha256 cellar: :any,                 ventura:       "ffde44973082c0da06b0e996d32f19e154718a773a947ceb6306849de855ddd3"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "fcfcc5e147e0783898c23c08030276add893cdc91261f7f75662fd56dbcffee5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "36645a9544a15bc30febe73ae9be36250d9371581b2190bfe3dd6137acc6570c"
   end
 
   depends_on "cmake" => :build
@@ -66,6 +77,8 @@ class Watchman < Formula
     bin.install (path/"bin").children
     lib.install (path/"lib").children
     rm_r(path)
+
+    rewrite_shebang detected_python_shebang, *bin.children
   end
 
   test do

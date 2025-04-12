@@ -1,18 +1,25 @@
 class Pinact < Formula
   desc "Pins GitHub Actions to full hashes and versions"
   homepage "https://github.com/suzuki-shunsuke/pinact"
-  url "https://github.com/suzuki-shunsuke/pinact/archive/refs/tags/v1.1.2.tar.gz"
-  sha256 "f41078d480ca37a945b90d8aad7cdd3e2d0aaf8dace497d592702b0a8e0de170"
+  url "https://github.com/suzuki-shunsuke/pinact/archive/refs/tags/v3.0.3.tar.gz"
+  sha256 "199149e6b379786d7786948ccaae62b72453f83e9de9ccabf30d2c6a743f8b9c"
   license "MIT"
   head "https://github.com/suzuki-shunsuke/pinact.git", branch: "main"
 
+  # Pre-release version has a suffix `-\d` for example `3.0.0-0`
+  # so we restrict the regex to only match stable versions
+  livecheck do
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
+
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "22f4358d5198259d6a0beb599ef61a81741667aa1082c0a391d45fb2f996950d"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "22f4358d5198259d6a0beb599ef61a81741667aa1082c0a391d45fb2f996950d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "22f4358d5198259d6a0beb599ef61a81741667aa1082c0a391d45fb2f996950d"
-    sha256 cellar: :any_skip_relocation, sonoma:        "47524b346b09ab7eab2069b440dea15c436857852de717a1343e71c3ea975f37"
-    sha256 cellar: :any_skip_relocation, ventura:       "47524b346b09ab7eab2069b440dea15c436857852de717a1343e71c3ea975f37"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9bcc22f6be636367b7e47472d6ecc0567d757f3f829efe5f4aafb50248e7c92b"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8bdf965f7a4bc4bfd89d7c1995af30af894e9b80a5910e962eba87717099d6db"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8bdf965f7a4bc4bfd89d7c1995af30af894e9b80a5910e962eba87717099d6db"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "8bdf965f7a4bc4bfd89d7c1995af30af894e9b80a5910e962eba87717099d6db"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a4d53e1ca383291b6d79560e9248ede6250632939fc79fa3a73e4462abe70dc9"
+    sha256 cellar: :any_skip_relocation, ventura:       "a4d53e1ca383291b6d79560e9248ede6250632939fc79fa3a73e4462abe70dc9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "eadb0836df3c77553f7f94ce2e07861e09b4c285c3ad79e8fae5fb3208ce6133"
   end
 
   depends_on "go" => :build

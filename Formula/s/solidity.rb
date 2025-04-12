@@ -1,10 +1,9 @@
 class Solidity < Formula
   desc "Contract-oriented programming language"
   homepage "https://soliditylang.org"
-  url "https://github.com/ethereum/solidity/releases/download/v0.8.28/solidity_0.8.28.tar.gz"
-  sha256 "ec756e30f26a5a38d028fd6f401ef0a7f5cfbf4a1ce71f76c2e3e1ffb8730672"
+  url "https://github.com/ethereum/solidity/releases/download/v0.8.29/solidity_0.8.29.tar.gz"
+  sha256 "fe76237f513b7d6727a93cd5b83f92747650c8dc5f8f89457a41e8f54119ed38"
   license all_of: ["GPL-3.0-or-later", "MIT", "BSD-3-Clause", "Apache-2.0", "CC0-1.0"]
-  revision 1
 
   livecheck do
     url :stable
@@ -12,12 +11,13 @@ class Solidity < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "4f389bce0db912513f5e381a4bd139953f2cdfa82308d0a250f81dab088bd18e"
-    sha256 cellar: :any,                 arm64_sonoma:  "8a1fa063bb9410e5257aceabd9c550c446e8906c258b3053367719413540371b"
-    sha256 cellar: :any,                 arm64_ventura: "3a086cdb971d56700ca0d5c73580af511b3789b117de8cd4ff1251db233396de"
-    sha256 cellar: :any,                 sonoma:        "ee728ca80234649a01096bd7f9fdf4bd64a8c70c1e7ad3fd160894bf7d24d112"
-    sha256 cellar: :any,                 ventura:       "0c8159fe43ab0052660fef60240e41996becc36f76bb58fc47ab123931198835"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3f1142deb221472afbdad9b6042fc7967dc692a721b8a3b6d5c5f769279960a5"
+    sha256 cellar: :any,                 arm64_sequoia: "1e2b446d615f9904d2404d7617bcbb5cd1a4649599bd2e6bb21660456a7c3d67"
+    sha256 cellar: :any,                 arm64_sonoma:  "7e1748faeffb013047dc05b34b46d00fa40d7b4ee7fdefecde7cdfbb67853eb7"
+    sha256 cellar: :any,                 arm64_ventura: "0aead765921ab4db364f04a1d2ad0a44e63f47df58ec025cb573462288c0273d"
+    sha256 cellar: :any,                 sonoma:        "6f72f70d6f5ed6f143871f0031340c28356f08236320046db522989b1dd024a0"
+    sha256 cellar: :any,                 ventura:       "a07fb17c1e38185be12b87b810cff01f7eca72af593967055c65ed8fced61538"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "e7d332995c4586e2cd7fe9e79335a96ae9a6608d83632cbd1e556ea3b2a98e06"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2a05ea5b761308854461ea6e7848a80ecc447919f46b3c916726d11d7eb615da"
   end
 
   depends_on "cmake" => :build

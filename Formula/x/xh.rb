@@ -1,18 +1,19 @@
 class Xh < Formula
   desc "Friendly and fast tool for sending HTTP requests"
   homepage "https://github.com/ducaale/xh"
-  url "https://github.com/ducaale/xh/archive/refs/tags/v0.23.0.tar.gz"
-  sha256 "c44ca41b52b5857895d0118b44075d94c3c4a98b025ed3433652519a1ff967a0"
+  url "https://github.com/ducaale/xh/archive/refs/tags/v0.24.0.tar.gz"
+  sha256 "80ecef9ca262b5564a951f41e11cf6125e5c4a62e66b87b071f6a333b6f40e5a"
   license "MIT"
   head "https://github.com/ducaale/xh.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "874b8a3054dc0af63821d676379035b9fdecdebab6c6650c67cf90cc3ec469e5"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "fc3552dfffd775c1821615ea20cab5d802f524cda56852872b19aab4e5a8c39b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "f76ff5506d9c5a652b3dd64d00a956f9925b6401df3bc1f2e4a5d2c79125dbd2"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e89c6f6a68e21ac5675b35c3188176e0db77ef9044a58b04c6f88bb4ecb4087e"
-    sha256 cellar: :any_skip_relocation, ventura:       "5f7006289f281e2112c556bcda4ebda6adccfa4038c6554ec321ecade3ac8137"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "85b176f4d16727845c1671d52655cf485335434260b9e054defcca4b156d99ca"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "614e2f4004420fc73625a49c57d8ab2c6239d0475a631e8f2592692a3d585094"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "26dadc18c7a71191006efe3ddf251a3d1a15144447df81cc551bb9e7ac485f47"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "851d029f70f421569a2e6ad39624c28ac71bd1969397efc5cb8e44b6598e86a8"
+    sha256 cellar: :any_skip_relocation, sonoma:        "ed62d206f4000099ffa4ebf28d30d6fd33801c224065a7e1598910f4bf3f4ea8"
+    sha256 cellar: :any_skip_relocation, ventura:       "3c7acef4c3353d345b1b43395733feeed01f02f9fd481e3d7a57b2def080659c"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "d75025becc1e529c9082f231aaa769333d67eeb8d9a9250a0e5e0aeebf89c06e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "24c7791c326b3f823d8777cb4ed9d041cf9b2a74ae1aac5167af69170d1695e5"
   end
 
   depends_on "rust" => :build
@@ -22,7 +23,7 @@ class Xh < Formula
     bin.install_symlink bin/"xh" => "xhs"
 
     man1.install "doc/xh.1"
-    bash_completion.install "completions/xh.bash"
+    bash_completion.install "completions/xh.bash" => "xh"
     fish_completion.install "completions/xh.fish"
     zsh_completion.install "completions/_xh"
   end

@@ -1,8 +1,8 @@
 class Libadwaita < Formula
   desc "Building blocks for modern adaptive GNOME applications"
   homepage "https://gnome.pages.gitlab.gnome.org/libadwaita/"
-  url "https://download.gnome.org/sources/libadwaita/1.6/libadwaita-1.6.2.tar.xz"
-  sha256 "7542f8354e6808dd4e9a31551bbdfc0170735e4af4d1b3e69186500ccb9c01eb"
+  url "https://download.gnome.org/sources/libadwaita/1.7/libadwaita-1.7.1.tar.xz"
+  sha256 "8ae37033fc412d476951c324a82b04772b3b3a98638d9d74905e9bba385938b7"
   license "LGPL-2.1-or-later"
 
   # libadwaita doesn't use GNOME's "even-numbered minor is stable" version
@@ -14,12 +14,13 @@ class Libadwaita < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "13d92d28f98949976a8341203c02e25ea86e84256284853d5a2fcf8cd32c200c"
-    sha256 arm64_sonoma:  "7819b92c2564312c677b5a2d10667e697a546bad0504d45c24c5054c9ac2c498"
-    sha256 arm64_ventura: "ac8c01f8bc8276f344faaba79de4479ee527fb7d1984330cdca5c89e43f1ecca"
-    sha256 sonoma:        "fed0f6cab3d0dc8559b3b7adc54fc6621b64d9b9ac8702c6472c55e82240e1f5"
-    sha256 ventura:       "5d08da4b11d78c04d95afca8dcd20f6671030008e3bb074ce599b3b241306d3b"
-    sha256 x86_64_linux:  "3032eb6e251162728b2f8ed9abd132e1500a299669e088cde074ff4693cce686"
+    sha256 arm64_sequoia: "eae41fed1274a47d9a4007db1346127f3cf57b3fc4fed775b39204424ace3039"
+    sha256 arm64_sonoma:  "e290fa0e4be1e4993c16e197a7ab5e649929144655842f7c656d198299303e73"
+    sha256 arm64_ventura: "8240c65f0cf58b0942086b9846b92a4262091649476f30097a52d606f302830d"
+    sha256 sonoma:        "4f23a02b9410d782cdd25f581ed353287eae5a416b12b37df5104c24cf171e30"
+    sha256 ventura:       "8efcb33ce2d22f03e5298eba5f2812cba45b4f58ed48b522274729fb1a97e82e"
+    sha256 arm64_linux:   "a4cded16f72b724947a49187f88efbbc3cbdbd0d79da06f882da13f0138d2ffb"
+    sha256 x86_64_linux:  "4dabca2a5f6e796e24f13b56c285942edb27b31e72f560860f8b11463ec03407"
   end
 
   depends_on "gettext" => :build
@@ -27,6 +28,7 @@ class Libadwaita < Formula
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkgconf" => [:build, :test]
+  depends_on "sassc" => :build
   depends_on "vala" => :build
 
   depends_on "appstream"
@@ -34,6 +36,7 @@ class Libadwaita < Formula
   depends_on "glib"
   depends_on "graphene"
   depends_on "gtk4"
+  depends_on "libsass"
   depends_on "pango"
 
   uses_from_macos "python" => :build

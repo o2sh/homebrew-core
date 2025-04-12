@@ -4,8 +4,8 @@ class Libxml2 < Formula
   license "MIT"
 
   stable do
-    url "https://download.gnome.org/sources/libxml2/2.13/libxml2-2.13.5.tar.xz"
-    sha256 "74fc163217a3964257d3be39af943e08861263c4231f9ef5b496b6f6d4c7b2b6"
+    url "https://download.gnome.org/sources/libxml2/2.13/libxml2-2.13.7.tar.xz"
+    sha256 "14796d24402108e99d8de4e974d539bed62e23af8c4233317274ce073ceff93b"
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build
@@ -27,13 +27,13 @@ class Libxml2 < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sequoia: "4d0ac59958e6419780e35d2fffbec29e5bd1d3ba362c96c75fee9189a7440258"
-    sha256 cellar: :any,                 arm64_sonoma:  "6161bd132be3cf4f57a36f52196ff8e2efc9e12873a66eb106a36e1b547d4a3f"
-    sha256 cellar: :any,                 arm64_ventura: "bc0e89b3d940e145df2e6d3ee0fa6c745e79a6c2144c7959051ddbb016ab571a"
-    sha256 cellar: :any,                 sonoma:        "7b95ba4610395555dbb0736841982dae7fc09b130caa275bfb869d9d63e12f68"
-    sha256 cellar: :any,                 ventura:       "8607ad0853593b9bd9e98e97bb985361da9fcd9d1a89072cbfe560e7d97f8e75"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0c2c19bb2047f396a5620e50d5f6ddf4ec49fb2e8ef50b27d12c7898ef63618c"
+    sha256 cellar: :any,                 arm64_sequoia: "488e3664e1bf5af46742a9815878bcee9c24d2b87d7fb8cf09d23f73bcbde397"
+    sha256 cellar: :any,                 arm64_sonoma:  "a9f5aea2d5c3c19a9e5acadd4087b886ddee661064cb05e7d0587c4091babdcd"
+    sha256 cellar: :any,                 arm64_ventura: "52421394f133c3d4cfa7d10c21620e0d54129e2375acee19166ae844a6e41913"
+    sha256 cellar: :any,                 sonoma:        "0ab73fb6f31842de8d1efedf5aceb1879700cf01299bc60261fc926dabf71d92"
+    sha256 cellar: :any,                 ventura:       "c80d5ff97e7101b94a068ad9730c0946a428a5782973493d845279795c6c8ea4"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "57335af766ff3d9b2eeaf33b31305301662b2f1fe23e95aeb6d51fe3c6c62ac1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7382946d0327ddf4f76756475423920797d6c5fd5c57a42d6e7dc6da38abe576"
   end
 
   head do
@@ -50,7 +50,7 @@ class Libxml2 < Formula
   depends_on "python-setuptools" => :build
   depends_on "python@3.12" => [:build, :test]
   depends_on "python@3.13" => [:build, :test]
-  depends_on "icu4c@76"
+  depends_on "icu4c@77"
   depends_on "readline"
 
   uses_from_macos "zlib"

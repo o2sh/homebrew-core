@@ -1,35 +1,36 @@
 class Libngspice < Formula
   desc "Spice circuit simulator as shared library"
   homepage "https://ngspice.sourceforge.io/"
-  url "https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/44/ngspice-44.tar.gz"
-  sha256 "8fef0e80b324df1f6ac6c73a9ed9a4120a9a17b62c13e83e1f674a9d9e6a4142"
+  url "https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/44.2/ngspice-44.2.tar.gz"
+  sha256 "e7dadfb7bd5474fd22409c1e5a67acdec19f77e597df68e17c5549bc1390d7fd"
   license :cannot_represent
-  head "https://git.code.sf.net/p/ngspice/ngspice.git", branch: "master"
 
   livecheck do
     formula "ngspice"
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "162528e8b920abfc6a8a3d3192cf18d29e638d369950a4b2b3dda055edff13e5"
-    sha256 cellar: :any,                 arm64_sonoma:  "4f722ecb18f76649425033f0d34b67d5a7887c2bb0def3550043c810a7fd4774"
-    sha256 cellar: :any,                 arm64_ventura: "af49126c2318f5f85e86eadd45bc13e8e21d389604592c138e3a2936823183ef"
-    sha256 cellar: :any,                 sonoma:        "5009ea314d109cb54449c4561661de49ef2fa9f170f50a2a4ba51d34db5445e5"
-    sha256 cellar: :any,                 ventura:       "dd2623ded67bc39adfb2375697f2b526f20428e0a57ad252ae94267d1a11d2e5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "218acdeadf683ee2a6bb96cf7899b974facfedf90ba7e02db9e5750377423647"
+    sha256 cellar: :any,                 arm64_sequoia: "5a4bc846e0ffc9fa23d9c15509b5cf041de5c5dadcf476ffb167302b84f5bf75"
+    sha256 cellar: :any,                 arm64_sonoma:  "be3d94c10d2554bcc43c71f7e6061005280929a551a6c96e3735dcd6060391d5"
+    sha256 cellar: :any,                 arm64_ventura: "63fbc552611b183799b6a0837db9c9f06c0d4f215ccfbfb0f6bc699343931804"
+    sha256 cellar: :any,                 sonoma:        "27eb9642d676e757187eff463ea80dcd2c1bbecb0da4558f4d7c98792e8199b5"
+    sha256 cellar: :any,                 ventura:       "9c9b8a825a59abf6e61518cedf952a3bb62929fa175ac23898603a3a7618c063"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "22e30c641b1925c47f728f45f2fedeb7eede9447fb06f6449acb2cf25c24e6c9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "151d4740e5f524966fa99db6635c338e5a70428b45b098c61ca23d38567fdfef"
   end
 
-  depends_on "autoconf" => :build
-  depends_on "automake" => :build
-  depends_on "libtool" => :build
+  head do
+    url "https://git.code.sf.net/p/ngspice/ngspice.git", branch: "master"
+
+    depends_on "autoconf" => :build
+    depends_on "automake" => :build
+    depends_on "libtool" => :build
+  end
 
   uses_from_macos "bison" => :build
   uses_from_macos "flex" => :build
 
   def install
-    # upstream bug report on the `configure` script, https://sourceforge.net/p/ngspice/bugs/731/
-    system "./autogen.sh"
-
     args = %w[
       --with-ngshared
       --enable-cider

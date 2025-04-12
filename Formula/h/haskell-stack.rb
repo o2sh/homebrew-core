@@ -1,8 +1,8 @@
 class HaskellStack < Formula
   desc "Cross-platform program for developing Haskell projects"
   homepage "https://haskellstack.org/"
-  url "https://github.com/commercialhaskell/stack/archive/refs/tags/v3.3.1.tar.gz"
-  sha256 "9a8dc9dd403fa8fd56339353091d438fd5d97ee6f2001a0cc11ba94b19271d98"
+  url "https://github.com/commercialhaskell/stack/archive/refs/tags/v3.5.1.tar.gz"
+  sha256 "00de60eaefdba1aa289ed409a9cabe8d63f9f6d554018456ab7f78531b2c3629"
   license "BSD-3-Clause"
   head "https://github.com/commercialhaskell/stack.git", branch: "master"
 
@@ -12,16 +12,18 @@ class HaskellStack < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b92f9a32629ec7e0985fbd3c36b78e702635c94e3d257e430c31e29134cb88f3"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "fafbac5ff1031862e708ae74fd73868f0240b89cafd8531e5109615a60d2a226"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "0a4821091488b3a6b1271d0b77bc91ec63960ecc4adb2e04a94ce6ada47e2bc0"
-    sha256 cellar: :any_skip_relocation, sonoma:        "10e43c19ccfeddd96f94b53c11bf2997668349031da3b231e1e889907ed31377"
-    sha256 cellar: :any_skip_relocation, ventura:       "0c5d5a72df064a4c0df6425aebaf9d2f57a310239e4dbca6f3ab45a0c0a41a2b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b8d181279a2913a0f3c6e407cbd860dd1072cd5bd04c24e89f75ced0b1b0a7c3"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "bb81522eb7a165d7f1dc9650b1cc2bedacfb43cca1a08a0c960e5519a90f37a6"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b25f2852beeca1d67c7771142af9b81d404f9a1dae8985caf4641f6be33b0746"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "58ed8f3b45ce0d96ef92ce596ee4aa8c898c2a004d3fa94ac5ac7aad3da10d7b"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5492d567c98c075d1312897d0afb4645f44d500814bce73785729f86f95099d7"
+    sha256 cellar: :any_skip_relocation, ventura:       "27831d3d54f8b3b7ab1e59da20dedc67c8da46e85bb2c7379df0f1333af47a15"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dfbfa1acd47505570bbb0b1989c824af5bc0b280f2003bbb10df1f2e566cab4d"
   end
 
   depends_on "cabal-install" => :build
-  depends_on "ghc@9.8" => :build
+  # https://github.com/commercialhaskell/stack/issues/6625#issuecomment-2228087359
+  # https://github.com/commercialhaskell/stack/blob/master/stack-ghc-9.10.1.yaml#L4-L5
+  depends_on "ghc@9.8" => :build # GHC 9.10+ blocked by Cabal 3.12+ API changes
 
   uses_from_macos "zlib"
 
@@ -36,30 +38,15 @@ class HaskellStack < Formula
     system "cabal", "v2-update"
     system "cabal", "v2-install", *std_cabal_v2_args
 
-    generate_completions_from_executable(bin/"stack", "--bash-completion-script", bin/"stack",
-                                         shells: [:bash], shell_parameter_format: :none)
-    generate_completions_from_executable(bin/"stack", "--fish-completion-script", bin/"stack",
-                                         shells: [:fish], shell_parameter_format: :none)
-    generate_completions_from_executable(bin/"stack", "--zsh-completion-script", bin/"stack",
-                                         shells: [:zsh], shell_parameter_format: :none)
-  end
-
-  def caveats
-    on_macos do
-      on_arm do
-        <<~EOS
-          All GHC versions before 9.2.1 requires LLVM Code Generator as a backend
-          on ARM. If you are using one of those GHC versions with `haskell-stack`,
-          then you may need to install a supported LLVM version and add its bin
-          directory to the PATH.
-        EOS
-      end
+    [:bash, :fish, :zsh].each do |shell|
+      generate_completions_from_executable(bin/"stack", "--#{shell}-completion-script", bin/"stack",
+                                           shells: [shell], shell_parameter_format: :none)
     end
   end
 
   test do
     system bin/"stack", "new", "test"
-    assert_predicate testpath/"test", :exist?
+    assert_path_exists testpath/"test"
     assert_match "# test", (testpath/"test/README.md").read
   end
 end

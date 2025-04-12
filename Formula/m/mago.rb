@@ -1,17 +1,18 @@
 class Mago < Formula
   desc "Toolchain for PHP to help developers write better code"
   homepage "https://github.com/carthage-software/mago"
-  url "https://github.com/carthage-software/mago/archive/refs/tags/0.0.18.tar.gz"
-  sha256 "98f1dbcd9d280e8d2a59a9805309c5856c475f82f55f22f44cdaae1830f4274d"
+  url "https://github.com/carthage-software/mago/archive/refs/tags/0.22.2.tar.gz"
+  sha256 "5a9b56c0b4268f447b19230b6cd78aaaf684d5dd666611c087058c28f32cd355"
   license any_of: ["Apache-2.0", "MIT"]
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e9fb281a9e69d669dbfd6ea50cc25f6c3368e59d570fb8933c9b7b93c547887e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d6809e390185816764b15c14ce5f866a801edc5d845454f5a40b88bd523a064c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "465443107caa45bb6400e0e491ef1bc3cc79a27511e2b88a8a06488381e3d354"
-    sha256 cellar: :any_skip_relocation, sonoma:        "5fef25b166d88397583f91bcd308dcc87a119c18af6c7a29829007ae926302e4"
-    sha256 cellar: :any_skip_relocation, ventura:       "9120647f1fe8fbfab16bb9cd2ab108a9bf0b0da9bc4952b7ee07d683cc401de3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2739abdda55809f42ed18d8034a81435d2fd9d0acfff76294b1c3af0ec85d9b9"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8ecb29552c1a4fcab85ff90b5bab0e6c71b25f5eb7dc4c31ee68c9a74c974c19"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "79a25793f1c32814db7de80fb6427dc4ffa0fd915eb90797d769e280feaa38c1"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "61700c342d18769c8adcefdd5ae7fe37cc85b95bc1b7cb4d2fbc00e51eed61cf"
+    sha256 cellar: :any_skip_relocation, sonoma:        "82714765b8593f6abc5f2a53edc865bc4cbdbbe3d6ff5e1f1ea2b98443a2b2ea"
+    sha256 cellar: :any_skip_relocation, ventura:       "52cb72bf69a7be1ceaa5016e26f69990f37fceb000f5f8d0b864abe307dae812"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "7fb8d294af6fd9bc8ad8a876bcc2e5706586ed6e419c98d5ae565533ecf538d5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ab6d4992165e7f518936173a0758370b8676f77ca35ecdbf5f33fd7715ec68d9"
   end
 
   depends_on "pkgconf" => :build
@@ -34,6 +35,6 @@ class Mago < Formula
 
     (testpath/"unformatted.php").write("<?php echo 'Unformatted';?>")
     system bin/"mago", "fmt"
-    assert_match "<?php\necho 'Unformatted';\n\n", (testpath/"unformatted.php").read
+    assert_match "<?php echo 'Unformatted';\n", (testpath/"unformatted.php").read
   end
 end

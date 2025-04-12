@@ -2,18 +2,18 @@ class Tile38 < Formula
   desc "In-memory geolocation data store, spatial index, and realtime geofence"
   homepage "https://tile38.com/"
   url "https://github.com/tidwall/tile38.git",
-      tag:      "1.34.0",
-      revision: "5be471ae138305d422a87012756756decc0b9c81"
+      tag:      "1.34.2",
+      revision: "e40a665f65a5acc09fa8eee110f244616d7894ee"
   license "MIT"
   head "https://github.com/tidwall/tile38.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2b897dfd9efa1f6b046b5adf054c8798e9cd1ea402ec0a2b09f0c9a3be4c9b1c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2b897dfd9efa1f6b046b5adf054c8798e9cd1ea402ec0a2b09f0c9a3be4c9b1c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "2b897dfd9efa1f6b046b5adf054c8798e9cd1ea402ec0a2b09f0c9a3be4c9b1c"
-    sha256 cellar: :any_skip_relocation, sonoma:        "1f5d313ca682203a45fc6ebd8f95a992c9a412a2f22390a07f3e3156d8290692"
-    sha256 cellar: :any_skip_relocation, ventura:       "1f5d313ca682203a45fc6ebd8f95a992c9a412a2f22390a07f3e3156d8290692"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6ab04657b54a826124e48f681e4d4b6502f40dbfa85420021bc383de6380385b"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "cc6adf3f90a703deb17b2ed31d2fe7fb92446486ffb426063bd56dddca98919d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "cc6adf3f90a703deb17b2ed31d2fe7fb92446486ffb426063bd56dddca98919d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "cc6adf3f90a703deb17b2ed31d2fe7fb92446486ffb426063bd56dddca98919d"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5869cc5a03fde9d1cc89980fa2d8094e287d59f3bd931344286c31cf7fbf5b6a"
+    sha256 cellar: :any_skip_relocation, ventura:       "5869cc5a03fde9d1cc89980fa2d8094e287d59f3bd931344286c31cf7fbf5b6a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "73c19f54179b1957cd3836df778312aaf9c93ed4a90a9c45fa8a0bda4b6892f0"
   end
 
   depends_on "go" => :build
@@ -63,7 +63,7 @@ class Tile38 < Formula
     tile38_server = JSON.parse(json_output)
 
     assert_equal tile38_server["ok"], true
-    assert_predicate testpath/"data", :exist?
+    assert_path_exists testpath/"data"
   ensure
     Process.kill("HUP", pid)
   end

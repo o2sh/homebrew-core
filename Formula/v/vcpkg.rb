@@ -1,12 +1,20 @@
 class Vcpkg < Formula
   desc "C++ Library Manager"
   homepage "https://github.com/microsoft/vcpkg"
-  url "https://github.com/microsoft/vcpkg-tool/archive/refs/tags/2024-12-09.tar.gz"
-  version "2024.12.09"
-  sha256 "4db7060703a7671688dc14a65f6e4b70c73d2ad9f47d5f85782169bc259beae6"
   license "MIT"
-  revision 2
   head "https://github.com/microsoft/vcpkg-tool.git", branch: "main"
+
+  stable do
+    url "https://github.com/microsoft/vcpkg-tool/archive/refs/tags/2025-03-22.tar.gz"
+    version "2025.03.22"
+    sha256 "767b78481bc518e1886a5f8a7473059e21b7d5305d036a1e87241c2014413955"
+
+    # cmake 4.0 patch, upstream pr ref, https://github.com/microsoft/vcpkg-tool/pull/1632
+    patch do
+      url "https://github.com/strega-nil/vcpkg-tool/commit/2bea367a563f990e53224bda37df7926518882cd.patch?full_index=1"
+      sha256 "e528b7e3030c5b9abae25654eeeb7e096c2e40740e5cfedecf3b3b1c9992615b"
+    end
+  end
 
   # The source repository has pre-release tags with the same
   # format as the stable tags.
@@ -22,12 +30,13 @@ class Vcpkg < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "e8bf0373f491e7a508a464cdc352642a1dd7b67cb00dab502b66143c73528faa"
-    sha256 cellar: :any,                 arm64_sonoma:  "2c2576494f306a15d4496d8eba15d8264c4173bdbe4b6b458fa59a6ba6173710"
-    sha256 cellar: :any,                 arm64_ventura: "e744d39e1e5850f5d1b6921912474d34f39c33c63f69507744dba1d7a643b561"
-    sha256 cellar: :any,                 sonoma:        "18ce4b3a27c32f755f98ce9ee04f0b31af2aac70ef8289e76e9e0941656a621f"
-    sha256 cellar: :any,                 ventura:       "a4228786f9acbbcbd25a394f815d31fd31b62459701632c586f1122e3926ff14"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "492ae5101b26512611bd00590feb5134e056113af7e2b540612ad045840537cf"
+    sha256 cellar: :any,                 arm64_sequoia: "36ac645e4fa1018700f923c28d16b42ba0c9fe5dda2a49ac860eed5675bf2c3b"
+    sha256 cellar: :any,                 arm64_sonoma:  "f29648cfafbd026c78a577c2c2f749962597efd061c8b012ffe5d5c3276c456b"
+    sha256 cellar: :any,                 arm64_ventura: "1aaf7c84d3596311c0f15131d4098f7871f5f7c0e7f1b74a9b1717984b391ece"
+    sha256 cellar: :any,                 sonoma:        "35675bd36324438fd24aedfe5b1ab617da129138e4b27e1cb965c1d0d496ca8c"
+    sha256 cellar: :any,                 ventura:       "c0b9bacc3bc762aaeb8e936d7090fdd362991dedaa86b8771257177a196c2d16"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "9c4335ff933d3d6c9c6358da9aa1edb1c8d2ec721c29246161ac4dc84ec6dc4a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "242de51c81b1d0eae46654f63533b786c0658140fd835983ee57f31cadb967cd"
   end
 
   depends_on "cmake" => :build
@@ -47,6 +56,7 @@ class Vcpkg < Formula
                     "-DVCPKG_VERSION=#{version}",
                     "-DVCPKG_DEPENDENCY_EXTERNAL_FMT=ON",
                     "-DVCPKG_DEPENDENCY_CMAKERC=ON",
+                    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5", # FIXME: workaround for CMake 4+
                     *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"

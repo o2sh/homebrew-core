@@ -1,18 +1,19 @@
 class Draft < Formula
   desc "Day 0 tool for getting your app on Kubernetes fast"
   homepage "https://github.com/Azure/draft"
-  url "https://github.com/Azure/draft/archive/refs/tags/v0.17.0.tar.gz"
-  sha256 "eee0a43194eab56642077d165026f9d4ce88dbfadb790262ce1a23c00d7df221"
+  url "https://github.com/Azure/draft/archive/refs/tags/v0.17.7.tar.gz"
+  sha256 "0db6741661494fa12835ff8edc34b25e1901a1e08aecbb69f69601001213159a"
   license "MIT"
   head "https://github.com/Azure/draft.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0bfa153dde9851a07d37ac84552d06fa2a2eac39c9b613aef47ee2ee8f8b24bc"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "48d293f69e442d42acb4366f7547b94c052a775b493b7105ad894462a224ee66"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "6ec4d6f1704fa68aaeb35270f979474adb66b5cf1d153b5658d258cf93b3037c"
-    sha256 cellar: :any_skip_relocation, sonoma:        "ad21742c91a31abd481d0d738001e39cf35db25142ec564a7cdfdfcdca736614"
-    sha256 cellar: :any_skip_relocation, ventura:       "55512d695b94a6d59d8f0e9d5d8bccb6343bacfa93e000378b733511e02cc1dc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6f095f794665b03ccf14bd44398353680d0e5fb9738965adf0857a17690d1b1f"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "640c05423dc6f2c489ce466fe707adc1d14326b45703afbb328b553810824dc1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c92c674c591014989bab56e8feecc1266733230f3198312ddc7b144ee19f250b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "541fb3a73035308b2d1472fbd74acdd9d15cfb2448e85fe6e39f5c3cbc7e26ff"
+    sha256 cellar: :any_skip_relocation, sonoma:        "1d97a59191d8f28006ed2c83fdca02836ada1afaa0277e8b9520c3d44f4f0ab9"
+    sha256 cellar: :any_skip_relocation, ventura:       "cb6b9261003890b3b60ed6cb5f5cadd12f9fa4b4db6ba47f39d5dadc730ec9fc"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "969ee85f543b2c8ac52572e8e4998724a10889b5b8885f69e9d3c943de8ae872"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "133f8b2033fa822423ef45e59daa5f9bf5c816a49707bdc51273a445df8b0a57"
   end
 
   depends_on "go" => :build

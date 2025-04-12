@@ -1,9 +1,10 @@
 class Azcopy < Formula
   desc "Azure Storage data transfer utility"
   homepage "https://github.com/Azure/azure-storage-azcopy"
-  url "https://github.com/Azure/azure-storage-azcopy/archive/refs/tags/v10.27.1.tar.gz"
-  sha256 "3ed3ef0ded8ebcc3f46dc77e24fe4c39141b1b278492289cec8cf2ddcc1a3dc0"
+  url "https://github.com/Azure/azure-storage-azcopy/archive/refs/tags/v10.28.1.tar.gz"
+  sha256 "b7b8f45e3f74a77d7317be2e06e067beaa71c02d0a3f66b5267e24beb59b1e3d"
   license "MIT"
+  head "https://github.com/Azure/azure-storage-azcopy.git", branch: "main"
 
   livecheck do
     url :stable
@@ -11,12 +12,13 @@ class Azcopy < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "30ed473e848e7b58ab1b46f4147e8c2b57d1d03e3021299e71670704af00d711"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b7a9e532bebdaeb5e378ba48de0164bd47d5ba3d30a1d7d33b9a56387bbb464d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "bea7627e96ceed2e5a68d55654db44ffa5e69d3f35439e8402d16d5af73034d8"
-    sha256 cellar: :any_skip_relocation, sonoma:        "b6b19516ae9e85afa1b79f9a87b097cbcdaff3a656b6a25697c45f48769ed663"
-    sha256 cellar: :any_skip_relocation, ventura:       "e13182446bb1e274bfc1c9c7c23070bf84e17c2854fe30558ca07f3065210e43"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3e56e8f45ae38b7f25701fdafc1cf888f92d57bf6bc335a55839f4180cfde51b"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "cb0c2aa67be7924bb6bdc1ee6cdab654a2cf787b791dbb0ee1f1f822acf1aef3"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3206d65dc8f388b64b8e61f850dc64cd4aeaadded29c6019ff0095644493b5a4"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "5207c3aeef9d22896546555acb34be7d2c4da95005c423766dc5b3daea4204d2"
+    sha256 cellar: :any_skip_relocation, sonoma:        "25e30694e68e810c91aa05908efb25f7665eb8453a03f08777eb4d4737e66025"
+    sha256 cellar: :any_skip_relocation, ventura:       "235a52c172d11f8f0798fbda05244e00edc5eb806a4a488a781cb8b18541b211"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "e6c6cedff923d021af69fb5c6ff92c4b1eb1de2a56193a82d0f0b4cc586798d5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5845d0f34ded6aa84c937811d584c7ca156c58b7d8dc9808c96714f67fdf40cb"
   end
 
   depends_on "go" => :build

@@ -2,10 +2,11 @@ class PhpAT81 < Formula
   desc "General-purpose scripting language"
   homepage "https://www.php.net/"
   # Should only be updated if the new version is announced on the homepage, https://www.php.net/
-  url "https://www.php.net/distributions/php-8.1.31.tar.xz"
-  mirror "https://fossies.org/linux/www/php-8.1.31.tar.xz"
-  sha256 "c4f244d46ba51c72f7d13d4f66ce6a9e9a8d6b669c51be35e01765ba58e7afca"
+  url "https://www.php.net/distributions/php-8.1.32.tar.xz"
+  mirror "https://fossies.org/linux/www/php-8.1.32.tar.xz"
+  sha256 "c582ac682a280bbc69bc2186c21eb7e3313cc73099be61a6bc1d2cd337cbf383"
   license "PHP-3.01"
+  revision 1
 
   livecheck do
     url "https://www.php.net/downloads"
@@ -13,12 +14,13 @@ class PhpAT81 < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "2fd310dfbd570b6998906d8f40bd2fd51ba66b6f28a7d8f826ff6dbeef111edc"
-    sha256 arm64_sonoma:  "d0c5eacbbc350721e5d87f301bd3e27e24c7711422bd0af976c077a14ebbff5e"
-    sha256 arm64_ventura: "69596825a94b96775a0c4904ed335d47a472d281efec950ba4aecf49acce974a"
-    sha256 sonoma:        "2585dac48ab45d53e9cf0cba573aeedab04ab133cb13f7bc4ef21856c2a94b5c"
-    sha256 ventura:       "c459e02507d84d26513063b3b8c8f2985971a077dac54b33ea4c215e79f1ae82"
-    sha256 x86_64_linux:  "ecf74cf457d6b821b6a058a01a5531f2f37711fbfe4ee3e2b9548db6e98c9629"
+    sha256 arm64_sequoia: "8741b2bf1ee76c03c8455ccaf40f6fd3939431152754acdb82e129228779e5c0"
+    sha256 arm64_sonoma:  "b7ea998659cd7bb495ae300a703585dac6170e46b211faff7203f193fb18f0d9"
+    sha256 arm64_ventura: "440f6c45064641e9c9d55bdf9160492933366bf2229e68e1d108bac4e51f0b65"
+    sha256 sonoma:        "4927feb05aaad3f40488221cc2dd9bec99dcc26de44ff5aa71b14b134d23358a"
+    sha256 ventura:       "07fab86e1b3ee51ce0155986142fdd3d5dbd9f1ce7e37df14426af04ee7fbbcc"
+    sha256 arm64_linux:   "97cd6e5d281bd2a00a0ac75e74344672b6dba99c41d3605f4f2f3aedfa406901"
+    sha256 x86_64_linux:  "aa0f34a74a2a6bbcd6244b115116e1ad1d25a2f1f026c3d2bf6698b794538fc0"
   end
 
   keg_only :versioned_formula
@@ -39,7 +41,7 @@ class PhpAT81 < Formula
   depends_on "gd"
   depends_on "gettext"
   depends_on "gmp"
-  depends_on "icu4c@76"
+  depends_on "icu4c@77"
   depends_on "krb5"
   depends_on "libpq"
   depends_on "libsodium"
@@ -61,13 +63,6 @@ class PhpAT81 < Formula
   uses_from_macos "zlib"
 
   on_macos do
-    # Apply MacPorts patch for Xcode 16. Upstream fix doesn't cleanly apply
-    # Ref: https://github.com/php/php-src/commit/e2e2b3ab62686af85fb079a403b5dda75595f6dd
-    patch do
-      url "https://raw.githubusercontent.com/macports/macports-ports/f6c30c5b3a810d4154ab8c85bb23274baa020fe1/lang/php/files/patch-php81-zend_string_equal_val.diff"
-      sha256 "382b1815dda418f539799c05674c3bfc22ec7e1da7494afd9f883938b4b3a1e2"
-    end
-
     # PHP build system incorrectly links system libraries
     # see https://github.com/php/php-src/issues/10680
     patch :DATA
@@ -119,6 +114,9 @@ class PhpAT81 < Formula
 
     # Prevent homebrew from hardcoding path to sed shim in phpize script
     ENV["lt_cv_path_SED"] = "sed"
+
+    # Identify build provider in phpinfo()
+    ENV["PHP_BUILD_PROVIDER"] = tap.user
 
     # system pkg-config missing
     ENV["KERBEROS_CFLAGS"] = " "

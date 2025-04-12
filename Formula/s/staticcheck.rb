@@ -1,20 +1,19 @@
 class Staticcheck < Formula
   desc "State of the art linter for the Go programming language"
-  homepage "https://staticcheck.io/"
-  url "https://github.com/dominikh/go-tools/archive/refs/tags/2024.1.1.tar.gz"
-  sha256 "fa0e5305e91ef126ac7de52c99a04728255fc694d45b0a9a3f1ca026a44828bf"
+  homepage "https://staticcheck.dev/"
+  url "https://github.com/dominikh/go-tools/archive/refs/tags/2025.1.1.tar.gz"
+  sha256 "259aaf528e4d98e7d3652e283e8551cfdb98cd033a7c01003cd377c2444dd6de"
   license "MIT"
-  revision 3
+  revision 1
   head "https://github.com/dominikh/go-tools.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8187b25f32028c83b3716a0ec6ef55d5f30e39b0ca8ba7544fbdd1c655943b66"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8187b25f32028c83b3716a0ec6ef55d5f30e39b0ca8ba7544fbdd1c655943b66"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "8187b25f32028c83b3716a0ec6ef55d5f30e39b0ca8ba7544fbdd1c655943b66"
-    sha256 cellar: :any_skip_relocation, sonoma:        "1f785fff421a523b484b32c2f2f5dd515c7c333585a23783dc169e528aa4c46a"
-    sha256 cellar: :any_skip_relocation, ventura:       "1f785fff421a523b484b32c2f2f5dd515c7c333585a23783dc169e528aa4c46a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5f5fbb90cc9ea2befec5985bdaca13452b48eb99d010ad3286e18f7e07be0d30"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fdfccf0daef098c323090f84334bb145b6c48da9587cd40cee6fd4d71db3bfeb"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "fdfccf0daef098c323090f84334bb145b6c48da9587cd40cee6fd4d71db3bfeb"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "fdfccf0daef098c323090f84334bb145b6c48da9587cd40cee6fd4d71db3bfeb"
+    sha256 cellar: :any_skip_relocation, sonoma:        "bc21362b5a7567bdf9041359ff6661df40e3e793cb0a1bf120efffb219d3f17c"
+    sha256 cellar: :any_skip_relocation, ventura:       "bc21362b5a7567bdf9041359ff6661df40e3e793cb0a1bf120efffb219d3f17c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "347107bbe8efbff2565326aae4e0f5f05fb8637dee773a8a9667710de54bc319"
   end
 
   depends_on "go"

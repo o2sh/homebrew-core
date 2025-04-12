@@ -1,8 +1,8 @@
 class Telegraf < Formula
   desc "Plugin-driven server agent for collecting & reporting metrics"
   homepage "https://www.influxdata.com/time-series-platform/telegraf/"
-  url "https://github.com/influxdata/telegraf/archive/refs/tags/v1.33.0.tar.gz"
-  sha256 "ba6d46d75bc9a113ffe90c5f3f8aa7d75e2305f4cc833dc174898c253be0ae47"
+  url "https://github.com/influxdata/telegraf/archive/refs/tags/v1.34.1.tar.gz"
+  sha256 "e529bed574fa05f7e157098ccccc5b03780d72a9eeb9fa5cecbfde8b518f0ab1"
   license "MIT"
   head "https://github.com/influxdata/telegraf.git", branch: "master"
 
@@ -12,12 +12,12 @@ class Telegraf < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "36bfacace9b7f03c61804ffc31eeb4550162c474ca49afbf44f969fdb31b5ee8"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1baa6785bba4ebc8f75e859a7ab2ef70ffdb603198c37063e4262e276b22b86c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "3b55234f104fe81bf4b55db10014c555f3fa1b1d112a70e477e019b308b14073"
-    sha256 cellar: :any_skip_relocation, sonoma:        "50ac65381128b9baba4d2ec735b7675e784ef295d50390231d0a5735ac03d38c"
-    sha256 cellar: :any_skip_relocation, ventura:       "098203bea382183a42124242168222993fe8b68a3a5db68467b36d438b27f471"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "38a9b90f63db837c7e372c8ea2e57c295b7e22768071df084c51b8e79623bfa4"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0436b0af98fffc763f9825953fbc747ad16e687970d10c6a9ff396c3c5560c2a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2ec8a89fd6d4880a2fd14d4d66ea4aaac844e137265fecc077cafecf4de2d135"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "e775058b04ea766620006bb8e361ca569e737a687fc182bae4fab3824ae92256"
+    sha256 cellar: :any_skip_relocation, sonoma:        "76df635de645fc837de8aef9986f20a7b742c751d3bc41b5bee1294f416679ad"
+    sha256 cellar: :any_skip_relocation, ventura:       "805e14506df56b2664d37c157f394165988ac466ecfa06102d78e7a43d4c029a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0f705e8aeff474ae755248e61f8bd0b6f8d8bd2814c88122dfb16ca461a34030"
   end
 
   depends_on "go" => :build

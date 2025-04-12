@@ -1,19 +1,19 @@
 class HelmLs < Formula
   desc "Language server for Helm"
   homepage "https://github.com/mrjosh/helm-ls"
-  url "https://github.com/mrjosh/helm-ls/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "6cbbe74114e6a4b8cd0821e372190f67743bb0528ea364a969524c754ba00c22"
+  url "https://github.com/mrjosh/helm-ls/archive/refs/tags/v0.2.0.tar.gz"
+  sha256 "098781469caba5783c51cc17ba5d026e0d666a867ad2a59b6994f0d1ece97a72"
   license "MIT"
   head "https://github.com/mrjosh/helm-ls.git", branch: "master"
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5b2c5d5cb4490cb05371e63bc74d127d597f50bdb359a6f1e2fd1468f5151a3a"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6d771e541a5c38fafbcd659018d8f5759b25b6d66a3de32a94f379766c27ebe5"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "db311950e0c37fc990a9ea24e95d5a1f9dbe6f78790878bf0cf33a349336da79"
-    sha256 cellar: :any_skip_relocation, sonoma:        "666e15a046477ac540c2e1c211e91ba5183f12c7b2a70d823faeba7c91c83592"
-    sha256 cellar: :any_skip_relocation, ventura:       "d81557c7fefd57b65b604413bea2ce2648e160b720358b4e60c2cd27042443c6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "001b6074a8c532281fed3d992bb5dd4629e4ba64aea0e4a9e7672a3547ceae8b"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "61cb565d4e4b1d228317e0b8ad4a04cecc45d2bedc36124f48a79c576b9ca059"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ef92adc9b8b528ad2b7b854394173ee92cc132fe9eece85c508d0a16542849d1"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "c2dead86f308cd7837c2de73f57efe2ae3ecf301bb3127a9c5f99bcc18cf8381"
+    sha256 cellar: :any_skip_relocation, sonoma:        "1b83789258ebe57d6ec44b527d27da12b1b1e0e2bf53b99b89817ec136398d61"
+    sha256 cellar: :any_skip_relocation, ventura:       "0595aec7f9a951c496ab97dc047d669770bbb8186816d9018f29fa9418a6aadc"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "d9cb57528468565a6dccd93937cb6e2ae213c9481a4d213bf121d0fa65c2bacc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1e9dc986a184140c80f19aa16fa54f905f84d034ed98ac235c2ec779aaf59008"
   end
 
   depends_on "go" => :build

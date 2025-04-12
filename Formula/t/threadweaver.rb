@@ -1,8 +1,8 @@
 class Threadweaver < Formula
   desc "Helper for multithreaded programming"
   homepage "https://api.kde.org/frameworks/threadweaver/html/index.html"
-  url "https://download.kde.org/stable/frameworks/6.9/threadweaver-6.9.0.tar.xz"
-  sha256 "d249181d21aa89ad6f5108db3b188c25c9415c9834110f8d15f6bab2df39c190"
+  url "https://download.kde.org/stable/frameworks/6.12/threadweaver-6.12.0.tar.xz"
+  sha256 "ec77fbafbbd9a6bef048e57e0bd64999b1c17b31b43d59a3c5a981ab18f2e1be"
   license "LGPL-2.0-or-later"
   head "https://invent.kde.org/frameworks/threadweaver.git", branch: "master"
 
@@ -12,11 +12,11 @@ class Threadweaver < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:  "2a7a987b6e2ff573a671cad9a3363ed6af740d66916fd016f188b6028ce9a249"
-    sha256 cellar: :any,                 arm64_ventura: "e3e29431dc6d2f87409fe6556a91405f50f59c4f7e455b82a73a4bac1079490b"
-    sha256 cellar: :any,                 sonoma:        "095ca0b43175c17ee8f12a008ba9e78f143432af5e1d8ad5656cc4f57769d51d"
-    sha256 cellar: :any,                 ventura:       "7f9484c0b8ba85abe259ef129c2c9dbd8a36e020ecf52f1cb6e73f049ea2570e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "41abf4a91daa0c5cc9e716af715c0eb23751cecfc6ba82de32d393f04a20f333"
+    sha256 cellar: :any,                 arm64_sonoma:  "f11342d3b471aedfb39124270b0e8f03bcd5dd31bd11c5fd5101dedbc61fbd98"
+    sha256 cellar: :any,                 arm64_ventura: "c43540e578d384020d4ae8e265cb3584b1115b0d4fce45c53858ccc4f4cb2499"
+    sha256 cellar: :any,                 sonoma:        "07481a242f618d870aba6b9feb1a77290b4d85fa5f0b69ec2c54856746bfb76e"
+    sha256 cellar: :any,                 ventura:       "c254a6b8c569f265327d725178f871debfd06a074d7962dd7dd14b654bd3b3d5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8daaa4f6395931012c208731c1e3590ec928acd889334e9bcb404f34c8380608"
   end
 
   depends_on "cmake" => [:build, :test]

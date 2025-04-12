@@ -1,17 +1,18 @@
 class AngularCli < Formula
   desc "CLI tool for Angular"
   homepage "https://angular.dev/cli/"
-  url "https://registry.npmjs.org/@angular/cli/-/cli-19.0.6.tgz"
-  sha256 "e5196bb939084209d5e93809a80f2ce31c212b44ba0420c833f8aee9dd998624"
+  url "https://registry.npmjs.org/@angular/cli/-/cli-19.2.7.tgz"
+  sha256 "e1a778c0ca103532cb897b95bb8208255bca1c8aff18542d7c9b5abd24d364d4"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "eade932aaf439387b96fdee2e820657beb124907893cacfaaa97c0368b4b95ed"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "eade932aaf439387b96fdee2e820657beb124907893cacfaaa97c0368b4b95ed"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "eade932aaf439387b96fdee2e820657beb124907893cacfaaa97c0368b4b95ed"
-    sha256 cellar: :any_skip_relocation, sonoma:        "2f02871dd499750f5b603fa2739be1287cfd3e08ea4987a11abbd4a62dbddd90"
-    sha256 cellar: :any_skip_relocation, ventura:       "2f02871dd499750f5b603fa2739be1287cfd3e08ea4987a11abbd4a62dbddd90"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "eade932aaf439387b96fdee2e820657beb124907893cacfaaa97c0368b4b95ed"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a454db10cc9b5dc1cc8e83ed8e0d04e5dd4777cb35b913051e3460d6bd06ede5"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a454db10cc9b5dc1cc8e83ed8e0d04e5dd4777cb35b913051e3460d6bd06ede5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "a454db10cc9b5dc1cc8e83ed8e0d04e5dd4777cb35b913051e3460d6bd06ede5"
+    sha256 cellar: :any_skip_relocation, sonoma:        "278517279ec7ad120b2c0f586df7d3af3550af0c8a166196a406df9ba32acf92"
+    sha256 cellar: :any_skip_relocation, ventura:       "278517279ec7ad120b2c0f586df7d3af3550af0c8a166196a406df9ba32acf92"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "a454db10cc9b5dc1cc8e83ed8e0d04e5dd4777cb35b913051e3460d6bd06ede5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a454db10cc9b5dc1cc8e83ed8e0d04e5dd4777cb35b913051e3460d6bd06ede5"
   end
 
   depends_on "node"
@@ -23,6 +24,6 @@ class AngularCli < Formula
 
   test do
     system bin/"ng", "new", "angular-homebrew-test", "--skip-install"
-    assert_predicate testpath/"angular-homebrew-test/package.json", :exist?, "Project was not created"
+    assert_path_exists testpath/"angular-homebrew-test/package.json", "Project was not created"
   end
 end

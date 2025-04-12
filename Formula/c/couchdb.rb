@@ -1,19 +1,19 @@
 class Couchdb < Formula
   desc "Apache CouchDB database server"
   homepage "https://couchdb.apache.org/"
-  url "https://www.apache.org/dyn/closer.lua?path=couchdb/source/3.4.2/apache-couchdb-3.4.2.tar.gz"
-  mirror "https://archive.apache.org/dist/couchdb/source/3.4.2/apache-couchdb-3.4.2.tar.gz"
-  sha256 "d27ff2a13356000296a98ab884caf3d175927cf21727963ff90fab3a747544cf"
+  url "https://www.apache.org/dyn/closer.lua?path=couchdb/source/3.4.3/apache-couchdb-3.4.3.tar.gz"
+  mirror "https://archive.apache.org/dist/couchdb/source/3.4.3/apache-couchdb-3.4.3.tar.gz"
+  sha256 "0357511b6fed70e3e64f4e75aa5d7cc2000cb0f264ef301702b1816427f72f20"
   license "Apache-2.0"
-  revision 2
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "efa8510c21cc57b74648d6d0d2f86301170bf1e791d61888561726f4bdaf9e8d"
-    sha256 cellar: :any,                 arm64_sonoma:  "c04b2291c6914ab5a359ccfb87d212bbe52ea50217a2e5d28408642eaf99a19d"
-    sha256 cellar: :any,                 arm64_ventura: "1bae3874a3219b0f1d03962d0d7361eef68071a512d381f17143031312d0cf9d"
-    sha256 cellar: :any,                 sonoma:        "1948c2c92ef82cd062fda485a71cb65cc65421d68c50d8d79e69e3108ef1fc51"
-    sha256 cellar: :any,                 ventura:       "c8cd50bd8ad1ad9fc6b19e34929054bec703718d7b67c3451d5be92a745e24d9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7d7f5a9a3e96d4032b99003c6d065e7ac14f8229ad98cf93f557bb1a47020e49"
+    sha256 cellar: :any,                 arm64_sequoia: "e523011eea3b22172feb254072a28c8ca073d18816c60c90a5b9bb5eba1d66d5"
+    sha256 cellar: :any,                 arm64_sonoma:  "7b24890f9d483d21b827da7e999d2ff0d8b72123ef19e06a7eeaeb0ebae62565"
+    sha256 cellar: :any,                 arm64_ventura: "a5fda03cc86a01e22957ac602e14e6c80f35d944f966574e246770666aab7eec"
+    sha256 cellar: :any,                 sonoma:        "b4d4bd31011ec25fe363e19b8283334d539f484657109d59e3b0d64ab384db54"
+    sha256 cellar: :any,                 ventura:       "2a3f22dc854e999240438bee07c370b7a567b0ed27361da7770ee86c485cd92a"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "f5704eb3de5c13291e627cd647f1e5b2fa41cc760b4d9daae497dfd5b9c67d45"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "59f05ef6aa4da41b497c2aad008acdb68ee9d8319c73951ce69cbd1f03ee17c7"
   end
 
   depends_on "autoconf" => :build
@@ -22,7 +22,7 @@ class Couchdb < Formula
   depends_on "erlang" => :build
   depends_on "libtool" => :build
   depends_on "pkgconf" => :build
-  depends_on "icu4c@76"
+  depends_on "icu4c@77"
   depends_on "openssl@3"
 
   uses_from_macos "ncurses"

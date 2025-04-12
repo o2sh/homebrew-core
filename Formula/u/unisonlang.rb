@@ -5,12 +5,16 @@ class Unisonlang < Formula
 
   stable do
     url "https://github.com/unisonweb/unison.git",
-        tag:      "release/0.5.29",
-        revision: "99baffd3b436d9d87254f8dbdf13a479fc63f4e3"
+        tag:      "release/0.5.37",
+        revision: "51d6d80ead4325a5d491a795a413b82d4af6d35a"
 
     resource "local-ui" do
-      url "https://github.com/unisonweb/unison-local-ui/archive/refs/tags/release/0.5.29.tar.gz"
-      sha256 "1e6c2b1f299495159f15113b669bfeb13bb53bf68205203e4a30f82c2f434fe4"
+      url "https://github.com/unisonweb/unison-local-ui/archive/refs/tags/release/0.5.37.tar.gz"
+      sha256 "2095a3e28e06971fc3da91e85c3011b37e9f8dfb6e452138c1d075dd473efe63"
+
+      livecheck do
+        formula :parent
+      end
     end
   end
 
@@ -20,12 +24,12 @@ class Unisonlang < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ec0f527e2f8b0968ed9fa43d2fc91ea814336329cdd8be8c740acfd920920a88"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2d79afed87c658a5f72c88e83f2f38e4a5faeb81cd2733d2aa3f81faecf55693"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "fdc2e69d6f23e13e168a10b307f03b45e73aefb17f0772acd32e71a4417005ec"
-    sha256 cellar: :any_skip_relocation, sonoma:        "0718ad8212c9629c9bb528f19b68d1dd8ae9376e35f3e0530349c68f360d0ea6"
-    sha256 cellar: :any_skip_relocation, ventura:       "a4848fb4df607fbc4b86f846ceb017aef0deaa0d96e380d9eea4381488275dad"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "48db1414d3f46c92a48d4d194e94ded51a69b2506744c8f8f592a834c29d6378"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5d282e3226c03e85bd3403111f63072a20b6a7edb6b242c482c46cf59dff9e79"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a6fa4e920f356f33d4bc3c06af6ba7cd99e2aae9c632a739f1e26b459efb91cb"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "6445157b33bb5ef1f266916d5b29cd14ede7a2c8add7116490ba480e6498af3f"
+    sha256 cellar: :any_skip_relocation, sonoma:        "37835d20837a503e45b37e309f92052a4ec9b6a892a54c6dd71a706362b7cf66"
+    sha256 cellar: :any_skip_relocation, ventura:       "d2d5592b3c455b9bd93c6c7ab2b0d93659263c7b31cc0e69329a75a5c62c3109"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "caa5eadf8d96ceade67ce8c74072e1e7b00cb920def68c448b705ff4065e42c4"
   end
 
   head do
@@ -39,7 +43,7 @@ class Unisonlang < Formula
   depends_on "elm" => :build
   depends_on "ghc@9.6" => :build
   depends_on "haskell-stack" => :build
-  depends_on "node@20" => :build
+  depends_on "node" => :build
 
   uses_from_macos "python" => :build
   uses_from_macos "xz" => :build

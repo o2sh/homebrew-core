@@ -1,18 +1,19 @@
 class GitlabCiLocal < Formula
   desc "Run gitlab pipelines locally as shell executor or docker executor"
   homepage "https://github.com/firecow/gitlab-ci-local"
-  url "https://registry.npmjs.org/gitlab-ci-local/-/gitlab-ci-local-4.56.2.tgz"
-  sha256 "97895a6f81f50ac0ff6eda4c807453ac7fc4608de634d993f954743caf1a5cd9"
+  url "https://registry.npmjs.org/gitlab-ci-local/-/gitlab-ci-local-4.58.0.tgz"
+  sha256 "ad42eac5b9c372675771c718e1dbccf98069cee47cd9c1f89c3f670496d1b7e1"
   license "MIT"
   head "https://github.com/firecow/gitlab-ci-local.git", branch: "master"
 
   bottle do
-    sha256                               arm64_sequoia: "a9287020bc812e18eeb3bd14cb2ba59f88c4262baf37e9983d0bf26cace5ed33"
-    sha256                               arm64_sonoma:  "e51168ff943f17a8f4628920211216cdd9f663be61144fc6cc73cdaa17604856"
-    sha256                               arm64_ventura: "d5f1e2ab6f047a80245fd42f926bd2f0b8086b88312d5867907475a3d7da6194"
-    sha256                               sonoma:        "4dfed5ba030d7e9696ab35e745420ad6da7b455e5d55f53ae7c717858b5c6786"
-    sha256                               ventura:       "e5bf5865eb74a943af7ed605c2a385d6b622e4dd50839fe288c74c01491f8989"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "61e879b5e864e313ef9fa653892ac7b5840abd59cc52dcefff010cfc83511594"
+    sha256                               arm64_sequoia: "a38b268bbd7e64676188d95108683280aac1a6ee9348c79a1c2f3d4210446aec"
+    sha256                               arm64_sonoma:  "1a270da6cd4cc27072ee28812487dc645340a17992c574ee5f8099040ab52ffd"
+    sha256                               arm64_ventura: "8184c017a04e94a0dcc5a88698c8b5483525fbbf352dfedf21aeb4b37aff70c7"
+    sha256                               sonoma:        "b633e3249419bcff292b6d7e62bba044ef10dead3465b00201f33ba8ae994fc6"
+    sha256                               ventura:       "6298de2ebc161af2e6297451ab7beaf7f06436d2dbaed664708c7b7c0f0f2ae7"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "5305680f8165adcbe0d566518c4090d2cffeec65a6ae2ded8fe28ec34a060257"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f42bb808b7fc933e73d2de971a833d1e441a93b82dbe3570b769fd8edea141c5"
   end
 
   depends_on "node"
@@ -23,7 +24,7 @@ class GitlabCiLocal < Formula
   end
 
   test do
-    (testpath/".gitlab-ci.yml").write <<~YML
+    (testpath/".gitlab-ci.yml").write <<~YAML
       ---
       stages:
         - build
@@ -44,7 +45,7 @@ class GitlabCiLocal < Formula
           - shared-docker
         script:
           - echo $HELLO
-    YML
+    YAML
 
     system "git", "init"
     system "git", "add", ".gitlab-ci.yml"

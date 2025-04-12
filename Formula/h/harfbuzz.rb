@@ -1,18 +1,19 @@
 class Harfbuzz < Formula
   desc "OpenType text shaping engine"
   homepage "https://github.com/harfbuzz/harfbuzz"
-  url "https://github.com/harfbuzz/harfbuzz/archive/refs/tags/10.1.0.tar.gz"
-  sha256 "c758fdce8587641b00403ee0df2cd5d30cbea7803d43c65fddd76224f7b49b88"
+  url "https://github.com/harfbuzz/harfbuzz/archive/refs/tags/11.0.1.tar.gz"
+  sha256 "c9cd31190f4b2845937899df3035b3f9b2f775cbe76a6051be60411e59639d45"
   license "MIT"
   head "https://github.com/harfbuzz/harfbuzz.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any, arm64_sequoia: "442fc5e12f48a14b44402b3f291d2e08b303e540654465875c67e881909f69e2"
-    sha256 cellar: :any, arm64_sonoma:  "e9f6cd76f2e41e47cbe68dbac40090588e0131914c204d4ac5b6c496eed7e072"
-    sha256 cellar: :any, arm64_ventura: "fcd6245c5056a3e173c76124f05dfa919f08677b3058b9ade36cd63b538ee840"
-    sha256 cellar: :any, sonoma:        "ecfa08a551e6f66f6c58616bc88772b868a7897b346fa6b8111b7c21f89c00d6"
-    sha256 cellar: :any, ventura:       "d93cb96159f682fa7f5106205f1f8a754661efbabbe49fdb11cf3af41147980b"
-    sha256               x86_64_linux:  "4960b5d596b1935ac47f63749b995c7b21a9cf8bdfcb8d72c6335da306e1b243"
+    sha256 cellar: :any, arm64_sequoia: "c4f555002b70ae707d81d2e0bc6ae6abacf02d3f4a4d9d8f156c9020b60d4971"
+    sha256 cellar: :any, arm64_sonoma:  "0c7e2e51ceabb296f0e4a4587e4c9b98525a1bd0f6c2b0b389e3fa052ccc05d1"
+    sha256 cellar: :any, arm64_ventura: "20b8f5d4cde72d02e467f78fb84c9ae147171ec6e52135847b13a180a0435cc7"
+    sha256 cellar: :any, sonoma:        "9f71adfbf73652f8c110d3f794da491fae86fd42bbef9d235dcecbdaf8100351"
+    sha256 cellar: :any, ventura:       "f6aeaefc769889789a5470a0e759b4c55774757f0d15719e1535066513c86394"
+    sha256               arm64_linux:   "032edd8b596c8781ae6835d874c45bedb881e4241f4dbdd2c697e129cd050b7b"
+    sha256               x86_64_linux:  "329d5a181a9ab0def51bb4487e103e12d5125d16e5215f7772296a4e37527cd1"
   end
 
   depends_on "gobject-introspection" => :build
@@ -25,7 +26,7 @@ class Harfbuzz < Formula
   depends_on "freetype"
   depends_on "glib"
   depends_on "graphite2"
-  depends_on "icu4c@76"
+  depends_on "icu4c@77"
 
   resource "homebrew-test-ttf" do
     url "https://github.com/harfbuzz/harfbuzz/raw/fc0daafab0336b847ac14682e581a8838f36a0bf/test/shaping/fonts/sha1sum/270b89df543a7e48e206a2d830c0e10e5265c630.ttf"

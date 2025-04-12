@@ -1,9 +1,9 @@
 class Spidermonkey < Formula
   desc "JavaScript-C Engine"
   homepage "https://spidermonkey.dev"
-  url "https://archive.mozilla.org/pub/firefox/releases/128.5.2esr/source/firefox-128.5.2esr.source.tar.xz"
-  version "128.5.2"
-  sha256 "25d633eb81499cbda44b8c64fa1c1a5879d55024b864ef495d4997154d68358f"
+  url "https://archive.mozilla.org/pub/firefox/releases/128.9.0esr/source/firefox-128.9.0esr.source.tar.xz"
+  version "128.9.0"
+  sha256 "4d04661c6cc0bfdd0f280b62f81d2fb79ab3cbd7f9e8a7b34042db1cf8cc6805"
   license "MPL-2.0"
   head "https://hg.mozilla.org/mozilla-central", using: :hg
 
@@ -15,27 +15,26 @@ class Spidermonkey < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sequoia: "84487c44f6648b750d5dc3c2d0c4426f333da92d63e6854ad306f1f3fc4b9717"
-    sha256 cellar: :any, arm64_sonoma:  "d184c010896842e90b781a91b970a521c33a4539ac355c8025f45831226b1f69"
-    sha256 cellar: :any, arm64_ventura: "36e805b385f32eb7dca40bb5a0bafaec26815434822fc8086c9e20ad2f527773"
-    sha256 cellar: :any, sonoma:        "46fafc455037e33e72c54f1eeda94a2d3bb3df3f0a870bd9febd283e20595cf2"
-    sha256 cellar: :any, ventura:       "db0aee652c3ea459d028fe1fc515205c4ee4c41e1cc2b543a53f958ddbc9c24e"
-    sha256               x86_64_linux:  "5634399194a3fa3e689b7f1f5a8742ef5e064eb7f3f78e99864f1cfd41d7adde"
+    sha256 cellar: :any, arm64_sequoia: "db275194aae55c6ad899dcd503fa9cfcbe83ab7d2036c38a89e725d6d682a9cc"
+    sha256 cellar: :any, arm64_sonoma:  "0645245b59333c3b37d43f77b4a5fb282c6e15f145876c92b914a67273c84a08"
+    sha256 cellar: :any, arm64_ventura: "a0cbc835ebcbe8b6aa867e5af048866a49b8acb7f3b2289665ff4b9cb188d5f4"
+    sha256 cellar: :any, sonoma:        "8022afa69f75ffe7ef2a78c39a1d5f23bd9ef6376adec1ffda4d94a857d9c553"
+    sha256 cellar: :any, ventura:       "dcd7da79a1f112ec6da877559ca6659428398e906c45b13ff55508c2c0436ae4"
+    sha256               arm64_linux:   "e7db79a78bb287e49640cd91dcaf8d92d8012faa42ddb020b2c9441a0ce65af8"
+    sha256               x86_64_linux:  "29fb66a289f7491ed7a1bce3622f466553a18def7a6e9efcbcdb21c46c0d5eff"
   end
 
   depends_on "cbindgen" => :build
   depends_on "pkgconf" => :build
   depends_on "python@3.13" => :build
   depends_on "rust" => :build
-  depends_on "icu4c@76"
+  depends_on "icu4c@77"
   depends_on "nspr"
   depends_on "readline"
 
   uses_from_macos "llvm" => :build # for llvm-objdump
   uses_from_macos "m4" => :build
   uses_from_macos "zlib"
-
-  conflicts_with "narwhal", because: "both install a js binary"
 
   # From python/mozbuild/mozbuild/test/configure/test_toolchain_configure.py
   fails_with :gcc do

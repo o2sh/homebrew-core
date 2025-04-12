@@ -1,8 +1,8 @@
 class S2n < Formula
   desc "Implementation of the TLS/SSL protocols"
   homepage "https://github.com/aws/s2n-tls"
-  url "https://github.com/aws/s2n-tls/archive/refs/tags/v1.5.10.tar.gz"
-  sha256 "6f13d37658954cc24f4eb8c7f30736e026ce06f8c9609f7820ab82504618a98d"
+  url "https://github.com/aws/s2n-tls/archive/refs/tags/v1.5.16.tar.gz"
+  sha256 "ab3e19f899e9b76cf7141f3b287e865db628f9e024360d7086c7f9c901909214"
   license "Apache-2.0"
   head "https://github.com/aws/s2n-tls.git", branch: "main"
 
@@ -12,27 +12,26 @@ class S2n < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "d688330a8c1f4de97d36ff70ac4784d5f732dd7cbb0ce5c134dcf52d084a1c65"
-    sha256 cellar: :any,                 arm64_sonoma:  "2445f1fdcd1d6d180e7f2bf7996575421fc082594f3eeb1066b00e7e7a97bfb1"
-    sha256 cellar: :any,                 arm64_ventura: "573323b2b7c385d699d7160ec3da6f60f22f8d31b4c76d9169774dd76ed430d3"
-    sha256 cellar: :any,                 sonoma:        "fae454a2b307ff20a7facb2e1309eb20759d43844927a8f90ecd5f973120225c"
-    sha256 cellar: :any,                 ventura:       "f600a145873d4978a3e3302f430321cef9c489b40f0ef183c6f33c22f147dca7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "81e6a035b848cb61cd0e30d656f16bb03ad2b9c8748bd9b61fb4310082149369"
+    sha256 cellar: :any,                 arm64_sequoia: "357faf3c6d9291675a870f56227f7f40bb7f6b99f20a62b4b93182a2498d01ed"
+    sha256 cellar: :any,                 arm64_sonoma:  "02f7bc6eb921f9af9f5ec48253508e05e698dbe216beaccf6768a28324baef54"
+    sha256 cellar: :any,                 arm64_ventura: "ad839eb9f0b7c067570dc4511ec266dc9823273d75a01ff4048f4cfd1d0704d2"
+    sha256 cellar: :any,                 sonoma:        "7d5ed3b987ad4683df1c05ab7ca20417676b3ddac8c4e9518e35f7491211763b"
+    sha256 cellar: :any,                 ventura:       "41fe921c62a7bacd0eb6cc9fa8258b7731e6ce636caaf06774caffa6059d3261"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "8b12eaf706a3884e2abc2e6d6ae95538c60720e50e1ed2418404395529f92115"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d43820330602684ae181763a88db84d50da06d520f5b37e6fec21e5294fd5c44"
   end
 
   depends_on "cmake" => :build
   depends_on "openssl@3"
 
-  conflicts_with "aws-sdk-cpp", because: "both install s2n/unstable/crl.h"
-
   def install
-    system "cmake", "-S", ".", "-B", "build/static", *std_cmake_args, "-DBUILD_SHARED_LIBS=OFF"
-    system "cmake", "--build", "build/static"
-    system "cmake", "--install", "build/static"
+    system "cmake", "-S", ".", "-B", "build_static", "-DBUILD_SHARED_LIBS=OFF", *std_cmake_args
+    system "cmake", "--build", "build_static"
+    system "cmake", "--install", "build_static"
 
-    system "cmake", "-S", ".", "-B", "build/shared", *std_cmake_args, "-DBUILD_SHARED_LIBS=ON"
-    system "cmake", "--build", "build/shared"
-    system "cmake", "--install", "build/shared"
+    system "cmake", "-S", ".", "-B", "build_shared", "-DBUILD_SHARED_LIBS=ON", *std_cmake_args
+    system "cmake", "--build", "build_shared"
+    system "cmake", "--install", "build_shared"
   end
 
   test do

@@ -3,27 +3,28 @@ class Ford < Formula
 
   desc "Automatic documentation generator for modern Fortran programs"
   homepage "https://github.com/Fortran-FOSS-Programmers/ford"
-  url "https://files.pythonhosted.org/packages/b5/eb/ec32133d28c57141d96081f5a23060e7cca71b423ff96505cd7ebac50aa7/ford-7.0.9.tar.gz"
-  sha256 "b9b660552a753f1d5265c3355548ca2bc4e38828a0802c03da347ebdd6d594ab"
+  url "https://files.pythonhosted.org/packages/01/08/a2380f5a63e0dc8e428c9307ee26e4455fce4775a76964a86b7068a9edc7/ford-7.0.10.tar.gz"
+  sha256 "b1271adcd8a33af89aa65cd176ed25fe252b3e0a52aa9f1fd00b0e8c51fc4086"
   license "GPL-3.0-or-later"
-  revision 1
   head "https://github.com/Fortran-FOSS-Programmers/ford.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1a0fa96b6790de84f5eacae47090caabe5a9a6c16acc02b2bdbdce9e14d7c5ef"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ac332b481fb1e3e05eb8061de37bd1b63603df932e07eff966955d193efbd1a5"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "25c7925a6b7d8c6f31709e7306bedc2da35277c6a71b68d2b953856e6b9aca72"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e89790615e281ac0032a6c9bae4f0b388603ce3908a1aa8c30be1bcefadf0ee5"
-    sha256 cellar: :any_skip_relocation, ventura:       "0ee7361647e568b5fa78e3850e2ed0a5f72ebda33c279050497d4153488c3266"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ea1c88c245514786604f6c8932041b3273b3cec7c645affdacbbed21016a41e6"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b064d880206f80b5c53d75f52d883e2c0f00a81067820fe3bfc2ffa3b41310b6"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5886a9cc98a97e8f204e2eb813e04f7176dd4084961d38a05753b455b6ef896d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "eac3e85730ed7bc65c9c7796a5141b03bfe18010d4b130f1ffb854c976de372d"
+    sha256 cellar: :any_skip_relocation, sonoma:        "692f7fb9a31df9ee0194ed34d282ed969710e1fa61ce5c6ced6d16db55e3d577"
+    sha256 cellar: :any_skip_relocation, ventura:       "0de0150ff4d60a7afff61a186a1c122edf27e2aa7ca8fcb1054827fac2b55fdb"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "0ea70b70a6e3df4f7b621251ad96dc1fc9803ad41aeec2c728362fd664a0e67a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2f6057a4ff856011848da2c688453f88d23a8bddd80b61a781a1717d9b97ff93"
   end
 
   depends_on "graphviz"
   depends_on "python@3.13"
 
   resource "beautifulsoup4" do
-    url "https://files.pythonhosted.org/packages/b3/ca/824b1195773ce6166d388573fc106ce56d4a805bd7427b624e063596ec58/beautifulsoup4-4.12.3.tar.gz"
-    sha256 "74e3d1928edc070d21748185c46e3fb33490f22f52a3addee9aee0f4f7781051"
+    url "https://files.pythonhosted.org/packages/f0/3c/adaf39ce1fb4afdd21b611e3d530b183bb7759c9b673d60db0e347fd4439/beautifulsoup4-4.13.3.tar.gz"
+    sha256 "1bd32405dacc920b42b83ba01644747ed77456a65760e285fbc47633ceddaf8b"
   end
 
   resource "graphviz" do
@@ -32,8 +33,8 @@ class Ford < Formula
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/af/92/b3130cbbf5591acf9ade8708c365f3238046ac7cb8ccba6e81abccb0ccff/jinja2-3.1.5.tar.gz"
-    sha256 "8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb"
+    url "https://files.pythonhosted.org/packages/df/bf/f7da0350254c0ed7c72f3e33cef02e048281fec7ecec5f032d4aac52226b/jinja2-3.1.6.tar.gz"
+    sha256 "0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d"
   end
 
   resource "markdown" do
@@ -67,8 +68,8 @@ class Ford < Formula
   end
 
   resource "pygments" do
-    url "https://files.pythonhosted.org/packages/8e/62/8336eff65bcbc8e4cb5d05b55faf041285951b6e80f33e2bff2024788f31/pygments-2.18.0.tar.gz"
-    sha256 "786ff802f32e91311bff3889f6e9a86e81505fe99f2735bb6d60ae0c5004f199"
+    url "https://files.pythonhosted.org/packages/7c/2d/c3338d48ea6cc0feb8446d8e6937e1408088a72a39937982cc6111d17f84/pygments-2.19.1.tar.gz"
+    sha256 "61c16d2a8576dc0649d9f39e089b5f02bcd27fba10d8fb4dcc28173f7a45151f"
   end
 
   resource "python-markdown-math" do
@@ -94,6 +95,11 @@ class Ford < Formula
   resource "tqdm" do
     url "https://files.pythonhosted.org/packages/c1/c2/d8a40e5363fb01806870e444fc1d066282743292ff32a9da54af51ce36a2/tqdm-4.64.1.tar.gz"
     sha256 "5f4f682a004951c1b450bc753c710e9280c5746ce6ffedee253ddbcbf54cf1e4"
+  end
+
+  resource "typing-extensions" do
+    url "https://files.pythonhosted.org/packages/df/db/f35a00659bc03fec321ba8bce9420de607a1d37f8342eee1863174c69557/typing_extensions-4.12.2.tar.gz"
+    sha256 "1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8"
   end
 
   def install
@@ -188,6 +194,6 @@ class Ford < Formula
       FORTRAN
     end
     system bin/"ford", testpath/"test-project.md"
-    assert_predicate testpath/"doc"/"index.html", :exist?
+    assert_path_exists testpath/"doc"/"index.html"
   end
 end

@@ -1,9 +1,10 @@
 class PostgresqlAT17 < Formula
   desc "Object-relational database system"
   homepage "https://www.postgresql.org/"
-  url "https://ftp.postgresql.org/pub/source/v17.2/postgresql-17.2.tar.bz2"
-  sha256 "82ef27c0af3751695d7f64e2d963583005fbb6a0c3df63d0e4b42211d7021164"
+  url "https://ftp.postgresql.org/pub/source/v17.4/postgresql-17.4.tar.bz2"
+  sha256 "c4605b73fea11963406699f949b966e5d173a7ee0ccaef8938dec0ca8a995fe7"
   license "PostgreSQL"
+  revision 1
 
   livecheck do
     url "https://ftp.postgresql.org/pub/source/"
@@ -11,12 +12,13 @@ class PostgresqlAT17 < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "e0efcbfe6f8bcfa1c63820af7a076f9d8b91b3c609c2e0f5dbfbf8b4df2d29f0"
-    sha256 arm64_sonoma:  "a45a33fd8b472daddba43a815b190e6b8c447d74a38c4e4f08e8203d788903ce"
-    sha256 arm64_ventura: "8d19972f3766f1b5782b4a6cf4d6914fc3622d433ecc7052692680162033dc7a"
-    sha256 sonoma:        "617f5d1fae49e2e78d06e54f4e28380a540ea99414a38bb86d85d0011bd44073"
-    sha256 ventura:       "6a2cc48e92fc17bc655ea16d07f544909d60331ab896b4bf5a8a174f39a1dba3"
-    sha256 x86_64_linux:  "a6a55f600db3fca37affdabbbbf4513c0049f7635894a9e538e22e8c4627766f"
+    sha256 arm64_sequoia: "2cc5709304fefd422705948c46fe27b3873fc24565793ecf54245033f48993ac"
+    sha256 arm64_sonoma:  "7cdcbc02c7ab5f4ebfdf0f1796935b0f8c98264fd96239bd30fd4324efbe8f51"
+    sha256 arm64_ventura: "03283666af400133c1c1a564a25663977a87ce5d8eeafcb8e161f5a2a0c59ed3"
+    sha256 sonoma:        "b220e193c00e3a5bb58f026c6d547b47575989f2c1c27178a759ca02e460f94c"
+    sha256 ventura:       "d0dace103e6589103925f268375c330b707f6e91ef0979718fdc10e013435a56"
+    sha256 arm64_linux:   "c4f01a279bf88a205267c02a7ae0ca8253c5778c8ffdea3ed30184660edfc112"
+    sha256 x86_64_linux:  "c987b51b282243e67f1c529007b170fea0455bf6eb94e277870497baa0af7e94"
   end
 
   keg_only :versioned_formula
@@ -28,7 +30,7 @@ class PostgresqlAT17 < Formula
   depends_on "docbook-xsl" => :build
   depends_on "gettext" => :build
   depends_on "pkgconf" => :build
-  depends_on "icu4c@76"
+  depends_on "icu4c@77"
   # GSSAPI provided by Kerberos.framework crashes when forked.
   # See https://github.com/Homebrew/homebrew-core/issues/47494.
   depends_on "krb5"
@@ -61,6 +63,7 @@ class PostgresqlAT17 < Formula
     inreplace "src/Makefile.shlib", "-install_name '$(libdir)/", "-install_name '#{lib}/postgresql/"
 
     ENV["XML_CATALOG_FILES"] = etc/"xml/catalog"
+    ENV.runtime_cpu_detection
     ENV.delete "PKG_CONFIG_LIBDIR"
     ENV.prepend "LDFLAGS", "-L#{Formula["openssl@3"].opt_lib} -L#{Formula["readline"].opt_lib}"
     ENV.prepend "CPPFLAGS", "-I#{Formula["openssl@3"].opt_include} -I#{Formula["readline"].opt_include}"

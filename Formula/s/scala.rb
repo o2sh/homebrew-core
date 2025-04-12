@@ -1,8 +1,8 @@
 class Scala < Formula
   desc "JVM-based programming language"
-  homepage "https://www.scala-lang.org/"
-  url "https://github.com/scala/scala3/releases/download/3.6.2/scala3-3.6.2.tar.gz"
-  sha256 "9525b93f8b9488330ecbdb85df3046d3ef46c6760ac23248902c4d89194c5206"
+  homepage "https://dotty.epfl.ch/"
+  url "https://github.com/scala/scala3/releases/download/3.6.4/scala3-3.6.4.tar.gz"
+  sha256 "23c269abf69e942272019cef36ae7f41b7dd0f4324e663eecd30f155d908c4a5"
   license "Apache-2.0"
 
   livecheck do
@@ -11,7 +11,7 @@ class Scala < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "9836e7809cd8da0a45de3e6b212b452a538a102b750b356f4e9111d3d2aca94c"
+    sha256 cellar: :any_skip_relocation, all: "766187b4b8b191e3df5cccc2697ffd55e01c6234f02d9598dc40cb837fa29ad8"
   end
 
   # JDK Compatibility: https://docs.scala-lang.org/overviews/jdk-compatibility/overview.html
@@ -20,9 +20,6 @@ class Scala < Formula
   conflicts_with "pwntools", because: "both install `common` binaries"
 
   def install
-    # fix `scala-cli.jar` path, upstream pr ref, https://github.com/scala/scala3/pull/22185
-    inreplace "libexec/cli-common-platform", "bin/scala-cli", "libexec/scala-cli"
-
     rm Dir["bin/*.bat"]
 
     libexec.install "lib", "maven2", "VERSION", "libexec"

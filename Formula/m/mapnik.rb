@@ -3,10 +3,9 @@ class Mapnik < Formula
   homepage "https://mapnik.org/"
   # needs submodules
   url "https://github.com/mapnik/mapnik.git",
-      tag:      "v4.0.4",
-      revision: "5d155480e196fdc1b0627c7cc7044f09751069f1"
+      tag:      "v4.0.7",
+      revision: "d9d4288bea04c5ef9925c03db353cf5f308e06ad"
   license "LGPL-2.1-or-later"
-  revision 1
   head "https://github.com/mapnik/mapnik.git", branch: "master"
 
   livecheck do
@@ -15,12 +14,12 @@ class Mapnik < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "71000dc22e3fc48801f6f8cc44f29d4f2e99563ba07808b00f20dd4f84d65fe0"
-    sha256 cellar: :any,                 arm64_sonoma:  "7e3141b8941fdde78c99e500d02d23e67d033824ece3f1df0e8078925eaffc06"
-    sha256 cellar: :any,                 arm64_ventura: "fda2abd546fcfe3798fca0787c7b2e48a00ecb79130e012292b857e21a96b5ba"
-    sha256 cellar: :any,                 sonoma:        "31fff0fe0ad7d138c4f74572268b6fed81e426860b79e8c5fc99e595d18e0f30"
-    sha256 cellar: :any,                 ventura:       "065206f79efa11f69ace22a620506fc521adf6e64026d05285ed62e9c8338206"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6c8f071a2ee6a0d80f043ad9fbacd52af672002d8b8e49e4e7f4cff2297718e5"
+    sha256 cellar: :any, arm64_sequoia: "31afe41c814f15e1b8d9ae122356c4a8028de1988078483725c96b3ff2df80fa"
+    sha256 cellar: :any, arm64_sonoma:  "fee7f600c776a1f9251aa82340fcef5a0efad9d440165cb962d55e30b558243f"
+    sha256 cellar: :any, arm64_ventura: "4934916118f81225aef00bca0c75c940dca8c570cd96d1e06f26e2b5badab497"
+    sha256 cellar: :any, sonoma:        "4d00c9c5ad4e5b7c3e5570f06a821e7209051feaa4dc0004bb685e8c412ef535"
+    sha256 cellar: :any, ventura:       "c45f5b9cb120f7a53bb55a38dd672e37dd886e539730fa7f7999d16532d62a56"
+    sha256               x86_64_linux:  "248009b9885c44b21193d3bc4225dbf6bf01903088c13218f86598562bbd1c7d"
   end
 
   depends_on "cmake" => :build
@@ -30,7 +29,7 @@ class Mapnik < Formula
   depends_on "freetype"
   depends_on "gdal"
   depends_on "harfbuzz"
-  depends_on "icu4c@76"
+  depends_on "icu4c@77"
   depends_on "jpeg-turbo"
   depends_on "libpng"
   depends_on "libpq"

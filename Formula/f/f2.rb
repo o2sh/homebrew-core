@@ -6,6 +6,13 @@ class F2 < Formula
   license "MIT"
   head "https://github.com/ayoisaiah/f2.git", branch: "master"
 
+  # Upstream may add/remove tags before releasing a version, so we check
+  # GitHub releases instead of the Git tags.
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   bottle do
     rebuild 1
     sha256 cellar: :any_skip_relocation, arm64_sequoia: "8302833ac2fb9359a9219c8157f0f2b89cfc0a1c77878d333def7a43386aa33b"
@@ -30,9 +37,9 @@ class F2 < Formula
     touch "test1-foo.foo"
     touch "test2-foo.foo"
     system bin/"f2", "-s", "-f", ".foo", "-r", ".bar", "-x"
-    assert_predicate testpath/"test1-foo.bar", :exist?
-    assert_predicate testpath/"test2-foo.bar", :exist?
-    refute_predicate testpath/"test1-foo.foo", :exist?
-    refute_predicate testpath/"test2-foo.foo", :exist?
+    assert_path_exists testpath/"test1-foo.bar"
+    assert_path_exists testpath/"test2-foo.bar"
+    refute_path_exists testpath/"test1-foo.foo"
+    refute_path_exists testpath/"test2-foo.foo"
   end
 end

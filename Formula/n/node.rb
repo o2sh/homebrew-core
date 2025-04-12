@@ -1,8 +1,8 @@
 class Node < Formula
   desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v23.5.0/node-v23.5.0.tar.xz"
-  sha256 "32e77b36c0774c68baab41bc7c2acc58663ca0a2b7c4d3e9bec6f761c15fdac0"
+  url "https://nodejs.org/dist/v23.11.0/node-v23.11.0.tar.xz"
+  sha256 "f2c5db21fc5d3c3d78c7e8823bff770cef0da8078c3b5ac4fa6d17d5a41be99d"
   license "MIT"
   head "https://github.com/nodejs/node.git", branch: "main"
 
@@ -12,19 +12,21 @@ class Node < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "388b766e4fdaa3f5e3ae05ffe0b6a765eea80ae9e7539fd677bfd74fa66451a5"
-    sha256 arm64_sonoma:  "7be45142d23973692d9bf1ea1d67698d312c043ffdffa1b24960cb5954ab78ff"
-    sha256 arm64_ventura: "f12ed25242b52ef7e97009334ccb07bc7e043bffe45d9511176d2fb20d31b475"
-    sha256 sonoma:        "15c169b738ad5e9e196571e6ff0c0464d4adccbef6047a435830b479a26d6583"
-    sha256 ventura:       "eff1b1fd6fe389d0cf0ff481eb6030db5c97affbd0d620c4b26594fb2a591d71"
-    sha256 x86_64_linux:  "ebcca6257af3e6673eeb0ca152be145267e664acfb61346912bcdaf0b79f7272"
+    rebuild 1
+    sha256 arm64_sequoia: "5e18e143193267631cacdb1b349af222a4e0354461a844840b8f74e1096ee187"
+    sha256 arm64_sonoma:  "9bbd828006bd4a3beacca4c5c4169921c0652f71c5f329a6d41dfac23c36a0bd"
+    sha256 arm64_ventura: "9be149abb8ce827d580ea1557c6be8a71222fa38cb785af0cb879694bd0db28d"
+    sha256 sonoma:        "31eb61b74270e89351c557b688948fe90a50f9838ca1870fe304c19816e6a7af"
+    sha256 ventura:       "815de04f73bb36c3d71799b1f44601a2d7b10b56bc16fee1fac1d8c39c7c2c75"
+    sha256 arm64_linux:   "f82e24cf67c6b2d58da09272dda33d760834aabed910267847c09265b2320f71"
+    sha256 x86_64_linux:  "2cee5b721e8a6f1dd08dd9117222ddc3353d368153e5ecbeff2cb3e21eb76da7"
   end
 
   depends_on "pkgconf" => :build
   depends_on "python@3.13" => :build
   depends_on "brotli"
   depends_on "c-ares"
-  depends_on "icu4c@76"
+  depends_on "icu4c@77"
   depends_on "libnghttp2"
   depends_on "libuv"
   depends_on "openssl@3"
@@ -33,14 +35,25 @@ class Node < Formula
   uses_from_macos "zlib"
 
   on_macos do
-    depends_on "llvm" => [:build, :test] if DevelopmentTools.clang_build_version <= 1100
+    depends_on "llvm" => :build if DevelopmentTools.clang_build_version <= 1500
   end
 
+  on_linux do
+    # Avoid newer GCC which creates binary with higher GLIBCXX requiring runtime dependency
+    depends_on "gcc@12" => :build if DevelopmentTools.gcc_version("/usr/bin/gcc") < 12
+  end
+
+  # https://github.com/swiftlang/llvm-project/commit/94461822c75d5080bf648f86552f7a59b76905c9
   fails_with :clang do
-    build 1100
-    cause <<~EOS
-      error: calling a private constructor of class 'v8::internal::(anonymous namespace)::RegExpParserImpl<uint8_t>'
-    EOS
+    build 1500
+    cause "needs std::ranges::elements_view"
+  end
+
+  # https://github.com/nodejs/node/blob/main/BUILDING.md#supported-toolchains
+  # https://github.com/ada-url/ada?tab=readme-ov-file#requirements
+  fails_with :gcc do
+    version "11"
+    cause "needs GCC 12 or newer"
   end
 
   # We track major/minor from upstream Node releases.
@@ -51,7 +64,7 @@ class Node < Formula
   end
 
   def install
-    ENV.llvm_clang if OS.mac? && (DevelopmentTools.clang_build_version <= 1100)
+    ENV.llvm_clang if OS.mac? && DevelopmentTools.clang_build_version <= 1500
 
     # The new linker crashed during LTO due to high memory usage.
     ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
@@ -87,9 +100,9 @@ class Node < Formula
 
     # Enabling LTO errors on Linux with:
     # terminate called after throwing an instance of 'std::out_of_range'
-    # Pre-Catalina macOS also can't build with LTO
+    # macOS also can't build with LTO when using LLVM Clang
     # LTO is unpleasant if you have to build from source.
-    args << "--enable-lto" if OS.mac? && MacOS.version >= :catalina && build.bottle?
+    args << "--enable-lto" if OS.mac? && DevelopmentTools.clang_build_version > 1500 && build.bottle?
 
     system "./configure", *args
     system "make", "install"
@@ -108,8 +121,13 @@ class Node < Formula
     # in `cached_download` npm resource, which breaks `npm -g outdated npm`.
     # This copies back over the vanilla `package.json` to fix this issue.
     cp bootstrap/"package.json", libexec/"lib/node_modules/npm"
+
     # These symlinks are never used & they've caused issues in the past.
     rm_r libexec/"share" if (libexec/"share").exist?
+
+    # Create temporary npm and npx symlinks until post_install is done.
+    ln_s libexec/"lib/node_modules/npm/bin/npm-cli.js", bin/"npm"
+    ln_s libexec/"lib/node_modules/npm/bin/npx-cli.js", bin/"npx"
 
     bash_completion.install bootstrap/"lib/utils/completion.sh" => "npm"
   end
@@ -117,7 +135,7 @@ class Node < Formula
   def post_install
     node_modules = HOMEBREW_PREFIX/"lib/node_modules"
     node_modules.mkpath
-    # Kill npm but preserve all other modules across node updates/upgrades.
+    # Remove npm but preserve all other modules across node updates/upgrades.
     rm_r node_modules/"npm" if (node_modules/"npm").exist?
 
     cp_r libexec/"lib/node_modules/npm", node_modules
@@ -162,12 +180,12 @@ class Node < Formula
     ENV.prepend_path "PATH", opt_bin
     ENV.delete "NVM_NODEJS_ORG_MIRROR"
     assert_equal which("node"), opt_bin/"node"
-    assert_predicate HOMEBREW_PREFIX/"bin/npm", :exist?, "npm must exist"
+    assert_path_exists HOMEBREW_PREFIX/"bin/npm", "npm must exist"
     assert_predicate HOMEBREW_PREFIX/"bin/npm", :executable?, "npm must be executable"
     npm_args = ["-ddd", "--cache=#{HOMEBREW_CACHE}/npm_cache", "--build-from-source"]
     system HOMEBREW_PREFIX/"bin/npm", *npm_args, "install", "npm@latest"
     system HOMEBREW_PREFIX/"bin/npm", *npm_args, "install", "nan"
-    assert_predicate HOMEBREW_PREFIX/"bin/npx", :exist?, "npx must exist"
+    assert_path_exists HOMEBREW_PREFIX/"bin/npx", "npx must exist"
     assert_predicate HOMEBREW_PREFIX/"bin/npx", :executable?, "npx must be executable"
     assert_match "< hello >", shell_output("#{HOMEBREW_PREFIX}/bin/npx --yes cowsay hello")
   end

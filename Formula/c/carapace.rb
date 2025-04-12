@@ -1,25 +1,29 @@
 class Carapace < Formula
   desc "Multi-shell multi-command argument completer"
   homepage "https://carapace.sh"
-  url "https://github.com/carapace-sh/carapace-bin/archive/refs/tags/v1.1.1.tar.gz"
-  sha256 "c479ef19a9d1b5a8579abb2da437afe7fb024ab23d11feadf746ffda0bbc833a"
+  url "https://github.com/carapace-sh/carapace-bin/archive/refs/tags/v1.3.0.tar.gz"
+  sha256 "0ef69e42b68a421f839afbc433336ccfa761af61347cafec98414117fc363b33"
   license "MIT"
   head "https://github.com/carapace-sh/carapace-bin.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "024c1122729d160a78d48424cb4029c9f2aacb6e18f1b4e3bbccad8280931fb1"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5f3df068ac997bc0577136a689cac351b8dedc8ff077cfbd81b9c0a0199e95ef"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "1efe2c31e46a942626e1ad0e749c7b8f83efdd25f6d9122e36939ec49fc07896"
-    sha256 cellar: :any_skip_relocation, sonoma:        "076c4a0c48cf141e058e77d58439a182d53541bb13cfb5f08adfce369384478d"
-    sha256 cellar: :any_skip_relocation, ventura:       "5cdae8d526134be4f108e9f6522ee389b99955a760f9b5d34d3bd8eac214cb78"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "de27da9188add3580e86b4b8264e18e9c0a39aa965bc9d39f26d0e8634f912d8"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c67c3397b14a90d7dcd0667e816a52e54ed59f826376b8bb7981187c2b36f858"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "baf67c0cfa10d58ea7fd9e24a7c2f854d5fcf092afeab61925129c8bec4d609d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "e0220e33a22c6c74cc00575db72100a5ad969a7aa63533179164c7c82a40c8e3"
+    sha256 cellar: :any_skip_relocation, sonoma:        "0b1e3e0c16bdf062ecc500c6b4c179f0723d078d239c28135421ce3ad8222164"
+    sha256 cellar: :any_skip_relocation, ventura:       "3199ebbf850f55b6557d338b89502cb1c69fcfb633d521fddcccecd9a88f9534"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f91d092ae15b4172c85ee50d981cd8648093b7ca4889f0af8f9cfa43e170a2d8"
   end
 
   depends_on "go" => :build
 
   def install
     system "go", "generate", "./..."
-    system "go", "build", *std_go_args(ldflags: "-s -w -X main.version=#{version}"), "-tags", "release", "./cmd/carapace"
+    ldflags = %W[
+      -s -w
+      -X main.version=#{version}
+    ]
+    system "go", "build", *std_go_args(ldflags:, tags: "release"), "./cmd/carapace"
 
     generate_completions_from_executable(bin/"carapace", "_carapace")
   end

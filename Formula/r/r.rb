@@ -1,10 +1,10 @@
 class R < Formula
   desc "Software environment for statistical computing"
   homepage "https://www.r-project.org/"
-  url "https://cran.r-project.org/src/base/R-4/R-4.4.2.tar.gz"
-  sha256 "1578cd603e8d866b58743e49d8bf99c569e81079b6a60cf33cdf7bdffeb817ec"
+  url "https://cran.r-project.org/src/base/R-4/R-4.4.3.tar.gz"
+  sha256 "0d93d224442dea253c2b086f088db6d0d3cfd9b592cd5496e8cb2143e90fc9e8"
   license "GPL-2.0-or-later"
-  revision 2
+  revision 1
 
   livecheck do
     url "https://cran.rstudio.com/banner.shtml"
@@ -12,12 +12,13 @@ class R < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "f1d78b921640ef5812a8bd94937853dd01f0a21da2d69d18a20f627101ed9bcb"
-    sha256 arm64_sonoma:  "953086cec342bd7cc121c0c59f7dddf1c666905d719eadf1d77aefc76f57dbde"
-    sha256 arm64_ventura: "5b394ab291177353357bfcc2d5d7ab4097b23ddc50f9346bd3ef94659a75f09d"
-    sha256 sonoma:        "e575dff30a4305b5a9a1e9e510c3583ce51d991281fdb48c5138f582e7c82055"
-    sha256 ventura:       "40f8186e96f4fd507f7b8d653a5d891dc488fa950e987c651feafa3ff81fb025"
-    sha256 x86_64_linux:  "6a984c21e657a33571022f0254219c0f220c225a9d39379f5e3240eedcd71188"
+    sha256 arm64_sequoia: "6db06adb8cef11de86401d3426e54f89037676b48432aa072cb03cf3ef7ea109"
+    sha256 arm64_sonoma:  "76eb6fb50dab28a414ce6fdbf54b620b105298f0692b81d75c62f106bf56cd4e"
+    sha256 arm64_ventura: "fbcc2d7f8151c50f43124504b2e5e51f741311f785581184eeccb28f9e4cfe45"
+    sha256 sonoma:        "85a90fa83e598a0a061401e7ddbe1a78d2a141fd14543c5e6bf85650f979ef02"
+    sha256 ventura:       "80b5bc276df4be9daedb8b9723dceb8c182bfdbfc8f963f88f5f984ca9605ba2"
+    sha256 arm64_linux:   "2ff1c59eadad6fda2b182a5e8ae68058e8cdbf49c41efa91a5a3b2f18e33112f"
+    sha256 x86_64_linux:  "c4a1fdfccdd2aa0a3b0e888326f8a0e7bc60930632ef98b7973808321d7b4fc8"
   end
 
   depends_on "pkgconf" => :build
@@ -52,7 +53,7 @@ class R < Formula
   on_linux do
     depends_on "glib"
     depends_on "harfbuzz"
-    depends_on "icu4c@76"
+    depends_on "icu4c@77"
     depends_on "libice"
     depends_on "libsm"
     depends_on "libtirpc"
@@ -63,11 +64,6 @@ class R < Formula
 
   # needed to preserve executable permissions on files without shebangs
   skip_clean "lib/R/bin", "lib/R/doc"
-
-  fails_with :gcc do
-    version "11"
-    cause "Unknown. FIXME."
-  end
 
   def install
     # `configure` doesn't like curl 8+, but convince it that everything is ok.
@@ -157,8 +153,7 @@ class R < Formula
     system bin/"Rscript", "-e", "if(!capabilities('cairo')) stop('cairo not available')"
 
     system bin/"Rscript", "-e", "install.packages('gss', '.', 'https://cloud.r-project.org')"
-    assert_predicate testpath/"gss/libs/gss.so", :exist?,
-                     "Failed to install gss package"
+    assert_path_exists testpath/"gss/libs/gss.so", "Failed to install gss package"
 
     winsys = "[1] \"aqua\""
     if OS.linux?

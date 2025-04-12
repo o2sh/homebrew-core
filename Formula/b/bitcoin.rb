@@ -1,14 +1,15 @@
 class Bitcoin < Formula
   desc "Decentralized, peer to peer payment network"
   homepage "https://bitcoincore.org/"
-  url "https://bitcoincore.org/bin/bitcoin-core-28.0/bitcoin-28.0.tar.gz"
-  sha256 "700ae2d1e204602eb07f2779a6e6669893bc96c0dca290593f80ff8e102ff37f"
+  url "https://bitcoincore.org/bin/bitcoin-core-28.1/bitcoin-28.1.tar.gz"
+  sha256 "c5ae2dd041c7f9d9b7c722490ba5a9d624f7e9a089c67090615e1ba4ad0883ba"
   license all_of: [
     "MIT",
     "BSD-3-Clause", # src/crc32c, src/leveldb
     "BSL-1.0", # src/tinyformat.h
     "Sleepycat", # resource("bdb")
   ]
+  revision 1
   head "https://github.com/bitcoin/bitcoin.git", branch: "master"
 
   livecheck do
@@ -17,12 +18,13 @@ class Bitcoin < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "9827fe39470644c9e18c2e29a9cc50517d755ab23600dfc15fc73a4c436090df"
-    sha256 cellar: :any,                 arm64_sonoma:  "dadd606914dc46493f9c71f3b12975186f91d15cc139cb3f9630baa4f9207420"
-    sha256 cellar: :any,                 arm64_ventura: "c21b31a816054f9bb708a30d19b7168c4287a1262723d194925ec6550c7152bd"
-    sha256 cellar: :any,                 sonoma:        "0e2895408874d922a18a81df8bbaa65aa67215c8445d6ae7ce856613f18ffd1d"
-    sha256 cellar: :any,                 ventura:       "68e8ddb21ef1fe0a67e2e72f4b5b5f0092304e501deb2aa7ad98ba9850ea5774"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "082c20a351f23b99cb778ae5b643d3ba7d02feeca0cd9adc8474e350fd9c649a"
+    sha256 cellar: :any,                 arm64_sequoia: "06006ddd8355af774ec5a8f2353e0caf55a7ca56d353a3f47e33e201e8cf5367"
+    sha256 cellar: :any,                 arm64_sonoma:  "c86da89b55363e4172e971d0b42badd7aadf8ea4113f364a0a16fe07b1ad01fb"
+    sha256 cellar: :any,                 arm64_ventura: "b955f167908e20578d6c964433c395ad9daee31f248c94165cd029b5a681d990"
+    sha256 cellar: :any,                 sonoma:        "e8a97cac935bf909971e2b7fce84c479ee630da0cc2d72444127a83ceac055ec"
+    sha256 cellar: :any,                 ventura:       "db32711ae5d7c918368fa0dd422105f7e1c54e7d607c5885b587e2daab7ea274"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "1b6c930fc44a3df0f510fc5e786371d1b7b304ea434577b913cc0fd2cc5844f7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7ab7e564dcc037305947232633244012fbe4043e09ab38db130bed6087d72325"
   end
 
   depends_on "autoconf" => :build
@@ -79,18 +81,22 @@ class Bitcoin < Formula
       with_env(CFLAGS: ENV.cflags) do
         # Fix compile with newer Clang
         ENV.append "CFLAGS", "-Wno-implicit-function-declaration" if DevelopmentTools.clang_build_version >= 1200
+        # Fix linking with static libdb
+        ENV.append "CFLAGS", "-fPIC" if OS.linux?
+
+        args = ["--disable-replication", "--disable-shared", "--enable-cxx"]
+        args << "--build=aarch64-unknown-linux-gnu" if OS.linux? && Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+
         # BerkeleyDB requires you to build everything from the build_unix subdirectory
         cd "build_unix" do
-          system "../dist/configure", "--disable-replication",
-                                      "--disable-shared",
-                                      "--enable-cxx",
-                                      *std_configure_args(prefix: buildpath/"bdb")
+          system "../dist/configure", *args, *std_configure_args(prefix: buildpath/"bdb")
           system "make", "libdb_cxx-4.8.a", "libdb-4.8.a"
           system "make", "install_lib", "install_include"
         end
       end
     end
 
+    ENV.runtime_cpu_detection
     system "./autogen.sh"
     system "./configure", "--disable-silent-rules",
                           "--with-boost-libdir=#{Formula["boost"].opt_lib}",

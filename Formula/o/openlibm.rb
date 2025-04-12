@@ -1,17 +1,18 @@
 class Openlibm < Formula
   desc "High quality, portable, open source libm implementation"
   homepage "https://openlibm.org"
-  url "https://github.com/JuliaMath/openlibm/archive/refs/tags/v0.8.4.tar.gz"
-  sha256 "c0bac12a6596f2315341790a7f386f9162a5b1f98db9ec40d883fce64e231942"
+  url "https://github.com/JuliaMath/openlibm/archive/refs/tags/v0.8.6.tar.gz"
+  sha256 "347998968cfeb2f9b91de6a8e85d2ba92dec0915d53500a4bc483e056f85b94c"
   license all_of: ["MIT", "ISC", "BSD-2-Clause"]
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "0776af36be347c67b076c89d8994d4128b171b02ae9545c927290977b3eabff8"
-    sha256 cellar: :any,                 arm64_sonoma:  "67467f62329ea8576d2f9e90e0a44ba0f4d799e320da08ffedbda74e779734bc"
-    sha256 cellar: :any,                 arm64_ventura: "62405a2aba7a17867d89fc1eae57dbedb92699a2bc0beb8b7b027e918d1aa7b1"
-    sha256 cellar: :any,                 sonoma:        "0c9c45627da4d113b460724dd1ba35d03a0b51839dadc8c4cc38564676c58907"
-    sha256 cellar: :any,                 ventura:       "09a55cdae46e590f8247b5edc222bb76ba3660de90278d6a606cde852adc52be"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1738a7fb1d76e4feea40e0d451bb0deb4e2a2e404dd0a9e8f2cb5b1f3428929c"
+    sha256 cellar: :any,                 arm64_sequoia: "a0dc81e93df4ac3b526f26c735c5c08da119a54209e49fc0f2a5d2bb4d82b6af"
+    sha256 cellar: :any,                 arm64_sonoma:  "64d50bcefebd111f29c11bc05eb551b037fd35a7fbf28faf564a69963a153700"
+    sha256 cellar: :any,                 arm64_ventura: "0830994898d6ba15c3b9185e930d38f94693cf033d1dbdcd90d02795921e8a51"
+    sha256 cellar: :any,                 sonoma:        "d578955d8218e8c931a6e351119a53e3ab5038abdc616952b1ee7e6f86d31607"
+    sha256 cellar: :any,                 ventura:       "2704daa0edcd8da9b5d5329354936ded7d51126b2814fe2c9f54a0da17b440cc"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "e93592d2ad7669d07160dcd5dc74701275e0acca572e6f13dbd5b44fb19fe191"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "226b4eb1ee269df454fb708a5f862f2d9e98cbc7d4a9ce0d662cc239fa37d0a8"
   end
 
   def install

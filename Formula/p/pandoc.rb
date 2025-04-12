@@ -1,22 +1,22 @@
 class Pandoc < Formula
   desc "Swiss-army knife of markup format conversion"
   homepage "https://pandoc.org/"
-  url "https://github.com/jgm/pandoc/archive/refs/tags/3.6.1.tar.gz"
-  sha256 "85e685ee8c8407ea40844145df3cbc1e8469e861dc3454f86dbfd23122aa27e6"
+  url "https://github.com/jgm/pandoc/archive/refs/tags/3.6.4.tar.gz"
+  sha256 "a343ac43502b699467051948f24f53746d25391c25e3a8dadb30bbd7db313d81"
   license "GPL-2.0-or-later"
   head "https://github.com/jgm/pandoc.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1cbb4e2faa8250ae48bb49491ebfacb859be3ea358823565574dbb4abf26753e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1269e7acc3f99ede93bbd5afe59471437b3409c1e87b956f35d295808480f3af"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "909f840a955ae3a0da53a16b3295964b86d8f00a6f53bab1ee8d132527c27bdd"
-    sha256 cellar: :any_skip_relocation, sonoma:        "f285d09ecd8b5cededf7d3ee7c2a398c2314d79df9e28a60235c7de57621af65"
-    sha256 cellar: :any_skip_relocation, ventura:       "cfbcfa05baadaa521d76d3b5f69c35267dc4875d313353d8a09f00f7f732bb51"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4e2f9c98f06d73535aa3ad16d491ed515421fd9cbc41a3ebf85de503c92dcd41"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5f0301201b216abcc0ba4bf6bc39ee6b94a77cdc9f7285a45576e57fe2699d16"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1dd1b5885da18faaf4b6ab062679578ad65ffab0bd4d62b24d3e913f37c5457a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "4d4840372e692b8dd8a29f5f209b78ae2d73886a2c9bfc263c157c3721841ae3"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a3bc92d621607b1bea6ebda5374d24bb1ebede20d8039e73894b1b82051b9b87"
+    sha256 cellar: :any_skip_relocation, ventura:       "0155aee5bcc2916df8a1a69232c0f43d1f9efd33f66cf96716cbb04558c446cf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1e4c600cc033ebad74e6acecef8358e8b7d42006651c58f79e07fb9f36860fc3"
   end
 
   depends_on "cabal-install" => :build
-  depends_on "ghc@9.8" => :build
+  depends_on "ghc@9.10" => :build
 
   uses_from_macos "unzip" => :build # for cabal install
   uses_from_macos "zlib"
@@ -40,6 +40,6 @@ class Pandoc < Formula
       <p>A package manager for humans. Cats should take a look at
       Tigerbrew.</p>
     HTML
-    assert_equal expected_html, pipe_output("#{bin}/pandoc -f markdown -t html5", input_markdown)
+    assert_equal expected_html, pipe_output("#{bin}/pandoc -f markdown -t html5", input_markdown, 0)
   end
 end

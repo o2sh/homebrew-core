@@ -1,19 +1,20 @@
 class Eigenpy < Formula
   desc "Python bindings of Eigen library with Numpy support"
   homepage "https://github.com/stack-of-tasks/eigenpy"
-  url "https://github.com/stack-of-tasks/eigenpy/releases/download/v3.10.1/eigenpy-3.10.1.tar.gz"
-  sha256 "7b4ea31c8eda2eeba6b1ebb22ebfe72b650e04da20e6ef48d48008c2afb1bbc4"
+  url "https://github.com/stack-of-tasks/eigenpy/releases/download/v3.10.3/eigenpy-3.10.3.tar.gz"
+  sha256 "ebfeef7a1974d9ef997a963d5e1b4500c0cbcfd6e2b5391176a8021624b3e126"
   license "BSD-2-Clause"
-  revision 2
   head "https://github.com/stack-of-tasks/eigenpy.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "2181105e8918cc0830f2b8bb38e68e659cb05e24762e4dc556f632870a376f0d"
-    sha256 cellar: :any,                 arm64_sonoma:  "3ff9c1dc7bcd49966cda52dfe41c95c96883bbb269b900c97b0f41f2cf04b38b"
-    sha256 cellar: :any,                 arm64_ventura: "7bfa00ad89a7ad3b8da8e8260cf2a2ca949c21362104b953a54b1ff8be7575f7"
-    sha256 cellar: :any,                 sonoma:        "209161f440d88b9100949353df8e9d8ac0f5d37ea7b76848cd6576fe7add14f2"
-    sha256 cellar: :any,                 ventura:       "a2e020cba8575e069537befe9dd26113e0dac9833e0ae0de7c54f12e5089dd3d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0aaf303a225e46d59acad36a29648a77fbf95ed22aadc3eb2036017bd0ef66d9"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "b82abe0f7777ac483a834270cb6e440b5ee0e02d6b6d79b3e1fabd5be153b66e"
+    sha256 cellar: :any,                 arm64_sonoma:  "9dea42502d4283aedd3c2e5d4fe9c54b657399549d7ddac2ec6a3cfb8b78e037"
+    sha256 cellar: :any,                 arm64_ventura: "6a95ce53e270f94576dc95ed61e5fe8531ccf24b6baaf5d31377bcb2e6653f23"
+    sha256 cellar: :any,                 sonoma:        "126e7a7b9a76b036717ce3f446dcf01e1af56ebc3e736c2976d0ac19e9674c6e"
+    sha256 cellar: :any,                 ventura:       "f5f0714168a5a98d65b9e945fa7a954082e1286d6bf0454c2ae59e7f0ce0be83"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "707c3c98c576cba0636ed9324d2d4b7597873c4d0f916ba8208b03396f08e023"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8da8406a32c0300e587be9f725b87fa8fae7d6ec66665a77d00b6653ebc9261a"
   end
 
   depends_on "boost" => :build
@@ -34,10 +35,15 @@ class Eigenpy < Formula
     ENV.prepend_path "PYTHONPATH", Formula["numpy"].opt_prefix/Language::Python.site_packages(python3)
     ENV.prepend_path "Eigen3_DIR", Formula["eigen"].opt_share/"eigen3/cmake"
 
-    system "cmake", "-S", ".", "-B", "build",
-                    "-DPYTHON_EXECUTABLE=#{which(python3)}",
-                    "-DBUILD_UNIT_TESTS=OFF",
-                    *std_cmake_args
+    args = %W[
+      -DPYTHON_EXECUTABLE=#{which(python3)}
+      -DBUILD_UNIT_TESTS=OFF
+    ]
+    # Avoid linkage to boost container and graph modules
+    # Issue ref: https://github.com/boostorg/boost/issues/985
+    args += %w[MODULE SHARED].map { |type| "-DCMAKE_#{type}_LINKER_FLAGS=-Wl,-dead_strip_dylibs" } if OS.mac?
+
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end

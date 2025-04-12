@@ -1,16 +1,16 @@
 class QalculateGtk < Formula
   desc "Multi-purpose desktop calculator"
   homepage "https://qalculate.github.io/"
-  url "https://github.com/Qalculate/qalculate-gtk/releases/download/v5.4.0/qalculate-gtk-5.4.0.tar.gz"
-  sha256 "9a112b3bcb348834dff631fa5d8a55f36b0e4caf5d992c21e4b1a72879611331"
+  url "https://github.com/Qalculate/qalculate-gtk/releases/download/v5.5.1/qalculate-gtk-5.5.1.tar.gz"
+  sha256 "dcf33e89ec2539c3e0bf9c5aee18b44680f6630b1e02cf23e2e9add6578450c7"
   license "GPL-2.0-or-later"
 
   bottle do
-    sha256 arm64_sonoma:  "03c3c0964c9c4229530387adf2a2b4412b0f16cd5297ca55dd2f4d12bceeb164"
-    sha256 arm64_ventura: "b144912b6e1b8b8dcc01a4a165432e5986574ac3f043bb89dde6c5257ac7a8e3"
-    sha256 sonoma:        "3e91888ac73c35a9aa95551229745ca2492af60772a4f0510893628a24d4ad93"
-    sha256 ventura:       "1c4e703dd69910f1669ef041776c0c2988e584be3f624185abb61ac388ab0ae3"
-    sha256 x86_64_linux:  "ecc5af9871586dcbfd3edda42e683dcee528a81b6a520b5964246272ae601c1c"
+    sha256 arm64_sonoma:  "6c39d6caced24fc7ba6961fe555175467fda6fe25ee2101c3dfd899cb9c591c3"
+    sha256 arm64_ventura: "9a1c8e13ef2dc561a1f136468738ba34a668fa68593ed8ad69f0262b5de30529"
+    sha256 sonoma:        "074c2652d0fda500db768d049a99bdf5d37397315e03a0097bcd0ebc1307e59d"
+    sha256 ventura:       "3215ef935dbcc30f7ba4285116b25bdcf8e428c3978eff2bd78f7c6ffc09e762"
+    sha256 x86_64_linux:  "df4d889c9daa8452784656dc945bcbfa0b41f1f25a71d7ac1f6dbc7696f04d24"
   end
 
   depends_on "gettext" => :build

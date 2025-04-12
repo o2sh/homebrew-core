@@ -1,18 +1,24 @@
 class Gfold < Formula
   desc "Help keep track of your Git repositories, written in Rust"
   homepage "https://github.com/nickgerace/gfold"
-  url "https://github.com/nickgerace/gfold/archive/refs/tags/4.6.0.tar.gz"
-  sha256 "f965daa340349b04bd9d29b5013dcb3006d2f5333cdbae1f1e3901a685e7bf7d"
+  url "https://github.com/nickgerace/gfold/archive/refs/tags/2025.4.0.tar.gz"
+  sha256 "47e397843bdc03cdc6711e56dd51f8b81e598d02adbd0ce3df0c7979c5d89758"
   license "Apache-2.0"
   head "https://github.com/nickgerace/gfold.git", branch: "main"
 
+  livecheck do
+    url :stable
+    regex(/^(\d+(?:\.\d+)+)$/i)
+  end
+
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "fd2ca816556e8a893c01b2a320e35282bd77f5a386fc503f20c286f468ac518e"
-    sha256 cellar: :any,                 arm64_sonoma:  "01944d8c7f8e847f899751ba69b3db2f4f93049c4f24d7c407541c81e5695315"
-    sha256 cellar: :any,                 arm64_ventura: "21397ba345e6f2cd59bdf91ceb1772d322b236750b5947d5bf7a36384bc55c0b"
-    sha256 cellar: :any,                 sonoma:        "d805c26de2ce0f7d960f75d80e5e987d022555134b8997bcb0e6483df70db6ba"
-    sha256 cellar: :any,                 ventura:       "cf8faf3ddbab02fe26e3f2111ccb2ab07e8696433b50d4f9f8ae7f774e3b5f1e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "463d21fb88b6b47dccd50d90d4879206c528c6b6ccd17bebb6d05387d9a47d37"
+    sha256 cellar: :any,                 arm64_sequoia: "d591efa7fcb9846f9d0727ff45facdd64a9203881a8c975eb19c1aed42c898e7"
+    sha256 cellar: :any,                 arm64_sonoma:  "cfc15cc0221780afbabf5d41bc8dd882f217a13355f501ee2627a634fd9fe7be"
+    sha256 cellar: :any,                 arm64_ventura: "ccd245e5b090c845eec586d0b8bf6a82442eece9a099d4f433611546d47bd438"
+    sha256 cellar: :any,                 sonoma:        "ddacceb6c48dda9ebe01226f479f9993f5eed9e280eef8f06e4c643d91c261e4"
+    sha256 cellar: :any,                 ventura:       "ee2c81b52a3f262a1147738f3a662c6004bd8d948cdd903ae073f001fa4c9a7d"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "d37925a0f0594f354b06c220a1404179aa509798313bd4b6da43aacda8b6d18d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d01109465ba0f2c78c1d92449c93c3aa03af423e9fd17704922c0c3699cd352c"
   end
 
   depends_on "pkgconf" => :build

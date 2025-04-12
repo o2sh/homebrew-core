@@ -1,9 +1,10 @@
 class Arkade < Formula
   desc "Open Source Kubernetes Marketplace"
   homepage "https://blog.alexellis.io/kubernetes-marketplace-two-year-update/"
-  url "https://github.com/alexellis/arkade/archive/refs/tags/0.11.31.tar.gz"
-  sha256 "66d30f61e9f44cf8b728f888ff251e776bc112101abcb60b5a4562dc76bf89c9"
+  url "https://github.com/alexellis/arkade/archive/refs/tags/0.11.38.tar.gz"
+  sha256 "92ba8fb2553c7e822935d1a12c2a0fda35440c061838a42bcd400b820ef2336e"
   license "MIT"
+  head "https://github.com/alexellis/arkade.git", branch: "master"
 
   livecheck do
     url :stable
@@ -11,12 +12,12 @@ class Arkade < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7f62b549c155318c8b5727a34c194440673af4882955ab0fa01db5fc85d10dda"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "7f62b549c155318c8b5727a34c194440673af4882955ab0fa01db5fc85d10dda"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "7f62b549c155318c8b5727a34c194440673af4882955ab0fa01db5fc85d10dda"
-    sha256 cellar: :any_skip_relocation, sonoma:        "a2ee8a2f7ec47a20ea7d56fcd59ca44955244e01427e5270e6f4b52d519b8b93"
-    sha256 cellar: :any_skip_relocation, ventura:       "a2ee8a2f7ec47a20ea7d56fcd59ca44955244e01427e5270e6f4b52d519b8b93"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ac4fb10c4188c7fdc8f91e28c3df870c2717fa6d6e1b11188e06d1d21ec7145f"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "3a452f0267606c8bac21d1e24b4c31b0d8ebf1579abfc109a4f7b93ad757ba0d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3a452f0267606c8bac21d1e24b4c31b0d8ebf1579abfc109a4f7b93ad757ba0d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "3a452f0267606c8bac21d1e24b4c31b0d8ebf1579abfc109a4f7b93ad757ba0d"
+    sha256 cellar: :any_skip_relocation, sonoma:        "b0113b92887eb011bc8cf7f865f2bdc81cd7593971af00874b25fab1fb18d11b"
+    sha256 cellar: :any_skip_relocation, ventura:       "b0113b92887eb011bc8cf7f865f2bdc81cd7593971af00874b25fab1fb18d11b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8a39722e9eb5c0b9fafc0d3c8eb83f87077b7bea1263dc977adf43cf5174375b"
   end
 
   depends_on "go" => :build

@@ -3,18 +3,17 @@ class Localai < Formula
 
   desc "OpenAI alternative"
   homepage "https://localai.io"
-  url "https://github.com/mudler/LocalAI/archive/refs/tags/v2.24.2.tar.gz"
-  sha256 "6dd03d21c4c903890bd2bdc6c18b4a1191b1a79dc296ccbf817d773cdcdb401a"
+  url "https://github.com/mudler/LocalAI/archive/refs/tags/v2.27.0.tar.gz"
+  sha256 "595ade8031a8f7d4fd23c4e3a5c24b37f542059f3585c9f15352da4fb79c06e0"
   license "MIT"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6cbba8cd0121fc2130aac0a2a2bf139faee570bf56d82f5ef03122bdbb25f556"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d2a507a8f3dfcb311bdb40c07ca3313196e5bb566dee51b829d315961e677d0d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "8645fa2b753e7737c594c67b2a18ab510baf311cdd6c626b43db9417eae341ba"
-    sha256 cellar: :any_skip_relocation, sonoma:        "ad2e277808b710eda5d98e0c1e984c721f4e426b04c3d0e0a60a34bcb6897ea4"
-    sha256 cellar: :any_skip_relocation, ventura:       "5a6f4d946f11b75a4164eb21c106a697b3b3e16efb93c9ca7fb236aa5e01f9fd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ad9706f203403ba6384e7afac7e9b73fc185a66e7e9e8bacf51a56d3c5ae2153"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "916762f5f150ed512bb360288131b670e6427b526e6e480f4511d4f93514f930"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "98e12b6113ea36844382ce0595a5d14b4ff2fd9337cb4a7c4ceb9406e1a8b85d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "4d90aa4ed4e526312efa24791ea0d3d674dbff652598649fac15ca946abbddde"
+    sha256 cellar: :any_skip_relocation, sonoma:        "cfd6d4afaffd374de8c1b79f9f4116e5e7d23e0fe35efb3435c96bf8abe435c7"
+    sha256 cellar: :any_skip_relocation, ventura:       "69404bfbc7780df4439d1dd6f89df61685800699d2863b8001f8486462b4565d"
+    sha256                               x86_64_linux:  "8661a59a281d2837ee130910cf4b838c608f0d5bd1d9307e5d8bb047e2ae952b"
   end
 
   depends_on "abseil" => :build
@@ -27,8 +26,8 @@ class Localai < Formula
   depends_on "python@3.13" => :build
 
   resource "grpcio-tools" do
-    url "https://files.pythonhosted.org/packages/2a/2f/d2fc30b79d892050a3c40ef8d17d602f4c6eced066d584621c7bbf195b0e/grpcio_tools-1.68.1.tar.gz"
-    sha256 "2413a17ad16c9c821b36e4a67fc64c37b9e4636ab1c3a07778018801378739ba"
+    url "https://files.pythonhosted.org/packages/05/d2/c0866a48c355a6a4daa1f7e27e210c7fa561b1f3b7c0bce2671e89cfa31e/grpcio_tools-1.71.0.tar.gz"
+    sha256 "38dba8e0d5e0fb23a034e09644fdc6ed862be2371887eee54901999e8f6792a8"
   end
 
   def python3

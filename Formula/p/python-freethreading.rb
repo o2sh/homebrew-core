@@ -1,8 +1,8 @@
 class PythonFreethreading < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.13.1/Python-3.13.1.tgz"
-  sha256 "1513925a9f255ef0793dbf2f78bb4533c9f184bdd0ad19763fd7f47a400a7c55"
+  url "https://www.python.org/ftp/python/3.13.3/Python-3.13.3.tgz"
+  sha256 "988d735a6d33568cbaff1384a65cb22a1fb18a9ecb73d43ef868000193ce23ed"
   license "Python-2.0"
 
   livecheck do
@@ -10,12 +10,14 @@ class PythonFreethreading < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "7211fee73765cfcff327a0ebc4ec1b94e0a643fe3d3e129f8de20f96eb4fb07b"
-    sha256 arm64_sonoma:  "6e1c62a4b9a2e5774e3aee4d45cd1843702a6de428ecde40fb530c5101f6b19e"
-    sha256 arm64_ventura: "525f8dcad47a991548d4c5b80de69591ce2f043365d215dcdbf8ca75b7348423"
-    sha256 sonoma:        "ad8826d5a47f1ed24298e7b99cfa4aa7af3f36ff5ef610a06295a519a03abbe2"
-    sha256 ventura:       "b7fa4357a434417197a240e0a7d1eb2b0ec4667608c3f7b110cdd70efbc0064f"
-    sha256 x86_64_linux:  "8a9c28d43f6af78a8ac174a357b37762eebc168597fdc9843c4412f71ee4b7cf"
+    sha256 arm64_sequoia: "fe9a952ea2bfb37e6f887519c4715bf2976811b59c1410a440d104fc1b1df67f"
+    sha256 arm64_sonoma:  "60101d14993ca6e6f8b1224009a8e02dfad4a8c760113e3cb6ad9ac9d6e02d19"
+    sha256 arm64_ventura: "85238571d2e786c8bbfb1c069a3f67c4320f43526fa1bbfcc4f1903246b6ad5d"
+    sha256 sequoia:       "e28d1b93f90e1e71ccef7e572e73556afdd9fa22fe2c23270cc7883a59c99017"
+    sha256 sonoma:        "6ae35ad58d8f68e2c12a7e392bb175714997ac8cccdb861158b48ad655411d34"
+    sha256 ventura:       "aa8ace19c0c2c652b1b051390417f27f8af0550aa1c97da350cb1a020ae701d4"
+    sha256 arm64_linux:   "e7ee55b706685a188c46f7b4c51fc8abc80102fd14321630fb4a9d53ef46b4bd"
+    sha256 x86_64_linux:  "906c8206b1960200ef8930a21b91a1bb9d6b92f130458c33acf4390d8ce253f8"
   end
 
   depends_on "pkgconf" => :build
@@ -27,7 +29,7 @@ class PythonFreethreading < Formula
   # not actually used, we just want this installed to ensure there are no conflicts.
   uses_from_macos "python" => :test
   uses_from_macos "bzip2"
-  uses_from_macos "expat"
+  uses_from_macos "expat", since: :sequoia
   uses_from_macos "libedit"
   uses_from_macos "libffi", since: :catalina
   uses_from_macos "libxcrypt"

@@ -5,15 +5,17 @@ class Ruby < Formula
   head "https://github.com/ruby/ruby.git", branch: "master"
 
   stable do
-    url "https://cache.ruby-lang.org/pub/ruby/3.4/ruby-3.4.1.tar.gz"
-    sha256 "3d385e5d22d368b064c817a13ed8e3cc3f71a7705d7ed1bae78013c33aa7c87f"
+    # Consider changing the default of `Gem.default_user_install` to true with Ruby 3.5.
+    # This may depend on https://github.com/rubygems/rubygems/issues/5682.
+    url "https://cache.ruby-lang.org/pub/ruby/3.4/ruby-3.4.2.tar.gz"
+    sha256 "41328ac21f2bfdd7de6b3565ef4f0dd7543354d37e96f157a1552a6bd0eb364b"
 
     # Should be updated only when Ruby is updated (if an update is available).
     # The exception is Rubygem security fixes, which mandate updating this
     # formula & the versioned equivalents and bumping the revisions.
     resource "rubygems" do
-      url "https://rubygems.org/rubygems/rubygems-3.6.2.tgz"
-      sha256 "d2f4e760eef098608692bbd6eff30df2e221b4723549da70dabcba116dc39680"
+      url "https://rubygems.org/rubygems/rubygems-3.6.3.tgz"
+      sha256 "ed284c404da69a5fdb43c9d37b86e56f3c3f43a7bee85ac47cf2fb3a136f00ea"
 
       livecheck do
         url "https://rubygems.org/pages/download"
@@ -29,12 +31,13 @@ class Ruby < Formula
 
   bottle do
     rebuild 1
-    sha256 arm64_sequoia: "a11f7158aa46b332df40c93fba9348c5566952e1d6388d4cf4cb5254a217d929"
-    sha256 arm64_sonoma:  "2a328dfe418369c55f51ff3893639e6637c2050166de98bb39594493450013e1"
-    sha256 arm64_ventura: "4d77b9eb5e005ea742383eef306f3ec0544d6d8137a7f06424029396fd0a58a2"
-    sha256 sonoma:        "3c2c5e4956778c2e5c331f1104f7f4a1cfe9ea35c266e0800a5e9c555281d06e"
-    sha256 ventura:       "817c7d0d6846e9745b704a9c021d8ed46e103f43d0da4c8a86a40c1c11ea225e"
-    sha256 x86_64_linux:  "541296cf680716fc9439364c6559eaaed17afeeaa2b44ae30adab6a871d33c29"
+    sha256 arm64_sequoia: "9b3ff5a6b6d328480bc747e194ce7f0efdd6af7a5ce4bcb895bc1805eefe5322"
+    sha256 arm64_sonoma:  "252f6512c08e0a489d93df51fa80dee060164b3235f5412b6180dd9b62859670"
+    sha256 arm64_ventura: "4bbc823869788b75a5faa05a4dd5b4df510f30966f6bef225976a429ac335235"
+    sha256 sonoma:        "ce97ce43a70a305c3a3d9423f0337ba6e1dc73d581a36873f26fa7cf9f76a28f"
+    sha256 ventura:       "eaecf6cd47dab2e52ed74726767dce5bb735f4487d852671394e24bdb79cc785"
+    sha256 arm64_linux:   "ab7a979d0e352bf6796bac2308e83ac975d7f494347fa73384f59dd0c75684bd"
+    sha256 x86_64_linux:  "110b49d571313fd1b9fdaddbe1afcd326d285e8f359457290870c18d4a8aa667"
   end
 
   keg_only :provided_by_macos
@@ -119,37 +122,52 @@ class Ruby < Formula
     # A newer version of ruby-mode.el is shipped with Emacs
     elisp.install Dir["misc/*.el"].reject { |f| f == "misc/ruby-mode.el" }
 
-    return if build.head? # Use bundled RubyGems for --HEAD (will be newer)
-
-    # This is easier than trying to keep both current & versioned Ruby
-    # formulae repeatedly updated with Rubygem patches.
-    resource("rubygems").stage do
-      ENV.prepend_path "PATH", bin
-
-      system bin/"ruby", "setup.rb", "--prefix=#{buildpath}/vendor_gem"
-      rg_in = lib/"ruby/#{api_version}"
-      rg_gems_in = lib/"ruby/gems/#{api_version}"
-
-      # Remove bundled Rubygem and Bundler
-      rm_r rg_in/"bundler"
-      rm rg_in/"bundler.rb"
-      rm_r Dir[rg_gems_in/"gems/bundler-*"]
-      rm Dir[rg_gems_in/"specifications/default/bundler-*.gemspec"]
-      rm_r rg_in/"rubygems"
-      rm rg_in/"rubygems.rb"
-      rm bin/"gem"
-
-      # Drop in the new version.
-      rg_in.install Dir[buildpath/"vendor_gem/lib/*"]
-      (rg_gems_in/"gems").install Dir[buildpath/"vendor_gem/gems/*"]
-      (rg_gems_in/"specifications/default").install Dir[buildpath/"vendor_gem/specifications/default/*"]
-      bin.install buildpath/"vendor_gem/bin/gem" => "gem"
-      (libexec/"gembin").install buildpath/"vendor_gem/bin/bundle" => "bundle"
-      (libexec/"gembin").install_symlink "bundle" => "bundler"
+    if OS.linux?
+      arch = Utils.safe_popen_read(
+        bin/"ruby", "-rrbconfig", "-e", 'print RbConfig::CONFIG["arch"]'
+      ).chomp
+      # Don't restrict to a specific GCC compiler binary we used (e.g. gcc-5).
+      inreplace lib/"ruby/#{api_version}/#{arch}/rbconfig.rb" do |s|
+        s.gsub! ENV.cxx, "c++"
+        s.gsub! ENV.cc, "cc"
+        # Change e.g. `CONFIG["AR"] = "gcc-ar-11"` to `CONFIG["AR"] = "ar"`
+        s.gsub!(/(CONFIG\[".+"\] = )"(?:gcc|g\+\+)-(.*)-\d+"/, '\\1"\\2"')
+      end
     end
 
-    # remove all lockfiles in bin folder
-    rm Dir[bin/"*.lock"]
+    unless build.head? # Use bundled RubyGems for --HEAD (will be newer)
+      # This is easier than trying to keep both current & versioned Ruby
+      # formulae repeatedly updated with Rubygem patches.
+      resource("rubygems").stage do
+        ENV.prepend_path "PATH", bin
+
+        system bin/"ruby", "setup.rb", "--prefix=#{buildpath}/vendor_gem"
+        rg_in = lib/"ruby/#{api_version}"
+        rg_gems_in = lib/"ruby/gems/#{api_version}"
+
+        # Remove bundled Rubygem and Bundler
+        rm_r rg_in/"bundler"
+        rm rg_in/"bundler.rb"
+        rm_r Dir[rg_gems_in/"gems/bundler-*"]
+        rm Dir[rg_gems_in/"specifications/default/bundler-*.gemspec"]
+        rm_r rg_in/"rubygems"
+        rm rg_in/"rubygems.rb"
+        rm bin/"gem"
+
+        # Drop in the new version.
+        rg_in.install Dir[buildpath/"vendor_gem/lib/*"]
+        (rg_gems_in/"gems").install Dir[buildpath/"vendor_gem/gems/*"]
+        (rg_gems_in/"specifications/default").install Dir[buildpath/"vendor_gem/specifications/default/*"]
+        bin.install buildpath/"vendor_gem/bin/gem" => "gem"
+        bin.install buildpath/"vendor_gem/bin/bundle" => "bundle"
+        bin.install buildpath/"vendor_gem/bin/bundler" => "bundler"
+      end
+    end
+
+    # Customize rubygems to look/install in the global gem directory
+    # instead of in the Cellar, making gems last across reinstalls
+    config_file = lib/"ruby/#{api_version}/rubygems/defaults/operating_system.rb"
+    config_file.write rubygems_config
   end
 
   def post_install
@@ -161,22 +179,10 @@ class Ruby < Formula
       #{rubygems_bindir}/bundler
     ].select { |file| File.exist?(file) })
     rm_r(Dir[HOMEBREW_PREFIX/"lib/ruby/gems/#{api_version}/gems/bundler-*"])
-    rubygems_bindir.install_symlink Dir[libexec/"gembin/*"]
-
-    # Customize rubygems to look/install in the global gem directory
-    # instead of in the Cellar, making gems last across reinstalls
-    config_file = lib/"ruby/#{api_version}/rubygems/defaults/operating_system.rb"
-    config_file.unlink if config_file.exist?
-    config_file.write rubygems_config(api_version)
-
-    # Create the sitedir and vendordir that were skipped during install
-    %w[sitearchdir vendorarchdir].each do |dir|
-      mkdir_p `#{bin}/ruby -rrbconfig -e 'print RbConfig::CONFIG["#{dir}"]'`
-    end
   end
 
-  def rubygems_config(api_version)
-    <<~EOS
+  def rubygems_config
+    <<~RUBY
       module Gem
         class << self
           alias :old_default_dir :default_dir
@@ -192,7 +198,7 @@ class Ruby < Formula
             "lib",
             "ruby",
             "gems",
-            "#{api_version}"
+            RbConfig::CONFIG['ruby_version']
           ]
 
           @homebrew_path ||= File.join(*path)
@@ -245,7 +251,7 @@ class Ruby < Formula
           File.join(Gem.old_default_dir, "specifications", "default")
         end
       end
-    EOS
+    RUBY
   end
 
   def caveats
@@ -272,6 +278,6 @@ class Ruby < Formula
     EOS
     system bin/"bundle", "exec", "ls" # https://github.com/Homebrew/homebrew-core/issues/53247
     system bin/"bundle", "install", "--binstubs=#{testpath}/bin"
-    assert_predicate testpath/"bin/github-markup", :exist?, "github-markup is not installed in #{testpath}/bin"
+    assert_path_exists testpath/"bin/github-markup", "github-markup is not installed in #{testpath}/bin"
   end
 end

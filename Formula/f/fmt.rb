@@ -1,18 +1,19 @@
 class Fmt < Formula
   desc "Open-source formatting library for C++"
   homepage "https://fmt.dev/"
-  url "https://github.com/fmtlib/fmt/releases/download/11.1.1/fmt-11.1.1.zip"
-  sha256 "a25124e41c15c290b214c4dec588385153c91b47198dbacda6babce27edc4b45"
+  url "https://github.com/fmtlib/fmt/releases/download/11.1.4/fmt-11.1.4.zip"
+  sha256 "49b039601196e1a765e81c5c9a05a61ed3d33f23b3961323d7322e4fe213d3e6"
   license "MIT"
   head "https://github.com/fmtlib/fmt.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "740ac2d7801d773d9c710de3c5ce57ee166dac98154482e528fe34a498273b2e"
-    sha256 cellar: :any,                 arm64_sonoma:  "dd19b62215387ced15630303ef095b13942c0a512e5702af7132f54ed657d5a1"
-    sha256 cellar: :any,                 arm64_ventura: "0bfcc566187f698eaed4ebbc3a4cfbd7d3dbc77bf241a49002ab5ae2d153e302"
-    sha256 cellar: :any,                 sonoma:        "229b5ef5bda903f2e176b6a3206e78c9a57b02e0e316a48582dc0d8c98455354"
-    sha256 cellar: :any,                 ventura:       "4748963dff6039b723842f98331c07a603a94c281d3b0d3ef1ed7f13f5641e20"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8993a605fed9279affcca6f7d456f76a755eb908640bde0f12821e89d394fd98"
+    sha256 cellar: :any,                 arm64_sequoia: "a66ba523ff4d827b679de7e9ed284a1f3fc091c06152c64946e4c536f284d8c0"
+    sha256 cellar: :any,                 arm64_sonoma:  "bd4ba9753212bb107c8e0a5dcc4f78afa076537a718987d9f302f09c447ce275"
+    sha256 cellar: :any,                 arm64_ventura: "dd8071bddd6d4c1b2d21e5cd4caa4d78cdcf7218caedf65c58ef8e58071bac12"
+    sha256 cellar: :any,                 sonoma:        "4c472ff65bc9d0f5d5bc0631dcd97c2ed17d3d5dc8f4b3deae3d6b87cb62de56"
+    sha256 cellar: :any,                 ventura:       "4fc070f491d3b1396aac67c75c882b73457a3b40877f5bf53d1b72e4e74d6cca"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "b65b9f67358eb90827d888f0ede3eba6c1bc0a5da34fe4187d067852a65fe5b7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3cd54b7682a79a203e780740e07aa1658998392f7b5787dd3cf8c7d17da2680b"
   end
 
   depends_on "cmake" => :build

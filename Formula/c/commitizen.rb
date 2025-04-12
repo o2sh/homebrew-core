@@ -3,32 +3,32 @@ class Commitizen < Formula
 
   desc "Defines a standard way of committing rules and communicating it"
   homepage "https://commitizen-tools.github.io/commitizen/"
-  url "https://files.pythonhosted.org/packages/7a/c5/66f1b977b48501a33f5fd33253aba14786483b08aba987718d272e99e732/commitizen-4.1.0.tar.gz"
-  sha256 "4f2d9400ec411aec1c738d4c63fc7fd5807cd6ddf6be970869e03e68b88ff718"
+  url "https://files.pythonhosted.org/packages/8c/fb/92644e84257fd0f15559a344f30e54b011fdfbaa12ada25fa0ae3dcc0066/commitizen-4.5.1.tar.gz"
+  sha256 "b749b639be939ef1758f9aa3a4388847197f58ad10a9e9cea37e5f746f6cb0c5"
   license "MIT"
-  revision 2
   head "https://github.com/commitizen-tools/commitizen.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "0ad440d8d25dbb73c282761c264674c622f67d61f70ccfd963a4bbee38cc2140"
-    sha256 cellar: :any,                 arm64_sonoma:  "93d5a4ba987812e85411fa89afb26a560f2744861b34c9f9a1b03d68962ccc48"
-    sha256 cellar: :any,                 arm64_ventura: "91241e704e456eb0550fdc5d3b846d8f7cf4a45f4e7f6b9a9092995c845844c6"
-    sha256 cellar: :any,                 sonoma:        "06d4c0d04050a4a3048745765ad34275cb8605a6debe97513aa376686f67ff7b"
-    sha256 cellar: :any,                 ventura:       "f463d32c11d1fbc756b7e5e5db7b80626d7ae48574aee65c1791b84d56cf6874"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5c5131888eb5286342539db33ef40959fc44cd2943378f881c8c9cb943c7a4f1"
+    sha256 cellar: :any,                 arm64_sequoia: "36c3b0d34ca999867b176a865c062feaa8d2cd8b7633fd68b8c34d8d2b93209c"
+    sha256 cellar: :any,                 arm64_sonoma:  "bda521dffb0e361f638c788baece51d7e33abab4dee563adee7d6509b38a9945"
+    sha256 cellar: :any,                 arm64_ventura: "965ba3b6a2821e0d56892755ccb552e48568a6daf8731e7d2a0925ba7a9041ca"
+    sha256 cellar: :any,                 sonoma:        "471af95e0d84203d246dbd328a230027f481f5245ff948cd32bfae8b7911b230"
+    sha256 cellar: :any,                 ventura:       "e95eea4f8de7ed1c112911a6835cf8367b045432ad26979fe096da28daa2684d"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "8c54acfb2de9efab6aa17ad742a38cd57ee84b674ab45fa403bc41eab67f7380"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1ba4090163a35a0c9d67bce0b8e02b7b6fbc806dff8d3826de2d7fdff6accac9"
   end
 
   depends_on "libyaml"
   depends_on "python@3.13"
 
   resource "argcomplete" do
-    url "https://files.pythonhosted.org/packages/7f/03/581b1c29d88fffaa08abbced2e628c34dd92d32f1adaed7e42fc416938b0/argcomplete-3.5.2.tar.gz"
-    sha256 "23146ed7ac4403b70bd6026402468942ceba34a6732255b9edf5b7354f68a6bb"
+    url "https://files.pythonhosted.org/packages/0c/be/6c23d80cb966fb8f83fb1ebfb988351ae6b0554d0c3a613ee4531c026597/argcomplete-3.5.3.tar.gz"
+    sha256 "c12bf50eded8aebb298c7b7da7a5ff3ee24dffd9f5281867dfe1424b58c55392"
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/f2/4f/e1808dc01273379acc506d18f1504eb2d299bd4131743b9fc54d7be4df1e/charset_normalizer-3.4.0.tar.gz"
-    sha256 "223217c3d4f82c3ac5e29032b3f1c2eb0fb591b72161f86d93f5719079dae93e"
+    url "https://files.pythonhosted.org/packages/16/b0/572805e227f01586461c80e0fd25d65a2115599cc9dad142fee4b747c357/charset_normalizer-3.4.1.tar.gz"
+    sha256 "44251f18cd68a75b56585dd00dae26183e102cd5e0f9f1466e6df5da2ed64ea3"
   end
 
   resource "colorama" do
@@ -42,8 +42,8 @@ class Commitizen < Formula
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/af/92/b3130cbbf5591acf9ade8708c365f3238046ac7cb8ccba6e81abccb0ccff/jinja2-3.1.5.tar.gz"
-    sha256 "8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb"
+    url "https://files.pythonhosted.org/packages/df/bf/f7da0350254c0ed7c72f3e33cef02e048281fec7ecec5f032d4aac52226b/jinja2-3.1.6.tar.gz"
+    sha256 "0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d"
   end
 
   resource "markupsafe" do
@@ -57,8 +57,8 @@ class Commitizen < Formula
   end
 
   resource "prompt-toolkit" do
-    url "https://files.pythonhosted.org/packages/fb/93/180be2342f89f16543ec4eb3f25083b5b84eba5378f68efff05409fb39a9/prompt_toolkit-3.0.36.tar.gz"
-    sha256 "3e163f254bef5a03b146397d7c1963bd3e2812f0964bb9a24e6ec761fd28db63"
+    url "https://files.pythonhosted.org/packages/a1/e1/bd15cb8ffdcfeeb2bdc215de3c3cffca11408d829e4b8416dcfe71ba8854/prompt_toolkit-3.0.50.tar.gz"
+    sha256 "544748f3860a2623ca5cd6d2795e7a14f3d0e1c3c9728359013f79877fc89bab"
   end
 
   resource "pyyaml" do
@@ -67,8 +67,8 @@ class Commitizen < Formula
   end
 
   resource "questionary" do
-    url "https://files.pythonhosted.org/packages/84/d0/d73525aeba800df7030ac187d09c59dc40df1c878b4fab8669bdc805535d/questionary-2.0.1.tar.gz"
-    sha256 "bcce898bf3dbb446ff62830c86c5c6fb9a22a54146f0f5597d3da43b10d8fc8b"
+    url "https://files.pythonhosted.org/packages/a8/b8/d16eb579277f3de9e56e5ad25280fab52fc5774117fb70362e8c2e016559/questionary-2.1.0.tar.gz"
+    sha256 "6302cdd645b19667d8f6e6634774e9538bfcd1aad9be287e743d96cacaf95587"
   end
 
   resource "termcolor" do
@@ -87,6 +87,9 @@ class Commitizen < Formula
   end
 
   def install
+    # The source doesn't have a valid SOURCE_DATE_EPOCH, so here we set default.
+    ENV["SOURCE_DATE_EPOCH"] = "1451574000"
+
     virtualenv_install_with_resources
 
     generate_completions_from_executable(

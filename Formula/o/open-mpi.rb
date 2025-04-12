@@ -1,8 +1,8 @@
 class OpenMpi < Formula
   desc "High performance message passing library"
   homepage "https://www.open-mpi.org/"
-  url "https://download.open-mpi.org/release/open-mpi/v5.0/openmpi-5.0.6.tar.bz2"
-  sha256 "bd4183fcbc43477c254799b429df1a6e576c042e74a2d2f8b37d537b2ff98157"
+  url "https://download.open-mpi.org/release/open-mpi/v5.0/openmpi-5.0.7.tar.bz2"
+  sha256 "119f2009936a403334d0df3c0d74d5595a32d99497f9b1d41e90019fee2fc2dd"
   license "BSD-3-Clause"
 
   livecheck do
@@ -11,12 +11,13 @@ class OpenMpi < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "c01948d46a7d4f21ae3e525edb3ef2c11a416ce754fa3afada59837b1aa6cfab"
-    sha256 arm64_sonoma:  "1b9c17dfafe3b8c4baa45936e0ab4a0b5ce53a1d21a1350d5bbf50e513ab395b"
-    sha256 arm64_ventura: "cde2b091f98b364ba6a8ea46015b2c3ca42fa6bb098a9609a0f8153971a43adb"
-    sha256 sonoma:        "25f8974a2c5ead1a0ec5a3e39a6b577c7ae86b2b4126554124f9279f01c4f53e"
-    sha256 ventura:       "3104a3972cb1f7ed08486a2656f88266e8d4a7f8fc6d8e325085a3cdbc94c98c"
-    sha256 x86_64_linux:  "192b5a87453c9389c8203c1651b693b2c98e50d1c4c559674a7c1232240436d6"
+    sha256 arm64_sequoia: "29d2b61321a1b307229996e2a8cc6ad9f502bc1aeb32851bdc4b4baee8c90385"
+    sha256 arm64_sonoma:  "850bb2b559721fb00e5f4df1e545940b504fd4ac2594b0be223c06915d66a20c"
+    sha256 arm64_ventura: "4adde9da7b928971c0204baa3d22015b2e593bea4bd382a070b0feeea7a53b74"
+    sha256 sonoma:        "b3649a0c27cc4b8dc7dd12afeb0f4ef771add7edcc915552380ae960d95b3a12"
+    sha256 ventura:       "20e6dd96c8535dceffb1fef0943a780d23c129f8ecb88b1e84b0d98db8048d0c"
+    sha256 arm64_linux:   "8457a4d6716736c3c58fe9f2b34f1e4205e20e0ffb42e21071b1264d9820f173"
+    sha256 x86_64_linux:  "35c717284633ea4e0524d2efa8bd9ad3e88809a5c5cbb7fb71eee5eede885bf5"
   end
 
   head do
@@ -82,10 +83,20 @@ class OpenMpi < Formula
 
     # Avoid references to cellar paths.
     inreplace (lib/"pkgconfig").glob("*.pc"), prefix, opt_prefix, audit_result: false
+
+    # Avoid conflict with `putty` by renaming pterm to prte-term which matches
+    # upstream change[^1]. In future release, we may want to split out `prrte`
+    # to a separate formula and pass `--without-legacy-names`[^2].
+    #
+    # [^1]: https://github.com/openpmix/prrte/issues/1836#issuecomment-2564882033
+    # [^2]: https://github.com/openpmix/prrte/blob/master/config/prte_configure_options.m4#L390-L393
+    odie "Update configure for PRRTE or split to separate formula as prte-term exists" if (bin/"prte-term").exist?
+    bin.install bin/"pterm" => "prte-term"
+    man1.install man1/"pterm.1" => "prte-term.1"
   end
 
   test do
-    (testpath/"hello.c").write <<~C
+    (testpath/"hello.c").write <<~'C'
       #include <mpi.h>
       #include <stdio.h>
 
@@ -97,7 +108,7 @@ class OpenMpi < Formula
         MPI_Comm_size(MPI_COMM_WORLD, &size);
         MPI_Comm_rank(MPI_COMM_WORLD, &rank);
         MPI_Get_processor_name(name, &nameLen);
-        printf("[%d/%d] Hello, world! My name is %s.\\n", rank, size, name);
+        printf("[%d/%d] Hello, world! My name is %s.\n", rank, size, name);
         MPI_Finalize();
         return 0;
       }

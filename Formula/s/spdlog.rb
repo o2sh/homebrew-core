@@ -1,29 +1,23 @@
 class Spdlog < Formula
   desc "Super fast C++ logging library"
   homepage "https://github.com/gabime/spdlog"
-  url "https://github.com/gabime/spdlog/archive/refs/tags/v1.15.0.tar.gz"
-  sha256 "9962648c9b4f1a7bbc76fd8d9172555bad1871fdb14ff4f842ef87949682caa5"
+  url "https://github.com/gabime/spdlog/archive/refs/tags/v1.15.2.tar.gz"
+  sha256 "7a80896357f3e8e920e85e92633b14ba0f229c506e6f978578bdc35ba09e9a5d"
   license "MIT"
-  revision 1
   head "https://github.com/gabime/spdlog.git", branch: "v1.x"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "3dc996b22567b1145fb0824b2c18055c1118c20cd204b74d9dc669e2e9685e2f"
-    sha256 cellar: :any,                 arm64_sonoma:  "076cf115fe4d4a1015daad980bdbf002a9b8bf2a3c2572051dae8b5dee27077a"
-    sha256 cellar: :any,                 arm64_ventura: "0fa5d95d90aea0050a169b19fc587556f138f6c2c7fd3690889b110b4610dabc"
-    sha256 cellar: :any,                 sonoma:        "fbb802e3c297a881ab963a712312b4ce325b610ddff842bcf7e7d9f1ef2a7171"
-    sha256 cellar: :any,                 ventura:       "9c323cf25b6c23675718bdf05eefb2d258525d76af383b6841e18eb177ebc43e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "aa5aa509df9f72672eabb2b4b5a3863288f433ea3e29909b63bf61c4cb38fc17"
+    sha256 cellar: :any,                 arm64_sequoia: "fce7e7460c9221b3cac3d0217cc0308805c7c30e4a01fcd7a8e76639029e6b67"
+    sha256 cellar: :any,                 arm64_sonoma:  "fc56bc102f9b5fe33c7e30948fa92032116d0f56b2d57933da6310716f34dccf"
+    sha256 cellar: :any,                 arm64_ventura: "fc03c6140eff2abbb534c3f5031fa2449ae0495c210868c323d8ef5ed2bd88e7"
+    sha256 cellar: :any,                 sonoma:        "d504d88ce3da851f6d9ead5970f3cd6572c0333f1b86d5b7888628b202e5c806"
+    sha256 cellar: :any,                 ventura:       "82e8917975135e05b0a741fac78d24592c91fd0034f691acc15dd9998b6f33e2"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "5c4880279f344e870b2c2bb96a4b1ca4eb489823e871e0c6b33520fa13e0fc02"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "971b2b89a5d5952e49e93de2bcb504c68265bd108b19a265617d00908b8b16e1"
   end
 
   depends_on "cmake" => :build
   depends_on "fmt"
-
-  # fmt 11.1 compatibility patch, upstream pr ref, https://github.com/gabime/spdlog/pull/3301
-  patch do
-    url "https://github.com/gabime/spdlog/commit/e693420a38b58d29a56b3ea921e15b175a5f2843.patch?full_index=1"
-    sha256 "70555a85ae64b55deeaa4cec8397e6a81e5cc44bc18ed39e98a97f331c61417a"
-  end
 
   def install
     ENV.cxx11
@@ -70,7 +64,7 @@ class Spdlog < Formula
 
     system ENV.cxx, "-std=c++11", "test.cpp", "-I#{include}", "-L#{Formula["fmt"].opt_lib}", "-lfmt", "-o", "test"
     system "./test"
-    assert_predicate testpath/"basic-log.txt", :exist?
+    assert_path_exists testpath/"basic-log.txt"
     assert_match "Test", (testpath/"basic-log.txt").read
   end
 end

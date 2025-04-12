@@ -1,8 +1,8 @@
 class Pgrouting < Formula
   desc "Provides geospatial routing for PostGIS/PostgreSQL database"
   homepage "https://pgrouting.org/"
-  url "https://github.com/pgRouting/pgrouting/releases/download/v3.7.1/pgrouting-3.7.1.tar.gz"
-  sha256 "2ff432d392fa05784a1d0fe7d01cf4c1f474cdd4a0b7081fb69269970948c6b6"
+  url "https://github.com/pgRouting/pgrouting/releases/download/v3.7.3/pgrouting-3.7.3.tar.gz"
+  sha256 "949ebe7acd60565a5a1c206d8918caa371f836015f6a721bdc29482ca23b8298"
   license "GPL-2.0-or-later"
   head "https://github.com/pgRouting/pgrouting.git", branch: "main"
 
@@ -12,12 +12,12 @@ class Pgrouting < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7873c42ad734a8fb46c30a37a17cfe1abcb4c8e6663f50bbb5be90b786b830e4"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "19d11c777a7f4c0cc336f809df6e3f0a558497f766d12aa4bb2b0f2df3f1ccac"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "96f1b7ba76045af7530812c58739dd08f84489114b94878977d69b714c66fcf7"
-    sha256 cellar: :any_skip_relocation, sonoma:        "cb444264f526620686d055e3c235d41cd2dd74c3f954da6d911188e9c2153038"
-    sha256 cellar: :any_skip_relocation, ventura:       "b9748459e27f475765cb5e1ea0a9c269227b963f9fa637b8395285452b71329a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2a801b8ab4859586e61cd98e9105113e6eb4a9dcb20dc9bfccc489aec1cbf063"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "873cef203b587ed5963ea54d3eb10cda21eca8405c77ae83b45735367e708ec7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "00139be4295f5334d8fc395fdc4846a100f458c1ae4caca4fd4f3405416f5ad5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "19fb9c995d67f7c97ef8b26fd0b019a515aa6ccb99325c859d234e97589ff0ca"
+    sha256 cellar: :any_skip_relocation, sonoma:        "c4dcf223081637de2310a42d8c393fc1242a5ca94613490cc650d8ec6ce3c9fe"
+    sha256 cellar: :any_skip_relocation, ventura:       "f90051c9f2d5ffac3b71e058055364a3f64a627acc0a86940496fadb1fda0370"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "457c440557e0a31a621b0adb1109106af6de501b115371fd1df835ad899e8956"
   end
 
   depends_on "boost" => :build
